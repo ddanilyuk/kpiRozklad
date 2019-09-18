@@ -68,7 +68,7 @@
 		D313F494233AAB6C0076CFF8 /* kpiRozklad */ = {
 			isa = PBXGroup;
 			children = (
-				D313F4B7233D1F120076CFF8 /* Cell */,
+				D313F4B7233D1F120076CFF8 /* LessonTableViewCell */,
 				D313F495233AAB6C0076CFF8 /* AppDelegate.swift */,
 				D313F4A9233AAC880076CFF8 /* Main.storyboard */,
 				D313F4AD233AAF920076CFF8 /* MainRozkladViewController.swift */,
@@ -91,13 +91,13 @@
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
-		D313F4B7233D1F120076CFF8 /* Cell */ = {
+		D313F4B7233D1F120076CFF8 /* LessonTableViewCell */ = {
 			isa = PBXGroup;
 			children = (
 				D313F4B3233D1F090076CFF8 /* LessonTableViewCell.swift */,
 				D313F4B4233D1F090076CFF8 /* LessonTableViewCell.xib */,
 			);
-			path = Cell;
+			path = LessonTableViewCell;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

@@ -23,7 +23,7 @@
             </objects>
             <point key="canvasLocation" x="-967" y="-409"/>
         </scene>
-        <!--Rozklad-->
+        <!--ІВ-82-->
         <scene sceneID="Z7E-0m-5wG">
             <objects>
                 <viewController id="VGz-qr-qiP" customClass="MainRozkladViewController" customModule="kpiRozklad" customModuleProvider="target" sceneMemberID="viewController">
@@ -45,15 +45,16 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="2xZ-kD-GrF"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Rozklad" id="HCW-ay-CZY">
+                    <navigationItem key="navigationItem" title="ІВ-82" id="HCW-ay-CZY">
                         <barButtonItem key="rightBarButtonItem" style="plain" id="5M2-o9-kLT">
                             <segmentedControl key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" id="kCf-Y9-PTf">
-                                <rect key="frame" x="228" y="6" width="131" height="32"/>
+                                <rect key="frame" x="228" y="6" width="131" height="33"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <segments>
-                                    <segment title="First"/>
-                                    <segment title="Second"/>
+                                    <segment title="1"/>
+                                    <segment title="2"/>
                                 </segments>
+                                <color key="selectedSegmentTintColor" systemColor="linkColor" red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <connections>
                                     <action selector="weekChanged:" destination="VGz-qr-qiP" eventType="valueChanged" id="sqz-ND-KWG"/>
                                 </connections>

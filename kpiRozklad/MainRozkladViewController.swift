@@ -162,7 +162,7 @@ class MainRozkladViewController: UIViewController {
             let timeEnd = formatter2.date(from:substringTimeEnd) ?? Date()
             
             
-            if  ((timeStart < timeDate) &&
+            if  ((timeStart <= timeDate) &&
                 (timeDate < timeEnd) &&
                 (dayNumber == Int(lesson.dayNumber)) &&
                 (currentWeekFromTodayDate == Int(lesson.lessonWeek) ?? 0)) {
@@ -274,6 +274,10 @@ extension MainRozkladViewController: UITableViewDelegate, UITableViewDataSource 
         }
     }
     
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 65
+    }
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
     }
@@ -308,7 +312,7 @@ extension MainRozkladViewController: UITableViewDelegate, UITableViewDataSource 
 
         
         if currentLessonId == lessonForSomeDay[indexPath.row].lessonID {
-            cell.backgroundColor = colour2
+            cell.backgroundColor = .orange
         }
         
         if nextLessonId == lessonForSomeDay[indexPath.row].lessonID {
@@ -325,6 +329,7 @@ extension MainRozkladViewController: UITableViewDelegate, UITableViewDataSource 
         
         cell.startLabel.text = substringTimeStart
         cell.endLabel.text = substringTimeEnd
+        cell.roomLabel.text = lessonForSomeDay[indexPath.row].lessonRoom
         
         return cell
     }

@@ -12,26 +12,30 @@ class MainRozkladViewController: UIViewController {
 
     @IBOutlet weak var tableView: UITableView!
     let reuseID = "reuseID"
-    var lessonsDays: [String] = []
-    var lessonsName: [String] = []
+
     var lessons: [Datum] = []
     var lessonsFirst: [Datum] = []
     var lessonsSecond: [Datum] = []
     
-    var week = 0
-    var currentWeekFromDate = 1
+    var currentWeekFromTodayDate = 1
     var currentWeek = 1
-    
     var weekOfYear = 0
+    var dayNumber = 0
     
     let date = Date()
+    let calendar = Calendar.current
     let formatter1 = DateFormatter()
     let formatter2 = DateFormatter()
 
-    var time = ""
-    var day = ""
+    var timeString = ""
+    var timeDate = Date()
+    var dayString = ""
     
-    var isCurrent: Bool = false
+    var currentLessonId = ""
+    var nextLessonId = ""
+    
+    let colour1 = #colorLiteral(red: 0.1411764771, green: 0.3960784376, blue: 0.5647059083, alpha: 1)
+    let colour2 = #colorLiteral(red: 0.1019607857, green: 0.2784313858, blue: 0.400000006, alpha: 1)
 
     
     @IBOutlet weak var weekSwitch: UISegmentedControl!
@@ -46,22 +50,33 @@ class MainRozkladViewController: UIViewController {
 
         formatter1.dateFormat = "EEEE"
         formatter2.dateFormat = "HH:mm"
+        dayString = formatter1.string(from: date)
+        timeString = formatter2.string(from: date)
+        timeDate = formatter2.date(from: timeString) ?? Date()
 
-        day = formatter1.string(from: date)
-        time = formatter2.string(from: date)
+        // Get today's number in week (from 1 to 7)
+        if dayString == "Monday" {
+            dayNumber = 1
+        } else if dayString == "Tuesday" {
+            dayNumber = 2
+        } else if dayString == "Wednesday" {
+            dayNumber = 3
+        } else if dayString == "Thursday" {
+            dayNumber = 4
+        } else if dayString == "Friday" {
+            dayNumber = 5
+        } else if dayString == "Saturday" {
+            dayNumber = 6
+        }
         
-        let calendar = Calendar.current
+        // Get number of week (in year)
         let components = calendar.dateComponents([.weekOfYear, .month, .day, .weekday], from: date)
         weekOfYear = components.weekOfYear ?? 0
         
-        
-        print("weekOfYear", weekOfYear)
-        print("day", day)
-        print("time", time)
-
-        
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
         server()
-        
     }
     
     
@@ -75,32 +90,35 @@ class MainRozkladViewController: UIViewController {
             let decoder = JSONDecoder()
 
             do {
-                guard let sereverFULLDATA = try? decoder.decode(Welcome.self, from: data) else { return }
-                let datum = sereverFULLDATA.data
+                guard let serverFULLDATA = try? decoder.decode(Welcome.self, from: data) else { return }
+                let datum = serverFULLDATA.data
                 self.lessons = datum
-                
-                self.sortLessons(datums: datum)
-                
-                if self.weekOfYear % 2 == 0 {
-                    DispatchQueue.main.async {
-                        self.currentWeekFromDate = 1
 
+                if self.weekOfYear % 2 == 0 {
+                    self.currentWeekFromTodayDate = 1
+                    DispatchQueue.main.async {
                         self.weekSwitch.selectedSegmentIndex = 0
+                        self.currentWeek = 1
                         self.tableView.reloadData()
                     }
                 } else {
+                    self.currentWeekFromTodayDate = 2
                     DispatchQueue.main.async {
-                        self.currentWeekFromDate = 2
                         self.weekSwitch.selectedSegmentIndex = 1
+                        self.currentWeek = 2
                         self.tableView.reloadData()
                     }
                 }
+                
+                self.sortLessons()
+                self.getCurrentAndNextLesson()
             }
         }
         
         task.resume()
         
     }
+    
     
     @IBAction func weekChanged(_ sender: UISegmentedControl) {
         switch weekSwitch.selectedSegmentIndex {
@@ -115,23 +133,73 @@ class MainRozkladViewController: UIViewController {
         }
     }
     
-    func sortLessons(datums: [Datum]) {
+    
+    func sortLessons() {
         lessonsFirst = []
         lessonsSecond = []
         
-        for datum in datums {
-            if Int(datum.lessonWeek) == 1 {
-                lessonsFirst.append(datum)
+        for lesson in lessons {
+            if Int(lesson.lessonWeek) == 1 {
+                lessonsFirst.append(lesson)
             } else {
-                lessonsSecond.append(datum)
+                lessonsSecond.append(lesson)
             }
         }
         
     }
     
-   
-    func setBlue(indexPath: IndexPath) {
-        tableView.cellForRow(at: indexPath)?.backgroundColor = .blue
+    
+    func getCurrentAndNextLesson() {
+
+        for lesson in lessons {
+            let timeStartString = lesson.timeStart
+            let substringTimeStart = String(timeStartString[..<5])
+            let timeEndString = lesson.timeEnd
+            let substringTimeEnd = String(timeEndString[..<5])
+            
+            
+            let timeStart = formatter2.date(from:substringTimeStart) ?? Date()
+            let timeEnd = formatter2.date(from:substringTimeEnd) ?? Date()
+            
+            
+            if  ((timeStart < timeDate) &&
+                (timeDate < timeEnd) &&
+                (dayNumber == Int(lesson.dayNumber)) &&
+                (currentWeekFromTodayDate == Int(lesson.lessonWeek) ?? 0)) {
+                
+                currentLessonId = lesson.lessonID
+                    
+            }
+            
+            
+            
+        }
+        
+        for lesson in lessons {
+            
+            let timeStartString = lesson.timeStart
+            let substringTimeStart = String(timeStartString[..<5])
+        
+            let timeStart = formatter2.date(from:substringTimeStart) ?? Date()
+            
+            
+            
+            if (timeStart > timeDate) && (dayNumber == Int(lesson.dayNumber) ?? 0) && (currentWeekFromTodayDate == Int(lesson.lessonWeek) ?? 0) {
+                nextLessonId = lesson.lessonID
+                break
+            } else if (dayNumber < Int(lesson.dayNumber) ?? 0) && (currentWeekFromTodayDate == Int(lesson.lessonWeek) ?? 0){
+                nextLessonId = lesson.lessonID
+                break
+            }
+            
+        }
+        
+        if nextLessonId == "" && currentWeekFromTodayDate == 2 {
+            nextLessonId = lessonsFirst[0].lessonID
+        } else if nextLessonId == "" && currentWeekFromTodayDate == 1 {
+            nextLessonId = lessonsSecond[0].lessonID
+        }
+        
     }
 
 
@@ -159,7 +227,7 @@ extension MainRozkladViewController: UITableViewDelegate, UITableViewDataSource 
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 
-        if currentWeek == 0 {
+        if currentWeek == 1 {
             var countMounday = 0
             var countTuesday = 0
             var countWednesday = 0
@@ -212,17 +280,10 @@ extension MainRozkladViewController: UITableViewDelegate, UITableViewDataSource 
         
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-//        let cell = UITableViewCell(style: .subtitle, reuseIdentifier: reuseID)
-        
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "LessonTableViewCell", for: indexPath) as? LessonTableViewCell
-        else {return UITableViewCell()}
-        
-        print(lessonsFirst)
-        print(indexPath.section)
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "LessonTableViewCell", for: indexPath) as? LessonTableViewCell else {return UITableViewCell()}
         
         var lessonForSomeDay: [Datum] = []
         
-
         if currentWeek == 1 {
             for lesson in lessonsFirst {
                 if Int(lesson.dayNumber) == (indexPath.section + 1) {
@@ -244,77 +305,23 @@ extension MainRozkladViewController: UITableViewDelegate, UITableViewDataSource 
             let nothing = " "
             cell.teacherLabel.text = nothing
         }
+
+        
+        if currentLessonId == lessonForSomeDay[indexPath.row].lessonID {
+            cell.backgroundColor = colour2
+        }
+        
+        if nextLessonId == lessonForSomeDay[indexPath.row].lessonID {
+            cell.backgroundColor = colour1
+        }
+        
+    
         
         let timeStartString = lessonForSomeDay[indexPath.row].timeStart
-//        let index1 = timeStartString.index(timeStartString.endIndex, offsetBy: -3)
-//        let SubstringTimeStart = timeStartString.substring(to: index4)
         let substringTimeStart = String(timeStartString[..<5])
         
         let timeEndString = lessonForSomeDay[indexPath.row].timeEnd
         let substringTimeEnd = String(timeEndString[..<5])
-        
-        
-        
-        let timeStart = formatter2.date(from:substringTimeStart)!
-        let timeCurrent = formatter2.date(from: time)!
-        let timeEnd = formatter2.date(from:substringTimeEnd)!
-
-        var dayNumber = 0
-        if day == "Monday" {
-            dayNumber = 1
-        } else if day == "Tuesday" {
-            dayNumber = 2
-        } else if day == "Wednesday" {
-            dayNumber = 3
-        } else if day == "Thursday" {
-            dayNumber = 4
-        } else if day == "Friday" {
-            dayNumber = 5
-        } else if day == "Saturday" {
-            dayNumber = 6
-        }
-        
-        if  isCurrent == true {
-//                cell.backgroundColor = .green
-                isCurrent = false
-        }
-        
-
-        if  (timeStart < timeCurrent) &&
-            (timeCurrent < timeEnd) &&
-            (dayNumber == Int(lessonForSomeDay[indexPath.row].dayNumber)) &&
-            (currentWeekFromDate == Int(lessonForSomeDay[indexPath.row].lessonWeek) ?? 0) {
-                isCurrent = true
-                cell.backgroundColor = .orange
-//                setBlue(indexPath: indexPath)
-
-        }
-        print("currentWeekFromDate", currentWeekFromDate)
-        print("lessonWeek", Int(lessonForSomeDay[indexPath.row].lessonWeek) ?? 0)
-        
-        // MARK: - next lesson
-        
-//        var nextTimeStartString: String = ""
-//
-//        let sec = indexPath.section
-//        if lessonForSomeDay.count != indexPath.row {
-//            nextTimeStartString = lessonForSomeDay[indexPath.row + 1].timeStart
-//
-//        } else {
-//            nextTimeStartString = lessons[]
-//        }
-//        let index3 = nextTimeStartString.index(nextTimeStartString.endIndex, offsetBy: -3)
-//        let nextSubstringTimeStart = nextTimeStartString.substring(to: index3)
-
-//        let nextTimeEndString = lessonForSomeDay[indexPath.row + 1].timeEnd
-//        let index4 = nextTimeEndString.index(nextTimeEndString.endIndex, offsetBy: -3)
-//        let nextSubstringTimeEnd = nextTimeEndString.substring(to: index4)
-
-//        let nextTimeStart = formatter2.date(from:nextSubstringTimeStart)!
-//        let nextTimeEnd = formatter2.date(from:nextSubstringTimeEnd)!
-        
-        
-        
         
         cell.startLabel.text = substringTimeStart
         cell.endLabel.text = substringTimeEnd

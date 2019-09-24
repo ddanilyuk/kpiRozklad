@@ -34,6 +34,7 @@
 		D313F4B3233D1F090076CFF8 /* LessonTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LessonTableViewCell.swift; sourceTree = "<group>"; };
 		D313F4B4233D1F090076CFF8 /* LessonTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LessonTableViewCell.xib; sourceTree = "<group>"; };
 		D34BEBC4233CCFC10035F7B4 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		D38DEB43233A250F00BB0075 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -50,6 +51,7 @@
 		D313F489233AAB6C0076CFF8 = {
 			isa = PBXGroup;
 			children = (
+				D38DEB43233A250F00BB0075 /* README.md */,
 				D313F494233AAB6C0076CFF8 /* kpiRozklad */,
 				D313F493233AAB6C0076CFF8 /* Products */,
 			);

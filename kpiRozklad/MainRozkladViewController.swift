@@ -19,7 +19,9 @@ class MainRozkladViewController: UIViewController {
     var lessonsSecond: [Datum] = []
     
     var week = 0
+    var currentWeekFromDate = 1
     var currentWeek = 1
+    
     var weekOfYear = 0
     
     let date = Date()
@@ -81,14 +83,14 @@ class MainRozkladViewController: UIViewController {
                 
                 if self.weekOfYear % 2 == 0 {
                     DispatchQueue.main.async {
-                        self.currentWeek = 1
+                        self.currentWeekFromDate = 1
 
                         self.weekSwitch.selectedSegmentIndex = 0
                         self.tableView.reloadData()
                     }
                 } else {
                     DispatchQueue.main.async {
-                        self.currentWeek = 2
+                        self.currentWeekFromDate = 2
                         self.weekSwitch.selectedSegmentIndex = 1
                         self.tableView.reloadData()
                     }
@@ -128,7 +130,9 @@ class MainRozkladViewController: UIViewController {
     }
     
    
-        
+    func setBlue(indexPath: IndexPath) {
+        tableView.cellForRow(at: indexPath)?.backgroundColor = .blue
+    }
 
 
 
@@ -271,7 +275,7 @@ extension MainRozkladViewController: UITableViewDelegate, UITableViewDataSource 
         }
         
         if  isCurrent == true {
-                cell.backgroundColor = .green
+//                cell.backgroundColor = .green
                 isCurrent = false
         }
         
@@ -279,11 +283,13 @@ extension MainRozkladViewController: UITableViewDelegate, UITableViewDataSource 
         if  (timeStart < timeCurrent) &&
             (timeCurrent < timeEnd) &&
             (dayNumber == Int(lessonForSomeDay[indexPath.row].dayNumber)) &&
-            (currentWeek == Int(lessonForSomeDay[indexPath.row].lessonWeek) ?? 0) {
+            (currentWeekFromDate == Int(lessonForSomeDay[indexPath.row].lessonWeek) ?? 0) {
                 isCurrent = true
                 cell.backgroundColor = .orange
+//                setBlue(indexPath: indexPath)
+
         }
-        print("currentWeek", currentWeek)
+        print("currentWeekFromDate", currentWeekFromDate)
         print("lessonWeek", Int(lessonForSomeDay[indexPath.row].lessonWeek) ?? 0)
         
         // MARK: - next lesson
@@ -306,7 +312,8 @@ extension MainRozkladViewController: UITableViewDelegate, UITableViewDataSource 
 
 //        let nextTimeStart = formatter2.date(from:nextSubstringTimeStart)!
 //        let nextTimeEnd = formatter2.date(from:nextSubstringTimeEnd)!
-
+        
+        
         
         
         cell.startLabel.text = substringTimeStart

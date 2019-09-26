@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14868" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="RNu-Ik-QQg">
+    <device id="retina5_9" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14824"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Navigation Controller-->
+        <scene sceneID="R5c-ao-yeO">
+            <objects>
+                <navigationController id="RNu-Ik-QQg" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" largeTitles="YES" id="uN9-z4-vS1">
+                        <rect key="frame" x="0.0" y="44" width="375" height="96"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="VGz-qr-qiP" kind="relationship" relationship="rootViewController" id="423-5u-vYX"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="UmC-Q9-Sgg" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-967" y="-409"/>
+        </scene>
+        <!--Rozklad-->
+        <scene sceneID="Z7E-0m-5wG">
+            <objects>
+                <viewController id="VGz-qr-qiP" customClass="MainRozkladViewController" customModule="kpiRozklad" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="P20-9K-3S9">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Bv9-u6-c2Z">
+                                <rect key="frame" x="0.0" y="140" width="375" height="638"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="Bv9-u6-c2Z" firstAttribute="bottom" secondItem="2xZ-kD-GrF" secondAttribute="bottom" id="1dr-Bo-hud"/>
+                            <constraint firstItem="Bv9-u6-c2Z" firstAttribute="trailing" secondItem="2xZ-kD-GrF" secondAttribute="trailing" id="1fr-82-Emr"/>
+                            <constraint firstItem="Bv9-u6-c2Z" firstAttribute="leading" secondItem="2xZ-kD-GrF" secondAttribute="leading" id="OMp-SU-xlh"/>
+                            <constraint firstItem="Bv9-u6-c2Z" firstAttribute="top" secondItem="2xZ-kD-GrF" secondAttribute="top" id="Ylx-n3-6L5"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="2xZ-kD-GrF"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Rozklad" id="HCW-ay-CZY">
+                        <barButtonItem key="rightBarButtonItem" style="plain" id="5M2-o9-kLT">
+                            <segmentedControl key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" id="kCf-Y9-PTf">
+                                <rect key="frame" x="228" y="6" width="131" height="32"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <segments>
+                                    <segment title="First"/>
+                                    <segment title="Second"/>
+                                </segments>
+                                <connections>
+                                    <action selector="weekChanged:" destination="VGz-qr-qiP" eventType="valueChanged" id="sqz-ND-KWG"/>
+                                </connections>
+                            </segmentedControl>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="tableView" destination="Bv9-u6-c2Z" id="eAJ-5z-7Hq"/>
+                        <outlet property="weekSwitch" destination="kCf-Y9-PTf" id="20s-Tg-fBT"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="rC5-9P-2Ut" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="13.6" y="-409.35960591133005"/>
+        </scene>
+    </scenes>
+</document>

@@ -67,6 +67,8 @@ class MainRozkladViewController: UIViewController {
             dayNumber = 5
         } else if dayString == "Saturday" {
             dayNumber = 6
+        } else {
+            dayNumber = 7
         }
         
         // Get number of week (in year)
@@ -275,7 +277,7 @@ extension MainRozkladViewController: UITableViewDelegate, UITableViewDataSource 
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 65
+        return 68
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -329,7 +331,7 @@ extension MainRozkladViewController: UITableViewDelegate, UITableViewDataSource 
         
         cell.startLabel.text = substringTimeStart
         cell.endLabel.text = substringTimeEnd
-        cell.roomLabel.text = lessonForSomeDay[indexPath.row].lessonRoom
+        cell.roomLabel.text = lessonForSomeDay[indexPath.row].lessonType.rawValue + " " + lessonForSomeDay[indexPath.row].lessonRoom
         
         return cell
     }

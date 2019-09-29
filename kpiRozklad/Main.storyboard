@@ -48,7 +48,7 @@
                     <navigationItem key="navigationItem" title="ІВ-82" id="HCW-ay-CZY">
                         <barButtonItem key="rightBarButtonItem" style="plain" id="5M2-o9-kLT">
                             <segmentedControl key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" id="kCf-Y9-PTf">
-                                <rect key="frame" x="228" y="6" width="131" height="33"/>
+                                <rect key="frame" x="228" y="5.6666666666666679" width="131" height="33"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <segments>
                                     <segment title="1"/>

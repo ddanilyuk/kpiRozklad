@@ -16,6 +16,7 @@ class MainRozkladViewController: UIViewController {
     var lessons: [Datum] = []
     var lessonsFirst: [Datum] = []
     var lessonsSecond: [Datum] = []
+    var lessonForSomeDay: [Datum] = []
     
     var currentWeekFromTodayDate = 1
     var currentWeek = 1
@@ -33,6 +34,7 @@ class MainRozkladViewController: UIViewController {
     
     var currentLessonId = ""
     var nextLessonId = ""
+    var nextLessonDate = Date()
     
     let colour1 = #colorLiteral(red: 0.1411764771, green: 0.3960784376, blue: 0.5647059083, alpha: 1)
     let colour2 = #colorLiteral(red: 0.1019607857, green: 0.2784313858, blue: 0.400000006, alpha: 1)
@@ -74,13 +76,44 @@ class MainRozkladViewController: UIViewController {
         // Get number of week (in year)
         let components = calendar.dateComponents([.weekOfYear, .month, .day, .weekday], from: date)
         weekOfYear = components.weekOfYear ?? 0
+        server()
         
+//        let appDelegate = UIApplication.shared.delegate as? AppDelegate
+//        self.appDelegate?.scheduleNotification(notificationType: notificationType)
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        server()
+        getCurrentAndNextLesson()
     }
     
+    
+    func scheduleNotification(notificationType: String) {
+        
+//        let content = UNMutableNotificationContent() // Содержимое уведомления
+//
+//        content.title = notificationType
+//        content.body = "This is example how to create " + "notificationType Notifications"
+//        content.sound = UNNotificationSound.default
+//        content.badge = 1
+//
+//
+//
+//        let date = Date(timeIntervalSinceNow: 10)
+//        let date = formatter2.date(from: )
+//        let triggerDate = Calendar.current.dateComponents([.year,.month,.day,.hour,.minute,.second,], from: date)
+//
+//        let trigger = UNCalendarNotificationTrigger(dateMatching: triggerDate, repeats: false)
+//
+//        let identifier = "Local Notification"
+//        let request = UNNotificationRequest(identifier: identifier, content: content, trigger: trigger)
+//
+//        notificationCenter.add(request) { (error) in
+//            if let error = error {
+//                print("Error \(error.localizedDescription)")
+//            }
+//        }
+        
+    }
     
     // MARK: - Get data from server
 
@@ -188,6 +221,7 @@ class MainRozkladViewController: UIViewController {
             
             if (timeStart > timeDate) && (dayNumber == Int(lesson.dayNumber) ?? 0) && (currentWeekFromTodayDate == Int(lesson.lessonWeek) ?? 0) {
                 nextLessonId = lesson.lessonID
+//                nextLessonDate = lesson.
                 break
             } else if (dayNumber < Int(lesson.dayNumber) ?? 0) && (currentWeekFromTodayDate == Int(lesson.lessonWeek) ?? 0){
                 nextLessonId = lesson.lessonID
@@ -196,11 +230,14 @@ class MainRozkladViewController: UIViewController {
             
         }
         
-        if nextLessonId == "" && currentWeekFromTodayDate == 2 {
-            nextLessonId = lessonsFirst[0].lessonID
-        } else if nextLessonId == "" && currentWeekFromTodayDate == 1 {
-            nextLessonId = lessonsSecond[0].lessonID
+        if lessonsFirst.count != 0 && lessonsSecond.count != 0 {
+            if nextLessonId == "" && currentWeekFromTodayDate == 2 {
+                nextLessonId = lessonsFirst[0].lessonID
+            } else if nextLessonId == "" && currentWeekFromTodayDate == 1 {
+                nextLessonId = lessonsSecond[0].lessonID
+            }
         }
+        
         
     }
 
@@ -276,11 +313,44 @@ extension MainRozkladViewController: UITableViewDelegate, UITableViewDataSource 
         }
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "showDetailViewController" {
+            if let indexPath = tableView.indexPathForSelectedRow {
+                if let destination = segue.destination as? DetailViewController {
+                    lessonForSomeDay = []
+                    if currentWeek == 1 {
+                        for lesson in lessonsFirst {
+                            if Int(lesson.dayNumber) == (indexPath.section + 1) {
+                                lessonForSomeDay.append(lesson)
+                            }
+                        }
+                    } else {
+                        for lesson in lessonsSecond {
+                            if Int(lesson.dayNumber) == (indexPath.section + 1) {
+                                lessonForSomeDay.append(lesson)
+                            }
+                        }
+                    }
+                    destination.lesson = lessonForSomeDay[indexPath.row]
+                    if currentWeek == 1 {
+                    } else {
+                        destination.lesson = lessonsSecond[indexPath.row]
+                    }
+                    
+                    
+                }
+            }
+        }
+    }
+    
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 68
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard (storyboard?.instantiateViewController(withIdentifier: "DetailViewController") as? DetailViewController) != nil else { return }
+        performSegue(withIdentifier: "showDetailViewController", sender: self)
+        
         tableView.deselectRow(at: indexPath, animated: true)
     }
         
@@ -288,7 +358,7 @@ extension MainRozkladViewController: UITableViewDelegate, UITableViewDataSource 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "LessonTableViewCell", for: indexPath) as? LessonTableViewCell else {return UITableViewCell()}
         
-        var lessonForSomeDay: [Datum] = []
+        lessonForSomeDay = []
         
         if currentWeek == 1 {
             for lesson in lessonsFirst {

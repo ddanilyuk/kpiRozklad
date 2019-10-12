@@ -18,6 +18,7 @@
 		D313F4B5233D1F090076CFF8 /* LessonTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D313F4B3233D1F090076CFF8 /* LessonTableViewCell.swift */; };
 		D313F4B6233D1F090076CFF8 /* LessonTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D313F4B4233D1F090076CFF8 /* LessonTableViewCell.xib */; };
 		D34BEBC5233CCFC10035F7B4 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D34BEBC4233CCFC10035F7B4 /* Extensions.swift */; };
+		D363E7AA233BB74B00573EB2 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D363E7A9233BB74B00573EB2 /* DetailViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,6 +35,7 @@
 		D313F4B3233D1F090076CFF8 /* LessonTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LessonTableViewCell.swift; sourceTree = "<group>"; };
 		D313F4B4233D1F090076CFF8 /* LessonTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LessonTableViewCell.xib; sourceTree = "<group>"; };
 		D34BEBC4233CCFC10035F7B4 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		D363E7A9233BB74B00573EB2 /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		D38DEB43233A250F00BB0075 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -68,17 +70,11 @@
 		D313F494233AAB6C0076CFF8 /* kpiRozklad */ = {
 			isa = PBXGroup;
 			children = (
-				D313F4B7233D1F120076CFF8 /* LessonTableViewCell */,
-				D313F495233AAB6C0076CFF8 /* AppDelegate.swift */,
-				D313F4A9233AAC880076CFF8 /* Main.storyboard */,
-				D313F4AD233AAF920076CFF8 /* MainRozkladViewController.swift */,
-				D34BEBC4233CCFC10035F7B4 /* Extensions.swift */,
-				D313F4B1233C773B0076CFF8 /* Server.swift */,
-				D313F49B233AAB6D0076CFF8 /* Assets.xcassets */,
-				D313F4A0233AAB6D0076CFF8 /* LaunchScreen.storyboard */,
+				D3FFAAD5234F793B0065E9CE /* AppDelegate */,
+				D3FFAAD6234F79630065E9CE /* Models */,
+				D3FFAAE123521BA40065E9CE /* Common */,
+				D3FFAADD23521B310065E9CE /* Resoursces */,
 				D313F4A3233AAB6D0076CFF8 /* Info.plist */,
-				D313F49D233AAB6D0076CFF8 /* Preview Content */,
-				D313F4AF233AB94C0076CFF8 /* ServerResponse.swift */,
 			);
 			path = kpiRozklad;
 			sourceTree = "<group>";
@@ -98,6 +94,125 @@
 				D313F4B4233D1F090076CFF8 /* LessonTableViewCell.xib */,
 			);
 			path = LessonTableViewCell;
+			sourceTree = "<group>";
+		};
+		D3FFAAD5234F793B0065E9CE /* AppDelegate */ = {
+			isa = PBXGroup;
+			children = (
+				D313F495233AAB6C0076CFF8 /* AppDelegate.swift */,
+			);
+			path = AppDelegate;
+			sourceTree = "<group>";
+		};
+		D3FFAAD6234F79630065E9CE /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				D3FFAADA234F7A2C0065E9CE /* Detail */,
+				D3FFAAD7234F79760065E9CE /* Main */,
+				D313F4A9233AAC880076CFF8 /* Main.storyboard */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		D3FFAAD7234F79760065E9CE /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				D3FFAAD8234F79AA0065E9CE /* Views */,
+				D3FFAAD9234F79CE0065E9CE /* ViewControllers */,
+			);
+			path = Main;
+			sourceTree = "<group>";
+		};
+		D3FFAAD8234F79AA0065E9CE /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				D313F4B7233D1F120076CFF8 /* LessonTableViewCell */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		D3FFAAD9234F79CE0065E9CE /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				D313F4AD233AAF920076CFF8 /* MainRozkladViewController.swift */,
+			);
+			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		D3FFAADA234F7A2C0065E9CE /* Detail */ = {
+			isa = PBXGroup;
+			children = (
+				D3FFAADC234F7A410065E9CE /* ViewControllers */,
+				D3FFAADB234F7A3D0065E9CE /* View */,
+			);
+			path = Detail;
+			sourceTree = "<group>";
+		};
+		D3FFAADB234F7A3D0065E9CE /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		D3FFAADC234F7A410065E9CE /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				D363E7A9233BB74B00573EB2 /* DetailViewController.swift */,
+			);
+			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		D3FFAADD23521B310065E9CE /* Resoursces */ = {
+			isa = PBXGroup;
+			children = (
+				D3FFAADF23521B660065E9CE /* Images */,
+				D3FFAADE23521B510065E9CE /* LaunchScreen */,
+				D313F49D233AAB6D0076CFF8 /* Preview Content */,
+				D3FFAAE023521B870065E9CE /* Localization */,
+			);
+			path = Resoursces;
+			sourceTree = "<group>";
+		};
+		D3FFAADE23521B510065E9CE /* LaunchScreen */ = {
+			isa = PBXGroup;
+			children = (
+				D313F4A0233AAB6D0076CFF8 /* LaunchScreen.storyboard */,
+			);
+			path = LaunchScreen;
+			sourceTree = "<group>";
+		};
+		D3FFAADF23521B660065E9CE /* Images */ = {
+			isa = PBXGroup;
+			children = (
+				D313F49B233AAB6D0076CFF8 /* Assets.xcassets */,
+			);
+			path = Images;
+			sourceTree = "<group>";
+		};
+		D3FFAAE023521B870065E9CE /* Localization */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Localization;
+			sourceTree = "<group>";
+		};
+		D3FFAAE123521BA40065E9CE /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				D313F4B1233C773B0076CFF8 /* Server.swift */,
+				D313F4AF233AB94C0076CFF8 /* ServerResponse.swift */,
+				D3FFAAE223521BAC0065E9CE /* Extensions */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
+		D3FFAAE223521BAC0065E9CE /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				D34BEBC4233CCFC10035F7B4 /* Extensions.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -179,6 +294,7 @@
 				D313F4B2233C773B0076CFF8 /* Server.swift in Sources */,
 				D313F4AE233AAF920076CFF8 /* MainRozkladViewController.swift in Sources */,
 				D313F4B5233D1F090076CFF8 /* LessonTableViewCell.swift in Sources */,
+				D363E7AA233BB74B00573EB2 /* DetailViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -8,7 +8,7 @@
 
 import UIKit
 
-class MainRozkladViewController: UIViewController {
+class SheduleViewController: UIViewController {
 
     @IBOutlet weak var tableView: UITableView!
     let reuseID = "reuseID"
@@ -211,23 +211,17 @@ class MainRozkladViewController: UIViewController {
         }
         
         for lesson in lessons {
-            
             let timeStartString = lesson.timeStart
             let substringTimeStart = String(timeStartString[..<5])
-        
             let timeStart = formatter2.date(from:substringTimeStart) ?? Date()
-            
-            
             
             if (timeStart > timeDate) && (dayNumber == Int(lesson.dayNumber) ?? 0) && (currentWeekFromTodayDate == Int(lesson.lessonWeek) ?? 0) {
                 nextLessonId = lesson.lessonID
-//                nextLessonDate = lesson.
                 break
             } else if (dayNumber < Int(lesson.dayNumber) ?? 0) && (currentWeekFromTodayDate == Int(lesson.lessonWeek) ?? 0){
                 nextLessonId = lesson.lessonID
                 break
             }
-            
         }
         
         if lessonsFirst.count != 0 && lessonsSecond.count != 0 {
@@ -237,16 +231,12 @@ class MainRozkladViewController: UIViewController {
                 nextLessonId = lessonsSecond[0].lessonID
             }
         }
-        
-        
     }
-
-
 
 }
 
 // MARK: - Table View Settings
-extension MainRozkladViewController: UITableViewDelegate, UITableViewDataSource {
+extension SheduleViewController: UITableViewDelegate, UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
         return 5
     }
@@ -334,7 +324,7 @@ extension MainRozkladViewController: UITableViewDelegate, UITableViewDataSource 
                     destination.lesson = lessonForSomeDay[indexPath.row]
                     if currentWeek == 1 {
                     } else {
-                        destination.lesson = lessonsSecond[indexPath.row]
+                        destination.lesson = lessonForSomeDay[indexPath.row]
                     }
                     
                     

@@ -8,7 +8,7 @@
 
 import UIKit
 
-class DetailViewController: UIViewController {
+class SheduleDetailViewController: UIViewController {
 
     
     var lesson: Datum? = nil
@@ -20,16 +20,18 @@ class DetailViewController: UIViewController {
     @IBOutlet weak var timeStartLabel: UILabel!
     @IBOutlet weak var timeEndLabel: UILabel!
     
+    @IBOutlet weak var checkTeacherShedule: UIButton!
+    var teacher: Teacher? = nil
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         guard let lesson = lesson else { return }
-        var teacher: Teacher? = nil
-        if lesson.teachers.count != 0 {
-            teacher = lesson.teachers[0]
-            teacherLabel.text = teacher?.teacherFullName
-            teacherRatingLabel.text = teacher?.teacherRating
+            if lesson.teachers.count != 0 {
+                teacher = lesson.teachers[0]
+                teacherLabel.text = teacher?.teacherFullName
+                teacherRatingLabel.text = teacher?.teacherRating
         }
         lessonNameLabel.text = lesson.lessonName
         roomTypeLabel.text = lesson.lessonType.rawValue + " " + lesson.lessonRoom
@@ -38,17 +40,24 @@ class DetailViewController: UIViewController {
         timeStartLabel.text = "Початок: " + lesson.timeStart
         timeEndLabel.text = "Кінець: " + lesson.timeEnd
         
+        // Todo:- check corner radius
+        checkTeacherShedule.layer.cornerRadius = 30
+        
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    @IBAction func didPressCheckTeacherShedule(_ sender: UIButton) {
+        
     }
-    */
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+
+        if segue.identifier == "showTeacherShedule" {
+            if let destination = segue.destination as? TeacherSheduleViewController {
+                destination.teacher = self.teacher
+                    
+            }
+        }
+    }
+
 
 }

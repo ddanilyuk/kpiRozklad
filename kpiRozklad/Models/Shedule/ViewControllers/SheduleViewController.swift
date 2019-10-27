@@ -306,7 +306,7 @@ extension SheduleViewController: UITableViewDelegate, UITableViewDataSource {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "showDetailViewController" {
             if let indexPath = tableView.indexPathForSelectedRow {
-                if let destination = segue.destination as? DetailViewController {
+                if let destination = segue.destination as? SheduleDetailViewController {
                     lessonForSomeDay = []
                     if currentWeek == 1 {
                         for lesson in lessonsFirst {
@@ -338,7 +338,7 @@ extension SheduleViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard (storyboard?.instantiateViewController(withIdentifier: "DetailViewController") as? DetailViewController) != nil else { return }
+        guard (storyboard?.instantiateViewController(withIdentifier: "DetailViewController") as? SheduleDetailViewController) != nil else { return }
         performSegue(withIdentifier: "showDetailViewController", sender: self)
         
         tableView.deselectRow(at: indexPath, animated: true)

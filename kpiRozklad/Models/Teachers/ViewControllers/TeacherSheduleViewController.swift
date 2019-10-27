@@ -83,9 +83,11 @@ class TeacherSheduleViewController: UIViewController {
         let components = calendar.dateComponents([.weekOfYear, .month, .day, .weekday], from: date)
         weekOfYear = components.weekOfYear ?? 0
         
-        guard let teacher = teacher else { return }
+        // guard let teacher = teacher else { return }
+        if teacher != nil {
+            teacherID = teacher?.teacherID
+        }
         
-        teacherID = teacher.teacherID
         server()
     }
     
@@ -290,44 +292,12 @@ extension TeacherSheduleViewController: UITableViewDelegate, UITableViewDataSour
         }
     }
     
-//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-//        if segue.identifier == "showDetailViewController" {
-//            if let indexPath = tableView.indexPathForSelectedRow {
-//                if let destination = segue.destination as? DetailViewController {
-//                    lessonForSomeDay = []
-//                    if currentWeek == 1 {
-//                        for lesson in lessonsFirst {
-//                            if Int(lesson.dayNumber) == (indexPath.section + 1) {
-//                                lessonForSomeDay.append(lesson)
-//                            }
-//                        }
-//                    } else {
-//                        for lesson in lessonsSecond {
-//                            if Int(lesson.dayNumber) == (indexPath.section + 1) {
-//                                lessonForSomeDay.append(lesson)
-//                            }
-//                        }
-//                    }
-//                    destination.lesson = lessonForSomeDay[indexPath.row]
-//                    if currentWeek == 1 {
-//                    } else {
-//                        destination.lesson = lessonForSomeDay[indexPath.row]
-//                    }
-//
-//
-//                }
-//            }
-//        }
-//    }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 68
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard (storyboard?.instantiateViewController(withIdentifier: "DetailViewController") as? SheduleDetailViewController) != nil else { return }
-        performSegue(withIdentifier: "showDetailViewController", sender: self)
-        
         tableView.deselectRow(at: indexPath, animated: true)
     }
         

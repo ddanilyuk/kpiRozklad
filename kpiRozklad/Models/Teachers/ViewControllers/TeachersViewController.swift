@@ -84,14 +84,14 @@ extension TeachersViewController: UITableViewDelegate, UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = UITableViewCell(style: .subtitle, reuseIdentifier: reuseID)
+        let cell = UITableViewCell(style: .default, reuseIdentifier: reuseID)
         
         if isSearching {
             cell.textLabel?.text = teachersInSearch[indexPath.row].teacherName
-            cell.detailTextLabel?.text = teachersInSearch[indexPath.row].teacherID
+//            cell.detailTextLabel?.text = teachersInSearch[indexPath.row].teacherID
         } else {
             cell.textLabel?.text = teachers[indexPath.row].teacherName
-            cell.detailTextLabel?.text = teachers[indexPath.row].teacherID
+//            cell.detailTextLabel?.text = teachers[indexPath.row].teacherID
         }
         
         return cell

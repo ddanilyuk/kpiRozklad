@@ -83,6 +83,9 @@ class TeacherSheduleViewController: UIViewController {
         let components = calendar.dateComponents([.weekOfYear, .month, .day, .weekday], from: date)
         weekOfYear = components.weekOfYear ?? 0
         
+        let title = "Cейчас \(self.currentWeekFromTodayDate) неделя"
+        self.navBar.title = title
+        
         // guard let teacher = teacher else { return }
         if teacher != nil {
             teacherID = teacher?.teacherID
@@ -131,8 +134,7 @@ class TeacherSheduleViewController: UIViewController {
                 self.sortLessons()
                 self.getCurrentAndNextLesson()
                 
-                let title = "Cейчас \(self.currentWeekFromTodayDate) неделя"
-                self.navBar.title = title
+                
             }
         }
         

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreData
 
 class SheduleViewController: UIViewController {
 
@@ -14,9 +15,18 @@ class SheduleViewController: UIViewController {
     let reuseID = "reuseID"
 
     var lessons: [Datum] = []
+    var lessonsCoreData: [NSManagedObject] = []
+    
     var lessonsFirst: [Datum] = []
     var lessonsSecond: [Datum] = []
     var lessonForSomeDay: [Datum] = []
+    
+    var lessonsFirstCoreData: [NSManagedObject] = []
+    var lessonsSecondCoreData: [NSManagedObject] = []
+    var lessonForSomeDayCoreData: [NSManagedObject] = []
+
+
+    var isCoreData = true
     
     var currentWeekFromTodayDate = 1
     var currentWeek = 1
@@ -49,7 +59,92 @@ class SheduleViewController: UIViewController {
         tableView.dataSource = self
         tableView.register(UINib(nibName: "LessonTableViewCell", bundle: Bundle.main), forCellReuseIdentifier: "LessonTableViewCell")
         
+        getDayNumAndWeekOfYear()
+        
+        
+        if self.weekOfYear % 2 == 0 {
+            self.currentWeekFromTodayDate = 1
+            DispatchQueue.main.async {
+                self.weekSwitch.selectedSegmentIndex = 0
+                self.currentWeek = 1
+            }
+        } else {
+            self.currentWeekFromTodayDate = 2
+            DispatchQueue.main.async {
+                self.weekSwitch.selectedSegmentIndex = 1
+                self.currentWeek = 2
+            }
+        }
+        
+        
 
+        
+        
+        
+        
+        
+        
+//        let appDelegate = UIApplication.shared.delegate as? AppDelegate
+//        self.appDelegate?.scheduleNotification(notificationType: notificationType)
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        getCurrentAndNextLesson()
+    }
+    
+    
+    override func viewWillAppear(_ animated: Bool) {
+
+        //1
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
+
+        let managedContext = appDelegate.persistentContainer.viewContext
+
+        //2
+        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "Lesson")
+
+        //3
+        do {
+            lessonsCoreData = try managedContext.fetch(fetchRequest)
+            lessons = []
+            for lesson in lessonsCoreData {
+            
+                guard let lessonID = lesson.value(forKey: "lessonID") as? String,
+                    let groupID = lesson.value(forKey: "groupID") as? String,
+                    let dayNumber = lesson.value(forKey: "dayNumber") as? String,
+                    let dayName = lesson.value(forKey: "dayName") as? DayName,
+                    let lessonName = lesson.value(forKey: "lessonName") as? String,
+                    let lessonFullName = lesson.value(forKey: "lessonFullName") as? String,
+                    let lessonNumber = lesson.value(forKey: "lessonNumber") as? String,
+                    let lessonRoom = lesson.value(forKey: "lessonRoom") as? String,
+                    let lessonType = lesson.value(forKey: "lessonType") as? LessonType,
+                    let teacherName = lesson.value(forKey: "teacherName") as? String,
+                    let lessonWeek = lesson.value(forKey: "lessonWeek") as? String,
+                    let timeStart = lesson.value(forKey: "timeStart") as? String,
+                    let timeEnd = lesson.value(forKey: "timeEnd") as? String,
+                    let rate = lesson.value(forKey: "rate") as? String else { return }
+                let lesson = Datum(lessonID: lessonID, groupID: groupID, dayNumber: dayNumber, dayName: dayName, lessonName: lessonName, lessonFullName: lessonFullName, lessonNumber: lessonNumber, lessonRoom: lessonRoom, lessonType: lessonType, teacherName: teacherName, lessonWeek: lessonWeek, timeStart: timeStart, timeEnd: timeEnd, rate: rate, teachers: [], rooms: [])
+                
+                lessons.append(lesson)
+            }
+            
+            
+            
+        } catch let error as NSError {
+            print("Could not fetch. \(error), \(error.userInfo)")
+        }
+        sortLessons()
+        tableView.reloadData()
+        
+        if lessonsCoreData.isEmpty {
+            server()
+        }
+        
+
+    }
+    
+    
+    func getDayNumAndWeekOfYear() {
         formatter1.dateFormat = "EEEE"
         formatter2.dateFormat = "HH:mm"
         dayString = formatter1.string(from: date)
@@ -72,18 +167,9 @@ class SheduleViewController: UIViewController {
         } else {
             dayNumber = 7
         }
-        
         // Get number of week (in year)
         let components = calendar.dateComponents([.weekOfYear, .month, .day, .weekday], from: date)
         weekOfYear = components.weekOfYear ?? 0
-        server()
-        
-//        let appDelegate = UIApplication.shared.delegate as? AppDelegate
-//        self.appDelegate?.scheduleNotification(notificationType: notificationType)
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        getCurrentAndNextLesson()
     }
     
     
@@ -112,7 +198,6 @@ class SheduleViewController: UIViewController {
 //                print("Error \(error.localizedDescription)")
 //            }
 //        }
-        
     }
     
     // MARK: - Get data from server
@@ -127,33 +212,90 @@ class SheduleViewController: UIViewController {
             do {
                 guard let serverFULLDATA = try? decoder.decode(Welcome.self, from: data) else { return }
                 let datum = serverFULLDATA.data
-                self.lessons = datum
 
-                if self.weekOfYear % 2 == 0 {
-                    self.currentWeekFromTodayDate = 1
-                    DispatchQueue.main.async {
-                        self.weekSwitch.selectedSegmentIndex = 0
-                        self.currentWeek = 1
-                        self.tableView.reloadData()
-                    }
-                } else {
-                    self.currentWeekFromTodayDate = 2
-                    DispatchQueue.main.async {
-                        self.weekSwitch.selectedSegmentIndex = 1
-                        self.currentWeek = 2
-                        self.tableView.reloadData()
-                    }
-                }
-                
-                self.sortLessons()
-                self.getCurrentAndNextLesson()
+                self.updateCoreData(datum: datum)
             }
         }
-        
+
         task.resume()
         
     }
     
+    
+    func updateCoreData(datum:  [Datum]) {
+        // MARK:- Add core data
+        
+        DispatchQueue.main.async {
+            guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
+
+            // 1
+            let managedContext = appDelegate.persistentContainer.viewContext
+
+            for lesson in datum {
+                // 2
+                let entity = NSEntityDescription.entity(forEntityName: "Lesson", in: managedContext)!
+
+                let lessonCoreData = NSManagedObject(entity: entity, insertInto: managedContext)
+
+                // 3
+                lessonCoreData.setValue(lesson.lessonID, forKeyPath: "lessonID")
+                lessonCoreData.setValue(lesson.groupID, forKeyPath: "groupID")
+                lessonCoreData.setValue(lesson.dayNumber, forKeyPath: "dayNumber")
+                lessonCoreData.setValue(lesson.dayName.rawValue, forKeyPath: "dayName")
+                lessonCoreData.setValue(lesson.lessonName, forKeyPath: "lessonName")
+                lessonCoreData.setValue(lesson.lessonFullName, forKeyPath: "lessonFullName")
+                lessonCoreData.setValue(lesson.lessonNumber, forKeyPath: "lessonNumber")
+                lessonCoreData.setValue(lesson.lessonRoom, forKeyPath: "lessonRoom")
+                
+                lessonCoreData.setValue(lesson.lessonType.rawValue, forKeyPath: "lessonType")
+                lessonCoreData.setValue(lesson.teacherName, forKeyPath: "teacherName")
+                lessonCoreData.setValue(lesson.lessonWeek, forKeyPath: "lessonWeek")
+                lessonCoreData.setValue(lesson.timeStart, forKeyPath: "timeStart")
+                lessonCoreData.setValue(lesson.timeEnd, forKeyPath: "timeEnd")
+                lessonCoreData.setValue(lesson.rate, forKeyPath: "rate")
+
+
+                // 4
+                do {
+                    try managedContext.save()
+                    self.lessonsCoreData.append(lessonCoreData)
+                } catch let error as NSError {
+                    print("Could not save. \(error), \(error.userInfo)")
+                }
+                self.sortLessons()
+                self.tableView.reloadData()
+            }
+            
+        }
+    }
+    
+    
+    func deleteAllFromCoreData() {
+        
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Lesson")
+
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
+
+        // Configure Fetch Request
+        fetchRequest.includesPropertyValues = false
+
+        do {
+            let managedContext = appDelegate.persistentContainer.viewContext
+
+            let items = try managedContext.fetch(fetchRequest) as! [NSManagedObject]
+
+            for item in items {
+                managedContext.delete(item)
+            }
+
+            // Save Changes
+            try managedContext.save()
+
+        } catch {
+            // Error Handling
+        }
+
+    }
     
     @IBAction func weekChanged(_ sender: UISegmentedControl) {
         switch weekSwitch.selectedSegmentIndex {
@@ -170,44 +312,78 @@ class SheduleViewController: UIViewController {
     
     
     func sortLessons() {
-        lessonsFirst = []
-        lessonsSecond = []
-        
-        for lesson in lessons {
-            if Int(lesson.lessonWeek) == 1 {
-                lessonsFirst.append(lesson)
-            } else {
-                lessonsSecond.append(lesson)
+        isCoreData = false
+        if isCoreData {
+            lessonsFirstCoreData = []
+            lessonsSecondCoreData = []
+            
+            for lesson in lessonsCoreData {
+                guard let lessonWeek = lesson.value(forKeyPath: "lessonWeek") as? String else { return }
+                
+                if Int(lessonWeek) == 1 {
+                    lessonsFirstCoreData.append(lesson)
+                } else {
+                    lessonsSecondCoreData.append(lesson)
+                }
+            }
+        } else {
+            lessonsFirst = []
+            lessonsSecond = []
+            
+            for lesson in lessons {
+                if Int(lesson.lessonWeek) == 1 {
+                    lessonsFirst.append(lesson)
+                } else {
+                    lessonsSecond.append(lesson)
+                }
             }
         }
-        
+
     }
     
     
     func getCurrentAndNextLesson() {
 
-        for lesson in lessons {
-            let timeStartString = lesson.timeStart
-            let substringTimeStart = String(timeStartString[..<5])
-            let timeEndString = lesson.timeEnd
-            let substringTimeEnd = String(timeEndString[..<5])
+        for lesson in lessonsCoreData {
+            
+            let lessonID = lesson.value(forKey: "lessonID") as? String
+            let groupID = lesson.value(forKey: "groupID") as? String
+            let dayNumberCoreData = lesson.value(forKey: "dayNumber") as? String
+            let dayName = lesson.value(forKey: "dayName") as? String
+            let lessonName = lesson.value(forKey: "lessonName") as? String
+            let lessonFullName = lesson.value(forKey: "lessonFullName") as? String
+            let lessonNumber = lesson.value(forKey: "lessonNumber") as? String
+            let lessonRoom = lesson.value(forKey: "lessonRoom") as? String
             
             
-            let timeStart = formatter2.date(from:substringTimeStart) ?? Date()
-            let timeEnd = formatter2.date(from:substringTimeEnd) ?? Date()
+            let lessonType = lesson.value(forKey: "lessonType") as? String
+            let teacherName = lesson.value(forKey: "teacherName") as? String
+            let lessonWeek = lesson.value(forKey: "lessonWeek") as? String
+            let timeStart = lesson.value(forKey: "timeStart") as? String
+            let timeEnd = lesson.value(forKey: "timeEnd") as? String
+            let rate = lesson.value(forKey: "rate") as? String
+
+
+            
+            let timeStartString = timeStart
+            let substringTimeStart = String(timeStartString?[..<5] ?? "000000")
+            let timeEndString = timeEnd
+            let substringTimeEnd = String(timeEndString?[..<5] ?? "000000")
             
             
-            if  ((timeStart <= timeDate) &&
-                (timeDate < timeEnd) &&
-                (dayNumber == Int(lesson.dayNumber)) &&
-                (currentWeekFromTodayDate == Int(lesson.lessonWeek) ?? 0)) {
+            let timeStartDate = formatter2.date(from:substringTimeStart) ?? Date()
+            let timeEndDate = formatter2.date(from:substringTimeEnd) ?? Date()
+            
+            
+            if  ((timeStartDate <= timeDate) &&
+                (timeDate < timeEndDate) &&
+                (dayNumber == Int(dayNumberCoreData ?? "0")) &&
+                (currentWeekFromTodayDate == Int(lessonWeek ?? "") ?? 0)) {
                 
-                currentLessonId = lesson.lessonID
+                currentLessonId = lessonID ?? ""
                     
             }
-            
-            
-            
+
         }
         
         for lesson in lessons {
@@ -263,21 +439,25 @@ extension SheduleViewController: UITableViewDelegate, UITableViewDataSource {
             var countThursday = 0
             var countFriday = 0
             
-            for datu in lessonsFirst {
-                if datu.dayName.rawValue == "Понеділок" {
+            for datu in lessonsFirstCoreData {
+                
+                guard let dayName = datu.value(forKey: "dayName") as? String else { return 0 }
+                
+                if dayName == "Понеділок" {
                     countMounday += 1
-                } else if datu.dayName.rawValue == "Вівторок"{
+                } else if dayName == "Вівторок"{
                     countTuesday += 1
-                } else if datu.dayName.rawValue == "Середа"{
+                } else if dayName == "Середа"{
                     countWednesday += 1
-                } else if datu.dayName.rawValue == "Четвер"{
+                } else if dayName == "Четвер"{
                     countThursday += 1
-                } else if datu.dayName.rawValue == "П’ятниця"{
+                } else if dayName == "П’ятниця"{
                     countFriday += 1
                 }
             }
             let array: [Int] = [countMounday, countTuesday, countWednesday, countThursday, countFriday]
             return array[section]
+            
         } else {
             var countMounday = 0
             var countTuesday = 0
@@ -285,16 +465,20 @@ extension SheduleViewController: UITableViewDelegate, UITableViewDataSource {
             var countThursday = 0
             var countFriday = 0
             
-            for datu in lessonsSecond {
-                if datu.dayName.rawValue == "Понеділок" {
+
+            
+            for datu in lessonsSecondCoreData {
+                guard let dayName = datu.value(forKey: "dayName") as? String else { return 0 }
+
+                if dayName == "Понеділок" {
                     countMounday += 1
-                } else if datu.dayName.rawValue == "Вівторок"{
+                } else if dayName == "Вівторок" {
                     countTuesday += 1
-                } else if datu.dayName.rawValue == "Середа"{
+                } else if dayName == "Середа" {
                     countWednesday += 1
-                } else if datu.dayName.rawValue == "Четвер"{
+                } else if dayName == "Четвер" {
                     countThursday += 1
-                } else if datu.dayName.rawValue == "П’ятниця"{
+                } else if dayName == "П’ятниця" {
                     countFriday += 1
                 }
             }
@@ -303,35 +487,36 @@ extension SheduleViewController: UITableViewDelegate, UITableViewDataSource {
         }
     }
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "showDetailViewController" {
-            if let indexPath = tableView.indexPathForSelectedRow {
-                if let destination = segue.destination as? SheduleDetailViewController {
-                    lessonForSomeDay = []
-                    if currentWeek == 1 {
-                        for lesson in lessonsFirst {
-                            if Int(lesson.dayNumber) == (indexPath.section + 1) {
-                                lessonForSomeDay.append(lesson)
-                            }
-                        }
-                    } else {
-                        for lesson in lessonsSecond {
-                            if Int(lesson.dayNumber) == (indexPath.section + 1) {
-                                lessonForSomeDay.append(lesson)
-                            }
-                        }
-                    }
-                    destination.lesson = lessonForSomeDay[indexPath.row]
-                    if currentWeek == 1 {
-                    } else {
-                        destination.lesson = lessonForSomeDay[indexPath.row]
-                    }
-                    
-                    
-                }
-            }
-        }
-    }
+    // TO-DO add Core Data
+//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+//        if segue.identifier == "showDetailViewController" {
+//            if let indexPath = tableView.indexPathForSelectedRow {
+//                if let destination = segue.destination as? SheduleDetailViewController {
+//                    lessonForSomeDay = []
+//                    if currentWeek == 1 {
+//                        for lesson in lessonsFirst {
+//                            if Int(lesson.dayNumber) == (indexPath.section + 1) {
+//                                lessonForSomeDay.append(lesson)
+//                            }
+//                        }
+//                    } else {
+//                        for lesson in lessonsSecond {
+//                            if Int(lesson.dayNumber) == (indexPath.section + 1) {
+//                                lessonForSomeDay.append(lesson)
+//                            }
+//                        }
+//                    }
+//                    destination.lesson = lessonForSomeDay[indexPath.row]
+//                    if currentWeek == 1 {
+//                    } else {
+//                        destination.lesson = lessonForSomeDay[indexPath.row]
+//                    }
+//
+//
+//                }
+//            }
+//        }
+//    }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 68
@@ -348,50 +533,71 @@ extension SheduleViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "LessonTableViewCell", for: indexPath) as? LessonTableViewCell else {return UITableViewCell()}
         
-        lessonForSomeDay = []
+        lessonForSomeDayCoreData = []
         
         if currentWeek == 1 {
-            for lesson in lessonsFirst {
-                if Int(lesson.dayNumber) == (indexPath.section + 1) {
-                    lessonForSomeDay.append(lesson)
+            for lesson in lessonsFirstCoreData {
+                guard let dayNumber = lesson.value(forKey: "dayNumber") as? String else { return UITableViewCell() }
+
+                if Int(dayNumber) == (indexPath.section + 1) {
+                    lessonForSomeDayCoreData.append(lesson)
                 }
             }
         } else {
-            for lesson in lessonsSecond {
-                if Int(lesson.dayNumber) == (indexPath.section + 1) {
-                    lessonForSomeDay.append(lesson)
+            for lesson in lessonsSecondCoreData {
+                guard let dayNumber = lesson.value(forKey: "dayNumber") as? String else { return UITableViewCell() }
+
+                if Int(dayNumber) == (indexPath.section + 1) {
+                    lessonForSomeDayCoreData.append(lesson)
                 }
             }
         }
         
-        cell.lessonLabel.text = lessonForSomeDay[indexPath.row].lessonName
-        cell.teacherLabel.text = lessonForSomeDay[indexPath.row].teacherName
+        let lessonCoreData = lessonForSomeDayCoreData[indexPath.row]
         
-        if lessonForSomeDay[indexPath.row].teacherName == "" {
-            let nothing = " "
-            cell.teacherLabel.text = nothing
-        }
+        guard
+            let lessonNameCoreData = lessonCoreData.value(forKey: "lessonName") as? String,
+            let teacherNameCoreData = lessonCoreData.value(forKey: "teacherName") as? String,
+            let lessonTypeCoreData = lessonCoreData.value(forKey: "lessonType") as? String,
+            let lessonRoomCoreData = lessonCoreData.value(forKey: "lessonRoom") as? String
+
+            else { return UITableViewCell() }
+        
+        cell.lessonLabel.text = lessonNameCoreData
+        cell.teacherLabel.text = teacherNameCoreData
+        print(cell.lessonLabel.text)
+        
+//        if lessonForSomeDay[indexPath.row].teacherName == "" {
+//            let nothing = " "
+//            cell.teacherLabel.text = nothing
+//        }
 
         
-        if currentLessonId == lessonForSomeDay[indexPath.row].lessonID {
-            cell.backgroundColor = .orange
-        }
+//        if currentLessonId == lessonForSomeDay[indexPath.row].lessonID {
+//            cell.backgroundColor = .orange
+//        }
+//
+//        if nextLessonId == lessonForSomeDay[indexPath.row].lessonID {
+//            cell.backgroundColor = colour1
+//        }
         
-        if nextLessonId == lessonForSomeDay[indexPath.row].lessonID {
-            cell.backgroundColor = colour1
-        }
+        guard let timeStart = lessonCoreData.value(forKey: "timeStart") as? String,
+            let timeEnd = lessonCoreData.value(forKey: "timeEnd") as? String else { return UITableViewCell() }
         
-    
-        
-        let timeStartString = lessonForSomeDay[indexPath.row].timeStart
+        let timeStartString = timeStart
         let substringTimeStart = String(timeStartString[..<5])
-        
-        let timeEndString = lessonForSomeDay[indexPath.row].timeEnd
+        let timeEndString = timeEnd
         let substringTimeEnd = String(timeEndString[..<5])
         
         cell.startLabel.text = substringTimeStart
         cell.endLabel.text = substringTimeEnd
-        cell.roomLabel.text = lessonForSomeDay[indexPath.row].lessonType.rawValue + " " + lessonForSomeDay[indexPath.row].lessonRoom
+//        cell.roomLabel.text = lessonForSomeDay[indexPath.row].lessonType.rawValue + " " + lessonForSomeDay[indexPath.row].lessonRoom
+        
+        
+        
+//        cell.roomLabel.text = "0"
+        cell.roomLabel.text = lessonTypeCoreData + " " + lessonRoomCoreData
+
         
         return cell
     }

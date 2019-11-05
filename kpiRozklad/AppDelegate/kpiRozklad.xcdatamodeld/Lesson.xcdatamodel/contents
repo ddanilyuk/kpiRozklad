@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="15508" systemVersion="19B88" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="Lesson" representedClassName="Lesson" syncable="YES" codeGenerationType="class">
+        <attribute name="dayName" optional="YES" attributeType="String"/>
+        <attribute name="dayNumber" optional="YES" attributeType="String"/>
+        <attribute name="groupID" optional="YES" attributeType="String"/>
+        <attribute name="lessonFullName" optional="YES" attributeType="String"/>
+        <attribute name="lessonID" optional="YES" attributeType="String"/>
+        <attribute name="lessonName" optional="YES" attributeType="String"/>
+        <attribute name="lessonNumber" optional="YES" attributeType="String"/>
+        <attribute name="lessonRoom" optional="YES" attributeType="String"/>
+        <attribute name="lessonType" optional="YES" attributeType="String"/>
+        <attribute name="lessonWeek" optional="YES" attributeType="String"/>
+        <attribute name="rate" optional="YES" attributeType="String"/>
+        <attribute name="teacherName" optional="YES" attributeType="String"/>
+        <attribute name="timeEnd" optional="YES" attributeType="String"/>
+        <attribute name="timeStart" optional="YES" attributeType="String"/>
+    </entity>
+    <elements>
+        <element name="Lesson" positionX="-63" positionY="-18" width="128" height="253"/>
+    </elements>
+</model>

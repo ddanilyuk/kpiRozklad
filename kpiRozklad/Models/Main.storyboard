@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14868" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="nab-GF-eXo">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="nab-GF-eXo">
     <device id="retina5_9" orientation="portrait" appearance="dark"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14824"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15509"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -47,6 +47,15 @@
                         <viewLayoutGuide key="safeArea" id="2xZ-kD-GrF"/>
                     </view>
                     <navigationItem key="navigationItem" title="ІВ-82" id="HCW-ay-CZY">
+                        <barButtonItem key="leftBarButtonItem" style="plain" id="mVN-2X-MpC">
+                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="EZ0-HJ-T7Y">
+                                <rect key="frame" x="16" y="7" width="83" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </button>
+                            <connections>
+                                <action selector="press:" destination="VGz-qr-qiP" id="MMd-wL-Cbe"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" style="plain" id="5M2-o9-kLT">
                             <segmentedControl key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" id="kCf-Y9-PTf">
                                 <rect key="frame" x="228" y="5.6666666666666679" width="131" height="33"/>
@@ -82,12 +91,39 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
-                        <segue destination="uqy-EP-nOA" kind="relationship" relationship="rootViewController" id="V9T-Rg-Qdw"/>
+                        <segue destination="T2E-EI-2Au" kind="relationship" relationship="rootViewController" id="VRo-at-l5F"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="c1c-ZN-yOS" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="926" y="-1145"/>
+            <point key="canvasLocation" x="-36" y="-1145"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="X3f-0s-ta5">
+            <objects>
+                <viewController id="T2E-EI-2Au" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="3Rv-0k-YY3">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cOU-J1-Gtg">
+                                <rect key="frame" x="16" y="391" width="343" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                <state key="normal" title="Все преподаватели"/>
+                                <connections>
+                                    <segue destination="uqy-EP-nOA" kind="show" id="lgV-8z-gFe"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <viewLayoutGuide key="safeArea" id="YnE-Yf-gNC"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="Z2Q-Un-m9V"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="c9b-S9-6Rx" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="877.60000000000002" y="-1145.3201970443349"/>
         </scene>
         <!--Преподаватели-->
         <scene sceneID="xbn-fN-qco">
@@ -285,9 +321,6 @@
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DFO-PY-g7X">
                                         <rect key="frame" x="0.0" y="267" width="359" height="53.666666666666686"/>
                                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="50" id="fgK-eH-DMf"/>
-                                        </constraints>
                                         <state key="normal" title="Посмотреть рассписание преподователя">
                                             <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
                                         </state>
@@ -394,7 +427,7 @@
     </scenes>
     <resources>
         <image name="circle.grid.hex" catalog="system" width="64" height="56"/>
-        <image name="person" catalog="system" width="64" height="60"/>
+        <image name="person" catalog="system" width="64" height="58"/>
         <image name="rectangle.grid.1x2" catalog="system" width="64" height="50"/>
     </resources>
     <inferredMetricsTieBreakers>

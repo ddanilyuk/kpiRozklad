@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5F6A08062370A175000A9C79 /* kpiRozklad.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 5F6A08042370A175000A9C79 /* kpiRozklad.xcdatamodeld */; };
 		D300F1D62364CEA30098CA83 /* TeachersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D300F1D52364CEA30098CA83 /* TeachersViewController.swift */; };
 		D300F1D82364CEBB0098CA83 /* TeacherDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D300F1D72364CEBB0098CA83 /* TeacherDetailViewController.swift */; };
 		D300F1DA2364CF490098CA83 /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D300F1D92364CF490098CA83 /* SettingsTableViewController.swift */; };
@@ -27,6 +28,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		5F6A08052370A175000A9C79 /* Lesson.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Lesson.xcdatamodel; sourceTree = "<group>"; };
 		D300F1D52364CEA30098CA83 /* TeachersViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeachersViewController.swift; sourceTree = "<group>"; };
 		D300F1D72364CEBB0098CA83 /* TeacherDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeacherDetailViewController.swift; sourceTree = "<group>"; };
 		D300F1D92364CF490098CA83 /* SettingsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
@@ -110,6 +112,7 @@
 			isa = PBXGroup;
 			children = (
 				D313F495233AAB6C0076CFF8 /* AppDelegate.swift */,
+				5F6A08042370A175000A9C79 /* kpiRozklad.xcdatamodeld */,
 			);
 			path = AppDelegate;
 			sourceTree = "<group>";
@@ -337,6 +340,7 @@
 				D313F4AE233AAF920076CFF8 /* SheduleViewController.swift in Sources */,
 				D300F1DC2365BC270098CA83 /* Teachers.swift in Sources */,
 				D313F4B5233D1F090076CFF8 /* LessonTableViewCell.swift in Sources */,
+				5F6A08062370A175000A9C79 /* kpiRozklad.xcdatamodeld in Sources */,
 				D300F1D82364CEBB0098CA83 /* TeacherDetailViewController.swift in Sources */,
 				D363E7AA233BB74B00573EB2 /* SheduleDetailViewController.swift in Sources */,
 			);
@@ -532,6 +536,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		5F6A08042370A175000A9C79 /* kpiRozklad.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				5F6A08052370A175000A9C79 /* Lesson.xcdatamodel */,
+			);
+			currentVersion = 5F6A08052370A175000A9C79 /* Lesson.xcdatamodel */;
+			path = kpiRozklad.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = D313F48A233AAB6C0076CFF8 /* Project object */;
 }

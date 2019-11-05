@@ -1,5 +1,5 @@
 //
-//  MainRozkladViewController.swift
+//  SheduleViewController.swift
 //  kpiRozklad
 //
 //  Created by Denis on 9/24/19.
@@ -27,6 +27,7 @@ class SheduleViewController: UIViewController {
     var lessonsSecond: [Datum] = []
     
     /// Lessons from some day
+    /// - todo: make easy using in tableView
     var lessonsForSomeDay: [Datum] = []
     
     /// Copy of `lessonFirst` but used in core data
@@ -69,7 +70,8 @@ class SheduleViewController: UIViewController {
     
     /// "HH:mm"  formatter (hours and minutes)
     let formatter2 = DateFormatter()
-
+    
+    /// - todo: make time and Date normal
     var timeString = ""
     var timeDate = Date()
     var dayString = ""

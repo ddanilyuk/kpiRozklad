@@ -16,16 +16,16 @@ import Foundation
 import Foundation
 
 // MARK: - Teachers
-struct Teachers: Codable {
+struct WelcomeTeachers: Codable {
     let statusCode, timeStamp: Int
     let message: String
     let debugInfo: JSONNull?
     let meta: Meta
-    let data: [DatumTeachers]
+    let data: [Teacher]
 }
 
 // MARK: - Datum
-struct DatumTeachers: Codable {
+struct Teacher: Codable {
     let teacherID, teacherName, teacherFullName, teacherShortName: String
     let teacherURL: String
     let teacherRating: String

@@ -15,10 +15,10 @@ class TeacherSheduleViewController: UIViewController {
     
     let reuseID = "reuseID2"
 
-    var lessons: [DatumTeacher] = []
-    var lessonsFirst: [DatumTeacher] = []
-    var lessonsSecond: [DatumTeacher] = []
-    var lessonForSomeDay: [DatumTeacher] = []
+    var lessons: [TeacherFull] = []
+    var lessonsFirst: [TeacherFull] = []
+    var lessonsSecond: [TeacherFull] = []
+    var lessonForSomeDay: [TeacherFull] = []
     
     var currentWeekFromTodayDate = 1
     var currentWeek = 1
@@ -108,7 +108,7 @@ class TeacherSheduleViewController: UIViewController {
             let decoder = JSONDecoder()
 
             do {
-                guard let serverFULLDATA = try? decoder.decode(WelcomeTeacher.self, from: data) else { return }
+                guard let serverFULLDATA = try? decoder.decode(WelcomeTeachersFull.self, from: data) else { return }
                 let datum = serverFULLDATA.data
                 self.lessons = datum
 

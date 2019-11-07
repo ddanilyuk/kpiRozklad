@@ -106,17 +106,66 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cOU-J1-Gtg">
-                                <rect key="frame" x="16" y="391" width="343" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="24"/>
-                                <state key="normal" title="Все преподаватели"/>
-                                <connections>
-                                    <segue destination="uqy-EP-nOA" kind="show" id="lgV-8z-gFe"/>
-                                </connections>
-                            </button>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="al9-Np-3eJ">
+                                <rect key="frame" x="0.0" y="308.66666666666669" width="375" height="200"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EH9-ju-4nX">
+                                        <rect key="frame" x="20" y="0.0" width="335" height="60"/>
+                                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="60" id="c4m-Ab-MuE"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                        <state key="normal" title="Мои преподаватели">
+                                            <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        </state>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                <color key="value" cocoaTouchSystemColor="darkTextColor"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                <real key="value" value="30"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cOU-J1-Gtg">
+                                        <rect key="frame" x="20" y="140" width="335" height="60"/>
+                                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="60" id="SQk-o5-kNz"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                        <state key="normal" title="Все преподаватели">
+                                            <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        </state>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                <color key="value" cocoaTouchSystemColor="darkTextColor"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                <real key="value" value="30"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <segue destination="uqy-EP-nOA" kind="show" id="lgV-8z-gFe"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="EH9-ju-4nX" firstAttribute="leading" secondItem="al9-Np-3eJ" secondAttribute="leading" constant="20" id="4jj-DJ-lhG"/>
+                                    <constraint firstAttribute="height" constant="200" id="74P-Pp-ZOx"/>
+                                    <constraint firstAttribute="trailing" secondItem="EH9-ju-4nX" secondAttribute="trailing" constant="20" id="TNa-kC-ToL"/>
+                                    <constraint firstAttribute="trailing" secondItem="cOU-J1-Gtg" secondAttribute="trailing" constant="20" id="lFZ-2h-yoG"/>
+                                    <constraint firstItem="cOU-J1-Gtg" firstAttribute="leading" secondItem="al9-Np-3eJ" secondAttribute="leading" constant="20" id="mVM-J9-FM7"/>
+                                </constraints>
+                            </stackView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="YnE-Yf-gNC" firstAttribute="trailing" secondItem="al9-Np-3eJ" secondAttribute="trailing" id="G1u-2h-3jx"/>
+                            <constraint firstItem="al9-Np-3eJ" firstAttribute="leading" secondItem="YnE-Yf-gNC" secondAttribute="leading" id="XgT-fH-RXN"/>
+                            <constraint firstItem="al9-Np-3eJ" firstAttribute="centerY" secondItem="YnE-Yf-gNC" secondAttribute="centerY" id="qXf-PX-F38"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="YnE-Yf-gNC"/>
                     </view>
                     <navigationItem key="navigationItem" id="Z2Q-Un-m9V"/>

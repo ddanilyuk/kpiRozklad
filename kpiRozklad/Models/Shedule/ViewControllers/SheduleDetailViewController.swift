@@ -11,7 +11,7 @@ import UIKit
 class SheduleDetailViewController: UIViewController {
 
     
-    var lesson: Datum? = nil
+    var lesson: Lesson? = nil
     @IBOutlet weak var lessonNameLabel: UILabel!
     @IBOutlet weak var teacherLabel: UILabel!
     @IBOutlet weak var teacherRatingLabel: UILabel!

@@ -14,15 +14,15 @@
 import Foundation
 
 // MARK: - Welcome
-struct Welcome: Codable {
+struct WelcomeLessons: Codable {
     let statusCode, timeStamp: Int
     let message, debugInfo: String
     let meta: JSONNull?
-    let data: [Datum]
+    let data: [Lesson]
 }
 
-// MARK: - Datum
-struct Datum: Codable {
+// MARK: - Lesson
+struct Lesson: Codable {
     let lessonID, groupID, dayNumber: String
     let dayName: DayName
     let lessonName, lessonFullName, lessonNumber, lessonRoom: String
@@ -78,20 +78,20 @@ struct Room: Codable {
 }
 
 // MARK: - Teacher
-struct Teacher: Codable {
-    let teacherID, teacherName, teacherFullName, teacherShortName: String
-    let teacherURL: String
-    let teacherRating: String
-
-    enum CodingKeys: String, CodingKey {
-        case teacherID = "teacher_id"
-        case teacherName = "teacher_name"
-        case teacherFullName = "teacher_full_name"
-        case teacherShortName = "teacher_short_name"
-        case teacherURL = "teacher_url"
-        case teacherRating = "teacher_rating"
-    }
-}
+//struct Teacher: Codable {
+//    let teacherID, teacherName, teacherFullName, teacherShortName: String
+//    let teacherURL: String
+//    let teacherRating: String
+//
+//    enum CodingKeys: String, CodingKey {
+//        case teacherID = "teacher_id"
+//        case teacherName = "teacher_name"
+//        case teacherFullName = "teacher_full_name"
+//        case teacherShortName = "teacher_short_name"
+//        case teacherURL = "teacher_url"
+//        case teacherRating = "teacher_rating"
+//    }
+//}
 
 // MARK: - Encode/decode helpers
 

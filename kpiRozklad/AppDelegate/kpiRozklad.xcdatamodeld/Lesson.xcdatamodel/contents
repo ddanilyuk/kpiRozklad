@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="15508" systemVersion="19B88" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
-    <entity name="Lesson" representedClassName="Lesson" syncable="YES" codeGenerationType="class">
+    <entity name="LessonData" representedClassName="LessonData" syncable="YES" codeGenerationType="class">
         <attribute name="dayName" optional="YES" attributeType="String"/>
         <attribute name="dayNumber" optional="YES" attributeType="String"/>
         <attribute name="groupID" optional="YES" attributeType="String"/>
@@ -15,8 +15,19 @@
         <attribute name="teacherName" optional="YES" attributeType="String"/>
         <attribute name="timeEnd" optional="YES" attributeType="String"/>
         <attribute name="timeStart" optional="YES" attributeType="String"/>
+        <relationship name="relationship" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="TeachersData" inverseName="relationship" inverseEntity="TeachersData"/>
+    </entity>
+    <entity name="TeachersData" representedClassName="TeachersData" syncable="YES" codeGenerationType="class">
+        <attribute name="teacherFullName" optional="YES" attributeType="String"/>
+        <attribute name="teacherID" optional="YES" attributeType="String"/>
+        <attribute name="teacherName" optional="YES" attributeType="String"/>
+        <attribute name="teacherRating" optional="YES" attributeType="String"/>
+        <attribute name="teacherShortName" optional="YES" attributeType="String"/>
+        <attribute name="teacherURL" optional="YES" attributeType="String"/>
+        <relationship name="relationship" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="LessonData" inverseName="relationship" inverseEntity="LessonData"/>
     </entity>
     <elements>
-        <element name="Lesson" positionX="-63" positionY="-18" width="128" height="253"/>
+        <element name="LessonData" positionX="-63" positionY="-18" width="128" height="268"/>
+        <element name="TeachersData" positionX="241.29296875" positionY="48.12109375" width="128" height="148"/>
     </elements>
 </model>

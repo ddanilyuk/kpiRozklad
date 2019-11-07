@@ -14,12 +14,12 @@ class TeachersViewController: UIViewController {
     
     let reuseID = "reuseIDForTeachers"
     
-    var teachers = [DatumTeachers]()
+    var teachers = [Teacher]()
     
     
     var isSearching = false
     let search = UISearchController(searchResultsController: nil)
-    var teachersInSearch = [DatumTeachers]()
+    var teachersInSearch = [Teacher]()
 
 
     
@@ -53,7 +53,7 @@ class TeachersViewController: UIViewController {
                 let decoder = JSONDecoder()
 
                 do {
-                    guard let serverFULLDATA = try? decoder.decode(Teachers.self, from: data) else { return }
+                    guard let serverFULLDATA = try? decoder.decode(WelcomeTeachers.self, from: data) else { return }
                     let datum = serverFULLDATA.data
                     self.teachers += datum
                     print(self.teachers.count)

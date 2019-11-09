@@ -23,6 +23,8 @@ class SheduleDetailViewController: UIViewController {
     @IBOutlet weak var checkTeacherShedule: UIButton!
     var teacher: Teacher? = nil
 
+    @IBOutlet weak var stackView: UIStackView!
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,18 +32,23 @@ class SheduleDetailViewController: UIViewController {
         guard let lesson = lesson else { return }
             if lesson.teachers.count != 0 {
                 teacher = lesson.teachers[0]
-                teacherLabel.text = teacher?.teacherFullName
+                if teacher?.teacherFullName != ""{
+                    teacherLabel.text = teacher?.teacherFullName
+                } else {
+                    teacherLabel.text = teacher?.teacherName
+                }
                 teacherRatingLabel.text = teacher?.teacherRating
         }
+        print(lesson)
         lessonNameLabel.text = lesson.lessonName
         roomTypeLabel.text = lesson.lessonType.rawValue + " " + lesson.lessonRoom
         
-        dayLabel.text = lesson.dayName.rawValue
+        dayLabel.text = lesson.dayName.rawValue + ", " + lesson.lessonWeek + " тиждень"
         timeStartLabel.text = "Початок: " + lesson.timeStart
         timeEndLabel.text = "Кінець: " + lesson.timeEnd
         
         // Todo:- check corner radius
-        checkTeacherShedule.layer.cornerRadius = 25
+        checkTeacherShedule.layer.cornerRadius = (stackView.frame.height - 50) / 10
         
     }
     

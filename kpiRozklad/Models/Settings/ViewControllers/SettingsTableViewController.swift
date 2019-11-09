@@ -39,35 +39,50 @@ class SettingsTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 40
     }
-
     
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+    }
+
+    // MARK:- deleteAllFromCoreData
     @IBAction func didPressUpdateShedule(_ sender: UIButton) {
-        print("press")
-        // MARK:- deleteAllFromCoreData
-
-        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "LessonData")
-
-        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
-
-        // Configure Fetch Request
-        fetchRequest.includesPropertyValues = false
-
-        do {
-            let managedContext = appDelegate.persistentContainer.viewContext
-
-            let items = try managedContext.fetch(fetchRequest) as! [NSManagedObject]
-
-            for item in items {
-                managedContext.delete(item)
-            }
-
-            /// Save Changes
-            try managedContext.save()
-
-        } catch {
-            /// Error Handling
-        }
         
+        let alert = UIAlertController(title: "Розклад", message: "Чи бажаєте Ви оновити ваш розклад?\n Всі ваші редагування розкладу пропадуть!", preferredStyle: .actionSheet)
+        alert.addAction(UIAlertAction(title: "Оновити", style: .default, handler: { (_) in
+            Settings.shared.isTryToRefreshShedule = true
+            print("press")
+
+            let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "LessonData")
+
+            guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
+
+            // Configure Fetch Request
+            fetchRequest.includesPropertyValues = false
+
+            do {
+                let managedContext = appDelegate.persistentContainer.viewContext
+
+                let items = try managedContext.fetch(fetchRequest) as! [NSManagedObject]
+
+                for item in items {
+                    managedContext.delete(item)
+                }
+
+                /// Save Changes
+                try managedContext.save()
+
+            } catch {
+                /// Error Handling
+            }
+            
+        }))
+        
+        
+        alert.addAction(UIAlertAction(title: "Отменить", style: .cancel, handler: { (_) in
+        }))
+        
+        self.present(alert, animated: true, completion: {
+        })
     }
     
     

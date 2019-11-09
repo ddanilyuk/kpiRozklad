@@ -111,12 +111,12 @@
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EH9-ju-4nX">
                                         <rect key="frame" x="20" y="0.0" width="335" height="60"/>
-                                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="backgroundColor" systemColor="linkColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="60" id="c4m-Ab-MuE"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="24"/>
-                                        <state key="normal" title="Мої  викладачі">
+                                        <state key="normal" title="Мої викладачі">
                                             <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
                                         </state>
                                         <userDefinedRuntimeAttributes>
@@ -133,7 +133,7 @@
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cOU-J1-Gtg">
                                         <rect key="frame" x="20" y="140" width="335" height="60"/>
-                                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="backgroundColor" systemColor="linkColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="60" id="SQk-o5-kNz"/>
                                         </constraints>
@@ -180,7 +180,7 @@
             </objects>
             <point key="canvasLocation" x="877.60000000000002" y="-1145.3201970443349"/>
         </scene>
-        <!--Преподаватели-->
+        <!--Викладачі-->
         <scene sceneID="xbn-fN-qco">
             <objects>
                 <viewController id="uqy-EP-nOA" customClass="TeachersViewController" customModule="kpiRozklad" customModuleProvider="target" sceneMemberID="viewController">
@@ -207,7 +207,19 @@
                         <viewLayoutGuide key="safeArea" id="A37-eR-HtN"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="Преподаватели" image="person" catalog="system" id="Yrj-YQ-4gU"/>
-                    <navigationItem key="navigationItem" title="Преподаватели" id="TEz-7E-uSY"/>
+                    <navigationItem key="navigationItem" title="Викладачі" id="TEz-7E-uSY">
+                        <barButtonItem key="rightBarButtonItem" style="plain" id="2Tw-jJ-Ixu">
+                            <segmentedControl key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bordered" selectedSegmentIndex="0" id="bXl-wA-VMP">
+                                <rect key="frame" x="-65" y="-15" width="83" height="33"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <segments>
+                                    <segment title="Мої"/>
+                                    <segment title="Всі"/>
+                                </segments>
+                                <color key="selectedSegmentTintColor" systemColor="linkColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </segmentedControl>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="activityIndicator" destination="mQt-nJ-ahl" id="P4R-JC-78I"/>
                         <outlet property="tableView" destination="ozO-6T-Pnc" id="evC-DR-UwR"/>
@@ -263,7 +275,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <sections>
-                            <tableViewSection headerTitle="Основные" id="iUs-Xq-0hq">
+                            <tableViewSection headerTitle="Загальні" id="iUs-Xq-0hq">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="Qg9-C8-nGy">
                                         <rect key="frame" x="0.0" y="28" width="375" height="43.666667938232422"/>
@@ -273,8 +285,8 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BnC-cx-1ul">
-                                                    <rect key="frame" x="16" y="0.0" width="359" height="44"/>
-                                                    <state key="normal" title="Оновити розклад">
+                                                    <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                                                    <state key="normal" title="    Оновити розклад">
                                                         <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     </state>
                                                     <connections>
@@ -284,10 +296,10 @@
                                                 </button>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="BnC-cx-1ul" firstAttribute="leading" secondItem="J9C-q6-ETp" secondAttribute="leading" constant="16" id="7Mn-S9-EDX"/>
-                                                <constraint firstAttribute="bottom" secondItem="BnC-cx-1ul" secondAttribute="bottom" id="JiW-LP-H7P"/>
-                                                <constraint firstAttribute="trailing" secondItem="BnC-cx-1ul" secondAttribute="trailing" id="oRS-jb-O9I"/>
-                                                <constraint firstItem="BnC-cx-1ul" firstAttribute="top" secondItem="J9C-q6-ETp" secondAttribute="top" id="sZn-JC-Rdl"/>
+                                                <constraint firstItem="BnC-cx-1ul" firstAttribute="top" secondItem="J9C-q6-ETp" secondAttribute="topMargin" constant="-11" id="Hr0-In-tAJ"/>
+                                                <constraint firstItem="BnC-cx-1ul" firstAttribute="centerY" secondItem="J9C-q6-ETp" secondAttribute="centerY" id="gu7-BO-2rP"/>
+                                                <constraint firstItem="BnC-cx-1ul" firstAttribute="centerX" secondItem="J9C-q6-ETp" secondAttribute="centerX" id="wMp-6O-dbt"/>
+                                                <constraint firstItem="BnC-cx-1ul" firstAttribute="leading" secondItem="J9C-q6-ETp" secondAttribute="leadingMargin" constant="-16" id="z2Y-ow-761"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -313,7 +325,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rr4-vK-4Ew" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <exit id="j5H-lg-95l" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="2646" y="-1882"/>
+            <point key="canvasLocation" x="2645.5999999999999" y="-1882.0197044334975"/>
         </scene>
         <!--Shedule Detail View Controller-->
         <scene sceneID="YJy-Mv-orq">
@@ -323,69 +335,72 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="EC3-Vx-FUB">
-                                <rect key="frame" x="8" y="96.000000000000028" width="359" height="320.66666666666674"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="-10" translatesAutoresizingMaskIntoConstraints="NO" id="EC3-Vx-FUB">
+                                <rect key="frame" x="8" y="96" width="359" height="550"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Предмет" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ivE-Xg-CUV">
-                                        <rect key="frame" x="0.0" y="0.0" width="359" height="53.333333333333336"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="26"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="359" height="100"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="100" id="UPR-hi-HZ2"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="28"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" translatesAutoresizingMaskIntoConstraints="NO" id="UIa-uH-iz1">
-                                        <rect key="frame" x="0.0" y="53.333333333333343" width="359" height="53.666666666666657"/>
+                                        <rect key="frame" x="0.0" y="90" width="359" height="100"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Вчитель" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OeH-tc-sYc">
-                                                <rect key="frame" x="0.0" y="0.0" width="309" height="53.666666666666664"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="297" height="100"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="19"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="3.333" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="g7U-Eb-yfz">
-                                                <rect key="frame" x="309" y="0.0" width="50" height="53.666666666666664"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0.0000" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="g7U-Eb-yfz">
+                                                <rect key="frame" x="297" y="0.0" width="62" height="100"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="width" constant="50" id="DWn-gX-VbY"/>
+                                                    <constraint firstAttribute="width" constant="62" id="DWn-gX-VbY"/>
                                                 </constraints>
-                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="19"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                         </subviews>
                                     </stackView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Аудиторія" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3XJ-JC-uFy">
-                                        <rect key="frame" x="0.0" y="106.99999999999999" width="359" height="53.333333333333329"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <rect key="frame" x="0.0" y="180" width="359" height="100"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="19"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="День" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5sC-gB-DCP">
-                                        <rect key="frame" x="0.0" y="160.33333333333331" width="359" height="53.333333333333343"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <rect key="frame" x="0.0" y="270" width="359" height="100"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="19"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="PXQ-OR-yxm">
-                                        <rect key="frame" x="0.0" y="213.66666666666669" width="359" height="53.333333333333314"/>
+                                        <rect key="frame" x="0.0" y="360" width="359" height="100"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Початок: " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IrS-4v-Q3a">
-                                                <rect key="frame" x="0.0" y="16.666666666666629" width="179.66666666666666" height="20.333333333333329"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <rect key="frame" x="0.0" y="38.666666666666686" width="179.66666666666666" height="23"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="19"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Кінець: " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Jk1-ef-DRl">
-                                                <rect key="frame" x="179.66666666666663" y="16.666666666666629" width="179.33333333333337" height="20.333333333333329"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Кінець: " textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Jk1-ef-DRl">
+                                                <rect key="frame" x="179.66666666666663" y="38.666666666666686" width="179.33333333333337" height="23"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="19"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                         </subviews>
                                     </stackView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DFO-PY-g7X">
-                                        <rect key="frame" x="0.0" y="267" width="359" height="53.666666666666686"/>
-                                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <rect key="frame" x="0.0" y="450" width="359" height="100"/>
+                                        <color key="backgroundColor" systemColor="linkColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <state key="normal" title="Подивитись розклад викладача">
+                                        <state key="normal" title="Подивитись на розклад викладача">
                                             <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
                                         </state>
                                         <userDefinedRuntimeAttributes>
@@ -407,7 +422,6 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
                             <constraint firstItem="EC3-Vx-FUB" firstAttribute="leading" secondItem="FvJ-V7-JA1" secondAttribute="leading" constant="8" id="68O-wc-Avl"/>
-                            <constraint firstItem="EC3-Vx-FUB" firstAttribute="height" secondItem="FvJ-V7-JA1" secondAttribute="height" multiplier="0.5" id="Lj5-Fh-oLq"/>
                             <constraint firstItem="FvJ-V7-JA1" firstAttribute="trailing" secondItem="EC3-Vx-FUB" secondAttribute="trailing" constant="8" id="rAE-5h-EQV"/>
                             <constraint firstItem="EC3-Vx-FUB" firstAttribute="top" secondItem="FvJ-V7-JA1" secondAttribute="top" constant="8" id="zOd-Zg-zjr"/>
                         </constraints>
@@ -419,6 +433,7 @@
                         <outlet property="dayLabel" destination="5sC-gB-DCP" id="xHJ-Qg-7Uf"/>
                         <outlet property="lessonNameLabel" destination="ivE-Xg-CUV" id="2qF-SD-rcC"/>
                         <outlet property="roomTypeLabel" destination="3XJ-JC-uFy" id="3zZ-sS-sXt"/>
+                        <outlet property="stackView" destination="EC3-Vx-FUB" id="Nhs-Rk-kxQ"/>
                         <outlet property="teacherLabel" destination="OeH-tc-sYc" id="uPS-ey-MfF"/>
                         <outlet property="teacherRatingLabel" destination="g7U-Eb-yfz" id="JFg-I4-0fM"/>
                         <outlet property="timeEndLabel" destination="Jk1-ef-DRl" id="fPl-5T-lqh"/>
@@ -505,6 +520,6 @@
         <image name="rectangle.grid.1x2" catalog="system" width="64" height="50"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="eOz-94-s6B"/>
+        <segue reference="5QF-Tv-CiU"/>
     </inferredMetricsTieBreakers>
 </document>

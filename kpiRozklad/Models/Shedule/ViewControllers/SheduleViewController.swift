@@ -99,6 +99,8 @@ class SheduleViewController: UIViewController {
         
         fetchingCoreData()
         
+
+        
         /// If Core Data is empty, making request from server
         if lessonsCoreData.isEmpty {
             server()
@@ -106,13 +108,17 @@ class SheduleViewController: UIViewController {
         
     }
     
-//    override func viewWillAppear(_ animated: Bool) {
-//        print("dada")
-//        /// If Core Data is empty, making request from server
-//        if lessonsCoreData.isEmpty {
-//            server()
-//        }
-//    }
+    override func viewWillAppear(_ animated: Bool) {
+        print("dada")
+        /// If Core Data is empty, making request from server
+        if Settings.shared.isTryToRefreshShedule {
+            print("some")
+            lessonsCoreData = []
+            lessons = []
+            server()
+            Settings.shared.isTryToRefreshShedule = false
+        }
+    }
     
     
     // MARK: - fetchingCoreData

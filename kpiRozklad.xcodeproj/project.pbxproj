@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5F4457E42376FB05008F9E21 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F4457E32376FB05008F9E21 /* Settings.swift */; };
 		5F6A08062370A175000A9C79 /* kpiRozklad.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 5F6A08042370A175000A9C79 /* kpiRozklad.xcdatamodeld */; };
 		D300F1D62364CEA30098CA83 /* TeachersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D300F1D52364CEA30098CA83 /* TeachersViewController.swift */; };
 		D300F1D82364CEBB0098CA83 /* TeacherChoosingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D300F1D72364CEBB0098CA83 /* TeacherChoosingViewController.swift */; };
@@ -28,6 +29,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		5F4457E32376FB05008F9E21 /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		5F6A08052370A175000A9C79 /* Lesson.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Lesson.xcdatamodel; sourceTree = "<group>"; };
 		D300F1D52364CEA30098CA83 /* TeachersViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeachersViewController.swift; sourceTree = "<group>"; };
 		D300F1D72364CEBB0098CA83 /* TeacherChoosingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeacherChoosingViewController.swift; sourceTree = "<group>"; };
@@ -218,6 +220,7 @@
 				D313F4B1233C773B0076CFF8 /* Lesson.swift */,
 				D313F4AF233AB94C0076CFF8 /* TeacherFull.swift */,
 				D300F1DB2365BC270098CA83 /* Teacher.swift */,
+				5F4457E32376FB05008F9E21 /* Settings.swift */,
 				D3FFAAE223521BAC0065E9CE /* Extensions */,
 			);
 			path = Common;
@@ -334,6 +337,7 @@
 				D3FFAAE72352467F0065E9CE /* TeacherSheduleViewController.swift in Sources */,
 				D34BEBC5233CCFC10035F7B4 /* Extensions.swift in Sources */,
 				D300F1DA2364CF490098CA83 /* SettingsTableViewController.swift in Sources */,
+				5F4457E42376FB05008F9E21 /* Settings.swift in Sources */,
 				D313F4B0233AB94C0076CFF8 /* TeacherFull.swift in Sources */,
 				D313F4B2233C773B0076CFF8 /* Lesson.swift in Sources */,
 				D300F1D62364CEA30098CA83 /* TeachersViewController.swift in Sources */,

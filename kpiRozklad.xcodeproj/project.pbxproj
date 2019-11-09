@@ -9,17 +9,17 @@
 /* Begin PBXBuildFile section */
 		5F6A08062370A175000A9C79 /* kpiRozklad.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 5F6A08042370A175000A9C79 /* kpiRozklad.xcdatamodeld */; };
 		D300F1D62364CEA30098CA83 /* TeachersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D300F1D52364CEA30098CA83 /* TeachersViewController.swift */; };
-		D300F1D82364CEBB0098CA83 /* TeacherDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D300F1D72364CEBB0098CA83 /* TeacherDetailViewController.swift */; };
+		D300F1D82364CEBB0098CA83 /* TeacherChoosingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D300F1D72364CEBB0098CA83 /* TeacherChoosingViewController.swift */; };
 		D300F1DA2364CF490098CA83 /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D300F1D92364CF490098CA83 /* SettingsTableViewController.swift */; };
-		D300F1DC2365BC270098CA83 /* Teachers.swift in Sources */ = {isa = PBXBuildFile; fileRef = D300F1DB2365BC270098CA83 /* Teachers.swift */; };
+		D300F1DC2365BC270098CA83 /* Teacher.swift in Sources */ = {isa = PBXBuildFile; fileRef = D300F1DB2365BC270098CA83 /* Teacher.swift */; };
 		D313F496233AAB6C0076CFF8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D313F495233AAB6C0076CFF8 /* AppDelegate.swift */; };
 		D313F49C233AAB6D0076CFF8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D313F49B233AAB6D0076CFF8 /* Assets.xcassets */; };
 		D313F49F233AAB6D0076CFF8 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D313F49E233AAB6D0076CFF8 /* Preview Assets.xcassets */; };
 		D313F4A2233AAB6D0076CFF8 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D313F4A0233AAB6D0076CFF8 /* LaunchScreen.storyboard */; };
 		D313F4AA233AAC880076CFF8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D313F4A9233AAC880076CFF8 /* Main.storyboard */; };
 		D313F4AE233AAF920076CFF8 /* SheduleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D313F4AD233AAF920076CFF8 /* SheduleViewController.swift */; };
-		D313F4B0233AB94C0076CFF8 /* TeacherLessons.swift in Sources */ = {isa = PBXBuildFile; fileRef = D313F4AF233AB94C0076CFF8 /* TeacherLessons.swift */; };
-		D313F4B2233C773B0076CFF8 /* MyLessons.swift in Sources */ = {isa = PBXBuildFile; fileRef = D313F4B1233C773B0076CFF8 /* MyLessons.swift */; };
+		D313F4B0233AB94C0076CFF8 /* TeacherFull.swift in Sources */ = {isa = PBXBuildFile; fileRef = D313F4AF233AB94C0076CFF8 /* TeacherFull.swift */; };
+		D313F4B2233C773B0076CFF8 /* Lesson.swift in Sources */ = {isa = PBXBuildFile; fileRef = D313F4B1233C773B0076CFF8 /* Lesson.swift */; };
 		D313F4B5233D1F090076CFF8 /* LessonTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D313F4B3233D1F090076CFF8 /* LessonTableViewCell.swift */; };
 		D313F4B6233D1F090076CFF8 /* LessonTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D313F4B4233D1F090076CFF8 /* LessonTableViewCell.xib */; };
 		D34BEBC5233CCFC10035F7B4 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D34BEBC4233CCFC10035F7B4 /* Extensions.swift */; };
@@ -30,9 +30,9 @@
 /* Begin PBXFileReference section */
 		5F6A08052370A175000A9C79 /* Lesson.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Lesson.xcdatamodel; sourceTree = "<group>"; };
 		D300F1D52364CEA30098CA83 /* TeachersViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeachersViewController.swift; sourceTree = "<group>"; };
-		D300F1D72364CEBB0098CA83 /* TeacherDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeacherDetailViewController.swift; sourceTree = "<group>"; };
+		D300F1D72364CEBB0098CA83 /* TeacherChoosingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeacherChoosingViewController.swift; sourceTree = "<group>"; };
 		D300F1D92364CF490098CA83 /* SettingsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
-		D300F1DB2365BC270098CA83 /* Teachers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Teachers.swift; sourceTree = "<group>"; };
+		D300F1DB2365BC270098CA83 /* Teacher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Teacher.swift; sourceTree = "<group>"; };
 		D313F492233AAB6C0076CFF8 /* kpiRozklad.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = kpiRozklad.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D313F495233AAB6C0076CFF8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D313F49B233AAB6D0076CFF8 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -41,8 +41,8 @@
 		D313F4A3233AAB6D0076CFF8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D313F4A9233AAC880076CFF8 /* Main.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		D313F4AD233AAF920076CFF8 /* SheduleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheduleViewController.swift; sourceTree = "<group>"; };
-		D313F4AF233AB94C0076CFF8 /* TeacherLessons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeacherLessons.swift; sourceTree = "<group>"; };
-		D313F4B1233C773B0076CFF8 /* MyLessons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyLessons.swift; sourceTree = "<group>"; };
+		D313F4AF233AB94C0076CFF8 /* TeacherFull.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeacherFull.swift; sourceTree = "<group>"; };
+		D313F4B1233C773B0076CFF8 /* Lesson.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Lesson.swift; sourceTree = "<group>"; };
 		D313F4B3233D1F090076CFF8 /* LessonTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LessonTableViewCell.swift; sourceTree = "<group>"; };
 		D313F4B4233D1F090076CFF8 /* LessonTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LessonTableViewCell.xib; sourceTree = "<group>"; };
 		D34BEBC4233CCFC10035F7B4 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
@@ -215,9 +215,9 @@
 		D3FFAAE123521BA40065E9CE /* Common */ = {
 			isa = PBXGroup;
 			children = (
-				D313F4B1233C773B0076CFF8 /* MyLessons.swift */,
-				D313F4AF233AB94C0076CFF8 /* TeacherLessons.swift */,
-				D300F1DB2365BC270098CA83 /* Teachers.swift */,
+				D313F4B1233C773B0076CFF8 /* Lesson.swift */,
+				D313F4AF233AB94C0076CFF8 /* TeacherFull.swift */,
+				D300F1DB2365BC270098CA83 /* Teacher.swift */,
 				D3FFAAE223521BAC0065E9CE /* Extensions */,
 			);
 			path = Common;
@@ -252,7 +252,7 @@
 			children = (
 				D3FFAAE62352467F0065E9CE /* TeacherSheduleViewController.swift */,
 				D300F1D52364CEA30098CA83 /* TeachersViewController.swift */,
-				D300F1D72364CEBB0098CA83 /* TeacherDetailViewController.swift */,
+				D300F1D72364CEBB0098CA83 /* TeacherChoosingViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -334,14 +334,14 @@
 				D3FFAAE72352467F0065E9CE /* TeacherSheduleViewController.swift in Sources */,
 				D34BEBC5233CCFC10035F7B4 /* Extensions.swift in Sources */,
 				D300F1DA2364CF490098CA83 /* SettingsTableViewController.swift in Sources */,
-				D313F4B0233AB94C0076CFF8 /* TeacherLessons.swift in Sources */,
-				D313F4B2233C773B0076CFF8 /* MyLessons.swift in Sources */,
+				D313F4B0233AB94C0076CFF8 /* TeacherFull.swift in Sources */,
+				D313F4B2233C773B0076CFF8 /* Lesson.swift in Sources */,
 				D300F1D62364CEA30098CA83 /* TeachersViewController.swift in Sources */,
 				D313F4AE233AAF920076CFF8 /* SheduleViewController.swift in Sources */,
-				D300F1DC2365BC270098CA83 /* Teachers.swift in Sources */,
+				D300F1DC2365BC270098CA83 /* Teacher.swift in Sources */,
 				D313F4B5233D1F090076CFF8 /* LessonTableViewCell.swift in Sources */,
 				5F6A08062370A175000A9C79 /* kpiRozklad.xcdatamodeld in Sources */,
-				D300F1D82364CEBB0098CA83 /* TeacherDetailViewController.swift in Sources */,
+				D300F1D82364CEBB0098CA83 /* TeacherChoosingViewController.swift in Sources */,
 				D363E7AA233BB74B00573EB2 /* SheduleDetailViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

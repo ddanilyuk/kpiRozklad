@@ -11,23 +11,48 @@ import UIKit
 class TeacherSheduleViewController: UIViewController {
 
     @IBOutlet weak var tableView: UITableView!
-    
-    
     let reuseID = "reuseID2"
 
+    /// The **main** variable with which the table is updated
     var lessons: [TeacherFull] = []
+    
+    /// Lessons from the first week
     var lessonsFirst: [TeacherFull] = []
+    
+    /// Lessons from the second week
     var lessonsSecond: [TeacherFull] = []
+    
+    /// Lessons from some day
     var lessonForSomeDay: [TeacherFull] = []
     
+    /**
+        Сurrent week which is obtained from the date on the device
+        - Remark:
+            Set  up in `setUpCurrentWeek()`
+     */
     var currentWeekFromTodayDate = 1
+    
+    /**
+        Current  week which user chosed
+        - Remark:
+            Changed   in `weekChanged()`
+            Set  up in `setUpCurrentWeek()`
+     */
     var currentWeek = 1
+    
+    /// Week of year from date on the device
     var weekOfYear = 0
+       
+    /// Day number from 1 to 7
     var dayNumber = 0
     
     let date = Date()
     let calendar = Calendar.current
+    
+    /// "EEEE"  formatter (dat)
     let formatter1 = DateFormatter()
+    
+    /// "HH:mm"  formatter (hours and minutes)
     let formatter2 = DateFormatter()
 
     var timeString = ""
@@ -49,20 +74,58 @@ class TeacherSheduleViewController: UIViewController {
     @IBOutlet weak var weekSwitch: UISegmentedControl!
     
     
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+    
+    
+    // MARK: - viewDidLoad
     override func viewDidLoad() {
         
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(UINib(nibName: "LessonTableViewCell", bundle: Bundle.main), forCellReuseIdentifier: "LessonTableViewCell")
         
-
+        getDayNumAndWeekOfYear()
+        setUpCurrentWeek()
+                
+        // guard let teacher = teacher else { return }
+        if teacher != nil {
+            teacherID = teacher?.teacherID
+        }
+        
+        server()
+        
+        activityIndicator.startAnimating()
+        tableView.isHidden = true
+        self.view.bringSubviewToFront(activityIndicator)
+        
+    }
+    
+    
+    // MARK: - viewDidAppear
+    override func viewDidAppear(_ animated: Bool) {
+          getCurrentAndNextLesson()
+    }
+    
+    
+    // MARK: - viewWillAppear
+    override func viewWillAppear(_ animated: Bool) {
+        let title = "Зараз \(self.currentWeekFromTodayDate) тиждень"
+        self.navBar.title = title
+    }
+    
+    
+    // MARK: - getDayNumAndWeekOfYear
+    /// Getting dayNumber and week of year from device Date()
+    ///
+    /// - todo: maybe use swich-case
+    func getDayNumAndWeekOfYear() {
         formatter1.dateFormat = "EEEE"
         formatter2.dateFormat = "HH:mm"
         dayString = formatter1.string(from: date)
         timeString = formatter2.string(from: date)
         timeDate = formatter2.date(from: timeString) ?? Date()
 
-        // Get today's number in week (from 1 to 7)
+        /// Get today's number in week (from 1 to 7)
         if dayString == "Monday" {
             dayNumber = 1
         } else if dayString == "Tuesday" {
@@ -78,26 +141,30 @@ class TeacherSheduleViewController: UIViewController {
         } else {
             dayNumber = 7
         }
-        
-        // Get number of week (in year)
+        /// Get number of week (in year)
         let components = calendar.dateComponents([.weekOfYear, .month, .day, .weekday], from: date)
         weekOfYear = components.weekOfYear ?? 0
-        
-        let title = "Cейчас \(self.currentWeekFromTodayDate) неделя"
-        self.navBar.title = title
-        
-        // guard let teacher = teacher else { return }
-        if teacher != nil {
-            teacherID = teacher?.teacherID
+    }
+    
+    
+    // MARK: - setUpCurrentWeek
+    /// Simple function to set up currnet week in viewDidLoad
+    func setUpCurrentWeek() {
+
+        if self.weekOfYear % 2 == 0 {
+            self.currentWeekFromTodayDate = 1
+            self.weekSwitch.selectedSegmentIndex = 0
+            self.currentWeek = 1
+        } else {
+            self.currentWeekFromTodayDate = 2
+            self.weekSwitch.selectedSegmentIndex = 1
+            self.currentWeek = 2
         }
         
-        server()
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-          getCurrentAndNextLesson()
-    }
     
+    // MARK: - server
     func server() {
         var url = URL(string: "https://api.rozklad.org.ua/v2/teachers/")!
         url.appendPathComponent(teacherID ?? "")
@@ -110,16 +177,14 @@ class TeacherSheduleViewController: UIViewController {
             do {
                 guard let serverFULLDATA = try? decoder.decode(WelcomeTeachersFull.self, from: data) else { return }
                 let datum = serverFULLDATA.data
-                self.lessons = datum
-
-                print(datum)
-                
+                self.lessons = datum                
                 
                 if self.weekOfYear % 2 == 0 {
                     self.currentWeekFromTodayDate = 1
                     DispatchQueue.main.async {
                         self.weekSwitch.selectedSegmentIndex = 0
                         self.currentWeek = 1
+                        self.tableView.isHidden = false
                         self.tableView.reloadData()
                     }
                 } else {
@@ -127,6 +192,7 @@ class TeacherSheduleViewController: UIViewController {
                     DispatchQueue.main.async {
                         self.weekSwitch.selectedSegmentIndex = 1
                         self.currentWeek = 2
+                        self.tableView.isHidden = false
                         self.tableView.reloadData()
                     }
                 }
@@ -136,11 +202,16 @@ class TeacherSheduleViewController: UIViewController {
                 
                 
             }
+            DispatchQueue.main.async {
+                self.activityIndicator.stopAnimating()
+                self.activityIndicator.isHidden = true
+            }
         }
         
         task.resume()
         
     }
+    
     
     @IBAction func weekChanged(_ sender: UISegmentedControl) {
         switch weekSwitch.selectedSegmentIndex {
@@ -154,7 +225,6 @@ class TeacherSheduleViewController: UIViewController {
                 break
         }
     }
-    
     
 
     func sortLessons() {
@@ -190,7 +260,7 @@ class TeacherSheduleViewController: UIViewController {
                 (currentWeekFromTodayDate == Int(lesson.lessonWeek) ?? 0)) {
                 
                 currentLessonId = lesson.lessonID
-                    
+                
             }
         }
         
@@ -217,21 +287,18 @@ class TeacherSheduleViewController: UIViewController {
         }
     }
     
-    
-
-    
 }
-
-
-
 
 
 // MARK: - Table View Settings
 extension TeacherSheduleViewController: UITableViewDelegate, UITableViewDataSource {
+    
     func numberOfSections(in tableView: UITableView) -> Int {
         return 5
     }
 
+    
+    /// TitleForHeaderInSections
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         
         let mounday = "Понеділок"
@@ -245,59 +312,40 @@ extension TeacherSheduleViewController: UITableViewDelegate, UITableViewDataSour
         return array[section]
     }
     
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-
-        if currentWeek == 1 {
-            var countMounday = 0
-            var countTuesday = 0
-            var countWednesday = 0
-            var countThursday = 0
-            var countFriday = 0
-            
-            for datu in lessonsFirst {
-                if datu.dayName.rawValue == "Понеділок" {
-                    countMounday += 1
-                } else if datu.dayName.rawValue == "Вівторок"{
-                    countTuesday += 1
-                } else if datu.dayName.rawValue == "Середа"{
-                    countWednesday += 1
-                } else if datu.dayName.rawValue == "Четвер"{
-                    countThursday += 1
-                } else if datu.dayName.rawValue == "П’ятниця"{
-                    countFriday += 1
-                }
+        let currentLessonWeek = currentWeek == 1 ? lessonsFirst : lessonsSecond
+        
+        var countMounday = 0
+        var countTuesday = 0
+        var countWednesday = 0
+        var countThursday = 0
+        var countFriday = 0
+        
+        // TODO: check how swich-case works and maybe use it
+        for datu in currentLessonWeek {
+            if datu.dayName.rawValue == "Понеділок" {
+                countMounday += 1
+            } else if datu.dayName.rawValue == "Вівторок"{
+                countTuesday += 1
+            } else if datu.dayName.rawValue == "Середа"{
+                countWednesday += 1
+            } else if datu.dayName.rawValue == "Четвер"{
+                countThursday += 1
+            } else if datu.dayName.rawValue == "П’ятниця"{
+                countFriday += 1
             }
-            let array: [Int] = [countMounday, countTuesday, countWednesday, countThursday, countFriday]
-            return array[section]
-        } else {
-            var countMounday = 0
-            var countTuesday = 0
-            var countWednesday = 0
-            var countThursday = 0
-            var countFriday = 0
-            
-            for datu in lessonsSecond {
-                if datu.dayName.rawValue == "Понеділок" {
-                    countMounday += 1
-                } else if datu.dayName.rawValue == "Вівторок"{
-                    countTuesday += 1
-                } else if datu.dayName.rawValue == "Середа"{
-                    countWednesday += 1
-                } else if datu.dayName.rawValue == "Четвер"{
-                    countThursday += 1
-                } else if datu.dayName.rawValue == "П’ятниця"{
-                    countFriday += 1
-                }
-            }
-            let array: [Int] = [countMounday, countTuesday, countWednesday, countThursday, countFriday]
-            return array[section]
         }
+        
+        let array: [Int] = [countMounday, countTuesday, countWednesday, countThursday, countFriday]
+        return array[section]
     }
     
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 68
     }
+    
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)

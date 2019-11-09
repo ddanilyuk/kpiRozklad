@@ -95,9 +95,29 @@ class SheduleViewController: UIViewController {
         tableView.register(UINib(nibName: "LessonTableViewCell", bundle: Bundle.main), forCellReuseIdentifier: "LessonTableViewCell")
         
         getDayNumAndWeekOfYear()
-        
         setUpCurrentWeek()
         
+        fetchingCoreData()
+        
+        /// If Core Data is empty, making request from server
+        if lessonsCoreData.isEmpty {
+            server()
+        }
+        
+    }
+    
+//    override func viewWillAppear(_ animated: Bool) {
+//        print("dada")
+//        /// If Core Data is empty, making request from server
+//        if lessonsCoreData.isEmpty {
+//            server()
+//        }
+//    }
+    
+    
+    // MARK: - fetchingCoreData
+    /// Function which fetch lesson from core data
+    func fetchingCoreData() {
         /// Core data request
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
 
@@ -133,9 +153,11 @@ class SheduleViewController: UIViewController {
                 
                 /// Array of teacher which added to  variable `lesson` and then added to main variable `lessons`
                 var teachers: [Teacher] = []
+                var rooms: [Room] = []
+
                 
-                /// Trying to fetch all Teacher Data from TeacherData entity in relationship
-                if let teacherData = lesson.value(forKey: "relationship") as? TeachersData {
+                /// Trying to fetch all Teacher Data from TeacherData entity in teachersRelationship
+                if let teacherData = lesson.value(forKey: "teachersRelationship") as? TeachersData {
 
                     guard let teacherId = teacherData.teacherID,
                         let teacherShortName = teacherData.teacherShortName,
@@ -149,11 +171,24 @@ class SheduleViewController: UIViewController {
                 }
                 
                 
+                if let roomData = lesson.value(forKey: "roomsRelationship") as? RoomsData {
+
+                    guard let roomID = roomData.roomID,
+                        let roomName = roomData.roomName,
+                        let roomLatitude = roomData.roomLatitude,
+                        let roomLongitude = roomData.roomLongitude else { return }
+
+                    let room = Room(roomID: roomID, roomName: roomName, roomLatitude: roomLatitude, roomLongitude: roomLongitude)
+
+                    rooms.append(room)
+                }
+                
+                
                 let lesson = Lesson(lessonID: lessonID, groupID: groupID, dayNumber: dayNumber,
                                    dayName: dayNameCoreData, lessonName: lessonName, lessonFullName: lessonFullName,
                                    lessonNumber: lessonNumber, lessonRoom: lessonRoom, lessonType: lessonTypeCoreData,
                                    teacherName: teacherName, lessonWeek: lessonWeek, timeStart: timeStart,
-                                   timeEnd: timeEnd, rate: rate, teachers: teachers, rooms: [])
+                                   timeEnd: timeEnd, rate: rate, teachers: teachers, rooms: rooms)
                 
                 lessons.append(lesson)
             }
@@ -166,13 +201,6 @@ class SheduleViewController: UIViewController {
         sortLessons()
         getCurrentAndNextLesson()
         tableView.reloadData()
-        
-        /// If Core Data is empty, making request from server
-        if lessonsCoreData.isEmpty {
-            server()
-        }
-        
-
     }
     
     
@@ -288,10 +316,12 @@ class SheduleViewController: UIViewController {
             for lesson in datum {
                 let entity = NSEntityDescription.entity(forEntityName: "LessonData", in: managedContext)!
                 let entity2 = NSEntityDescription.entity(forEntityName: "TeachersData", in: managedContext)!
+                let entity3 = NSEntityDescription.entity(forEntityName: "RoomsData", in: managedContext)!
 
 
                 let lessonCoreData = NSManagedObject(entity: entity, insertInto: managedContext)
                 let teacherCoreData = NSManagedObject(entity: entity2, insertInto: managedContext)
+                let roomCoreData = NSManagedObject(entity: entity3, insertInto: managedContext)
 
 
                 lessonCoreData.setValue(lesson.lessonID, forKeyPath: "lessonID")
@@ -317,13 +347,19 @@ class SheduleViewController: UIViewController {
                     teacherCoreData.setValue(lesson.teachers[0].teacherShortName, forKey: "teacherShortName")
                     teacherCoreData.setValue(lesson.teachers[0].teacherURL, forKey: "teacherURL")
                     
-                    lessonCoreData.setValue(teacherCoreData, forKey: "relationship")
+                    lessonCoreData.setValue(teacherCoreData, forKey: "teachersRelationship")
+                }
+                
+                if lesson.rooms.count != 0 {
+                    roomCoreData.setValue(lesson.rooms[0].roomID, forKey: "roomID")
+                    roomCoreData.setValue(lesson.rooms[0].roomName, forKey: "roomName")
+                    roomCoreData.setValue(lesson.rooms[0].roomLatitude, forKey: "roomLatitude")
+                    roomCoreData.setValue(lesson.rooms[0].roomLongitude, forKey: "roomLongitude")
+
+                    lessonCoreData.setValue(roomCoreData, forKey: "roomsRelationship")
                 }
                 
                 
-                
-                
-
                 do {
                     try managedContext.save()
                     self.lessonsCoreData.append(lessonCoreData)
@@ -335,6 +371,7 @@ class SheduleViewController: UIViewController {
             /// Sorting, getting current  lessons and updatting tableView
             self.sortLessons()
             self.getCurrentAndNextLesson()
+            self.fetchingCoreData()
             self.tableView.reloadData()
         }
     }
@@ -451,9 +488,11 @@ class SheduleViewController: UIViewController {
 
 // MARK: - Table View Settings
 extension SheduleViewController: UITableViewDelegate, UITableViewDataSource {
+    
     func numberOfSections(in tableView: UITableView) -> Int {
         return 5
     }
+    
 
     /// TitleForHeaderInSections
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {

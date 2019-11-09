@@ -16,17 +16,19 @@ class TeachersViewController: UIViewController {
     
     var teachers = [Teacher]()
     
+    var chooserMyTeacher: Bool = true
     
     var isSearching = false
     let search = UISearchController(searchResultsController: nil)
     var teachersInSearch = [Teacher]()
 
 
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        server()
+        server(chooser: chooserMyTeacher)
         
         tableView.delegate = self
         tableView.dataSource = self
@@ -36,17 +38,19 @@ class TeachersViewController: UIViewController {
         search.searchBar.placeholder = "Поиск преподавателей"
         self.navigationItem.searchController = search
         definesPresentationContext = true
+        
+        activityIndicator.startAnimating()
+        tableView.isHidden = true
+        self.view.bringSubviewToFront(activityIndicator)
+
     }
     
     
-    func server() {
-        for i in 0..<51 {
-            let offset = i * 100
-            
-            let stringURL = "https://api.rozklad.org.ua/v2/teachers?filter=%7B'limit':100,'offset':\(String(offset))%7D"
-
+    func server(chooser: Bool) {
+        if (chooser) {
+            let stringURL = "https://api.rozklad.org.ua/v2/groups/5489/teachers"
             let url = URL(string: stringURL)!
-           
+
             
             let task = URLSession.shared.dataTask(with: url) {(data, response, error) in
                 guard let data = data else { return }
@@ -55,17 +59,55 @@ class TeachersViewController: UIViewController {
                 do {
                     guard let serverFULLDATA = try? decoder.decode(WelcomeTeachers.self, from: data) else { return }
                     let datum = serverFULLDATA.data
-                    self.teachers += datum
-                    print(self.teachers.count)
+                    self.teachers = datum
                     
                     DispatchQueue.main.async {
+                        self.tableView.isHidden = false
                         self.tableView.reloadData()
                     }
                 }
+                DispatchQueue.main.async {
+                    self.activityIndicator.stopAnimating()
+                    self.activityIndicator.isHidden = true
+                }
             }
             task.resume()
+            
+        } else {
+            for i in 0..<51 {
+                let offset = i * 100
+                let stringURL = "https://api.rozklad.org.ua/v2/teachers?filter=%7B'limit':100,'offset':\(String(offset))%7D"
+                
+                
+                let url = URL(string: stringURL)!
+               
+                
+                let task = URLSession.shared.dataTask(with: url) {(data, response, error) in
+                    guard let data = data else { return }
+                    let decoder = JSONDecoder()
 
+                    do {
+                        guard let serverFULLDATA = try? decoder.decode(WelcomeTeachers.self, from: data) else { return }
+                        let datum = serverFULLDATA.data
+                        self.teachers += datum
+                        print(self.teachers.count)
+                        
+                        DispatchQueue.main.async {
+                            self.tableView.isHidden = false
+                            self.tableView.reloadData()
+                        }
+                    }
+                    DispatchQueue.main.async {
+                        self.activityIndicator.stopAnimating()
+                        self.activityIndicator.isHidden = true
+                    }
+                    
+                }
+                task.resume()
+            }
+            
         }
+        
         
     }
     

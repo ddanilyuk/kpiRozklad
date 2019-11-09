@@ -15,7 +15,15 @@
         <attribute name="teacherName" optional="YES" attributeType="String"/>
         <attribute name="timeEnd" optional="YES" attributeType="String"/>
         <attribute name="timeStart" optional="YES" attributeType="String"/>
-        <relationship name="relationship" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="TeachersData" inverseName="relationship" inverseEntity="TeachersData"/>
+        <relationship name="roomsRelationship" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="RoomsData" inverseName="roomsRelationship" inverseEntity="RoomsData"/>
+        <relationship name="teachersRelationship" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="TeachersData" inverseName="teachersRelationship" inverseEntity="TeachersData"/>
+    </entity>
+    <entity name="RoomsData" representedClassName="RoomsData" syncable="YES" codeGenerationType="class">
+        <attribute name="roomID" optional="YES" attributeType="String"/>
+        <attribute name="roomLatitude" optional="YES" attributeType="String"/>
+        <attribute name="roomLongitude" optional="YES" attributeType="String"/>
+        <attribute name="roomName" optional="YES" attributeType="String"/>
+        <relationship name="roomsRelationship" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="LessonData" inverseName="roomsRelationship" inverseEntity="LessonData"/>
     </entity>
     <entity name="TeachersData" representedClassName="TeachersData" syncable="YES" codeGenerationType="class">
         <attribute name="teacherFullName" optional="YES" attributeType="String"/>
@@ -24,10 +32,11 @@
         <attribute name="teacherRating" optional="YES" attributeType="String"/>
         <attribute name="teacherShortName" optional="YES" attributeType="String"/>
         <attribute name="teacherURL" optional="YES" attributeType="String"/>
-        <relationship name="relationship" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="LessonData" inverseName="relationship" inverseEntity="LessonData"/>
+        <relationship name="teachersRelationship" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="LessonData" inverseName="teachersRelationship" inverseEntity="LessonData"/>
     </entity>
     <elements>
-        <element name="LessonData" positionX="-63" positionY="-18" width="128" height="268"/>
+        <element name="LessonData" positionX="-63" positionY="-18" width="128" height="283"/>
         <element name="TeachersData" positionX="241.29296875" positionY="48.12109375" width="128" height="148"/>
+        <element name="RoomsData" positionX="90" positionY="99" width="128" height="28"/>
     </elements>
 </model>

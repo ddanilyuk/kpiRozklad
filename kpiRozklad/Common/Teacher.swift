@@ -20,7 +20,7 @@ struct WelcomeTeachers: Codable {
     let statusCode, timeStamp: Int
     let message: String
     let debugInfo: JSONNull?
-    let meta: Meta
+    let meta: Meta?
     let data: [Teacher]
 }
 

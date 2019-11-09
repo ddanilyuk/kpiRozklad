@@ -7,11 +7,11 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Рассписание-->
+        <!--Розклад-->
         <scene sceneID="R5c-ao-yeO">
             <objects>
                 <navigationController id="RNu-Ik-QQg" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Рассписание" image="rectangle.grid.1x2" catalog="system" id="8Be-PC-7G9"/>
+                    <tabBarItem key="tabBarItem" title="Розклад" image="rectangle.grid.1x2" catalog="system" id="8Be-PC-7G9"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" largeTitles="YES" id="uN9-z4-vS1">
                         <rect key="frame" x="0.0" y="44" width="375" height="96"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -81,11 +81,11 @@
             </objects>
             <point key="canvasLocation" x="-36" y="-409"/>
         </scene>
-        <!--Преподаватели-->
+        <!--Викладачі-->
         <scene sceneID="UTN-su-Qgb">
             <objects>
                 <navigationController id="KXC-1K-S0d" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Преподаватели" image="person" catalog="system" id="mOh-4a-EI2"/>
+                    <tabBarItem key="tabBarItem" title="Викладачі" image="person" catalog="system" id="mOh-4a-EI2"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="TWW-Se-E3A">
                         <rect key="frame" x="0.0" y="44" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -98,10 +98,10 @@
             </objects>
             <point key="canvasLocation" x="-36" y="-1145"/>
         </scene>
-        <!--View Controller-->
+        <!--Teacher Choosing View Controller-->
         <scene sceneID="X3f-0s-ta5">
             <objects>
-                <viewController id="T2E-EI-2Au" sceneMemberID="viewController">
+                <viewController id="T2E-EI-2Au" customClass="TeacherChoosingViewController" customModule="kpiRozklad" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="3Rv-0k-YY3">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -116,26 +116,7 @@
                                             <constraint firstAttribute="height" constant="60" id="c4m-Ab-MuE"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="24"/>
-                                        <state key="normal" title="Мои преподаватели">
-                                            <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
-                                        </state>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
-                                                <color key="value" cocoaTouchSystemColor="darkTextColor"/>
-                                            </userDefinedRuntimeAttribute>
-                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                                <real key="value" value="30"/>
-                                            </userDefinedRuntimeAttribute>
-                                        </userDefinedRuntimeAttributes>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cOU-J1-Gtg">
-                                        <rect key="frame" x="20" y="140" width="335" height="60"/>
-                                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="60" id="SQk-o5-kNz"/>
-                                        </constraints>
-                                        <fontDescription key="fontDescription" type="system" pointSize="24"/>
-                                        <state key="normal" title="Все преподаватели">
+                                        <state key="normal" title="Мої  викладачі">
                                             <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
                                         </state>
                                         <userDefinedRuntimeAttributes>
@@ -147,7 +128,29 @@
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                         <connections>
-                                            <segue destination="uqy-EP-nOA" kind="show" id="lgV-8z-gFe"/>
+                                            <action selector="didPressMyTeachers:" destination="T2E-EI-2Au" eventType="touchUpInside" id="TTF-WZ-Rlz"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cOU-J1-Gtg">
+                                        <rect key="frame" x="20" y="140" width="335" height="60"/>
+                                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="60" id="SQk-o5-kNz"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                        <state key="normal" title="Всі викладачі">
+                                            <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        </state>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                <color key="value" cocoaTouchSystemColor="darkTextColor"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                <real key="value" value="30"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="didPressAllTeachers:" destination="T2E-EI-2Au" eventType="touchUpInside" id="bDJ-8x-3Fc"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -169,6 +172,9 @@
                         <viewLayoutGuide key="safeArea" id="YnE-Yf-gNC"/>
                     </view>
                     <navigationItem key="navigationItem" id="Z2Q-Un-m9V"/>
+                    <connections>
+                        <segue destination="uqy-EP-nOA" kind="show" identifier="showTeachersVC" id="hGB-vS-gf2"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="c9b-S9-6Rx" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -182,7 +188,11 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="ozO-6T-Pnc">
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="large" id="mQt-nJ-ahl">
+                                <rect key="frame" x="0.0" y="384" width="375" height="44"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </activityIndicatorView>
+                            <tableView clipsSubviews="YES" tag="-1" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="ozO-6T-Pnc">
                                 <rect key="frame" x="0.0" y="88" width="375" height="641"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                             </tableView>
@@ -199,6 +209,7 @@
                     <tabBarItem key="tabBarItem" title="Преподаватели" image="person" catalog="system" id="Yrj-YQ-4gU"/>
                     <navigationItem key="navigationItem" title="Преподаватели" id="TEz-7E-uSY"/>
                     <connections>
+                        <outlet property="activityIndicator" destination="mQt-nJ-ahl" id="P4R-JC-78I"/>
                         <outlet property="tableView" destination="ozO-6T-Pnc" id="evC-DR-UwR"/>
                         <segue destination="StT-wO-RBg" kind="show" identifier="showTeacherShedule2" id="5QF-Tv-CiU"/>
                     </connections>
@@ -226,11 +237,11 @@
             </objects>
             <point key="canvasLocation" x="-967" y="-1882"/>
         </scene>
-        <!--Настройки-->
+        <!--Налаштування-->
         <scene sceneID="BEv-i4-Jna">
             <objects>
                 <navigationController id="Up2-P3-oV8" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Настройки" image="circle.grid.hex" catalog="system" id="eGl-iV-sjK"/>
+                    <tabBarItem key="tabBarItem" title="Налаштування" image="circle.grid.hex" catalog="system" id="eGl-iV-sjK"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" largeTitles="YES" id="FTi-ic-b3N">
                         <rect key="frame" x="0.0" y="44" width="375" height="96"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -246,7 +257,7 @@
         <!--Настройки-->
         <scene sceneID="FIg-qI-laJ">
             <objects>
-                <tableViewController id="Nvr-ip-G7Y" sceneMemberID="viewController">
+                <tableViewController id="Nvr-ip-G7Y" customClass="SettingsTableViewController" customModule="kpiRozklad" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="2OE-JR-jzj">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -254,36 +265,38 @@
                         <sections>
                             <tableViewSection headerTitle="Основные" id="iUs-Xq-0hq">
                                 <cells>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="laj-nz-em0">
-                                        <rect key="frame" x="0.0" y="28" width="375" height="43.666667938232422"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="laj-nz-em0" id="aFs-Oo-VAm">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.666667938232422"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IOj-SL-WW5">
-                                                    <rect key="frame" x="16" y="11" width="42" height="21"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                            </subviews>
-                                        </tableViewCellContentView>
-                                    </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="Qg9-C8-nGy">
-                                        <rect key="frame" x="0.0" y="71.666667938232422" width="375" height="43.666667938232422"/>
+                                        <rect key="frame" x="0.0" y="28" width="375" height="43.666667938232422"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Qg9-C8-nGy" id="J9C-q6-ETp">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="43.666667938232422"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8tG-Zs-v0z">
-                                                    <rect key="frame" x="16" y="7" width="168" height="30"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <state key="normal" title="Обновить рассписание"/>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BnC-cx-1ul">
+                                                    <rect key="frame" x="16" y="0.0" width="359" height="44"/>
+                                                    <state key="normal" title="Оновити розклад">
+                                                        <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    </state>
+                                                    <connections>
+                                                        <action selector="didPressUpdateShedule:" destination="j5H-lg-95l" eventType="touchUpInside" id="CkM-7f-Wy1"/>
+                                                        <action selector="didPressUpdateShedule:" destination="Nvr-ip-G7Y" eventType="touchUpInside" id="pyd-M5-iit"/>
+                                                    </connections>
                                                 </button>
                                             </subviews>
+                                            <constraints>
+                                                <constraint firstItem="BnC-cx-1ul" firstAttribute="leading" secondItem="J9C-q6-ETp" secondAttribute="leading" constant="16" id="7Mn-S9-EDX"/>
+                                                <constraint firstAttribute="bottom" secondItem="BnC-cx-1ul" secondAttribute="bottom" id="JiW-LP-H7P"/>
+                                                <constraint firstAttribute="trailing" secondItem="BnC-cx-1ul" secondAttribute="trailing" id="oRS-jb-O9I"/>
+                                                <constraint firstItem="BnC-cx-1ul" firstAttribute="top" secondItem="J9C-q6-ETp" secondAttribute="top" id="sZn-JC-Rdl"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="1NT-ho-nIi">
+                                        <rect key="frame" x="0.0" y="71.666667938232422" width="375" height="43.666667938232422"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="1NT-ho-nIi" id="IDu-FY-PfK">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.666667938232422"/>
+                                            <autoresizingMask key="autoresizingMask"/>
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                 </cells>
@@ -298,6 +311,7 @@
                     <navigationItem key="navigationItem" title="Настройки" largeTitleDisplayMode="always" id="qYc-J4-I1X"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rr4-vK-4Ew" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <exit id="j5H-lg-95l" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="2646" y="-1882"/>
         </scene>
@@ -370,7 +384,8 @@
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DFO-PY-g7X">
                                         <rect key="frame" x="0.0" y="267" width="359" height="53.666666666666686"/>
                                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <state key="normal" title="Посмотреть рассписание преподователя">
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <state key="normal" title="Подивитись розклад викладача">
                                             <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
                                         </state>
                                         <userDefinedRuntimeAttributes>
@@ -414,7 +429,7 @@
             </objects>
             <point key="canvasLocation" x="926" y="-409"/>
         </scene>
-        <!--Сейчас   неделя-->
+        <!--Зараз   тиждень-->
         <scene sceneID="iN0-Y0-247">
             <objects>
                 <viewController storyboardIdentifier="TeacherSheduleViewController" id="StT-wO-RBg" customClass="TeacherSheduleViewController" customModule="kpiRozklad" customModuleProvider="target" sceneMemberID="viewController">
@@ -422,6 +437,9 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="aXm-Uf-t5P">
+                                <rect key="frame" x="0.0" y="390" width="375" height="37"/>
+                            </activityIndicatorView>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="6uy-Lx-1YN" customClass="Teac">
                                 <rect key="frame" x="0.0" y="88" width="375" height="690"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -429,9 +447,15 @@
                             </tableView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="aXm-Uf-t5P" firstAttribute="centerX" secondItem="WFT-WZ-9dT" secondAttribute="centerX" id="3CT-jr-F58"/>
+                            <constraint firstItem="aXm-Uf-t5P" firstAttribute="centerY" secondItem="WFT-WZ-9dT" secondAttribute="centerY" id="5J8-jA-Zt6"/>
+                            <constraint firstItem="WFT-WZ-9dT" firstAttribute="trailing" secondItem="aXm-Uf-t5P" secondAttribute="trailing" id="GS5-Qw-jdY"/>
+                            <constraint firstItem="aXm-Uf-t5P" firstAttribute="leading" secondItem="WFT-WZ-9dT" secondAttribute="leading" id="v2N-L5-FjC"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="WFT-WZ-9dT"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Сейчас   неделя" id="bUt-BO-BjC">
+                    <navigationItem key="navigationItem" title="Зараз   тиждень" id="bUt-BO-BjC">
                         <barButtonItem key="rightBarButtonItem" style="plain" id="tlm-hn-UJD">
                             <segmentedControl key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="m5f-ON-rhO">
                                 <rect key="frame" x="276" y="5.6666666666666679" width="83" height="33"/>
@@ -448,6 +472,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="activityIndicator" destination="aXm-Uf-t5P" id="jTF-hp-rxV"/>
                         <outlet property="navBar" destination="bUt-BO-BjC" id="2fA-mh-ZsX"/>
                         <outlet property="tableView" destination="6uy-Lx-1YN" id="wpa-uC-bGX"/>
                         <outlet property="weekSwitch" destination="m5f-ON-rhO" id="Hih-z3-2at"/>
@@ -455,7 +480,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hN0-8F-l95" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2646" y="-409"/>
+            <point key="canvasLocation" x="2645.5999999999999" y="-409.35960591133005"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="7Me-gC-YiB">

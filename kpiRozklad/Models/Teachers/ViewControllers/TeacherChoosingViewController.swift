@@ -35,7 +35,7 @@ class TeacherChoosingViewController: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
 
         if let destination = segue.destination as? TeachersViewController {
-            destination.chooserMyTeacher = chooserMyTeacher
+            destination.isChoosenMyTeachers = chooserMyTeacher
         }
         
     }

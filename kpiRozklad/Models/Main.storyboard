@@ -91,94 +91,12 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
-                        <segue destination="T2E-EI-2Au" kind="relationship" relationship="rootViewController" id="VRo-at-l5F"/>
+                        <segue destination="uqy-EP-nOA" kind="relationship" relationship="rootViewController" id="I9P-55-83z"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="c1c-ZN-yOS" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-36" y="-1145"/>
-        </scene>
-        <!--Teacher Choosing View Controller-->
-        <scene sceneID="X3f-0s-ta5">
-            <objects>
-                <viewController id="T2E-EI-2Au" customClass="TeacherChoosingViewController" customModule="kpiRozklad" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="3Rv-0k-YY3">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="al9-Np-3eJ">
-                                <rect key="frame" x="0.0" y="308.66666666666669" width="375" height="200"/>
-                                <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EH9-ju-4nX">
-                                        <rect key="frame" x="20" y="0.0" width="335" height="60"/>
-                                        <color key="backgroundColor" systemColor="linkColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="60" id="c4m-Ab-MuE"/>
-                                        </constraints>
-                                        <fontDescription key="fontDescription" type="system" pointSize="24"/>
-                                        <state key="normal" title="Мої викладачі">
-                                            <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
-                                        </state>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
-                                                <color key="value" cocoaTouchSystemColor="darkTextColor"/>
-                                            </userDefinedRuntimeAttribute>
-                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                                <real key="value" value="30"/>
-                                            </userDefinedRuntimeAttribute>
-                                        </userDefinedRuntimeAttributes>
-                                        <connections>
-                                            <action selector="didPressMyTeachers:" destination="T2E-EI-2Au" eventType="touchUpInside" id="TTF-WZ-Rlz"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cOU-J1-Gtg">
-                                        <rect key="frame" x="20" y="140" width="335" height="60"/>
-                                        <color key="backgroundColor" systemColor="linkColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="60" id="SQk-o5-kNz"/>
-                                        </constraints>
-                                        <fontDescription key="fontDescription" type="system" pointSize="24"/>
-                                        <state key="normal" title="Всі викладачі">
-                                            <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
-                                        </state>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
-                                                <color key="value" cocoaTouchSystemColor="darkTextColor"/>
-                                            </userDefinedRuntimeAttribute>
-                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                                <real key="value" value="30"/>
-                                            </userDefinedRuntimeAttribute>
-                                        </userDefinedRuntimeAttributes>
-                                        <connections>
-                                            <action selector="didPressAllTeachers:" destination="T2E-EI-2Au" eventType="touchUpInside" id="bDJ-8x-3Fc"/>
-                                        </connections>
-                                    </button>
-                                </subviews>
-                                <constraints>
-                                    <constraint firstItem="EH9-ju-4nX" firstAttribute="leading" secondItem="al9-Np-3eJ" secondAttribute="leading" constant="20" id="4jj-DJ-lhG"/>
-                                    <constraint firstAttribute="height" constant="200" id="74P-Pp-ZOx"/>
-                                    <constraint firstAttribute="trailing" secondItem="EH9-ju-4nX" secondAttribute="trailing" constant="20" id="TNa-kC-ToL"/>
-                                    <constraint firstAttribute="trailing" secondItem="cOU-J1-Gtg" secondAttribute="trailing" constant="20" id="lFZ-2h-yoG"/>
-                                    <constraint firstItem="cOU-J1-Gtg" firstAttribute="leading" secondItem="al9-Np-3eJ" secondAttribute="leading" constant="20" id="mVM-J9-FM7"/>
-                                </constraints>
-                            </stackView>
-                        </subviews>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                        <constraints>
-                            <constraint firstItem="YnE-Yf-gNC" firstAttribute="trailing" secondItem="al9-Np-3eJ" secondAttribute="trailing" id="G1u-2h-3jx"/>
-                            <constraint firstItem="al9-Np-3eJ" firstAttribute="leading" secondItem="YnE-Yf-gNC" secondAttribute="leading" id="XgT-fH-RXN"/>
-                            <constraint firstItem="al9-Np-3eJ" firstAttribute="centerY" secondItem="YnE-Yf-gNC" secondAttribute="centerY" id="qXf-PX-F38"/>
-                        </constraints>
-                        <viewLayoutGuide key="safeArea" id="YnE-Yf-gNC"/>
-                    </view>
-                    <navigationItem key="navigationItem" id="Z2Q-Un-m9V"/>
-                    <connections>
-                        <segue destination="uqy-EP-nOA" kind="show" identifier="showTeachersVC" id="hGB-vS-gf2"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="c9b-S9-6Rx" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="877.60000000000002" y="-1145.3201970443349"/>
+            <point key="canvasLocation" x="321" y="-1145"/>
         </scene>
         <!--Викладачі-->
         <scene sceneID="xbn-fN-qco">
@@ -210,18 +128,22 @@
                     <navigationItem key="navigationItem" title="Викладачі" id="TEz-7E-uSY">
                         <barButtonItem key="rightBarButtonItem" style="plain" id="2Tw-jJ-Ixu">
                             <segmentedControl key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bordered" selectedSegmentIndex="0" id="bXl-wA-VMP">
-                                <rect key="frame" x="-65" y="-15" width="83" height="33"/>
+                                <rect key="frame" x="276" y="5.6666666666666679" width="83" height="33"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <segments>
                                     <segment title="Мої"/>
                                     <segment title="Всі"/>
                                 </segments>
                                 <color key="selectedSegmentTintColor" systemColor="linkColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <connections>
+                                    <action selector="weekChanged:" destination="uqy-EP-nOA" eventType="valueChanged" id="5Ca-SL-pN7"/>
+                                </connections>
                             </segmentedControl>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="activityIndicator" destination="mQt-nJ-ahl" id="P4R-JC-78I"/>
+                        <outlet property="segmentControl" destination="bXl-wA-VMP" id="WOz-aL-VX7"/>
                         <outlet property="tableView" destination="ozO-6T-Pnc" id="evC-DR-UwR"/>
                         <segue destination="StT-wO-RBg" kind="show" identifier="showTeacherShedule2" id="5QF-Tv-CiU"/>
                     </connections>

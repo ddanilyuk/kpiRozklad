@@ -15,8 +15,10 @@ class TeachersViewController: UIViewController {
     let reuseID = "reuseIDForTeachers"
     
     var teachers = [Teacher]()
+    var myTeachers = [Teacher]()
+    var allTeachers = [Teacher]()
     
-    var chooserMyTeacher: Bool = true
+    var isChoosenMyTeachers: Bool = true
     
     var isSearching = false
     let search = UISearchController(searchResultsController: nil)
@@ -25,10 +27,14 @@ class TeachersViewController: UIViewController {
 
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
+    @IBOutlet weak var segmentControl: UISegmentedControl!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        server(chooser: chooserMyTeacher)
+        
+        teachers = (isChoosenMyTeachers) ? myTeachers : allTeachers
+        
+        server(chooser: isChoosenMyTeachers)
         
         tableView.delegate = self
         tableView.dataSource = self
@@ -43,6 +49,31 @@ class TeachersViewController: UIViewController {
         tableView.isHidden = true
         self.view.bringSubviewToFront(activityIndicator)
 
+    }
+    
+    
+    @IBAction func weekChanged(_ sender: UISegmentedControl) {
+        switch segmentControl.selectedSegmentIndex {
+            case 0:
+                isChoosenMyTeachers = true
+                self.teachers = []
+
+                teachers = (isChoosenMyTeachers) ? myTeachers : allTeachers
+
+                self.teachers = []
+                server(chooser: isChoosenMyTeachers)
+                tableView.reloadData()
+            case 1:
+                isChoosenMyTeachers = false
+                self.teachers = []
+
+                teachers = (isChoosenMyTeachers) ? myTeachers : allTeachers
+
+                server(chooser: isChoosenMyTeachers)
+                tableView.reloadData()
+            default:
+                break
+        }
     }
     
     
@@ -127,6 +158,7 @@ extension TeachersViewController: UITableViewDelegate, UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = UITableViewCell(style: .default, reuseIdentifier: reuseID)
+        
         
         if isSearching {
             cell.textLabel?.text = teachersInSearch[indexPath.row].teacherName

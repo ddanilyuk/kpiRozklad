@@ -90,6 +90,11 @@ class SheduleViewController: UIViewController {
     // MARK: - viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        deleteAllFromCoreData()
+        
+        presentGroupChooser()
+        
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(UINib(nibName: "LessonTableViewCell", bundle: Bundle.main), forCellReuseIdentifier: "LessonTableViewCell")
@@ -99,26 +104,44 @@ class SheduleViewController: UIViewController {
         
         fetchingCoreData()
         
-
+        // self.navigationController?.title = Settings.shared.groupName.uppercased()
+        self.navigationItem.title = Settings.shared.groupName.uppercased()
         
-        /// If Core Data is empty, making request from server
-        if lessonsCoreData.isEmpty {
-            server()
-        }
+
         
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        presentGroupChooser()
         print("dada")
+        
         /// If Core Data is empty, making request from server
-        if Settings.shared.isTryToRefreshShedule {
-            print("some")
+        if lessonsCoreData.isEmpty {
+            server()
+        } else if Settings.shared.isTryToRefreshShedule {
+            deleteAllFromCoreData()
+            lessonsCoreData = []
+            lessons = []
+            Settings.shared.isTryToRefreshShedule = false
+            server()
+        } else if Settings.shared.groupName == "" {
+            deleteAllFromCoreData()
             lessonsCoreData = []
             lessons = []
             server()
-            Settings.shared.isTryToRefreshShedule = false
         }
     }
+    
+    func presentGroupChooser() {
+        if Settings.shared.groupName == "" {
+            let mainStoryboard = UIStoryboard(name: "Main", bundle: Bundle.main)
+            let groupVC : UINavigationController = mainStoryboard.instantiateViewController(withIdentifier: "navigationGroupChooser") as! UINavigationController
+            
+            self.present(groupVC, animated: true, completion: nil)
+        }
+        
+    }
+    
     
     
     // MARK: - fetchingCoreData
@@ -292,7 +315,7 @@ class SheduleViewController: UIViewController {
     /// - note: This fuction call `updateCoreData()`
     /// - todo: fuction must change url for different groups
     func server() {
-        let url = URL(string: "https://api.rozklad.org.ua/v2/groups/5489/lessons")!
+        let url = URL(string: "https://api.rozklad.org.ua/v2/groups/\(Settings.shared.groupID)/lessons")!
         print(url)
         let task = URLSession.shared.dataTask(with: url) {(data, response, error) in
             guard let data = data else { return }

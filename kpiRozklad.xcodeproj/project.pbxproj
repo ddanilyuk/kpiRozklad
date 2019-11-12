@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		5F4457E42376FB05008F9E21 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F4457E32376FB05008F9E21 /* Settings.swift */; };
 		5F6A08062370A175000A9C79 /* kpiRozklad.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 5F6A08042370A175000A9C79 /* kpiRozklad.xcdatamodeld */; };
+		5FA2B79B2379F20C006C466B /* GroupChooserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FA2B79A2379F20C006C466B /* GroupChooserViewController.swift */; };
+		5FA2B79D2379F5A7006C466B /* Group.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FA2B79C2379F5A7006C466B /* Group.swift */; };
 		D300F1D62364CEA30098CA83 /* TeachersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D300F1D52364CEA30098CA83 /* TeachersViewController.swift */; };
 		D300F1D82364CEBB0098CA83 /* TeacherChoosingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D300F1D72364CEBB0098CA83 /* TeacherChoosingViewController.swift */; };
 		D300F1DA2364CF490098CA83 /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D300F1D92364CF490098CA83 /* SettingsTableViewController.swift */; };
@@ -31,6 +33,8 @@
 /* Begin PBXFileReference section */
 		5F4457E32376FB05008F9E21 /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		5F6A08052370A175000A9C79 /* Lesson.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Lesson.xcdatamodel; sourceTree = "<group>"; };
+		5FA2B79A2379F20C006C466B /* GroupChooserViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupChooserViewController.swift; sourceTree = "<group>"; };
+		5FA2B79C2379F5A7006C466B /* Group.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Group.swift; sourceTree = "<group>"; };
 		D300F1D52364CEA30098CA83 /* TeachersViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeachersViewController.swift; sourceTree = "<group>"; };
 		D300F1D72364CEBB0098CA83 /* TeacherChoosingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeacherChoosingViewController.swift; sourceTree = "<group>"; };
 		D300F1D92364CF490098CA83 /* SettingsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
@@ -126,6 +130,7 @@
 				D3FFAAE32352464D0065E9CE /* Teachers */,
 				D3FFAADA234F7A2C0065E9CE /* Settings */,
 				D313F4A9233AAC880076CFF8 /* Main.storyboard */,
+				5FA2B79A2379F20C006C466B /* GroupChooserViewController.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -222,6 +227,7 @@
 				D300F1DB2365BC270098CA83 /* Teacher.swift */,
 				5F4457E32376FB05008F9E21 /* Settings.swift */,
 				D3FFAAE223521BAC0065E9CE /* Extensions */,
+				5FA2B79C2379F5A7006C466B /* Group.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -336,6 +342,7 @@
 				D313F496233AAB6C0076CFF8 /* AppDelegate.swift in Sources */,
 				D3FFAAE72352467F0065E9CE /* TeacherSheduleViewController.swift in Sources */,
 				D34BEBC5233CCFC10035F7B4 /* Extensions.swift in Sources */,
+				5FA2B79D2379F5A7006C466B /* Group.swift in Sources */,
 				D300F1DA2364CF490098CA83 /* SettingsTableViewController.swift in Sources */,
 				5F4457E42376FB05008F9E21 /* Settings.swift in Sources */,
 				D313F4B0233AB94C0076CFF8 /* TeacherFull.swift in Sources */,
@@ -345,6 +352,7 @@
 				D300F1DC2365BC270098CA83 /* Teacher.swift in Sources */,
 				D313F4B5233D1F090076CFF8 /* LessonTableViewCell.swift in Sources */,
 				5F6A08062370A175000A9C79 /* kpiRozklad.xcdatamodeld in Sources */,
+				5FA2B79B2379F20C006C466B /* GroupChooserViewController.swift in Sources */,
 				D300F1D82364CEBB0098CA83 /* TeacherChoosingViewController.swift in Sources */,
 				D363E7AA233BB74B00573EB2 /* SheduleDetailViewController.swift in Sources */,
 			);

@@ -30,4 +30,22 @@
             userDefaults.set(newValue, forKey: "isTryToRefreshShedule")
         }
     }
+    
+    var groupName: String {
+        get {
+            return userDefaults.string(forKey: "groupName") ?? ""
+        }
+        set {
+            userDefaults.set(newValue, forKey: "groupName")
+        }
+    }
+    
+    var groupID: Int {
+        get {
+            return userDefaults.integer(forKey: "groupID")
+        }
+        set {
+            userDefaults.set(newValue, forKey: "groupID")
+        }
+    }
  }

@@ -41,7 +41,7 @@ class TeachersViewController: UIViewController {
         
         search.searchResultsUpdater = self
         search.obscuresBackgroundDuringPresentation = false
-        search.searchBar.placeholder = "Поиск преподавателей"
+        search.searchBar.placeholder = "Пошук викладачів"
         self.navigationItem.searchController = search
         definesPresentationContext = true
         

@@ -33,7 +33,7 @@ class SettingsTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 1
+        return 2
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -70,6 +70,14 @@ class SettingsTableViewController: UITableViewController {
 
                 /// Save Changes
                 try managedContext.save()
+                
+                
+                let mainStoryboard = UIStoryboard(name: "Main", bundle: Bundle.main)
+                let groupVC : UITabBarController = mainStoryboard.instantiateViewController(withIdentifier: "Main") as! UITabBarController
+
+                let appDelegate = UIApplication.shared.delegate as? AppDelegate
+                guard let window = appDelegate?.window else { return }
+                window.rootViewController = groupVC
 
             } catch {
                 /// Error Handling
@@ -83,6 +91,36 @@ class SettingsTableViewController: UITableViewController {
         
         self.present(alert, animated: true, completion: {
         })
+    }
+    
+    
+    
+    @IBAction func didPressChangeGroup(_ sender: UIButton) {
+        let alert = UIAlertController(title: "Група", message: "Чи бажаєте Ви змініти вашу групу?\n Всі ваші редагування розкладу пропадуть!", preferredStyle: .actionSheet)
+        alert.addAction(UIAlertAction(title: "Змініти", style: .default, handler: { (_) in
+            Settings.shared.groupName = ""
+            
+//            let secondViewController: SheduleViewController = SheduleViewController()
+//
+////            self.tabBarController?.present(secondViewController, animated: true, completion: nil)
+//            self.tabBarController?.selectedViewController = secondViewController
+            
+            let mainStoryboard = UIStoryboard(name: "Main", bundle: Bundle.main)
+            let groupVC : UITabBarController = mainStoryboard.instantiateViewController(withIdentifier: "Main") as! UITabBarController
+
+            let appDelegate = UIApplication.shared.delegate as? AppDelegate
+            guard let window = appDelegate?.window else { return }
+            window.rootViewController = groupVC
+        }))
+        
+        
+        alert.addAction(UIAlertAction(title: "Отменить", style: .cancel, handler: { (_) in
+        }))
+        
+        self.present(alert, animated: true, completion: {
+        })
+        
+        
     }
     
     

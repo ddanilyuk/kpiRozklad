@@ -7,6 +7,53 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
+        <!--Navigation Controller-->
+        <scene sceneID="KTg-xk-5V7">
+            <objects>
+                <navigationController storyboardIdentifier="navigationGroupChooser" id="ZOg-ae-hNu" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="UVA-ba-tSK">
+                        <rect key="frame" x="0.0" y="44" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="nsI-9v-NMm" kind="relationship" relationship="rootViewController" id="Ggy-oH-HVB"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="D9V-OB-gZP" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-3311" y="-1020"/>
+        </scene>
+        <!--Group Chooser View Controller-->
+        <scene sceneID="6Fy-6u-HJg">
+            <objects>
+                <viewController storyboardIdentifier="GroupChooser" id="nsI-9v-NMm" customClass="GroupChooserViewController" customModule="kpiRozklad" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="ZfH-hG-RFJ">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="MQ7-Lk-kIw">
+                                <rect key="frame" x="0.0" y="88" width="375" height="690"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="MQ7-Lk-kIw" firstAttribute="leading" secondItem="QOr-y0-Msw" secondAttribute="leading" id="9ph-Im-tYk"/>
+                            <constraint firstItem="MQ7-Lk-kIw" firstAttribute="trailing" secondItem="QOr-y0-Msw" secondAttribute="trailing" id="Jp3-a4-UVe"/>
+                            <constraint firstItem="QOr-y0-Msw" firstAttribute="bottom" secondItem="MQ7-Lk-kIw" secondAttribute="bottom" id="KOC-Hd-EXL"/>
+                            <constraint firstItem="MQ7-Lk-kIw" firstAttribute="top" secondItem="QOr-y0-Msw" secondAttribute="top" id="zae-BK-9Z2"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="QOr-y0-Msw"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="NV5-2s-wUS"/>
+                    <connections>
+                        <outlet property="tableView" destination="MQ7-Lk-kIw" id="tgl-p5-1h5"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="y9s-mP-T0O" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-2149.5999999999999" y="-1019.704433497537"/>
+        </scene>
         <!--Розклад-->
         <scene sceneID="R5c-ao-yeO">
             <objects>
@@ -27,7 +74,7 @@
         <!--ІВ-82-->
         <scene sceneID="Z7E-0m-5wG">
             <objects>
-                <viewController id="VGz-qr-qiP" customClass="SheduleViewController" customModule="kpiRozklad" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="SheduleViewController" id="VGz-qr-qiP" customClass="SheduleViewController" customModule="kpiRozklad" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="P20-9K-3S9">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -72,6 +119,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="navigationItem" destination="HCW-ay-CZY" id="F8k-qb-5b4"/>
                         <outlet property="tableView" destination="Bv9-u6-c2Z" id="eAJ-5z-7Hq"/>
                         <outlet property="weekSwitch" destination="kCf-Y9-PTf" id="20s-Tg-fBT"/>
                         <segue destination="Xi8-a3-NCy" kind="show" identifier="showDetailViewController" id="RJQ-je-C9R"/>
@@ -155,7 +203,7 @@
         <!--Tab Bar Controller-->
         <scene sceneID="Oyb-qZ-Kpf">
             <objects>
-                <tabBarController id="nab-GF-eXo" sceneMemberID="viewController">
+                <tabBarController storyboardIdentifier="Main" id="nab-GF-eXo" sceneMemberID="viewController">
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="phX-ne-L5c">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -231,7 +279,26 @@
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="1NT-ho-nIi" id="IDu-FY-PfK">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="43.666667938232422"/>
                                             <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="STB-pM-mR1">
+                                                    <rect key="frame" x="16" y="7" width="343" height="30"/>
+                                                    <state key="normal" title="Вибрати групу">
+                                                        <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    </state>
+                                                    <connections>
+                                                        <action selector="didPressChangeGroup:" destination="Nvr-ip-G7Y" eventType="touchUpInside" id="r6w-U7-GnM"/>
+                                                    </connections>
+                                                </button>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="STB-pM-mR1" firstAttribute="leading" secondItem="IDu-FY-PfK" secondAttribute="leading" constant="16" id="4sd-mZ-4cn"/>
+                                                <constraint firstAttribute="trailing" secondItem="STB-pM-mR1" secondAttribute="trailing" constant="16" id="U21-YS-8Tu"/>
+                                            </constraints>
                                         </tableViewCellContentView>
+                                        <constraints>
+                                            <constraint firstItem="STB-pM-mR1" firstAttribute="centerY" secondItem="1NT-ho-nIi" secondAttribute="centerY" id="X5Z-P4-G1x"/>
+                                            <constraint firstItem="STB-pM-mR1" firstAttribute="centerX" secondItem="1NT-ho-nIi" secondAttribute="centerX" id="Y20-12-3rM"/>
+                                        </constraints>
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
@@ -418,22 +485,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hN0-8F-l95" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2645.5999999999999" y="-409.35960591133005"/>
-        </scene>
-        <!--View Controller-->
-        <scene sceneID="7Me-gC-YiB">
-            <objects>
-                <viewController id="HRw-YV-VnU" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="wal-Ns-3bR">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                        <viewLayoutGuide key="safeArea" id="EnR-UV-z1t"/>
-                    </view>
-                    <navigationItem key="navigationItem" id="moJ-0H-0kv"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="ogZ-c6-C5x" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2647" y="-1145"/>
         </scene>
     </scenes>
     <resources>

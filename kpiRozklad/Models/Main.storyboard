@@ -69,7 +69,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UmC-Q9-Sgg" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-967" y="-409"/>
+            <point key="canvasLocation" x="14" y="-404"/>
         </scene>
         <!--ІВ-82-->
         <scene sceneID="Z7E-0m-5wG">
@@ -127,7 +127,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rC5-9P-2Ut" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-36" y="-409"/>
+            <point key="canvasLocation" x="926" y="-404"/>
         </scene>
         <!--Викладачі-->
         <scene sceneID="UTN-su-Qgb">
@@ -144,7 +144,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="c1c-ZN-yOS" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="321" y="-1145"/>
+            <point key="canvasLocation" x="-31" y="-1145"/>
         </scene>
         <!--Викладачі-->
         <scene sceneID="xbn-fN-qco">
@@ -198,7 +198,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NnJ-Cw-TTi" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1802" y="-1145"/>
+            <point key="canvasLocation" x="926" y="-1145"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="Oyb-qZ-Kpf">
@@ -217,7 +217,7 @@
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="A4q-jw-86w" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-967" y="-1882"/>
+            <point key="canvasLocation" x="-967" y="-1145"/>
         </scene>
         <!--Налаштування-->
         <scene sceneID="BEv-i4-Jna">
@@ -234,7 +234,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="KDN-oO-nhf" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="926" y="-1882"/>
+            <point key="canvasLocation" x="15" y="-1882"/>
         </scene>
         <!--Настройки-->
         <scene sceneID="FIg-qI-laJ">
@@ -314,7 +314,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rr4-vK-4Ew" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <exit id="j5H-lg-95l" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="2645.5999999999999" y="-1882.0197044334975"/>
+            <point key="canvasLocation" x="926" y="-1882"/>
         </scene>
         <!--Shedule Detail View Controller-->
         <scene sceneID="YJy-Mv-orq">
@@ -324,95 +324,109 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="-10" translatesAutoresizingMaskIntoConstraints="NO" id="EC3-Vx-FUB">
-                                <rect key="frame" x="8" y="96" width="359" height="550"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="-52" translatesAutoresizingMaskIntoConstraints="NO" id="EC3-Vx-FUB">
+                                <rect key="frame" x="8" y="88" width="359" height="641"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Предмет" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ivE-Xg-CUV">
-                                        <rect key="frame" x="0.0" y="0.0" width="359" height="100"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="100" id="UPR-hi-HZ2"/>
-                                        </constraints>
-                                        <fontDescription key="fontDescription" type="system" pointSize="28"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="359" height="150.33333333333334"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="27"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" translatesAutoresizingMaskIntoConstraints="NO" id="UIa-uH-iz1">
-                                        <rect key="frame" x="0.0" y="90" width="359" height="100"/>
+                                        <rect key="frame" x="0.0" y="98.333333333333343" width="359" height="150"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Вчитель" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OeH-tc-sYc">
-                                                <rect key="frame" x="0.0" y="0.0" width="297" height="100"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="19"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="297" height="150"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0.0000" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="g7U-Eb-yfz">
-                                                <rect key="frame" x="297" y="0.0" width="62" height="100"/>
+                                                <rect key="frame" x="297" y="0.0" width="62" height="150"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="62" id="DWn-gX-VbY"/>
                                                 </constraints>
-                                                <fontDescription key="fontDescription" type="system" pointSize="19"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                         </subviews>
                                     </stackView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Аудиторія" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3XJ-JC-uFy">
-                                        <rect key="frame" x="0.0" y="180" width="359" height="100"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="19"/>
+                                        <rect key="frame" x="0.0" y="196.33333333333331" width="359" height="150.33333333333331"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="День" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5sC-gB-DCP">
-                                        <rect key="frame" x="0.0" y="270" width="359" height="100"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="19"/>
+                                        <rect key="frame" x="0.0" y="294.66666666666669" width="359" height="150"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="PXQ-OR-yxm">
-                                        <rect key="frame" x="0.0" y="360" width="359" height="100"/>
+                                        <rect key="frame" x="0.0" y="392.66666666666669" width="359" height="150.33333333333331"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Початок: " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IrS-4v-Q3a">
-                                                <rect key="frame" x="0.0" y="38.666666666666686" width="179.66666666666666" height="23"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="19"/>
+                                                <rect key="frame" x="0.0" y="64.999999999999943" width="179.66666666666666" height="20.333333333333329"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Кінець: " textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Jk1-ef-DRl">
-                                                <rect key="frame" x="179.66666666666663" y="38.666666666666686" width="179.33333333333337" height="23"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="19"/>
+                                                <rect key="frame" x="179.66666666666663" y="64.999999999999943" width="179.33333333333337" height="20.333333333333329"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                         </subviews>
                                     </stackView>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DFO-PY-g7X">
-                                        <rect key="frame" x="0.0" y="450" width="359" height="100"/>
-                                        <color key="backgroundColor" systemColor="linkColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <state key="normal" title="Подивитись на розклад викладача">
-                                            <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
-                                        </state>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
-                                                <real key="value" value="1"/>
-                                            </userDefinedRuntimeAttribute>
-                                            <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
-                                                <color key="value" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
-                                            </userDefinedRuntimeAttribute>
-                                        </userDefinedRuntimeAttributes>
-                                        <connections>
-                                            <action selector="didPressCheckTeacherShedule:" destination="Xi8-a3-NCy" eventType="touchUpInside" id="5ig-Ma-YLM"/>
-                                            <segue destination="StT-wO-RBg" kind="show" identifier="showTeacherShedule" id="eOz-94-s6B"/>
-                                        </connections>
-                                    </button>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cni-hA-6qM">
+                                        <rect key="frame" x="0.0" y="491" width="359" height="150"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DFO-PY-g7X">
+                                                <rect key="frame" x="24.666666666666657" y="50" width="310" height="50"/>
+                                                <color key="backgroundColor" systemColor="linkColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="50" id="SuZ-NH-B0x"/>
+                                                    <constraint firstAttribute="width" constant="310" id="iju-1h-vxi"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <state key="normal" title="Подивитись на розклад викладача">
+                                                    <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                </state>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                        <real key="value" value="1"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                        <color key="value" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <action selector="didPressCheckTeacherShedule:" destination="Xi8-a3-NCy" eventType="touchUpInside" id="5ig-Ma-YLM"/>
+                                                    <segue destination="StT-wO-RBg" kind="show" identifier="showTeacherShedule" id="eOz-94-s6B"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                        <constraints>
+                                            <constraint firstItem="DFO-PY-g7X" firstAttribute="centerY" secondItem="cni-hA-6qM" secondAttribute="centerY" id="YlA-h2-fem"/>
+                                            <constraint firstItem="DFO-PY-g7X" firstAttribute="centerX" secondItem="cni-hA-6qM" secondAttribute="centerX" id="ZuP-Vg-tu3"/>
+                                        </constraints>
+                                    </view>
                                 </subviews>
                             </stackView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
+                            <constraint firstItem="FvJ-V7-JA1" firstAttribute="trailing" secondItem="EC3-Vx-FUB" secondAttribute="trailing" constant="8" id="4RV-uh-OAt"/>
                             <constraint firstItem="EC3-Vx-FUB" firstAttribute="leading" secondItem="FvJ-V7-JA1" secondAttribute="leading" constant="8" id="68O-wc-Avl"/>
+                            <constraint firstItem="FvJ-V7-JA1" firstAttribute="bottom" secondItem="EC3-Vx-FUB" secondAttribute="bottom" id="a9Z-Ee-BqI"/>
+                            <constraint firstItem="EC3-Vx-FUB" firstAttribute="leading" secondItem="FvJ-V7-JA1" secondAttribute="leading" constant="8" id="bkb-aJ-q7z"/>
                             <constraint firstItem="FvJ-V7-JA1" firstAttribute="trailing" secondItem="EC3-Vx-FUB" secondAttribute="trailing" constant="8" id="rAE-5h-EQV"/>
-                            <constraint firstItem="EC3-Vx-FUB" firstAttribute="top" secondItem="FvJ-V7-JA1" secondAttribute="top" constant="8" id="zOd-Zg-zjr"/>
+                            <constraint firstItem="EC3-Vx-FUB" firstAttribute="top" secondItem="FvJ-V7-JA1" secondAttribute="top" id="rwF-0x-CBs"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="FvJ-V7-JA1"/>
                     </view>
@@ -431,7 +445,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Qoh-jr-SS1" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="926" y="-409"/>
+            <point key="canvasLocation" x="1868" y="-404"/>
         </scene>
         <!--Зараз   тиждень-->
         <scene sceneID="iN0-Y0-247">
@@ -441,20 +455,23 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="6uy-Lx-1YN" customClass="Teac">
+                                <rect key="frame" x="0.0" y="88" width="375" height="641"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                            </tableView>
                             <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="aXm-Uf-t5P">
                                 <rect key="frame" x="0.0" y="390" width="375" height="37"/>
                             </activityIndicatorView>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="6uy-Lx-1YN" customClass="Teac">
-                                <rect key="frame" x="0.0" y="88" width="375" height="690"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                            </tableView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
+                            <constraint firstItem="6uy-Lx-1YN" firstAttribute="bottom" secondItem="WFT-WZ-9dT" secondAttribute="bottom" id="12i-51-ddR"/>
                             <constraint firstItem="aXm-Uf-t5P" firstAttribute="centerX" secondItem="WFT-WZ-9dT" secondAttribute="centerX" id="3CT-jr-F58"/>
                             <constraint firstItem="aXm-Uf-t5P" firstAttribute="centerY" secondItem="WFT-WZ-9dT" secondAttribute="centerY" id="5J8-jA-Zt6"/>
+                            <constraint firstItem="6uy-Lx-1YN" firstAttribute="trailing" secondItem="aXm-Uf-t5P" secondAttribute="trailing" id="EUf-mh-wwC"/>
                             <constraint firstItem="WFT-WZ-9dT" firstAttribute="trailing" secondItem="aXm-Uf-t5P" secondAttribute="trailing" id="GS5-Qw-jdY"/>
+                            <constraint firstItem="6uy-Lx-1YN" firstAttribute="leading" secondItem="aXm-Uf-t5P" secondAttribute="leading" id="aUB-i3-XSY"/>
+                            <constraint firstItem="6uy-Lx-1YN" firstAttribute="top" secondItem="WFT-WZ-9dT" secondAttribute="top" id="blT-Z6-hj7"/>
                             <constraint firstItem="aXm-Uf-t5P" firstAttribute="leading" secondItem="WFT-WZ-9dT" secondAttribute="leading" id="v2N-L5-FjC"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="WFT-WZ-9dT"/>
@@ -484,7 +501,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hN0-8F-l95" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2645.5999999999999" y="-409.35960591133005"/>
+            <point key="canvasLocation" x="2646" y="-404"/>
         </scene>
     </scenes>
     <resources>
@@ -493,6 +510,6 @@
         <image name="rectangle.grid.1x2" catalog="system" width="64" height="50"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="5QF-Tv-CiU"/>
+        <segue reference="eOz-94-s6B"/>
     </inferredMetricsTieBreakers>
 </document>

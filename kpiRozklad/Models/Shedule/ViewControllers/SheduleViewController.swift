@@ -91,7 +91,6 @@ class SheduleViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        deleteAllFromCoreData()
         
         presentGroupChooser()
         

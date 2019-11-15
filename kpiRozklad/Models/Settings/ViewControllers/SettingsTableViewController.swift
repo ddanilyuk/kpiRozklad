@@ -99,6 +99,7 @@ class SettingsTableViewController: UITableViewController {
         let alert = UIAlertController(title: "Група", message: "Чи бажаєте Ви змініти вашу групу?\n Всі ваші редагування розкладу пропадуть!", preferredStyle: .actionSheet)
         alert.addAction(UIAlertAction(title: "Змініти", style: .default, handler: { (_) in
             Settings.shared.groupName = ""
+            Settings.shared.isTryToRefreshShedule = true
             
 //            let secondViewController: SheduleViewController = SheduleViewController()
 //

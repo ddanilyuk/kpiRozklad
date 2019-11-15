@@ -48,14 +48,52 @@ struct Lesson: Codable {
         case timeEnd = "time_end"
         case rate, teachers, rooms
     }
+
 }
 
-enum DayName: String, Codable {
-    case вівторок = "Вівторок"
-    case пЯтниця = "П’ятниця"
-    case понеділок = "Понеділок"
-    case середа = "Середа"
-    case четвер = "Четвер"
+extension Lesson: Comparable {
+    static func < (lhs: Lesson, rhs: Lesson) -> Bool {
+        return lhs.dayName.rawValue == rhs.dayName.rawValue
+
+    }
+    
+    static func == (lhs: Lesson, rhs: Lesson) -> Bool {
+        return lhs.dayName.rawValue < rhs.dayName.rawValue
+    }
+}
+
+
+enum DayName: String, Codable, Comparable {
+    case mounday = "Понеділок"
+    case tuesday = "Вівторок"
+    case wednesday = "Середа"
+    case thursday = "Четвер"
+    case friday = "П’ятниця"
+    
+
+    private var sortOrder: Int {
+        switch self {
+            case .mounday:
+                return 1
+            case .tuesday:
+                return 2
+            case .wednesday:
+                return 3
+            case .thursday:
+                return 4
+            case .friday:
+                return 5
+        }
+    }
+
+     static func ==(lhs: DayName, rhs: DayName) -> Bool {
+        return lhs.sortOrder == rhs.sortOrder
+    }
+
+    static func <(lhs: DayName, rhs: DayName) -> Bool {
+       return lhs.sortOrder < rhs.sortOrder
+    }
+    
 }
 
 enum LessonType: String, Codable {

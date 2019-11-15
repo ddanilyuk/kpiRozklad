@@ -17,7 +17,7 @@ class SheduleViewController: UIViewController {
     /// The **main** variable with which the table is updated
     //var lessons: [Lesson] = []
     
-    var normalLessonShedule: [(key: DayName, value: [Lesson])] = []
+    var lessonsForTableView: [(key: DayName, value: [Lesson])] = []
     
     /// Variable which is copy of `lessons` but used in core data
     var lessonsCoreData: [NSManagedObject] = []
@@ -101,22 +101,17 @@ class SheduleViewController: UIViewController {
         
         getDayNumAndWeekOfYear()
         setUpCurrentWeek()
-        fetchingCoreData()
-        let lessons = fetchingCoreData()
-        normalLessonShedule = makeNormalLessonShedule(lessons: lessons)
-        getCurrentAndNextLesson(lessons: lessons)
+        
+        makeLessonsShedule()
         tableView.reloadData()
 
         // self.navigationController?.title = Settings.shared.groupName.uppercased()
         self.navigationItem.title = Settings.shared.groupName.uppercased()
-        
-
-        
     }
+    
     
     override func viewWillAppear(_ animated: Bool) {
         presentGroupChooser()
-        print("dada")
         
         /// If Core Data is empty, making request from server
         if lessonsCoreData.isEmpty {
@@ -124,12 +119,12 @@ class SheduleViewController: UIViewController {
         } else if Settings.shared.isTryToRefreshShedule {
             deleteAllFromCoreData()
             lessonsCoreData = []
-            //lessons = []
             Settings.shared.isTryToRefreshShedule = false
             server()
             self.tableView.reloadData()
         }
     }
+    
     
     func presentGroupChooser() {
         if Settings.shared.groupName == "" {
@@ -141,6 +136,114 @@ class SheduleViewController: UIViewController {
         
     }
     
+    
+    // MARK: - getDayNumAndWeekOfYear
+    /// Getting dayNumber and week of year from device Date()
+    ///
+    /// - todo: maybe use swich-case
+    func getDayNumAndWeekOfYear() {
+        formatter1.dateFormat = "EEEE"
+        formatter2.dateFormat = "HH:mm"
+        dayString = formatter1.string(from: date)
+        timeString = formatter2.string(from: date)
+        timeDate = formatter2.date(from: timeString) ?? Date()
+
+        /// Get today's number in week (from 1 to 7)
+        if dayString == "Monday" {
+            dayNumber = 1
+        } else if dayString == "Tuesday" {
+            dayNumber = 2
+        } else if dayString == "Wednesday" {
+            dayNumber = 3
+        } else if dayString == "Thursday" {
+            dayNumber = 4
+        } else if dayString == "Friday" {
+            dayNumber = 5
+        } else if dayString == "Saturday" {
+            dayNumber = 6
+        } else {
+            dayNumber = 7
+        }
+        /// Get number of week (in year)
+        let components = calendar.dateComponents([.weekOfYear, .month, .day, .weekday], from: date)
+        weekOfYear = components.weekOfYear ?? 0
+    }
+    
+    
+    // MARK: - setUpCurrentWeek
+    /// Simple function to set up currnet week in viewDidLoad
+    func setUpCurrentWeek() {
+
+        if self.weekOfYear % 2 == 0 {
+            self.currentWeekFromTodayDate = 1
+            self.weekSwitch.selectedSegmentIndex = 0
+            self.currentWeek = 1
+        } else {
+            self.currentWeekFromTodayDate = 2
+            self.weekSwitch.selectedSegmentIndex = 1
+            self.currentWeek = 2
+        }
+        
+    }
+    
+    
+    func makeLessonsShedule() {
+        let lessons = fetchingCoreData()
+        
+        getCurrentAndNextLesson(lessons: lessons)
+    
+        var lessonsFirst: [Lesson] = []
+        var lessonsSecond: [Lesson] = []
+        
+        for lesson in lessons {
+            if Int(lesson.lessonWeek) == 1 {
+                lessonsFirst.append(lesson)
+            } else {
+                lessonsSecond.append(lesson)
+            }
+        }
+        
+        var normalLessonShedule: [DayName : [Lesson]] = [:]
+        
+        let currentLessonWeek = currentWeek == 1 ? lessonsFirst : lessonsSecond
+        
+        var lessonMounday: [Lesson] = []
+        var lessonTuesday: [Lesson] = []
+        var lessonWednesday: [Lesson] = []
+        var lessonThursday: [Lesson] = []
+        var lessonFriday: [Lesson] = []
+        
+        let mounday = DayName.mounday
+        let tuesday = DayName.tuesday
+        let wednesday = DayName.wednesday
+        let thursday = DayName.thursday
+        let friday = DayName.friday
+        
+        for datu in currentLessonWeek {
+            if datu.dayName.rawValue == "Понеділок" {
+                lessonMounday.append(datu)
+            } else if datu.dayName.rawValue == "Вівторок"{
+                lessonTuesday.append(datu)
+            } else if datu.dayName.rawValue == "Середа"{
+                lessonWednesday.append(datu)
+            } else if datu.dayName.rawValue == "Четвер"{
+                lessonThursday.append(datu)
+            } else if datu.dayName.rawValue == "П’ятниця"{
+                lessonFriday.append(datu)
+            }
+        }
+        
+        normalLessonShedule = [mounday: lessonMounday,
+                               tuesday: lessonTuesday,
+                               wednesday: lessonWednesday,
+                               thursday: lessonThursday,
+                               friday: lessonFriday]
+        
+        let sorted = normalLessonShedule.sorted{$0.key < $1.key}
+        print(sorted)
+
+        self.lessonsForTableView =  sorted
+    }
     
     
     // MARK: - fetchingCoreData
@@ -227,143 +330,8 @@ class SheduleViewController: UIViewController {
         }
         
         return lessons
-        /// Sorting, getting current  lessons and updatting tableView
-        
     }
     
-    
-    // MARK: - getDayNumAndWeekOfYear
-    /// Getting dayNumber and week of year from device Date()
-    ///
-    /// - todo: maybe use swich-case
-    func getDayNumAndWeekOfYear() {
-        formatter1.dateFormat = "EEEE"
-        formatter2.dateFormat = "HH:mm"
-        dayString = formatter1.string(from: date)
-        timeString = formatter2.string(from: date)
-        timeDate = formatter2.date(from: timeString) ?? Date()
-
-        /// Get today's number in week (from 1 to 7)
-        if dayString == "Monday" {
-            dayNumber = 1
-        } else if dayString == "Tuesday" {
-            dayNumber = 2
-        } else if dayString == "Wednesday" {
-            dayNumber = 3
-        } else if dayString == "Thursday" {
-            dayNumber = 4
-        } else if dayString == "Friday" {
-            dayNumber = 5
-        } else if dayString == "Saturday" {
-            dayNumber = 6
-        } else {
-            dayNumber = 7
-        }
-        /// Get number of week (in year)
-        let components = calendar.dateComponents([.weekOfYear, .month, .day, .weekday], from: date)
-        weekOfYear = components.weekOfYear ?? 0
-    }
-    
-    
-    // MARK: - setUpCurrentWeek
-    /// Simple function to set up currnet week in viewDidLoad
-    func setUpCurrentWeek() {
-
-        if self.weekOfYear % 2 == 0 {
-            self.currentWeekFromTodayDate = 1
-            self.weekSwitch.selectedSegmentIndex = 0
-            self.currentWeek = 1
-        } else {
-            self.currentWeekFromTodayDate = 2
-            self.weekSwitch.selectedSegmentIndex = 1
-            self.currentWeek = 2
-        }
-        
-    }
-    
-    
-    func makeNormalLessonShedule(lessons: [Lesson]) -> [(key: DayName, value: [Lesson])] {
-        var normalLessonShedule: [DayName : [Lesson]] = [:]
-    
-        var lessonsFirst: [Lesson] = []
-        var lessonsSecond: [Lesson] = []
-        
-        for lesson in lessons {
-            if Int(lesson.lessonWeek) == 1 {
-                lessonsFirst.append(lesson)
-            } else {
-                lessonsSecond.append(lesson)
-            }
-        }
-        
-        let currentLessonWeek = currentWeek == 1 ? lessonsFirst : lessonsSecond
-        
-        var lessonMounday: [Lesson] = []
-        var lessonTuesday: [Lesson] = []
-        var lessonWednesday: [Lesson] = []
-        var lessonThursday: [Lesson] = []
-        var lessonFriday: [Lesson] = []
-        
-        let mounday = DayName.mounday
-        let tuesday = DayName.tuesday
-        let wednesday = DayName.wednesday
-        let thursday = DayName.thursday
-        let friday = DayName.friday
-        
-        for datu in currentLessonWeek {
-            if datu.dayName.rawValue == "Понеділок" {
-                lessonMounday.append(datu)
-            } else if datu.dayName.rawValue == "Вівторок"{
-                lessonTuesday.append(datu)
-            } else if datu.dayName.rawValue == "Середа"{
-                lessonWednesday.append(datu)
-            } else if datu.dayName.rawValue == "Четвер"{
-                lessonThursday.append(datu)
-            } else if datu.dayName.rawValue == "П’ятниця"{
-                lessonFriday.append(datu)
-            }
-        }
-        
-        normalLessonShedule = [mounday: lessonMounday,
-                               tuesday: lessonTuesday,
-                               wednesday: lessonWednesday,
-                               thursday: lessonThursday,
-                               friday: lessonFriday]
-        
-        let sorted = normalLessonShedule.sorted{$0.key < $1.key}
-        print(sorted)
-
-        return sorted
-        
-    }
-    
-    /// - todo: make notifications
-    func scheduleNotification(notificationType: String) {
-        
-//        let content = UNMutableNotificationContent() // Содержимое уведомления
-//
-//        content.title = notificationType
-//        content.body = "This is example how to create " + "notificationType Notifications"
-//        content.sound = UNNotificationSound.default
-//        content.badge = 1
-//
-//
-//
-//        let date = Date(timeIntervalSinceNow: 10)
-//        let date = formatter2.date(from: )
-//        let triggerDate = Calendar.current.dateComponents([.year,.month,.day,.hour,.minute,.second,], from: date)
-//
-//        let trigger = UNCalendarNotificationTrigger(dateMatching: triggerDate, repeats: false)
-//
-//        let identifier = "Local Notification"
-//        let request = UNNotificationRequest(identifier: identifier, content: content, trigger: trigger)
-//
-//        notificationCenter.add(request) { (error) in
-//            if let error = error {
-//                print("Error \(error.localizedDescription)")
-//            }
-//        }
-    }
     
     // MARK: - Get data from Server
     /// Functon which getting data from server
@@ -385,6 +353,7 @@ class SheduleViewController: UIViewController {
         }
         task.resume()
     }
+    
     
     // MARK:- updateCoreData
     /// Function which save all data from server in to Core data
@@ -455,7 +424,6 @@ class SheduleViewController: UIViewController {
             /// Sorting, getting current  lessons and updatting tableView
             
             let _ = self.fetchingCoreData()
-            self.tableView.reloadData()
         }
     }
     
@@ -494,38 +462,17 @@ class SheduleViewController: UIViewController {
         switch weekSwitch.selectedSegmentIndex {
             case 0:
                 currentWeek = 1
-                let lessons = fetchingCoreData()
-                normalLessonShedule = makeNormalLessonShedule(lessons: lessons)
-                getCurrentAndNextLesson(lessons: lessons)
+                makeLessonsShedule()
                 tableView.reloadData()
             case 1:
                 currentWeek = 2
-                let lessons = fetchingCoreData()
-                normalLessonShedule = makeNormalLessonShedule(lessons: lessons)
-                getCurrentAndNextLesson(lessons: lessons)
+                makeLessonsShedule()
                 tableView.reloadData()
             default:
                 break
         }
     }
     
-    
-    // MARK:- sortLessons
-    /// Sorting lessons by week
-    func sortLessons(lessons: [Lesson]) -> ([Lesson], [Lesson]) {
-        var lessonsFirst: [Lesson] = []
-        var lessonsSecond: [Lesson] = []
-
-        for lesson in lessons {
-            if Int(lesson.lessonWeek) == 1 {
-                lessonsFirst.append(lesson)
-            } else {
-                lessonsSecond.append(lesson)
-            }
-        }
-
-        return (lessonsFirst, lessonsSecond)
-    }
     
     
     // MARK:- getCurrentAndNextLesson
@@ -565,9 +512,16 @@ class SheduleViewController: UIViewController {
         }
         
         
-        let sortedLessons = self.sortLessons(lessons: lessons)
-        let lessonsFirst = sortedLessons.0
-        let lessonsSecond = sortedLessons.1
+        var lessonsFirst: [Lesson] = []
+        var lessonsSecond: [Lesson] = []
+
+        for lesson in lessons {
+            if Int(lesson.lessonWeek) == 1 {
+                lessonsFirst.append(lesson)
+            } else {
+                lessonsSecond.append(lesson)
+            }
+        }
         
         if lessonsFirst.count != 0 && lessonsSecond.count != 0 {
             if nextLessonId == "" && currentWeekFromTodayDate == 2 {
@@ -576,9 +530,40 @@ class SheduleViewController: UIViewController {
                 nextLessonId = lessonsSecond[0].lessonID
             }
         }
+        
     }
-
-
+    
+    
+        
+        
+        /// - todo: make notifications
+    func scheduleNotification(notificationType: String) {
+            
+    //        let content = UNMutableNotificationContent() // Содержимое уведомления
+    //
+    //        content.title = notificationType
+    //        content.body = "This is example how to create " + "notificationType Notifications"
+    //        content.sound = UNNotificationSound.default
+    //        content.badge = 1
+    //
+    //
+    //
+    //        let date = Date(timeIntervalSinceNow: 10)
+    //        let date = formatter2.date(from: )
+    //        let triggerDate = Calendar.current.dateComponents([.year,.month,.day,.hour,.minute,.second,], from: date)
+    //
+    //        let trigger = UNCalendarNotificationTrigger(dateMatching: triggerDate, repeats: false)
+    //
+    //        let identifier = "Local Notification"
+    //        let request = UNNotificationRequest(identifier: identifier, content: content, trigger: trigger)
+    //
+    //        notificationCenter.add(request) { (error) in
+    //            if let error = error {
+    //                print("Error \(error.localizedDescription)")
+    //            }
+    //        }
+        }
+    
 }
 
 
@@ -605,7 +590,7 @@ extension SheduleViewController: UITableViewDelegate, UITableViewDataSource {
     
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return normalLessonShedule[section].value.count
+        return lessonsForTableView[section].value.count
     }
     
     
@@ -614,7 +599,7 @@ extension SheduleViewController: UITableViewDelegate, UITableViewDataSource {
             if let indexPath = tableView.indexPathForSelectedRow {
                 if let destination = segue.destination as? SheduleDetailViewController {
                     
-                    destination.lesson = normalLessonShedule[indexPath.section].value[indexPath.row]
+                    destination.lesson = lessonsForTableView[indexPath.section].value[indexPath.row]
                 }
             }
         }
@@ -637,7 +622,7 @@ extension SheduleViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "LessonTableViewCell", for: indexPath) as? LessonTableViewCell else {return UITableViewCell()}
         
-        let lessonsForSomeDay = normalLessonShedule[indexPath.section].value
+        let lessonsForSomeDay = lessonsForTableView[indexPath.section].value
         
         
         cell.lessonLabel.text = lessonsForSomeDay[indexPath.row].lessonName

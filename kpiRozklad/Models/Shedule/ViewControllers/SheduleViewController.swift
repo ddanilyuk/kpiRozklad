@@ -95,6 +95,10 @@ class SheduleViewController: UIViewController {
         
         presentGroupChooser()
         
+        
+        self.navigationItem.leftBarButtonItem = self.editButtonItem
+
+        
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(UINib(nibName: "LessonTableViewCell", bundle: Bundle.main), forCellReuseIdentifier: "LessonTableViewCell")
@@ -116,6 +120,7 @@ class SheduleViewController: UIViewController {
         /// If Core Data is empty, making request from server
         if lessonsCoreData.isEmpty {
             server()
+            self.tableView.reloadData()
         } else if Settings.shared.isTryToRefreshShedule {
             deleteAllFromCoreData()
             lessonsCoreData = []
@@ -242,7 +247,8 @@ class SheduleViewController: UIViewController {
         let sorted = normalLessonShedule.sorted{$0.key < $1.key}
         print(sorted)
 
-        self.lessonsForTableView =  sorted
+        self.lessonsForTableView = sorted
+        self.tableView.reloadData()
     }
     
     
@@ -422,8 +428,7 @@ class SheduleViewController: UIViewController {
             }
             
             /// Sorting, getting current  lessons and updatting tableView
-            
-            let _ = self.fetchingCoreData()
+            self.makeLessonsShedule()
         }
     }
     
@@ -533,10 +538,8 @@ class SheduleViewController: UIViewController {
         
     }
     
-    
-        
-        
-        /// - todo: make notifications
+            
+    /// - todo: make notifications
     func scheduleNotification(notificationType: String) {
             
     //        let content = UNMutableNotificationContent() // Содержимое уведомления
@@ -562,7 +565,29 @@ class SheduleViewController: UIViewController {
     //                print("Error \(error.localizedDescription)")
     //            }
     //        }
+    }
+    
+    
+    override func setEditing(_ editing: Bool, animated: Bool) {
+        super.setEditing(editing, animated: animated)
+        if editing {
+            self.tableView.setEditing(true, animated: true)
+            self.tableView!.insertSections(IndexSet(integer: self.lessonsForTableView.count), with: .automatic)
         }
+        else {
+//            var lessons: [Lesson] = []
+//            for day in lessonsForTableView {
+//                for lesson in day.value {
+//                    lessons.append(lesson)
+//                }
+//            }
+//            deleteAllFromCoreData()
+//            updateCoreData(datum: lessons)
+            self.tableView.setEditing(false, animated: true)
+            self.tableView!.deleteSections(IndexSet(integer: self.lessonsForTableView.count), with: .automatic)
+        }
+    }
+    
     
 }
 
@@ -571,7 +596,11 @@ class SheduleViewController: UIViewController {
 extension SheduleViewController: UITableViewDelegate, UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 5
+        if self.isEditing == true {
+            return 6
+        } else {
+            return 5
+        }
     }
     
 
@@ -583,14 +612,25 @@ extension SheduleViewController: UITableViewDelegate, UITableViewDataSource {
         let thursday = "Четвер"
         let friday = "П’ятниця"
 
-        let array: [String] = [mounday, tuesday, wednesday, thursday, friday]
-
-        return array[section]
+        var array: [String] = [mounday, tuesday, wednesday, thursday, friday]
+        
+        if self.isEditing != true {
+            return array[section]
+        } else {
+            array.append("Новий предмет")
+            return array[section]
+        }
+                
     }
     
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return lessonsForTableView[section].value.count
+        if self.isEditing == true && section == self.lessonsForTableView.count {
+            return 1
+        }
+        else {
+            return self.lessonsForTableView[section].value.count
+        }
     }
     
     
@@ -620,6 +660,16 @@ extension SheduleViewController: UITableViewDelegate, UITableViewDataSource {
         
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        if indexPath.section == self.lessonsForTableView.count && self.isEditing == true {
+            // var cell: AddCell? = tableView.dequeueReusableCell(withIdentifier: "AddCell") as? AddCell
+            let cell = UITableViewCell(style: .default, reuseIdentifier: "addCell")
+
+            cell.textLabel?.text = "ADD"
+            
+            return cell
+        }
+        
+        
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "LessonTableViewCell", for: indexPath) as? LessonTableViewCell else {return UITableViewCell()}
         
         let lessonsForSomeDay = lessonsForTableView[indexPath.section].value
@@ -653,7 +703,68 @@ extension SheduleViewController: UITableViewDelegate, UITableViewDataSource {
         cell.startLabel.text = substringTimeStart
         cell.endLabel.text = substringTimeEnd
         cell.roomLabel.text = lessonsForSomeDay[indexPath.row].lessonType.rawValue + " " + lessonsForSomeDay[indexPath.row].lessonRoom
-        
+//        cell.accessoryType = .disclosureIndicator
+
         return cell
     }
+    
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            self.lessonsForTableView[indexPath.section].value.remove(at: indexPath.row)
+            self.tableView.deleteRows(at: [indexPath], with: .automatic)
+        }
+        else if editingStyle == .insert {
+            let lesson = Lesson(lessonID: "0", groupID: "0", dayNumber: "0", dayName: DayName.friday, lessonName: "new", lessonFullName: "new", lessonNumber: "123", lessonRoom: "0", lessonType: LessonType.лаб, teacherName: "nil", lessonWeek: "nil", timeStart: "08:30:00", timeEnd: "08:30:00", rate: "00:00", teachers: [Teacher(teacherID: "nil", teacherName: "nil", teacherFullName: "nil", teacherShortName: "nil", teacherURL: "nil", teacherRating: "nil")], rooms: [])
+            lessonsForTableView[4].value.append(lesson)
+            self.tableView.insertRows(at: [IndexPath(row:self.lessonsForTableView[0].value.count - 1, section: 0)], with: .automatic)
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
+        if sourceIndexPath.row < self.lessonsForTableView[sourceIndexPath.section].value.count && destinationIndexPath.row < self.lessonsForTableView[sourceIndexPath.section].value.count
+        {
+            
+//            let person: Person? = self.people[sourceIndexPath.section][sourceIndexPath.row]
+            let lesson: Lesson? = self.lessonsForTableView[sourceIndexPath.section].value[sourceIndexPath.row]
+            
+            self.lessonsForTableView[sourceIndexPath.section].value.remove(at: sourceIndexPath.row)
+            
+            if lesson != nil {
+                self.lessonsForTableView[destinationIndexPath.section].value.insert(lesson!, at: destinationIndexPath.row)
+            }
+        }
+    }
+    
+    
+    func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
+        if indexPath.section == self.lessonsForTableView.count {
+            return false
+        }
+        else {
+            return true
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
+        if indexPath.section == self.lessonsForTableView.count {
+            return .insert
+        }
+        else {
+            return .delete
+        }
+    }
+    
+    
+    func tableView(_ tableView: UITableView, targetIndexPathForMoveFromRowAt sourceIndexPath: IndexPath, toProposedIndexPath proposedDestinationIndexPath: IndexPath) -> IndexPath {
+        if proposedDestinationIndexPath.section >= self.lessonsForTableView.count {
+            return sourceIndexPath
+        }
+        else {
+            return proposedDestinationIndexPath
+        }
+    }
+    
+    
+    
 }

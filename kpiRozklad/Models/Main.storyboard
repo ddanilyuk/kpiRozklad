@@ -54,6 +54,95 @@
             </objects>
             <point key="canvasLocation" x="-2149.5999999999999" y="-1019.704433497537"/>
         </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="5v1-8C-3FV">
+            <objects>
+                <navigationController storyboardIdentifier="navigationAddLesson" id="oWR-rl-Hbq" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="2wi-ie-f56">
+                        <rect key="frame" x="0.0" y="44" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="hfs-y2-2LT" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-3311" y="-311"/>
+        </scene>
+        <!--Add Lesson View Controller-->
+        <scene sceneID="o9L-Nr-gZV">
+            <objects>
+                <viewController storyboardIdentifier="addLesson" id="9L8-wk-vdr" customClass="AddLessonViewController" customModule="kpiRozklad" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="1Dt-a0-7KL">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="-52" translatesAutoresizingMaskIntoConstraints="NO" id="KU3-9L-IEd">
+                                <rect key="frame" x="0.0" y="74" width="375" height="704"/>
+                                <subviews>
+                                    <pickerView contentMode="scaleAspectFit" verticalHuggingPriority="249" translatesAutoresizingMaskIntoConstraints="NO" id="qAa-zj-FAq">
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="215"/>
+                                    </pickerView>
+                                    <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Cfg-uJ-NYL">
+                                        <rect key="frame" x="0.0" y="163" width="375" height="215"/>
+                                    </pickerView>
+                                    <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lUU-dI-Ity">
+                                        <rect key="frame" x="0.0" y="326" width="375" height="215"/>
+                                    </pickerView>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BfK-Lh-bTB">
+                                        <rect key="frame" x="0.0" y="489" width="375" height="215"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LRj-yV-DA1">
+                                                <rect key="frame" x="32.666666666666657" y="82.666666666666629" width="310" height="50"/>
+                                                <color key="backgroundColor" systemColor="linkColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="310" id="FsW-9I-3SQ"/>
+                                                    <constraint firstAttribute="height" constant="50" id="rWO-0i-KFY"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" type="system" pointSize="19"/>
+                                                <state key="normal" title="Додати">
+                                                    <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                </state>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                        <color key="value" systemColor="linkColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                        <real key="value" value="25"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <action selector="didPressAddLesson:" destination="9L8-wk-vdr" eventType="touchUpInside" id="s48-NQ-mJ1"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                        <constraints>
+                                            <constraint firstItem="LRj-yV-DA1" firstAttribute="centerY" secondItem="BfK-Lh-bTB" secondAttribute="centerY" id="1XH-Q9-kLy"/>
+                                            <constraint firstItem="LRj-yV-DA1" firstAttribute="centerX" secondItem="BfK-Lh-bTB" secondAttribute="centerX" id="dhZ-Qb-DWr"/>
+                                        </constraints>
+                                    </view>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="txE-bT-mJD" firstAttribute="trailing" secondItem="KU3-9L-IEd" secondAttribute="trailing" id="aPl-HI-AOX"/>
+                            <constraint firstItem="txE-bT-mJD" firstAttribute="bottom" secondItem="KU3-9L-IEd" secondAttribute="bottom" id="cQP-iG-dOd"/>
+                            <constraint firstItem="KU3-9L-IEd" firstAttribute="leading" secondItem="txE-bT-mJD" secondAttribute="leading" id="ea9-Xh-4bX"/>
+                            <constraint firstItem="KU3-9L-IEd" firstAttribute="top" secondItem="txE-bT-mJD" secondAttribute="top" constant="30" id="zir-2Y-tru"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="txE-bT-mJD"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="uXF-Rg-qns"/>
+                    <connections>
+                        <outlet property="dayPickerView" destination="Cfg-uJ-NYL" id="lWT-Zt-nrK"/>
+                        <outlet property="lessonPickerView" destination="qAa-zj-FAq" id="3rr-S5-hzl"/>
+                        <outlet property="numberLessonPickerView" destination="lUU-dI-Ity" id="Cga-of-tmO"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="hUq-vG-52O" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-2151.1999999999998" y="-311.08374384236453"/>
+        </scene>
         <!--Розклад-->
         <scene sceneID="R5c-ao-yeO">
             <objects>
@@ -236,7 +325,7 @@
             </objects>
             <point key="canvasLocation" x="15" y="-1882"/>
         </scene>
-        <!--Настройки-->
+        <!--Налаштування-->
         <scene sceneID="FIg-qI-laJ">
             <objects>
                 <tableViewController id="Nvr-ip-G7Y" customClass="SettingsTableViewController" customModule="kpiRozklad" customModuleProvider="target" sceneMemberID="viewController">
@@ -247,58 +336,21 @@
                         <sections>
                             <tableViewSection headerTitle="Загальні" id="iUs-Xq-0hq">
                                 <cells>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="Qg9-C8-nGy">
-                                        <rect key="frame" x="0.0" y="28" width="375" height="43.666667938232422"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="iW4-cb-beO">
+                                        <rect key="frame" x="0.0" y="28" width="375" height="1.1920928955078125e-07"/>
                                         <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Qg9-C8-nGy" id="J9C-q6-ETp">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.666667938232422"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="iW4-cb-beO" id="pRt-yi-oNq">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="1.1920928955078125e-07"/>
                                             <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BnC-cx-1ul">
-                                                    <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
-                                                    <state key="normal" title="    Оновити розклад">
-                                                        <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                    </state>
-                                                    <connections>
-                                                        <action selector="didPressUpdateShedule:" destination="j5H-lg-95l" eventType="touchUpInside" id="CkM-7f-Wy1"/>
-                                                        <action selector="didPressUpdateShedule:" destination="Nvr-ip-G7Y" eventType="touchUpInside" id="pyd-M5-iit"/>
-                                                    </connections>
-                                                </button>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstItem="BnC-cx-1ul" firstAttribute="top" secondItem="J9C-q6-ETp" secondAttribute="topMargin" constant="-11" id="Hr0-In-tAJ"/>
-                                                <constraint firstItem="BnC-cx-1ul" firstAttribute="centerY" secondItem="J9C-q6-ETp" secondAttribute="centerY" id="gu7-BO-2rP"/>
-                                                <constraint firstItem="BnC-cx-1ul" firstAttribute="centerX" secondItem="J9C-q6-ETp" secondAttribute="centerX" id="wMp-6O-dbt"/>
-                                                <constraint firstItem="BnC-cx-1ul" firstAttribute="leading" secondItem="J9C-q6-ETp" secondAttribute="leadingMargin" constant="-16" id="z2Y-ow-761"/>
-                                            </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="1NT-ho-nIi">
-                                        <rect key="frame" x="0.0" y="71.666667938232422" width="375" height="43.666667938232422"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="ZND-av-4MV">
+                                        <rect key="frame" x="0.0" y="28.00000011920929" width="375" height="1.1920928955078125e-07"/>
                                         <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="1NT-ho-nIi" id="IDu-FY-PfK">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.666667938232422"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="ZND-av-4MV" id="txR-9k-9MV">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="1.1920928955078125e-07"/>
                                             <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="STB-pM-mR1">
-                                                    <rect key="frame" x="16" y="7" width="343" height="30"/>
-                                                    <state key="normal" title="Вибрати групу">
-                                                        <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                    </state>
-                                                    <connections>
-                                                        <action selector="didPressChangeGroup:" destination="Nvr-ip-G7Y" eventType="touchUpInside" id="r6w-U7-GnM"/>
-                                                    </connections>
-                                                </button>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstItem="STB-pM-mR1" firstAttribute="leading" secondItem="IDu-FY-PfK" secondAttribute="leading" constant="16" id="4sd-mZ-4cn"/>
-                                                <constraint firstAttribute="trailing" secondItem="STB-pM-mR1" secondAttribute="trailing" constant="16" id="U21-YS-8Tu"/>
-                                            </constraints>
                                         </tableViewCellContentView>
-                                        <constraints>
-                                            <constraint firstItem="STB-pM-mR1" firstAttribute="centerY" secondItem="1NT-ho-nIi" secondAttribute="centerY" id="X5Z-P4-G1x"/>
-                                            <constraint firstItem="STB-pM-mR1" firstAttribute="centerX" secondItem="1NT-ho-nIi" secondAttribute="centerX" id="Y20-12-3rM"/>
-                                        </constraints>
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
@@ -309,10 +361,9 @@
                         </connections>
                     </tableView>
                     <tabBarItem key="tabBarItem" title="Settings" image="circle.grid.hex" catalog="system" id="NNQ-by-KNk"/>
-                    <navigationItem key="navigationItem" title="Настройки" largeTitleDisplayMode="always" id="qYc-J4-I1X"/>
+                    <navigationItem key="navigationItem" title="Налаштування" largeTitleDisplayMode="always" id="qYc-J4-I1X"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rr4-vK-4Ew" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-                <exit id="j5H-lg-95l" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="926" y="-1882"/>
         </scene>

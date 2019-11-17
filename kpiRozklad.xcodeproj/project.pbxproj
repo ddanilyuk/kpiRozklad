@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		5F4457E42376FB05008F9E21 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F4457E32376FB05008F9E21 /* Settings.swift */; };
+		5F686F3A23800CFB008B0915 /* AddLessonViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F686F3923800CFB008B0915 /* AddLessonViewController.swift */; };
 		5F6A08062370A175000A9C79 /* kpiRozklad.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 5F6A08042370A175000A9C79 /* kpiRozklad.xcdatamodeld */; };
 		5FA2B79B2379F20C006C466B /* GroupChooserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FA2B79A2379F20C006C466B /* GroupChooserViewController.swift */; };
 		5FA2B79D2379F5A7006C466B /* Group.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FA2B79C2379F5A7006C466B /* Group.swift */; };
@@ -32,9 +33,11 @@
 
 /* Begin PBXFileReference section */
 		5F4457E32376FB05008F9E21 /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
+		5F686F3923800CFB008B0915 /* AddLessonViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddLessonViewController.swift; sourceTree = "<group>"; };
 		5F6A08052370A175000A9C79 /* Lesson.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Lesson.xcdatamodel; sourceTree = "<group>"; };
 		5FA2B79A2379F20C006C466B /* GroupChooserViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupChooserViewController.swift; sourceTree = "<group>"; };
 		5FA2B79C2379F5A7006C466B /* Group.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Group.swift; sourceTree = "<group>"; };
+		5FDC9DBC2380722900CB7702 /* uk */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = uk; path = uk.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D300F1D52364CEA30098CA83 /* TeachersViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeachersViewController.swift; sourceTree = "<group>"; };
 		D300F1D72364CEBB0098CA83 /* TeacherChoosingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeacherChoosingViewController.swift; sourceTree = "<group>"; };
 		D300F1D92364CF490098CA83 /* SettingsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
@@ -130,7 +133,6 @@
 				D3FFAAE32352464D0065E9CE /* Teachers */,
 				D3FFAADA234F7A2C0065E9CE /* Settings */,
 				D313F4A9233AAC880076CFF8 /* Main.storyboard */,
-				5FA2B79A2379F20C006C466B /* GroupChooserViewController.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -157,6 +159,8 @@
 			children = (
 				D313F4AD233AAF920076CFF8 /* SheduleViewController.swift */,
 				D363E7A9233BB74B00573EB2 /* SheduleDetailViewController.swift */,
+				5FA2B79A2379F20C006C466B /* GroupChooserViewController.swift */,
+				5F686F3923800CFB008B0915 /* AddLessonViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -308,6 +312,7 @@
 			knownRegions = (
 				en,
 				Base,
+				uk,
 			);
 			mainGroup = D313F489233AAB6C0076CFF8;
 			productRefGroup = D313F493233AAB6C0076CFF8 /* Products */;
@@ -340,6 +345,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D313F496233AAB6C0076CFF8 /* AppDelegate.swift in Sources */,
+				5F686F3A23800CFB008B0915 /* AddLessonViewController.swift in Sources */,
 				D3FFAAE72352467F0065E9CE /* TeacherSheduleViewController.swift in Sources */,
 				D34BEBC5233CCFC10035F7B4 /* Extensions.swift in Sources */,
 				5FA2B79D2379F5A7006C466B /* Group.swift in Sources */,
@@ -365,6 +371,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				D313F4A1233AAB6D0076CFF8 /* Base */,
+				5FDC9DBC2380722900CB7702 /* uk */,
 			);
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
@@ -376,6 +383,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -436,6 +444,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";

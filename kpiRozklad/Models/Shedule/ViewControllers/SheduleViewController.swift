@@ -115,10 +115,15 @@ class SheduleViewController: UIViewController {
     
     
     override func viewWillAppear(_ animated: Bool) {
+        print("viewWillAppear")
+        
         presentGroupChooser()
         
         /// If Core Data is empty, making request from server
         if lessonsCoreData.isEmpty {
+            deleteAllFromCoreData()
+            lessonsCoreData = []
+            Settings.shared.isTryToRefreshShedule = false
             server()
             self.tableView.reloadData()
         } else if Settings.shared.isTryToRefreshShedule {
@@ -128,6 +133,12 @@ class SheduleViewController: UIViewController {
             server()
             self.tableView.reloadData()
         }
+        
+        if Settings.shared.isTryToReloadTableView {
+            makeLessonsShedule()
+            tableView.reloadData()
+            Settings.shared.isTryToReloadTableView = false
+        }
     }
     
     
@@ -135,10 +146,20 @@ class SheduleViewController: UIViewController {
         if Settings.shared.groupName == "" {
             let mainStoryboard = UIStoryboard(name: "Main", bundle: Bundle.main)
             let groupVC : UINavigationController = mainStoryboard.instantiateViewController(withIdentifier: "navigationGroupChooser") as! UINavigationController
-            
+            deleteAllFromCoreData()
+            lessonsCoreData = []
             self.present(groupVC, animated: true, completion: nil)
         }
-        
+    }
+    
+    
+    func presentAddLesson() {
+        let mainStoryboard = UIStoryboard(name: "Main", bundle: Bundle.main)
+        let groupVC : AddLessonViewController = mainStoryboard.instantiateViewController(withIdentifier: "addLesson") as! AddLessonViewController
+//        let vc = AddLessonViewController(nibName: "addLesson", bundle: nil)
+
+        groupVC.lessons = self.fetchingCoreData()
+        self.present(groupVC, animated: true, completion: nil)
     }
     
     
@@ -245,10 +266,24 @@ class SheduleViewController: UIViewController {
                                friday: lessonFriday]
         
         let sorted = normalLessonShedule.sorted{$0.key < $1.key}
-        print(sorted)
 
         self.lessonsForTableView = sorted
-        self.tableView.reloadData()
+//        if Settings.shared.isTryToReloadTableView == true {
+//            self.tableView.reloadData()
+//        }
+//        DispatchQueue.main.async {
+//            while self.tableView != nil {
+//                self.tableView.reloadData()
+//
+//            }
+//        }
+        if self.tableView != nil {
+            self.tableView.reloadData()
+        } else {
+            
+//            viewDidLoad()
+        }
+
     }
     
     
@@ -366,8 +401,10 @@ class SheduleViewController: UIViewController {
     /// - note: Core Data for entity "Lesson"
     /// - Parameter datum: array of  [Datum] whitch received from server
     func updateCoreData(datum:  [Lesson]) {
-        
+        print("inCoreData")
         DispatchQueue.main.async {
+            self.deleteAllFromCoreData()
+
             guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
 
             let managedContext = appDelegate.persistentContainer.viewContext
@@ -635,11 +672,17 @@ extension SheduleViewController: UITableViewDelegate, UITableViewDataSource {
     
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let mainStoryboard = UIStoryboard(name: "Main", bundle: Bundle.main)
+        let addLesson : AddLessonViewController = mainStoryboard.instantiateViewController(withIdentifier: "addLesson") as! AddLessonViewController
+        addLesson.instanceOfVCA = self
+        
         if segue.identifier == "showDetailViewController" {
             if let indexPath = tableView.indexPathForSelectedRow {
                 if let destination = segue.destination as? SheduleDetailViewController {
-                    
-                    destination.lesson = lessonsForTableView[indexPath.section].value[indexPath.row]
+                    // Crash if tap on Add lesson
+                    if indexPath.section != lessonsForTableView.count {
+                        destination.lesson = lessonsForTableView[indexPath.section].value[indexPath.row]
+                    }
                 }
             }
         }
@@ -664,7 +707,7 @@ extension SheduleViewController: UITableViewDelegate, UITableViewDataSource {
             // var cell: AddCell? = tableView.dequeueReusableCell(withIdentifier: "AddCell") as? AddCell
             let cell = UITableViewCell(style: .default, reuseIdentifier: "addCell")
 
-            cell.textLabel?.text = "ADD"
+            cell.textLabel?.text = "Добавить предмет"
             
             return cell
         }
@@ -715,9 +758,12 @@ extension SheduleViewController: UITableViewDelegate, UITableViewDataSource {
             self.tableView.deleteRows(at: [indexPath], with: .automatic)
         }
         else if editingStyle == .insert {
-            let lesson = Lesson(lessonID: "0", groupID: "0", dayNumber: "0", dayName: DayName.friday, lessonName: "new", lessonFullName: "new", lessonNumber: "123", lessonRoom: "0", lessonType: LessonType.лаб, teacherName: "nil", lessonWeek: "nil", timeStart: "08:30:00", timeEnd: "08:30:00", rate: "00:00", teachers: [Teacher(teacherID: "nil", teacherName: "nil", teacherFullName: "nil", teacherShortName: "nil", teacherURL: "nil", teacherRating: "nil")], rooms: [])
-            lessonsForTableView[4].value.append(lesson)
-            self.tableView.insertRows(at: [IndexPath(row:self.lessonsForTableView[0].value.count - 1, section: 0)], with: .automatic)
+            presentAddLesson()
+
+//            let lesson = Lesson(lessonID: "0", groupID: "0", dayNumber: "0", dayName: DayName.friday, lessonName: "new", lessonFullName: "new", lessonNumber: "123", lessonRoom: "0", lessonType: LessonType.лаб, teacherName: "nil", lessonWeek: "nil", timeStart: "08:30:00", timeEnd: "08:30:00", rate: "00:00", teachers: [Teacher(teacherID: "nil", teacherName: "nil", teacherFullName: "nil", teacherShortName: "nil", teacherURL: "nil", teacherRating: "nil")], rooms: [])
+//            lessonsForTableView[1].value.append(lesson)
+//            self.tableView.insertRows(at: [IndexPath(row:self.lessonsForTableView[0].value.count - 1, section: 0)], with: .automatic)
+            
         }
     }
     

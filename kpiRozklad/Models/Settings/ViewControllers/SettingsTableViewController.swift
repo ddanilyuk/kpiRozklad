@@ -30,6 +30,10 @@ class SettingsTableViewController: UITableViewController {
         // #warning Incomplete implementation, return the number of sections
         return 1
     }
+    
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return "Загальні"
+    }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
@@ -40,17 +44,38 @@ class SettingsTableViewController: UITableViewController {
         return 40
     }
     
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = UITableViewCell(style: .value1, reuseIdentifier: "settings")
+        
+        if indexPath.section == 0 {
+            if indexPath.row == 0 {
+                cell.textLabel?.text = "Оновити розклад"
+            } else if indexPath.row == 1 {
+                cell.textLabel?.text = "Вибрати групу"
+                cell.detailTextLabel?.text = Settings.shared.groupName.uppercased()
+            }
+        }
+        cell.accessoryType = .disclosureIndicator
+        return cell
+    }
+    
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if indexPath.section == 0 {
+            if indexPath.row == 0 {
+                didPressUpdateShedule()
+            } else if indexPath.row == 1 {
+                didPressChangeGroup()
+            }
+        }
         tableView.deselectRow(at: indexPath, animated: true)
     }
 
     // MARK:- deleteAllFromCoreData
-    @IBAction func didPressUpdateShedule(_ sender: UIButton) {
+    func didPressUpdateShedule() {
         
         let alert = UIAlertController(title: "Розклад", message: "Чи бажаєте Ви оновити ваш розклад?\n Всі ваші редагування розкладу пропадуть!", preferredStyle: .actionSheet)
         alert.addAction(UIAlertAction(title: "Оновити", style: .default, handler: { (_) in
             Settings.shared.isTryToRefreshShedule = true
-            print("press")
 
             let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "LessonData")
 
@@ -95,11 +120,11 @@ class SettingsTableViewController: UITableViewController {
     
     
     
-    @IBAction func didPressChangeGroup(_ sender: UIButton) {
+    func didPressChangeGroup() {
         let alert = UIAlertController(title: "Група", message: "Чи бажаєте Ви змініти вашу групу?\n Всі ваші редагування розкладу пропадуть!", preferredStyle: .actionSheet)
         alert.addAction(UIAlertAction(title: "Змініти", style: .default, handler: { (_) in
             Settings.shared.groupName = ""
-            Settings.shared.isTryToRefreshShedule = true
+            Settings.shared.isTryToReloadTableView = true
             
 //            let secondViewController: SheduleViewController = SheduleViewController()
 //
@@ -120,8 +145,6 @@ class SettingsTableViewController: UITableViewController {
         
         self.present(alert, animated: true, completion: {
         })
-        
-        
     }
     
     

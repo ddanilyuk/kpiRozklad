@@ -694,8 +694,27 @@ extension SheduleViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
+            let lesson = self.lessonsForTableView[indexPath.section].value[indexPath.row]
+
             self.lessonsForTableView[indexPath.section].value.remove(at: indexPath.row)
             self.tableView.deleteRows(at: [indexPath], with: .automatic)
+
+            
+            var lessons: [Lesson] = []
+            
+            lessons = fetchingCoreData()
+            
+            for i in 0..<lessons.count - 1 {
+                let lessonAll = lessons[i]
+                if lessonAll.lessonID == lesson.lessonID {
+                    lessons.remove(at: i)
+                    break
+                }
+            }
+            updateCoreData(datum: lessons)
+
+            
+            
         }
         else if editingStyle == .insert {
             presentAddLesson()
@@ -708,17 +727,128 @@ extension SheduleViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
-        if sourceIndexPath.row < self.lessonsForTableView[sourceIndexPath.section].value.count && destinationIndexPath.row < self.lessonsForTableView[sourceIndexPath.section].value.count
+        let _ = (sourceIndexPath.row < self.lessonsForTableView[sourceIndexPath.section].value.count && destinationIndexPath.row < self.lessonsForTableView[sourceIndexPath.section].value.count)
+        if true
         {
+            var lessons: [Lesson] = []
             
-//            let person: Person? = self.people[sourceIndexPath.section][sourceIndexPath.row]
-            let lesson: Lesson? = self.lessonsForTableView[sourceIndexPath.section].value[sourceIndexPath.row]
+            lessons = fetchingCoreData()
             
+            var dayName = DayName.mounday
+            
+            switch destinationIndexPath.section {
+            case 0:
+                dayName = DayName.mounday
+            case 1:
+                dayName = DayName.tuesday
+            case 2:
+                dayName = DayName.wednesday
+            case 3:
+                dayName = DayName.thursday
+            case 4:
+                dayName = DayName.friday
+            default:
+                break
+            }
+            
+            var lessonNumber = ""
+            if destinationIndexPath.row == 0 {
+               lessonNumber = "1"
+            } else if destinationIndexPath.section == sourceIndexPath.section && destinationIndexPath.row > sourceIndexPath.row {
+                lessonNumber = String(self.lessonsForTableView[destinationIndexPath.section].value[destinationIndexPath.row - 1].lessonNumber)
+                
+                var lessonNumberInt: Int = Int(lessonNumber) ?? 0
+                lessonNumberInt += 2
+                lessonNumber = String(lessonNumberInt)
+                
+            } else {
+                lessonNumber = String(self.lessonsForTableView[destinationIndexPath.section].value[destinationIndexPath.row - 1].lessonNumber)
+                
+                var lessonNumberInt: Int = Int(lessonNumber) ?? 0
+                lessonNumberInt += 1
+                lessonNumber = String(lessonNumberInt)
+                
+            }
+             
+            print(lessonNumber)
+            
+            var timeStart = "00:00:00"
+            var timeEnd = "00:00:00"
+            
+            switch lessonNumber {
+            case "1":
+                timeStart = "08:30:00"
+                timeEnd = "10:05:00"
+            case "2":
+                timeStart = "10:25:00"
+                timeEnd = "12:00:00"
+            case "3":
+                timeStart = "12:20:00"
+                timeEnd = "13:55:00"
+            case "4":
+                timeStart = "14:15:00"
+                timeEnd = "15:50:00"
+            case "5":
+                timeStart = "16:10:00"
+                timeEnd = "17:45:00"
+            default:
+                timeStart = "00:00:00"
+                timeEnd = "00:00:00"
+            }
+            
+            var dayNumber = 0
+            switch self.lessonsForTableView[destinationIndexPath.section].key {
+                case .mounday:
+                    dayNumber = 1
+                case .tuesday:
+                    dayNumber = 2
+                case .wednesday:
+                    dayNumber = 3
+                case .thursday:
+                    dayNumber = 4
+                case .friday:
+                    dayNumber = 5
+            }
+
+            
+            let lesson: Lesson = self.lessonsForTableView[sourceIndexPath.section].value[sourceIndexPath.row]
+            
+            let newLesson = Lesson(lessonID: lesson.lessonID,
+                               groupID: lesson.groupID,
+                               dayNumber: String(dayNumber),
+                               dayName: dayName,
+                               lessonName: lesson.lessonName,
+                               lessonFullName: lesson.lessonFullName,
+                               lessonNumber: String(lessonNumber),
+                               lessonRoom: lesson.lessonRoom,
+                               lessonType: lesson.lessonType,
+                               teacherName: lesson.teacherName,
+                               lessonWeek: lesson.lessonWeek,
+                               timeStart: timeStart,
+                               timeEnd: timeEnd,
+                               rate: lesson.rate,
+                               teachers: lesson.teachers,
+                               rooms: lesson.rooms)
+            print(newLesson)
+            print(timeStart)
+
             self.lessonsForTableView[sourceIndexPath.section].value.remove(at: sourceIndexPath.row)
             
-            if lesson != nil {
-                self.lessonsForTableView[destinationIndexPath.section].value.insert(lesson!, at: destinationIndexPath.row)
+            self.lessonsForTableView[destinationIndexPath.section].value.insert(newLesson, at: destinationIndexPath.row)
+//            self.tableView.reloadRows(at: [IndexPath(row: destinationIndexPath.section, section: destinationIndexPath.row)], with: .automatic)
+            for i in 0..<lessons.count - 1 {
+                let lessonAll = lessons[i]
+                if lessonAll.lessonID == lesson.lessonID {
+                    lessons.remove(at: i)
+                    break
+                }
             }
+            
+            lessons.append(newLesson)
+            
+            updateCoreData(datum: lessons)
+            self.tableView.reloadData()
+
         }
     }
     

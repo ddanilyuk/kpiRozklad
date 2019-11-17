@@ -10,10 +10,10 @@ import UIKit
 
 class AddLessonViewController: UIViewController {
     
-    var lessonsForTableView: [(key: DayName, value: [Lesson])] = []
     var lessons: [Lesson] = []
     var unicalLessons: [Lesson] = []
-    
+    var currentWeek: Int = 0
+
     
     var unicalIDs: [String] = []
     var unicalNames: [String] = []
@@ -23,22 +23,16 @@ class AddLessonViewController: UIViewController {
     var lessonType: LessonType = LessonType.empty
     var lessonDay: DayName = DayName.mounday
     var lessonNumber: Int = 0
-    
-    var instanceOfVCA: SheduleViewController!
-    
+        
     @IBOutlet weak var lessonPickerView: UIPickerView!
     @IBOutlet weak var dayPickerView: UIPickerView!
     @IBOutlet weak var numberLessonPickerView: UIPickerView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        print(lessonsForTableView.count)
     
         getUnicalLessons()
-//        for lesson in unicalLessons {
-//            print(lesson.lessonType.rawValue + " " + lesson.lessonName)
-//        }
-        
+
         lessonPickerView.delegate = self
         lessonPickerView.dataSource = self
         dayPickerView.delegate = self
@@ -46,23 +40,12 @@ class AddLessonViewController: UIViewController {
         numberLessonPickerView.delegate = self
         numberLessonPickerView.dataSource = self
         
-//        for lesson in lessons {
-//            print(lesson.lessonName + " " + lesson.lessonID)
-//        }
-        lessonPickerView.reloadAllComponents()
         
+        lessonPickerView.reloadAllComponents()
     }
 
 
     func getUnicalLessons() {
-//        for day in lessonsForTableView {
-//            for lesson in day.value {
-//                if !unicalNames.contains(lesson.lessonFullName) {
-//                    unicalLessons.append(lesson)
-//                    getUnicalNames()
-//                }
-//            }
-//        }
         for lesson in lessons {
             if !unicalNames.contains(lesson.lessonName){
                 unicalLessons.append(lesson)
@@ -96,12 +79,66 @@ class AddLessonViewController: UIViewController {
     
     @IBAction func didPressAddLesson(_ sender: UIButton) {
         var similarLesson: Lesson?
+        var isExist = false
+        var isError = true
+        
         for lesson in lessons {
             if lessonName == lesson.lessonName && lessonType == lesson.lessonType {
                 similarLesson = lesson
+                isError = false
+                break
             }
         }
+        
+    
+        for lesson in lessons {
+            if String(currentWeek) == lesson.lessonWeek &&
+            String(lessonNumber + 1) == lesson.lessonNumber &&
+            lessonDay.rawValue == lesson.dayName.rawValue {
+                isExist = true
+            }
+        }
+        
+        if isExist {
+            let alert2 = UIAlertController(title: nil, message: "Цей час вже зайнятий", preferredStyle: .alert)
+
+            alert2.addAction(UIAlertAction(title: "Вибрати інший час", style: .cancel, handler: nil))
+
+            self.present(alert2, animated: true)
+            return
+        }
+        
+        if isError {
+            var type = ""
+            var message = ""
+            var isEmptyLessonType = false
+            
+            switch lessonType {
+            case .лаб:
+                type = "лабораторних"
+            case .лек:
+                type = "лекцій"
+            case .прак:
+                type = "практик"
+            case .empty:
+                isEmptyLessonType = true
+            }
+            
+            message = (isEmptyLessonType) ? "Виберіть тип пари" : "У вас в розкладі немає \(type) з \n \(lessonName)"
+            
+            let alert = UIAlertController(title: nil, message: message, preferredStyle: .alert)
+
+            alert.addAction(UIAlertAction(title: "Вибрати інший тип пари", style: .cancel, handler: nil))
+
+            self.present(alert, animated: true)
+        }
+        
+        
+//        guard isExist else { return }
+        
         guard let previousLesson = similarLesson else { return }
+        
+        
         
         var dayNumber = 0
         switch lessonDay {
@@ -157,7 +194,7 @@ class AddLessonViewController: UIViewController {
                                lessonRoom: previousLesson.lessonRoom,
                                lessonType: lessonType,
                                teacherName: previousLesson.teacherName,
-                               lessonWeek: previousLesson.lessonWeek,
+                               lessonWeek: String(currentWeek),
                                timeStart: timeStart,
                                timeEnd: timeEnd,
                                rate: previousLesson.rate,
@@ -165,29 +202,25 @@ class AddLessonViewController: UIViewController {
                                rooms: previousLesson.rooms)
         
         
-        print(newLesson)
         
         
-        let mainStoryboard = UIStoryboard(name: "Main", bundle: Bundle.main)
-        
-        let sheduleViewController : SheduleViewController = mainStoryboard.instantiateViewController(withIdentifier: "SheduleViewController") as! SheduleViewController
         
         lessons.append(newLesson)
+
+        let mainStoryboard = UIStoryboard(name: "Main", bundle: Bundle.main)
+        let appDelegate = UIApplication.shared.delegate as? AppDelegate
+
         
+        let sheduleViewController : SheduleViewController = mainStoryboard.instantiateViewController(withIdentifier: "SheduleViewController") as! SheduleViewController
         sheduleViewController.updateCoreData(datum: lessons)
+        
         Settings.shared.isTryToReloadTableView = true
         
-        let appDelegate = UIApplication.shared.delegate as? AppDelegate
-        let groupVC : UITabBarController = mainStoryboard.instantiateViewController(withIdentifier: "Main") as! UITabBarController
+        let mainVC : UITabBarController = mainStoryboard.instantiateViewController(withIdentifier: "Main") as! UITabBarController
         guard let window = appDelegate?.window else { return }
-        window.rootViewController = groupVC
-        
-//        instanceOfVCA.tableView.reloadData()
-//        present(groupVC, animated: true, completion: nil)
+        window.rootViewController = mainVC
         
     }
-    
-    
 }
 
 extension AddLessonViewController: UIPickerViewDelegate, UIPickerViewDataSource {

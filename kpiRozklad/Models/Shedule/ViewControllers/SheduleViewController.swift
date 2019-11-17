@@ -120,13 +120,7 @@ class SheduleViewController: UIViewController {
         presentGroupChooser()
         
         /// If Core Data is empty, making request from server
-        if lessonsCoreData.isEmpty {
-            deleteAllFromCoreData()
-            lessonsCoreData = []
-            Settings.shared.isTryToRefreshShedule = false
-            server()
-            self.tableView.reloadData()
-        } else if Settings.shared.isTryToRefreshShedule {
+        if lessonsCoreData.isEmpty || Settings.shared.isTryToRefreshShedule {
             deleteAllFromCoreData()
             lessonsCoreData = []
             Settings.shared.isTryToRefreshShedule = false
@@ -156,9 +150,9 @@ class SheduleViewController: UIViewController {
     func presentAddLesson() {
         let mainStoryboard = UIStoryboard(name: "Main", bundle: Bundle.main)
         let groupVC : AddLessonViewController = mainStoryboard.instantiateViewController(withIdentifier: "addLesson") as! AddLessonViewController
-//        let vc = AddLessonViewController(nibName: "addLesson", bundle: nil)
 
         groupVC.lessons = self.fetchingCoreData()
+        groupVC.currentWeek = self.currentWeek
         self.present(groupVC, animated: true, completion: nil)
     }
     
@@ -268,22 +262,10 @@ class SheduleViewController: UIViewController {
         let sorted = normalLessonShedule.sorted{$0.key < $1.key}
 
         self.lessonsForTableView = sorted
-//        if Settings.shared.isTryToReloadTableView == true {
-//            self.tableView.reloadData()
-//        }
-//        DispatchQueue.main.async {
-//            while self.tableView != nil {
-//                self.tableView.reloadData()
-//
-//            }
-//        }
+
         if self.tableView != nil {
             self.tableView.reloadData()
-        } else {
-            
-//            viewDidLoad()
         }
-
     }
     
     
@@ -401,7 +383,6 @@ class SheduleViewController: UIViewController {
     /// - note: Core Data for entity "Lesson"
     /// - Parameter datum: array of  [Datum] whitch received from server
     func updateCoreData(datum:  [Lesson]) {
-        print("inCoreData")
         DispatchQueue.main.async {
             self.deleteAllFromCoreData()
 
@@ -575,35 +556,6 @@ class SheduleViewController: UIViewController {
         
     }
     
-            
-    /// - todo: make notifications
-    func scheduleNotification(notificationType: String) {
-            
-    //        let content = UNMutableNotificationContent() // Содержимое уведомления
-    //
-    //        content.title = notificationType
-    //        content.body = "This is example how to create " + "notificationType Notifications"
-    //        content.sound = UNNotificationSound.default
-    //        content.badge = 1
-    //
-    //
-    //
-    //        let date = Date(timeIntervalSinceNow: 10)
-    //        let date = formatter2.date(from: )
-    //        let triggerDate = Calendar.current.dateComponents([.year,.month,.day,.hour,.minute,.second,], from: date)
-    //
-    //        let trigger = UNCalendarNotificationTrigger(dateMatching: triggerDate, repeats: false)
-    //
-    //        let identifier = "Local Notification"
-    //        let request = UNNotificationRequest(identifier: identifier, content: content, trigger: trigger)
-    //
-    //        notificationCenter.add(request) { (error) in
-    //            if let error = error {
-    //                print("Error \(error.localizedDescription)")
-    //            }
-    //        }
-    }
-    
     
     override func setEditing(_ editing: Bool, animated: Bool) {
         super.setEditing(editing, animated: animated)
@@ -612,14 +564,6 @@ class SheduleViewController: UIViewController {
             self.tableView!.insertSections(IndexSet(integer: self.lessonsForTableView.count), with: .automatic)
         }
         else {
-//            var lessons: [Lesson] = []
-//            for day in lessonsForTableView {
-//                for lesson in day.value {
-//                    lessons.append(lesson)
-//                }
-//            }
-//            deleteAllFromCoreData()
-//            updateCoreData(datum: lessons)
             self.tableView.setEditing(false, animated: true)
             self.tableView!.deleteSections(IndexSet(integer: self.lessonsForTableView.count), with: .automatic)
         }
@@ -672,10 +616,6 @@ extension SheduleViewController: UITableViewDelegate, UITableViewDataSource {
     
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        let mainStoryboard = UIStoryboard(name: "Main", bundle: Bundle.main)
-        let addLesson : AddLessonViewController = mainStoryboard.instantiateViewController(withIdentifier: "addLesson") as! AddLessonViewController
-        addLesson.instanceOfVCA = self
-        
         if segue.identifier == "showDetailViewController" {
             if let indexPath = tableView.indexPathForSelectedRow {
                 if let destination = segue.destination as? SheduleDetailViewController {
@@ -696,8 +636,9 @@ extension SheduleViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard (storyboard?.instantiateViewController(withIdentifier: "DetailViewController") as? SheduleDetailViewController) != nil else { return }
-        performSegue(withIdentifier: "showDetailViewController", sender: self)
-        
+        if indexPath.section != lessonsForTableView.count {
+            performSegue(withIdentifier: "showDetailViewController", sender: self)
+        }
         tableView.deselectRow(at: indexPath, animated: true)
     }
         
@@ -746,7 +687,6 @@ extension SheduleViewController: UITableViewDelegate, UITableViewDataSource {
         cell.startLabel.text = substringTimeStart
         cell.endLabel.text = substringTimeEnd
         cell.roomLabel.text = lessonsForSomeDay[indexPath.row].lessonType.rawValue + " " + lessonsForSomeDay[indexPath.row].lessonRoom
-//        cell.accessoryType = .disclosureIndicator
 
         return cell
     }

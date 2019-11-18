@@ -36,12 +36,12 @@ class GroupChooserViewController: UIViewController {
     }
     
     func server() {
-        for i in 0..<20 {
+        for i in 0..<24 {
             let offset = i * 100
             let stringURL = "https://api.rozklad.org.ua/v2/groups/?filter=%7B'limit':100,'offset':\(String(offset))%7D"
-            
+            print(stringURL)
             let url = URL(string: stringURL)!
-           
+            
             
             let task = URLSession.shared.dataTask(with: url) {(data, response, error) in
                 guard let data = data else { return }
@@ -51,16 +51,22 @@ class GroupChooserViewController: UIViewController {
                     guard let serverFULLDATA = try? decoder.decode(WelcomeGroup.self, from: data) else { return }
                     let datum = serverFULLDATA.data
                     self.groups += datum
+//                    print("--------")
+//                    print(offset)
+//                    print("--------")
+//                    for dat in datum {
+//                        print(dat.groupID)
+//                    }
+                    print(self.groups.count)
                     DispatchQueue.main.async {
                         self.tableView.isHidden = false
                         self.tableView.reloadData()
                     }
                 }
-                
-                
             }
             task.resume()
         }
+
     }
 
 
@@ -111,6 +117,8 @@ extension GroupChooserViewController: UITableViewDelegate, UITableViewDataSource
         
         let mainStoryboard = UIStoryboard(name: "Main", bundle: Bundle.main)
         let groupVC : UITabBarController = mainStoryboard.instantiateViewController(withIdentifier: "Main") as! UITabBarController
+        
+        Settings.shared.isTryToRefreshShedule = true
 
         let appDelegate = UIApplication.shared.delegate as? AppDelegate
         guard let window = appDelegate?.window else { return }

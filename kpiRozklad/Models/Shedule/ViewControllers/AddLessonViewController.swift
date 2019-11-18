@@ -82,8 +82,14 @@ class AddLessonViewController: UIViewController {
         var isExist = false
         var isError = true
         
+        var lessonType2: LessonType?
+        
+        if lessonType == LessonType.лек1 {
+            lessonType2 = .лек2
+        }
+        
         for lesson in lessons {
-            if lessonName == lesson.lessonName && lessonType == lesson.lessonType {
+            if lessonName == lesson.lessonName && (lessonType == lesson.lessonType || lessonType2 == lesson.lessonType) {
                 similarLesson = lesson
                 isError = false
                 break
@@ -116,7 +122,9 @@ class AddLessonViewController: UIViewController {
             switch lessonType {
             case .лаб:
                 type = "лабораторних"
-            case .лек:
+            case .лек1:
+                type = "лекцій"
+            case .лек2:
                 type = "лекцій"
             case .прак:
                 type = "практик"
@@ -152,6 +160,8 @@ class AddLessonViewController: UIViewController {
                 dayNumber = 4
             case .friday:
                 dayNumber = 5
+            case .saturday:
+                dayNumber = 6
         }
         
         var timeStart = "00:00:00"
@@ -202,9 +212,6 @@ class AddLessonViewController: UIViewController {
                                rooms: previousLesson.rooms)
         
         
-        
-        
-        
         lessons.append(newLesson)
 
         let mainStoryboard = UIStoryboard(name: "Main", bundle: Bundle.main)
@@ -252,7 +259,7 @@ extension AddLessonViewController: UIPickerViewDelegate, UIPickerViewDataSource 
                 let lesson = unicalLessons[row]
                 return lesson.lessonFullName
            } else {
-                let array = [LessonType.empty.rawValue, LessonType.лаб.rawValue, LessonType.лек.rawValue, LessonType.прак.rawValue]
+                let array = [LessonType.empty.rawValue, LessonType.лаб.rawValue, LessonType.лек1.rawValue, LessonType.прак.rawValue]
                 return array[row]
            }
         } else if pickerView == dayPickerView {
@@ -293,7 +300,7 @@ extension AddLessonViewController: UIPickerViewDelegate, UIPickerViewDataSource 
                     case 1:
                         lessonType = LessonType.лаб
                     case 2:
-                        lessonType = LessonType.лек
+                        lessonType = LessonType.лек1
                     case 3:
                         lessonType = LessonType.прак
                     default:

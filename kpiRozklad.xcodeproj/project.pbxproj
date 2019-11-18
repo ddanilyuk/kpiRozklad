@@ -230,8 +230,8 @@
 				D313F4AF233AB94C0076CFF8 /* TeacherFull.swift */,
 				D300F1DB2365BC270098CA83 /* Teacher.swift */,
 				5F4457E32376FB05008F9E21 /* Settings.swift */,
-				D3FFAAE223521BAC0065E9CE /* Extensions */,
 				5FA2B79C2379F5A7006C466B /* Group.swift */,
+				D3FFAAE223521BAC0065E9CE /* Extensions */,
 			);
 			path = Common;
 			sourceTree = "<group>";

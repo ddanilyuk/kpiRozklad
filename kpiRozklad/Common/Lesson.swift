@@ -69,6 +69,7 @@ enum DayName: String, Codable, Comparable {
     case wednesday = "Середа"
     case thursday = "Четвер"
     case friday = "П’ятниця"
+    case saturday = "Субота"
     
 
     private var sortOrder: Int {
@@ -83,6 +84,8 @@ enum DayName: String, Codable, Comparable {
                 return 4
             case .friday:
                 return 5
+            case .saturday:
+                return 6
         }
     }
 
@@ -99,7 +102,8 @@ enum DayName: String, Codable, Comparable {
 enum LessonType: String, Codable {
     case empty = ""
     case лаб = "Лаб"
-    case лек = "Лек"
+    case лек1 = "Лек"
+    case лек2 = "лек"
     case прак = "Прак"
 }
 

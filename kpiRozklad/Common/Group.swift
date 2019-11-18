@@ -43,6 +43,7 @@ struct Group: Codable {
 
 enum GroupOkr: String, Codable {
     case bachelor = "bachelor"
+    case magister = "magister"
 }
 
 

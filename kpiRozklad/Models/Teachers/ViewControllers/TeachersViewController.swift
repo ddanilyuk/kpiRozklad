@@ -31,10 +31,8 @@ class TeachersViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        teachers = (isChoosenMyTeachers) ? myTeachers : allTeachers
-        
-        server(chooser: isChoosenMyTeachers)
+                
+        server()
         
         tableView.delegate = self
         tableView.dataSource = self
@@ -48,7 +46,9 @@ class TeachersViewController: UIViewController {
         activityIndicator.startAnimating()
         tableView.isHidden = true
         self.view.bringSubviewToFront(activityIndicator)
-
+        
+        teachers = (isChoosenMyTeachers) ? myTeachers : allTeachers
+        self.tableView.reloadData()
     }
     
     
@@ -57,19 +57,18 @@ class TeachersViewController: UIViewController {
             case 0:
                 isChoosenMyTeachers = true
                 self.teachers = []
+                tableView.reloadData()
+                teachers = myTeachers
 
-                teachers = (isChoosenMyTeachers) ? myTeachers : allTeachers
-
-                self.teachers = []
-                server(chooser: isChoosenMyTeachers)
                 tableView.reloadData()
             case 1:
+                self.allTeachers = self.allTeachers.sorted{Int($0.teacherID) ?? 0 < Int($1.teacherID) ?? 0}
                 isChoosenMyTeachers = false
                 self.teachers = []
+                tableView.reloadData()
 
-                teachers = (isChoosenMyTeachers) ? myTeachers : allTeachers
+                teachers = allTeachers
 
-                server(chooser: isChoosenMyTeachers)
                 tableView.reloadData()
             default:
                 break
@@ -77,11 +76,41 @@ class TeachersViewController: UIViewController {
     }
     
     
-    func server(chooser: Bool) {
-        if (chooser) {
-            let stringURL = "https://api.rozklad.org.ua/v2/groups/5489/teachers"
-            let url = URL(string: stringURL)!
+    func server() {
+       let stringURL = "https://api.rozklad.org.ua/v2/groups/\(Settings.shared.groupID)/teachers"
+        let url = URL(string: stringURL)!
 
+        
+        let task = URLSession.shared.dataTask(with: url) {(data, response, error) in
+            guard let data = data else { return }
+            let decoder = JSONDecoder()
+
+            do {
+                guard let serverFULLDATA = try? decoder.decode(WelcomeTeachers.self, from: data) else { return }
+                let datum = serverFULLDATA.data
+                self.myTeachers = datum
+                self.teachers = self.myTeachers
+                
+                DispatchQueue.main.async {
+                    self.activityIndicator.stopAnimating()
+                    self.activityIndicator.isHidden = true
+                    
+                    self.tableView.isHidden = false
+                    self.tableView.reloadData()
+                    
+                }
+            }
+        }
+        task.resume()
+        
+        
+        for i in 0..<51 {
+            let offset = i * 100
+            let stringURL = "https://api.rozklad.org.ua/v2/teachers?filter=%7B'limit':100,'offset':\(String(offset))%7D"
+            print(stringURL)
+            
+            let url = URL(string: stringURL)!
+           
             
             let task = URLSession.shared.dataTask(with: url) {(data, response, error) in
                 guard let data = data else { return }
@@ -90,54 +119,26 @@ class TeachersViewController: UIViewController {
                 do {
                     guard let serverFULLDATA = try? decoder.decode(WelcomeTeachers.self, from: data) else { return }
                     let datum = serverFULLDATA.data
-                    self.teachers = datum
+                    self.allTeachers += datum
                     
-                    DispatchQueue.main.async {
-                        self.tableView.isHidden = false
-                        self.tableView.reloadData()
-                    }
-                }
-                DispatchQueue.main.async {
-                    self.activityIndicator.stopAnimating()
-                    self.activityIndicator.isHidden = true
-                }
-            }
-            task.resume()
-            
-        } else {
-            for i in 0..<51 {
-                let offset = i * 100
-                let stringURL = "https://api.rozklad.org.ua/v2/teachers?filter=%7B'limit':100,'offset':\(String(offset))%7D"
-                
-                
-                let url = URL(string: stringURL)!
-               
-                
-                let task = URLSession.shared.dataTask(with: url) {(data, response, error) in
-                    guard let data = data else { return }
-                    let decoder = JSONDecoder()
+                    print(self.allTeachers.count)
+                    
+//                    self.allTeachers = self.allTeachers.sorted{$0.teacherFullName < $1.teacherFullName}
 
-                    do {
-                        guard let serverFULLDATA = try? decoder.decode(WelcomeTeachers.self, from: data) else { return }
-                        let datum = serverFULLDATA.data
-                        self.teachers += datum
-                        print(self.teachers.count)
-                        
-                        DispatchQueue.main.async {
-                            self.tableView.isHidden = false
-                            self.tableView.reloadData()
-                        }
-                    }
                     DispatchQueue.main.async {
                         self.activityIndicator.stopAnimating()
                         self.activityIndicator.isHidden = true
+                        
+                        self.tableView.isHidden = false
+                        self.tableView.reloadData()
+//                        self.allTeachers = self.allTeachers.sorted{$0.teacherFullName < $1.teacherFullName}
                     }
-                    
                 }
-                task.resume()
             }
-            
+            task.resume()
         }
+            
+        
         
         
     }

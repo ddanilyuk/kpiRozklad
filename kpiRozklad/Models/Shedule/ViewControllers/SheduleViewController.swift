@@ -748,6 +748,9 @@ extension SheduleViewController: UITableViewDelegate, UITableViewDataSource {
                     dayName = DayName.thursday
                 case 4:
                     dayName = DayName.friday
+                case 5:
+                    dayName = DayName.saturday
+                
                 default:
                     break
             }
@@ -755,7 +758,8 @@ extension SheduleViewController: UITableViewDelegate, UITableViewDataSource {
             var lessonNumber = ""
             if destinationIndexPath.row == 0 {
                lessonNumber = "1"
-            } else if destinationIndexPath.section == sourceIndexPath.section && destinationIndexPath.row > sourceIndexPath.row {
+            } else if destinationIndexPath.section == sourceIndexPath.section &&
+                      destinationIndexPath.row > sourceIndexPath.row {
                 lessonNumber = String(self.lessonsForTableView[destinationIndexPath.section].value[destinationIndexPath.row - 1].lessonNumber)
                 
                 var lessonNumberInt: Int = Int(lessonNumber) ?? 0

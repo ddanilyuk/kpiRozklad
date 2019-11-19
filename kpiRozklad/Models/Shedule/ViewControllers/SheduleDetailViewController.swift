@@ -39,6 +39,7 @@ class SheduleDetailViewController: UIViewController {
                 }
                 teacherRatingLabel.text = teacher?.teacherRating
         }
+        
         print(lesson)
         lessonNameLabel.text = lesson.lessonName
         roomTypeLabel.text = lesson.lessonType.rawValue + " " + lesson.lessonRoom

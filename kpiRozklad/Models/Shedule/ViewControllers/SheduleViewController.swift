@@ -724,9 +724,9 @@ extension SheduleViewController: UITableViewDelegate, UITableViewDataSource {
             presentAddLesson()
         }
     }
+     
     
-    
-    // MARK: - moveRowAt sourceIndexPath to destinationIndexPath
+    // MARK: - moveRowAt sourceIndexPath to destinationIndexPath |
     func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
         let _ = (sourceIndexPath.row < self.lessonsForTableView[sourceIndexPath.section].value.count && destinationIndexPath.row < self.lessonsForTableView[sourceIndexPath.section].value.count)
         if true

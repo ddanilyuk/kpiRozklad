@@ -38,27 +38,14 @@ class TeacherSheduleViewController: UIViewController {
     var weekOfYear = 0
        
     /// Day number from 1 to 7
-    var dayNumber = 0
+    var dayNumberFromCurrentDate = 0
+        
+    var timeString = String()
     
-    let date = Date()
-    let calendar = Calendar.current
-    
-    /// "EEEE"  formatter (dat)
-    let formatter1 = DateFormatter()
-    
-    /// "HH:mm"  formatter (hours and minutes)
-    let formatter2 = DateFormatter()
-
-    var timeString = ""
-    var timeDate = Date()
-    var dayString = ""
-    
-    var currentLessonId = ""
-    var nextLessonId = ""
-    var nextLessonDate = Date()
+    var currentLessonId = String()
+    var nextLessonId = String()
     
     let colour1 = #colorLiteral(red: 0.1411764771, green: 0.3960784376, blue: 0.5647059083, alpha: 1)
-    let colour2 = #colorLiteral(red: 0.1019607857, green: 0.2784313858, blue: 0.400000006, alpha: 1)
     
     @IBOutlet weak var navBar: UINavigationItem!
     
@@ -66,7 +53,6 @@ class TeacherSheduleViewController: UIViewController {
     var teacherID: String?
     
     @IBOutlet weak var weekSwitch: UISegmentedControl!
-    
     
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
@@ -82,6 +68,7 @@ class TeacherSheduleViewController: UIViewController {
         setUpCurrentWeek()
                 
         server()
+        makeLessonsShedule()
 
         
         // guard let teacher = teacher else { return }
@@ -112,33 +99,25 @@ class TeacherSheduleViewController: UIViewController {
     
     // MARK: - getDayNumAndWeekOfYear
     /// Getting dayNumber and week of year from device Date()
-    ///
-    /// - todo: maybe use swich-case
     func getDayNumAndWeekOfYear() {
+        let date = Date()
+        let calendar = Calendar.current
+        
+        /// "EEEE"  formatter (day)
+        let formatter1 = DateFormatter()
+        
+        /// "HH:mm"  formatter (hours and minutes)
+        let formatter2 = DateFormatter()
+
         formatter1.dateFormat = "EEEE"
         formatter2.dateFormat = "HH:mm"
-        dayString = formatter1.string(from: date)
+                
         timeString = formatter2.string(from: date)
-        timeDate = formatter2.date(from: timeString) ?? Date()
-
-        /// Get today's number in week (from 1 to 7)
-        if dayString == "Monday" {
-            dayNumber = 1
-        } else if dayString == "Tuesday" {
-            dayNumber = 2
-        } else if dayString == "Wednesday" {
-            dayNumber = 3
-        } else if dayString == "Thursday" {
-            dayNumber = 4
-        } else if dayString == "Friday" {
-            dayNumber = 5
-        } else if dayString == "Saturday" {
-            dayNumber = 6
-        } else {
-            dayNumber = 7
-        }
-        /// Get number of week (in year)
+        
+        /// Get number of week (in year) and weekday
         let components = calendar.dateComponents([.weekOfYear, .month, .day, .weekday], from: date)
+        
+        dayNumberFromCurrentDate = (components.weekday ?? 0) - 1
         weekOfYear = components.weekOfYear ?? 0
     }
     
@@ -272,37 +251,29 @@ class TeacherSheduleViewController: UIViewController {
     /// - todo: make some with time and Date
     /// - todo: rewrite function :)
     func getCurrentAndNextLesson(lessons: [TeacherFull]) {
+        
         for lesson in lessons {
-            let timeStartString = lesson.timeStart
-            let substringTimeStart = String(timeStartString[..<5])
-            let timeEndString = lesson.timeEnd
-            let substringTimeEnd = String(timeEndString[..<5])
             
-            let timeStart = formatter2.date(from:substringTimeStart) ?? Date()
-            let timeEnd = formatter2.date(from:substringTimeEnd) ?? Date()
+            let timeStart = String(lesson.timeStart[..<5])
             
-            if  ((timeStart <= timeDate) &&
-                (timeDate < timeEnd) &&
-                (dayNumber == Int(lesson.dayNumber)) &&
-                (currentWeekFromTodayDate == Int(lesson.lessonWeek) ?? 0)) {
+            let timeEnd = String(lesson.timeEnd[..<5])
+                        
+            if  (timeStart <= timeString) && (timeString < timeEnd) &&
+                (dayNumberFromCurrentDate == Int(lesson.dayNumber)) && (currentWeekFromTodayDate == Int(lesson.lessonWeek) ?? 0) {
                 
                 currentLessonId = lesson.lessonID
             }
-        }
-        
-        for lesson in lessons {
-            let timeStartString = lesson.timeStart
-            let substringTimeStart = String(timeStartString[..<5])
-            let timeStart = formatter2.date(from:substringTimeStart) ?? Date()
             
-            if (timeStart > timeDate) && (dayNumber == Int(lesson.dayNumber) ?? 0) && (currentWeekFromTodayDate == Int(lesson.lessonWeek) ?? 0) {
+            if (timeStart > timeString) && (dayNumberFromCurrentDate == Int(lesson.dayNumber) ?? 0) && (currentWeekFromTodayDate == Int(lesson.lessonWeek) ?? 0) {
                 nextLessonId = lesson.lessonID
                 break
-            } else if (dayNumber < Int(lesson.dayNumber) ?? 0) && (currentWeekFromTodayDate == Int(lesson.lessonWeek) ?? 0){
+            } else if (dayNumberFromCurrentDate < Int(lesson.dayNumber) ?? 0) && (currentWeekFromTodayDate == Int(lesson.lessonWeek) ?? 0){
                 nextLessonId = lesson.lessonID
                 break
             }
         }
+        
+
         
         
         var lessonsFirst: [TeacherFull] = []
@@ -322,6 +293,12 @@ class TeacherSheduleViewController: UIViewController {
             } else if nextLessonId == "" && currentWeekFromTodayDate == 1 {
                 nextLessonId = lessonsSecond[0].lessonID
             }
+        }
+        
+        if lessonsFirst.count == 0 && lessonsSecond.count != 0 {
+            nextLessonId = lessonsSecond[0].lessonID
+        } else if lessonsFirst.count != 0 && lessonsSecond.count == 0 {
+            nextLessonId = lessonsFirst[0].lessonID
         }
         
     }

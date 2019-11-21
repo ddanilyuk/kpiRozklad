@@ -168,6 +168,43 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zJS-D4-emx">
+                                <rect key="frame" x="4" y="525" width="367" height="200"/>
+                                <subviews>
+                                    <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="k36-Jh-0xj">
+                                        <rect key="frame" x="8" y="0.0" width="351" height="160"/>
+                                    </pickerView>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="G3M-dX-RUc">
+                                        <rect key="frame" x="279" y="162" width="80" height="30"/>
+                                        <color key="backgroundColor" systemColor="linkColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="80" id="bBr-Kr-HEt"/>
+                                            <constraint firstAttribute="height" constant="30" id="ygm-6T-xdg"/>
+                                        </constraints>
+                                        <state key="normal" title="Змінити">
+                                            <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        </state>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                <real key="value" value="15"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="didPressEditLessonNumber:" destination="VGz-qr-qiP" eventType="touchUpInside" id="2aD-r5-7Pj"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="opaqueSeparatorColor" red="0.77647058820000003" green="0.77647058820000003" blue="0.7843137255" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstItem="k36-Jh-0xj" firstAttribute="top" secondItem="zJS-D4-emx" secondAttribute="top" id="A89-1C-OFd"/>
+                                    <constraint firstAttribute="height" constant="200" id="P2x-TN-8nU"/>
+                                    <constraint firstAttribute="bottom" secondItem="k36-Jh-0xj" secondAttribute="bottom" constant="40" id="WsF-Yn-3c1"/>
+                                    <constraint firstAttribute="trailing" secondItem="G3M-dX-RUc" secondAttribute="trailing" constant="8" id="Xo0-8D-1bH"/>
+                                    <constraint firstItem="k36-Jh-0xj" firstAttribute="leading" secondItem="zJS-D4-emx" secondAttribute="leading" constant="8" id="qDN-C8-mtt"/>
+                                    <constraint firstAttribute="bottom" secondItem="G3M-dX-RUc" secondAttribute="bottom" constant="8" id="xnk-6A-INv"/>
+                                    <constraint firstAttribute="trailing" secondItem="k36-Jh-0xj" secondAttribute="trailing" constant="8" id="ycA-KT-tdO"/>
+                                </constraints>
+                            </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelectionDuringEditing="YES" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Bv9-u6-c2Z">
                                 <rect key="frame" x="0.0" y="140" width="375" height="589"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
@@ -175,10 +212,14 @@
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
+                            <constraint firstItem="zJS-D4-emx" firstAttribute="centerX" secondItem="2xZ-kD-GrF" secondAttribute="centerX" id="0Fm-HV-UXR"/>
                             <constraint firstItem="Bv9-u6-c2Z" firstAttribute="bottom" secondItem="2xZ-kD-GrF" secondAttribute="bottom" id="1dr-Bo-hud"/>
                             <constraint firstItem="Bv9-u6-c2Z" firstAttribute="trailing" secondItem="2xZ-kD-GrF" secondAttribute="trailing" id="1fr-82-Emr"/>
+                            <constraint firstItem="2xZ-kD-GrF" firstAttribute="trailing" secondItem="zJS-D4-emx" secondAttribute="trailing" constant="4" id="Hj7-gl-6Fa"/>
                             <constraint firstItem="Bv9-u6-c2Z" firstAttribute="leading" secondItem="2xZ-kD-GrF" secondAttribute="leading" id="OMp-SU-xlh"/>
                             <constraint firstItem="Bv9-u6-c2Z" firstAttribute="top" secondItem="2xZ-kD-GrF" secondAttribute="top" id="Ylx-n3-6L5"/>
+                            <constraint firstItem="zJS-D4-emx" firstAttribute="leading" secondItem="2xZ-kD-GrF" secondAttribute="leading" constant="4" id="jbT-Ub-Whf"/>
+                            <constraint firstItem="zJS-D4-emx" firstAttribute="bottom" secondItem="2xZ-kD-GrF" secondAttribute="bottom" constant="-4" id="tCz-As-WrP"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="2xZ-kD-GrF"/>
                     </view>
@@ -208,6 +249,8 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="editLessonNumberPicker" destination="k36-Jh-0xj" id="CTh-ll-TmR"/>
+                        <outlet property="editLessonNumberView" destination="zJS-D4-emx" id="xZM-Gj-qq3"/>
                         <outlet property="navigationItem" destination="HCW-ay-CZY" id="F8k-qb-5b4"/>
                         <outlet property="tableView" destination="Bv9-u6-c2Z" id="eAJ-5z-7Hq"/>
                         <outlet property="weekSwitch" destination="kCf-Y9-PTf" id="20s-Tg-fBT"/>
@@ -216,7 +259,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rC5-9P-2Ut" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="926" y="-404"/>
+            <point key="canvasLocation" x="925.60000000000002" y="-404.18719211822662"/>
         </scene>
         <!--Викладачі-->
         <scene sceneID="UTN-su-Qgb">

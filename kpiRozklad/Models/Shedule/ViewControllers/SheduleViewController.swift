@@ -77,8 +77,14 @@ class SheduleViewController: UIViewController {
     /// Week switcher (1 and 2 week)
     @IBOutlet weak var weekSwitch: UISegmentedControl!
     
+    @IBOutlet weak var editLessonNumberView: UIView!
+    @IBOutlet weak var editLessonNumberPicker: UIPickerView!
     
-//    var picker = UIPickerView()
+    var picker = UIPickerView()
+    
+    var lessonFromPicker: Lesson?
+    var lessonNuberFromPicker: Int = 0
+    var indexPathFromPicker: IndexPath?
     
     // MARK: - viewDidLoad
     override func viewDidLoad() {
@@ -89,8 +95,17 @@ class SheduleViewController: UIViewController {
 
         
         presentGroupChooser()
-//        picker.dataSource = self
-//        picker.delegate = self
+        editLessonNumberView.isHidden = true
+        editLessonNumberView.layer.cornerRadius = 10
+        editLessonNumberView.layer.borderColor = CGColor(srgbRed: 0, green: 0, blue: 0, alpha: 0.35)
+        editLessonNumberView.layer.borderWidth = 1
+        editLessonNumberView.tag = 100
+        editLessonNumberView.isUserInteractionEnabled = true
+        
+        
+        
+        editLessonNumberPicker.dataSource = self
+        editLessonNumberPicker.delegate = self
 
         tableView.delegate = self
         tableView.dataSource = self
@@ -104,6 +119,21 @@ class SheduleViewController: UIViewController {
         self.navigationItem.title = Settings.shared.groupName.uppercased()
     }
     
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+//        let touch = touches. as! UITouch
+//        let point = touch.location(in: self.view)
+
+        if let viewWithTag = self.view.viewWithTag(100) {
+            print("Tag 100")
+            editLessonNumberView.isHidden = true
+            tableView.isUserInteractionEnabled = true
+            tableView.alpha = 1
+            editButtonItem.isEnabled = true
+            weekSwitch.isEnabled = true
+        } else {
+            print("tag not found")
+        }
+    }
     
     // MARK: - viewWillAppear
     override func viewWillAppear(_ animated: Bool) {
@@ -625,7 +655,61 @@ class SheduleViewController: UIViewController {
         return (timeStart, timeEnd)
     }
     
+    func editLessonNumber(indexPath: IndexPath) {
+        var lessons = fetchingCoreData()
+        let lesson = self.lessonsForTableView[indexPath.section].value[indexPath.row]
+        /// timeStart && timeEnd
+        let times = getTimeFromLessonNumber(lessonNumber: String(lessonNuberFromPicker))
+        let timeStart = times.0
+        let timeEnd = times.1
+
+        let newLesson = Lesson(lessonID: lesson.lessonID,
+                           groupID: lesson.groupID,
+                           dayNumber: lesson.dayNumber,
+                           dayName: lesson.dayName,
+                           lessonName: lesson.lessonName,
+                           lessonFullName: lesson.lessonFullName,
+                           lessonNumber: String(lessonNuberFromPicker),
+                           lessonRoom: lesson.lessonRoom,
+                           lessonType: lesson.lessonType,
+                           teacherName: lesson.teacherName,
+                           lessonWeek: lesson.lessonWeek,
+                           timeStart: timeStart,
+                           timeEnd: timeEnd,
+                           rate: lesson.rate,
+                           teachers: lesson.teachers,
+                           rooms: lesson.rooms)
+
+        self.lessonsForTableView[indexPath.section].value.remove(at: indexPath.row)
+
+        self.lessonsForTableView[indexPath.section].value.insert(newLesson, at: indexPath.row)
+
+        
+        for i in 0..<lessons.count {
+            let lessonAll = lessons[i]
+            if lessonAll.lessonID == lesson.lessonID {
+                lessons.remove(at: i)
+                break
+            }
+        }
+
+        lessons.append(newLesson)
+        
+        updateCoreData(datum: lessons)
+        tableView.reloadData()
+
+    }
     
+    @IBAction func didPressEditLessonNumber(_ sender: UIButton) {
+        
+        editLessonNumber(indexPath: indexPathFromPicker ?? IndexPath(row: 0, section: 0))
+        
+        editLessonNumberView.isHidden = true
+        tableView.isUserInteractionEnabled = true
+        tableView.alpha = 1
+        editButtonItem.isEnabled = true
+        weekSwitch.isEnabled = true
+    }
     
     
 }
@@ -701,7 +785,23 @@ extension SheduleViewController: UITableViewDelegate, UITableViewDataSource {
     // MARK: - didSelectRowAt
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if isEditing {
-//            self.view.addSubview(picker)
+            
+            editLessonNumberView.isHidden = false
+            editButtonItem.isEnabled = false
+            tableView.alpha = 0.5
+            tableView.isUserInteractionEnabled = false
+            weekSwitch.isEnabled = false
+            self.view.addSubview(editLessonNumberView)
+            tableView.deselectRow(at: indexPath, animated: true)
+            
+            
+            
+            indexPathFromPicker = indexPath
+
+            
+            
+
+            
         } else {
             guard (storyboard?.instantiateViewController(withIdentifier: "DetailViewController") as? SheduleDetailViewController) != nil else { return }
             if indexPath.section != lessonsForTableView.count {
@@ -1016,18 +1116,26 @@ extension SheduleViewController: UITableViewDelegate, UITableViewDataSource {
     
 }
 
-//extension SheduleViewController: UIPickerViewDelegate, UIPickerViewDataSource {
-//    func numberOfComponents(in pickerView: UIPickerView) -> Int {
-//        return 1
-//    }
-//    
-//    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-//        return 3
-//    }
-//    
-//    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-//        let array = ["1", "2", "3"]
-//        return array[row]
-//    }
-//    
-//}
+extension SheduleViewController: UIPickerViewDelegate, UIPickerViewDataSource {
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return 5
+    }
+    
+    
+    func pickerView(_ pickerView: UIPickerView, attributedTitleForRow row: Int, forComponent component: Int) -> NSAttributedString? {
+        let array = ["1 пара", "2 пара", "3 пара", "4 пара", "5 пара", "6 пара"]
+
+        let attributedString = NSAttributedString(string: array[row], attributes: [NSAttributedString.Key.foregroundColor : UIColor.black])
+
+        return attributedString
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        lessonNuberFromPicker = row + 1
+    }
+    
+}

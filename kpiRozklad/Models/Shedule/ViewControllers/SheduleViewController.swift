@@ -1129,7 +1129,7 @@ extension SheduleViewController: UIPickerViewDelegate, UIPickerViewDataSource {
     func pickerView(_ pickerView: UIPickerView, attributedTitleForRow row: Int, forComponent component: Int) -> NSAttributedString? {
         let array = ["1 пара", "2 пара", "3 пара", "4 пара", "5 пара", "6 пара"]
 
-        let attributedString = NSAttributedString(string: array[row], attributes: [NSAttributedString.Key.foregroundColor : UIColor.black])
+        let attributedString = NSAttributedString(string: array[row], attributes: [NSAttributedString.Key.foregroundColor : UIColor.white])
 
         return attributedString
     }

@@ -568,6 +568,39 @@ class SheduleViewController: UIViewController {
     }
     
     
+    func getTimeFromLessonNumber(lessonNumber: String) -> (String, String) {
+        var timeStart = ""
+        var timeEnd = ""
+
+        switch lessonNumber {
+            case "1":
+                timeStart = "08:30:00"
+                timeEnd = "10:05:00"
+            case "2":
+                timeStart = "10:25:00"
+                timeEnd = "12:00:00"
+            case "3":
+                timeStart = "12:20:00"
+                timeEnd = "13:55:00"
+            case "4":
+                timeStart = "14:15:00"
+                timeEnd = "15:50:00"
+            case "5":
+                timeStart = "16:10:00"
+                timeEnd = "17:45:00"
+            case "6":
+                timeStart = "18:05:00"
+                timeEnd = "19:40:00"
+            default:
+                timeStart = "00:00:00"
+                timeEnd = "00:00:00"
+        }
+        return (timeStart, timeEnd)
+    }
+    
+    
+    
+    
 }
 
 
@@ -729,32 +762,42 @@ extension SheduleViewController: UITableViewDelegate, UITableViewDataSource {
     // MARK: - moveRowAt sourceIndexPath to destinationIndexPath |
     func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
         let _ = (sourceIndexPath.row < self.lessonsForTableView[sourceIndexPath.section].value.count && destinationIndexPath.row < self.lessonsForTableView[sourceIndexPath.section].value.count)
-        if true
+        if (sourceIndexPath.row < self.lessonsForTableView[sourceIndexPath.section].value.count && destinationIndexPath.row < self.lessonsForTableView[sourceIndexPath.section].value.count)
         {
-            var lessons: [Lesson] = []
+            /// getting all lessons (this variable will refresh coreData)
+            var lessons: [Lesson] = fetchingCoreData()
             
-            lessons = fetchingCoreData()
+            /// lesson which we moved
+            let lesson: Lesson = self.lessonsForTableView[sourceIndexPath.section].value[sourceIndexPath.row]
+
             
-            var dayName = DayName.mounday
+            /// dayName && dayNumber
+            var dayName: DayName
+            var dayNumber = 0
             
-            switch destinationIndexPath.section {
-                case 0:
+            switch self.lessonsForTableView[destinationIndexPath.section].key {
+                case .mounday:
                     dayName = DayName.mounday
-                case 1:
+                    dayNumber = 1
+                case .tuesday:
                     dayName = DayName.tuesday
-                case 2:
+                    dayNumber = 2
+                case .wednesday:
                     dayName = DayName.wednesday
-                case 3:
+                    dayNumber = 3
+                case .thursday:
                     dayName = DayName.thursday
-                case 4:
+                    dayNumber = 4
+                case .friday:
                     dayName = DayName.friday
-                case 5:
+                    dayNumber = 5
+                case .saturday:
                     dayName = DayName.saturday
-                
-                default:
-                    break
+                    dayNumber = 6
             }
             
+            
+            /// lessonNumber
             var lessonNumber = ""
             if destinationIndexPath.row == 0 {
                lessonNumber = "1"
@@ -772,51 +815,18 @@ extension SheduleViewController: UITableViewDelegate, UITableViewDataSource {
                 var lessonNumberInt: Int = Int(lessonNumber) ?? 0
                 lessonNumberInt += 1
                 lessonNumber = String(lessonNumberInt)
-                
             }
-                         
-            var timeStart = "00:00:00"
-            var timeEnd = "00:00:00"
+             
             
-            switch lessonNumber {
-                case "1":
-                    timeStart = "08:30:00"
-                    timeEnd = "10:05:00"
-                case "2":
-                    timeStart = "10:25:00"
-                    timeEnd = "12:00:00"
-                case "3":
-                    timeStart = "12:20:00"
-                    timeEnd = "13:55:00"
-                case "4":
-                    timeStart = "14:15:00"
-                    timeEnd = "15:50:00"
-                case "5":
-                    timeStart = "16:10:00"
-                    timeEnd = "17:45:00"
-                default:
-                    timeStart = "00:00:00"
-                    timeEnd = "00:00:00"
-            }
-            
-            var dayNumber = 0
-            switch self.lessonsForTableView[destinationIndexPath.section].key {
-                case .mounday:
-                    dayNumber = 1
-                case .tuesday:
-                    dayNumber = 2
-                case .wednesday:
-                    dayNumber = 3
-                case .thursday:
-                    dayNumber = 4
-                case .friday:
-                    dayNumber = 5
-                case .saturday:
-                    dayNumber = 6
-            }
+            /// timeStart && timeEnd
+            let times = getTimeFromLessonNumber(lessonNumber: lessonNumber)
+            let timeStart = times.0
+            let timeEnd = times.1
+
 
             
-            let lesson: Lesson = self.lessonsForTableView[sourceIndexPath.section].value[sourceIndexPath.row]
+            
+            
             
             let newLesson = Lesson(lessonID: lesson.lessonID,
                                groupID: lesson.groupID,
@@ -835,19 +845,99 @@ extension SheduleViewController: UITableViewDelegate, UITableViewDataSource {
                                teachers: lesson.teachers,
                                rooms: lesson.rooms)
 
-            self.lessonsForTableView[sourceIndexPath.section].value.remove(at: sourceIndexPath.row)
             
             self.lessonsForTableView[destinationIndexPath.section].value.insert(newLesson, at: destinationIndexPath.row)
 
-            for i in 0..<lessons.count - 1 {
+            self.lessonsForTableView[sourceIndexPath.section].value.remove(at: sourceIndexPath.row)
+            
+            for i in 0..<lessons.count {
                 let lessonAll = lessons[i]
                 if lessonAll.lessonID == lesson.lessonID {
                     lessons.remove(at: i)
                     break
                 }
             }
-            
+
             lessons.append(newLesson)
+
+            
+            /// editing time
+            var lessonsToEdit = self.lessonsForTableView[destinationIndexPath.section].value
+            
+            var removeLessonsID:[String] = []
+            
+            if sourceIndexPath.section == destinationIndexPath.section && sourceIndexPath.row < destinationIndexPath.row{
+                for i in 0..<lessonsToEdit.count {
+                    let lesson = lessonsToEdit[i]
+                    if i <= destinationIndexPath.row {
+                        removeLessonsID.append(lesson.lessonID)
+                    }
+                }
+            } else if sourceIndexPath.row > destinationIndexPath.row {
+                for i in 0..<lessonsToEdit.count {
+                    let lesson = lessonsToEdit[i]
+                    if i < destinationIndexPath.row {
+                        removeLessonsID.append(lesson.lessonID)
+                    }
+                }
+            } else {
+                for i in 0..<lessonsToEdit.count {
+                    let lesson = lessonsToEdit[i]
+                    removeLessonsID.append(lesson.lessonID)
+                }
+            }
+            
+            
+            lessonsToEdit.removeAll { lessonEdited -> Bool in
+                return removeLessonsID.contains(lessonEdited.lessonID) || lesson.lessonID == lessonEdited.lessonID
+            }
+            
+
+                        
+            var IDsToRemove: [Int] = []
+            var editedLessons: [Lesson] = []
+            
+            for lesson in lessonsToEdit {
+                IDsToRemove.append(Int(lesson.lessonID) ?? 0)
+                
+                var lessonNumberIntEdited: Int = Int(lesson.lessonNumber) ?? 0
+                lessonNumberIntEdited += 1
+                let lessonNumberEdited = String(lessonNumberIntEdited)
+                
+                let timesEdited = getTimeFromLessonNumber(lessonNumber: lessonNumberEdited)
+                let timeStartEdited = timesEdited.0
+                let timeEndEdited = timesEdited.1
+                
+                let editedLesson = Lesson( lessonID: lesson.lessonID,
+                                           groupID: lesson.groupID,
+                                           dayNumber: lesson.dayNumber,
+                                           dayName: lesson.dayName,
+                                           lessonName: lesson.lessonName,
+                                           lessonFullName: lesson.lessonFullName,
+                                           lessonNumber: lessonNumberEdited,
+                                           lessonRoom: lesson.lessonRoom,
+                                           lessonType: lesson.lessonType,
+                                           teacherName: lesson.teacherName,
+                                           lessonWeek: lesson.lessonWeek,
+                                           timeStart: timeStartEdited,
+                                           timeEnd: timeEndEdited,
+                                           rate: lesson.rate,
+                                           teachers: lesson.teachers,
+                                           rooms: lesson.rooms)
+                
+                editedLessons.append(editedLesson)
+            }
+
+            
+            /// deleting
+            lessons.removeAll { lesson -> Bool in
+                return IDsToRemove.contains(Int(lesson.lessonID) ?? 0)
+            }
+            
+            for lesson in editedLessons {
+                lessons.append(lesson)
+            }
+            
             
             updateCoreData(datum: lessons)
             self.tableView.reloadData()

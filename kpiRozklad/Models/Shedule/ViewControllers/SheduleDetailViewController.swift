@@ -48,7 +48,6 @@ class SheduleDetailViewController: UIViewController {
         timeStartLabel.text = "Початок: " + lesson.timeStart
         timeEndLabel.text = "Кінець: " + lesson.timeEnd
         
-        // Todo:- check corner radius
         checkTeacherShedule.layer.cornerRadius = 25
         
     }

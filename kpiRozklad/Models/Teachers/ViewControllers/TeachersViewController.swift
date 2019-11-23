@@ -104,7 +104,7 @@ class TeachersViewController: UIViewController {
         task.resume()
         
         
-        for i in 0..<51 {
+        for i in 0..<55 {
             let offset = i * 100
             let stringURL = "https://api.rozklad.org.ua/v2/teachers?filter=%7B'limit':100,'offset':\(String(offset))%7D"
             print(stringURL)

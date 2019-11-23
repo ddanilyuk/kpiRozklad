@@ -182,7 +182,6 @@ class TeacherSheduleViewController: UIViewController {
             }
         }
         
-        
         temp = [DayName.mounday: lessonMounday,
                 DayName.tuesday: lessonTuesday,
                 DayName.wednesday: lessonWednesday,

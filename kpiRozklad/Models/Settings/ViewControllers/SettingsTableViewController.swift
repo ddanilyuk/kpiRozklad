@@ -73,7 +73,7 @@ class SettingsTableViewController: UITableViewController {
     // MARK:- deleteAllFromCoreData
     func didPressUpdateShedule() {
         
-        let alert = UIAlertController(title: "Розклад", message: "Чи бажаєте Ви оновити ваш розклад?\n Всі ваші редагування розкладу пропадуть!", preferredStyle: .actionSheet)
+        let alert = UIAlertController(title: nil, message: "Чи бажаєте Ви оновити ваш розклад?\n Всі ваші редагування розкладу пропадуть!", preferredStyle: .actionSheet)
         alert.addAction(UIAlertAction(title: "Оновити", style: .default, handler: { (_) in
             Settings.shared.isTryToRefreshShedule = true
 
@@ -121,7 +121,7 @@ class SettingsTableViewController: UITableViewController {
     
     
     func didPressChangeGroup() {
-        let alert = UIAlertController(title: "Група", message: "Чи бажаєте Ви змініти вашу групу?\n Всі ваші редагування розкладу пропадуть!", preferredStyle: .actionSheet)
+        let alert = UIAlertController(title: nil, message: "Чи бажаєте Ви змініти вашу групу?\n Всі ваші редагування розкладу пропадуть!", preferredStyle: .actionSheet)
         alert.addAction(UIAlertAction(title: "Змініти", style: .default, handler: { (_) in
             Settings.shared.groupName = ""
             Settings.shared.isTryToReloadTableView = true

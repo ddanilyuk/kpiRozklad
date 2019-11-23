@@ -95,17 +95,7 @@ class SheduleViewController: UIViewController {
 
         
         presentGroupChooser()
-        editLessonNumberView.isHidden = true
-        editLessonNumberView.layer.cornerRadius = 10
-        editLessonNumberView.layer.borderColor = CGColor(srgbRed: 0, green: 0, blue: 0, alpha: 0.35)
-        editLessonNumberView.layer.borderWidth = 1
-        editLessonNumberView.tag = 100
-        editLessonNumberView.isUserInteractionEnabled = true
-        
-        
-        
-        editLessonNumberPicker.dataSource = self
-        editLessonNumberPicker.delegate = self
+
 
         tableView.delegate = self
         tableView.dataSource = self
@@ -120,19 +110,27 @@ class SheduleViewController: UIViewController {
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-//        let touch = touches. as! UITouch
-//        let point = touch.location(in: self.view)
-
-        if let viewWithTag = self.view.viewWithTag(100) {
-            print("Tag 100")
-            editLessonNumberView.isHidden = true
-            tableView.isUserInteractionEnabled = true
-            tableView.alpha = 1
-            editButtonItem.isEnabled = true
-            weekSwitch.isEnabled = true
-        } else {
-            print("tag not found")
+//
+        if let touch = touches.first {
+            let position = touch.location(in: view)
+            print(position)
         }
+
+//        if let viewWithTag = self.view.viewWithTag(100) {
+//            print("Tag 100")
+//            tableView.isUserInteractionEnabled = true
+//            editButtonItem.isEnabled = true
+//            weekSwitch.isEnabled = true
+//
+//            UIView.animate(withDuration: 0.35) {
+//                self.tableView.alpha = 1
+//                self.editLessonNumberView.alpha = 0
+//            }
+//            editLessonNumberView.isHidden = true
+//
+//        } else {
+//            print("tag not found")
+//        }
     }
     
     // MARK: - viewWillAppear
@@ -655,9 +653,11 @@ class SheduleViewController: UIViewController {
         return (timeStart, timeEnd)
     }
     
+    
     func editLessonNumber(indexPath: IndexPath) {
         var lessons = fetchingCoreData()
         let lesson = self.lessonsForTableView[indexPath.section].value[indexPath.row]
+        
         /// timeStart && timeEnd
         let times = getTimeFromLessonNumber(lessonNumber: String(lessonNuberFromPicker))
         let timeStart = times.0
@@ -695,20 +695,105 @@ class SheduleViewController: UIViewController {
 
         lessons.append(newLesson)
         
+        
+        /// editing lessons
+        var lessonsToEdit: [Lesson] = []
+        
+        var nextLesson: Lesson?
+        
+        
+        
+        
+        let lessonForSection = self.lessonsForTableView[indexPath.section].value
+        var iterator = lessonForSection.makeIterator()
+        var ii = 0
+        while let nLesson = iterator.next() {
+            if Int(nLesson.lessonNumber) ?? 0 + ii >= lessonNuberFromPicker && nLesson.lessonID != newLesson.lessonID{
+                ii += 1
+                lessonsToEdit.append(nLesson)
+            }
+        }
+        
+        
+        
+        
+        
+        
+        
+        
+        
+//        if self.lessonsForTableView[indexPath.section].value.count > lessonNuberFromPicker - 1 {
+//            nextLesson = self.lessonsForTableView[indexPath.section].value[lessonNuberFromPicker - 1]
+//            lessonsToEdit.append(nextLesson!)
+//
+//        }
+//
+//        var k = 0
+//        var i = 0
+//
+//
+//        if var nextLessonG = nextLesson {
+//
+//            for _ in 0..<10 {
+//                var nextLessonNumber = Int(nextLessonG.lessonNumber) ?? 0
+//
+//                if lessonNuberFromPicker + k >= nextLessonNumber {
+//
+//                    k += 1
+//
+//                    print(newLesson.lessonID)
+//                    print(nextLessonG.lessonID )
+//                    if self.lessonsForTableView[indexPath.section].value.count > lessonNuberFromPicker + i && newLesson.lessonID != nextLessonG.lessonID {
+//                        nextLessonG = self.lessonsForTableView[indexPath.section].value[lessonNuberFromPicker + i]
+//                        nextLessonNumber = Int(nextLessonG.lessonNumber) ?? 0
+//                    } else {
+//                        break
+//                    }
+//
+//                    lessonsToEdit.append(nextLessonG)
+//
+//                    i += 1
+//                }
+//            }
+//        }
+        
+        
+        for lesson in lessonsToEdit {
+            
+            var lessonNumberIntEdited: Int = Int(lesson.lessonNumber) ?? 0
+            lessonNumberIntEdited += 1
+            let lessonNumberEdited = String(lessonNumberIntEdited)
+            
+            let timesEdited = getTimeFromLessonNumber(lessonNumber: lessonNumberEdited)
+            let timeStartEdited = timesEdited.0
+            let timeEndEdited = timesEdited.1
+            
+            let editedLesson = Lesson( lessonID: lesson.lessonID,
+                                       groupID: lesson.groupID,
+                                       dayNumber: lesson.dayNumber,
+                                       dayName: lesson.dayName,
+                                       lessonName: lesson.lessonName,
+                                       lessonFullName: lesson.lessonFullName,
+                                       lessonNumber: lessonNumberEdited,
+                                       lessonRoom: lesson.lessonRoom,
+                                       lessonType: lesson.lessonType,
+                                       teacherName: lesson.teacherName,
+                                       lessonWeek: lesson.lessonWeek,
+                                       timeStart: timeStartEdited,
+                                       timeEnd: timeEndEdited,
+                                       rate: lesson.rate,
+                                       teachers: lesson.teachers,
+                                       rooms: lesson.rooms)
+            
+            lessons.removeAll { lesson -> Bool in
+                return lesson.lessonID == editedLesson.lessonID
+            }
+            lessons.append(editedLesson)
+
+        }
+
         updateCoreData(datum: lessons)
         tableView.reloadData()
-
-    }
-    
-    @IBAction func didPressEditLessonNumber(_ sender: UIButton) {
-        
-        editLessonNumber(indexPath: indexPathFromPicker ?? IndexPath(row: 0, section: 0))
-        
-        editLessonNumberView.isHidden = true
-        tableView.isUserInteractionEnabled = true
-        tableView.alpha = 1
-        editButtonItem.isEnabled = true
-        weekSwitch.isEnabled = true
     }
     
     
@@ -785,23 +870,43 @@ extension SheduleViewController: UITableViewDelegate, UITableViewDataSource {
     // MARK: - didSelectRowAt
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if isEditing {
+            // comment this line to use white color
+            //pickerView.backgroundColor = UIColor.lightGray.withAlphaComponent(0.2)
             
-            editLessonNumberView.isHidden = false
-            editButtonItem.isEnabled = false
-            tableView.alpha = 0.5
-            tableView.isUserInteractionEnabled = false
-            weekSwitch.isEnabled = false
-            self.view.addSubview(editLessonNumberView)
             tableView.deselectRow(at: indexPath, animated: true)
-            
-            
-            
-            indexPathFromPicker = indexPath
 
             
+            let screenSize: CGRect = UIScreen.main.bounds
+            let screenWidth = screenSize.width
+
+
+            let alertView = UIAlertController(
+                               title: nil,
+                               message: "\n\n\n\n\n\n",
+                               preferredStyle: .actionSheet)
+
+            let pickerView = UIPickerView(frame:
+                               CGRect(x: 0, y: 0, width: screenWidth - 16, height: 140))
+            pickerView.dataSource = self
+            pickerView.delegate = self
+
+            alertView.view.addSubview(pickerView)
+            
+            alertView.addAction(UIAlertAction(title: "Змінити", style: .default, handler: { (_) in
+                self.indexPathFromPicker = indexPath
+                self.editLessonNumber(indexPath: self.indexPathFromPicker ?? IndexPath(row: 0, section: 0))
+            }))
+            
+            
+            alertView.addAction(UIAlertAction(title: "Назад", style: .cancel, handler: { (_) in
+                print("User click Dismiss button")
+            }))
+
+            present(alertView, animated: true, completion: nil)
+            
+            
             
 
-            
         } else {
             guard (storyboard?.instantiateViewController(withIdentifier: "DetailViewController") as? SheduleDetailViewController) != nil else { return }
             if indexPath.section != lessonsForTableView.count {
@@ -857,6 +962,7 @@ extension SheduleViewController: UITableViewDelegate, UITableViewDataSource {
         cell.startLabel.text = substringTimeStart
         cell.endLabel.text = substringTimeEnd
         cell.roomLabel.text = lessonsForSomeDay[indexPath.row].lessonType.rawValue + " " + lessonsForSomeDay[indexPath.row].lessonRoom
+        
 
         return cell
     }
@@ -866,24 +972,21 @@ extension SheduleViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             let lesson = self.lessonsForTableView[indexPath.section].value[indexPath.row]
-
             
-
+            var lessons = fetchingCoreData()
             
-            var lessons: [Lesson] = []
-            
-            lessons = fetchingCoreData()
-            
-            for i in 0..<lessons.count - 1 {
+            for i in 0..<lessons.count {
                 let lessonAll = lessons[i]
                 if lessonAll.lessonID == lesson.lessonID {
                     lessons.remove(at: i)
                     break
                 }
             }
+            
             self.lessonsForTableView[indexPath.section].value.remove(at: indexPath.row)
             self.tableView.deleteRows(at: [indexPath], with: .automatic)
             updateCoreData(datum: lessons)
+            
         } else if editingStyle == .insert {
             presentAddLesson()
         }
@@ -955,10 +1058,6 @@ extension SheduleViewController: UITableViewDelegate, UITableViewDataSource {
             let timeEnd = times.1
 
 
-            
-            
-            
-            
             let newLesson = Lesson(lessonID: lesson.lessonID,
                                groupID: lesson.groupID,
                                dayNumber: String(dayNumber),
@@ -978,7 +1077,6 @@ extension SheduleViewController: UITableViewDelegate, UITableViewDataSource {
 
             self.lessonsForTableView[sourceIndexPath.section].value.remove(at: sourceIndexPath.row)
 
-            
             self.lessonsForTableView[destinationIndexPath.section].value.insert(newLesson, at: destinationIndexPath.row)
 
             
@@ -992,18 +1090,9 @@ extension SheduleViewController: UITableViewDelegate, UITableViewDataSource {
 
             lessons.append(newLesson)
 
+            /// editing lessons
             var lessonsToEdit: [Lesson] = []
-
-            /// editing time
-//            if var lessonToEdit: Lesson? = self.lessonsForTableView[destinationIndexPath.section].value[destinationIndexPath.row + 1] {
-//                var i = 2
-//                if lessonToEdit != nil {
-//                    lessonsToEdit.append(lessonToEdit)
-//                }
-////                                lessonsToEdit.append(lessonToEdit ?? nil)
-//                lessonToEdit = self.lessonsForTableView[destinationIndexPath.section].value[destinationIndexPath.row + i]
-//                i += 1
-//            }
+            
             var nextLesson: Lesson?
             
             if self.lessonsForTableView[destinationIndexPath.section].value.count > destinationIndexPath.row + 1 {
@@ -1097,9 +1186,10 @@ extension SheduleViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
         if indexPath.section == self.lessonsForTableView.count {
             return .insert
-        }
-        else {
+        } else if isEditing {
             return .delete
+        } else {
+            return .none
         }
     }
     
@@ -1139,3 +1229,4 @@ extension SheduleViewController: UIPickerViewDelegate, UIPickerViewDataSource {
     }
     
 }
+

@@ -98,8 +98,15 @@ class AddLessonViewController: UIViewController {
         
     
         for lesson in lessons {
+            print("********************")
+            print(lesson.lessonFullName)
+            print(String(lessonNumber) + " " + lesson.lessonNumber)
+            print(String(currentWeek) + " " + lesson.lessonWeek)
+            print(lessonDay.rawValue + " " + lesson.dayName.rawValue)
+            
+            
             if String(currentWeek) == lesson.lessonWeek &&
-            String(lessonNumber + 1) == lesson.lessonNumber &&
+            String(lessonNumber) == lesson.lessonNumber &&
             lessonDay.rawValue == lesson.dayName.rawValue {
                 isExist = true
             }
@@ -246,7 +253,7 @@ extension AddLessonViewController: UIPickerViewDelegate, UIPickerViewDataSource 
                 return 4
             }
         } else if pickerView == dayPickerView {
-            return 5
+            return 6
         } else {
             return 5
         }
@@ -268,8 +275,9 @@ extension AddLessonViewController: UIPickerViewDelegate, UIPickerViewDataSource 
             let wednesday = DayName.wednesday
             let thursday = DayName.thursday
             let friday = DayName.friday
-            
-            let array = [mounday, tuesday, wednesday, thursday, friday]
+            let saturday = DayName.saturday
+
+            let array = [mounday, tuesday, wednesday, thursday, friday, saturday]
             
             return array[row].rawValue
         } else {

@@ -462,7 +462,6 @@
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
                                                 <connections>
-                                                    <action selector="didPressCheckTeacherShedule:" destination="Xi8-a3-NCy" eventType="touchUpInside" id="5ig-Ma-YLM"/>
                                                     <segue destination="StT-wO-RBg" kind="show" identifier="showTeacherShedule" id="eOz-94-s6B"/>
                                                 </connections>
                                             </button>
@@ -567,6 +566,6 @@
         <image name="rectangle.grid.1x2" catalog="system" width="64" height="50"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="5QF-Tv-CiU"/>
+        <segue reference="eOz-94-s6B"/>
     </inferredMetricsTieBreakers>
 </document>

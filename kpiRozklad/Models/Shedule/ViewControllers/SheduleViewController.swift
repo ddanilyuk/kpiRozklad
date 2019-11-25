@@ -93,13 +93,13 @@ class SheduleViewController: UIViewController {
         /// Title (group name)
         self.navigationItem.title = Settings.shared.groupName.uppercased()
 
-        /// start animating and show activityIndicator
+        /// Start animating and show activityIndicator
         activityIndicator.startAnimating()
         activityIndicator.isHidden = false
         tableView.isHidden = true
         self.view.bringSubviewToFront(activityIndicator)
         
-        /// tableView delegate and dataSource
+        /// TableView delegate and dataSource
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(UINib(nibName: "LessonTableViewCell", bundle: Bundle.main), forCellReuseIdentifier: "LessonTableViewCell")

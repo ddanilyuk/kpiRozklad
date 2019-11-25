@@ -65,7 +65,7 @@ class SheduleViewController: UIViewController {
     
     
     var lessonFromPicker: Lesson?
-    var lessonNuberFromPicker: Int = 0
+    var lessonNuberFromPicker: Int = 1
     var indexPathFromPicker: IndexPath?
     
     // MARK: - viewDidLoad
@@ -115,14 +115,11 @@ class SheduleViewController: UIViewController {
         
         /// Reloading tableView if need
         if Settings.shared.isTryToReloadTableView {
-            activityIndicator.startAnimating()
-            activityIndicator.isHidden = false
-            tableView.isHidden = true
-            self.view.bringSubviewToFront(activityIndicator)
-            
-            makeLessonsShedule()
-            tableView.reloadData()
-            Settings.shared.isTryToReloadTableView = false
+            DispatchQueue.main.async {
+                self.makeLessonsShedule()
+                self.tableView.reloadData()
+                Settings.shared.isTryToReloadTableView = false
+            }
         }
     }
     
@@ -172,9 +169,15 @@ class SheduleViewController: UIViewController {
         
         /// Get number of week (in year) and weekday
         let components = calendar.dateComponents([.weekOfYear, .month, .day, .weekday], from: date)
-        
+
         dayNumberFromCurrentDate = (components.weekday ?? 0) - 1
         weekOfYear = components.weekOfYear ?? 0
+
+        if dayNumberFromCurrentDate == 0 {
+            weekOfYear -= 1
+            dayNumberFromCurrentDate = 7
+        }
+
     }
     
     
@@ -202,10 +205,7 @@ class SheduleViewController: UIViewController {
     func makeLessonsShedule() {
         let lessons = fetchingCoreData()
         getCurrentAndNextLesson(lessons: lessons)
-        
-        /// - todo: maybe delete temp
-        var temp: [DayName : [Lesson]] = [:]
-    
+            
         var lessonsFirst: [Lesson] = []
         var lessonsSecond: [Lesson] = []
         
@@ -267,16 +267,13 @@ class SheduleViewController: UIViewController {
             return lesson1.lessonNumber < lesson2.lessonNumber
         }
         
-        temp = [DayName.mounday: lessonMounday,
-                DayName.tuesday: lessonTuesday,
-                DayName.wednesday: lessonWednesday,
-                DayName.thursday: lessonThursday,
-                DayName.friday: lessonFriday,
-                DayName.saturday: lessonSaturday]
-        
-        let sorted = temp.sorted{$0.key < $1.key}
 
-        self.lessonsForTableView = sorted
+        self.lessonsForTableView = [DayName.mounday: lessonMounday,
+                                    DayName.tuesday: lessonTuesday,
+                                    DayName.wednesday: lessonWednesday,
+                                    DayName.thursday: lessonThursday,
+                                    DayName.friday: lessonFriday,
+                                    DayName.saturday: lessonSaturday].sorted{$0.key < $1.key}
 
         if self.tableView != nil {
             self.tableView.reloadData()
@@ -367,9 +364,13 @@ class SheduleViewController: UIViewController {
             print("Could not fetch. \(error), \(error.userInfo)")
         }
         
-        self.activityIndicator.stopAnimating()
-        self.activityIndicator.isHidden = true
-        self.tableView.isHidden = false
+        if self.activityIndicator != nil {
+            self.activityIndicator.stopAnimating()
+            self.activityIndicator.isHidden = true
+        }
+        if self.tableView != nil {
+            self.tableView.isHidden = false
+        }
         
         return lessons
     }
@@ -378,7 +379,6 @@ class SheduleViewController: UIViewController {
     // MARK: - server
     /// Functon which getting data from server
     /// - note: This fuction call `updateCoreData()`
-    /// - todo: fuction must change url for different groups
     func server() {
         let url = URL(string: "https://api.rozklad.org.ua/v2/groups/\(Settings.shared.groupID)/lessons")!
         print(url)
@@ -517,31 +517,26 @@ class SheduleViewController: UIViewController {
     
     // MARK: - getCurrentAndNextLesson
     /// Function that makes current lesson **orange** and next lesson **blue**
-    /// - todo: make some with time and Date
-    /// - todo: rewrite function :)
     func getCurrentAndNextLesson(lessons: [Lesson]) {
         
         for lesson in lessons {
             
             let timeStart = String(lesson.timeStart[..<5])
-            
             let timeEnd = String(lesson.timeEnd[..<5])
                         
             if  (timeStart <= timeString) && (timeString < timeEnd) &&
                 (dayNumberFromCurrentDate == Int(lesson.dayNumber)) && (currentWeekFromTodayDate == Int(lesson.lessonWeek) ?? 0) {
-                
                 currentLessonId = lesson.lessonID
             }
             
             if (timeStart > timeString) && (dayNumberFromCurrentDate == Int(lesson.dayNumber) ?? 0) && (currentWeekFromTodayDate == Int(lesson.lessonWeek) ?? 0) {
                 nextLessonId = lesson.lessonID
-                break
+                return
             } else if (dayNumberFromCurrentDate < Int(lesson.dayNumber) ?? 0) && (currentWeekFromTodayDate == Int(lesson.lessonWeek) ?? 0){
                 nextLessonId = lesson.lessonID
-                break
+                return
             }
         }
-        
         
         var lessonsFirst: [Lesson] = []
         var lessonsSecond: [Lesson] = []
@@ -557,15 +552,19 @@ class SheduleViewController: UIViewController {
         if lessonsFirst.count != 0 && lessonsSecond.count != 0 {
             if nextLessonId == "" && currentWeekFromTodayDate == 2 {
                 nextLessonId = lessonsFirst[0].lessonID
+                return
             } else if nextLessonId == "" && currentWeekFromTodayDate == 1 {
                 nextLessonId = lessonsSecond[0].lessonID
+                return
             }
         }
         
         if lessonsFirst.count == 0 && lessonsSecond.count != 0 {
             nextLessonId = lessonsSecond[0].lessonID
+            return
         } else if lessonsFirst.count != 0 && lessonsSecond.count == 0 {
             nextLessonId = lessonsFirst[0].lessonID
+            return
         }
         
     }
@@ -591,27 +590,27 @@ class SheduleViewController: UIViewController {
         var timeEnd = ""
 
         switch lessonNumber {
-            case "1":
-                timeStart = "08:30:00"
-                timeEnd = "10:05:00"
-            case "2":
-                timeStart = "10:25:00"
-                timeEnd = "12:00:00"
-            case "3":
-                timeStart = "12:20:00"
-                timeEnd = "13:55:00"
-            case "4":
-                timeStart = "14:15:00"
-                timeEnd = "15:50:00"
-            case "5":
-                timeStart = "16:10:00"
-                timeEnd = "17:45:00"
-            case "6":
-                timeStart = "18:05:00"
-                timeEnd = "19:40:00"
-            default:
-                timeStart = "00:00:00"
-                timeEnd = "00:00:00"
+        case "1":
+            timeStart = "08:30:00"
+            timeEnd = "10:05:00"
+        case "2":
+            timeStart = "10:25:00"
+            timeEnd = "12:00:00"
+        case "3":
+            timeStart = "12:20:00"
+            timeEnd = "13:55:00"
+        case "4":
+            timeStart = "14:15:00"
+            timeEnd = "15:50:00"
+        case "5":
+            timeStart = "16:10:00"
+            timeEnd = "17:45:00"
+        case "6":
+            timeStart = "18:05:00"
+            timeEnd = "19:40:00"
+        default:
+            timeStart = "00:00:00"
+            timeEnd = "00:00:00"
         }
         return (timeStart, timeEnd)
     }
@@ -782,7 +781,10 @@ extension SheduleViewController: UITableViewDelegate, UITableViewDataSource {
     
     // MARK: - didSelectRowAt
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-
+        if indexPath.section == lessonsForTableView.count {
+            tableView.deselectRow(at: indexPath, animated: true)
+        }
+        
         if isEditing {
             let screenWidth = UIScreen.main.bounds.width
 
@@ -1127,7 +1129,7 @@ extension SheduleViewController: UIPickerViewDelegate, UIPickerViewDataSource {
     }
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return 5
+        return 6
     }
     
     

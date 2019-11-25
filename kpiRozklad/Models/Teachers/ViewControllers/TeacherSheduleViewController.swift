@@ -119,6 +119,11 @@ class TeacherSheduleViewController: UIViewController {
         
         dayNumberFromCurrentDate = (components.weekday ?? 0) - 1
         weekOfYear = components.weekOfYear ?? 0
+        
+        if dayNumberFromCurrentDate == 0 {
+            weekOfYear -= 1
+            dayNumberFromCurrentDate = 7
+        }
     }
     
     
@@ -141,9 +146,6 @@ class TeacherSheduleViewController: UIViewController {
     
     func makeLessonsShedule() {
         getCurrentAndNextLesson(lessons: lessons)
-        
-        /// - todo: maybe delete temp
-        var temp: [DayName : [TeacherFull]] = [:]
     
         var lessonsFirst: [TeacherFull] = []
         var lessonsSecond: [TeacherFull] = []
@@ -182,16 +184,12 @@ class TeacherSheduleViewController: UIViewController {
             }
         }
         
-        temp = [DayName.mounday: lessonMounday,
-                DayName.tuesday: lessonTuesday,
-                DayName.wednesday: lessonWednesday,
-                DayName.thursday: lessonThursday,
-                DayName.friday: lessonFriday,
-                DayName.saturday: lessonSaturday]
-        
-        let sorted = temp.sorted{$0.key < $1.key}
-
-        self.lessonsForTableView = sorted
+        self.lessonsForTableView = [DayName.mounday: lessonMounday,
+                                    DayName.tuesday: lessonTuesday,
+                                    DayName.wednesday: lessonWednesday,
+                                    DayName.thursday: lessonThursday,
+                                    DayName.friday: lessonFriday,
+                                    DayName.saturday: lessonSaturday].sorted{$0.key < $1.key}
 
         if self.tableView != nil {
             self.tableView.reloadData()
@@ -265,10 +263,10 @@ class TeacherSheduleViewController: UIViewController {
             
             if (timeStart > timeString) && (dayNumberFromCurrentDate == Int(lesson.dayNumber) ?? 0) && (currentWeekFromTodayDate == Int(lesson.lessonWeek) ?? 0) {
                 nextLessonId = lesson.lessonID
-                break
+                return
             } else if (dayNumberFromCurrentDate < Int(lesson.dayNumber) ?? 0) && (currentWeekFromTodayDate == Int(lesson.lessonWeek) ?? 0){
                 nextLessonId = lesson.lessonID
-                break
+                return
             }
         }
         
@@ -289,15 +287,19 @@ class TeacherSheduleViewController: UIViewController {
         if lessonsFirst.count != 0 && lessonsSecond.count != 0 {
             if nextLessonId == "" && currentWeekFromTodayDate == 2 {
                 nextLessonId = lessonsFirst[0].lessonID
+                return
             } else if nextLessonId == "" && currentWeekFromTodayDate == 1 {
                 nextLessonId = lessonsSecond[0].lessonID
+                return
             }
         }
         
         if lessonsFirst.count == 0 && lessonsSecond.count != 0 {
             nextLessonId = lessonsSecond[0].lessonID
+            return
         } else if lessonsFirst.count != 0 && lessonsSecond.count == 0 {
             nextLessonId = lessonsFirst[0].lessonID
+            return
         }
         
     }

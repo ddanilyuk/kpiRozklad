@@ -14,15 +14,13 @@ class AddLessonViewController: UIViewController {
     var unicalLessons: [Lesson] = []
     var currentWeek: Int = 0
 
-    
     var unicalIDs: [String] = []
     var unicalNames: [String] = []
-    var unicalLessonsType: [LessonType] = []
 
     var lessonName: String = ""
     var lessonType: LessonType = LessonType.empty
     var lessonDay: DayName = DayName.mounday
-    var lessonNumber: Int = 0
+    var lessonNumber: Int = 1
         
     @IBOutlet weak var lessonPickerView: UIPickerView!
     @IBOutlet weak var dayPickerView: UIPickerView!
@@ -32,6 +30,7 @@ class AddLessonViewController: UIViewController {
         super.viewDidLoad()
     
         getUnicalLessons()
+        getUnicalIDs()
 
         lessonPickerView.delegate = self
         lessonPickerView.dataSource = self
@@ -39,7 +38,6 @@ class AddLessonViewController: UIViewController {
         dayPickerView.dataSource = self
         numberLessonPickerView.delegate = self
         numberLessonPickerView.dataSource = self
-        
         
         lessonPickerView.reloadAllComponents()
     }
@@ -52,6 +50,7 @@ class AddLessonViewController: UIViewController {
                 getUnicalNames()
             }
         }
+        lessonName = unicalLessons[0].lessonName != "" ? unicalLessons[0].lessonName : unicalLessons[0].lessonFullName
     }
     
     
@@ -68,14 +67,7 @@ class AddLessonViewController: UIViewController {
             unicalNames.append(lesson.lessonName)
         }
     }
-    
-    func getUnicalLessonsType() {
-        unicalLessonsType = []
-        for lesson in unicalLessons {
-            unicalLessonsType.append(lesson.lessonType)
-        }
-    }
-    
+        
     
     @IBAction func didPressAddLesson(_ sender: UIButton) {
         var similarLesson: Lesson?
@@ -148,12 +140,7 @@ class AddLessonViewController: UIViewController {
             self.present(alert, animated: true)
         }
         
-        
-//        guard isExist else { return }
-        
         guard let previousLesson = similarLesson else { return }
-        
-        
         
         var dayNumber = 0
         switch lessonDay {
@@ -190,6 +177,9 @@ class AddLessonViewController: UIViewController {
         case 5:
             timeStart = "16:10:00"
             timeEnd = "17:45:00"
+        case 6:
+            timeStart = "18:05:00"
+            timeEnd = "19:40:00"
         default:
             timeStart = "00:00:00"
             timeEnd = "00:00:00"
@@ -255,7 +245,7 @@ extension AddLessonViewController: UIPickerViewDelegate, UIPickerViewDataSource 
         } else if pickerView == dayPickerView {
             return 6
         } else {
-            return 5
+            return 6
         }
     }
     
@@ -264,7 +254,7 @@ extension AddLessonViewController: UIPickerViewDelegate, UIPickerViewDataSource 
             
             if component == 0 {
                 let lesson = unicalLessons[row]
-                return lesson.lessonFullName
+                return lesson.lessonName != "" ? lesson.lessonName : lesson.lessonFullName
            } else {
                 let array = [LessonType.empty.rawValue, LessonType.лаб.rawValue, LessonType.лек1.rawValue, LessonType.прак.rawValue]
                 return array[row]
@@ -281,7 +271,7 @@ extension AddLessonViewController: UIPickerViewDelegate, UIPickerViewDataSource 
             
             return array[row].rawValue
         } else {
-            let array = ["1 пара", "2 пара", "3 пара", "4 пара", "5 пара"]
+            let array = ["1 пара", "2 пара", "3 пара", "4 пара", "5 пара", "6 пара"]
             return array[row]
         }
     }
@@ -317,6 +307,7 @@ extension AddLessonViewController: UIPickerViewDelegate, UIPickerViewDataSource 
             }
            
         }
+        
         if pickerView == dayPickerView {
             let mounday = DayName.mounday
             let tuesday = DayName.tuesday
@@ -325,14 +316,13 @@ extension AddLessonViewController: UIPickerViewDelegate, UIPickerViewDataSource 
             let friday = DayName.friday
             
             let array = [mounday, tuesday, wednesday, thursday, friday]
-                        lessonDay = array[row]
             
+            lessonDay = array[row]
         }
+        
         if pickerView == numberLessonPickerView{
             lessonNumber = row + 1
         }
-        
-        
     }
     
 }

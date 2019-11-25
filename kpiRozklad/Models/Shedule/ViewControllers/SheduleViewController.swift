@@ -13,7 +13,7 @@ import CoreData
 ///
 /// ## Important things ##
 ///
-/// 1. All in table view works with `lessonsForTableView` variable, but Core Data saving `[Lesson]`
+/// 1. All in tableView works with `lessonsForTableView` variable, but Core Data saving `[Lesson]`
 /// 2. `makeLessonsShedule()` remake `[Lesson]` to `[(key: DayName, value: [Lesson])]`
 /// 3. `server()` call `updateCoreData(datum:  [Lesson])` where datum is `[Lesson]` from API
 /// 4. `fetchingCoreData() -> [Lesson]` return `[Lesson]` from Core Data
@@ -50,67 +50,90 @@ class SheduleViewController: UIViewController {
     
     /// Day number from 1 to 7
     var dayNumberFromCurrentDate = 0
-            
-    var timeString = String()
     
+    /// Time is Now from device
+    var timeIsNowString = String()
+    
+    /// Lesson ID of **current** Lesson
+    ///- Remark:
+    ///     Set  up in `getCurrentAndNextLesson(lessons: [Lesson])`
     var currentLessonId = String()
+    
+    /// Lesson ID of **next** Lesson
+    ///- Remark:
+    ///     Set  up in `getCurrentAndNextLesson(lessons: [Lesson])`
     var nextLessonId = String()
     
+    /// Colour of next lesson
     let colour1 = #colorLiteral(red: 0.1411764771, green: 0.3960784376, blue: 0.5647059083, alpha: 1)
 
     /// Week switcher (1 and 2 week)
     @IBOutlet weak var weekSwitch: UISegmentedControl!
     
+    /// ActivityIndicator
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
-    
-    var lessonFromPicker: Lesson?
+    /// Picker from popup which edit number of lesson (tap on lesson while editing)
     var lessonNuberFromPicker: Int = 1
+    
+    /// Index Path from popup which edit number of lesson (tap on lesson while editing)
     var indexPathFromPicker: IndexPath?
+    
     
     // MARK: - viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        /// presenting `GroupChooserViewController` if `Settings.shared.groupName == ""`
+        presentGroupChooser()
+        
         /// Button `Edit`
         self.navigationItem.leftBarButtonItem = self.editButtonItem
         
+        /// Title (group name)
+        self.navigationItem.title = Settings.shared.groupName.uppercased()
+
+        /// start animating and show activityIndicator
         activityIndicator.startAnimating()
         activityIndicator.isHidden = false
         tableView.isHidden = true
         self.view.bringSubviewToFront(activityIndicator)
         
-        presentGroupChooser()
-
+        /// tableView delegate and dataSource
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(UINib(nibName: "LessonTableViewCell", bundle: Bundle.main), forCellReuseIdentifier: "LessonTableViewCell")
         
+        /// Getting dayNumber and week of year from device Date()
         getDayNumAndWeekOfYear()
+        
+        /// setUpCurrentWeek (choosing week)
         setUpCurrentWeek()
         
+        /// Fetching Core Data and make variable for tableView
         makeLessonsShedule()
-        
-        self.navigationItem.title = Settings.shared.groupName.uppercased()
     }
     
     
     // MARK: - viewWillAppear
     override func viewWillAppear(_ animated: Bool) {
+        /// presenting `GroupChooserViewController` if `Settings.shared.groupName == ""`
         presentGroupChooser()
         
         /// If Core Data is empty, making request from server
         if lessonsCoreData.isEmpty || Settings.shared.isTryToRefreshShedule {
+            /// start animating and show activityIndicator
             activityIndicator.startAnimating()
             activityIndicator.isHidden = false
             tableView.isHidden = true
             self.view.bringSubviewToFront(activityIndicator)
             
+            /// Cleaning if `Settings.shared.isTryToRefreshShedule`
             deleteAllFromCoreData()
             lessonsCoreData = []
-            Settings.shared.isTryToRefreshShedule = false
             server()
-            self.tableView.reloadData()
+            
+            Settings.shared.isTryToRefreshShedule = false
         }
         
         /// Reloading tableView if need
@@ -118,15 +141,16 @@ class SheduleViewController: UIViewController {
             DispatchQueue.main.async {
                 self.makeLessonsShedule()
                 self.tableView.reloadData()
+                
                 Settings.shared.isTryToReloadTableView = false
             }
         }
+        
     }
     
     
     // MARK: - presentGroupChooser
     /// Func which present `GroupChooserViewController` (navigationGroupChooser)
-    /// - todo: maybe delete if
     func presentGroupChooser() {
         if Settings.shared.groupName == "" {
             let mainStoryboard = UIStoryboard(name: "Main", bundle: Bundle.main)
@@ -153,7 +177,10 @@ class SheduleViewController: UIViewController {
     // MARK: - getDayNumAndWeekOfYear
     /// Getting dayNumber and week of year from device Date()
     func getDayNumAndWeekOfYear() {
+        /// Current date from device
         let date = Date()
+        
+        /// Calendar
         let calendar = Calendar.current
         
         /// "EEEE"  formatter (day)
@@ -164,8 +191,9 @@ class SheduleViewController: UIViewController {
 
         formatter1.dateFormat = "EEEE"
         formatter2.dateFormat = "HH:mm"
-                
-        timeString = formatter2.string(from: date)
+        
+        /// time is now
+        timeIsNowString = formatter2.string(from: date)
         
         /// Get number of week (in year) and weekday
         let components = calendar.dateComponents([.weekOfYear, .month, .day, .weekday], from: date)
@@ -173,6 +201,8 @@ class SheduleViewController: UIViewController {
         dayNumberFromCurrentDate = (components.weekday ?? 0) - 1
         weekOfYear = components.weekOfYear ?? 0
 
+        /// In USA calendar week start on Sunday but in my shedule it start from mounday
+        /// and if today is Sunday, in USA we start new week but for me its wrong and we take away one week and set dayNumber == 7
         if dayNumberFromCurrentDate == 0 {
             weekOfYear -= 1
             dayNumberFromCurrentDate = 7
@@ -184,7 +214,6 @@ class SheduleViewController: UIViewController {
     // MARK: - setUpCurrentWeek
     /// Simple function to set up currnet week in viewDidLoad
     func setUpCurrentWeek() {
-
         if self.weekOfYear % 2 == 0 {
             self.currentWeekFromTodayDate = 1
             self.weekSwitch.selectedSegmentIndex = 0
@@ -194,7 +223,6 @@ class SheduleViewController: UIViewController {
             self.weekSwitch.selectedSegmentIndex = 1
             self.currentWeek = 2
         }
-        
     }
     
     
@@ -203,9 +231,13 @@ class SheduleViewController: UIViewController {
     /// - Note: call in `weekChanged()` and after getting data from `server()`
     /// - Remark: make shedule only for one week.
     func makeLessonsShedule() {
+        /// fetching Core Data
         let lessons = fetchingCoreData()
+        
+        /// ID of Current and Next
         getCurrentAndNextLesson(lessons: lessons)
             
+        /// Getting lesson for first week and second
         var lessonsFirst: [Lesson] = []
         var lessonsSecond: [Lesson] = []
         
@@ -217,6 +249,7 @@ class SheduleViewController: UIViewController {
             }
         }
         
+        /// Choosing lesson from currnetWeek
         let currentLessonWeek = currentWeek == 1 ? lessonsFirst : lessonsSecond
         
         var lessonMounday: [Lesson] = []
@@ -228,21 +261,22 @@ class SheduleViewController: UIViewController {
         
         for datu in currentLessonWeek {
             switch datu.dayName {
-                case .mounday:
-                    lessonMounday.append(datu)
-                case .tuesday:
-                    lessonTuesday.append(datu)
-                case .wednesday:
-                    lessonWednesday.append(datu)
-                case .thursday:
-                    lessonThursday.append(datu)
-                case .friday:
-                    lessonFriday.append(datu)
-                case .saturday:
-                    lessonSaturday.append(datu)
+            case .mounday:
+                lessonMounday.append(datu)
+            case .tuesday:
+                lessonTuesday.append(datu)
+            case .wednesday:
+                lessonWednesday.append(datu)
+            case .thursday:
+                lessonThursday.append(datu)
+            case .friday:
+                lessonFriday.append(datu)
+            case .saturday:
+                lessonSaturday.append(datu)
             }
         }
         
+        /// Sorting all
         lessonMounday.sort { (lesson1, lesson2) -> Bool in
             return lesson1.lessonNumber < lesson2.lessonNumber
         }
@@ -267,7 +301,7 @@ class SheduleViewController: UIViewController {
             return lesson1.lessonNumber < lesson2.lessonNumber
         }
         
-
+        /// .sorting is soting from mounday to saturday (must be in normal order)
         self.lessonsForTableView = [DayName.mounday: lessonMounday,
                                     DayName.tuesday: lessonTuesday,
                                     DayName.wednesday: lessonWednesday,
@@ -275,6 +309,7 @@ class SheduleViewController: UIViewController {
                                     DayName.friday: lessonFriday,
                                     DayName.saturday: lessonSaturday].sorted{$0.key < $1.key}
 
+        /// (self.tableView != nil)  because if when we push information from another VC tableView can be not exist
         if self.tableView != nil {
             self.tableView.reloadData()
         }
@@ -292,7 +327,8 @@ class SheduleViewController: UIViewController {
         let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "LessonData")
         
         var lessons: [Lesson] = []
-        /// Getting all data from Core Data to [Datum] struct
+        
+        /// Getting all data from Core Data to [Lesson] struct
         do {
             lessonsCoreData = try managedContext.fetch(fetchRequest)
             lessons = []
@@ -318,10 +354,9 @@ class SheduleViewController: UIViewController {
                 let dayNameCoreData = DayName(rawValue: dayName) ?? DayName.mounday
                 let lessonTypeCoreData = LessonType(rawValue: lessonType) ?? LessonType.empty
                 
+                
                 /// Array of teacher which added to  variable `lesson` and then added to main variable `lessons`
                 var teachers: [Teacher] = []
-                var rooms: [Room] = []
-
                 
                 /// Trying to fetch all Teacher Data from TeacherData entity in teachersRelationship
                 if let teacherData = lesson.value(forKey: "teachersRelationship") as? TeachersData {
@@ -338,6 +373,9 @@ class SheduleViewController: UIViewController {
                 }
                 
                 
+                /// Array of rooms which added to  variable `lesson` and then added to main variable `lessons`
+                var rooms: [Room] = []
+                
                 if let roomData = lesson.value(forKey: "roomsRelationship") as? RoomsData {
 
                     guard let roomID = roomData.roomID,
@@ -350,7 +388,7 @@ class SheduleViewController: UIViewController {
                     rooms.append(room)
                 }
                 
-                
+                /// Creating `Lesson`
                 let lesson = Lesson(lessonID: lessonID, groupID: groupID, dayNumber: dayNumber,
                                    dayName: dayNameCoreData, lessonName: lessonName, lessonFullName: lessonFullName,
                                    lessonNumber: lessonNumber, lessonRoom: lessonRoom, lessonType: lessonTypeCoreData,
@@ -364,10 +402,13 @@ class SheduleViewController: UIViewController {
             print("Could not fetch. \(error), \(error.userInfo)")
         }
         
+        /// (self.activityIndicator != nil)  because if when we push information from another VC tableView can be not exist
         if self.activityIndicator != nil {
             self.activityIndicator.stopAnimating()
             self.activityIndicator.isHidden = true
         }
+        
+        /// (self.tableView != nil)  because if when we push information from another VC tableView can be not exist
         if self.tableView != nil {
             self.tableView.isHidden = false
         }
@@ -381,7 +422,6 @@ class SheduleViewController: UIViewController {
     /// - note: This fuction call `updateCoreData()`
     func server() {
         let url = URL(string: "https://api.rozklad.org.ua/v2/groups/\(Settings.shared.groupID)/lessons")!
-        print(url)
         let task = URLSession.shared.dataTask(with: url) {(data, response, error) in
             guard let data = data else { return }
             let decoder = JSONDecoder()
@@ -400,9 +440,10 @@ class SheduleViewController: UIViewController {
     // MARK:- updateCoreData
     /// Function which save all data from server in to Core data
     /// - note: Core Data for entity "Lesson"
-    /// - Parameter datum: array of  [Datum] whitch received from server
+    /// - Parameter datum: array of  [Lesson] whitch received from server
     func updateCoreData(datum:  [Lesson]) {
         DispatchQueue.main.async {
+            /// Delete all
             self.deleteAllFromCoreData()
 
             guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
@@ -524,12 +565,12 @@ class SheduleViewController: UIViewController {
             let timeStart = String(lesson.timeStart[..<5])
             let timeEnd = String(lesson.timeEnd[..<5])
                         
-            if  (timeStart <= timeString) && (timeString < timeEnd) &&
+            if  (timeStart <= timeIsNowString) && (timeIsNowString < timeEnd) &&
                 (dayNumberFromCurrentDate == Int(lesson.dayNumber)) && (currentWeekFromTodayDate == Int(lesson.lessonWeek) ?? 0) {
                 currentLessonId = lesson.lessonID
             }
             
-            if (timeStart > timeString) && (dayNumberFromCurrentDate == Int(lesson.dayNumber) ?? 0) && (currentWeekFromTodayDate == Int(lesson.lessonWeek) ?? 0) {
+            if (timeStart > timeIsNowString) && (dayNumberFromCurrentDate == Int(lesson.dayNumber) ?? 0) && (currentWeekFromTodayDate == Int(lesson.lessonWeek) ?? 0) {
                 nextLessonId = lesson.lessonID
                 return
             } else if (dayNumberFromCurrentDate < Int(lesson.dayNumber) ?? 0) && (currentWeekFromTodayDate == Int(lesson.lessonWeek) ?? 0){
@@ -585,6 +626,8 @@ class SheduleViewController: UIViewController {
     }
     
     
+    // MARK: - getTimeFromLessonNumber
+    /// Function which make lesson timeStart and timeEnd
     func getTimeFromLessonNumber(lessonNumber: String) -> (String, String) {
         var timeStart = ""
         var timeEnd = ""
@@ -612,10 +655,15 @@ class SheduleViewController: UIViewController {
             timeStart = "00:00:00"
             timeEnd = "00:00:00"
         }
+        
         return (timeStart, timeEnd)
     }
     
     
+    // MARK: - editLessonNumber
+    /// Function calls when user vant to edit lesson number
+    /// - note: Next lesson automatically adjust
+    /// - Parameter indexPath: (indexPathFromPicker) Index Path from popup which edit number of lesson (tap on lesson while editing)
     func editLessonNumber(indexPath: IndexPath) {
         var lessons = fetchingCoreData()
         let lesson = self.lessonsForTableView[indexPath.section].value[indexPath.row]
@@ -642,11 +690,13 @@ class SheduleViewController: UIViewController {
                            teachers: lesson.teachers,
                            rooms: lesson.rooms)
 
+        /// Deleting old
         self.lessonsForTableView[indexPath.section].value.remove(at: indexPath.row)
 
+        /// Inserting new
         self.lessonsForTableView[indexPath.section].value.insert(newLesson, at: indexPath.row)
 
-        
+        /// deleting from `lessons`  which will be used for further updates in `updateCoreData(datum: lessons)`
         for i in 0..<lessons.count {
             let lessonAll = lessons[i]
             if lessonAll.lessonID == lesson.lessonID {
@@ -655,21 +705,30 @@ class SheduleViewController: UIViewController {
             }
         }
 
+        /// Appending new to `lessons`
         lessons.append(newLesson)
         
+        /// Lessons  in which time will change
         var lessonsToEdit: [Lesson] = []
         
+        /// Getting lessons from `.section` (day)
         let lessonForSection = self.lessonsForTableView[indexPath.section].value
+        
+        /// Creating iterator
         var iterator = lessonForSection.makeIterator()
+        
+        /// It is added if the next lesson will change
         var i = 0
+        
+        /// iterating
         while let nLesson = iterator.next() {
-            if Int(nLesson.lessonNumber) ?? 0 + i >= lessonNuberFromPicker && nLesson.lessonID != newLesson.lessonID{
+            if Int(nLesson.lessonNumber) ?? 0 + i >= lessonNuberFromPicker && nLesson.lessonID != newLesson.lessonID {
                 i += 1
                 lessonsToEdit.append(nLesson)
             }
         }
         
-        
+        /// Modified lessons with a shifted schedule are created and old ones are deleted
         for lesson in lessonsToEdit {
             
             var lessonNumberIntEdited: Int = Int(lesson.lessonNumber) ?? 0
@@ -704,11 +763,10 @@ class SheduleViewController: UIViewController {
 
         }
 
+        /// updateCoreData with edited variable `lessons`
         updateCoreData(datum: lessons)
         tableView.reloadData()
     }
-    
-    
 }
 
 
@@ -728,7 +786,6 @@ extension SheduleViewController: UITableViewDelegate, UITableViewDataSource {
 
     // MARK: - titleForHeaderInSection
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-
 
         var array: [String] = [DayName.mounday.rawValue,
                                DayName.tuesday.rawValue,
@@ -782,9 +839,11 @@ extension SheduleViewController: UITableViewDelegate, UITableViewDataSource {
     // MARK: - didSelectRowAt
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.section == lessonsForTableView.count {
+            presentAddLesson()
             tableView.deselectRow(at: indexPath, animated: true)
         }
         
+        /// Presenting alert (popup) with pickerView
         if isEditing {
             let screenWidth = UIScreen.main.bounds.width
 
@@ -815,18 +874,23 @@ extension SheduleViewController: UITableViewDelegate, UITableViewDataSource {
             tableView.deselectRow(at: indexPath, animated: true)
 
         } else {
+            
+            /// Seque to `SheduleDetailViewController`
             guard (storyboard?.instantiateViewController(withIdentifier: "DetailViewController") as? SheduleDetailViewController) != nil else { return }
+            
             if indexPath.section != lessonsForTableView.count {
                 performSegue(withIdentifier: "showDetailViewController", sender: self)
             }
+            
             tableView.deselectRow(at: indexPath, animated: true)
-
         }
     }
         
     
     // MARK: - cellForRowAt
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        /// Creating cell for adding new lessson
         if indexPath.section == self.lessonsForTableView.count && self.isEditing == true {
             let cell = UITableViewCell(style: .default, reuseIdentifier: "addCell")
 
@@ -835,21 +899,18 @@ extension SheduleViewController: UITableViewDelegate, UITableViewDataSource {
             return cell
         }
         
-        
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "LessonTableViewCell", for: indexPath) as? LessonTableViewCell else {return UITableViewCell()}
+        /// Creating main cell
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "LessonTableViewCell", for: indexPath) as? LessonTableViewCell else { return UITableViewCell() }
         
         let lessonsForSomeDay = lessonsForTableView[indexPath.section].value
-        
         
         cell.lessonLabel.text = lessonsForSomeDay[indexPath.row].lessonName
         cell.teacherLabel.text = lessonsForSomeDay[indexPath.row].teacherName
         
         if lessonsForSomeDay[indexPath.row].teacherName == "" {
-            let nothing = " "
-            cell.teacherLabel.text = nothing
+            cell.teacherLabel.text = " "
         }
 
-        
         if currentLessonId == lessonsForSomeDay[indexPath.row].lessonID {
             cell.backgroundColor = .orange
         }
@@ -858,16 +919,12 @@ extension SheduleViewController: UITableViewDelegate, UITableViewDataSource {
             cell.backgroundColor = colour1
         }
         
-    
+        let timeStart = String(lessonsForSomeDay[indexPath.row].timeStart[..<5])
         
-        let timeStartString = lessonsForSomeDay[indexPath.row].timeStart
-        let substringTimeStart = String(timeStartString[..<5])
+        let timeEnd = String(lessonsForSomeDay[indexPath.row].timeEnd[..<5])
         
-        let timeEndString = lessonsForSomeDay[indexPath.row].timeEnd
-        let substringTimeEnd = String(timeEndString[..<5])
-        
-        cell.startLabel.text = substringTimeStart
-        cell.endLabel.text = substringTimeEnd
+        cell.startLabel.text = timeStart
+        cell.endLabel.text = timeEnd
         cell.roomLabel.text = lessonsForSomeDay[indexPath.row].lessonType.rawValue + " " + lessonsForSomeDay[indexPath.row].lessonRoom
         
 
@@ -878,10 +935,12 @@ extension SheduleViewController: UITableViewDelegate, UITableViewDataSource {
     // MARK: - commit editingStyle forRowAt
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
+            /// Lesson to delete
             let lesson = self.lessonsForTableView[indexPath.section].value[indexPath.row]
             
             var lessons = fetchingCoreData()
             
+            /// deleting from `lessons`  which will be used for further updates in `updateCoreData(datum: lessons)`
             for i in 0..<lessons.count {
                 let lessonAll = lessons[i]
                 if lessonAll.lessonID == lesson.lessonID {
@@ -900,7 +959,8 @@ extension SheduleViewController: UITableViewDelegate, UITableViewDataSource {
     }
      
     
-    // MARK: - moveRowAt sourceIndexPath to destinationIndexPath |
+    // MARK: - moveRowAt sourceIndexPath to destinationIndexPath
+    /// - todo: try to use iterator for `lessonsToEdit`
     func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
         let _ = (sourceIndexPath.row < self.lessonsForTableView[sourceIndexPath.section].value.count && destinationIndexPath.row < self.lessonsForTableView[sourceIndexPath.section].value.count)
         if (sourceIndexPath.row < self.lessonsForTableView[sourceIndexPath.section].value.count && destinationIndexPath.row < self.lessonsForTableView[sourceIndexPath.section].value.count)
@@ -917,26 +977,25 @@ extension SheduleViewController: UITableViewDelegate, UITableViewDataSource {
             var dayNumber = 0
             
             switch self.lessonsForTableView[destinationIndexPath.section].key {
-                case .mounday:
-                    dayName = DayName.mounday
-                    dayNumber = 1
-                case .tuesday:
-                    dayName = DayName.tuesday
-                    dayNumber = 2
-                case .wednesday:
-                    dayName = DayName.wednesday
-                    dayNumber = 3
-                case .thursday:
-                    dayName = DayName.thursday
-                    dayNumber = 4
-                case .friday:
-                    dayName = DayName.friday
-                    dayNumber = 5
-                case .saturday:
-                    dayName = DayName.saturday
-                    dayNumber = 6
+            case .mounday:
+                dayName = DayName.mounday
+                dayNumber = 1
+            case .tuesday:
+                dayName = DayName.tuesday
+                dayNumber = 2
+            case .wednesday:
+                dayName = DayName.wednesday
+                dayNumber = 3
+            case .thursday:
+                dayName = DayName.thursday
+                dayNumber = 4
+            case .friday:
+                dayName = DayName.friday
+                dayNumber = 5
+            case .saturday:
+                dayName = DayName.saturday
+                dayNumber = 6
             }
-            
             
             /// lessonNumber
             var lessonNumber = ""
@@ -958,12 +1017,10 @@ extension SheduleViewController: UITableViewDelegate, UITableViewDataSource {
                 lessonNumber = String(lessonNumberInt)
             }
              
-            
             /// timeStart && timeEnd
             let times = getTimeFromLessonNumber(lessonNumber: lessonNumber)
             let timeStart = times.0
             let timeEnd = times.1
-
 
             let newLesson = Lesson(lessonID: lesson.lessonID,
                                groupID: lesson.groupID,
@@ -986,7 +1043,6 @@ extension SheduleViewController: UITableViewDelegate, UITableViewDataSource {
 
             self.lessonsForTableView[destinationIndexPath.section].value.insert(newLesson, at: destinationIndexPath.row)
 
-            
             for i in 0..<lessons.count {
                 let lessonAll = lessons[i]
                 if lessonAll.lessonID == lesson.lessonID {
@@ -1046,7 +1102,7 @@ extension SheduleViewController: UITableViewDelegate, UITableViewDataSource {
                 }
             }
             
-            
+            /// Modified lessons with a shifted schedule are created and old ones are deleted
             for lesson in lessonsToEdit {
                 
                 var lessonNumberIntEdited: Int = Int(lesson.lessonNumber) ?? 0
@@ -1123,16 +1179,24 @@ extension SheduleViewController: UITableViewDelegate, UITableViewDataSource {
     
 }
 
+
+// MARK: - Picker View Settings
 extension SheduleViewController: UIPickerViewDelegate, UIPickerViewDataSource {
+    
+    
+    // MARK: - numberOfComponents
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
     }
     
+    
+    // MARK: - numberOfRowsInComponent
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         return 6
     }
     
     
+    // MARK: - attributedTitleForRow
     func pickerView(_ pickerView: UIPickerView, attributedTitleForRow row: Int, forComponent component: Int) -> NSAttributedString? {
         let array = ["1 пара", "2 пара", "3 пара", "4 пара", "5 пара", "6 пара"]
 
@@ -1141,6 +1205,8 @@ extension SheduleViewController: UIPickerViewDelegate, UIPickerViewDataSource {
         return attributedString
     }
     
+    
+    // MARK: - didSelectRow
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         lessonNuberFromPicker = row + 1
     }

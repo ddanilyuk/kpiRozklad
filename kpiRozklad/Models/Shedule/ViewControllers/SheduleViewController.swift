@@ -120,9 +120,15 @@ class SheduleViewController: UIViewController {
         /// presenting `GroupChooserViewController` if `Settings.shared.groupName == ""`
         presentGroupChooser()
         
+        /// Getting dayNumber and week of year from device Date()
+        getDayNumAndWeekOfYear()
+        
+        /// Choosing new Curent and next lesson
+        makeLessonsShedule()
+        
         /// If Core Data is empty, making request from server
         if lessonsCoreData.isEmpty || Settings.shared.isTryToRefreshShedule {
-            /// start animating and show activityIndicator
+            /// Start animating and show activityIndicator
             activityIndicator.startAnimating()
             activityIndicator.isHidden = false
             tableView.isHidden = true

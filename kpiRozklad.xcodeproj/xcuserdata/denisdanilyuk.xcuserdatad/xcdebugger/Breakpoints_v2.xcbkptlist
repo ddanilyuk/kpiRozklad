@@ -7,16 +7,16 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "C8B75042-D502-4CED-9E34-245C396D7865"
+            uuid = "6674329B-53A4-4119-8F78-72480D6FD979"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "kpiRozklad/Models/Teachers/ViewControllers/TeacherSheduleViewController.swift"
+            filePath = "kpiRozklad/Models/Shedule/ViewControllers/SheduleViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "265"
-            endingLineNumber = "265"
-            landmarkName = "getCurrentAndNextLesson(lessons:)"
+            startingLineNumber = "317"
+            endingLineNumber = "317"
+            landmarkName = "makeLessonsShedule()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

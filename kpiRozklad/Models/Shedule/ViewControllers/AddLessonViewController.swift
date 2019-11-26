@@ -273,6 +273,9 @@ class AddLessonViewController: UIViewController {
 
 
 // MARK: - Extension for Pickers
+/// `lessonPickerView` ->  `lessonName` (component 0) + `lessonType` (component 1)
+/// `dayPickerView` -> `dayName` (component 0)
+/// `numberLessonPickerView` -> `Int` (component 0)
 extension AddLessonViewController: UIPickerViewDelegate, UIPickerViewDataSource {
     
     
@@ -291,11 +294,14 @@ extension AddLessonViewController: UIPickerViewDelegate, UIPickerViewDataSource 
             if component == 0 {
                 return unicalLessons.count
             } else {
+                /// lessonType
                 return 4
             }
         } else if pickerView == dayPickerView {
+            /// Monday -> Saturday
             return 6
         } else {
+            /// lessonNumber
             return 6
         }
     }
@@ -303,8 +309,8 @@ extension AddLessonViewController: UIPickerViewDelegate, UIPickerViewDataSource 
     
     // MARK: - titleForRow
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        
         if pickerView == lessonPickerView {
-            
             if component == 0 {
                 let lesson = unicalLessons[row]
                 return lesson.lessonName != "" ? lesson.lessonName : lesson.lessonFullName
@@ -332,6 +338,7 @@ extension AddLessonViewController: UIPickerViewDelegate, UIPickerViewDataSource 
     
     // MARK: - widthForComponent
     func pickerView(_ pickerView: UIPickerView, widthForComponent component: Int) -> CGFloat {
+        /// `lessonName` has (3/4) of pickerView width and `lessonType` has (1/4) of pickerView width
         let w = pickerView.frame.size.width
         if pickerView == lessonPickerView {
             return component == 0 ? (3 / 4.0) * w : (1 / 4.0) * w
@@ -377,7 +384,7 @@ extension AddLessonViewController: UIPickerViewDelegate, UIPickerViewDataSource 
             lessonDay = array[row]
         }
         
-        if pickerView == numberLessonPickerView{
+        if pickerView == numberLessonPickerView {
             lessonNumber = row + 1
         }
     }

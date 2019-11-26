@@ -10,39 +10,68 @@ import UIKit
 
 class AddLessonViewController: UIViewController {
     
+    /// Lessons from seque
     var lessons: [Lesson] = []
-    var unicalLessons: [Lesson] = []
+    
+    /// Current week from seque
     var currentWeek: Int = 0
-
+    
+    /// Unical lessons without repeating
+    var unicalLessons: [Lesson] = []
+    
+    /// IDs from unical lessons
+    /// - Note: used for creating new unical lesson ID
     var unicalIDs: [String] = []
+    
+    /// Unical `lesson.lessonName` from `unicalLessons`
+    /// - Note: calls in `getUnicalLessons()`
     var unicalNames: [String] = []
 
-    var lessonName: String = ""
+    /// **PICKERs VARIABLES**
+    
+    /// Lesson name default is `unicalLessons[0].lessonName`
+    var lessonName = String()
+    
+    /// Lesson type default is `DayName.empty`
     var lessonType: LessonType = LessonType.empty
+    
+    /// Lesson day default is `DayName.mounday`
     var lessonDay: DayName = DayName.mounday
+    
+    /// Lesson number default is `1`
     var lessonNumber: Int = 1
         
+    /// Lesson Name + Lesson Type
     @IBOutlet weak var lessonPickerView: UIPickerView!
+    
+    /// Lesson Day
     @IBOutlet weak var dayPickerView: UIPickerView!
+    
+    /// Lesson Number
     @IBOutlet weak var numberLessonPickerView: UIPickerView!
     
+    
+    // MARK: - viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
     
+        /// Getting Unical Lesson + IDs
         getUnicalLessons()
         getUnicalIDs()
 
         lessonPickerView.delegate = self
         lessonPickerView.dataSource = self
+        
         dayPickerView.delegate = self
         dayPickerView.dataSource = self
+        
         numberLessonPickerView.delegate = self
         numberLessonPickerView.dataSource = self
         
-        lessonPickerView.reloadAllComponents()
     }
 
-
+    
+    // MARK: - getUnicalLessons
     func getUnicalLessons() {
         for lesson in lessons {
             if !unicalNames.contains(lesson.lessonName){
@@ -54,6 +83,7 @@ class AddLessonViewController: UIViewController {
     }
     
     
+    // MARK: - getUnicalIDs
     func getUnicalIDs() {
         unicalIDs = []
         for lesson in unicalLessons {
@@ -61,6 +91,8 @@ class AddLessonViewController: UIViewController {
         }
     }
     
+    
+    // MARK: - getUnicalNames
     func getUnicalNames() {
         unicalNames = []
         for lesson in unicalLessons {
@@ -69,51 +101,51 @@ class AddLessonViewController: UIViewController {
     }
         
     
+    // MARK: - didPressAddLesson
     @IBAction func didPressAddLesson(_ sender: UIButton) {
+        /// Variable lesson which already exist (and use it)
         var similarLesson: Lesson?
-        var isExist = false
-        var isError = true
         
-        var lessonType2: LessonType?
+        /// When time which user choose is busy  == true
+        var isTimeIsBusy = false
         
-        if lessonType == LessonType.лек1 {
-            lessonType2 = .лек2
-        }
+        /// When similar lesson is not exist ==  true
+        var isSimilarLessonNotExist = true
         
+        /// Some groups have `"лек"` but default is `"Лек"` and we equate this
+        let lessonType2 = lessonType == LessonType.лек1 ? LessonType.лек2 : nil
+        
+        /// Finding `lesson` which already exist (and use it)
         for lesson in lessons {
             if lessonName == lesson.lessonName && (lessonType == lesson.lessonType || lessonType2 == lesson.lessonType) {
                 similarLesson = lesson
-                isError = false
+                isSimilarLessonNotExist = false
                 break
             }
         }
         
-    
+        /// Checking time which user choose
         for lesson in lessons {
-            print("********************")
-            print(lesson.lessonFullName)
-            print(String(lessonNumber) + " " + lesson.lessonNumber)
-            print(String(currentWeek) + " " + lesson.lessonWeek)
-            print(lessonDay.rawValue + " " + lesson.dayName.rawValue)
-            
-            
             if String(currentWeek) == lesson.lessonWeek &&
             String(lessonNumber) == lesson.lessonNumber &&
             lessonDay.rawValue == lesson.dayName.rawValue {
-                isExist = true
+                isTimeIsBusy = true
             }
         }
         
-        if isExist {
-            let alert2 = UIAlertController(title: nil, message: "Цей час вже зайнятий", preferredStyle: .alert)
+        /// If `isTimeIsBusy` present appropriate alert
+        if isTimeIsBusy {
+            let alert = UIAlertController(title: nil, message: "Цей час вже зайнятий", preferredStyle: .alert)
 
-            alert2.addAction(UIAlertAction(title: "Вибрати інший час", style: .cancel, handler: nil))
+            alert.addAction(UIAlertAction(title: "Вибрати інший час", style: .cancel, handler: nil))
 
-            self.present(alert2, animated: true)
+            self.present(alert, animated: true)
+            
             return
         }
         
-        if isError {
+        /// If `isSimilarLessonNotExist` present appropriate alert
+        if isSimilarLessonNotExist {
             var type = ""
             var message = ""
             var isEmptyLessonType = false
@@ -138,26 +170,31 @@ class AddLessonViewController: UIViewController {
             alert.addAction(UIAlertAction(title: "Вибрати інший тип пари", style: .cancel, handler: nil))
 
             self.present(alert, animated: true)
+            
+            return
         }
         
+        /// Guarding similar lesson
         guard let previousLesson = similarLesson else { return }
         
+        /// Getting dayNumber
         var dayNumber = 0
         switch lessonDay {
-            case .mounday:
-                dayNumber = 1
-            case .tuesday:
-                dayNumber = 2
-            case .wednesday:
-                dayNumber = 3
-            case .thursday:
-                dayNumber = 4
-            case .friday:
-                dayNumber = 5
-            case .saturday:
-                dayNumber = 6
+        case .mounday:
+            dayNumber = 1
+        case .tuesday:
+            dayNumber = 2
+        case .wednesday:
+            dayNumber = 3
+        case .thursday:
+            dayNumber = 4
+        case .friday:
+            dayNumber = 5
+        case .saturday:
+            dayNumber = 6
         }
         
+        /// Getting timeStart & timeEnd
         var timeStart = "00:00:00"
         var timeEnd = "00:00:00"
         
@@ -185,12 +222,13 @@ class AddLessonViewController: UIViewController {
             timeEnd = "00:00:00"
         }
         
+        /// Randoming ID which is not already exist
         var ID = Int.random(in: 0 ..< 9999)
-        
         while unicalIDs.contains(String(ID)) {
             ID = Int.random(in: 0 ..< 9999)
         }
         
+        /// Creating new Lesson
         let newLesson = Lesson(lessonID: String(ID),
                                groupID: previousLesson.groupID,
                                dayNumber: String(dayNumber),
@@ -208,26 +246,37 @@ class AddLessonViewController: UIViewController {
                                teachers: previousLesson.teachers,
                                rooms: previousLesson.rooms)
         
-        
+        /// Appending to `lessons` which will used in updateCoreData(datum: lessons)
         lessons.append(newLesson)
 
+        /// CREATING NEW sheduleViewController
+        /// - todo: try to dismiss AddLessonVC with pushing newLesson
         let mainStoryboard = UIStoryboard(name: "Main", bundle: Bundle.main)
+        
         let appDelegate = UIApplication.shared.delegate as? AppDelegate
-
         
         let sheduleViewController : SheduleViewController = mainStoryboard.instantiateViewController(withIdentifier: "SheduleViewController") as! SheduleViewController
+        
+        /// Updating Core Data
         sheduleViewController.updateCoreData(datum: lessons)
         
         Settings.shared.isTryToReloadTableView = true
         
+        /// SHOW NEW sheduleViewController
         let mainVC : UITabBarController = mainStoryboard.instantiateViewController(withIdentifier: "Main") as! UITabBarController
-        guard let window = appDelegate?.window else { return }
-        window.rootViewController = mainVC
         
+        guard let window = appDelegate?.window else { return }
+        
+        window.rootViewController = mainVC
     }
 }
 
+
+// MARK: - Extension for Pickers
 extension AddLessonViewController: UIPickerViewDelegate, UIPickerViewDataSource {
+    
+    
+    // MARK: - numberOfComponents
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         if pickerView == lessonPickerView {
             return 2
@@ -235,6 +284,8 @@ extension AddLessonViewController: UIPickerViewDelegate, UIPickerViewDataSource 
         return 1
     }
     
+    
+    // MARK: - numberOfRowsInComponent
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         if pickerView == lessonPickerView {
             if component == 0 {
@@ -249,6 +300,8 @@ extension AddLessonViewController: UIPickerViewDelegate, UIPickerViewDataSource 
         }
     }
     
+    
+    // MARK: - titleForRow
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         if pickerView == lessonPickerView {
             
@@ -276,6 +329,8 @@ extension AddLessonViewController: UIPickerViewDelegate, UIPickerViewDataSource 
         }
     }
     
+    
+    // MARK: - widthForComponent
     func pickerView(_ pickerView: UIPickerView, widthForComponent component: Int) -> CGFloat {
         let w = pickerView.frame.size.width
         if pickerView == lessonPickerView {
@@ -285,24 +340,24 @@ extension AddLessonViewController: UIPickerViewDelegate, UIPickerViewDataSource 
     }
     
     
+    // MARK: - didSelectRow
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        
         
         if pickerView == lessonPickerView {
             if component == 0 {
                 lessonName = unicalNames[row]
            } else {
                 switch row {
-                    case 0:
-                        lessonType = LessonType.empty
-                    case 1:
-                        lessonType = LessonType.лаб
-                    case 2:
-                        lessonType = LessonType.лек1
-                    case 3:
-                        lessonType = LessonType.прак
-                    default:
-                        lessonType = LessonType.empty
+                case 0:
+                    lessonType = LessonType.empty
+                case 1:
+                    lessonType = LessonType.лаб
+                case 2:
+                    lessonType = LessonType.лек1
+                case 3:
+                    lessonType = LessonType.прак
+                default:
+                    lessonType = LessonType.empty
                 }
             }
            
@@ -314,8 +369,10 @@ extension AddLessonViewController: UIPickerViewDelegate, UIPickerViewDataSource 
             let wednesday = DayName.wednesday
             let thursday = DayName.thursday
             let friday = DayName.friday
+            let saturday = DayName.saturday
+
             
-            let array = [mounday, tuesday, wednesday, thursday, friday]
+            let array = [mounday, tuesday, wednesday, thursday, friday, saturday]
             
             lessonDay = array[row]
         }

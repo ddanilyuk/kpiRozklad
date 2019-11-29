@@ -96,6 +96,7 @@ class SettingsTableViewController: UITableViewController {
         
         let alert = UIAlertController(title: nil, message: "Чи бажаєте Ви оновити ваш розклад?\n Всі ваші редагування розкладу пропадуть!", preferredStyle: .actionSheet)
         alert.addAction(UIAlertAction(title: "Оновити", style: .default, handler: { (_) in
+            
             Settings.shared.isTryToRefreshShedule = true
 
             let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "LessonData")
@@ -145,7 +146,7 @@ class SettingsTableViewController: UITableViewController {
         let alert = UIAlertController(title: nil, message: "Чи бажаєте Ви змініти вашу групу?\n Всі ваші редагування розкладу пропадуть!", preferredStyle: .actionSheet)
         alert.addAction(UIAlertAction(title: "Змініти", style: .default, handler: { (_) in
             Settings.shared.groupName = ""
-            Settings.shared.isTryToReloadTableView = true
+            Settings.shared.isTryToRefreshShedule = true
             
 //            let secondViewController: SheduleViewController = SheduleViewController()
 //

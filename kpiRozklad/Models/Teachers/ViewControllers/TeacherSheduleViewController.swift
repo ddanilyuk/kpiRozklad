@@ -86,6 +86,7 @@ class TeacherSheduleViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+                
         /// TableView delegate and dataSource
         tableView.delegate = self
         tableView.dataSource = self
@@ -101,12 +102,17 @@ class TeacherSheduleViewController: UIViewController {
         let title = "Зараз \(self.currentWeekFromTodayDate) тиждень"
         self.navBar.title = title
         
-        /// Making request from server
-        server()
+//        /// Making request from server
+//        server()
         
         if teacher != nil {
             teacherID = teacher?.teacherID
         }
+        
+        /// Making request from server
+        server()
+
+        makeLessonsShedule()
         
         /// Start animating and show activityIndicator
         activityIndicator.startAnimating()

@@ -16,17 +16,17 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
-                        <segue destination="nsI-9v-NMm" kind="relationship" relationship="rootViewController" id="Ggy-oH-HVB"/>
+                        <segue destination="nsI-9v-NMm" kind="relationship" relationship="rootViewController" id="6Hr-zU-s8L"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="D9V-OB-gZP" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-3311" y="-1020"/>
+            <point key="canvasLocation" x="-3212" y="-1032"/>
         </scene>
         <!--Group Chooser View Controller-->
         <scene sceneID="6Fy-6u-HJg">
             <objects>
-                <viewController storyboardIdentifier="GroupChooser" id="nsI-9v-NMm" customClass="GroupChooserViewController" customModule="kpiRozklad" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="GroupChooserViewController" id="nsI-9v-NMm" customClass="GroupChooserViewController" customModule="kpiRozklad" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="ZfH-hG-RFJ">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -38,39 +38,26 @@
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
-                            <constraint firstItem="MQ7-Lk-kIw" firstAttribute="leading" secondItem="QOr-y0-Msw" secondAttribute="leading" id="9ph-Im-tYk"/>
-                            <constraint firstItem="MQ7-Lk-kIw" firstAttribute="trailing" secondItem="QOr-y0-Msw" secondAttribute="trailing" id="Jp3-a4-UVe"/>
-                            <constraint firstItem="QOr-y0-Msw" firstAttribute="bottom" secondItem="MQ7-Lk-kIw" secondAttribute="bottom" id="KOC-Hd-EXL"/>
-                            <constraint firstItem="MQ7-Lk-kIw" firstAttribute="top" secondItem="QOr-y0-Msw" secondAttribute="top" id="zae-BK-9Z2"/>
+                            <constraint firstItem="MQ7-Lk-kIw" firstAttribute="bottom" secondItem="QOr-y0-Msw" secondAttribute="bottom" id="81x-ql-mnO"/>
+                            <constraint firstItem="MQ7-Lk-kIw" firstAttribute="leading" secondItem="QOr-y0-Msw" secondAttribute="leading" id="HSS-HL-5X6"/>
+                            <constraint firstItem="MQ7-Lk-kIw" firstAttribute="trailing" secondItem="QOr-y0-Msw" secondAttribute="trailing" id="Ndv-Cy-0K6"/>
+                            <constraint firstItem="MQ7-Lk-kIw" firstAttribute="top" secondItem="QOr-y0-Msw" secondAttribute="top" id="ozn-4E-CD2"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="QOr-y0-Msw"/>
                     </view>
-                    <navigationItem key="navigationItem" id="NV5-2s-wUS"/>
+                    <navigationItem key="navigationItem" id="7JX-2g-98N"/>
                     <connections>
                         <outlet property="tableView" destination="MQ7-Lk-kIw" id="tgl-p5-1h5"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="y9s-mP-T0O" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2149.5999999999999" y="-1019.704433497537"/>
-        </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="5v1-8C-3FV">
-            <objects>
-                <navigationController storyboardIdentifier="navigationAddLesson" id="oWR-rl-Hbq" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="2wi-ie-f56">
-                        <rect key="frame" x="0.0" y="44" width="375" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="hfs-y2-2LT" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-3311" y="-311"/>
+            <point key="canvasLocation" x="-2082.4000000000001" y="-1032.2660098522167"/>
         </scene>
         <!--Add Lesson View Controller-->
         <scene sceneID="o9L-Nr-gZV">
             <objects>
-                <viewController storyboardIdentifier="addLesson" id="9L8-wk-vdr" customClass="AddLessonViewController" customModule="kpiRozklad" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="AddLessonViewController" id="9L8-wk-vdr" customClass="AddLessonViewController" customModule="kpiRozklad" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="1Dt-a0-7KL">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -244,7 +231,7 @@
         <!--Викладачі-->
         <scene sceneID="xbn-fN-qco">
             <objects>
-                <viewController id="uqy-EP-nOA" customClass="TeachersViewController" customModule="kpiRozklad" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="TeachersViewController" id="uqy-EP-nOA" customClass="TeachersViewController" customModule="kpiRozklad" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="r28-T8-AU0">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -334,7 +321,7 @@
         <!--Налаштування-->
         <scene sceneID="FIg-qI-laJ">
             <objects>
-                <tableViewController id="Nvr-ip-G7Y" customClass="SettingsTableViewController" customModule="kpiRozklad" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="SettingsTableViewController" id="Nvr-ip-G7Y" customClass="SettingsTableViewController" customModule="kpiRozklad" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="2OE-JR-jzj">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -376,7 +363,7 @@
         <!--Shedule Detail View Controller-->
         <scene sceneID="YJy-Mv-orq">
             <objects>
-                <viewController storyboardIdentifier="DetailViewController" id="Xi8-a3-NCy" customClass="SheduleDetailViewController" customModule="kpiRozklad" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="SheduleDetailViewController" id="Xi8-a3-NCy" customClass="SheduleDetailViewController" customModule="kpiRozklad" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="rN8-a6-edx">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -566,6 +553,6 @@
         <image name="rectangle.grid.1x2" catalog="system" width="64" height="50"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="eOz-94-s6B"/>
+        <segue reference="5QF-Tv-CiU"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -44,6 +44,9 @@ class GroupChooserViewController: UIViewController {
         search.obscuresBackgroundDuringPresentation = false
         search.searchBar.placeholder = "Пошук групи"
         self.navigationItem.searchController = search
+        self.navigationItem.hidesSearchBarWhenScrolling = false
+        
+        
         definesPresentationContext = true
     }
     
@@ -122,13 +125,21 @@ extension GroupChooserViewController: UITableViewDelegate, UITableViewDataSource
                         
         
         let mainStoryboard = UIStoryboard(name: "Main", bundle: Bundle.main)
-        let groupVC : UITabBarController = mainStoryboard.instantiateViewController(withIdentifier: "Main") as! UITabBarController
-        
-        Settings.shared.isTryToRefreshShedule = true
-
         let appDelegate = UIApplication.shared.delegate as? AppDelegate
         guard let window = appDelegate?.window else { return }
-        window.rootViewController = groupVC
+        
+        
+        guard let mainTabBar : UITabBarController = mainStoryboard.instantiateViewController(withIdentifier: "Main") as? UITabBarController else { return }
+        guard let sheduleVC: SheduleViewController = mainStoryboard.instantiateViewController(withIdentifier: SheduleViewController.identifier) as? SheduleViewController else { return }
+        
+        Settings.shared.isTryToRefreshShedule = true
+        
+        sheduleVC.server()
+        
+        
+        self.dismiss(animated: true, completion: {
+            window.rootViewController = mainTabBar
+        })
         
         tableView.deselectRow(at: indexPath, animated: true)
     }

@@ -178,9 +178,9 @@ extension TeachersViewController: UITableViewDelegate, UITableViewDataSource {
             if let indexPath = tableView.indexPathForSelectedRow {
                 if let destination = segue.destination as? TeacherSheduleViewController {
                     if isSearching {
-                        destination.teacher = teachersInSearch[indexPath.row]
+                        destination.teacherID = teachersInSearch[indexPath.row].teacherID
                     } else {
-                        destination.teacher = teachers[indexPath.row]
+                        destination.teacherID = teachers[indexPath.row].teacherID
                     }
                 }
             }

@@ -31,19 +31,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         
         let mainStoryboard = UIStoryboard(name: "Main", bundle: Bundle.main)
-        
-        print(Settings.shared.groupName)
-        
-//        Settings.shared.groupName = ""
-        
         let mainVC = mainStoryboard.instantiateInitialViewController()
         window?.rootViewController = mainVC
         
-//        if Settings.shared.groupName == "" {
-//            let groupVC : UIViewController = mainStoryboard.instantiateViewController(withIdentifier: "navigationGroupChooser") as UIViewController
-//            self.window?.rootViewController = groupVC
-//            self.window?.makeKeyAndVisible()
-//        }
+
         
         
         return true
@@ -132,7 +123,4 @@ extension AppDelegate {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
     
-    
-    
 }
-

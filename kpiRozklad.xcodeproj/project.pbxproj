@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		5F034A322389B16D00D90DB7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5F034A342389B16D00D90DB7 /* Main.storyboard */; };
 		5F4457E42376FB05008F9E21 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F4457E32376FB05008F9E21 /* Settings.swift */; };
+		5F5000AF238D704A0003E13B /* UIViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F5000AE238D704A0003E13B /* UIViewExtension.swift */; };
 		5F686F3A23800CFB008B0915 /* AddLessonViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F686F3923800CFB008B0915 /* AddLessonViewController.swift */; };
 		5F6A08062370A175000A9C79 /* kpiRozklad.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 5F6A08042370A175000A9C79 /* kpiRozklad.xcdatamodeld */; };
 		5FA2B79B2379F20C006C466B /* GroupChooserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FA2B79A2379F20C006C466B /* GroupChooserViewController.swift */; };
@@ -34,6 +35,7 @@
 		5F034A352389B1F500D90DB7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		5F034A3E2389B2E600D90DB7 /* uk */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = uk; path = uk.lproj/Main.storyboard; sourceTree = "<group>"; };
 		5F4457E32376FB05008F9E21 /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
+		5F5000AE238D704A0003E13B /* UIViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewExtension.swift; sourceTree = "<group>"; };
 		5F686F3923800CFB008B0915 /* AddLessonViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddLessonViewController.swift; sourceTree = "<group>"; };
 		5F6A08052370A175000A9C79 /* Lesson.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Lesson.xcdatamodel; sourceTree = "<group>"; };
 		5FA2B79A2379F20C006C466B /* GroupChooserViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupChooserViewController.swift; sourceTree = "<group>"; };
@@ -237,6 +239,7 @@
 			isa = PBXGroup;
 			children = (
 				D34BEBC4233CCFC10035F7B4 /* Extensions.swift */,
+				5F5000AE238D704A0003E13B /* UIViewExtension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -348,6 +351,7 @@
 				D300F1DA2364CF490098CA83 /* SettingsTableViewController.swift in Sources */,
 				5F4457E42376FB05008F9E21 /* Settings.swift in Sources */,
 				D313F4B0233AB94C0076CFF8 /* TeacherFull.swift in Sources */,
+				5F5000AF238D704A0003E13B /* UIViewExtension.swift in Sources */,
 				D313F4B2233C773B0076CFF8 /* Lesson.swift in Sources */,
 				D300F1D62364CEA30098CA83 /* TeachersViewController.swift in Sources */,
 				D313F4AE233AAF920076CFF8 /* SheduleViewController.swift in Sources */,

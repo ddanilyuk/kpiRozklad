@@ -74,12 +74,20 @@ class GroupChooserViewController: UIViewController {
                     DispatchQueue.main.async {
                         self.tableView.isHidden = false
                         self.tableView.reloadData()
+                        self.groups.sort { (Group1, Group2) -> Bool in
+                            return Group1.groupID < Group2.groupID
+                        }
                     }
+                    
                 }
+                
                 
             }
             task.resume()
         }
+//        self.groups.sort { (Group1, Group2) -> Bool in
+//            return Group1.groupID < Group2.groupID
+//        }
 
     }
 }

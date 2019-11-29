@@ -124,6 +124,8 @@ class SheduleViewController: UIViewController {
         /// Choosing new Curent and next lesson
         if settings.groupName != "" {
             makeLessonsShedule()
+            
+            scrollToCurrentOrNext()
         }
         
         /// If Core Data is empty, making request from server
@@ -201,11 +203,52 @@ class SheduleViewController: UIViewController {
     }
     
     
+    func scrollToCurrentOrNext() {
+        var indexPathToScroll = IndexPath(row: 0, section: 0)
+
+        k: for section in 0..<self.lessonsForTableView.count {
+            let day = lessonsForTableView[section]
+            for row in 0..<day.value.count {
+                let lesson = day.value[row]
+                if lesson.lessonID == currentLessonId {
+                    print(currentLessonId)
+                    print(section, row)
+                    indexPathToScroll = IndexPath(row: row, section: section)
+                    break k
+                } else if lesson.lessonID == nextLessonId {
+                    indexPathToScroll = IndexPath(row: row, section: section)
+                    break k
+
+                }
+            }
+        }
+        
+
+        /// (self.tableView != nil)  because if when we push information from another VC tableView can be not exist
+        
+        if self.tableView != nil {
+            DispatchQueue.main.async {
+//                self.tableView.isHidden = false
+    //            indexPathToScroll = IndexPath(row: 3, section: 4)
+                self.tableView.reloadData()
+//                guard let some = self.lessonsForTableView.count else { return }
+                if self.lessonsForTableView[indexPathToScroll.section].value.count > indexPathToScroll.row {
+                    self.tableView.scrollToRow(at: indexPathToScroll, at: .top, animated: true)
+
+                }
+    //            print(self.tableView.cellForRow(at: indexPathToScroll)?.textLabel?.text)
+            }
+            
+
+        }
+    }
+    
+    
     // MARK: - presentAddLesson
     /// Func which present `AddLessonViewController`
     func presentAddLesson() {
         let mainStoryboard = UIStoryboard(name: "Main", bundle: Bundle.main)
-        let addLesson : AddLessonViewController = mainStoryboard.instantiateViewController(withIdentifier: "addLesson") as! AddLessonViewController
+        let addLesson : AddLessonViewController = mainStoryboard.instantiateViewController(withIdentifier: AddLessonViewController.identifier) as! AddLessonViewController
         
         addLesson.lessons = self.fetchingCoreData()
         addLesson.currentWeek = self.currentWeek
@@ -285,6 +328,8 @@ class SheduleViewController: UIViewController {
             }
         }
         
+//        var indexPathToScroll = IndexPath()
+        
         /// Choosing lesson from currnetWeek
         let currentLessonWeek = currentWeek == 1 ? lessonsFirst : lessonsSecond
         
@@ -344,10 +389,30 @@ class SheduleViewController: UIViewController {
                                     .thursday: lessonThursday,
                                     .friday: lessonFriday,
                                     .saturday: lessonSaturday].sorted{$0.key < $1.key}
+        
+//        k: for section in 0..<lessonsForTableView.count {
+//            let day = lessonsForTableView[section]
+//            for row in 0..<day.value.count {
+//                let lesson = day.value[row]
+//                if lesson.lessonID == currentLessonId {
+//                    print(currentLessonId)
+//                    indexPathToScroll = IndexPath(row: row, section: section)
+//                    break k
+//                } else if lesson.lessonID == nextLessonId {
+//                    indexPathToScroll = IndexPath(row: row, section: section)
+//                }
+//            }
+//        }
+        
 
         /// (self.tableView != nil)  because if when we push information from another VC tableView can be not exist
         if self.tableView != nil {
             self.tableView.reloadData()
+//            print(indexPathToScroll)
+////            indexPathToScroll = IndexPath(row: 3, section: 4)
+//            self.tableView.scrollToRow(at: indexPathToScroll, at: .top, animated: true)
+            
+
         }
     }
     
@@ -595,6 +660,8 @@ class SheduleViewController: UIViewController {
     // MARK: - getCurrentAndNextLesson
     /// Function that makes current lesson **orange** and next lesson **blue**
     func getCurrentAndNextLesson(lessons: [Lesson]) {
+        nextLessonId = String()
+        currentLessonId = String()
         
         for lesson in lessons {
             
@@ -797,6 +864,18 @@ class SheduleViewController: UIViewController {
             }
             lessons.append(editedLesson)
 
+        }
+        
+        lessons.sort { (lesson1, lesson2) -> Bool in
+
+            if lesson1.lessonWeek == lesson2.lessonWeek && lesson1.dayNumber == lesson2.dayNumber {
+                 return lesson1.lessonNumber < lesson2.lessonNumber
+            } else if lesson1.lessonWeek == lesson2.lessonWeek {
+                return lesson1.dayNumber < lesson2.dayNumber
+            } else {
+                return lesson1.lessonWeek < lesson2.lessonWeek
+            }
+            
         }
 
         /// updateCoreData with edited variable `lessons`
@@ -1064,6 +1143,7 @@ extension SheduleViewController: UITableViewDelegate, UITableViewDataSource {
                                rate: lesson.rate,
                                teachers: lesson.teachers,
                                rooms: lesson.rooms)
+            print(newLesson)
 
             self.lessonsForTableView[sourceIndexPath.section].value.remove(at: sourceIndexPath.row)
 
@@ -1073,11 +1153,11 @@ extension SheduleViewController: UITableViewDelegate, UITableViewDataSource {
                 let lessonAll = lessons[i]
                 if lessonAll.lessonID == lesson.lessonID {
                     lessons.remove(at: i)
+                    lessons.insert(newLesson, at: i)
                     break
                 }
             }
 
-            lessons.append(newLesson)
 
             if newLesson.lessonNumber == lesson.lessonNumber && newLesson.dayNumber == lesson.dayNumber {
                 return
@@ -1159,8 +1239,20 @@ extension SheduleViewController: UITableViewDelegate, UITableViewDataSource {
                 lessons.removeAll { lesson -> Bool in
                     return lesson.lessonID == editedLesson.lessonID
                 }
-                
+
                 lessons.append(editedLesson)
+            }
+            
+            lessons.sort { (lesson1, lesson2) -> Bool in
+
+                if lesson1.lessonWeek == lesson2.lessonWeek && lesson1.dayNumber == lesson2.dayNumber {
+                     return lesson1.lessonNumber < lesson2.lessonNumber
+                } else if lesson1.lessonWeek == lesson2.lessonWeek {
+                    return lesson1.dayNumber < lesson2.dayNumber
+                } else {
+                    return lesson1.lessonWeek < lesson2.lessonWeek
+                }
+                
             }
             
             updateCoreData(datum: lessons)

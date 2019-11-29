@@ -108,6 +108,8 @@ class SheduleViewController: UIViewController {
             
             /// Fetching Core Data and make variable for tableView
             makeLessonsShedule()
+            
+            scrollToCurrentOrNext()
         }
         
     }
@@ -124,8 +126,6 @@ class SheduleViewController: UIViewController {
         /// Choosing new Curent and next lesson
         if settings.groupName != "" {
             makeLessonsShedule()
-            
-            scrollToCurrentOrNext()
         }
         
         /// If Core Data is empty, making request from server

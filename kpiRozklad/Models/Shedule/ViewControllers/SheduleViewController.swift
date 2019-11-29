@@ -907,7 +907,7 @@ extension SheduleViewController: UITableViewDelegate, UITableViewDataSource {
                                DayName.friday.rawValue,
                                DayName.saturday.rawValue]
         
-        self.isEditing ? array.append("Новий предмет") : nil
+        self.isEditing ? array.append("Нова пара") : nil
         return array[section]
     }
     
@@ -999,7 +999,7 @@ extension SheduleViewController: UITableViewDelegate, UITableViewDataSource {
         if indexPath.section == self.lessonsForTableView.count && self.isEditing == true {
             let cell = UITableViewCell(style: .default, reuseIdentifier: "addCell")
 
-            cell.textLabel?.text = "Добавить предмет"
+            cell.textLabel?.text = "Додати пару"
             
             return cell
         }

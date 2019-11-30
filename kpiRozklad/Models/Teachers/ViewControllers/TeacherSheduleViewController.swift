@@ -243,7 +243,7 @@ class TeacherSheduleViewController: UIViewController {
     
     // MARK: - server
     func server() {
-        var url = URL(string: "https://api.rozklad.org.ua/v2/teachers/")!
+        guard var url = URL(string: "https://api.rozklad.org.ua/v2/teachers/") else { return }
         url.appendPathComponent(teacherID ?? "")
         url.appendPathComponent("/lessons")
         print(url)

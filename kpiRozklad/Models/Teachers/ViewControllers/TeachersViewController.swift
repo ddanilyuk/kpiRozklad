@@ -77,8 +77,8 @@ class TeachersViewController: UIViewController {
     
     
     func server() {
-       let stringURL = "https://api.rozklad.org.ua/v2/groups/\(Settings.shared.groupID)/teachers"
-        let url = URL(string: stringURL)!
+        let stringURL = "https://api.rozklad.org.ua/v2/groups/\(Settings.shared.groupID)/teachers"
+        guard let url = URL(string: stringURL) else { return }
 
         
         let task = URLSession.shared.dataTask(with: url) {(data, response, error) in

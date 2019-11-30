@@ -49,7 +49,7 @@ class SheduleDetailViewController: UIViewController {
                 teacherLabel.text = teacher?.teacherName
             }
             
-            teacherRatingLabel.text = teacher?.teacherRating
+            teacherRatingLabel.text = "Рейтинг викладача: " + (teacher?.teacherRating ?? "0.0000")
         }
         
         lessonNameLabel.text = lesson.lessonName

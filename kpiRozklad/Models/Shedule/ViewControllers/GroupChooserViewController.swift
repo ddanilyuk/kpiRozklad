@@ -60,7 +60,7 @@ class GroupChooserViewController: UIViewController {
             
             let stringURL = "https://api.rozklad.org.ua/v2/groups/?filter=%7B'limit':100,'offset':\(String(offset))%7D"
             
-            let url = URL(string: stringURL)!
+            guard let url = URL(string: stringURL) else { return }
             
             let task = URLSession.shared.dataTask(with: url) {(data, response, error) in
                 guard let data = data else { return }

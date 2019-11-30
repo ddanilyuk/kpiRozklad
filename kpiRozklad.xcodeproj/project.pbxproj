@@ -14,6 +14,8 @@
 		5F6A08062370A175000A9C79 /* kpiRozklad.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 5F6A08042370A175000A9C79 /* kpiRozklad.xcdatamodeld */; };
 		5FA2B79B2379F20C006C466B /* GroupChooserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FA2B79A2379F20C006C466B /* GroupChooserViewController.swift */; };
 		5FA2B79D2379F5A7006C466B /* Group.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FA2B79C2379F5A7006C466B /* Group.swift */; };
+		5FE048652392D16A00092422 /* EditingLessons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FE048642392D16A00092422 /* EditingLessons.swift */; };
+		5FE048672392D4FA00092422 /* ManagingLessons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FE048662392D4FA00092422 /* ManagingLessons.swift */; };
 		D300F1D62364CEA30098CA83 /* TeachersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D300F1D52364CEA30098CA83 /* TeachersViewController.swift */; };
 		D300F1DA2364CF490098CA83 /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D300F1D92364CF490098CA83 /* SettingsTableViewController.swift */; };
 		D300F1DC2365BC270098CA83 /* Teacher.swift in Sources */ = {isa = PBXBuildFile; fileRef = D300F1DB2365BC270098CA83 /* Teacher.swift */; };
@@ -40,6 +42,8 @@
 		5F6A08052370A175000A9C79 /* Lesson.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Lesson.xcdatamodel; sourceTree = "<group>"; };
 		5FA2B79A2379F20C006C466B /* GroupChooserViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupChooserViewController.swift; sourceTree = "<group>"; };
 		5FA2B79C2379F5A7006C466B /* Group.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Group.swift; sourceTree = "<group>"; };
+		5FE048642392D16A00092422 /* EditingLessons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditingLessons.swift; sourceTree = "<group>"; };
+		5FE048662392D4FA00092422 /* ManagingLessons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManagingLessons.swift; sourceTree = "<group>"; };
 		D300F1D52364CEA30098CA83 /* TeachersViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeachersViewController.swift; sourceTree = "<group>"; };
 		D300F1D92364CF490098CA83 /* SettingsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
 		D300F1DB2365BC270098CA83 /* Teacher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Teacher.swift; sourceTree = "<group>"; };
@@ -230,6 +234,8 @@
 				D300F1DB2365BC270098CA83 /* Teacher.swift */,
 				5F4457E32376FB05008F9E21 /* Settings.swift */,
 				5FA2B79C2379F5A7006C466B /* Group.swift */,
+				5FE048642392D16A00092422 /* EditingLessons.swift */,
+				5FE048662392D4FA00092422 /* ManagingLessons.swift */,
 				D3FFAAE223521BAC0065E9CE /* Extensions */,
 			);
 			path = Common;
@@ -348,9 +354,11 @@
 				D3FFAAE72352467F0065E9CE /* TeacherSheduleViewController.swift in Sources */,
 				D34BEBC5233CCFC10035F7B4 /* Extensions.swift in Sources */,
 				5FA2B79D2379F5A7006C466B /* Group.swift in Sources */,
+				5FE048672392D4FA00092422 /* ManagingLessons.swift in Sources */,
 				D300F1DA2364CF490098CA83 /* SettingsTableViewController.swift in Sources */,
 				5F4457E42376FB05008F9E21 /* Settings.swift in Sources */,
 				D313F4B0233AB94C0076CFF8 /* TeacherFull.swift in Sources */,
+				5FE048652392D16A00092422 /* EditingLessons.swift in Sources */,
 				5F5000AF238D704A0003E13B /* UIViewExtension.swift in Sources */,
 				D313F4B2233C773B0076CFF8 /* Lesson.swift in Sources */,
 				D300F1D62364CEA30098CA83 /* TeachersViewController.swift in Sources */,

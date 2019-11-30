@@ -13,17 +13,20 @@
 
 import Foundation
 
+ 
 // MARK: - Welcome
 struct WelcomeLessons: Codable {
     let statusCode, timeStamp: Int
-    let message, debugInfo: String
+    let message, debugInfo: String?
     let meta: JSONNull?
     let data: [Lesson]
 }
 
+
 // MARK: - Lesson
 struct Lesson: Codable {
-    let lessonID, groupID, dayNumber: String
+    let lessonID, dayNumber: String
+    let groupID: String?
     let dayName: DayName
     let lessonName, lessonFullName, lessonNumber, lessonRoom: String
     let lessonType: LessonType
@@ -31,7 +34,9 @@ struct Lesson: Codable {
     let rate: String
     let teachers: [Teacher]
     let rooms: [Room]
+    let groups: [Group]?
 
+    
     enum CodingKeys: String, CodingKey {
         case lessonID = "lesson_id"
         case groupID = "group_id"
@@ -46,7 +51,7 @@ struct Lesson: Codable {
         case lessonWeek = "lesson_week"
         case timeStart = "time_start"
         case timeEnd = "time_end"
-        case rate, teachers, rooms
+        case rate, teachers, rooms, groups
     }
 
 }
@@ -89,7 +94,7 @@ enum DayName: String, Codable, Comparable {
         }
     }
 
-     static func ==(lhs: DayName, rhs: DayName) -> Bool {
+    static func ==(lhs: DayName, rhs: DayName) -> Bool {
         return lhs.sortOrder == rhs.sortOrder
     }
 
@@ -119,21 +124,6 @@ struct Room: Codable {
     }
 }
 
-// MARK: - Teacher
-//struct Teacher: Codable {
-//    let teacherID, teacherName, teacherFullName, teacherShortName: String
-//    let teacherURL: String
-//    let teacherRating: String
-//
-//    enum CodingKeys: String, CodingKey {
-//        case teacherID = "teacher_id"
-//        case teacherName = "teacher_name"
-//        case teacherFullName = "teacher_full_name"
-//        case teacherShortName = "teacher_short_name"
-//        case teacherURL = "teacher_url"
-//        case teacherRating = "teacher_rating"
-//    }
-//}
 
 // MARK: - Encode/decode helpers
 

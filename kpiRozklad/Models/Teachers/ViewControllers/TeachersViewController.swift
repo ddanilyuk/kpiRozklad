@@ -122,8 +122,6 @@ class TeachersViewController: UIViewController {
                     self.allTeachers += datum
                     
                     print(self.allTeachers.count)
-                    
-//                    self.allTeachers = self.allTeachers.sorted{$0.teacherFullName < $1.teacherFullName}
 
                     DispatchQueue.main.async {
                         self.activityIndicator.stopAnimating()
@@ -131,24 +129,18 @@ class TeachersViewController: UIViewController {
                         
                         self.tableView.isHidden = false
                         self.tableView.reloadData()
-//                        self.allTeachers = self.allTeachers.sorted{$0.teacherFullName < $1.teacherFullName}
                     }
                 }
             }
             task.resume()
         }
-            
-        
-        
-        
     }
-    
-
-    
 
 }
 
 extension TeachersViewController: UITableViewDelegate, UITableViewDataSource {
+    
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if isSearching {
             return teachersInSearch.count
@@ -157,20 +149,19 @@ extension TeachersViewController: UITableViewDelegate, UITableViewDataSource {
         }
     }
 
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = UITableViewCell(style: .default, reuseIdentifier: reuseID)
         
-        
         if isSearching {
             cell.textLabel?.text = teachersInSearch[indexPath.row].teacherName
-//            cell.detailTextLabel?.text = teachersInSearch[indexPath.row].teacherID
         } else {
             cell.textLabel?.text = teachers[indexPath.row].teacherName
-//            cell.detailTextLabel?.text = teachers[indexPath.row].teacherID
         }
         
         return cell
     }
+    
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
 
@@ -187,6 +178,7 @@ extension TeachersViewController: UITableViewDelegate, UITableViewDataSource {
         }
         
     }
+
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard (storyboard?.instantiateViewController(withIdentifier: "TeacherSheduleViewController") as? TeacherSheduleViewController) != nil else { return }
@@ -194,6 +186,7 @@ extension TeachersViewController: UITableViewDelegate, UITableViewDataSource {
         tableView.deselectRow(at: indexPath, animated: true)
     }
 
+    
 }
 
 
@@ -206,6 +199,7 @@ extension TeachersViewController: UISearchResultsUpdating{
             return
         }
         
+        
         if searchText == "" {
             isSearching = false
             teachersInSearch = []
@@ -214,7 +208,7 @@ extension TeachersViewController: UISearchResultsUpdating{
             isSearching = true
             teachersInSearch = []
             for teacher in teachers {
-                if teacher.teacherFullName.contains(searchText){
+                if teacher.teacherFullName.lowercased().contains(searchText.lowercased()){
                     teachersInSearch.append(teacher)
                 }
             }

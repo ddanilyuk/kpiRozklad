@@ -20,30 +20,30 @@ func editLessonNumber(vc: SheduleViewController, indexPath: IndexPath) {
     guard let sheduleViewController : SheduleViewController = mainStoryboard.instantiateViewController(withIdentifier: "SheduleViewController") as? SheduleViewController else { return }
     
     
-    var lessons = vc.fetchingCoreData()
+    var lessons = fetchingCoreData()
     let lesson = vc.lessonsForTableView[indexPath.section].value[indexPath.row]
     
     /// timeStart && timeEnd
-    let times = vc.getTimeFromLessonNumber(lessonNumber: String(vc.lessonNuberFromPicker))
-    let timeStart = times.0
-    let timeEnd = times.1
+    let times = getTimeFromLessonNumber(lessonNumber: String(vc.lessonNuberFromPicker))
+    let timeStart = times.timeStart
+    let timeEnd = times.timeEnd
 
     let newLesson = Lesson(lessonID: lesson.lessonID,
-                       groupID: lesson.groupID,
-                       dayNumber: lesson.dayNumber,
-                       dayName: lesson.dayName,
-                       lessonName: lesson.lessonName,
-                       lessonFullName: lesson.lessonFullName,
-                       lessonNumber: String(vc.lessonNuberFromPicker),
-                       lessonRoom: lesson.lessonRoom,
-                       lessonType: lesson.lessonType,
-                       teacherName: lesson.teacherName,
-                       lessonWeek: lesson.lessonWeek,
-                       timeStart: timeStart,
-                       timeEnd: timeEnd,
-                       rate: lesson.rate,
-                       teachers: lesson.teachers,
-                       rooms: lesson.rooms)
+                           dayNumber: lesson.dayNumber,
+                           groupID: lesson.groupID,
+                           dayName: lesson.dayName,
+                           lessonName: lesson.lessonName,
+                           lessonFullName: lesson.lessonFullName,
+                           lessonNumber: String(vc.lessonNuberFromPicker),
+                           lessonRoom: lesson.lessonRoom,
+                           lessonType: lesson.lessonType,
+                           teacherName: lesson.teacherName,
+                           lessonWeek: lesson.lessonWeek,
+                           timeStart: timeStart,
+                           timeEnd: timeEnd,
+                           rate: lesson.rate,
+                           teachers: lesson.teachers,
+                           rooms: lesson.rooms, groups: [])
 
     /// Deleting old
     vc.lessonsForTableView[indexPath.section].value.remove(at: indexPath.row)
@@ -93,13 +93,13 @@ func editLessonNumber(vc: SheduleViewController, indexPath: IndexPath) {
         lessonNumberIntEdited += 1
         let lessonNumberEdited = String(lessonNumberIntEdited)
         
-        let timesEdited = vc.getTimeFromLessonNumber(lessonNumber: lessonNumberEdited)
-        let timeStartEdited = timesEdited.0
-        let timeEndEdited = timesEdited.1
+        let timesEdited = getTimeFromLessonNumber(lessonNumber: lessonNumberEdited)
+        let timeStartEdited = timesEdited.timeStart
+        let timeEndEdited = timesEdited.timeEnd
         
         let editedLesson = Lesson( lessonID: lesson.lessonID,
-                                   groupID: lesson.groupID,
                                    dayNumber: lesson.dayNumber,
+                                   groupID: lesson.groupID,
                                    dayName: lesson.dayName,
                                    lessonName: lesson.lessonName,
                                    lessonFullName: lesson.lessonFullName,
@@ -112,7 +112,7 @@ func editLessonNumber(vc: SheduleViewController, indexPath: IndexPath) {
                                    timeEnd: timeEndEdited,
                                    rate: lesson.rate,
                                    teachers: lesson.teachers,
-                                   rooms: lesson.rooms)
+                                   rooms: lesson.rooms, groups: [])
         
         lessons.removeAll { lesson -> Bool in
             return lesson.lessonID == editedLesson.lessonID
@@ -121,20 +121,10 @@ func editLessonNumber(vc: SheduleViewController, indexPath: IndexPath) {
 
     }
     
-    lessons.sort { (lesson1, lesson2) -> Bool in
-
-        if lesson1.lessonWeek == lesson2.lessonWeek && lesson1.dayNumber == lesson2.dayNumber {
-            return lesson1.lessonNumber < lesson2.lessonNumber
-        } else if lesson1.lessonWeek == lesson2.lessonWeek {
-            return lesson1.dayNumber < lesson2.dayNumber
-        } else {
-            return lesson1.lessonWeek < lesson2.lessonWeek
-        }
-        
-    }
+    lessons = sortLessons(lessons: lessons)
 
     /// updateCoreData with edited variable `lessons`
-    vc.updateCoreData(datum: lessons)
+    updateCoreData(vc: vc, datum: lessons)
     vc.tableView.reloadData()
 }
 
@@ -143,7 +133,7 @@ func editLessonNumber(vc: SheduleViewController, indexPath: IndexPath) {
 
 func moveRow(vc: SheduleViewController, sourceIndexPath: IndexPath, destinationIndexPath: IndexPath) {
     /// getting all lessons (this variable will refresh coreData)
-    var lessons: [Lesson] = vc.fetchingCoreData()
+    var lessons: [Lesson] = fetchingCoreData()
     
     /// lesson which we moved
     let lesson: Lesson = vc.lessonsForTableView[sourceIndexPath.section].value[sourceIndexPath.row]
@@ -195,26 +185,26 @@ func moveRow(vc: SheduleViewController, sourceIndexPath: IndexPath, destinationI
     }
      
     /// timeStart && timeEnd
-    let times = vc.getTimeFromLessonNumber(lessonNumber: lessonNumber)
-    let timeStart = times.0
-    let timeEnd = times.1
+    let times = getTimeFromLessonNumber(lessonNumber: lessonNumber)
+    let timeStart = times.timeStart
+    let timeEnd = times.timeEnd
 
     let newLesson = Lesson(lessonID: lesson.lessonID,
-                       groupID: lesson.groupID,
-                       dayNumber: String(dayNumber),
-                       dayName: dayName,
-                       lessonName: lesson.lessonName,
-                       lessonFullName: lesson.lessonFullName,
-                       lessonNumber: String(lessonNumber),
-                       lessonRoom: lesson.lessonRoom,
-                       lessonType: lesson.lessonType,
-                       teacherName: lesson.teacherName,
-                       lessonWeek: lesson.lessonWeek,
-                       timeStart: timeStart,
-                       timeEnd: timeEnd,
-                       rate: lesson.rate,
-                       teachers: lesson.teachers,
-                       rooms: lesson.rooms)
+                           dayNumber: String(dayNumber),
+                           groupID: lesson.groupID,
+                           dayName: dayName,
+                           lessonName: lesson.lessonName,
+                           lessonFullName: lesson.lessonFullName,
+                           lessonNumber: String(lessonNumber),
+                           lessonRoom: lesson.lessonRoom,
+                           lessonType: lesson.lessonType,
+                           teacherName: lesson.teacherName,
+                           lessonWeek: lesson.lessonWeek,
+                           timeStart: timeStart,
+                           timeEnd: timeEnd,
+                           rate: lesson.rate,
+                           teachers: lesson.teachers,
+                           rooms: lesson.rooms, groups: [])
     print(newLesson)
 
     vc.lessonsForTableView[sourceIndexPath.section].value.remove(at: sourceIndexPath.row)
@@ -287,13 +277,13 @@ func moveRow(vc: SheduleViewController, sourceIndexPath: IndexPath, destinationI
         lessonNumberIntEdited += 1
         let lessonNumberEdited = String(lessonNumberIntEdited)
         
-        let timesEdited = vc.getTimeFromLessonNumber(lessonNumber: lessonNumberEdited)
-        let timeStartEdited = timesEdited.0
-        let timeEndEdited = timesEdited.1
+        let timesEdited = getTimeFromLessonNumber(lessonNumber: lessonNumberEdited)
+        let timeStartEdited = timesEdited.timeStart
+        let timeEndEdited = timesEdited.timeEnd
         
         let editedLesson = Lesson( lessonID: lesson.lessonID,
-                                   groupID: lesson.groupID,
                                    dayNumber: lesson.dayNumber,
+                                   groupID: lesson.groupID,
                                    dayName: lesson.dayName,
                                    lessonName: lesson.lessonName,
                                    lessonFullName: lesson.lessonFullName,
@@ -306,7 +296,7 @@ func moveRow(vc: SheduleViewController, sourceIndexPath: IndexPath, destinationI
                                    timeEnd: timeEndEdited,
                                    rate: lesson.rate,
                                    teachers: lesson.teachers,
-                                   rooms: lesson.rooms)
+                                   rooms: lesson.rooms, groups: [])
         
         lessons.removeAll { lesson -> Bool in
             return lesson.lessonID == editedLesson.lessonID
@@ -315,18 +305,8 @@ func moveRow(vc: SheduleViewController, sourceIndexPath: IndexPath, destinationI
         lessons.append(editedLesson)
     }
     
-    lessons.sort { (lesson1, lesson2) -> Bool in
+    lessons = sortLessons(lessons: lessons)
 
-        if lesson1.lessonWeek == lesson2.lessonWeek && lesson1.dayNumber == lesson2.dayNumber {
-             return lesson1.lessonNumber < lesson2.lessonNumber
-        } else if lesson1.lessonWeek == lesson2.lessonWeek {
-            return lesson1.dayNumber < lesson2.dayNumber
-        } else {
-            return lesson1.lessonWeek < lesson2.lessonWeek
-        }
-        
-    }
-    
-    vc.updateCoreData(datum: lessons)
+    updateCoreData(vc: vc, datum: lessons)
     vc.tableView.reloadData()
 }

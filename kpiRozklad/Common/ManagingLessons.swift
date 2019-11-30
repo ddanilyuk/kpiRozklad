@@ -72,3 +72,158 @@ func getCurrentAndNextLesson(lessons: [Lesson],
     
     return (nextLessonID: nextLessonId, currentLessonID: currentLessonId)
 }
+
+
+// MARK: - getTimeFromLessonNumber
+/// Function which make lesson timeStart and timeEnd
+func getTimeFromLessonNumber(lessonNumber: String) -> (timeStart: String, timeEnd: String) {
+    var timeStart = ""
+    var timeEnd = ""
+
+    switch lessonNumber {
+    case "1":
+        timeStart = "08:30:00"
+        timeEnd = "10:05:00"
+    case "2":
+        timeStart = "10:25:00"
+        timeEnd = "12:00:00"
+    case "3":
+        timeStart = "12:20:00"
+        timeEnd = "13:55:00"
+    case "4":
+        timeStart = "14:15:00"
+        timeEnd = "15:50:00"
+    case "5":
+        timeStart = "16:10:00"
+        timeEnd = "17:45:00"
+    case "6":
+        timeStart = "18:05:00"
+        timeEnd = "19:40:00"
+    default:
+        timeStart = "00:00:00"
+        timeEnd = "00:00:00"
+    }
+    
+    return (timeStart: timeStart, timeEnd: timeEnd)
+}
+
+
+func sortLessons(lessons: [Lesson]) -> [Lesson] {
+    var lessonsToSort = lessons
+    
+    lessonsToSort.sort { (lesson1, lesson2) -> Bool in
+        if lesson1.lessonWeek == lesson2.lessonWeek && lesson1.dayNumber == lesson2.dayNumber {
+            return lesson1.lessonNumber < lesson2.lessonNumber
+        } else if lesson1.lessonWeek == lesson2.lessonWeek {
+            return lesson1.dayNumber < lesson2.dayNumber
+        } else {
+            return lesson1.lessonWeek < lesson2.lessonWeek
+        }
+    }
+    
+    return lessonsToSort
+}
+
+
+
+//// MARK: - makeLessonsShedule
+///// Main function which fetch lessons from core data and remake `[Lesson]` to `[(key: DayName, value: [Lesson])]`
+///// - Note: call in `weekChanged()` and after getting data from `server()`
+///// - Remark: make shedule only for one week.
+//func makeLessonsShedule() {
+//    /// fetching Core Data
+//    let lessons = fetchingCoreData()
+//
+//    /// ID of Current and Next
+//    let currentAndNext = getCurrentAndNextLesson(lessons: lessons, timeIsNowString: timeIsNowString, dayNumberFromCurrentDate: dayNumberFromCurrentDate, currentWeekFromTodayDate: currentWeekFromTodayDate)
+//
+//    currentLessonId = currentAndNext.currentLessonID
+//    nextLessonId = currentAndNext.nextLessonID
+//
+//    /// Getting lesson for first week and second
+//    var lessonsFirst: [Lesson] = []
+//    var lessonsSecond: [Lesson] = []
+//
+//    for lesson in lessons {
+//        if Int(lesson.lessonWeek) == 1 {
+//            lessonsFirst.append(lesson)
+//        } else {
+//            lessonsSecond.append(lesson)
+//        }
+//    }
+//
+//
+//    /// Choosing lesson from currnetWeek
+//    let currentLessonWeek = currentWeek == 1 ? lessonsFirst : lessonsSecond
+//
+//    var lessonMounday: [Lesson] = []
+//    var lessonTuesday: [Lesson] = []
+//    var lessonWednesday: [Lesson] = []
+//    var lessonThursday: [Lesson] = []
+//    var lessonFriday: [Lesson] = []
+//    var lessonSaturday: [Lesson] = []
+//
+//    for datu in currentLessonWeek {
+//        switch datu.dayName {
+//        case .mounday:
+//            lessonMounday.append(datu)
+//        case .tuesday:
+//            lessonTuesday.append(datu)
+//        case .wednesday:
+//            lessonWednesday.append(datu)
+//        case .thursday:
+//            lessonThursday.append(datu)
+//        case .friday:
+//            lessonFriday.append(datu)
+//        case .saturday:
+//            lessonSaturday.append(datu)
+//        }
+//    }
+//
+//    /// Sorting all
+//    lessonMounday.sort { (lesson1, lesson2) -> Bool in
+//        return lesson1.lessonNumber < lesson2.lessonNumber
+//    }
+//
+//    lessonTuesday.sort { (lesson1, lesson2) -> Bool in
+//        return lesson1.lessonNumber < lesson2.lessonNumber
+//    }
+//
+//    lessonWednesday.sort { (lesson1, lesson2) -> Bool in
+//        return lesson1.lessonNumber < lesson2.lessonNumber
+//    }
+//
+//    lessonThursday.sort { (lesson1, lesson2) -> Bool in
+//        return lesson1.lessonNumber < lesson2.lessonNumber
+//    }
+//
+//    lessonFriday.sort { (lesson1, lesson2) -> Bool in
+//        return lesson1.lessonNumber < lesson2.lessonNumber
+//    }
+//
+//    lessonSaturday.sort { (lesson1, lesson2) -> Bool in
+//        return lesson1.lessonNumber < lesson2.lessonNumber
+//    }
+//
+//    /// .sorting is soting from mounday to saturday (must be in normal order)
+//    self.lessonsForTableView = [DayName.mounday: lessonMounday,
+//                                .tuesday: lessonTuesday,
+//                                .wednesday: lessonWednesday,
+//                                .thursday: lessonThursday,
+//                                .friday: lessonFriday,
+//                                .saturday: lessonSaturday].sorted{$0.key < $1.key}
+//
+//
+//    /// (self.tableView != nil)  because if when we push information from another VC tableView can be not exist
+//    /// (self.activityIndicator != nil)  because if when we push information from another VC tableView can be not exist
+//    if self.activityIndicator != nil {
+//        self.activityIndicator.stopAnimating()
+//        self.activityIndicator.isHidden = true
+//    }
+//
+//    /// (self.tableView != nil)  because if when we push information from another VC tableView can be not exist
+//    if self.tableView != nil {
+//        self.tableView.isHidden = false
+//        self.tableView.reloadData()
+//    }
+//}

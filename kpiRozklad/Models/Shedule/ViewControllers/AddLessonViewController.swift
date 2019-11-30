@@ -40,6 +40,10 @@ class AddLessonViewController: UIViewController {
     
     /// Lesson number default is `1`
     var lessonNumber: Int = 1
+    
+    /// Day number of choosen day
+    var dayNumber = 0
+
         
     /// Lesson Name + Lesson Type
     @IBOutlet weak var lessonPickerView: UIPickerView!
@@ -175,52 +179,12 @@ class AddLessonViewController: UIViewController {
         }
         
         /// Guarding similar lesson
-        guard let previousLesson = similarLesson else { return }
-        
-        /// Getting dayNumber
-        var dayNumber = 0
-        switch lessonDay {
-        case .mounday:
-            dayNumber = 1
-        case .tuesday:
-            dayNumber = 2
-        case .wednesday:
-            dayNumber = 3
-        case .thursday:
-            dayNumber = 4
-        case .friday:
-            dayNumber = 5
-        case .saturday:
-            dayNumber = 6
-        }
+        guard let sameLessonButInDifferentTime = similarLesson else { return }
         
         /// Getting timeStart & timeEnd
-        var timeStart = "00:00:00"
-        var timeEnd = "00:00:00"
-        
-        switch lessonNumber {
-        case 1:
-            timeStart = "08:30:00"
-            timeEnd = "10:05:00"
-        case 2:
-            timeStart = "10:25:00"
-            timeEnd = "12:00:00"
-        case 3:
-            timeStart = "12:20:00"
-            timeEnd = "13:55:00"
-        case 4:
-            timeStart = "14:15:00"
-            timeEnd = "15:50:00"
-        case 5:
-            timeStart = "16:10:00"
-            timeEnd = "17:45:00"
-        case 6:
-            timeStart = "18:05:00"
-            timeEnd = "19:40:00"
-        default:
-            timeStart = "00:00:00"
-            timeEnd = "00:00:00"
-        }
+        let time = getTimeFromLessonNumber(lessonNumber: String(lessonNumber))
+        let timeStart = time.timeStart
+        let timeEnd = time.timeEnd
         
         /// Randoming ID which is not already exist
         var ID = Int.random(in: 0 ..< 9999)
@@ -230,56 +194,46 @@ class AddLessonViewController: UIViewController {
         
         /// Creating new Lesson
         let newLesson = Lesson(lessonID: String(ID),
-                               groupID: previousLesson.groupID,
                                dayNumber: String(dayNumber),
+                               groupID: sameLessonButInDifferentTime.groupID,
                                dayName: lessonDay,
-                               lessonName: previousLesson.lessonName,
-                               lessonFullName: previousLesson.lessonFullName,
+                               lessonName: sameLessonButInDifferentTime.lessonName,
+                               lessonFullName: sameLessonButInDifferentTime.lessonFullName,
                                lessonNumber: String(lessonNumber),
-                               lessonRoom: previousLesson.lessonRoom,
+                               lessonRoom: sameLessonButInDifferentTime.lessonRoom,
                                lessonType: lessonType,
-                               teacherName: previousLesson.teacherName,
+                               teacherName: sameLessonButInDifferentTime.teacherName,
                                lessonWeek: String(currentWeek),
                                timeStart: timeStart,
                                timeEnd: timeEnd,
-                               rate: previousLesson.rate,
-                               teachers: previousLesson.teachers,
-                               rooms: previousLesson.rooms)
+                               rate: sameLessonButInDifferentTime.rate,
+                               teachers: sameLessonButInDifferentTime.teachers,
+                               rooms: sameLessonButInDifferentTime.rooms, groups: [])
         
         /// Appending to `lessons` which will used in updateCoreData(datum: lessons)
         lessons.append(newLesson)
         
-        lessons.sort { (lesson1, lesson2) -> Bool in
-
-            if lesson1.lessonWeek == lesson2.lessonWeek && lesson1.dayNumber == lesson2.dayNumber {
-                 return lesson1.lessonNumber < lesson2.lessonNumber
-            } else if lesson1.lessonWeek == lesson2.lessonWeek {
-                return lesson1.dayNumber < lesson2.dayNumber
-            } else {
-                return lesson1.lessonWeek < lesson2.lessonWeek
-            }
-            
-        }
+        lessons = sortLessons(lessons: lessons)
 
         /// CREATING NEW sheduleViewController
-        /// - todo: try to dismiss AddLessonVC with pushing newLesson
         let mainStoryboard = UIStoryboard(name: "Main", bundle: Bundle.main)
-        
         let appDelegate = UIApplication.shared.delegate as? AppDelegate
-        
-        let sheduleViewController : SheduleViewController = mainStoryboard.instantiateViewController(withIdentifier: "SheduleViewController") as! SheduleViewController
-        
-        /// Updating Core Data
-        sheduleViewController.updateCoreData(datum: lessons)
-        
-        Settings.shared.isTryToReloadTableView = true
-        
-        /// SHOW NEW sheduleViewController
-        let mainVC : UITabBarController = mainStoryboard.instantiateViewController(withIdentifier: "Main") as! UITabBarController
-        
         guard let window = appDelegate?.window else { return }
         
-        window.rootViewController = mainVC
+        guard let sheduleViewController : SheduleViewController = mainStoryboard.instantiateViewController(withIdentifier: "SheduleViewController") as? SheduleViewController else { return }
+        
+        Settings.shared.isTryToReloadTableView = true
+
+        /// Updating Core Data
+        updateCoreData(vc: sheduleViewController, datum: lessons)
+        
+        /// SHOW NEW sheduleViewController
+        let mainTabBar : UITabBarController = mainStoryboard.instantiateViewController(withIdentifier: "Main") as! UITabBarController
+        
+        self.dismiss(animated: true, completion: {
+            window.rootViewController = mainTabBar
+        })
+        
     }
 }
 
@@ -394,6 +348,7 @@ extension AddLessonViewController: UIPickerViewDelegate, UIPickerViewDataSource 
             let array = [mounday, tuesday, wednesday, thursday, friday, saturday]
             
             lessonDay = array[row]
+            dayNumber = row + 1
         }
         
         if pickerView == numberLessonPickerView {

@@ -24,10 +24,10 @@ class TeacherSheduleViewController: UIViewController {
     let reuseID = "reuseID2"
 
     /// Variable with which updated from `server()` and used in `makeLessonsShedule()`
-    var lessons: [TeacherFull] = []
+    var lessons: [Lesson] = []
     
     /// The **main** variable with which the table is updated
-    var lessonsForTableView: [(key: DayName, value: [TeacherFull])] = []
+    var lessonsForTableView: [(key: DayName, value: [Lesson])] = []
 
     /**
         Сurrent week which is obtained from the date on the device
@@ -122,10 +122,10 @@ class TeacherSheduleViewController: UIViewController {
     }
     
     
-    // MARK: - viewDidAppear
-    override func viewDidAppear(_ animated: Bool) {
-          getCurrentAndNextLesson(lessons: lessons)
-    }
+//    // MARK: - viewDidAppear
+//    override func viewDidAppear(_ animated: Bool) {
+//          getCurrentAndNextLesson(lessons: lessons)
+//    }
     
     
     // MARK: - getDayNumAndWeekOfYear
@@ -186,11 +186,14 @@ class TeacherSheduleViewController: UIViewController {
     func makeLessonsShedule() {
         
         /// ID of Current and Next
-        getCurrentAndNextLesson(lessons: lessons)
+        let currentAndNext = getCurrentAndNextLesson(lessons: lessons, timeIsNowString: timeIsNowString, dayNumberFromCurrentDate: dayNumberFromCurrentDate, currentWeekFromTodayDate: currentWeekFromTodayDate)
+            
+        currentLessonId = currentAndNext.currentLessonID
+        nextLessonId = currentAndNext.nextLessonID
     
         /// Getting lesson for first week and second
-        var lessonsFirst: [TeacherFull] = []
-        var lessonsSecond: [TeacherFull] = []
+        var lessonsFirst: [Lesson] = []
+        var lessonsSecond: [Lesson] = []
         
         for lesson in lessons {
             if Int(lesson.lessonWeek) == 1 {
@@ -203,12 +206,12 @@ class TeacherSheduleViewController: UIViewController {
         /// Choosing lesson from currnetWeek
         let currentLessonWeek = currentWeek == 1 ? lessonsFirst : lessonsSecond
         
-        var lessonMounday: [TeacherFull] = []
-        var lessonTuesday: [TeacherFull] = []
-        var lessonWednesday: [TeacherFull] = []
-        var lessonThursday: [TeacherFull] = []
-        var lessonFriday: [TeacherFull] = []
-        var lessonSaturday: [TeacherFull] = []
+        var lessonMounday: [Lesson] = []
+        var lessonTuesday: [Lesson] = []
+        var lessonWednesday: [Lesson] = []
+        var lessonThursday: [Lesson] = []
+        var lessonFriday: [Lesson] = []
+        var lessonSaturday: [Lesson] = []
         
         for datu in currentLessonWeek {
             switch datu.dayName {
@@ -252,7 +255,7 @@ class TeacherSheduleViewController: UIViewController {
             let decoder = JSONDecoder()
 
             do {
-                guard let serverFULLDATA = try? decoder.decode(WelcomeTeachersFull.self, from: data) else { return }
+                guard let serverFULLDATA = try? decoder.decode(WelcomeLessons.self, from: data) else { return }
                 let datum = serverFULLDATA.data
                 self.lessons = datum
             }
@@ -293,59 +296,59 @@ class TeacherSheduleViewController: UIViewController {
     }
         
     
-    // MARK: - getCurrentAndNextLesson
-    /// Function that makes current lesson **orange** and next lesson **blue**
-    func getCurrentAndNextLesson(lessons: [TeacherFull]) {
-        
-        for lesson in lessons {
-            
-            let timeStart = String(lesson.timeStart[..<5])
-            let timeEnd = String(lesson.timeEnd[..<5])
-                        
-            if  (timeStart <= timeIsNowString) && (timeIsNowString < timeEnd) &&
-                (dayNumberFromCurrentDate == Int(lesson.dayNumber)) && (currentWeekFromTodayDate == Int(lesson.lessonWeek) ?? 0) {
-                currentLessonId = lesson.lessonID
-            }
-            
-            if (timeStart > timeIsNowString) && (dayNumberFromCurrentDate == Int(lesson.dayNumber) ?? 0) && (currentWeekFromTodayDate == Int(lesson.lessonWeek) ?? 0) {
-                nextLessonId = lesson.lessonID
-                return
-            } else if (dayNumberFromCurrentDate < Int(lesson.dayNumber) ?? 0) && (currentWeekFromTodayDate == Int(lesson.lessonWeek) ?? 0){
-                nextLessonId = lesson.lessonID
-                return
-            }
-        }
-        
-        var lessonsFirst: [TeacherFull] = []
-        var lessonsSecond: [TeacherFull] = []
-
-        for lesson in lessons {
-            if Int(lesson.lessonWeek) == 1 {
-                lessonsFirst.append(lesson)
-            } else {
-                lessonsSecond.append(lesson)
-            }
-        }
-        
-        if lessonsFirst.count != 0 && lessonsSecond.count != 0 {
-            if nextLessonId == "" && currentWeekFromTodayDate == 2 {
-                nextLessonId = lessonsFirst[0].lessonID
-                return
-            } else if nextLessonId == "" && currentWeekFromTodayDate == 1 {
-                nextLessonId = lessonsSecond[0].lessonID
-                return
-            }
-        }
-        
-        if lessonsFirst.count == 0 && lessonsSecond.count != 0 {
-            nextLessonId = lessonsSecond[0].lessonID
-            return
-        } else if lessonsFirst.count != 0 && lessonsSecond.count == 0 {
-            nextLessonId = lessonsFirst[0].lessonID
-            return
-        }
-        
-    }
+//    // MARK: - getCurrentAndNextLesson
+//    /// Function that makes current lesson **orange** and next lesson **blue**
+//    func getCurrentAndNextLesson(lessons: [Lesson]) {
+//        
+//        for lesson in lessons {
+//            
+//            let timeStart = String(lesson.timeStart[..<5])
+//            let timeEnd = String(lesson.timeEnd[..<5])
+//                        
+//            if  (timeStart <= timeIsNowString) && (timeIsNowString < timeEnd) &&
+//                (dayNumberFromCurrentDate == Int(lesson.dayNumber)) && (currentWeekFromTodayDate == Int(lesson.lessonWeek) ?? 0) {
+//                currentLessonId = lesson.lessonID
+//            }
+//            
+//            if (timeStart > timeIsNowString) && (dayNumberFromCurrentDate == Int(lesson.dayNumber) ?? 0) && (currentWeekFromTodayDate == Int(lesson.lessonWeek) ?? 0) {
+//                nextLessonId = lesson.lessonID
+//                return
+//            } else if (dayNumberFromCurrentDate < Int(lesson.dayNumber) ?? 0) && (currentWeekFromTodayDate == Int(lesson.lessonWeek) ?? 0){
+//                nextLessonId = lesson.lessonID
+//                return
+//            }
+//        }
+//        
+//        var lessonsFirst: [Lesson] = []
+//        var lessonsSecond: [Lesson] = []
+//
+//        for lesson in lessons {
+//            if Int(lesson.lessonWeek) == 1 {
+//                lessonsFirst.append(lesson)
+//            } else {
+//                lessonsSecond.append(lesson)
+//            }
+//        }
+//        
+//        if lessonsFirst.count != 0 && lessonsSecond.count != 0 {
+//            if nextLessonId == "" && currentWeekFromTodayDate == 2 {
+//                nextLessonId = lessonsFirst[0].lessonID
+//                return
+//            } else if nextLessonId == "" && currentWeekFromTodayDate == 1 {
+//                nextLessonId = lessonsSecond[0].lessonID
+//                return
+//            }
+//        }
+//        
+//        if lessonsFirst.count == 0 && lessonsSecond.count != 0 {
+//            nextLessonId = lessonsSecond[0].lessonID
+//            return
+//        } else if lessonsFirst.count != 0 && lessonsSecond.count == 0 {
+//            nextLessonId = lessonsFirst[0].lessonID
+//            return
+//        }
+//        
+//    }
     
 }
 

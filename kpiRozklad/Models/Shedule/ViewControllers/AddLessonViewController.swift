@@ -248,6 +248,18 @@ class AddLessonViewController: UIViewController {
         
         /// Appending to `lessons` which will used in updateCoreData(datum: lessons)
         lessons.append(newLesson)
+        
+        lessons.sort { (lesson1, lesson2) -> Bool in
+
+            if lesson1.lessonWeek == lesson2.lessonWeek && lesson1.dayNumber == lesson2.dayNumber {
+                 return lesson1.lessonNumber < lesson2.lessonNumber
+            } else if lesson1.lessonWeek == lesson2.lessonWeek {
+                return lesson1.dayNumber < lesson2.dayNumber
+            } else {
+                return lesson1.lessonWeek < lesson2.lessonWeek
+            }
+            
+        }
 
         /// CREATING NEW sheduleViewController
         /// - todo: try to dismiss AddLessonVC with pushing newLesson

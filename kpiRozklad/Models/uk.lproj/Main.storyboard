@@ -377,11 +377,11 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" translatesAutoresizingMaskIntoConstraints="NO" id="UIa-uH-iz1">
+                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" spacing="6" translatesAutoresizingMaskIntoConstraints="NO" id="UIa-uH-iz1">
                                         <rect key="frame" x="0.0" y="98.333333333333343" width="359" height="150"/>
                                         <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Вчитель" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OeH-tc-sYc">
-                                                <rect key="frame" x="0.0" y="0.0" width="297" height="150"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Викладач" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OeH-tc-sYc">
+                                                <rect key="frame" x="0.0" y="0.0" width="291" height="150"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
@@ -553,6 +553,6 @@
         <image name="rectangle.grid.1x2" catalog="system" width="64" height="50"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="5QF-Tv-CiU"/>
+        <segue reference="eOz-94-s6B"/>
     </inferredMetricsTieBreakers>
 </document>

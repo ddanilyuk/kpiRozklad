@@ -823,12 +823,45 @@ class SheduleViewController: UIViewController {
         /// It is added if the next lesson will change
         var i = 0
         
+        var pLessonNumber = 0
+        var diffAll = 0
+
         /// iterating
         while let nLesson = iterator.next() {
-            if Int(nLesson.lessonNumber) ?? 0 + i >= lessonNuberFromPicker && nLesson.lessonID != newLesson.lessonID {
-                i += 1
+            let nLessonNumber = Int(nLesson.lessonNumber) ?? 0
+            print(nLessonNumber, " <= ",  lessonNuberFromPicker + i)
+//            pLesson = iterator.next()
+            print("nLessonNumber", nLessonNumber)
+            print("pLessonNumber", pLessonNumber)
+            print("lessonNuberFromPicker", lessonNuberFromPicker)
+            print("diffAll", diffAll)
+
+            
+            let diff = nLessonNumber - pLessonNumber
+            diffAll += diff
+            
+            diffAll -= 1
+
+//            if diffAll == 0 {
+//                lessonsToEdit.append(nLesson)
+//            }
+            
+            
+            
+            
+            
+            
+            
+            if nLessonNumber <= lessonNuberFromPicker + i && nLessonNumber + i >= lessonNuberFromPicker  && nLesson.lessonID != newLesson.lessonID {
                 lessonsToEdit.append(nLesson)
+                i += 1
             }
+//            else if nLesson.lessonID != newLesson.lessonID {
+//            }
+//            i += 1
+
+            
+            pLessonNumber = Int(nLesson.lessonNumber) ?? 0
         }
         
         /// Modified lessons with a shifted schedule are created and old ones are deleted
@@ -869,7 +902,7 @@ class SheduleViewController: UIViewController {
         lessons.sort { (lesson1, lesson2) -> Bool in
 
             if lesson1.lessonWeek == lesson2.lessonWeek && lesson1.dayNumber == lesson2.dayNumber {
-                 return lesson1.lessonNumber < lesson2.lessonNumber
+                return lesson1.lessonNumber < lesson2.lessonNumber
             } else if lesson1.lessonWeek == lesson2.lessonWeek {
                 return lesson1.dayNumber < lesson2.dayNumber
             } else {
@@ -1068,8 +1101,8 @@ extension SheduleViewController: UITableViewDelegate, UITableViewDataSource {
     /// - todo: try to use iterator for `lessonsToEdit`
     func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
         let _ = (sourceIndexPath.row < self.lessonsForTableView[sourceIndexPath.section].value.count && destinationIndexPath.row < self.lessonsForTableView[sourceIndexPath.section].value.count)
-        if (sourceIndexPath.row < self.lessonsForTableView[sourceIndexPath.section].value.count && destinationIndexPath.row < self.lessonsForTableView[sourceIndexPath.section].value.count)
-        {
+//        if (sourceIndexPath.row < self.lessonsForTableView[sourceIndexPath.section].value.count && destinationIndexPath.row < self.lessonsForTableView[sourceIndexPath.section].value.count)
+//        {
             /// getting all lessons (this variable will refresh coreData)
             var lessons: [Lesson] = fetchingCoreData()
             
@@ -1258,7 +1291,7 @@ extension SheduleViewController: UITableViewDelegate, UITableViewDataSource {
             updateCoreData(datum: lessons)
             self.tableView.reloadData()
             
-        }
+//        }
     }
     
     

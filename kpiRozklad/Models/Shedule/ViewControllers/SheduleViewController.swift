@@ -440,7 +440,7 @@ extension SheduleViewController: UITableViewDelegate, UITableViewDataSource {
                                DayName.thursday.rawValue,
                                DayName.friday.rawValue,
                                DayName.saturday.rawValue]
-        
+                        
         self.isEditing ? array.append("Нова пара") : nil
         return array[section]
     }

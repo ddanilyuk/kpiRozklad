@@ -285,16 +285,7 @@ extension AddLessonViewController: UIPickerViewDelegate, UIPickerViewDataSource 
                 return array[row]
            }
         } else if pickerView == dayPickerView {
-            let mounday = DayName.mounday
-            let tuesday = DayName.tuesday
-            let wednesday = DayName.wednesday
-            let thursday = DayName.thursday
-            let friday = DayName.friday
-            let saturday = DayName.saturday
-
-            let array = [mounday, tuesday, wednesday, thursday, friday, saturday]
-            
-            return array[row].rawValue
+            return getArrayOfDayNames()[row].rawValue
         } else {
             let array = ["1 пара", "2 пара", "3 пара", "4 пара", "5 пара", "6 пара"]
             return array[row]
@@ -337,17 +328,7 @@ extension AddLessonViewController: UIPickerViewDelegate, UIPickerViewDataSource 
         }
         
         if pickerView == dayPickerView {
-            let mounday = DayName.mounday
-            let tuesday = DayName.tuesday
-            let wednesday = DayName.wednesday
-            let thursday = DayName.thursday
-            let friday = DayName.friday
-            let saturday = DayName.saturday
-
-            
-            let array = [mounday, tuesday, wednesday, thursday, friday, saturday]
-            
-            lessonDay = array[row]
+            lessonDay = getArrayOfDayNames()[row]
             dayNumber = row + 1
         }
         

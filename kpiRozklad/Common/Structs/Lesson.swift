@@ -56,6 +56,7 @@ struct Lesson: Codable {
 
 }
 
+
 extension Lesson: Comparable {
     static func < (lhs: Lesson, rhs: Lesson) -> Bool {
         return lhs.dayName.rawValue == rhs.dayName.rawValue
@@ -104,6 +105,20 @@ enum DayName: String, Codable, Comparable {
     
 }
 
+
+func getArrayOfDayNames() -> [DayName] {
+    let mounday = DayName.mounday
+    let tuesday = DayName.tuesday
+    let wednesday = DayName.wednesday
+    let thursday = DayName.thursday
+    let friday = DayName.friday
+    let saturday = DayName.saturday
+
+    return [mounday, tuesday, wednesday, thursday, friday, saturday]
+
+}
+
+
 enum LessonType: String, Codable {
     case empty = ""
     case лаб = "Лаб"
@@ -127,14 +142,10 @@ struct Room: Codable {
 
 // MARK: - Encode/decode helpers
 
-class JSONNull: Codable, Hashable {
+class JSONNull: Codable {
 
     public static func == (lhs: JSONNull, rhs: JSONNull) -> Bool {
         return true
-    }
-
-    public var hashValue: Int {
-        return 0
     }
 
     public init() {}

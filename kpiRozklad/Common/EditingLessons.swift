@@ -15,11 +15,6 @@ import UIKit
 /// - Parameter indexPath: (indexPathFromPicker) Index Path from popup which edit number of lesson (tap on lesson while editing)
 func editLessonNumber(vc: SheduleViewController, indexPath: IndexPath) {
     
-    let mainStoryboard = UIStoryboard(name: "Main", bundle: Bundle.main)
-    
-    guard let sheduleViewController : SheduleViewController = mainStoryboard.instantiateViewController(withIdentifier: "SheduleViewController") as? SheduleViewController else { return }
-    
-    
     var lessons = fetchingCoreData()
     let lesson = vc.lessonsForTableView[indexPath.section].value[indexPath.row]
     
@@ -129,8 +124,6 @@ func editLessonNumber(vc: SheduleViewController, indexPath: IndexPath) {
 }
 
 
-
-
 func moveRow(vc: SheduleViewController, sourceIndexPath: IndexPath, destinationIndexPath: IndexPath) {
     /// getting all lessons (this variable will refresh coreData)
     var lessons: [Lesson] = fetchingCoreData()
@@ -205,7 +198,6 @@ func moveRow(vc: SheduleViewController, sourceIndexPath: IndexPath, destinationI
                            rate: lesson.rate,
                            teachers: lesson.teachers,
                            rooms: lesson.rooms, groups: [])
-    print(newLesson)
 
     vc.lessonsForTableView[sourceIndexPath.section].value.remove(at: sourceIndexPath.row)
 
@@ -229,7 +221,9 @@ func moveRow(vc: SheduleViewController, sourceIndexPath: IndexPath, destinationI
     var lessonsToEdit: [Lesson] = []
     
     var nextLesson: Lesson?
-                
+    
+//             TODO:- USE ITERATOR
+
 //            let lessonForSection = self.lessonsForTableView[destinationIndexPath.section].value
 //            var iterator = lessonForSection.makeIterator()
 //            var i = 0
@@ -241,7 +235,6 @@ func moveRow(vc: SheduleViewController, sourceIndexPath: IndexPath, destinationI
 //            }
     
     
-//             TODO:- USE ITERATOR
     if vc.lessonsForTableView[destinationIndexPath.section].value.count > destinationIndexPath.row + 1 {
         nextLesson = vc.lessonsForTableView[destinationIndexPath.section].value[destinationIndexPath.row + 1]
     }

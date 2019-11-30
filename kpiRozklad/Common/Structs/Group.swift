@@ -51,4 +51,3 @@ enum GroupType: String, Codable {
     case daily = "daily"
     case extramural = "extramural"
 }
-

@@ -112,7 +112,7 @@ class TeacherSheduleViewController: UIViewController {
         /// Making request from server
         server()
 
-        makeLessonsShedule()
+        makeTeachersLessonsShedule()
         
         /// Start animating and show activityIndicator
         activityIndicator.startAnimating()
@@ -183,7 +183,7 @@ class TeacherSheduleViewController: UIViewController {
     /// Main function which remake `[TeacherFull]` to `[(key: DayName, value: [TeacherFull])]` from `server()`
     /// - Note: call in `weekChanged()` and after getting data from `server()`
     /// - Remark: make shedule only for one week.
-    func makeLessonsShedule() {
+    func makeTeachersLessonsShedule() {
         
         /// ID of Current and Next
         let currentAndNext = getCurrentAndNextLesson(lessons: lessons, timeIsNowString: timeIsNowString, dayNumberFromCurrentDate: dayNumberFromCurrentDate, currentWeekFromTodayDate: currentWeekFromTodayDate)
@@ -262,7 +262,7 @@ class TeacherSheduleViewController: UIViewController {
             
             DispatchQueue.main.async {
                 /// Making normal shedule + reloading tableVIew
-                self.makeLessonsShedule()
+                self.makeTeachersLessonsShedule()
                 
                 /// Show tableView
                 self.tableView.isHidden = false
@@ -284,72 +284,18 @@ class TeacherSheduleViewController: UIViewController {
         switch weekSwitch.selectedSegmentIndex {
             case 0:
                 currentWeek = 1
-                makeLessonsShedule()
+                makeTeachersLessonsShedule()
                 tableView.reloadData()
             case 1:
                 currentWeek = 2
-                makeLessonsShedule()
+                makeTeachersLessonsShedule()
                 tableView.reloadData()
             default:
                 break
         }
     }
         
-    
-//    // MARK: - getCurrentAndNextLesson
-//    /// Function that makes current lesson **orange** and next lesson **blue**
-//    func getCurrentAndNextLesson(lessons: [Lesson]) {
-//        
-//        for lesson in lessons {
-//            
-//            let timeStart = String(lesson.timeStart[..<5])
-//            let timeEnd = String(lesson.timeEnd[..<5])
-//                        
-//            if  (timeStart <= timeIsNowString) && (timeIsNowString < timeEnd) &&
-//                (dayNumberFromCurrentDate == Int(lesson.dayNumber)) && (currentWeekFromTodayDate == Int(lesson.lessonWeek) ?? 0) {
-//                currentLessonId = lesson.lessonID
-//            }
-//            
-//            if (timeStart > timeIsNowString) && (dayNumberFromCurrentDate == Int(lesson.dayNumber) ?? 0) && (currentWeekFromTodayDate == Int(lesson.lessonWeek) ?? 0) {
-//                nextLessonId = lesson.lessonID
-//                return
-//            } else if (dayNumberFromCurrentDate < Int(lesson.dayNumber) ?? 0) && (currentWeekFromTodayDate == Int(lesson.lessonWeek) ?? 0){
-//                nextLessonId = lesson.lessonID
-//                return
-//            }
-//        }
-//        
-//        var lessonsFirst: [Lesson] = []
-//        var lessonsSecond: [Lesson] = []
-//
-//        for lesson in lessons {
-//            if Int(lesson.lessonWeek) == 1 {
-//                lessonsFirst.append(lesson)
-//            } else {
-//                lessonsSecond.append(lesson)
-//            }
-//        }
-//        
-//        if lessonsFirst.count != 0 && lessonsSecond.count != 0 {
-//            if nextLessonId == "" && currentWeekFromTodayDate == 2 {
-//                nextLessonId = lessonsFirst[0].lessonID
-//                return
-//            } else if nextLessonId == "" && currentWeekFromTodayDate == 1 {
-//                nextLessonId = lessonsSecond[0].lessonID
-//                return
-//            }
-//        }
-//        
-//        if lessonsFirst.count == 0 && lessonsSecond.count != 0 {
-//            nextLessonId = lessonsSecond[0].lessonID
-//            return
-//        } else if lessonsFirst.count != 0 && lessonsSecond.count == 0 {
-//            nextLessonId = lessonsFirst[0].lessonID
-//            return
-//        }
-//        
-//    }
-    
+
 }
 
 
@@ -365,15 +311,7 @@ extension TeacherSheduleViewController: UITableViewDelegate, UITableViewDataSour
     
     // MARK: - titleForHeaderInSection
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        
-        let array: [String] = [DayName.mounday.rawValue,
-                               DayName.tuesday.rawValue,
-                               DayName.wednesday.rawValue,
-                               DayName.thursday.rawValue,
-                               DayName.friday.rawValue,
-                               DayName.saturday.rawValue]
-        
-        return array[section]
+        return getArrayOfDayNames()[section].rawValue
     }
     
     

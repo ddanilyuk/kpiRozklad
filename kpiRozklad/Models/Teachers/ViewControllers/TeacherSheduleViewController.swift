@@ -249,7 +249,7 @@ class TeacherSheduleViewController: UIViewController {
         guard var url = URL(string: "https://api.rozklad.org.ua/v2/teachers/") else { return }
         url.appendPathComponent(teacherID ?? "")
         url.appendPathComponent("/lessons")
-        print(url)
+//        print(url)
         let task = URLSession.shared.dataTask(with: url) {(data, response, error) in
             guard let data = data else { return }
             let decoder = JSONDecoder()

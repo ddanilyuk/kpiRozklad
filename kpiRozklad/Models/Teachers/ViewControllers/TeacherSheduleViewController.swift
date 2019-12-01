@@ -73,8 +73,8 @@ class TeacherSheduleViewController: UIViewController {
     var teacherID: String?
     
     /// Colour of next lesson
-    let colour1 = #colorLiteral(red: 0.1411764771, green: 0.3960784376, blue: 0.5647059083, alpha: 1)
-    
+    let colour1 = #colorLiteral(red: 0.1764705926, green: 0.4980392158, blue: 0.7568627596, alpha: 1)
+
     /// Week switcher (1 and 2 week)
     @IBOutlet weak var weekSwitch: UISegmentedControl!
     

@@ -15,7 +15,7 @@ func getTimeAndDayNumAndWeekOfYear() -> (timeIsNowString: String, dayNumberFromC
     let date = Date()
     
     /// Calendar
-    let calendar = Calendar.current
+    let calendar = Calendar(identifier: .gregorian)
     
     /// "HH:mm"  formatter (hours and minutes)
     let formatter2 = DateFormatter()

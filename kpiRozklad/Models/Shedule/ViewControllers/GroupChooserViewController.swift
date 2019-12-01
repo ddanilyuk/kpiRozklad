@@ -31,22 +31,28 @@ class GroupChooserViewController: UIViewController {
     // MARK: - viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        /// TableView delegate and dataSource
-        tableView.dataSource = self
-        tableView.delegate = self
         
-        /// 
+        setupTableView()
+        
         server()
         
+        setupSearchAndNavigation()
+    }
+    
+    
+    private func setupTableView() {
+        tableView.dataSource = self
+        tableView.delegate = self
+    }
+    
+    
+    private func setupSearchAndNavigation() {
         /// Search bar settings
         search.searchResultsUpdater = self
         search.obscuresBackgroundDuringPresentation = false
         search.searchBar.placeholder = "Пошук групи"
         self.navigationItem.searchController = search
         self.navigationItem.hidesSearchBarWhenScrolling = false
-        
-        
         definesPresentationContext = true
     }
     
@@ -80,15 +86,9 @@ class GroupChooserViewController: UIViewController {
                     }
                     
                 }
-                
-                
             }
             task.resume()
         }
-//        self.groups.sort { (Group1, Group2) -> Bool in
-//            return Group1.groupID < Group2.groupID
-//        }
-
     }
 }
 

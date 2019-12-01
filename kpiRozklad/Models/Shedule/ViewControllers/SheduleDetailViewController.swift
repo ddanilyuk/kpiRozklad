@@ -72,4 +72,5 @@ class SheduleDetailViewController: UIViewController {
             }
         }
     }
+    
 }

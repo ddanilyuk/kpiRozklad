@@ -17,46 +17,47 @@ class SettingsTableViewController: UITableViewController {
         tableView.delegate = self
         tableView.dataSource = self
 
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
     }
 
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
         return 1
     }
+    
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         return "Загальні"
     }
 
+    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
         return 2
     }
     
+    
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 50
     }
+    
     
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 10
     }
 
+    
     override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         return 200
     }
 
+    
     override func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
         let view = UIView()
         view.backgroundColor = .clear
         return view
     }
+    
     
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let view = UIView()
@@ -64,6 +65,7 @@ class SettingsTableViewController: UITableViewController {
         return view
     }
 
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = UITableViewCell(style: .value1, reuseIdentifier: "settings")
         
@@ -80,6 +82,7 @@ class SettingsTableViewController: UITableViewController {
         return cell
     }
     
+    
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.section == 0 {
             if indexPath.row == 0 {
@@ -91,6 +94,7 @@ class SettingsTableViewController: UITableViewController {
         tableView.deselectRow(at: indexPath, animated: true)
     }
 
+    
     // MARK:- deleteAllFromCoreData
     func didPressUpdateShedule() {
         
@@ -98,40 +102,16 @@ class SettingsTableViewController: UITableViewController {
         alert.addAction(UIAlertAction(title: "Оновити", style: .default, handler: { (_) in
             
             Settings.shared.isTryToRefreshShedule = true
-
-            let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "LessonData")
-
-            guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
-
-            // Configure Fetch Request
-            fetchRequest.includesPropertyValues = false
-
-            do {
-                let managedContext = appDelegate.persistentContainer.viewContext
-
-                let items = try managedContext.fetch(fetchRequest) as! [NSManagedObject]
-
-                for item in items {
-                    managedContext.delete(item)
-                }
-
-                /// Save Changes
-                try managedContext.save()
-                
-                
-                let mainStoryboard = UIStoryboard(name: "Main", bundle: Bundle.main)
-                let groupVC : UITabBarController = mainStoryboard.instantiateViewController(withIdentifier: "Main") as! UITabBarController
-
-                let appDelegate = UIApplication.shared.delegate as? AppDelegate
-                guard let window = appDelegate?.window else { return }
-                window.rootViewController = groupVC
-
-            } catch {
-                /// Error Handling
-            }
+            deleteAllFromCoreData()
             
+            let mainStoryboard = UIStoryboard(name: "Main", bundle: Bundle.main)
+            let appDelegate = UIApplication.shared.delegate as? AppDelegate
+            guard let window = appDelegate?.window else { return }
+            
+            guard let mainTabBar : UITabBarController = mainStoryboard.instantiateViewController(withIdentifier: "Main") as? UITabBarController else { return }
+
+            window.rootViewController = mainTabBar
         }))
-        
         
         alert.addAction(UIAlertAction(title: "Отменить", style: .cancel, handler: { (_) in
         }))
@@ -139,7 +119,6 @@ class SettingsTableViewController: UITableViewController {
         self.present(alert, animated: true, completion: {
         })
     }
-    
     
     
     func didPressChangeGroup() {
@@ -147,20 +126,15 @@ class SettingsTableViewController: UITableViewController {
         alert.addAction(UIAlertAction(title: "Змініти", style: .default, handler: { (_) in
             Settings.shared.groupName = ""
             Settings.shared.isTryToRefreshShedule = true
-            
-//            let secondViewController: SheduleViewController = SheduleViewController()
-//
-////            self.tabBarController?.present(secondViewController, animated: true, completion: nil)
-//            self.tabBarController?.selectedViewController = secondViewController
+
             
             let mainStoryboard = UIStoryboard(name: "Main", bundle: Bundle.main)
-            let groupVC : UITabBarController = mainStoryboard.instantiateViewController(withIdentifier: "Main") as! UITabBarController
+            guard let mainTabBar : UITabBarController = mainStoryboard.instantiateViewController(withIdentifier: "Main") as? UITabBarController else { return }
 
             let appDelegate = UIApplication.shared.delegate as? AppDelegate
             guard let window = appDelegate?.window else { return }
-            window.rootViewController = groupVC
+            window.rootViewController = mainTabBar
         }))
-        
         
         alert.addAction(UIAlertAction(title: "Отменить", style: .cancel, handler: { (_) in
         }))
@@ -168,7 +142,5 @@ class SettingsTableViewController: UITableViewController {
         self.present(alert, animated: true, completion: {
         })
     }
-    
-    
-    
+
 }

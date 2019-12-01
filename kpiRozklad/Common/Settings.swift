@@ -8,20 +8,11 @@
 
  import UIKit
 
- class Settings {
-     private let userDefaults = UserDefaults.standard
+class Settings {
+    private let userDefaults = UserDefaults.standard
      
-     static let shared = Settings()
+    static let shared = Settings()
      
-     var isLoggedIn: Bool {
-         get {
-             return userDefaults.bool(forKey: "isLoggedIn")
-         }
-         set {
-             userDefaults.set(newValue, forKey: "isLoggedIn")
-         }
-     }
-    
     var isTryToRefreshShedule: Bool {
         get {
             return userDefaults.bool(forKey: "isTryToRefreshShedule")

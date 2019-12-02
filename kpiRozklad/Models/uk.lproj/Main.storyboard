@@ -26,7 +26,7 @@
         <!--Group Chooser View Controller-->
         <scene sceneID="6Fy-6u-HJg">
             <objects>
-                <viewController storyboardIdentifier="GroupChooserViewController" id="nsI-9v-NMm" customClass="GroupChooserViewController" customModule="kpiRozklad" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="GroupChooserViewController" id="nsI-9v-NMm" customClass="GroupChooserViewController" customModule="KPI_Rozklad" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="ZfH-hG-RFJ">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -57,7 +57,7 @@
         <!--Add Lesson View Controller-->
         <scene sceneID="o9L-Nr-gZV">
             <objects>
-                <viewController storyboardIdentifier="AddLessonViewController" id="9L8-wk-vdr" customClass="AddLessonViewController" customModule="kpiRozklad" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="AddLessonViewController" id="9L8-wk-vdr" customClass="AddLessonViewController" customModule="KPI_Rozklad" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="1Dt-a0-7KL">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -150,7 +150,7 @@
         <!--ІВ-82-->
         <scene sceneID="Z7E-0m-5wG">
             <objects>
-                <viewController storyboardIdentifier="SheduleViewController" id="VGz-qr-qiP" customClass="SheduleViewController" customModule="kpiRozklad" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="SheduleViewController" id="VGz-qr-qiP" customClass="SheduleViewController" customModule="KPI_Rozklad" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="P20-9K-3S9">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -231,7 +231,7 @@
         <!--Викладачі-->
         <scene sceneID="xbn-fN-qco">
             <objects>
-                <viewController storyboardIdentifier="TeachersViewController" id="uqy-EP-nOA" customClass="TeachersViewController" customModule="kpiRozklad" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="TeachersViewController" id="uqy-EP-nOA" customClass="TeachersViewController" customModule="KPI_Rozklad" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="r28-T8-AU0">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -321,7 +321,7 @@
         <!--Налаштування-->
         <scene sceneID="FIg-qI-laJ">
             <objects>
-                <tableViewController storyboardIdentifier="SettingsTableViewController" id="Nvr-ip-G7Y" customClass="SettingsTableViewController" customModule="kpiRozklad" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="SettingsTableViewController" id="Nvr-ip-G7Y" customClass="SettingsTableViewController" customModule="KPI_Rozklad" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="2OE-JR-jzj">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -363,7 +363,7 @@
         <!--Shedule Detail View Controller-->
         <scene sceneID="YJy-Mv-orq">
             <objects>
-                <viewController storyboardIdentifier="SheduleDetailViewController" id="Xi8-a3-NCy" customClass="SheduleDetailViewController" customModule="kpiRozklad" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="SheduleDetailViewController" id="Xi8-a3-NCy" customClass="SheduleDetailViewController" customModule="KPI_Rozklad" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="rN8-a6-edx">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -429,7 +429,7 @@
                                                     <constraint firstAttribute="width" constant="310" id="iju-1h-vxi"/>
                                                 </constraints>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                <state key="normal" title="Подивитись на розклад викладача">
+                                                <state key="normal" title="Розклад викладача">
                                                     <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
                                                 </state>
                                                 <userDefinedRuntimeAttributes>
@@ -485,7 +485,7 @@
         <!--Зараз   тиждень-->
         <scene sceneID="iN0-Y0-247">
             <objects>
-                <viewController storyboardIdentifier="TeacherSheduleViewController" id="StT-wO-RBg" customClass="TeacherSheduleViewController" customModule="kpiRozklad" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="TeacherSheduleViewController" id="StT-wO-RBg" customClass="TeacherSheduleViewController" customModule="KPI_Rozklad" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="sT5-E5-eIb">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

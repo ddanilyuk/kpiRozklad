@@ -122,7 +122,7 @@ class SettingsTableViewController: UITableViewController {
     
     
     func didPressChangeGroup() {
-        let alert = UIAlertController(title: nil, message: "Чи бажаєте Ви змініти вашу групу?\n Всі ваші редагування розкладу пропадуть!", preferredStyle: .actionSheet)
+        let alert = UIAlertController(title: nil, message: "Чи бажаєте Ви змінити вашу групу?\n Всі ваші редагування розкладу пропадуть!", preferredStyle: .actionSheet)
         alert.addAction(UIAlertAction(title: "Змініти", style: .default, handler: { (_) in
             Settings.shared.groupName = ""
             Settings.shared.isTryToRefreshShedule = true

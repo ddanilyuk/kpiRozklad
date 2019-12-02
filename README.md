@@ -1,9 +1,9 @@
+
+
 #  KPI Rozklad
 
-<img src="images/v2_11.png" alt="First" style="zoom:50%;" />
+[AppStore](https://apps.apple.com/ua/app/kpi-rozklad/id1489847008?l=ru&ls=1)
 
-2. <img src="images/v2_22.png" alt="First" style="zoom:50%;" />
+![url](images/com1.jpg)
 
-<img src="images/v2_33.png" alt="First" style="zoom:50%;" />
-
-<img src="images/v2_44.png" alt="First" style="zoom:50%;" />
+![url](images/com2.jpg)

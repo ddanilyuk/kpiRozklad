@@ -1,17 +1,9 @@
-#  ROZKLAD KPI
+#  KPI Rozklad
 
-1. Усі групи в КПІ
+<img src="images/v2_11.png" alt="First" style="zoom:50%;" />
 
-![First](images/1.png)
+2. <img src="images/v2_22.png" alt="First" style="zoom:50%;" />
 
-2. Твої та інші викладачі 
+<img src="images/v2_33.png" alt="First" style="zoom:50%;" />
 
-![First](images/2.png)
-
-3. Додавання пар та детальна інформація про них
-
-![First](images/3.png)
-
-4. Гнучке редагування існуючих пар
-
-![First](images/4.png)
+<img src="images/v2_44.png" alt="First" style="zoom:50%;" />

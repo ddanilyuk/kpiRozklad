@@ -13,14 +13,18 @@ class SettingsTableViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        setupTableView()
+    }
+    
+
+    private func setupTableView() {
         tableView.delegate = self
         tableView.dataSource = self
-
+        tableView.backgroundColor = tint
     }
 
+    
     // MARK: - Table view data source
-
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }

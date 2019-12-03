@@ -13,6 +13,9 @@ class AddLessonViewController: UIViewController {
     /// Lessons from seque
     var lessons: [Lesson] = []
     
+    /// Lessons from server
+    var serverLessons: [Lesson] = []
+    
     /// Current week from seque
     var currentWeek: Int = 0
     
@@ -43,8 +46,10 @@ class AddLessonViewController: UIViewController {
     
     /// Day number of choosen day
     var dayNumber = 0
+    
+    /// Settings
+    var settings = Settings.shared
 
-        
     /// Lesson Name + Lesson Type
     @IBOutlet weak var lessonPickerView: UIPickerView!
     
@@ -60,9 +65,17 @@ class AddLessonViewController: UIViewController {
         super.viewDidLoad()
     
         /// Getting Unical Lesson + IDs
-        getUnicalLessons()
-        getUnicalIDs()
+        getUnicalLessons(lessons: lessons)
+        getUnicalIDs(lessons: lessons)
+        
+        server()
 
+        setupPickers()
+        
+    }
+
+    
+    private func setupPickers() {
         lessonPickerView.delegate = self
         lessonPickerView.dataSource = self
         
@@ -71,24 +84,26 @@ class AddLessonViewController: UIViewController {
         
         numberLessonPickerView.delegate = self
         numberLessonPickerView.dataSource = self
-        
     }
-
+    
     
     // MARK: - getUnicalLessons
-    func getUnicalLessons() {
+    func getUnicalLessons(lessons: [Lesson]) {
         for lesson in lessons {
             if !unicalNames.contains(lesson.lessonName){
                 unicalLessons.append(lesson)
-                getUnicalNames()
+                getUnicalNames(lessons: lessons)
             }
         }
-        lessonName = unicalLessons[0].lessonName != "" ? unicalLessons[0].lessonName : unicalLessons[0].lessonFullName
+        if unicalLessons.count != 0 {
+            lessonName = unicalLessons[0].lessonName != "" ? unicalLessons[0].lessonName : unicalLessons[0].lessonFullName
+        }
+        
     }
     
     
     // MARK: - getUnicalIDs
-    func getUnicalIDs() {
+    func getUnicalIDs(lessons: [Lesson]) {
         unicalIDs = []
         for lesson in unicalLessons {
             unicalIDs.append(lesson.lessonID)
@@ -97,7 +112,7 @@ class AddLessonViewController: UIViewController {
     
     
     // MARK: - getUnicalNames
-    func getUnicalNames() {
+    func getUnicalNames(lessons: [Lesson]) {
         unicalNames = []
         for lesson in unicalLessons {
             unicalNames.append(lesson.lessonName)
@@ -120,7 +135,10 @@ class AddLessonViewController: UIViewController {
         let lessonType2 = lessonType == LessonType.лек1 ? LessonType.лек2 : nil
         
         /// Finding `lesson` which already exist (and use it)
-        for lesson in lessons {
+        
+        let lessonsToFindExist = serverLessons.count != 0 ? serverLessons : lessons
+        
+        for lesson in lessonsToFindExist {
             if lessonName == lesson.lessonName && (lessonType == lesson.lessonType || lessonType2 == lesson.lessonType) {
                 similarLesson = lesson
                 isSimilarLessonNotExist = false
@@ -235,6 +253,38 @@ class AddLessonViewController: UIViewController {
         })
         
     }
+    
+    
+    // MARK: - server
+    /// Functon which getting data from server
+    func server() {
+        guard let url = URL(string: "https://api.rozklad.org.ua/v2/groups/\(settings.groupID)/lessons") else { return }
+        let task = URLSession.shared.dataTask(with: url) {(data, response, error) in
+            guard let data = data else { return }
+            let decoder = JSONDecoder()
+
+            do {
+                guard let serverFULLDATA = try? decoder.decode(WelcomeLessons.self, from: data) else { return }
+                let datum = serverFULLDATA.data
+                
+//                self.unicalLessons = []
+                self.getUnicalLessons(lessons: datum)
+                self.getUnicalIDs(lessons: datum)
+                self.serverLessons = datum
+                
+                DispatchQueue.main.async {
+                    self.lessonPickerView.reloadAllComponents()
+                    self.dayPickerView.reloadAllComponents()
+                    self.numberLessonPickerView.reloadAllComponents()
+
+                }
+            }
+        }
+        task.resume()
+    }
+    
+    
+    
 }
 
 
@@ -281,7 +331,7 @@ extension AddLessonViewController: UIPickerViewDelegate, UIPickerViewDataSource 
                 let lesson = unicalLessons[row]
                 return lesson.lessonName != "" ? lesson.lessonName : lesson.lessonFullName
            } else {
-                let array = [LessonType.empty.rawValue, LessonType.лаб.rawValue, LessonType.лек1.rawValue, LessonType.прак.rawValue]
+                let array = [LessonType.лаб.rawValue, LessonType.лек1.rawValue, LessonType.прак.rawValue, "Інше"]
                 return array[row]
            }
         } else if pickerView == dayPickerView {
@@ -313,12 +363,10 @@ extension AddLessonViewController: UIPickerViewDelegate, UIPickerViewDataSource 
            } else {
                 switch row {
                 case 0:
-                    lessonType = LessonType.empty
-                case 1:
                     lessonType = LessonType.лаб
-                case 2:
+                case 1:
                     lessonType = LessonType.лек1
-                case 3:
+                case 2:
                     lessonType = LessonType.прак
                 default:
                     lessonType = LessonType.empty

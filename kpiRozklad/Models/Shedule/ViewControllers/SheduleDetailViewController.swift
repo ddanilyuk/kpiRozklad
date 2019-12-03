@@ -42,7 +42,7 @@ class SheduleDetailViewController: UIViewController {
         
         if lesson.teachers.count != 0 {
             teacher = lesson.teachers[0]
-            
+                        
             if teacher?.teacherFullName != "" {
                 teacherLabel.text = teacher?.teacherFullName
             } else {
@@ -50,6 +50,10 @@ class SheduleDetailViewController: UIViewController {
             }
             
             teacherRatingLabel.text = "Рейтинг викладача: " + (teacher?.teacherRating ?? "0.0000")
+        } else {
+            checkTeacherShedule.isEnabled = false
+            checkTeacherShedule.backgroundColor = .lightGray
+            checkTeacherShedule.borderColor = .lightGray
         }
         
         lessonNameLabel.text = lesson.lessonName

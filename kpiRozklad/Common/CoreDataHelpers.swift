@@ -191,7 +191,6 @@ func updateCoreData(vc: SheduleViewController, datum:  [Lesson]) {
             
             do {
                 try managedContext.save()
-//                    self.lessonsCoreData.append(lessonCoreData)
             } catch let error as NSError {
                 print("Could not save. \(error), \(error.userInfo)")
             }

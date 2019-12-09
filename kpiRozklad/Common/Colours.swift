@@ -22,7 +22,7 @@ public var tint: UIColor = {
         }
     } else {
         /// Return a fallback color for iOS 12 and lower.
-        return UIColor.tertiarySystemGroupedBackground
+        return UIColor.lightGray
     }
 }()
 

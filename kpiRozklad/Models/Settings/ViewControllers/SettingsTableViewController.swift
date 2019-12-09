@@ -82,7 +82,18 @@ class SettingsTableViewController: UITableViewController {
             }
         }
         cell.accessoryType = .disclosureIndicator
-        cell.backgroundColor = .secondarySystemGroupedBackground
+        
+        var colour = UIColor.white
+        
+        if #available(iOS 13, *) {
+            colour = .secondarySystemGroupedBackground
+        } else {
+            /// Return a fallback color for iOS 12 and lower.
+            colour = UIColor.lightGray
+        }
+        
+        cell.backgroundColor = colour
+
         return cell
     }
     
@@ -117,7 +128,7 @@ class SettingsTableViewController: UITableViewController {
             window.rootViewController = mainTabBar
         }))
         
-        alert.addAction(UIAlertAction(title: "Отменить", style: .cancel, handler: { (_) in
+        alert.addAction(UIAlertAction(title: "Скасувати", style: .cancel, handler: { (_) in
         }))
         
         self.present(alert, animated: true, completion: {
@@ -127,10 +138,10 @@ class SettingsTableViewController: UITableViewController {
     
     func didPressChangeGroup() {
         let alert = UIAlertController(title: nil, message: "Чи бажаєте Ви змінити вашу групу?\n Всі ваші редагування розкладу пропадуть!", preferredStyle: .actionSheet)
-        alert.addAction(UIAlertAction(title: "Змініти", style: .default, handler: { (_) in
+        alert.addAction(UIAlertAction(title: "Змінити", style: .default, handler: { (_) in
             Settings.shared.groupName = ""
             Settings.shared.isTryToRefreshShedule = true
-
+            deleteAllFromCoreData()
             
             let mainStoryboard = UIStoryboard(name: "Main", bundle: Bundle.main)
             guard let mainTabBar : UITabBarController = mainStoryboard.instantiateViewController(withIdentifier: "Main") as? UITabBarController else { return }
@@ -140,7 +151,7 @@ class SettingsTableViewController: UITableViewController {
             window.rootViewController = mainTabBar
         }))
         
-        alert.addAction(UIAlertAction(title: "Отменить", style: .cancel, handler: { (_) in
+        alert.addAction(UIAlertAction(title: "Скасувати", style: .cancel, handler: { (_) in
         }))
         
         self.present(alert, animated: true, completion: {

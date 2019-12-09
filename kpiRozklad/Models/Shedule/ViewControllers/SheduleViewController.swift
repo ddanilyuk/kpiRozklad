@@ -79,6 +79,7 @@ class SheduleViewController: UIViewController {
     /// Settings singleton
     var settings = Settings.shared
     
+    @IBOutlet weak var tableViewTopConstaint: NSLayoutConstraint!
     
     // MARK: - viewDidLoad
     override func viewDidLoad() {
@@ -89,12 +90,12 @@ class SheduleViewController: UIViewController {
         
         /// Button `Edit` & title (group name)
         setupNavigation()
-
-        /// Start animating and show activityIndicator
-        setupAtivityIndicator()
         
         /// TableView delegate and dataSource
         setupTableView()
+
+        /// Start animating and show activityIndicator
+        setupAtivityIndicator()
         
         /// Getting dayNumber and week of year from device Date()
         setupDate()
@@ -115,6 +116,8 @@ class SheduleViewController: UIViewController {
     
     // MARK: - viewWillAppear
     override func viewWillAppear(_ animated: Bool) {
+        setupAtivityIndicator()
+
         /// presenting `GroupChooserViewController` if `settings.groupName == ""`
         presentGroupChooser()
         
@@ -124,6 +127,14 @@ class SheduleViewController: UIViewController {
         /// Choosing new Curent and next lesson
         if settings.groupName != "" {
             makeLessonsShedule()
+        }
+        
+        if  lessonsForTableView[0].value.count == 0 &&
+            lessonsForTableView[1].value.count == 0 &&
+            lessonsForTableView[2].value.count == 0 &&
+            lessonsForTableView[3].value.count == 0 &&
+            lessonsForTableView[4].value.count == 0 {
+            setupAtivityIndicator()
         }
         
         /// If Core Data is empty, making request from server
@@ -177,6 +188,19 @@ class SheduleViewController: UIViewController {
     private func setupNavigation() {
         self.navigationItem.leftBarButtonItem = self.editButtonItem
         self.navigationItem.title = settings.groupName.uppercased()
+        self.navigationItem.largeTitleDisplayMode = .always
+        
+        self.navigationController?.navigationBar.prefersLargeTitles = true
+        self.navigationController?.navigationBar.isTranslucent = true
+//        self.tableView.contentOffset.y = tableView.contentOffset.y * 0.5
+        
+        
+//        if self.tableView.contentOffset.y > 0 {
+//            if self.navigationController!.navigationBar.frame.size.height > 44.0 {
+//                self.tableView.contentOffset.y = self.tableView.contentOffset.y * 0.5
+//            }
+//        }
+
     }
     
     
@@ -212,7 +236,11 @@ class SheduleViewController: UIViewController {
             let mainStoryboard = UIStoryboard(name: "Main", bundle: Bundle.main)
             let navigationGroupChooser : UINavigationController = mainStoryboard.instantiateViewController(withIdentifier: "navigationGroupChooser") as! UINavigationController
             
-            navigationGroupChooser.isModalInPresentation = true
+            if #available(iOS 13.0, *) {
+                navigationGroupChooser.isModalInPresentation = true
+            } else {
+                // Fallback on earlier versions
+            }
             self.present(navigationGroupChooser, animated: true, completion: { self.setupAtivityIndicator() })
         }
     }
@@ -252,12 +280,31 @@ class SheduleViewController: UIViewController {
         
         /// (self.tableView != nil)  because if when we push information from another VC tableView can be not exist
         if self.tableView != nil {
+//            self.tableViewTopConstaint = NSLayoutConstraint(item: self.tableView ?? self.view.safeAreaLayoutGuide, attribute: .top, relatedBy: .equal, toItem: self.view, attribute: .top, multiplier: 1, constant: 0)
+//            DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(300)) {
+//                if self.lessonsForTableView[indexPathToScroll.section].value.count > indexPathToScroll.row {
+//                    self.tableView.beginUpdates()
+//                    self.tableView.scrollToRow(at: indexPathToScroll, at: .top, animated: true)
+//                    self.tableView.endUpdates()
+//                }
+//            }
             DispatchQueue.main.async {
-                self.tableView.reloadData()
-                if self.lessonsForTableView[indexPathToScroll.section].value.count > indexPathToScroll.row {
-                    self.tableView.scrollToRow(at: indexPathToScroll, at: .top, animated: true)
+                for _ in 0..<2 {
+                    if self.lessonsForTableView[indexPathToScroll.section].value.count > indexPathToScroll.row {
+//                        self.tableViewTopConstaint = NSLayoutConstraint(item: self.tableView ?? self.view.safeAreaInsets, attribute: .top, relatedBy: .equal, toItem: self.view, attribute: .top, multiplier: 1, constant: 0)
+//                        self.tableView.updateConstraints()
+
+                        self.tableView.beginUpdates()
+                        self.tableView.scrollToRow(at: indexPathToScroll, at: .top, animated: true)
+                        self.tableView.endUpdates()
+                    }
+                    self.tableView.updateConstraints()
+
                 }
             }
+            
+            
+//
         }
         
     }

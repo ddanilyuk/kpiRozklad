@@ -124,6 +124,7 @@ class SheduleViewController: UIViewController {
         /// Getting dayNumber and week of year from device Date()
         setupDate()
         
+        
         /// Choosing new Curent and next lesson
         if settings.groupName != "" {
             makeLessonsShedule()
@@ -166,6 +167,9 @@ class SheduleViewController: UIViewController {
         tableView.register(UINib(nibName: LessonTableViewCell.identifier, bundle: Bundle.main), forCellReuseIdentifier: LessonTableViewCell.identifier)
         tableView.delegate = self
         tableView.dataSource = self
+//        var insetsContentViewsToSafeArea: Bool = true
+//        tableView.insetsContentViewsToSafeArea = false
+
     }
     
     
@@ -191,15 +195,8 @@ class SheduleViewController: UIViewController {
         self.navigationItem.largeTitleDisplayMode = .always
         
         self.navigationController?.navigationBar.prefersLargeTitles = true
+        
         self.navigationController?.navigationBar.isTranslucent = true
-//        self.tableView.contentOffset.y = tableView.contentOffset.y * 0.5
-        
-        
-//        if self.tableView.contentOffset.y > 0 {
-//            if self.navigationController!.navigationBar.frame.size.height > 44.0 {
-//                self.tableView.contentOffset.y = self.tableView.contentOffset.y * 0.5
-//            }
-//        }
 
     }
     
@@ -280,31 +277,14 @@ class SheduleViewController: UIViewController {
         
         /// (self.tableView != nil)  because if when we push information from another VC tableView can be not exist
         if self.tableView != nil {
-//            self.tableViewTopConstaint = NSLayoutConstraint(item: self.tableView ?? self.view.safeAreaLayoutGuide, attribute: .top, relatedBy: .equal, toItem: self.view, attribute: .top, multiplier: 1, constant: 0)
-//            DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(300)) {
-//                if self.lessonsForTableView[indexPathToScroll.section].value.count > indexPathToScroll.row {
-//                    self.tableView.beginUpdates()
-//                    self.tableView.scrollToRow(at: indexPathToScroll, at: .top, animated: true)
-//                    self.tableView.endUpdates()
-//                }
-//            }
+            self.tableView.reloadData()
+            
             DispatchQueue.main.async {
-                for _ in 0..<2 {
-                    if self.lessonsForTableView[indexPathToScroll.section].value.count > indexPathToScroll.row {
-//                        self.tableViewTopConstaint = NSLayoutConstraint(item: self.tableView ?? self.view.safeAreaInsets, attribute: .top, relatedBy: .equal, toItem: self.view, attribute: .top, multiplier: 1, constant: 0)
-//                        self.tableView.updateConstraints()
 
-                        self.tableView.beginUpdates()
-                        self.tableView.scrollToRow(at: indexPathToScroll, at: .top, animated: true)
-                        self.tableView.endUpdates()
-                    }
-                    self.tableView.updateConstraints()
-
+                if self.lessonsForTableView[indexPathToScroll.section].value.count > indexPathToScroll.row {
+                    self.tableView.scrollToRow(at: indexPathToScroll, at: .top, animated: true)
                 }
             }
-            
-            
-//
         }
         
     }
@@ -420,7 +400,26 @@ class SheduleViewController: UIViewController {
             let decoder = JSONDecoder()
 
             do {
+                print(url)
+                if let error = try? decoder.decode(Error.self, from: data) {
+                    if error.message == "Lessons not found" {
+                        DispatchQueue.main.async {
+                            let alert = UIAlertController(title: nil, message: "Розкладу для цієї групи не існує", preferredStyle: .alert)
+                            alert.addAction(UIAlertAction(title: "Змінити групу", style: .default, handler: { (_) in
+                                self.settings.groupName = ""
+                                self.presentGroupChooser()
+                            }))
+                            
+                            self.present(alert, animated: true, completion: {
+                                self.settings.isTryToRefreshShedule = true
+                            })
+                        }
+                    }
+                }
+                
+                
                 guard let serverFULLDATA = try? decoder.decode(WelcomeLessons.self, from: data) else { return }
+                print(serverFULLDATA)
                 let datum = serverFULLDATA.data
 
                 updateCoreData(vc: self, datum: datum)

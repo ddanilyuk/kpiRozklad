@@ -174,7 +174,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="2xZ-kD-GrF"/>
                     </view>
-                    <navigationItem key="navigationItem" title="ІВ-82" largeTitleDisplayMode="always" id="HCW-ay-CZY">
+                    <navigationItem key="navigationItem" title="ІВ-82" largeTitleDisplayMode="never" id="HCW-ay-CZY">
                         <barButtonItem key="rightBarButtonItem" style="plain" id="5M2-o9-kLT">
                             <segmentedControl key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" id="kCf-Y9-PTf">
                                 <rect key="frame" x="228" y="5.6666666666666679" width="131" height="33"/>

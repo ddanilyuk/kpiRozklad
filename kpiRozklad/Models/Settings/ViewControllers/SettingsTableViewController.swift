@@ -116,7 +116,7 @@ class SettingsTableViewController: UITableViewController {
         let alert = UIAlertController(title: nil, message: "Чи бажаєте Ви оновити ваш розклад?\n Всі ваші редагування розкладу пропадуть!", preferredStyle: .actionSheet)
         alert.addAction(UIAlertAction(title: "Оновити", style: .default, handler: { (_) in
             
-            Settings.shared.isTryToRefreshShedule = true
+//            Settings.shared.isTryToRefreshShedule = true
             deleteAllFromCoreData()
             
             let mainStoryboard = UIStoryboard(name: "Main", bundle: Bundle.main)

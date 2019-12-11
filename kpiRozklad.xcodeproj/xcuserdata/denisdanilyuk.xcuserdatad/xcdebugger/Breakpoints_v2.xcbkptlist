@@ -62,8 +62,8 @@
             filePath = "kpiRozklad/Models/Shedule/ViewControllers/SheduleViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "720"
-            endingLineNumber = "720"
+            startingLineNumber = "681"
+            endingLineNumber = "681"
             landmarkName = "tableView(_:targetIndexPathForMoveFromRowAt:toProposedIndexPath:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -78,8 +78,8 @@
             filePath = "kpiRozklad/Models/Shedule/ViewControllers/SheduleViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "720"
-            endingLineNumber = "720"
+            startingLineNumber = "681"
+            endingLineNumber = "681"
             landmarkName = "tableView(_:targetIndexPathForMoveFromRowAt:toProposedIndexPath:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -94,10 +94,10 @@
             filePath = "kpiRozklad/Models/Shedule/ViewControllers/AddLessonViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "268"
-            endingLineNumber = "268"
-            landmarkName = "server()"
-            landmarkType = "7">
+            startingLineNumber = "294"
+            endingLineNumber = "294"
+            landmarkName = "AddLessonViewController"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -110,8 +110,8 @@
             filePath = "kpiRozklad/Models/Shedule/ViewControllers/SheduleViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "449"
-            endingLineNumber = "449"
+            startingLineNumber = "410"
+            endingLineNumber = "410"
             landmarkName = "server()"
             landmarkType = "7">
          </BreakpointContent>
@@ -126,10 +126,26 @@
             filePath = "kpiRozklad/Models/Shedule/ViewControllers/SheduleViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "434"
-            endingLineNumber = "434"
+            startingLineNumber = "395"
+            endingLineNumber = "395"
             landmarkName = "SheduleViewController"
             landmarkType = "3">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "9BDD7710-5AC2-4408-A3BE-040AABB602D8"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "kpiRozklad/Models/Shedule/ViewControllers/AddLessonViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "237"
+            endingLineNumber = "237"
+            landmarkName = "didPressAddLesson(_:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

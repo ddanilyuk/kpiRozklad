@@ -114,7 +114,7 @@ class SettingsTableViewController: UITableViewController {
     func didPressUpdateShedule() {
         
         let alert = UIAlertController(title: nil, message: "Чи бажаєте Ви оновити ваш розклад?\n Всі ваші редагування розкладу пропадуть!", preferredStyle: .actionSheet)
-        alert.addAction(UIAlertAction(title: "Оновити", style: .default, handler: { (_) in
+        alert.addAction(UIAlertAction(title: "Оновити", style: .destructive, handler: { (_) in
             
 //            Settings.shared.isTryToRefreshShedule = true
             deleteAllFromCoreData()
@@ -138,7 +138,7 @@ class SettingsTableViewController: UITableViewController {
     
     func didPressChangeGroup() {
         let alert = UIAlertController(title: nil, message: "Чи бажаєте Ви змінити вашу групу?\n Всі ваші редагування розкладу пропадуть!", preferredStyle: .actionSheet)
-        alert.addAction(UIAlertAction(title: "Змінити", style: .default, handler: { (_) in
+        alert.addAction(UIAlertAction(title: "Змінити", style: .destructive, handler: { (_) in
             Settings.shared.groupName = ""
             Settings.shared.isTryToRefreshShedule = true
             deleteAllFromCoreData()

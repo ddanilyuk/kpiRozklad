@@ -27,6 +27,7 @@ class GroupChooserViewController: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
     
+    @IBOutlet weak var startWritingLabel: UILabel!
     
     // MARK: - viewDidLoad
     override func viewDidLoad() {
@@ -40,7 +41,15 @@ class GroupChooserViewController: UIViewController {
     }
     
     
+    override func viewWillAppear(_ animated: Bool) {
+        startWritingLabel.isHidden = false
+        tableView.isHidden = true
+    }
+    
+    
     private func setupTableView() {
+        startWritingLabel.text = "Почніть вводити назву групи"
+
         tableView.dataSource = self
         tableView.delegate = self
     }
@@ -78,7 +87,6 @@ class GroupChooserViewController: UIViewController {
                     self.groups += datum
 
                     DispatchQueue.main.async {
-                        self.tableView.isHidden = false
                         self.tableView.reloadData()
                         self.groups.sort { (Group1, Group2) -> Bool in
                             return Group1.groupID < Group2.groupID
@@ -169,15 +177,25 @@ extension GroupChooserViewController: UISearchResultsUpdating{
         if searchText == "" {
             isSearching = false
             groupsInSearch = []
+            
+            startWritingLabel.isHidden = false
+            tableView.isHidden = true
+            
             tableView.reloadData()
         } else {
+            
+            startWritingLabel.isHidden = true
+            tableView.isHidden = false
+            
             isSearching = true
             groupsInSearch = []
+            
             for group in groups {
                 if group.groupFullName.lowercased().contains(lowerCaseSearchText){
                     groupsInSearch.append(group)
                 }
             }
+            
             tableView.reloadData()
         }
     }

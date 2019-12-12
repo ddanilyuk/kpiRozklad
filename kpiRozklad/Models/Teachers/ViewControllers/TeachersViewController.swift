@@ -53,6 +53,11 @@ class TeachersViewController: UIViewController {
     
     
     @IBAction func weekChanged(_ sender: UISegmentedControl) {
+        didChangeSegment(segmentControl: segmentControl)
+    }
+    
+    
+    func didChangeSegment(segmentControl: UISegmentedControl) {
         switch segmentControl.selectedSegmentIndex {
             case 0:
                 isChoosenMyTeachers = true
@@ -107,7 +112,6 @@ class TeachersViewController: UIViewController {
         for i in 0..<55 {
             let offset = i * 100
             let stringURL = "https://api.rozklad.org.ua/v2/teachers?filter=%7B'limit':100,'offset':\(String(offset))%7D"
-//            print(stringURL)
             
             let url = URL(string: stringURL)!
            
@@ -121,8 +125,6 @@ class TeachersViewController: UIViewController {
                     let datum = serverFULLDATA.data
                     self.allTeachers += datum
                     
-//                    print(self.allTeachers.count)
-
                     DispatchQueue.main.async {
                         self.activityIndicator.stopAnimating()
                         self.activityIndicator.isHidden = true
@@ -198,13 +200,17 @@ extension TeachersViewController: UISearchResultsUpdating{
         guard let searchText = searchController.searchBar.text else {
             return
         }
-        
-        
+                
         if searchText == "" {
             isSearching = false
             teachersInSearch = []
+
             tableView.reloadData()
         } else {
+            
+            segmentControl.selectedSegmentIndex = 1
+            didChangeSegment(segmentControl: segmentControl)
+            
             isSearching = true
             teachersInSearch = []
             for teacher in teachers {

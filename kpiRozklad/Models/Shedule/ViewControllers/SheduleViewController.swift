@@ -163,6 +163,11 @@ class SheduleViewController: UIViewController {
     }
     
     
+    override func viewDidAppear(_ animated: Bool) {
+        self.navigationItem.largeTitleDisplayMode = .always
+    }
+    
+    
     private func setupTableView() {
         tableView.register(UINib(nibName: LessonTableViewCell.identifier, bundle: Bundle.main), forCellReuseIdentifier: LessonTableViewCell.identifier)
         tableView.delegate = self
@@ -192,7 +197,7 @@ class SheduleViewController: UIViewController {
     private func setupNavigation() {
         self.navigationItem.leftBarButtonItem = self.editButtonItem
         self.navigationItem.title = settings.groupName.uppercased()
-        self.navigationItem.largeTitleDisplayMode = .always
+        
         
         self.navigationController?.navigationBar.prefersLargeTitles = true
         
@@ -264,8 +269,6 @@ class SheduleViewController: UIViewController {
             for row in 0..<day.value.count {
                 let lesson = day.value[row]
                 if lesson.lessonID == currentLessonId {
-                    print(currentLessonId)
-                    print(section, row)
                     indexPathToScroll = IndexPath(row: row, section: section)
                     break k
                 } else if lesson.lessonID == nextLessonId {
@@ -277,10 +280,9 @@ class SheduleViewController: UIViewController {
         
         /// (self.tableView != nil)  because if when we push information from another VC tableView can be not exist
         if self.tableView != nil {
-            self.tableView.reloadData()
+//            self.tableView.reloadData()
             
             DispatchQueue.main.async {
-
                 if self.lessonsForTableView[indexPathToScroll.section].value.count > indexPathToScroll.row {
                     self.tableView.scrollToRow(at: indexPathToScroll, at: .top, animated: true)
                 }
@@ -400,7 +402,6 @@ class SheduleViewController: UIViewController {
             let decoder = JSONDecoder()
 
             do {
-                print(url)
                 if let error = try? decoder.decode(Error.self, from: data) {
                     if error.message == "Lessons not found" {
                         DispatchQueue.main.async {
@@ -419,7 +420,6 @@ class SheduleViewController: UIViewController {
                 
                 
                 guard let serverFULLDATA = try? decoder.decode(WelcomeLessons.self, from: data) else { return }
-                print(serverFULLDATA)
                 let datum = serverFULLDATA.data
 
                 updateCoreData(vc: self, datum: datum)

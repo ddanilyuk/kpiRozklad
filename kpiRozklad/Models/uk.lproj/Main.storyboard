@@ -35,6 +35,12 @@
                                 <rect key="frame" x="0.0" y="88" width="375" height="690"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                             </tableView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lOE-Ha-q3X">
+                                <rect key="frame" x="18.666666666666657" y="113" width="337.66666666666674" height="23"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="19"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
@@ -42,11 +48,15 @@
                             <constraint firstItem="MQ7-Lk-kIw" firstAttribute="leading" secondItem="QOr-y0-Msw" secondAttribute="leading" id="HSS-HL-5X6"/>
                             <constraint firstItem="MQ7-Lk-kIw" firstAttribute="trailing" secondItem="QOr-y0-Msw" secondAttribute="trailing" id="Ndv-Cy-0K6"/>
                             <constraint firstItem="MQ7-Lk-kIw" firstAttribute="top" secondItem="QOr-y0-Msw" secondAttribute="top" id="ozn-4E-CD2"/>
+                            <constraint firstItem="lOE-Ha-q3X" firstAttribute="centerX" secondItem="QOr-y0-Msw" secondAttribute="centerX" id="ppS-nk-4qi"/>
+                            <constraint firstItem="lOE-Ha-q3X" firstAttribute="top" secondItem="QOr-y0-Msw" secondAttribute="top" constant="25" id="vdz-u8-bfM"/>
+                            <constraint firstItem="lOE-Ha-q3X" firstAttribute="width" secondItem="QOr-y0-Msw" secondAttribute="width" multiplier="0.9" id="xGt-0E-pmj"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="QOr-y0-Msw"/>
                     </view>
                     <navigationItem key="navigationItem" id="7JX-2g-98N"/>
                     <connections>
+                        <outlet property="startWritingLabel" destination="lOE-Ha-q3X" id="1Vc-Ij-0dI"/>
                         <outlet property="tableView" destination="MQ7-Lk-kIw" id="tgl-p5-1h5"/>
                     </connections>
                 </viewController>
@@ -135,7 +145,7 @@
             <objects>
                 <navigationController id="RNu-Ik-QQg" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Розклад" image="rectangle.grid.1x2" catalog="system" id="8Be-PC-7G9"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" barStyle="black" translucent="NO" id="uN9-z4-vS1">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translucent="NO" id="uN9-z4-vS1">
                         <rect key="frame" x="0.0" y="44" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -155,13 +165,13 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="724"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="q0l-yL-hSA">
-                                <rect key="frame" x="169" y="302" width="37" height="37"/>
-                            </activityIndicatorView>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelectionDuringEditing="YES" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Bv9-u6-c2Z">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="641"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                             </tableView>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="q0l-yL-hSA">
+                                <rect key="frame" x="169" y="302" width="37" height="37"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
@@ -228,23 +238,28 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="large" id="mQt-nJ-ahl">
-                                <rect key="frame" x="0.0" y="384" width="375" height="44"/>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="large" id="S2G-vj-USG">
+                                <rect key="frame" x="16" y="340" width="343" height="44"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </activityIndicatorView>
                             <tableView clipsSubviews="YES" tag="-1" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="ozO-6T-Pnc">
-                                <rect key="frame" x="0.0" y="88" width="375" height="641"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="729"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                             </tableView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
-                            <constraint firstItem="ozO-6T-Pnc" firstAttribute="leading" secondItem="A37-eR-HtN" secondAttribute="leading" id="0mZ-Qc-jBw"/>
-                            <constraint firstItem="ozO-6T-Pnc" firstAttribute="bottom" secondItem="A37-eR-HtN" secondAttribute="bottom" id="Op1-mg-zue"/>
-                            <constraint firstItem="ozO-6T-Pnc" firstAttribute="trailing" secondItem="A37-eR-HtN" secondAttribute="trailing" id="RIC-W8-c1Z"/>
-                            <constraint firstItem="ozO-6T-Pnc" firstAttribute="top" secondItem="A37-eR-HtN" secondAttribute="top" id="ryU-95-2p6"/>
+                            <constraint firstItem="ozO-6T-Pnc" firstAttribute="bottom" secondItem="A37-eR-HtN" secondAttribute="bottom" id="BHJ-Jg-KTx"/>
+                            <constraint firstItem="ozO-6T-Pnc" firstAttribute="top" secondItem="r28-T8-AU0" secondAttribute="top" id="Rbs-3e-aCI"/>
+                            <constraint firstItem="ozO-6T-Pnc" firstAttribute="leading" secondItem="A37-eR-HtN" secondAttribute="leading" id="pD6-Va-qhl"/>
+                            <constraint firstItem="ozO-6T-Pnc" firstAttribute="trailing" secondItem="A37-eR-HtN" secondAttribute="trailing" id="xTA-Th-9Ue"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="A37-eR-HtN"/>
+                        <variation key="default">
+                            <mask key="subviews">
+                                <exclude reference="S2G-vj-USG"/>
+                            </mask>
+                        </variation>
                     </view>
                     <tabBarItem key="tabBarItem" title="Преподаватели" image="person" catalog="system" id="Yrj-YQ-4gU"/>
                     <navigationItem key="navigationItem" title="Викладачі" id="TEz-7E-uSY">
@@ -264,7 +279,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="activityIndicator" destination="mQt-nJ-ahl" id="P4R-JC-78I"/>
+                        <outlet property="activityIndicator" destination="S2G-vj-USG" id="RF6-PH-gQi"/>
                         <outlet property="segmentControl" destination="bXl-wA-VMP" id="WOz-aL-VX7"/>
                         <outlet property="tableView" destination="ozO-6T-Pnc" id="evC-DR-UwR"/>
                         <segue destination="StT-wO-RBg" kind="show" identifier="showTeacherShedule2" id="5QF-Tv-CiU"/>
@@ -272,7 +287,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NnJ-Cw-TTi" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="926" y="-1145"/>
+            <point key="canvasLocation" x="925.60000000000002" y="-1145.3201970443349"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="Oyb-qZ-Kpf">
@@ -479,15 +494,15 @@
             <objects>
                 <viewController storyboardIdentifier="TeacherSheduleViewController" id="StT-wO-RBg" customClass="TeacherSheduleViewController" customModule="KPI_Rozklad" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="sT5-E5-eIb">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="724"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="6uy-Lx-1YN" customClass="Teac">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="641"/>
+                                <rect key="frame" x="0.0" y="88" width="375" height="641"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                             </tableView>
                             <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="aXm-Uf-t5P">
-                                <rect key="frame" x="0.0" y="302" width="375" height="37"/>
+                                <rect key="frame" x="0.0" y="390" width="375" height="37"/>
                             </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
@@ -537,6 +552,6 @@
         <image name="rectangle.grid.1x2" catalog="system" width="64" height="50"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="eOz-94-s6B"/>
+        <segue reference="5QF-Tv-CiU"/>
     </inferredMetricsTieBreakers>
 </document>

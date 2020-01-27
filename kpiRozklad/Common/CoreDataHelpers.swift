@@ -169,13 +169,13 @@ func updateCoreData(vc: SheduleViewController, datum:  [Lesson]) {
             lessonCoreData.setValue(lesson.timeEnd, forKeyPath: "timeEnd")
             lessonCoreData.setValue(lesson.rate, forKeyPath: "rate")
             
-            if lesson.teachers.count != 0 {
-                teacherCoreData.setValue(lesson.teachers[0].teacherFullName, forKey: "teacherFullName")
-                teacherCoreData.setValue(lesson.teachers[0].teacherID, forKey: "teacherID")
-                teacherCoreData.setValue(lesson.teachers[0].teacherName, forKey: "teacherName")
-                teacherCoreData.setValue(lesson.teachers[0].teacherRating, forKey: "teacherRating")
-                teacherCoreData.setValue(lesson.teachers[0].teacherShortName, forKey: "teacherShortName")
-                teacherCoreData.setValue(lesson.teachers[0].teacherURL, forKey: "teacherURL")
+            if lesson.teachers?.count != 0 {
+                teacherCoreData.setValue(lesson.teachers?[0].teacherFullName, forKey: "teacherFullName")
+                teacherCoreData.setValue(lesson.teachers?[0].teacherID, forKey: "teacherID")
+                teacherCoreData.setValue(lesson.teachers?[0].teacherName, forKey: "teacherName")
+                teacherCoreData.setValue(lesson.teachers?[0].teacherRating, forKey: "teacherRating")
+                teacherCoreData.setValue(lesson.teachers?[0].teacherShortName, forKey: "teacherShortName")
+                teacherCoreData.setValue(lesson.teachers?[0].teacherURL, forKey: "teacherURL")
                 
                 lessonCoreData.setValue(teacherCoreData, forKey: "teachersRelationship")
             }

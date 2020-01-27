@@ -123,3 +123,22 @@ func sortLessons(lessons: [Lesson]) -> [Lesson] {
     
     return lessonsToSort
 }
+
+
+func getGroupsOfLessonString(lesson: Lesson) -> String {
+    var groupsNames: String  = ""
+
+    if let groups = lesson.groups {
+        
+        for i in 0..<groups.count {
+            let group = groups[i]
+            if i == groups.count - 1 {
+                groupsNames += group.groupFullName
+            } else {
+                groupsNames += group.groupFullName + ", "
+            }
+        }
+    }
+    
+    return groupsNames
+}

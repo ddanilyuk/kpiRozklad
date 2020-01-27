@@ -48,4 +48,17 @@ class Settings {
             userDefaults.set(newValue, forKey: "groupID")
         }
     }
+    
+    var sheduleUpdateTime: String {
+        get {
+            return userDefaults.string(forKey: "sheduleUpdateTime") ?? ""
+        }
+        set {
+            userDefaults.set(newValue, forKey: "sheduleUpdateTime")
+        }
+    }
+    
+    
+    
+    
  }

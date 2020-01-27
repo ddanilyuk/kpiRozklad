@@ -29,7 +29,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //            }
 //        }
         
-        
         let mainStoryboard = UIStoryboard(name: "Main", bundle: Bundle.main)
         let mainVC = mainStoryboard.instantiateInitialViewController()
         window?.rootViewController = mainVC

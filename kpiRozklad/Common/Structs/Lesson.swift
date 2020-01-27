@@ -32,7 +32,7 @@ struct Lesson: Codable {
     let lessonType: LessonType
     let teacherName, lessonWeek, timeStart, timeEnd: String
     let rate: String
-    let teachers: [Teacher]
+    let teachers: [Teacher]?
     let rooms: [Room]
     let groups: [Group]?
 

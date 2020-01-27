@@ -17,6 +17,8 @@
 		5F7BABBF23A163C8009E3CA6 /* Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F7BABBE23A163C8009E3CA6 /* Error.swift */; };
 		5FA2B79B2379F20C006C466B /* GroupChooserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FA2B79A2379F20C006C466B /* GroupChooserViewController.swift */; };
 		5FA2B79D2379F5A7006C466B /* Group.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FA2B79C2379F5A7006C466B /* Group.swift */; };
+		5FC991EE23DF10BB00612266 /* ServerUpdateTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FC991EC23DF10BB00612266 /* ServerUpdateTableViewCell.swift */; };
+		5FC991EF23DF10BB00612266 /* ServerUpdateTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5FC991ED23DF10BB00612266 /* ServerUpdateTableViewCell.xib */; };
 		5FE048652392D16A00092422 /* EditingLessons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FE048642392D16A00092422 /* EditingLessons.swift */; };
 		5FE048672392D4FA00092422 /* ManagingLessons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FE048662392D4FA00092422 /* ManagingLessons.swift */; };
 		5FE048692393027900092422 /* TimeAndDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FE048682393027900092422 /* TimeAndDate.swift */; };
@@ -49,6 +51,8 @@
 		5F7BABBE23A163C8009E3CA6 /* Error.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Error.swift; sourceTree = "<group>"; };
 		5FA2B79A2379F20C006C466B /* GroupChooserViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupChooserViewController.swift; sourceTree = "<group>"; };
 		5FA2B79C2379F5A7006C466B /* Group.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Group.swift; sourceTree = "<group>"; };
+		5FC991EC23DF10BB00612266 /* ServerUpdateTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerUpdateTableViewCell.swift; sourceTree = "<group>"; };
+		5FC991ED23DF10BB00612266 /* ServerUpdateTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ServerUpdateTableViewCell.xib; sourceTree = "<group>"; };
 		5FE048642392D16A00092422 /* EditingLessons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditingLessons.swift; sourceTree = "<group>"; };
 		5FE048662392D4FA00092422 /* ManagingLessons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManagingLessons.swift; sourceTree = "<group>"; };
 		5FE048682393027900092422 /* TimeAndDate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeAndDate.swift; sourceTree = "<group>"; };
@@ -199,6 +203,8 @@
 		D3FFAADB234F7A3D0065E9CE /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				5FC991EC23DF10BB00612266 /* ServerUpdateTableViewCell.swift */,
+				5FC991ED23DF10BB00612266 /* ServerUpdateTableViewCell.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -289,8 +295,8 @@
 		D3FFAAE52352466A0065E9CE /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
-				D3FFAAE62352467F0065E9CE /* TeacherSheduleViewController.swift */,
 				D300F1D52364CEA30098CA83 /* TeachersViewController.swift */,
+				D3FFAAE62352467F0065E9CE /* TeacherSheduleViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -359,6 +365,7 @@
 				5F2F313D2395972900FC28CB /* Assets.xcassets in Resources */,
 				5F034A322389B16D00D90DB7 /* Main.storyboard in Resources */,
 				D313F4B6233D1F090076CFF8 /* LessonTableViewCell.xib in Resources */,
+				5FC991EF23DF10BB00612266 /* ServerUpdateTableViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -392,6 +399,7 @@
 				5F6A08062370A175000A9C79 /* kpiRozklad.xcdatamodeld in Sources */,
 				5FA2B79B2379F20C006C466B /* GroupChooserViewController.swift in Sources */,
 				D363E7AA233BB74B00573EB2 /* SheduleDetailViewController.swift in Sources */,
+				5FC991EE23DF10BB00612266 /* ServerUpdateTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

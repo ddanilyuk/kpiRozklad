@@ -344,6 +344,18 @@ extension TeacherSheduleViewController: UITableViewDelegate, UITableViewDataSour
     
     // MARK: - didSelectRowAt
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let lesson = lessonsForTableView[indexPath.section].value[indexPath.row]
+        
+        let groupsNames = getGroupsOfLessonString(lesson: lesson)
+        
+        let alert = UIAlertController(title: nil, message: "Групи: \(groupsNames)", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Назад", style: .cancel, handler: { (_) in
+            
+        }))
+        
+        self.present(alert, animated: true, completion: {
+        })
+        
         tableView.deselectRow(at: indexPath, animated: true)
     }
         

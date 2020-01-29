@@ -59,6 +59,14 @@ class Settings {
     }
     
     
+    var updateAtOnceFirst: Bool {
+        get {
+            return userDefaults.bool(forKey: "updateAtOnceFirst")
+        }
+        set {
+            userDefaults.set(newValue, forKey: "updateAtOnceFirst")
+        }
+    }
     
     
  }

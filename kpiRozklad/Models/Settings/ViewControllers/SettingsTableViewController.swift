@@ -33,7 +33,7 @@ class SettingsTableViewController: UITableViewController {
     
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return "Загальні"
+        return ""
     }
 
     
@@ -78,13 +78,6 @@ class SettingsTableViewController: UITableViewController {
         let view = UIView()
         view.backgroundColor = .clear
         
-//        let label = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 21))
-//        print(view.layer.bounds.size.height)
-//        print(screenHeight - 150)
-//        label.center = CGPoint(x: 160, y: screenHeight - 150)
-//        label.textAlignment = .center
-//        label.text = "I'm a test label"
-//        view.addSubview(label)
         
         return view
     }
@@ -129,7 +122,7 @@ class SettingsTableViewController: UITableViewController {
 
             if indexPath.row == 0 {
                 guard let cell = tableView.dequeueReusableCell(withIdentifier: ServerUpdateTableViewCell.identifier, for: indexPath) as? ServerUpdateTableViewCell else { return UITableViewCell() }
-                cell.layer.cornerRadius = 30
+                cell.layer.cornerRadius = 0
 //                cell.separatorInset = .zero
 //                cell.accessoryType = .none
 //

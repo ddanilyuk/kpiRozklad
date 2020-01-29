@@ -28,6 +28,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //                print("User has declined notifications")
 //            }
 //        }
+//        Settings.shared.updateAtOnceFirst = false
+        if Settings.shared.sheduleUpdateTime == "" {
+            Settings.shared.isTryToRefreshShedule = true
+            deleteAllFromCoreData()
+            Settings.shared.updateAtOnceFirst = true
+            
+            let date = Date()
+            let formatter = DateFormatter()
+            formatter.dateFormat = "dd.MM.yyyy"
+
+            Settings.shared.sheduleUpdateTime = formatter.string(from: date)
+        }
+        
         
         let mainStoryboard = UIStoryboard(name: "Main", bundle: Bundle.main)
         let mainVC = mainStoryboard.instantiateInitialViewController()

@@ -17,6 +17,8 @@
 		5F7BABBF23A163C8009E3CA6 /* Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F7BABBE23A163C8009E3CA6 /* Error.swift */; };
 		5FA2B79B2379F20C006C466B /* GroupChooserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FA2B79A2379F20C006C466B /* GroupChooserViewController.swift */; };
 		5FA2B79D2379F5A7006C466B /* Group.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FA2B79C2379F5A7006C466B /* Group.swift */; };
+		5FACFF5323EC70A70022DF88 /* ServerGetTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FACFF5123EC70A70022DF88 /* ServerGetTableViewCell.swift */; };
+		5FACFF5423EC70A70022DF88 /* ServerGetTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5FACFF5223EC70A70022DF88 /* ServerGetTableViewCell.xib */; };
 		5FC991EE23DF10BB00612266 /* ServerUpdateTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FC991EC23DF10BB00612266 /* ServerUpdateTableViewCell.swift */; };
 		5FC991EF23DF10BB00612266 /* ServerUpdateTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5FC991ED23DF10BB00612266 /* ServerUpdateTableViewCell.xib */; };
 		5FE048652392D16A00092422 /* EditingLessons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FE048642392D16A00092422 /* EditingLessons.swift */; };
@@ -51,6 +53,8 @@
 		5F7BABBE23A163C8009E3CA6 /* Error.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Error.swift; sourceTree = "<group>"; };
 		5FA2B79A2379F20C006C466B /* GroupChooserViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupChooserViewController.swift; sourceTree = "<group>"; };
 		5FA2B79C2379F5A7006C466B /* Group.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Group.swift; sourceTree = "<group>"; };
+		5FACFF5123EC70A70022DF88 /* ServerGetTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerGetTableViewCell.swift; sourceTree = "<group>"; };
+		5FACFF5223EC70A70022DF88 /* ServerGetTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ServerGetTableViewCell.xib; sourceTree = "<group>"; };
 		5FC991EC23DF10BB00612266 /* ServerUpdateTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerUpdateTableViewCell.swift; sourceTree = "<group>"; };
 		5FC991ED23DF10BB00612266 /* ServerUpdateTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ServerUpdateTableViewCell.xib; sourceTree = "<group>"; };
 		5FE048642392D16A00092422 /* EditingLessons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditingLessons.swift; sourceTree = "<group>"; };
@@ -86,6 +90,24 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		5FACFF4F23EC70420022DF88 /* ServerUpdateTableViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				5FC991EC23DF10BB00612266 /* ServerUpdateTableViewCell.swift */,
+				5FC991ED23DF10BB00612266 /* ServerUpdateTableViewCell.xib */,
+			);
+			path = ServerUpdateTableViewCell;
+			sourceTree = "<group>";
+		};
+		5FACFF5023EC705C0022DF88 /* ServerGetTableViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				5FACFF5123EC70A70022DF88 /* ServerGetTableViewCell.swift */,
+				5FACFF5223EC70A70022DF88 /* ServerGetTableViewCell.xib */,
+			);
+			path = ServerGetTableViewCell;
+			sourceTree = "<group>";
+		};
 		5FE0486E23930D0700092422 /* Structs */ = {
 			isa = PBXGroup;
 			children = (
@@ -203,8 +225,8 @@
 		D3FFAADB234F7A3D0065E9CE /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				5FC991EC23DF10BB00612266 /* ServerUpdateTableViewCell.swift */,
-				5FC991ED23DF10BB00612266 /* ServerUpdateTableViewCell.xib */,
+				5FACFF5023EC705C0022DF88 /* ServerGetTableViewCell */,
+				5FACFF4F23EC70420022DF88 /* ServerUpdateTableViewCell */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -363,6 +385,7 @@
 				D313F4A2233AAB6D0076CFF8 /* LaunchScreen.storyboard in Resources */,
 				D313F49F233AAB6D0076CFF8 /* Preview Assets.xcassets in Resources */,
 				5F2F313D2395972900FC28CB /* Assets.xcassets in Resources */,
+				5FACFF5423EC70A70022DF88 /* ServerGetTableViewCell.xib in Resources */,
 				5F034A322389B16D00D90DB7 /* Main.storyboard in Resources */,
 				D313F4B6233D1F090076CFF8 /* LessonTableViewCell.xib in Resources */,
 				5FC991EF23DF10BB00612266 /* ServerUpdateTableViewCell.xib in Resources */,
@@ -399,6 +422,7 @@
 				5F6A08062370A175000A9C79 /* kpiRozklad.xcdatamodeld in Sources */,
 				5FA2B79B2379F20C006C466B /* GroupChooserViewController.swift in Sources */,
 				D363E7AA233BB74B00573EB2 /* SheduleDetailViewController.swift in Sources */,
+				5FACFF5323EC70A70022DF88 /* ServerGetTableViewCell.swift in Sources */,
 				5FC991EE23DF10BB00612266 /* ServerUpdateTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -79,6 +79,10 @@ class SheduleViewController: UIViewController {
     /// Settings singleton
     var settings = Settings.shared
     
+    var notToUpdate: Bool = false
+    
+    var lessonsFromServer: [Lesson] = []
+    
     @IBOutlet weak var tableViewTopConstaint: NSLayoutConstraint!
     
     // MARK: - viewDidLoad
@@ -100,15 +104,14 @@ class SheduleViewController: UIViewController {
         /// Getting dayNumber and week of year from device Date()
         setupDate()
         
-        if settings.groupName != "" {
+        if settings.groupName != "" && !notToUpdate {
             /// setUpCurrentWeek (choosing week)
             setupCurrentWeek()
             
-            /// Fetching Core Data and make variable for tableView
-            makeLessonsShedule()
+//            /// Fetching Core Data and make variable for tableView
+//            makeLessonsShedule(lessonsInit: nil)
             
             /// scrollToCurrentOrNext()
-            scrollToCurrentOrNext()
         }
         
     }
@@ -122,12 +125,13 @@ class SheduleViewController: UIViewController {
         presentGroupChooser()
         
         /// Getting dayNumber and week of year from device Date()
-        setupDate()
-        
+//        setupDate()
         
         /// Choosing new Curent and next lesson
         if settings.groupName != "" {
-            makeLessonsShedule()
+            makeLessonsShedule(lessonsInit: nil)
+            
+            scrollToCurrentOrNext()
         }
         
         if  lessonsForTableView[0].value.count == 0 &&
@@ -152,7 +156,7 @@ class SheduleViewController: UIViewController {
         /// Reloading tableView if need
         if settings.isTryToReloadTableView {
             DispatchQueue.main.async {
-                self.makeLessonsShedule()
+                self.makeLessonsShedule(lessonsInit: nil)
                 
                 self.tableView.reloadData()
                 
@@ -195,11 +199,21 @@ class SheduleViewController: UIViewController {
     
     
     private func setupNavigation() {
-        self.navigationItem.leftBarButtonItem = self.editButtonItem
+        if !notToUpdate {
+            self.navigationItem.leftBarButtonItem = self.editButtonItem
+            
+            self.navigationController?.navigationBar.prefersLargeTitles = true
+            
+            self.navigationController?.navigationItem.largeTitleDisplayMode = .always
+        } else {
+            self.navigationController?.navigationBar.prefersLargeTitles = false
+
+            self.navigationController?.navigationItem.largeTitleDisplayMode = .never
+
+        }
+        
         self.navigationItem.title = settings.groupName.uppercased()
-        
-        
-        self.navigationController?.navigationBar.prefersLargeTitles = true
+
         
         self.navigationController?.navigationBar.isTranslucent = true
 
@@ -296,16 +310,23 @@ class SheduleViewController: UIViewController {
     /// Main function which fetch lessons from core data and remake `[Lesson]` to `[(key: DayName, value: [Lesson])]`
     /// - Note: call in `weekChanged()` and after getting data from `server()`
     /// - Remark: make shedule only for one week.
-    func makeLessonsShedule() {
+    func makeLessonsShedule(lessonsInit: [Lesson]?) {
         /// fetching Core Data
-        let lessons = fetchingCoreData()
+        var lessons: [Lesson] = []
         
-        /// ID of Current and Next
-        let currentAndNext = getCurrentAndNextLesson(lessons: lessons, timeIsNowString: timeIsNowString, dayNumberFromCurrentDate: dayNumberFromCurrentDate, currentWeekFromTodayDate: currentWeekFromTodayDate)
-        
-        currentLessonId = currentAndNext.currentLessonID
-        nextLessonId = currentAndNext.nextLessonID
-        
+        if !notToUpdate {
+            lessons = fetchingCoreData()
+            let currentAndNext = getCurrentAndNextLesson(lessons: lessons, timeIsNowString: timeIsNowString, dayNumberFromCurrentDate: dayNumberFromCurrentDate, currentWeekFromTodayDate: currentWeekFromTodayDate)
+            
+            currentLessonId = currentAndNext.currentLessonID
+            nextLessonId = currentAndNext.nextLessonID
+        } else {
+            lessons = lessonsFromServer
+            currentLessonId = "-1"
+            nextLessonId = "-1"
+        }
+
+
         /// Getting lesson for first week and second
         var lessonsFirst: [Lesson] = []
         var lessonsSecond: [Lesson] = []
@@ -435,11 +456,11 @@ class SheduleViewController: UIViewController {
         switch weekSwitch.selectedSegmentIndex {
             case 0:
                 currentWeek = 1
-                makeLessonsShedule()
+                makeLessonsShedule(lessonsInit: nil)
                 tableView.reloadData()
             case 1:
                 currentWeek = 2
-                makeLessonsShedule()
+                makeLessonsShedule(lessonsInit: nil)
                 tableView.reloadData()
             default:
                 break

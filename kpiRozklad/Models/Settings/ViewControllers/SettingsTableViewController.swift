@@ -11,15 +11,21 @@ import CoreData
 
 class SettingsTableViewController: UITableViewController {
 
+    var settings = Settings.shared
+    
+        
     override func viewDidLoad() {
         super.viewDidLoad()
         setupTableView()
-        server()
+        serverTimeUpdate()
     }
     
 
     private func setupTableView() {
         tableView.register(UINib(nibName: ServerUpdateTableViewCell.identifier, bundle: Bundle.main), forCellReuseIdentifier: ServerUpdateTableViewCell.identifier)
+        
+        tableView.register(UINib(nibName: ServerGetTableViewCell.identifier, bundle: Bundle.main), forCellReuseIdentifier: ServerGetTableViewCell.identifier)
+
         tableView.delegate = self
         tableView.dataSource = self
         tableView.backgroundColor = tint
@@ -42,7 +48,7 @@ class SettingsTableViewController: UITableViewController {
         if section == 0 {
             return 2
         } else if section == 1 {
-            return 1
+            return 2
         } else {
             return 0
         }
@@ -53,7 +59,11 @@ class SettingsTableViewController: UITableViewController {
         if indexPath.section == 0 {
             return 50
         } else if indexPath.section == 1 {
-            return 100
+            if indexPath.row == 0 {
+                return 100
+            } else {
+                return 50
+            }
         } else {
             return 50
         }
@@ -67,7 +77,9 @@ class SettingsTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         if section == 0 {
-            return screenHeight / 3.2
+            return screenHeight / 5
+//            return 150
+
         } else {
             return 5
         }
@@ -114,22 +126,26 @@ class SettingsTableViewController: UITableViewController {
                 cell.textLabel?.text = "Оновити розклад"
             } else if indexPath.row == 1 {
                 cell.textLabel?.text = "Вибрати групу"
-                cell.detailTextLabel?.text = Settings.shared.groupName.uppercased()
+                cell.detailTextLabel?.text = settings.groupName.uppercased()
             }
             return cell
 
         } else if indexPath.section == 1 {
+            cell.layer.cornerRadius = 0
 
             if indexPath.row == 0 {
                 guard let cell = tableView.dequeueReusableCell(withIdentifier: ServerUpdateTableViewCell.identifier, for: indexPath) as? ServerUpdateTableViewCell else { return UITableViewCell() }
-                cell.layer.cornerRadius = 0
-//                cell.separatorInset = .zero
-//                cell.accessoryType = .none
-//
+
                 cell.backgroundColor = colour
                 cell.tintColor = colour
 
-                cell.deviceSaveLabel.text = Settings.shared.sheduleUpdateTime
+                cell.deviceSaveLabel.text = settings.sheduleUpdateTime
+                return cell
+            } else if indexPath.row == 1 {
+                guard let cell = tableView.dequeueReusableCell(withIdentifier: ServerGetTableViewCell.identifier, for: indexPath) as? ServerGetTableViewCell else { return UITableViewCell() }
+                cell.accessoryType = .disclosureIndicator
+                cell.backgroundColor = colour
+                cell.activityIndicator.isHidden = true
                 return cell
             }
         }
@@ -148,7 +164,12 @@ class SettingsTableViewController: UITableViewController {
             }
         }
         if indexPath.section == 1 {
-             tableView.deselectRow(at: indexPath, animated: true)
+            if indexPath.row == 0 {
+                tableView.deselectRow(at: indexPath, animated: true)
+            } else if indexPath.row == 1 {
+                server()
+//                tableView.deselectRow(at: indexPath, animated: true)
+            }
         }
         tableView.deselectRow(at: indexPath, animated: true)
     }
@@ -160,7 +181,7 @@ class SettingsTableViewController: UITableViewController {
         let alert = UIAlertController(title: nil, message: "Чи бажаєте Ви оновити ваш розклад?\n Всі ваші редагування розкладу пропадуть!", preferredStyle: .actionSheet)
         alert.addAction(UIAlertAction(title: "Оновити", style: .destructive, handler: { (_) in
             
-            Settings.shared.isTryToRefreshShedule = true
+            self.settings.isTryToRefreshShedule = true
             deleteAllFromCoreData()
             
             let indexPath = IndexPath(row: 0, section: 1)
@@ -170,7 +191,7 @@ class SettingsTableViewController: UITableViewController {
             formatter.dateFormat = "dd.MM.yyyy"
 
             let time = formatter.string(from: date)
-            Settings.shared.sheduleUpdateTime = time
+            self.settings.sheduleUpdateTime = time
             
             if let cell = self.tableView.cellForRow(at: indexPath) as? ServerUpdateTableViewCell {
                 cell.deviceSaveLabel.text = time
@@ -197,8 +218,8 @@ class SettingsTableViewController: UITableViewController {
     func didPressChangeGroup() {
         let alert = UIAlertController(title: nil, message: "Чи бажаєте Ви змінити вашу групу?\n Всі ваші редагування розкладу пропадуть!", preferredStyle: .actionSheet)
         alert.addAction(UIAlertAction(title: "Змінити", style: .destructive, handler: { (_) in
-            Settings.shared.groupName = ""
-            Settings.shared.isTryToRefreshShedule = true
+            self.settings.groupName = ""
+            self.settings.isTryToRefreshShedule = true
             deleteAllFromCoreData()
             
             let indexPath = IndexPath(row: 0, section: 1)
@@ -208,7 +229,7 @@ class SettingsTableViewController: UITableViewController {
             formatter.dateFormat = "dd.MM.yyyy"
 
             let time = formatter.string(from: date)
-            Settings.shared.sheduleUpdateTime = time
+            self.settings.sheduleUpdateTime = time
             
             if let cell = self.tableView.cellForRow(at: indexPath) as? ServerUpdateTableViewCell {
                 cell.deviceSaveLabel.text = time
@@ -229,7 +250,9 @@ class SettingsTableViewController: UITableViewController {
         })
     }
     
-    func server() {
+    
+    
+    func serverTimeUpdate() {
         guard let url = URL(string: "https://rozklad.org.ua/?noredirect") else { return }
         
         print(url)
@@ -245,23 +268,12 @@ class SettingsTableViewController: UITableViewController {
 
                     let some = string.split(separator: ":")
                     
-//                    print("Останнє оновлення сервера:\(String(some[1]))")  // "ab\n"
                     let indexPath = IndexPath(row: 0, section: 1)
                     DispatchQueue.main.async {
-//                        self.tableView.cellForRow(at: indexPath)?.textLabel?.text = "Останнє оновлення сервера:\(String(some[1]))"
-//                        guard let cell = self.tableView.dequeueReusableCell(withIdentifier: ServerUpdateTableViewCell.identifier, for: indexPath) as? ServerUpdateTableViewCell else { return UITableViewCell() }
-//                        cell.accessoryType = .none
-//                        cell.layer.cornerRadius = 30
-
-//                        cell.serverUpdateLabel.text = String(some[1])
-//                        cell.deviceSaveLabel.text = "00.00.2000"
                         
                         if let cell = self.tableView.cellForRow(at: indexPath) as? ServerUpdateTableViewCell {
                             cell.serverUpdateLabel.text = String(some[1])
-//                            cell.deviceSaveLabel.text = "00.00.0000"
                         }
-                        
-//                        self.tableView.reloadData()
                     }
                 }
                 
@@ -272,5 +284,65 @@ class SettingsTableViewController: UITableViewController {
         }
         task.resume()
     }
+    
+    
+    func server() {
+        
+        guard let url = URL(string: "https://api.rozklad.org.ua/v2/groups/\(settings.groupID)/lessons") else { return }
+        
+        let indexPath = IndexPath(row: 1, section: 1)
+        
+        DispatchQueue.main.async {
+            if let cell = self.tableView.cellForRow(at: indexPath) as? ServerGetTableViewCell {
+                cell.activityIndicator.isHidden = false
+                cell.activityIndicator.startAnimating()
+            }
+        }
+        
+        let task = URLSession.shared.dataTask(with: url) {(data, response, error) in
+            guard let data = data else { return }
+            let decoder = JSONDecoder()
+
+            do {
+                
+                
+                DispatchQueue.main.async {
+                    guard let serverFULLDATA = try? decoder.decode(WelcomeLessons.self, from: data) else { return }
+                    
+                    if let cell = self.tableView.cellForRow(at: indexPath) as? ServerGetTableViewCell {
+                        cell.activityIndicator.isHidden = true
+                        cell.activityIndicator.stopAnimating()
+                    }
+
+                    let mainStoryboard = UIStoryboard(name: "Main", bundle: Bundle.main)
+                    guard let sheduleVC : SheduleViewController = mainStoryboard.instantiateViewController(withIdentifier: SheduleViewController.identifier) as? SheduleViewController else { return }
+                    
+//                    guard let sheduleNavigationVC : UINavigationController = mainStoryboard.instantiateViewController(withIdentifier: "SheduleNavigationVC") as? UINavigationController else { return }
+
+                    
+                    sheduleVC.currentWeek = 1
+                    
+                    
+//                    sheduleVC.makeLessonsShedule(lessonsInit: serverFULLDATA.data)
+                    sheduleVC.lessonsFromServer = serverFULLDATA.data
+                    sheduleVC.navigationController?.tabBarController?.editButtonItem.isEnabled = false
+                    sheduleVC.notToUpdate = true
+                    
+                    self.navigationController?.pushViewController(sheduleVC, animated: true)
+
+//                    let vc = UINavigationController(rootViewController: sheduleVC)
+
+                    
+//                    self.present(vc, animated: true, completion: {
+//
+//                    })
+                    
+                }
+
+            }
+        }
+        task.resume()
+    }
+    
 
 }

@@ -197,6 +197,6 @@ func updateCoreData(vc: SheduleViewController, datum:  [Lesson]) {
         }
         
         /// Fetching and updating `lessonsForTableView` and tableView
-        vc.makeLessonsShedule()
+        vc.makeLessonsShedule(lessonsInit: nil)
     }
 }

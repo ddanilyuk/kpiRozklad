@@ -59,12 +59,21 @@ class Settings {
     }
     
     
-    var updateAtOnceFirst: Bool {
+    var updateAtOnceFirst: String {
         get {
-            return userDefaults.bool(forKey: "updateAtOnceFirst")
+            return userDefaults.string(forKey: "updateAtOnceFirst") ?? ""
         }
         set {
             userDefaults.set(newValue, forKey: "updateAtOnceFirst")
+        }
+    }
+    
+    var updateAtOnce: String {
+        get {
+            return userDefaults.string(forKey: "updateAtOnce") ?? ""
+        }
+        set {
+            userDefaults.set(newValue, forKey: "updateAtOnce")
         }
     }
     

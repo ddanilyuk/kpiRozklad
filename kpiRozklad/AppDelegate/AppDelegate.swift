@@ -16,6 +16,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
     let notificationCenter = UNUserNotificationCenter.current()
+    private let settings = Settings.shared
 
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
@@ -29,17 +30,29 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //            }
 //        }
 //        Settings.shared.updateAtOnceFirst = false
-        if Settings.shared.sheduleUpdateTime == "" {
-            Settings.shared.isTryToRefreshShedule = true
+        print(settings.updateAtOnce)
+        if settings.sheduleUpdateTime == "" {
+            settings.isTryToRefreshShedule = true
             deleteAllFromCoreData()
-            Settings.shared.updateAtOnceFirst = true
+            
+            
             
             let date = Date()
             let formatter = DateFormatter()
             formatter.dateFormat = "dd.MM.yyyy"
 
             Settings.shared.sheduleUpdateTime = formatter.string(from: date)
+        } else if settings.updateAtOnce == "" {
+            settings.isTryToRefreshShedule = true
+            settings.updateAtOnce = "updated"
+            deleteAllFromCoreData()
+            
+            let mainStoryboard = UIStoryboard(name: "Main", bundle: Bundle.main)
+            if let sheduleVC : SheduleViewController = mainStoryboard.instantiateViewController(withIdentifier: SheduleViewController.identifier) as? SheduleViewController {
+                sheduleVC.server()
+            }
         }
+        
         
         
         let mainStoryboard = UIStoryboard(name: "Main", bundle: Bundle.main)
@@ -59,7 +72,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
          application to it. This property is optional since there are legitimate
          error conditions that could cause the creation of the store to fail.
         */
-        let container = NSPersistentContainer(name: "kpiRozklad")
+        let container = NSCustomPersistentContainer(name: "kpiRozklad")
         container.loadPersistentStores(completionHandler: { (storeDescription, error) in
             if let error = error as NSError? {
                 // Replace this implementation with code to handle the error appropriately.

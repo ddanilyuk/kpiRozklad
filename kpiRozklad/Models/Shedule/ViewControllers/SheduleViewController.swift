@@ -114,11 +114,26 @@ class SheduleViewController: UIViewController {
             /// scrollToCurrentOrNext()
         }
         
+        NotificationCenter.default.addObserver(self, selector:#selector(doSomething), name: UIApplication.willEnterForegroundNotification, object: nil)
+        
+//        NotificationCenter.default.addObserver(self, selector:#selector(doSomething), name: UIApplication.didBecomeActiveNotification, object: nil)
+
+        
+    }
+    
+    @objc func doSomething(){
+        let lessons = [Lesson]()
+        
+        makeLessonsShedule(lessonsInit: lessons)
+        
+        makeLessonsShedule(lessonsInit: nil)
     }
         
     
     // MARK: - viewWillAppear
     override func viewWillAppear(_ animated: Bool) {
+        
+        
         setupAtivityIndicator()
 
         /// presenting `GroupChooserViewController` if `settings.groupName == ""`
@@ -316,6 +331,7 @@ class SheduleViewController: UIViewController {
         
         if !notToUpdate {
             lessons = fetchingCoreData()
+            setupDate()
             let currentAndNext = getCurrentAndNextLesson(lessons: lessons, timeIsNowString: timeIsNowString, dayNumberFromCurrentDate: dayNumberFromCurrentDate, currentWeekFromTodayDate: currentWeekFromTodayDate)
             
             currentLessonId = currentAndNext.currentLessonID
@@ -324,6 +340,10 @@ class SheduleViewController: UIViewController {
             lessons = lessonsFromServer
             currentLessonId = "-1"
             nextLessonId = "-1"
+        }
+        
+        if lessonsInit != nil {
+            lessons = lessonsInit ?? []
         }
 
 

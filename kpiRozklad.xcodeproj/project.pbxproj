@@ -19,6 +19,13 @@
 		5FA2B79D2379F5A7006C466B /* Group.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FA2B79C2379F5A7006C466B /* Group.swift */; };
 		5FACFF5323EC70A70022DF88 /* ServerGetTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FACFF5123EC70A70022DF88 /* ServerGetTableViewCell.swift */; };
 		5FACFF5423EC70A70022DF88 /* ServerGetTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5FACFF5223EC70A70022DF88 /* ServerGetTableViewCell.xib */; };
+		5FACFF7E23ED63D40022DF88 /* NotificationCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FACFF7D23ED63D40022DF88 /* NotificationCenter.framework */; };
+		5FACFF8123ED63D40022DF88 /* TodayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FACFF8023ED63D40022DF88 /* TodayViewController.swift */; };
+		5FACFF8423ED63D40022DF88 /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5FACFF8223ED63D40022DF88 /* MainInterface.storyboard */; };
+		5FACFF8823ED63D40022DF88 /* Widget.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 5FACFF7B23ED63D40022DF88 /* Widget.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		5FACFF8F23ED64840022DF88 /* LessonTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D313F4B3233D1F090076CFF8 /* LessonTableViewCell.swift */; };
+		5FACFF9023ED648D0022DF88 /* LessonTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D313F4B4233D1F090076CFF8 /* LessonTableViewCell.xib */; };
+		5FACFF9123ED65020022DF88 /* UIViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F5000AE238D704A0003E13B /* UIViewExtension.swift */; };
 		5FC991EE23DF10BB00612266 /* ServerUpdateTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FC991EC23DF10BB00612266 /* ServerUpdateTableViewCell.swift */; };
 		5FC991EF23DF10BB00612266 /* ServerUpdateTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5FC991ED23DF10BB00612266 /* ServerUpdateTableViewCell.xib */; };
 		5FE048652392D16A00092422 /* EditingLessons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FE048642392D16A00092422 /* EditingLessons.swift */; };
@@ -41,6 +48,30 @@
 		D3FFAAE72352467F0065E9CE /* TeacherSheduleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3FFAAE62352467F0065E9CE /* TeacherSheduleViewController.swift */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		5FACFF8623ED63D40022DF88 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D313F48A233AAB6C0076CFF8 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 5FACFF7A23ED63D40022DF88;
+			remoteInfo = Widget;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		5FACFF8923ED63D40022DF88 /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				5FACFF8823ED63D40022DF88 /* Widget.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		5F034A352389B1F500D90DB7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		5F034A3E2389B2E600D90DB7 /* uk */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = uk; path = uk.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -55,6 +86,13 @@
 		5FA2B79C2379F5A7006C466B /* Group.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Group.swift; sourceTree = "<group>"; };
 		5FACFF5123EC70A70022DF88 /* ServerGetTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerGetTableViewCell.swift; sourceTree = "<group>"; };
 		5FACFF5223EC70A70022DF88 /* ServerGetTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ServerGetTableViewCell.xib; sourceTree = "<group>"; };
+		5FACFF7B23ED63D40022DF88 /* Widget.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = Widget.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		5FACFF7D23ED63D40022DF88 /* NotificationCenter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NotificationCenter.framework; path = System/Library/Frameworks/NotificationCenter.framework; sourceTree = SDKROOT; };
+		5FACFF8023ED63D40022DF88 /* TodayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayViewController.swift; sourceTree = "<group>"; };
+		5FACFF8323ED63D40022DF88 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
+		5FACFF8523ED63D40022DF88 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		5FACFF8D23ED63E20022DF88 /* Widget.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Widget.entitlements; sourceTree = "<group>"; };
+		5FACFF8E23ED63E90022DF88 /* KPI Rozklad.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "KPI Rozklad.entitlements"; sourceTree = "<group>"; };
 		5FC991EC23DF10BB00612266 /* ServerUpdateTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerUpdateTableViewCell.swift; sourceTree = "<group>"; };
 		5FC991ED23DF10BB00612266 /* ServerUpdateTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ServerUpdateTableViewCell.xib; sourceTree = "<group>"; };
 		5FE048642392D16A00092422 /* EditingLessons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditingLessons.swift; sourceTree = "<group>"; };
@@ -80,6 +118,14 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		5FACFF7823ED63D40022DF88 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5FACFF7E23ED63D40022DF88 /* NotificationCenter.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		D313F48F233AAB6C0076CFF8 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -108,6 +154,25 @@
 			path = ServerGetTableViewCell;
 			sourceTree = "<group>";
 		};
+		5FACFF7C23ED63D40022DF88 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				5FACFF7D23ED63D40022DF88 /* NotificationCenter.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		5FACFF7F23ED63D40022DF88 /* Widget */ = {
+			isa = PBXGroup;
+			children = (
+				5FACFF8D23ED63E20022DF88 /* Widget.entitlements */,
+				5FACFF8023ED63D40022DF88 /* TodayViewController.swift */,
+				5FACFF8223ED63D40022DF88 /* MainInterface.storyboard */,
+				5FACFF8523ED63D40022DF88 /* Info.plist */,
+			);
+			path = Widget;
+			sourceTree = "<group>";
+		};
 		5FE0486E23930D0700092422 /* Structs */ = {
 			isa = PBXGroup;
 			children = (
@@ -124,6 +189,8 @@
 			children = (
 				D38DEB43233A250F00BB0075 /* README.md */,
 				D313F494233AAB6C0076CFF8 /* kpiRozklad */,
+				5FACFF7F23ED63D40022DF88 /* Widget */,
+				5FACFF7C23ED63D40022DF88 /* Frameworks */,
 				D313F493233AAB6C0076CFF8 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -132,6 +199,7 @@
 			isa = PBXGroup;
 			children = (
 				D313F492233AAB6C0076CFF8 /* KPI Rozklad.app */,
+				5FACFF7B23ED63D40022DF88 /* Widget.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -139,6 +207,7 @@
 		D313F494233AAB6C0076CFF8 /* kpiRozklad */ = {
 			isa = PBXGroup;
 			children = (
+				5FACFF8E23ED63E90022DF88 /* KPI Rozklad.entitlements */,
 				D3FFAAD5234F793B0065E9CE /* AppDelegate */,
 				D3FFAAD6234F79630065E9CE /* Models */,
 				D3FFAAE123521BA40065E9CE /* Common */,
@@ -326,6 +395,23 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		5FACFF7A23ED63D40022DF88 /* Widget */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 5FACFF8C23ED63D40022DF88 /* Build configuration list for PBXNativeTarget "Widget" */;
+			buildPhases = (
+				5FACFF7723ED63D40022DF88 /* Sources */,
+				5FACFF7823ED63D40022DF88 /* Frameworks */,
+				5FACFF7923ED63D40022DF88 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Widget;
+			productName = Widget;
+			productReference = 5FACFF7B23ED63D40022DF88 /* Widget.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 		D313F491233AAB6C0076CFF8 /* kpiRozklad */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = D313F4A6233AAB6D0076CFF8 /* Build configuration list for PBXNativeTarget "kpiRozklad" */;
@@ -333,10 +419,12 @@
 				D313F48E233AAB6C0076CFF8 /* Sources */,
 				D313F48F233AAB6C0076CFF8 /* Frameworks */,
 				D313F490233AAB6C0076CFF8 /* Resources */,
+				5FACFF8923ED63D40022DF88 /* Embed App Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				5FACFF8723ED63D40022DF88 /* PBXTargetDependency */,
 			);
 			name = kpiRozklad;
 			productName = kpiRozklad;
@@ -349,10 +437,13 @@
 		D313F48A233AAB6C0076CFF8 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 1100;
+				LastSwiftUpdateCheck = 1130;
 				LastUpgradeCheck = 1100;
 				ORGANIZATIONNAME = "Denis Danilyuk";
 				TargetAttributes = {
+					5FACFF7A23ED63D40022DF88 = {
+						CreatedOnToolsVersion = 11.3.1;
+					};
 					D313F491233AAB6C0076CFF8 = {
 						CreatedOnToolsVersion = 11.0;
 					};
@@ -373,11 +464,21 @@
 			projectRoot = "";
 			targets = (
 				D313F491233AAB6C0076CFF8 /* kpiRozklad */,
+				5FACFF7A23ED63D40022DF88 /* Widget */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		5FACFF7923ED63D40022DF88 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5FACFF8423ED63D40022DF88 /* MainInterface.storyboard in Resources */,
+				5FACFF9023ED648D0022DF88 /* LessonTableViewCell.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		D313F490233AAB6C0076CFF8 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -395,6 +496,16 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		5FACFF7723ED63D40022DF88 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5FACFF9123ED65020022DF88 /* UIViewExtension.swift in Sources */,
+				5FACFF8123ED63D40022DF88 /* TodayViewController.swift in Sources */,
+				5FACFF8F23ED64840022DF88 /* LessonTableViewCell.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		D313F48E233AAB6C0076CFF8 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -429,6 +540,14 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		5FACFF8723ED63D40022DF88 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 5FACFF7A23ED63D40022DF88 /* Widget */;
+			targetProxy = 5FACFF8623ED63D40022DF88 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin PBXVariantGroup section */
 		5F034A342389B16D00D90DB7 /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
@@ -436,6 +555,14 @@
 				5F034A3E2389B2E600D90DB7 /* uk */,
 			);
 			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		5FACFF8223ED63D40022DF88 /* MainInterface.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				5FACFF8323ED63D40022DF88 /* Base */,
+			);
+			name = MainInterface.storyboard;
 			sourceTree = "<group>";
 		};
 		D313F4A0233AAB6D0076CFF8 /* LaunchScreen.storyboard */ = {
@@ -449,6 +576,48 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		5FACFF8A23ED63D40022DF88 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = Widget/Widget.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = M92VXVU7J9;
+				INFOPLIST_FILE = Widget/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = ddanilyuk.kpiRozklad.Widget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		5FACFF8B23ED63D40022DF88 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = Widget/Widget.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = M92VXVU7J9;
+				INFOPLIST_FILE = Widget/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = ddanilyuk.kpiRozklad.Widget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 		D313F4A4233AAB6D0076CFF8 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -568,7 +737,9 @@
 		D313F4A7233AAB6D0076CFF8 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = "kpiRozklad/KPI Rozklad.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"kpiRozklad/Resoursces/Preview Content\"";
@@ -591,7 +762,9 @@
 		D313F4A8233AAB6D0076CFF8 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = "kpiRozklad/KPI Rozklad.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"kpiRozklad/Resoursces/Preview Content\"";
@@ -614,6 +787,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		5FACFF8C23ED63D40022DF88 /* Build configuration list for PBXNativeTarget "Widget" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5FACFF8A23ED63D40022DF88 /* Debug */,
+				5FACFF8B23ED63D40022DF88 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		D313F48D233AAB6C0076CFF8 /* Build configuration list for PBXProject "kpiRozklad" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

@@ -653,8 +653,8 @@ extension SheduleViewController: UITableViewDelegate, UITableViewDataSource {
         cell.startLabel.text = timeStart
         cell.endLabel.text = timeEnd
         cell.roomLabel.text = lessonsForSomeDay[indexPath.row].lessonType.rawValue + " " + lessonsForSomeDay[indexPath.row].lessonRoom
+        cell.timeLeftLabel.text = ""
         
-
         return cell
     }
     

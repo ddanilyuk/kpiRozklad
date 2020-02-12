@@ -23,7 +23,7 @@ class TodayViewController: UIViewController, NCWidgetProviding {
             Changed   in `weekChanged()`
             Set  up in `setUpCurrentWeek()`
      */
-    var currentWeek = 1
+//    var currentWeek = 1
     
     /// Week of year from date on the device
     var weekOfYear = 0
@@ -46,6 +46,10 @@ class TodayViewController: UIViewController, NCWidgetProviding {
     
     /// Colour of next lesson
     let colour1 = #colorLiteral(red: 0.1764705926, green: 0.4980392158, blue: 0.7568627596, alpha: 0.748046875)
+    
+    var countDeleteLessons = 0
+    
+    var isLessonsEnd: Bool = false
 
     
     override func viewDidLoad() {
@@ -57,13 +61,17 @@ class TodayViewController: UIViewController, NCWidgetProviding {
 
         makeLessonsShedule(lessonsInit: nil)
         
-        
+        setupHeight()
 
+        
+    }
+        
+    func setupHeight() {
         let height = lessonsForTableView[dayNumberFromCurrentDate - 1].value.count * 68
         
         self.preferredContentSize = CGSize(width: self.view.frame.size.width, height: CGFloat(height))
     }
-        
+    
     func widgetPerformUpdate(completionHandler: (@escaping (NCUpdateResult) -> Void)) {
         // Perform any setup necessary in order to update the view.
         
@@ -79,7 +87,7 @@ class TodayViewController: UIViewController, NCWidgetProviding {
     
     func widgetActiveDisplayModeDidChange(_ activeDisplayMode: NCWidgetDisplayMode, withMaximumSize maxSize: CGSize) {
         if activeDisplayMode == .compact {
-            self.preferredContentSize = maxSize
+            self.preferredContentSize = CGSize(width: maxSize.width, height: maxSize.height)
         } else if activeDisplayMode == .expanded {
             let height = lessonsForTableView[dayNumberFromCurrentDate - 1].value.count * 68
             self.preferredContentSize = CGSize(width: maxSize.width, height: CGFloat(height))
@@ -248,8 +256,7 @@ class TodayViewController: UIViewController, NCWidgetProviding {
         /// fetching Core Data
         var lessons: [Lesson] = []
         lessons = fetchingCoreData()
-        let currentWeek = 2
-        
+        setupDate()
         let currentAndNext = getCurrentAndNextLesson(lessons: lessons, timeIsNowString: timeIsNowString, dayNumberFromCurrentDate: dayNumberFromCurrentDate, currentWeekFromTodayDate: currentWeekFromTodayDate)
         
         currentLessonId = currentAndNext.currentLessonID
@@ -269,7 +276,7 @@ class TodayViewController: UIViewController, NCWidgetProviding {
         }
         
         /// Choosing lesson from currnetWeek
-        let currentLessonWeek = currentWeek == 1 ? lessonsFirst : lessonsSecond
+        let currentLessonWeek = currentWeekFromTodayDate == 1 ? lessonsFirst : lessonsSecond
         
         var lessonMounday: [Lesson] = []
         var lessonTuesday: [Lesson] = []
@@ -351,14 +358,38 @@ extension TodayViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if dayNumberFromCurrentDate == 7 {
             return 0
+        } else if isLessonsEnd {
+            return 1
+        } else {
+            return self.lessonsForTableView[dayNumberFromCurrentDate - 1].value.count - countDeleteLessons
         }
-        return self.lessonsForTableView[dayNumberFromCurrentDate - 1].value.count
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+//        let url: URL? = URL(string: "kpiRozklad:")!
+//
+//        if let appurl = url {
+//            self.extensionContext!.open(appurl,
+//                completionHandler: nil)
+//        }
+        tableView.deselectRow(at: indexPath, animated: true)
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: LessonTableViewCell.identifier, for: indexPath) as? LessonTableViewCell else { return UITableViewCell() }
         
         let lessonsForSomeDay = lessonsForTableView[dayNumberFromCurrentDate - 1].value
+        
+        if isLessonsEnd {
+            cell.lessonLabel.text = "На сьогодні все."
+            cell.teacherLabel.text = ""
+            cell.timeLeftLabel.text = ""
+            cell.endLabel.text = ""
+            cell.startLabel.text = ""
+            cell.roomLabel.text = ""
+            return cell
+        }
+        
         
         cell.lessonLabel.text = lessonsForSomeDay[indexPath.row].lessonName
         cell.teacherLabel.text = lessonsForSomeDay[indexPath.row].teacherName
@@ -379,9 +410,99 @@ extension TodayViewController: UITableViewDataSource, UITableViewDelegate {
         
         let timeEnd = String(lessonsForSomeDay[indexPath.row].timeEnd[..<5])
         
+        
+        let formatter = DateFormatter()
+        formatter.dateFormat = "HH:mm"
+        
+        let formatter1 = DateFormatter()
+        formatter1.dateFormat = "HH"
+        
+        let formatter2 = DateFormatter()
+        formatter2.dateFormat = "mm"
+        
+        let currentDate = Date()
+        let dateStart = formatter.date(from: timeStart) ?? Date()
+        let dateEnd = formatter.date(from: timeEnd) ?? Date()
+
+
+        let nowH = formatter1.string(from: currentDate)
+        let nowM = formatter2.string(from: currentDate)
+        
+        let startH = formatter1.string(from: dateStart)
+        let startM = formatter2.string(from: dateStart)
+        
+        var leftH = (Int(startH) ?? 0) - (Int(nowH) ?? 0)
+        var leftM = (Int(startM) ?? 0) - (Int(nowM) ?? 0)
+        
+        if leftM < 0 && leftH >= 1 {
+            leftH -= 1
+            leftM = 60 + leftM
+        }
+        
+        if leftH < 0 || leftM < 0 {
+            leftH = 0
+            leftM = 0
+        }
+
+        var dateString = ""
+        
+        if leftH == 0 && leftM == 0 {
+            let endH = formatter1.string(from: dateEnd)
+            let endM = formatter2.string(from: dateEnd)
+            
+            leftH = (Int(endH) ?? 0) - (Int(nowH) ?? 0)
+            leftM = (Int(endM) ?? 0) - (Int(nowM) ?? 0)
+            
+            if leftM < 0 && leftH >= 1 {
+                leftH -= 1
+                leftM = 60 + leftM
+            }
+            if leftH < 0 || leftM < 0 {
+//                countDeleteLessons += 1
+                dateString = " "
+                lessonsForTableView[dayNumberFromCurrentDate - 1].value.removeFirst()
+                if lessonsForTableView[dayNumberFromCurrentDate - 1].value.count == 0 {
+                    isLessonsEnd = true
+                    cell.lessonLabel.text = "На сьогодні все"
+                    cell.timeLeftLabel.text = ""
+                    cell.endLabel.text = ""
+                    cell.startLabel.text = ""
+                    cell.roomLabel.text = ""
+                }
+                setupHeight()
+                tableView.reloadData()
+                return cell
+            } else {
+                
+                if leftH == 0 {
+                    dateString = "залишилось \(leftM) хв"
+                } else if leftM == 0 {
+                    dateString = "залишилось \(leftH) год"
+                } else {
+                    dateString = "залишилось \(leftH) год, \(leftM) хв"
+                }
+                
+            }
+        } else {
+            if leftH == 0 {
+                dateString = "через \(leftM) хв"
+            } else if leftM == 0 {
+                dateString = "через \(leftH) год"
+            } else {
+                dateString = "через \(leftH) год, \(leftM) хв"
+            }
+            
+        }
+        
+        
+        
         cell.startLabel.text = timeStart
         cell.endLabel.text = timeEnd
         cell.roomLabel.text = lessonsForSomeDay[indexPath.row].lessonType.rawValue + " " + lessonsForSomeDay[indexPath.row].lessonRoom
+        
+        cell.timeLeftLabel.text = dateString
+        
+        
         
         return cell
     }

@@ -393,7 +393,7 @@ extension TeacherSheduleViewController: UITableViewDelegate, UITableViewDataSour
         cell.startLabel.text = substringTimeStart
         cell.endLabel.text = substringTimeEnd
         cell.roomLabel.text = lessonsForSomeDay[indexPath.row].lessonType.rawValue + " " + lessonsForSomeDay[indexPath.row].lessonRoom
-        
+        cell.timeLeftLabel.text = ""
         return cell
     }
 }

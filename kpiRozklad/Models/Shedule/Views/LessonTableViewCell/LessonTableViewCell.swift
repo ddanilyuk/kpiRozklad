@@ -15,6 +15,7 @@ class LessonTableViewCell: UITableViewCell {
     @IBOutlet weak var lessonLabel: UILabel!
     @IBOutlet weak var teacherLabel: UILabel!
     @IBOutlet weak var roomLabel: UILabel!
+    @IBOutlet weak var timeLeftLabel: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()

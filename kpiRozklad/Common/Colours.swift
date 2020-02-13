@@ -22,7 +22,7 @@ public var tint: UIColor = {
         }
     } else {
         /// Return a fallback color for iOS 12 and lower.
-        return UIColor.lightGray
+        return UIColor(red: 242/255, green: 242/255, blue: 247/255, alpha: 1)
     }
 }()
 

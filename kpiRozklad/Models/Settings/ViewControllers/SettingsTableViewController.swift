@@ -20,6 +20,12 @@ class SettingsTableViewController: UITableViewController {
         serverTimeUpdate()
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        self.navigationController?.navigationBar.prefersLargeTitles = true
+        self.navigationItem.largeTitleDisplayMode = .always
+        self.navigationController?.navigationBar.backgroundColor = tint
+    }
+    
 
     private func setupTableView() {
         tableView.register(UINib(nibName: ServerUpdateTableViewCell.identifier, bundle: Bundle.main), forCellReuseIdentifier: ServerUpdateTableViewCell.identifier)
@@ -29,6 +35,8 @@ class SettingsTableViewController: UITableViewController {
         tableView.delegate = self
         tableView.dataSource = self
         tableView.backgroundColor = tint
+        tableView.tintColor = .blue
+        
     }
 
     
@@ -36,13 +44,11 @@ class SettingsTableViewController: UITableViewController {
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 2
     }
-    
-    
+
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         return ""
     }
 
-    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
         if section == 0 {
@@ -53,7 +59,6 @@ class SettingsTableViewController: UITableViewController {
             return 0
         }
     }
-    
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if indexPath.section == 0 {
@@ -69,35 +74,27 @@ class SettingsTableViewController: UITableViewController {
         }
     }
     
-    
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 10
     }
 
-    
     override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         if section == 0 {
             return screenHeight / 5
-//            return 150
-
         } else {
             return 5
         }
     }
 
-    
     override func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
         let view = UIView()
-        view.backgroundColor = .clear
-        
-        
+        view.backgroundColor = tint
         return view
     }
     
-    
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let view = UIView()
-        view.backgroundColor = .clear
+        view.backgroundColor = tint
         return view
     }
 
@@ -111,17 +108,17 @@ class SettingsTableViewController: UITableViewController {
             colour = .secondarySystemGroupedBackground
         } else {
             /// Return a fallback color for iOS 12 and lower.
-            colour = UIColor.lightGray
+            colour = UIColor.white
         }
         
+        cell.layer.cornerRadius = 0
+        cell.backgroundColor = colour
+
 
         if indexPath.section == 0 {
-            cell.layer.cornerRadius = 0
             cell.separatorInset = .zero
             cell.accessoryType = .disclosureIndicator
-            cell.backgroundColor = colour
 
-            
             if indexPath.row == 0 {
                 cell.textLabel?.text = "Оновити розклад"
             } else if indexPath.row == 1 {
@@ -131,26 +128,25 @@ class SettingsTableViewController: UITableViewController {
             return cell
 
         } else if indexPath.section == 1 {
-            cell.layer.cornerRadius = 0
 
             if indexPath.row == 0 {
                 guard let cell = tableView.dequeueReusableCell(withIdentifier: ServerUpdateTableViewCell.identifier, for: indexPath) as? ServerUpdateTableViewCell else { return UITableViewCell() }
 
-                cell.backgroundColor = colour
                 cell.tintColor = colour
-
+                cell.backgroundColor = colour
                 cell.deviceSaveLabel.text = settings.sheduleUpdateTime
+                
                 return cell
             } else if indexPath.row == 1 {
                 guard let cell = tableView.dequeueReusableCell(withIdentifier: ServerGetTableViewCell.identifier, for: indexPath) as? ServerGetTableViewCell else { return UITableViewCell() }
-                cell.accessoryType = .disclosureIndicator
+                
                 cell.backgroundColor = colour
+                cell.accessoryType = .disclosureIndicator
                 cell.activityIndicator.isHidden = true
+                
                 return cell
             }
         }
-        
-        
         return cell
     }
     
@@ -162,13 +158,11 @@ class SettingsTableViewController: UITableViewController {
             } else if indexPath.row == 1 {
                 didPressChangeGroup()
             }
-        }
-        if indexPath.section == 1 {
+        } else if indexPath.section == 1 {
             if indexPath.row == 0 {
                 tableView.deselectRow(at: indexPath, animated: true)
             } else if indexPath.row == 1 {
-                server()
-//                tableView.deselectRow(at: indexPath, animated: true)
+                serverGetFreshShedule()
             }
         }
         tableView.deselectRow(at: indexPath, animated: true)
@@ -201,7 +195,7 @@ class SettingsTableViewController: UITableViewController {
             let mainStoryboard = UIStoryboard(name: "Main", bundle: Bundle.main)
             let appDelegate = UIApplication.shared.delegate as? AppDelegate
             guard let window = appDelegate?.window else { return }
-            
+
             guard let mainTabBar : UITabBarController = mainStoryboard.instantiateViewController(withIdentifier: "Main") as? UITabBarController else { return }
 
             window.rootViewController = mainTabBar
@@ -286,16 +280,15 @@ class SettingsTableViewController: UITableViewController {
     }
     
     
-    func server() {
-        
+    func serverGetFreshShedule() {
         guard let url = URL(string: "https://api.rozklad.org.ua/v2/groups/\(settings.groupID)/lessons") else { return }
-        
         let indexPath = IndexPath(row: 1, section: 1)
         
         DispatchQueue.main.async {
             if let cell = self.tableView.cellForRow(at: indexPath) as? ServerGetTableViewCell {
                 cell.activityIndicator.isHidden = false
                 cell.activityIndicator.startAnimating()
+                self.navigationController?.navigationBar.prefersLargeTitles = false
             }
         }
         
@@ -304,8 +297,6 @@ class SettingsTableViewController: UITableViewController {
             let decoder = JSONDecoder()
 
             do {
-                
-                
                 DispatchQueue.main.async {
                     guard let serverFULLDATA = try? decoder.decode(WelcomeLessons.self, from: data) else { return }
                     
@@ -316,33 +307,19 @@ class SettingsTableViewController: UITableViewController {
 
                     let mainStoryboard = UIStoryboard(name: "Main", bundle: Bundle.main)
                     guard let sheduleVC : SheduleViewController = mainStoryboard.instantiateViewController(withIdentifier: SheduleViewController.identifier) as? SheduleViewController else { return }
-                    
-//                    guard let sheduleNavigationVC : UINavigationController = mainStoryboard.instantiateViewController(withIdentifier: "SheduleNavigationVC") as? UINavigationController else { return }
-
-                    
-                    sheduleVC.currentWeek = 1
-                    
-                    
-//                    sheduleVC.makeLessonsShedule(lessonsInit: serverFULLDATA.data)
-                    sheduleVC.lessonsFromServer = serverFULLDATA.data
-                    sheduleVC.navigationController?.tabBarController?.editButtonItem.isEnabled = false
+                                        
                     sheduleVC.notToUpdate = true
+                    sheduleVC.currentWeek = 1
+                    sheduleVC.lessonsFromServer = serverFULLDATA.data
+                    
+                    sheduleVC.navigationController?.navigationItem.largeTitleDisplayMode = .never
+                    sheduleVC.navigationController?.navigationBar.prefersLargeTitles = false
+                    sheduleVC.navigationItem.largeTitleDisplayMode = .never
                     
                     self.navigationController?.pushViewController(sheduleVC, animated: true)
-
-//                    let vc = UINavigationController(rootViewController: sheduleVC)
-
-                    
-//                    self.present(vc, animated: true, completion: {
-//
-//                    })
-                    
                 }
-
             }
         }
         task.resume()
     }
-    
-
 }

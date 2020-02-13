@@ -34,8 +34,6 @@ class SheduleDetailViewController: UIViewController {
     @IBOutlet weak var stackView: UIStackView!
     
     
-
-    
     // MARK: - viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -102,7 +100,7 @@ class SheduleDetailViewController: UIViewController {
         var lessons: [Lesson] = []
         
         guard var url = URL(string: "https://api.rozklad.org.ua/v2/teachers/") else { return }
-        url.appendPathComponent(teacherID )
+        url.appendPathComponent(teacherID)
         url.appendPathComponent("/lessons")
         print(url)
         let task = URLSession.shared.dataTask(with: url) {(data, response, error) in

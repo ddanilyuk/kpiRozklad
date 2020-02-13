@@ -79,6 +79,8 @@ class AddLessonViewController: UIViewController {
         setupPickers()
         
         setupDefaultValues()
+        
+        setupNavigation()
     }
 
     
@@ -90,6 +92,11 @@ class AddLessonViewController: UIViewController {
         lessonType = arrayTypePairs[0]
     }
     
+    private func setupNavigation() {
+        self.navigationItem.title = "Додати пару"
+        self.navigationController?.navigationItem.largeTitleDisplayMode = .never
+        self.navigationController?.navigationBar.prefersLargeTitles = false
+    }
     
     private func setupPickers() {
         lessonPickerView.delegate = self

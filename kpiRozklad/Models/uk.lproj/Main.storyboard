@@ -2,6 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="nab-GF-eXo">
     <device id="retina5_9" orientation="portrait" appearance="dark"/>
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -72,23 +73,23 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="-52" translatesAutoresizingMaskIntoConstraints="NO" id="KU3-9L-IEd">
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="-25" translatesAutoresizingMaskIntoConstraints="NO" id="KU3-9L-IEd">
                                 <rect key="frame" x="0.0" y="74" width="375" height="704"/>
                                 <subviews>
                                     <pickerView contentMode="scaleAspectFit" verticalHuggingPriority="249" translatesAutoresizingMaskIntoConstraints="NO" id="qAa-zj-FAq">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="215"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="194.66666666666666"/>
                                     </pickerView>
                                     <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Cfg-uJ-NYL">
-                                        <rect key="frame" x="0.0" y="163" width="375" height="215"/>
+                                        <rect key="frame" x="0.0" y="169.66666666666663" width="375" height="195"/>
                                     </pickerView>
                                     <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lUU-dI-Ity">
-                                        <rect key="frame" x="0.0" y="326" width="375" height="215"/>
+                                        <rect key="frame" x="0.0" y="339.66666666666669" width="375" height="194.66666666666669"/>
                                     </pickerView>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BfK-Lh-bTB">
-                                        <rect key="frame" x="0.0" y="489" width="375" height="215"/>
+                                        <rect key="frame" x="0.0" y="509.33333333333343" width="375" height="194.66666666666669"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LRj-yV-DA1">
-                                                <rect key="frame" x="32.666666666666657" y="82.666666666666629" width="310" height="50"/>
+                                                <rect key="frame" x="32.666666666666657" y="72.333333333333258" width="310" height="50"/>
                                                 <color key="backgroundColor" systemColor="linkColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="310" id="FsW-9I-3SQ"/>
@@ -117,7 +118,42 @@
                                             <constraint firstItem="LRj-yV-DA1" firstAttribute="centerX" secondItem="BfK-Lh-bTB" secondAttribute="centerX" id="dhZ-Qb-DWr"/>
                                         </constraints>
                                     </view>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ioj-Et-szQ">
+                                        <rect key="frame" x="0.0" y="521.66666666666663" width="375" height="182.33333333333337"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="p6g-fE-maM">
+                                                <rect key="frame" x="32.666666666666657" y="66" width="310" height="50"/>
+                                                <color key="backgroundColor" systemColor="systemRedColor" red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="50" id="PiR-uu-s5n"/>
+                                                    <constraint firstAttribute="width" constant="310" id="x2f-Bc-QuT"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" type="system" pointSize="19"/>
+                                                <state key="normal" title="Назад">
+                                                    <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                </state>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                        <color key="value" systemColor="linkColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                        <real key="value" value="25"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                            </button>
+                                        </subviews>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                        <constraints>
+                                            <constraint firstItem="p6g-fE-maM" firstAttribute="centerX" secondItem="ioj-Et-szQ" secondAttribute="centerX" id="ZvV-Ae-YtC"/>
+                                            <constraint firstItem="p6g-fE-maM" firstAttribute="centerY" secondItem="ioj-Et-szQ" secondAttribute="centerY" id="rMe-nB-3t9"/>
+                                        </constraints>
+                                    </view>
                                 </subviews>
+                                <variation key="default">
+                                    <mask key="subviews">
+                                        <exclude reference="ioj-Et-szQ"/>
+                                    </mask>
+                                </variation>
                             </stackView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
@@ -144,7 +180,7 @@
         <scene sceneID="R5c-ao-yeO">
             <objects>
                 <navigationController storyboardIdentifier="SheduleNavigationVC" id="RNu-Ik-QQg" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Розклад" image="rectangle.grid.1x2" catalog="system" id="8Be-PC-7G9"/>
+                    <tabBarItem key="tabBarItem" title="Розклад" image="icons8-index-90" id="8Be-PC-7G9"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translucent="NO" id="uN9-z4-vS1">
                         <rect key="frame" x="0.0" y="44" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -217,7 +253,7 @@
         <scene sceneID="UTN-su-Qgb">
             <objects>
                 <navigationController id="KXC-1K-S0d" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Викладачі" image="person" catalog="system" id="mOh-4a-EI2"/>
+                    <tabBarItem key="tabBarItem" title="Викладачі" image="icons8-teacher-90" id="mOh-4a-EI2"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="TWW-Se-E3A">
                         <rect key="frame" x="0.0" y="44" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -261,7 +297,7 @@
                             </mask>
                         </variation>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Преподаватели" image="person" catalog="system" id="Yrj-YQ-4gU"/>
+                    <tabBarItem key="tabBarItem" title="Преподаватели" id="Yrj-YQ-4gU"/>
                     <navigationItem key="navigationItem" title="Викладачі" id="TEz-7E-uSY">
                         <barButtonItem key="rightBarButtonItem" style="plain" id="2Tw-jJ-Ixu">
                             <segmentedControl key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bordered" selectedSegmentIndex="0" id="bXl-wA-VMP">
@@ -312,7 +348,7 @@
         <scene sceneID="BEv-i4-Jna">
             <objects>
                 <navigationController id="Up2-P3-oV8" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Налаштування" image="circle.grid.hex" catalog="system" id="eGl-iV-sjK"/>
+                    <tabBarItem key="tabBarItem" title="Налаштування" image="icons8-settings-90" id="eGl-iV-sjK"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" largeTitles="YES" id="FTi-ic-b3N">
                         <rect key="frame" x="0.0" y="44" width="375" height="96"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -419,7 +455,7 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Викладач невідомий" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OeH-tc-sYc">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Викладач невідомий" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OeH-tc-sYc">
                                         <rect key="frame" x="0.0" y="79" width="359" height="88.666666666666686"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
@@ -460,7 +496,7 @@
                                             </label>
                                         </subviews>
                                     </stackView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Групи:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ew4-56-aNU">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Групи:" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ew4-56-aNU">
                                         <rect key="frame" x="0.0" y="473.33333333333343" width="359" height="88.666666666666686"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
@@ -536,15 +572,15 @@
             <objects>
                 <viewController storyboardIdentifier="TeacherSheduleViewController" id="StT-wO-RBg" customClass="TeacherSheduleViewController" customModule="KPI_Rozklad" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="sT5-E5-eIb">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="724"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="6uy-Lx-1YN" customClass="Teac">
-                                <rect key="frame" x="0.0" y="88" width="375" height="641"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="641"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                             </tableView>
                             <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="aXm-Uf-t5P">
-                                <rect key="frame" x="0.0" y="390" width="375" height="37"/>
+                                <rect key="frame" x="0.0" y="302" width="375" height="37"/>
                             </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
@@ -590,10 +626,11 @@
     </scenes>
     <resources>
         <image name="circle.grid.hex" catalog="system" width="64" height="56"/>
-        <image name="person" catalog="system" width="64" height="58"/>
-        <image name="rectangle.grid.1x2" catalog="system" width="64" height="50"/>
+        <image name="icons8-index-90" width="30" height="30"/>
+        <image name="icons8-settings-90" width="30" height="30"/>
+        <image name="icons8-teacher-90" width="30" height="30"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="5QF-Tv-CiU"/>
+        <segue reference="eOz-94-s6B"/>
     </inferredMetricsTieBreakers>
 </document>

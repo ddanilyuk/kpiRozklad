@@ -20,23 +20,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
 
-//        let options: UNAuthorizationOptions = [.alert, .sound, .badge]
-//        notificationCenter.requestAuthorization(options: options) {
-//            (didAllow, error) in
-//            if !didAllow {
-//                print("User has declined notifications")
-//            }
-//        }
-//        Settings.shared.updateAtOnceFirst = false
-        print(settings.updateAtOnce)
         if settings.sheduleUpdateTime == "" {
             settings.isTryToRefreshShedule = true
             deleteAllFromCoreData()
-            
-            
-            
+ 
             let date = Date()
             let formatter = DateFormatter()
             formatter.dateFormat = "dd.MM.yyyy"
@@ -54,17 +42,55 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         
         
-        
         let mainStoryboard = UIStoryboard(name: "Main", bundle: Bundle.main)
         let mainVC = mainStoryboard.instantiateInitialViewController()
         window?.rootViewController = mainVC
         
         return true
     }
+    
+    
+    func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
+          
+        let needID = url.host?.removingPercentEncoding
+        
+        let mainStoryboard = UIStoryboard(name: "Main", bundle: Bundle.main)
+        guard let sheduleVC : SheduleViewController = mainStoryboard.instantiateViewController(withIdentifier: SheduleViewController.identifier) as? SheduleViewController else { return false }
+        
+        for i in 1..<3 {
+            sheduleVC.currentWeek = i
+            sheduleVC.isNeedToScroll = false
+            sheduleVC.makeLessonsShedule(lessonsInit: nil)
+            let lessonsForTableView = sheduleVC.lessonsForTableView
+            for day in lessonsForTableView {
+                let lessons = day.value
+                for lesson in lessons {
+                    if lesson.lessonID == needID {
+                        
+                        guard let sheduleDetailVC : SheduleDetailViewController = mainStoryboard.instantiateViewController(withIdentifier: SheduleDetailViewController.identifier) as? SheduleDetailViewController else { return false }
+                        
+                        sheduleDetailVC.lesson = lesson
+
+                        guard let mainTabBar : UITabBarController = mainStoryboard.instantiateViewController(withIdentifier: "Main") as? UITabBarController else { return false }
+                        
+                        mainTabBar.selectedIndex = 0
+                        DispatchQueue.main.async {
+                            if let vc = mainTabBar.selectedViewController as? UINavigationController {
+                                vc.pushViewController(sheduleDetailVC, animated: true)
+                            }
+                        }
+                      
+                        window?.rootViewController = mainTabBar
+                    }
+                }
+            }
+        }
+    
+        return true
+      }
 
     
     // MARK: - Core Data stack
-
     lazy var persistentContainer: NSPersistentContainer = {
         /*
          The persistent container for the application. This implementation

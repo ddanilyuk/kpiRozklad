@@ -9,8 +9,6 @@
 /* Begin PBXBuildFile section */
 		5F0275B223F3472300743637 /* kpiRozklad.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 5F6A08042370A175000A9C79 /* kpiRozklad.xcdatamodeld */; };
 		5F0275B423F3476B00743637 /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F0275B323F3476B00743637 /* CoreDataStack.swift */; };
-		5F0275B623F3486000743637 /* ShareViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F0275B523F3486000743637 /* ShareViewController.swift */; };
-		5F0275B723F3488C00743637 /* ShareViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F0275B523F3486000743637 /* ShareViewController.swift */; };
 		5F0275B823F3493B00743637 /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F0275B323F3476B00743637 /* CoreDataStack.swift */; };
 		5F0275B923F34A0900743637 /* Lesson.swift in Sources */ = {isa = PBXBuildFile; fileRef = D313F4B1233C773B0076CFF8 /* Lesson.swift */; };
 		5F0275BA23F34A0C00743637 /* Teacher.swift in Sources */ = {isa = PBXBuildFile; fileRef = D300F1DB2365BC270098CA83 /* Teacher.swift */; };
@@ -85,7 +83,6 @@
 
 /* Begin PBXFileReference section */
 		5F0275B323F3476B00743637 /* CoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
-		5F0275B523F3486000743637 /* ShareViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareViewController.swift; sourceTree = "<group>"; };
 		5F034A352389B1F500D90DB7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		5F034A3E2389B2E600D90DB7 /* uk */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = uk; path = uk.lproj/Main.storyboard; sourceTree = "<group>"; };
 		5F2F313C2395972900FC28CB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -363,7 +360,6 @@
 				5FE048642392D16A00092422 /* EditingLessons.swift */,
 				5FE048662392D4FA00092422 /* ManagingLessons.swift */,
 				5F0275B323F3476B00743637 /* CoreDataStack.swift */,
-				5F0275B523F3486000743637 /* ShareViewController.swift */,
 				5FE048682393027900092422 /* TimeAndDate.swift */,
 				5FE0486A2393087900092422 /* CoreDataHelpers.swift */,
 				5F2F313E2395C62100FC28CB /* Colours.swift */,
@@ -520,7 +516,6 @@
 				5F0275BB23F34A0F00743637 /* Group.swift in Sources */,
 				5FACFF9123ED65020022DF88 /* UIViewExtension.swift in Sources */,
 				5FACFF8123ED63D40022DF88 /* TodayViewController.swift in Sources */,
-				5F0275B723F3488C00743637 /* ShareViewController.swift in Sources */,
 				5F0275B823F3493B00743637 /* CoreDataStack.swift in Sources */,
 				5F0275BA23F34A0C00743637 /* Teacher.swift in Sources */,
 				5F0275B223F3472300743637 /* kpiRozklad.xcdatamodeld in Sources */,
@@ -558,7 +553,6 @@
 				5F6A08062370A175000A9C79 /* kpiRozklad.xcdatamodeld in Sources */,
 				5FA2B79B2379F20C006C466B /* GroupChooserViewController.swift in Sources */,
 				D363E7AA233BB74B00573EB2 /* SheduleDetailViewController.swift in Sources */,
-				5F0275B623F3486000743637 /* ShareViewController.swift in Sources */,
 				5FACFF5323EC70A70022DF88 /* ServerGetTableViewCell.swift in Sources */,
 				5FC991EE23DF10BB00612266 /* ServerUpdateTableViewCell.swift in Sources */,
 			);
@@ -609,17 +603,18 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = M92VXVU7J9;
 				INFOPLIST_FILE = Widget/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
+				MARKETING_VERSION = 1.04;
 				PRODUCT_BUNDLE_IDENTIFIER = ddanilyuk.kpiRozklad.Widget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -630,17 +625,18 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = M92VXVU7J9;
 				INFOPLIST_FILE = Widget/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
+				MARKETING_VERSION = 1.04;
 				PRODUCT_BUNDLE_IDENTIFIER = ddanilyuk.kpiRozklad.Widget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
@@ -772,12 +768,12 @@
 				DEVELOPMENT_TEAM = M92VXVU7J9;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = kpiRozklad/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.03;
+				MARKETING_VERSION = 1.04;
 				PRODUCT_BUNDLE_IDENTIFIER = ddanilyuk.kpiRozklad;
 				PRODUCT_NAME = "KPI Rozklad";
 				SWIFT_VERSION = 5.0;
@@ -797,12 +793,12 @@
 				DEVELOPMENT_TEAM = M92VXVU7J9;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = kpiRozklad/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.03;
+				MARKETING_VERSION = 1.04;
 				PRODUCT_BUNDLE_IDENTIFIER = ddanilyuk.kpiRozklad;
 				PRODUCT_NAME = "KPI Rozklad";
 				SWIFT_VERSION = 5.0;

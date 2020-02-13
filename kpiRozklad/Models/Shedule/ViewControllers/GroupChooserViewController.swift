@@ -199,6 +199,5 @@ extension GroupChooserViewController: UISearchResultsUpdating{
             tableView.reloadData()
         }
     }
-    
 }
 

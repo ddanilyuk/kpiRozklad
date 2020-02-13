@@ -83,6 +83,10 @@ class SheduleViewController: UIViewController {
     
     var lessonsFromServer: [Lesson] = []
     
+    var destinationLesson: Lesson = Lesson(lessonID: "", dayNumber: "", groupID: "", dayName: .mounday, lessonName: "", lessonFullName: "", lessonNumber: "", lessonRoom: "", lessonType: .empty, teacherName: "", lessonWeek: "", timeStart: "", timeEnd: "", rate: "", teachers: nil, rooms: [Room(roomID: "", roomName: "", roomLatitude: "", roomLongitude: "")], groups: nil)
+    
+    var isNeedToScroll: Bool = true
+    
     @IBOutlet weak var tableViewTopConstaint: NSLayoutConstraint!
     
     // MARK: - viewDidLoad
@@ -108,20 +112,23 @@ class SheduleViewController: UIViewController {
             /// setUpCurrentWeek (choosing week)
             setupCurrentWeek()
             
-//            /// Fetching Core Data and make variable for tableView
-//            makeLessonsShedule(lessonsInit: nil)
+            /// Fetching Core Data and make variable for tableView
+            makeLessonsShedule(lessonsInit: nil)
             
-            /// scrollToCurrentOrNext()
+            if isNeedToScroll {
+                scrollToCurrentOrNext()
+            }
+            
         }
         
-        NotificationCenter.default.addObserver(self, selector:#selector(doSomething), name: UIApplication.willEnterForegroundNotification, object: nil)
+        if notToUpdate {
+            self.navigationItem.largeTitleDisplayMode = .never
+        }
         
-//        NotificationCenter.default.addObserver(self, selector:#selector(doSomething), name: UIApplication.didBecomeActiveNotification, object: nil)
-
-        
+        NotificationCenter.default.addObserver(self, selector:#selector(reloadAfterOpenApp), name: UIApplication.willEnterForegroundNotification, object: nil)
     }
     
-    @objc func doSomething(){
+    @objc func reloadAfterOpenApp(){
         let lessons = [Lesson]()
         
         makeLessonsShedule(lessonsInit: lessons)
@@ -146,7 +153,6 @@ class SheduleViewController: UIViewController {
         if settings.groupName != "" {
             makeLessonsShedule(lessonsInit: nil)
             
-            scrollToCurrentOrNext()
         }
         
         if  lessonsForTableView[0].value.count == 0 &&
@@ -281,12 +287,18 @@ class SheduleViewController: UIViewController {
     /// Func which present `AddLessonViewController`
     func presentAddLesson() {
         let mainStoryboard = UIStoryboard(name: "Main", bundle: Bundle.main)
-        let addLesson : AddLessonViewController = mainStoryboard.instantiateViewController(withIdentifier: AddLessonViewController.identifier) as! AddLessonViewController
+        let addLesson: AddLessonViewController = mainStoryboard.instantiateViewController(withIdentifier: AddLessonViewController.identifier) as! AddLessonViewController
         
         addLesson.lessons = fetchingCoreData()
         addLesson.currentWeek = self.currentWeek
         
-        self.present(addLesson, animated: true, completion: nil)
+//        self.present(addLesson, animated: true, completion: nil)
+        if #available(iOS 13, *) {
+            self.present(addLesson, animated: true, completion: nil)
+        } else {
+            self.navigationController?.pushViewController(addLesson, animated: true)
+        }
+        
     }
     
     
@@ -547,13 +559,21 @@ extension SheduleViewController: UITableViewDelegate, UITableViewDataSource {
     // MARK: - prepare
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "showDetailViewController" {
-            if let indexPath = tableView.indexPathForSelectedRow {
+            if destinationLesson.lessonID != "" {
                 if let destination = segue.destination as? SheduleDetailViewController {
-                    if indexPath.section != lessonsForTableView.count {
-                        destination.lesson = lessonsForTableView[indexPath.section].value[indexPath.row]
+                    destination.lesson = destinationLesson
+                }
+            } else {
+                if let indexPath = tableView.indexPathForSelectedRow {
+                    if let destination = segue.destination as? SheduleDetailViewController {
+                        if indexPath.section != lessonsForTableView.count {
+                            destination.lesson = lessonsForTableView[indexPath.section].value[indexPath.row]
+                        }
                     }
                 }
             }
+            
+            
         }
     }
     

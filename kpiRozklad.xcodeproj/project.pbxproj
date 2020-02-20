@@ -20,6 +20,8 @@
 		5F2F313D2395972900FC28CB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5F2F313C2395972900FC28CB /* Assets.xcassets */; };
 		5F2F313F2395C62100FC28CB /* Colours.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F2F313E2395C62100FC28CB /* Colours.swift */; };
 		5F4457E42376FB05008F9E21 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F4457E32376FB05008F9E21 /* Settings.swift */; };
+		5F46AD5E23FEC43500B145D5 /* FavouriteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F46AD5D23FEC43500B145D5 /* FavouriteViewController.swift */; };
+		5F46AD6323FEC85E00B145D5 /* GroupsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F46AD6223FEC85E00B145D5 /* GroupsViewController.swift */; };
 		5F5000AF238D704A0003E13B /* UIViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F5000AE238D704A0003E13B /* UIViewExtension.swift */; };
 		5F686F3A23800CFB008B0915 /* AddLessonViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F686F3923800CFB008B0915 /* AddLessonViewController.swift */; };
 		5F6A08062370A175000A9C79 /* kpiRozklad.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 5F6A08042370A175000A9C79 /* kpiRozklad.xcdatamodeld */; };
@@ -88,6 +90,8 @@
 		5F2F313C2395972900FC28CB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		5F2F313E2395C62100FC28CB /* Colours.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colours.swift; sourceTree = "<group>"; };
 		5F4457E32376FB05008F9E21 /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
+		5F46AD5D23FEC43500B145D5 /* FavouriteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouriteViewController.swift; sourceTree = "<group>"; };
+		5F46AD6223FEC85E00B145D5 /* GroupsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupsViewController.swift; sourceTree = "<group>"; };
 		5F5000AE238D704A0003E13B /* UIViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewExtension.swift; sourceTree = "<group>"; };
 		5F686F3923800CFB008B0915 /* AddLessonViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddLessonViewController.swift; sourceTree = "<group>"; };
 		5F6A08052370A175000A9C79 /* Lesson.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Lesson.xcdatamodel; sourceTree = "<group>"; };
@@ -146,6 +150,54 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		5F46AD5823FEC35E00B145D5 /* Favourite */ = {
+			isa = PBXGroup;
+			children = (
+				5F46AD5923FEC3D400B145D5 /* ViewControllers */,
+				5F46AD5A23FEC3DF00B145D5 /* Views */,
+			);
+			path = Favourite;
+			sourceTree = "<group>";
+		};
+		5F46AD5923FEC3D400B145D5 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				5F46AD5D23FEC43500B145D5 /* FavouriteViewController.swift */,
+			);
+			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		5F46AD5A23FEC3DF00B145D5 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		5F46AD5F23FEC7D800B145D5 /* Groups */ = {
+			isa = PBXGroup;
+			children = (
+				5F46AD6023FEC7EA00B145D5 /* ViewControllers */,
+				5F46AD6123FEC83100B145D5 /* Views */,
+			);
+			path = Groups;
+			sourceTree = "<group>";
+		};
+		5F46AD6023FEC7EA00B145D5 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				5F46AD6223FEC85E00B145D5 /* GroupsViewController.swift */,
+			);
+			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		5F46AD6123FEC83100B145D5 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
 		5FACFF4F23EC70420022DF88 /* ServerUpdateTableViewCell */ = {
 			isa = PBXGroup;
 			children = (
@@ -257,6 +309,8 @@
 			children = (
 				D3FFAAD7234F79760065E9CE /* Shedule */,
 				D3FFAAE32352464D0065E9CE /* Teachers */,
+				5F46AD5F23FEC7D800B145D5 /* Groups */,
+				5F46AD5823FEC35E00B145D5 /* Favourite */,
 				D3FFAADA234F7A2C0065E9CE /* Settings */,
 				5F034A342389B16D00D90DB7 /* Main.storyboard */,
 			);
@@ -529,10 +583,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5F46AD6323FEC85E00B145D5 /* GroupsViewController.swift in Sources */,
 				D313F496233AAB6C0076CFF8 /* AppDelegate.swift in Sources */,
 				5F686F3A23800CFB008B0915 /* AddLessonViewController.swift in Sources */,
 				5F7BABBF23A163C8009E3CA6 /* Error.swift in Sources */,
 				D3FFAAE72352467F0065E9CE /* TeacherSheduleViewController.swift in Sources */,
+				5F46AD5E23FEC43500B145D5 /* FavouriteViewController.swift in Sources */,
 				D34BEBC5233CCFC10035F7B4 /* Extensions.swift in Sources */,
 				5FA2B79D2379F5A7006C466B /* Group.swift in Sources */,
 				5FE0486D23930C3000092422 /* SheduleVC+UIPickerVC.swift in Sources */,

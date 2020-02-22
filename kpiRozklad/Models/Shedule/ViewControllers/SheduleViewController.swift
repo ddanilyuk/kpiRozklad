@@ -79,13 +79,17 @@ class SheduleViewController: UIViewController {
     /// Settings singleton
     var settings = Settings.shared
     
+    /// Favourites singleton
+    var favourites = Favourites.shared
+
     var isFromSettingsGetFreshShedule: Bool = false
     
     var isFromGroups: Bool = false
+    var group = Group(groupID: 0, groupFullName: "", groupPrefix: "", groupOkr: .magister, groupType: .daily, groupURL: "")
     
     var lessonsFromServer: [Lesson] = []
     
-    var destinationLesson: Lesson = Lesson(lessonID: "", dayNumber: "", groupID: "", dayName: .mounday, lessonName: "", lessonFullName: "", lessonNumber: "", lessonRoom: "", lessonType: .empty, teacherName: "", lessonWeek: "", timeStart: "", timeEnd: "", rate: "", teachers: nil, rooms: [Room(roomID: "", roomName: "", roomLatitude: "", roomLongitude: "")], groups: nil)
+    var destinationLesson: Lesson = emptyLesson
     
     var isNeedToScroll: Bool = true
     
@@ -93,6 +97,9 @@ class SheduleViewController: UIViewController {
     
     @IBOutlet weak var segmentBatButtonItem: UIBarButtonItem!
     
+    @IBOutlet weak var favouriteButton: UIButton!
+    
+    var isFavourite: Bool = false
     
     // MARK: - viewDidLoad
     override func viewDidLoad() {
@@ -123,6 +130,8 @@ class SheduleViewController: UIViewController {
             self.navigationItem.largeTitleDisplayMode = .never
             self.navigationItem.rightBarButtonItems = [segmentBatButtonItem, favouriteBarButtonItem]
             self.weekSwitch.frame = CGRect(x: 0, y: 0, width: 90, height: weekSwitch.frame.height)
+            
+            checkIfGroupInFavourites()
 
         } else if settings.groupName != "" {
             /// setUpCurrentWeek (choosing week)
@@ -168,9 +177,12 @@ class SheduleViewController: UIViewController {
 //        setupDate()
         
         /// Choosing new Curent and next lesson
+//        if settings.groupName != "" {
+//
+//        }
+        
         if settings.groupName != "" {
             makeLessonsShedule(lessonsInit: nil)
-            
         }
         
         if  lessonsForTableView[0].value.count == 0 &&
@@ -220,6 +232,14 @@ class SheduleViewController: UIViewController {
 
     }
     
+    func checkIfGroupInFavourites() {
+        if favourites.favouriteGroupsID.contains(group.groupID) {
+            if let image = UIImage(named: "icons8-christmas-star-90-filled") {
+                favouriteButton.setImage(image, for: .normal)
+                isFavourite = true
+            }
+        }
+    }
     
     private func setupDate() {
         let result = getTimeAndDayNumAndWeekOfYear()
@@ -364,17 +384,18 @@ class SheduleViewController: UIViewController {
         /// fetching Core Data
         var lessons: [Lesson] = []
         
-        if !isFromSettingsGetFreshShedule {
+        if isFromSettingsGetFreshShedule || isFromGroups {
+            lessons = lessonsFromServer
+            currentLessonId = "-1"
+            nextLessonId = "-1"
+            
+        } else {
             lessons = fetchingCoreData()
             setupDate()
             let currentAndNext = getCurrentAndNextLesson(lessons: lessons, timeIsNowString: timeIsNowString, dayNumberFromCurrentDate: dayNumberFromCurrentDate, currentWeekFromTodayDate: currentWeekFromTodayDate)
             
             currentLessonId = currentAndNext.currentLessonID
             nextLessonId = currentAndNext.nextLessonID
-        } else {
-            lessons = lessonsFromServer
-            currentLessonId = "-1"
-            nextLessonId = "-1"
         }
         
         if lessonsInit != nil {
@@ -536,6 +557,37 @@ class SheduleViewController: UIViewController {
             self.tableView.deleteSections(IndexSet(integer: self.lessonsForTableView.count), with: .automatic)
         }
     }
+    
+    @IBAction func didPressFavouriteButton(_ sender: UIButton) {
+        if isFavourite {
+            if let image = UIImage(named: "icons8-christmas-star-75-add-1") {
+                
+                for i in 0..<favourites.favouriteGroupsNames.count {
+                    if group.groupID == favourites.favouriteGroupsID[i] {
+                        favouriteButton.setImage(image, for: .normal)
+                        _ = favourites.favouriteGroupsNames.remove(at: i)
+                        _ = favourites.favouriteGroupsID.remove(at: i)
+                        isFavourite = false
+                    }
+                }
+                
+                print(favourites.favouriteGroupsNames)
+                print(favourites.favouriteGroupsID)
+            }
+        } else {
+            if let image = UIImage(named: "icons8-christmas-star-90-filled") {
+                favouriteButton.setImage(image, for: .normal)
+                favourites.favouriteGroupsNames.append(group.groupFullName)
+                favourites.favouriteGroupsID.append(group.groupID)
+
+                isFavourite = true
+                print(favourites.favouriteGroupsNames)
+                print(favourites.favouriteGroupsID)
+            }
+        }
+    }
+    
+    
 }
 
 

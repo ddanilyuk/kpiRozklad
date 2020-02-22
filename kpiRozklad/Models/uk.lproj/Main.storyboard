@@ -179,11 +179,14 @@
                                     </connections>
                                 </segmentedControl>
                             </barButtonItem>
-                            <barButtonItem title="Item" image="icons8-christmas-star-90-add" style="plain" id="Lwa-Bg-e65">
+                            <barButtonItem style="plain" id="Lwa-Bg-e65">
                                 <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="fm9-Lo-1DY">
-                                    <rect key="frame" x="161" y="0.0" width="60" height="44"/>
+                                    <rect key="frame" x="171" y="0.0" width="50" height="44"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    <state key="normal" image="icons8-christmas-star-90-add"/>
+                                    <state key="normal" image="icons8-christmas-star-75-add-1"/>
+                                    <connections>
+                                        <action selector="didPressFavouriteButton:" destination="VGz-qr-qiP" eventType="touchUpInside" id="rdb-Pr-cKO"/>
+                                    </connections>
                                 </button>
                             </barButtonItem>
                         </rightBarButtonItems>
@@ -191,6 +194,7 @@
                     <connections>
                         <outlet property="activityIndicator" destination="q0l-yL-hSA" id="gon-UJ-rXb"/>
                         <outlet property="favouriteBarButtonItem" destination="Lwa-Bg-e65" id="ipw-ym-g00"/>
+                        <outlet property="favouriteButton" destination="fm9-Lo-1DY" id="pW7-OR-lQW"/>
                         <outlet property="segmentBatButtonItem" destination="5M2-o9-kLT" id="2dL-tD-9wT"/>
                         <outlet property="tableView" destination="Bv9-u6-c2Z" id="eAJ-5z-7Hq"/>
                         <outlet property="weekSwitch" destination="kCf-Y9-PTf" id="20s-Tg-fBT"/>
@@ -510,7 +514,7 @@
         <scene sceneID="KTP-aq-mkn">
             <objects>
                 <navigationController id="FMc-RC-gIG" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Улюблені" image="icons8-christmas-star-90" id="jET-SE-hcS"/>
+                    <tabBarItem key="tabBarItem" title="Улюблені" image="icons8-christmas-star-75-1" id="jET-SE-hcS"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="pt8-p5-pGZ">
                         <rect key="frame" x="0.0" y="44" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -546,6 +550,9 @@
                         <viewLayoutGuide key="safeArea" id="1uv-6j-VKN"/>
                     </view>
                     <navigationItem key="navigationItem" title="Улюблені" id="8ng-ze-BB2"/>
+                    <connections>
+                        <outlet property="tableView" destination="aVE-R4-tFU" id="naz-Ev-n0c"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="oir-Ax-ZT2" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -671,8 +678,8 @@
         </scene>
     </scenes>
     <resources>
-        <image name="icons8-christmas-star-90" width="30" height="30"/>
-        <image name="icons8-christmas-star-90-add" width="30" height="30"/>
+        <image name="icons8-christmas-star-75-1" width="25" height="25"/>
+        <image name="icons8-christmas-star-75-add-1" width="25" height="25"/>
         <image name="icons8-index-90" width="30" height="30"/>
         <image name="icons8-settings-90" width="30" height="30"/>
         <image name="icons8-teacher-90" width="30" height="30"/>

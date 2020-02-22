@@ -138,12 +138,13 @@ extension GroupsViewController: UITableViewDelegate, UITableViewDataSource {
             return
         }
         
-        let groupName = isSearching ? groupsInSearch[indexPath.row].groupFullName : groups[indexPath.row].groupFullName
-        let groupID = isSearching ? groupsInSearch[indexPath.row].groupID : groups[indexPath.row].groupID
+        let group = isSearching ? groupsInSearch[indexPath.row] : groups[indexPath.row]
+
+        
         
         if groupNavigationController.isMainChooser {
-            settings.groupName = groupName
-            settings.groupID = groupID
+            settings.groupName = group.groupFullName
+            settings.groupID = group.groupID
             settings.isTryToRefreshShedule = true
 
             guard let mainTabBar : UITabBarController = mainStoryboard.instantiateViewController(withIdentifier: "Main") as? UITabBarController else { return }
@@ -153,15 +154,15 @@ extension GroupsViewController: UITableViewDelegate, UITableViewDataSource {
             })
             
         } else {
-            serverGetFreshShedule(groupID: groupID, groupName: groupName , indexPath: indexPath)
+            serverGetFreshShedule(group: group, indexPath: indexPath)
         }
         
         tableView.deselectRow(at: indexPath, animated: true)
     }
     
     
-    func serverGetFreshShedule(groupID: Int, groupName: String, indexPath: IndexPath) {
-        guard let url = URL(string: "https://api.rozklad.org.ua/v2/groups/\(String(groupID))/lessons") else { return }
+    func serverGetFreshShedule(group: Group, indexPath: IndexPath) {
+        guard let url = URL(string: "https://api.rozklad.org.ua/v2/groups/\(String(group.groupID))/lessons") else { return }
         
         DispatchQueue.main.async {
             if let cell = self.tableView.cellForRow(at: indexPath) as? ServerGetTableViewCell {
@@ -194,7 +195,9 @@ extension GroupsViewController: UITableViewDelegate, UITableViewDataSource {
                     sheduleVC.navigationController?.navigationItem.largeTitleDisplayMode = .never
                     sheduleVC.navigationController?.navigationBar.prefersLargeTitles = false
                     sheduleVC.navigationItem.largeTitleDisplayMode = .never
-                    sheduleVC.navigationItem.title = groupName.uppercased()
+                    sheduleVC.navigationItem.title = group.groupFullName.uppercased()
+                    
+                    sheduleVC.group = group
                     
                     self.navigationController?.pushViewController(sheduleVC, animated: true)
                 }

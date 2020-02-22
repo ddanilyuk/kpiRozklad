@@ -76,4 +76,13 @@ class Settings {
             userDefaults.set(newValue, forKey: "updateAtOnce")
         }
     }
+    
+    var favourite: [String] {
+        get {
+            return userDefaults.array(forKey: "favourite") as? [String] ?? [""]
+        }
+        set {
+            userDefaults.set(newValue, forKey: "favourite")
+        }
+    }
  }

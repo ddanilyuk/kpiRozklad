@@ -30,6 +30,11 @@ class GroupsViewController: UIViewController {
     @IBOutlet weak var startWritingLabel: UILabel!
     
     @IBOutlet weak var startWritingLabelHeight: NSLayoutConstraint!
+    
+    var isMainGroupChooser: Bool = false
+    
+    let settings = Settings.shared
+    
     // MARK: - viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -41,22 +46,14 @@ class GroupsViewController: UIViewController {
         setupSearchAndNavigation()
     }
     
-    
-    override func viewWillAppear(_ animated: Bool) {
-        startWritingLabel.isHidden = false
-        
-        
-
-        
-        tableView.isHidden = true
-    }
-    
-    
     private func setupTableView() {
-        startWritingLabel.text = "Почніть вводити назву групи"
-
+        tableView.register(UINib(nibName: ServerGetTableViewCell.identifier, bundle: Bundle.main), forCellReuseIdentifier: ServerGetTableViewCell.identifier)
+        
         tableView.dataSource = self
         tableView.delegate = self
+        
+        startWritingLabel.isHidden = false
+        tableView.isHidden = true
     }
     
     
@@ -74,6 +71,8 @@ class GroupsViewController: UIViewController {
     // MARK: - server
     /// Functon which getting data from server
     func server() {
+        let decoder = JSONDecoder()
+
         for i in 0..<25 {
             /// Making offset because server cant send more than 100 groups for 1 request (and we making 25)
             let offset = i * 100
@@ -84,12 +83,11 @@ class GroupsViewController: UIViewController {
             
             let task = URLSession.shared.dataTask(with: url) {(data, response, error) in
                 guard let data = data else { return }
-                let decoder = JSONDecoder()
 
                 do {
                     guard let serverFULLDATA = try? decoder.decode(WelcomeGroup.self, from: data) else { return }
-                    let datum = serverFULLDATA.data
-                    self.groups += datum
+                    
+                    self.groups += serverFULLDATA.data
 
                     DispatchQueue.main.async {
                         self.tableView.reloadData()
@@ -103,66 +101,106 @@ class GroupsViewController: UIViewController {
             task.resume()
         }
     }
+    
 }
 
 
 // MARK: - Extencions For Table View
 extension GroupsViewController: UITableViewDelegate, UITableViewDataSource {
     
-    
     // MARK: - numberOfRowsInSection
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if isSearching {
-             return groupsInSearch.count
+            return groupsInSearch.count
         } else {
             return groups.count
         }
     }
     
-    
     // MARK: - cellForRowAt indexPath
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = UITableViewCell(style: .default, reuseIdentifier: groupReuseID)
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: ServerGetTableViewCell.identifier, for: indexPath) as? ServerGetTableViewCell else { return UITableViewCell() }
         
-        if isSearching {
-            cell.textLabel?.text = groupsInSearch[indexPath.row].groupFullName
-        } else {
-            cell.textLabel?.text = groups[indexPath.row].groupFullName
-        }
+        cell.activityIndicator.isHidden = true
+
+        cell.mainLabel.text = isSearching ? groupsInSearch[indexPath.row].groupFullName : groups[indexPath.row].groupFullName
+
         return cell
     }
     
-    
     // MARK: - didSelectRowAt
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
-        if isSearching {
-            Settings.shared.groupName =  groupsInSearch[indexPath.row].groupFullName
-            Settings.shared.groupID =  groupsInSearch[indexPath.row].groupID
-        } else {
-            Settings.shared.groupName = groups[indexPath.row].groupFullName
-            Settings.shared.groupID =  groups[indexPath.row].groupID
-        }
-                        
-        
         let mainStoryboard = UIStoryboard(name: "Main", bundle: Bundle.main)
         let appDelegate = UIApplication.shared.delegate as? AppDelegate
         guard let window = appDelegate?.window else { return }
         
+        guard let groupNavigationController = self.navigationController as? GroupsChooserNavigationController else {
+            return
+        }
         
-        guard let mainTabBar : UITabBarController = mainStoryboard.instantiateViewController(withIdentifier: "Main") as? UITabBarController else { return }
-        guard let sheduleVC: SheduleViewController = mainStoryboard.instantiateViewController(withIdentifier: SheduleViewController.identifier) as? SheduleViewController else { return }
+        let groupName = isSearching ? groupsInSearch[indexPath.row].groupFullName : groups[indexPath.row].groupFullName
+        let groupID = isSearching ? groupsInSearch[indexPath.row].groupID : groups[indexPath.row].groupID
         
-        Settings.shared.isTryToRefreshShedule = true
-        
-        sheduleVC.server()
-        
-        
-        self.dismiss(animated: true, completion: {
-            window.rootViewController = mainTabBar
-        })
+        if groupNavigationController.isMainChooser {
+            settings.groupName = groupName
+            settings.groupID = groupID
+            settings.isTryToRefreshShedule = true
+
+            guard let mainTabBar : UITabBarController = mainStoryboard.instantiateViewController(withIdentifier: "Main") as? UITabBarController else { return }
+
+            self.dismiss(animated: true, completion: {
+                window.rootViewController = mainTabBar
+            })
+            
+        } else {
+            serverGetFreshShedule(groupID: groupID, groupName: groupName , indexPath: indexPath)
+        }
         
         tableView.deselectRow(at: indexPath, animated: true)
+    }
+    
+    
+    func serverGetFreshShedule(groupID: Int, groupName: String, indexPath: IndexPath) {
+        guard let url = URL(string: "https://api.rozklad.org.ua/v2/groups/\(String(groupID))/lessons") else { return }
+        
+        DispatchQueue.main.async {
+            if let cell = self.tableView.cellForRow(at: indexPath) as? ServerGetTableViewCell {
+                cell.activityIndicator.isHidden = false
+                cell.activityIndicator.startAnimating()
+            }
+        }
+        
+        let task = URLSession.shared.dataTask(with: url) {(data, response, error) in
+            guard let data = data else { return }
+            let decoder = JSONDecoder()
+
+            do {
+                DispatchQueue.main.async {
+                    guard let serverFULLDATA = try? decoder.decode(WelcomeLessons.self, from: data) else { return }
+                    
+                    if let cell = self.tableView.cellForRow(at: indexPath) as? ServerGetTableViewCell {
+                        cell.activityIndicator.isHidden = true
+                        cell.activityIndicator.stopAnimating()
+                    }
+
+                    let mainStoryboard = UIStoryboard(name: "Main", bundle: Bundle.main)
+                    guard let sheduleVC : SheduleViewController = mainStoryboard.instantiateViewController(withIdentifier: SheduleViewController.identifier) as? SheduleViewController else { return }
+                    
+                    sheduleVC.isFromGroups = true
+                    sheduleVC.currentWeek = 1
+                    
+                    sheduleVC.lessonsFromServer = serverFULLDATA.data
+                    
+                    sheduleVC.navigationController?.navigationItem.largeTitleDisplayMode = .never
+                    sheduleVC.navigationController?.navigationBar.prefersLargeTitles = false
+                    sheduleVC.navigationItem.largeTitleDisplayMode = .never
+                    sheduleVC.navigationItem.title = groupName.uppercased()
+                    
+                    self.navigationController?.pushViewController(sheduleVC, animated: true)
+                }
+            }
+        }
+        task.resume()
     }
     
 }

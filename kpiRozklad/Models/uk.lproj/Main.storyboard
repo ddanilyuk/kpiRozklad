@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="nab-GF-eXo">
-    <device id="retina5_9" orientation="portrait" appearance="dark"/>
+    <device id="retina5_9" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
@@ -8,63 +8,6 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Navigation Controller-->
-        <scene sceneID="KTg-xk-5V7">
-            <objects>
-                <navigationController storyboardIdentifier="navigationGroupChooser" id="ZOg-ae-hNu" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="UVA-ba-tSK">
-                        <rect key="frame" x="0.0" y="44" width="375" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <connections>
-                        <segue destination="nsI-9v-NMm" kind="relationship" relationship="rootViewController" id="6Hr-zU-s8L"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="D9V-OB-gZP" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-4121" y="-1032"/>
-        </scene>
-        <!--Group Chooser View Controller-->
-        <scene sceneID="6Fy-6u-HJg">
-            <objects>
-                <viewController storyboardIdentifier="GroupChooserViewController" id="nsI-9v-NMm" customClass="GroupChooserViewController" customModule="KPI_Rozklad" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="ZfH-hG-RFJ">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="MQ7-Lk-kIw">
-                                <rect key="frame" x="0.0" y="88" width="375" height="690"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                            </tableView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lOE-Ha-q3X">
-                                <rect key="frame" x="18.666666666666657" y="113" width="337.66666666666674" height="23"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="19"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                        </subviews>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                        <constraints>
-                            <constraint firstItem="MQ7-Lk-kIw" firstAttribute="bottom" secondItem="QOr-y0-Msw" secondAttribute="bottom" id="81x-ql-mnO"/>
-                            <constraint firstItem="MQ7-Lk-kIw" firstAttribute="leading" secondItem="QOr-y0-Msw" secondAttribute="leading" id="HSS-HL-5X6"/>
-                            <constraint firstItem="MQ7-Lk-kIw" firstAttribute="trailing" secondItem="QOr-y0-Msw" secondAttribute="trailing" id="Ndv-Cy-0K6"/>
-                            <constraint firstItem="MQ7-Lk-kIw" firstAttribute="top" secondItem="QOr-y0-Msw" secondAttribute="top" id="ozn-4E-CD2"/>
-                            <constraint firstItem="lOE-Ha-q3X" firstAttribute="centerX" secondItem="QOr-y0-Msw" secondAttribute="centerX" id="ppS-nk-4qi"/>
-                            <constraint firstItem="lOE-Ha-q3X" firstAttribute="top" secondItem="QOr-y0-Msw" secondAttribute="top" constant="25" id="vdz-u8-bfM"/>
-                            <constraint firstItem="lOE-Ha-q3X" firstAttribute="width" secondItem="QOr-y0-Msw" secondAttribute="width" multiplier="0.9" id="xGt-0E-pmj"/>
-                        </constraints>
-                        <viewLayoutGuide key="safeArea" id="QOr-y0-Msw"/>
-                    </view>
-                    <navigationItem key="navigationItem" id="7JX-2g-98N"/>
-                    <connections>
-                        <outlet property="startWritingLabel" destination="lOE-Ha-q3X" id="1Vc-Ij-0dI"/>
-                        <outlet property="tableView" destination="MQ7-Lk-kIw" id="tgl-p5-1h5"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="y9s-mP-T0O" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-3110" y="-1032"/>
-        </scene>
         <!--Add Lesson View Controller-->
         <scene sceneID="o9L-Nr-gZV">
             <objects>
@@ -221,26 +164,35 @@
                         <viewLayoutGuide key="safeArea" id="2xZ-kD-GrF"/>
                     </view>
                     <navigationItem key="navigationItem" title="ІВ-82" largeTitleDisplayMode="never" id="HCW-ay-CZY">
-                        <barButtonItem key="rightBarButtonItem" style="plain" id="5M2-o9-kLT">
-                            <segmentedControl key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" id="kCf-Y9-PTf">
-                                <rect key="frame" x="228" y="5.6666666666666679" width="131" height="33"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <segments>
-                                    <segment title="1"/>
-                                    <segment title="2"/>
-                                </segments>
-                                <color key="selectedSegmentTintColor" systemColor="linkColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <connections>
-                                    <action selector="weekChanged:" destination="VGz-qr-qiP" eventType="valueChanged" id="sqz-ND-KWG"/>
-                                </connections>
-                            </segmentedControl>
-                        </barButtonItem>
+                        <rightBarButtonItems>
+                            <barButtonItem style="plain" id="5M2-o9-kLT">
+                                <segmentedControl key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" id="kCf-Y9-PTf">
+                                    <rect key="frame" x="229" y="5.6666666666666679" width="130" height="33"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <segments>
+                                        <segment title="1"/>
+                                        <segment title="2"/>
+                                    </segments>
+                                    <color key="selectedSegmentTintColor" systemColor="linkColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <connections>
+                                        <action selector="weekChanged:" destination="VGz-qr-qiP" eventType="valueChanged" id="sqz-ND-KWG"/>
+                                    </connections>
+                                </segmentedControl>
+                            </barButtonItem>
+                            <barButtonItem title="Item" image="icons8-christmas-star-90-add" style="plain" id="Lwa-Bg-e65">
+                                <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="fm9-Lo-1DY">
+                                    <rect key="frame" x="161" y="0.0" width="60" height="44"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <state key="normal" image="icons8-christmas-star-90-add"/>
+                                </button>
+                            </barButtonItem>
+                        </rightBarButtonItems>
                     </navigationItem>
                     <connections>
                         <outlet property="activityIndicator" destination="q0l-yL-hSA" id="gon-UJ-rXb"/>
-                        <outlet property="navigationItem" destination="HCW-ay-CZY" id="F8k-qb-5b4"/>
+                        <outlet property="favouriteBarButtonItem" destination="Lwa-Bg-e65" id="ipw-ym-g00"/>
+                        <outlet property="segmentBatButtonItem" destination="5M2-o9-kLT" id="2dL-tD-9wT"/>
                         <outlet property="tableView" destination="Bv9-u6-c2Z" id="eAJ-5z-7Hq"/>
-                        <outlet property="tableViewTopConstaint" destination="Vcm-6r-ShP" id="XSr-SL-l7H"/>
                         <outlet property="weekSwitch" destination="kCf-Y9-PTf" id="20s-Tg-fBT"/>
                         <segue destination="Xi8-a3-NCy" kind="show" identifier="showDetailViewController" id="RJQ-je-C9R"/>
                     </connections>
@@ -418,7 +370,7 @@
                             <outlet property="delegate" destination="Nvr-ip-G7Y" id="b2K-7w-c98"/>
                         </connections>
                     </tableView>
-                    <tabBarItem key="tabBarItem" title="Settings" image="circle.grid.hex" catalog="system" id="NNQ-by-KNk"/>
+                    <tabBarItem key="tabBarItem" title="Settings" id="NNQ-by-KNk"/>
                     <navigationItem key="navigationItem" title="Налаштування" largeTitleDisplayMode="always" id="qYc-J4-I1X"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rr4-vK-4Ew" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -558,7 +510,7 @@
         <scene sceneID="KTP-aq-mkn">
             <objects>
                 <navigationController id="FMc-RC-gIG" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Улюблені" image="star" catalog="system" id="jET-SE-hcS"/>
+                    <tabBarItem key="tabBarItem" title="Улюблені" image="icons8-christmas-star-90" id="jET-SE-hcS"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="pt8-p5-pGZ">
                         <rect key="frame" x="0.0" y="44" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -602,8 +554,8 @@
         <!--Групи-->
         <scene sceneID="cZ6-Lo-xOW">
             <objects>
-                <navigationController id="rzP-Vb-AVW" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Групи" image="person.3" catalog="system" id="eQe-0B-TmU"/>
+                <navigationController storyboardIdentifier="GroupsChooserNavigationController" id="rzP-Vb-AVW" customClass="GroupsChooserNavigationController" customModule="KPI_Rozklad" customModuleProvider="target" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Групи" image="icons8-user-group-90" id="eQe-0B-TmU"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="hZs-TU-Rdh">
                         <rect key="frame" x="0.0" y="44" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -628,12 +580,12 @@
                                 <rect key="frame" x="0.0" y="88" width="375" height="641"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                             </tableView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" Почніть вводити назву групи" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NwA-E1-zgF">
-                                <rect key="frame" x="0.0" y="88" width="375" height="30"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" Почніть вводити назву групи" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NwA-E1-zgF">
+                                <rect key="frame" x="0.0" y="96" width="375" height="35"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="30" id="1Dh-US-Hd9"/>
+                                    <constraint firstAttribute="height" constant="35" id="1Dh-US-Hd9"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="19"/>
                                 <color key="textColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -642,10 +594,10 @@
                         <constraints>
                             <constraint firstItem="NwA-E1-zgF" firstAttribute="leading" secondItem="hnS-gk-6Lo" secondAttribute="leading" id="0ed-fI-AEh"/>
                             <constraint firstItem="eQv-ab-jKf" firstAttribute="trailing" secondItem="hnS-gk-6Lo" secondAttribute="trailing" id="6CM-GD-BO9"/>
-                            <constraint firstItem="NwA-E1-zgF" firstAttribute="top" secondItem="hnS-gk-6Lo" secondAttribute="top" id="7WD-JO-N1l"/>
                             <constraint firstItem="eQv-ab-jKf" firstAttribute="leading" secondItem="hnS-gk-6Lo" secondAttribute="leading" id="Mw8-zf-iJe"/>
                             <constraint firstItem="eQv-ab-jKf" firstAttribute="bottom" secondItem="hnS-gk-6Lo" secondAttribute="bottom" id="b7a-AR-Bj6"/>
                             <constraint firstItem="eQv-ab-jKf" firstAttribute="top" secondItem="hnS-gk-6Lo" secondAttribute="top" id="laA-jw-Os1"/>
+                            <constraint firstItem="NwA-E1-zgF" firstAttribute="top" secondItem="hnS-gk-6Lo" secondAttribute="top" constant="8" id="pnb-B6-buY"/>
                             <constraint firstItem="hnS-gk-6Lo" firstAttribute="trailing" secondItem="NwA-E1-zgF" secondAttribute="trailing" id="wAb-bg-iWd"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="hnS-gk-6Lo"/>
@@ -719,12 +671,12 @@
         </scene>
     </scenes>
     <resources>
-        <image name="circle.grid.hex" catalog="system" width="64" height="56"/>
+        <image name="icons8-christmas-star-90" width="30" height="30"/>
+        <image name="icons8-christmas-star-90-add" width="30" height="30"/>
         <image name="icons8-index-90" width="30" height="30"/>
         <image name="icons8-settings-90" width="30" height="30"/>
         <image name="icons8-teacher-90" width="30" height="30"/>
-        <image name="person.3" catalog="system" width="72" height="35"/>
-        <image name="star" catalog="system" width="64" height="58"/>
+        <image name="icons8-user-group-90" width="30" height="30"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="5QF-Tv-CiU"/>

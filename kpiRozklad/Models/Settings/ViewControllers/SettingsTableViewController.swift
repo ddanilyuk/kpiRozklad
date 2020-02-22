@@ -307,10 +307,12 @@ class SettingsTableViewController: UITableViewController {
 
                     let mainStoryboard = UIStoryboard(name: "Main", bundle: Bundle.main)
                     guard let sheduleVC : SheduleViewController = mainStoryboard.instantiateViewController(withIdentifier: SheduleViewController.identifier) as? SheduleViewController else { return }
-                                        
-                    sheduleVC.notToUpdate = true
+                    
+                    sheduleVC.isFromSettingsGetFreshShedule = true
                     sheduleVC.currentWeek = 1
                     sheduleVC.lessonsFromServer = serverFULLDATA.data
+                    sheduleVC.navigationItem.title = Settings.shared.groupName.uppercased()
+
                     
                     sheduleVC.navigationController?.navigationItem.largeTitleDisplayMode = .never
                     sheduleVC.navigationController?.navigationBar.prefersLargeTitles = false

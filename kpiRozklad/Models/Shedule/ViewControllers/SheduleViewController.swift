@@ -79,7 +79,9 @@ class SheduleViewController: UIViewController {
     /// Settings singleton
     var settings = Settings.shared
     
-    var notToUpdate: Bool = false
+    var isFromSettingsGetFreshShedule: Bool = false
+    
+    var isFromGroups: Bool = false
     
     var lessonsFromServer: [Lesson] = []
     
@@ -87,7 +89,10 @@ class SheduleViewController: UIViewController {
     
     var isNeedToScroll: Bool = true
     
-    @IBOutlet weak var tableViewTopConstaint: NSLayoutConstraint!
+    @IBOutlet weak var favouriteBarButtonItem: UIBarButtonItem!
+    
+    @IBOutlet weak var segmentBatButtonItem: UIBarButtonItem!
+    
     
     // MARK: - viewDidLoad
     override func viewDidLoad() {
@@ -108,27 +113,41 @@ class SheduleViewController: UIViewController {
         /// Getting dayNumber and week of year from device Date()
         setupDate()
         
-        if settings.groupName != "" && !notToUpdate {
+        
+        if isFromSettingsGetFreshShedule {
+            self.navigationItem.largeTitleDisplayMode = .never
+            self.navigationItem.rightBarButtonItems = [segmentBatButtonItem]
+            self.weekSwitch.frame = CGRect(x: 0, y: 0, width: 90, height: weekSwitch.frame.height)
+
+        } else if isFromGroups {
+            self.navigationItem.largeTitleDisplayMode = .never
+            self.navigationItem.rightBarButtonItems = [segmentBatButtonItem, favouriteBarButtonItem]
+            self.weekSwitch.frame = CGRect(x: 0, y: 0, width: 90, height: weekSwitch.frame.height)
+
+        } else if settings.groupName != "" {
             /// setUpCurrentWeek (choosing week)
+            self.navigationItem.rightBarButtonItems = [segmentBatButtonItem]
+            
+            self.navigationItem.leftBarButtonItems = [self.editButtonItem]
+            
+            self.weekSwitch.frame = CGRect(x: 0, y: 0, width: 120, height: weekSwitch.frame.height)
+            
             setupCurrentWeek()
             
             /// Fetching Core Data and make variable for tableView
             makeLessonsShedule(lessonsInit: nil)
-            
+
             if isNeedToScroll {
                 scrollToCurrentOrNext()
             }
-            
+
         }
         
-        if notToUpdate {
-            self.navigationItem.largeTitleDisplayMode = .never
-        }
         
         NotificationCenter.default.addObserver(self, selector:#selector(reloadAfterOpenApp), name: UIApplication.willEnterForegroundNotification, object: nil)
     }
     
-    @objc func reloadAfterOpenApp(){
+    @objc func reloadAfterOpenApp() {
         let lessons = [Lesson]()
         
         makeLessonsShedule(lessonsInit: lessons)
@@ -139,7 +158,6 @@ class SheduleViewController: UIViewController {
     
     // MARK: - viewWillAppear
     override func viewWillAppear(_ animated: Bool) {
-        
         
         setupAtivityIndicator()
 
@@ -220,20 +238,22 @@ class SheduleViewController: UIViewController {
     
     
     private func setupNavigation() {
-        if !notToUpdate {
+        if !isFromSettingsGetFreshShedule && !isFromGroups {
             self.navigationItem.leftBarButtonItem = self.editButtonItem
             
             self.navigationController?.navigationBar.prefersLargeTitles = true
             
             self.navigationController?.navigationItem.largeTitleDisplayMode = .always
+            
+            self.navigationItem.title = settings.groupName.uppercased()
+
         } else {
             self.navigationController?.navigationBar.prefersLargeTitles = false
 
             self.navigationController?.navigationItem.largeTitleDisplayMode = .never
-
+            
         }
         
-        self.navigationItem.title = settings.groupName.uppercased()
 
         
         self.navigationController?.navigationBar.isTranslucent = true
@@ -271,14 +291,17 @@ class SheduleViewController: UIViewController {
             tableView.reloadData()
             
             let mainStoryboard = UIStoryboard(name: "Main", bundle: Bundle.main)
-            let navigationGroupChooser : UINavigationController = mainStoryboard.instantiateViewController(withIdentifier: "navigationGroupChooser") as! UINavigationController
+            guard let groupsChooserNavigationController = mainStoryboard.instantiateViewController(withIdentifier: GroupsChooserNavigationController.identifier) as? GroupsChooserNavigationController else { return }
+            
+            groupsChooserNavigationController.isMainChooser = true
             
             if #available(iOS 13.0, *) {
-                navigationGroupChooser.isModalInPresentation = true
+                groupsChooserNavigationController.isModalInPresentation = true
             } else {
                 // Fallback on earlier versions
             }
-            self.present(navigationGroupChooser, animated: true, completion: { self.setupAtivityIndicator() })
+            
+            self.present(groupsChooserNavigationController, animated: true, completion: { self.setupAtivityIndicator() })
         }
     }
     
@@ -341,7 +364,7 @@ class SheduleViewController: UIViewController {
         /// fetching Core Data
         var lessons: [Lesson] = []
         
-        if !notToUpdate {
+        if !isFromSettingsGetFreshShedule {
             lessons = fetchingCoreData()
             setupDate()
             let currentAndNext = getCurrentAndNextLesson(lessons: lessons, timeIsNowString: timeIsNowString, dayNumberFromCurrentDate: dayNumberFromCurrentDate, currentWeekFromTodayDate: currentWeekFromTodayDate)

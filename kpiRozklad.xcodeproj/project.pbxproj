@@ -22,11 +22,11 @@
 		5F4457E42376FB05008F9E21 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F4457E32376FB05008F9E21 /* Settings.swift */; };
 		5F46AD5E23FEC43500B145D5 /* FavouriteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F46AD5D23FEC43500B145D5 /* FavouriteViewController.swift */; };
 		5F46AD6323FEC85E00B145D5 /* GroupsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F46AD6223FEC85E00B145D5 /* GroupsViewController.swift */; };
+		5F46AD6523FFD66E00B145D5 /* GroupsChooserNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F46AD6423FFD66E00B145D5 /* GroupsChooserNavigationController.swift */; };
 		5F5000AF238D704A0003E13B /* UIViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F5000AE238D704A0003E13B /* UIViewExtension.swift */; };
 		5F686F3A23800CFB008B0915 /* AddLessonViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F686F3923800CFB008B0915 /* AddLessonViewController.swift */; };
 		5F6A08062370A175000A9C79 /* kpiRozklad.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 5F6A08042370A175000A9C79 /* kpiRozklad.xcdatamodeld */; };
 		5F7BABBF23A163C8009E3CA6 /* Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F7BABBE23A163C8009E3CA6 /* Error.swift */; };
-		5FA2B79B2379F20C006C466B /* GroupChooserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FA2B79A2379F20C006C466B /* GroupChooserViewController.swift */; };
 		5FA2B79D2379F5A7006C466B /* Group.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FA2B79C2379F5A7006C466B /* Group.swift */; };
 		5FACFF5323EC70A70022DF88 /* ServerGetTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FACFF5123EC70A70022DF88 /* ServerGetTableViewCell.swift */; };
 		5FACFF5423EC70A70022DF88 /* ServerGetTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5FACFF5223EC70A70022DF88 /* ServerGetTableViewCell.xib */; };
@@ -92,11 +92,11 @@
 		5F4457E32376FB05008F9E21 /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		5F46AD5D23FEC43500B145D5 /* FavouriteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouriteViewController.swift; sourceTree = "<group>"; };
 		5F46AD6223FEC85E00B145D5 /* GroupsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupsViewController.swift; sourceTree = "<group>"; };
+		5F46AD6423FFD66E00B145D5 /* GroupsChooserNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupsChooserNavigationController.swift; sourceTree = "<group>"; };
 		5F5000AE238D704A0003E13B /* UIViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewExtension.swift; sourceTree = "<group>"; };
 		5F686F3923800CFB008B0915 /* AddLessonViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddLessonViewController.swift; sourceTree = "<group>"; };
 		5F6A08052370A175000A9C79 /* Lesson.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Lesson.xcdatamodel; sourceTree = "<group>"; };
 		5F7BABBE23A163C8009E3CA6 /* Error.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Error.swift; sourceTree = "<group>"; };
-		5FA2B79A2379F20C006C466B /* GroupChooserViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupChooserViewController.swift; sourceTree = "<group>"; };
 		5FA2B79C2379F5A7006C466B /* Group.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Group.swift; sourceTree = "<group>"; };
 		5FACFF5123EC70A70022DF88 /* ServerGetTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerGetTableViewCell.swift; sourceTree = "<group>"; };
 		5FACFF5223EC70A70022DF88 /* ServerGetTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ServerGetTableViewCell.xib; sourceTree = "<group>"; };
@@ -187,6 +187,7 @@
 			isa = PBXGroup;
 			children = (
 				5F46AD6223FEC85E00B145D5 /* GroupsViewController.swift */,
+				5F46AD6423FFD66E00B145D5 /* GroupsChooserNavigationController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -340,7 +341,6 @@
 				D313F4AD233AAF920076CFF8 /* SheduleViewController.swift */,
 				5FE0486C23930C3000092422 /* SheduleVC+UIPickerVC.swift */,
 				D363E7A9233BB74B00573EB2 /* SheduleDetailViewController.swift */,
-				5FA2B79A2379F20C006C466B /* GroupChooserViewController.swift */,
 				5F686F3923800CFB008B0915 /* AddLessonViewController.swift */,
 			);
 			path = ViewControllers;
@@ -607,7 +607,7 @@
 				5F0275B423F3476B00743637 /* CoreDataStack.swift in Sources */,
 				D313F4B5233D1F090076CFF8 /* LessonTableViewCell.swift in Sources */,
 				5F6A08062370A175000A9C79 /* kpiRozklad.xcdatamodeld in Sources */,
-				5FA2B79B2379F20C006C466B /* GroupChooserViewController.swift in Sources */,
+				5F46AD6523FFD66E00B145D5 /* GroupsChooserNavigationController.swift in Sources */,
 				D363E7AA233BB74B00573EB2 /* SheduleDetailViewController.swift in Sources */,
 				5FACFF5323EC70A70022DF88 /* ServerGetTableViewCell.swift in Sources */,
 				5FC991EE23DF10BB00612266 /* ServerUpdateTableViewCell.swift in Sources */,

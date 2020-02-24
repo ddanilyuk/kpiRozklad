@@ -201,13 +201,13 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
-		5F46AD662401A0D800B145D5 /* SingleTone */ = {
+		5F46AD662401A0D800B145D5 /* Singleton */ = {
 			isa = PBXGroup;
 			children = (
 				5F4457E32376FB05008F9E21 /* Settings.swift */,
 				5F46AD672401A0F700B145D5 /* Favourites.swift */,
 			);
-			path = SingleTone;
+			path = Singleton;
 			sourceTree = "<group>";
 		};
 		5FACFF4F23EC70420022DF88 /* ServerUpdateTableViewCell */ = {
@@ -421,7 +421,7 @@
 		D3FFAAE123521BA40065E9CE /* Common */ = {
 			isa = PBXGroup;
 			children = (
-				5F46AD662401A0D800B145D5 /* SingleTone */,
+				5F46AD662401A0D800B145D5 /* Singleton */,
 				5FE048642392D16A00092422 /* EditingLessons.swift */,
 				5FE048662392D4FA00092422 /* ManagingLessons.swift */,
 				5F0275B323F3476B00743637 /* CoreDataStack.swift */,

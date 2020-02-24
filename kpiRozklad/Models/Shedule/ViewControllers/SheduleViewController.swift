@@ -21,9 +21,18 @@ class SheduleViewController: UIViewController {
 
     @IBOutlet weak var tableView: UITableView!
     
-    /// ReuseID for tableView
-    let reuseID = "reuseID"
-
+    /// Week switcher (1 and 2 week)
+    @IBOutlet weak var weekSwitch: UISegmentedControl!
+    
+    /// ActivityIndicator
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+    
+    @IBOutlet weak var favouriteBarButtonItem: UIBarButtonItem!
+    
+    @IBOutlet weak var segmentBatButtonItem: UIBarButtonItem!
+    
+    @IBOutlet weak var favouriteButton: UIButton!
+    
     /// The **main** variable with which the table is updated
     var lessonsForTableView: [(key: DayName, value: [Lesson])] = []
         
@@ -61,45 +70,30 @@ class SheduleViewController: UIViewController {
     ///     Set  up in `getCurrentAndNextLesson(lessons: [Lesson])`
     var nextLessonId = String()
     
-    /// Colour of next lesson
-    let colour1 = #colorLiteral(red: 0.1764705926, green: 0.4980392158, blue: 0.7568627596, alpha: 1)
-
-    /// Week switcher (1 and 2 week)
-    @IBOutlet weak var weekSwitch: UISegmentedControl!
-    
-    /// ActivityIndicator
-    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
-    
     /// Picker from popup which edit number of lesson (tap on lesson while editing)
     var lessonNuberFromPicker: Int = 1
+
     
-    /// Index Path from popup which edit number of lesson (tap on lesson while editing)
-    var indexPathFromPicker: IndexPath?
+    var lessonsFromServer: [Lesson] = []
+    
+    var group: Group?
+    
+    var destinationLesson: Lesson?
+    
+    
+    var isFromSettingsGetFreshShedule: Bool = false
+    
+    var isFromGroups: Bool = false
+    
+    var isNeedToScroll: Bool = true
+    
+    var isFavourite: Bool = false
     
     /// Settings singleton
     var settings = Settings.shared
     
     /// Favourites singleton
     var favourites = Favourites.shared
-
-    var isFromSettingsGetFreshShedule: Bool = false
-    
-    var isFromGroups: Bool = false
-    var group = Group(groupID: 0, groupFullName: "", groupPrefix: "", groupOkr: .magister, groupType: .daily, groupURL: "")
-    
-    var lessonsFromServer: [Lesson] = []
-    
-    var destinationLesson: Lesson = emptyLesson
-    
-    var isNeedToScroll: Bool = true
-    
-    @IBOutlet weak var favouriteBarButtonItem: UIBarButtonItem!
-    
-    @IBOutlet weak var segmentBatButtonItem: UIBarButtonItem!
-    
-    @IBOutlet weak var favouriteButton: UIButton!
-    
-    var isFavourite: Bool = false
     
     // MARK: - viewDidLoad
     override func viewDidLoad() {
@@ -119,7 +113,6 @@ class SheduleViewController: UIViewController {
         
         /// Getting dayNumber and week of year from device Date()
         setupDate()
-        
         
         if isFromSettingsGetFreshShedule {
             self.navigationItem.largeTitleDisplayMode = .never
@@ -149,11 +142,10 @@ class SheduleViewController: UIViewController {
             if isNeedToScroll {
                 scrollToCurrentOrNext()
             }
-
+            
+            NotificationCenter.default.addObserver(self, selector:#selector(reloadAfterOpenApp), name: UIApplication.willEnterForegroundNotification, object: nil)
         }
         
-        
-        NotificationCenter.default.addObserver(self, selector:#selector(reloadAfterOpenApp), name: UIApplication.willEnterForegroundNotification, object: nil)
     }
     
     @objc func reloadAfterOpenApp() {
@@ -173,14 +165,7 @@ class SheduleViewController: UIViewController {
         /// presenting `GroupChooserViewController` if `settings.groupName == ""`
         presentGroupChooser()
         
-        /// Getting dayNumber and week of year from device Date()
-//        setupDate()
-        
         /// Choosing new Curent and next lesson
-//        if settings.groupName != "" {
-//
-//        }
-        
         if settings.groupName != "" {
             makeLessonsShedule(lessonsInit: nil)
         }
@@ -203,7 +188,6 @@ class SheduleViewController: UIViewController {
             settings.isTryToRefreshShedule = false
         }
 
-        
         /// Reloading tableView if need
         if settings.isTryToReloadTableView {
             DispatchQueue.main.async {
@@ -227,19 +211,9 @@ class SheduleViewController: UIViewController {
         tableView.register(UINib(nibName: LessonTableViewCell.identifier, bundle: Bundle.main), forCellReuseIdentifier: LessonTableViewCell.identifier)
         tableView.delegate = self
         tableView.dataSource = self
-//        var insetsContentViewsToSafeArea: Bool = true
-//        tableView.insetsContentViewsToSafeArea = false
-
     }
     
-    func checkIfGroupInFavourites() {
-        if favourites.favouriteGroupsID.contains(group.groupID) {
-            if let image = UIImage(named: "icons8-christmas-star-90-filled") {
-                favouriteButton.setImage(image, for: .normal)
-                isFavourite = true
-            }
-        }
-    }
+
     
     private func setupDate() {
         let result = getTimeAndDayNumAndWeekOfYear()
@@ -260,26 +234,17 @@ class SheduleViewController: UIViewController {
     private func setupNavigation() {
         if !isFromSettingsGetFreshShedule && !isFromGroups {
             self.navigationItem.leftBarButtonItem = self.editButtonItem
-            
             self.navigationController?.navigationBar.prefersLargeTitles = true
-            
             self.navigationController?.navigationItem.largeTitleDisplayMode = .always
-            
             self.navigationItem.title = settings.groupName.uppercased()
 
         } else {
             self.navigationController?.navigationBar.prefersLargeTitles = false
-
             self.navigationController?.navigationItem.largeTitleDisplayMode = .never
-            
         }
-        
 
-        
         self.navigationController?.navigationBar.isTranslucent = true
-
     }
-    
     
     // MARK: - setupCurrentWeek
     /// Simple function to set up currnet week in viewDidLoad
@@ -292,6 +257,17 @@ class SheduleViewController: UIViewController {
             self.currentWeekFromTodayDate = 2
             self.weekSwitch.selectedSegmentIndex = 1
             self.currentWeek = 2
+        }
+    }
+    
+    func checkIfGroupInFavourites() {
+        if let strongGroup = group {
+            if favourites.favouriteGroupsID.contains(strongGroup.groupID) {
+                if let image = UIImage(named: "icons8-christmas-star-90-filled") {
+                    favouriteButton.setImage(image, for: .normal)
+                    isFavourite = true
+                }
+            }
         }
     }
     
@@ -335,8 +311,8 @@ class SheduleViewController: UIViewController {
         addLesson.lessons = fetchingCoreData()
         addLesson.currentWeek = self.currentWeek
         
-//        self.present(addLesson, animated: true, completion: nil)
         if #available(iOS 13, *) {
+            addLesson.modalPresentationStyle = .formSheet
             self.present(addLesson, animated: true, completion: nil)
         } else {
             self.navigationController?.pushViewController(addLesson, animated: true)
@@ -364,15 +340,12 @@ class SheduleViewController: UIViewController {
         
         /// (self.tableView != nil)  because if when we push information from another VC tableView can be not exist
         if self.tableView != nil {
-//            self.tableView.reloadData()
-            
             DispatchQueue.main.async {
                 if self.lessonsForTableView[indexPathToScroll.section].value.count > indexPathToScroll.row {
                     self.tableView.scrollToRow(at: indexPathToScroll, at: .top, animated: true)
                 }
             }
         }
-        
     }
     
     
@@ -559,15 +532,17 @@ class SheduleViewController: UIViewController {
     }
     
     @IBAction func didPressFavouriteButton(_ sender: UIButton) {
+        guard let strongGroup = group else { return }
         if isFavourite {
             if let image = UIImage(named: "icons8-christmas-star-75-add-1") {
                 
-                for i in 0..<favourites.favouriteGroupsNames.count {
-                    if group.groupID == favourites.favouriteGroupsID[i] {
+                for i in 0..<favourites.favouriteGroupsID.count {
+                    if strongGroup.groupID == favourites.favouriteGroupsID[i] {
                         favouriteButton.setImage(image, for: .normal)
                         _ = favourites.favouriteGroupsNames.remove(at: i)
                         _ = favourites.favouriteGroupsID.remove(at: i)
                         isFavourite = false
+                        return
                     }
                 }
                 
@@ -577,8 +552,8 @@ class SheduleViewController: UIViewController {
         } else {
             if let image = UIImage(named: "icons8-christmas-star-90-filled") {
                 favouriteButton.setImage(image, for: .normal)
-                favourites.favouriteGroupsNames.append(group.groupFullName)
-                favourites.favouriteGroupsID.append(group.groupID)
+                favourites.favouriteGroupsNames.append(strongGroup.groupFullName)
+                favourites.favouriteGroupsID.append(strongGroup.groupID)
 
                 isFavourite = true
                 print(favourites.favouriteGroupsNames)
@@ -634,9 +609,9 @@ extension SheduleViewController: UITableViewDelegate, UITableViewDataSource {
     // MARK: - prepare
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "showDetailViewController" {
-            if destinationLesson.lessonID != "" {
+            if let strongDestinationLesson = destinationLesson {
                 if let destination = segue.destination as? SheduleDetailViewController {
-                    destination.lesson = destinationLesson
+                    destination.lesson = strongDestinationLesson
                 }
             } else {
                 if let indexPath = tableView.indexPathForSelectedRow {
@@ -647,8 +622,6 @@ extension SheduleViewController: UITableViewDelegate, UITableViewDataSource {
                     }
                 }
             }
-            
-            
         }
     }
     
@@ -662,20 +635,14 @@ extension SheduleViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.section == lessonsForTableView.count {
             presentAddLesson()
-            tableView.deselectRow(at: indexPath, animated: true)
-        }
-        
-        /// Presenting alert (popup) with pickerView
-        if isEditing {
-            let screenWidth = UIScreen.main.bounds.width
-
+        } else if isEditing {
+            /// Presenting alert (popup) with pickerView
             let alertView = UIAlertController(
                                title: nil,
                                message: "\n\n\n\n\n\n",
                                preferredStyle: .actionSheet)
 
-            let pickerView = UIPickerView(frame:
-                               CGRect(x: 0, y: 0, width: screenWidth - 16, height: 140))
+            let pickerView = UIPickerView(frame: CGRect(x: 0, y: 0, width: screenWidth - 16, height: 140))
             
             pickerView.dataSource = self
             pickerView.delegate = self
@@ -683,29 +650,20 @@ extension SheduleViewController: UITableViewDelegate, UITableViewDataSource {
             alertView.view.addSubview(pickerView)
             
             alertView.addAction(UIAlertAction(title: "Змінити", style: .default, handler: { (_) in
-                self.indexPathFromPicker = indexPath
-                editLessonNumber(vc: self, indexPath: self.indexPathFromPicker ?? IndexPath(row: 0, section: 0))
+                editLessonNumber(vc: self, indexPath: indexPath)
             }))
             
-            
             alertView.addAction(UIAlertAction(title: "Назад", style: .cancel, handler: { (_) in
-                print("User click Dismiss button")
             }))
 
             present(alertView, animated: true, completion: nil)
-            tableView.deselectRow(at: indexPath, animated: true)
-
         } else {
-            
-            /// Seque to `SheduleDetailViewController`
-            guard (storyboard?.instantiateViewController(withIdentifier: SheduleDetailViewController.identifier) as? SheduleDetailViewController) != nil else { return }
-            
             if indexPath.section != lessonsForTableView.count {
                 performSegue(withIdentifier: "showDetailViewController", sender: self)
             }
-            
-            tableView.deselectRow(at: indexPath, animated: true)
         }
+        
+        tableView.deselectRow(at: indexPath, animated: true)
     }
         
     
@@ -715,39 +673,30 @@ extension SheduleViewController: UITableViewDelegate, UITableViewDataSource {
         /// Creating cell for adding new lessson
         if indexPath.section == self.lessonsForTableView.count && self.isEditing == true {
             let cell = UITableViewCell(style: .default, reuseIdentifier: "addCell")
-
             cell.textLabel?.text = "Додати пару"
-            
             return cell
         }
         
         /// Creating main cell
         guard let cell = tableView.dequeueReusableCell(withIdentifier: LessonTableViewCell.identifier, for: indexPath) as? LessonTableViewCell else { return UITableViewCell() }
         
-        let lessonsForSomeDay = lessonsForTableView[indexPath.section].value
+        let lesson = lessonsForTableView[indexPath.section].value[indexPath.row]
         
-        cell.lessonLabel.text = lessonsForSomeDay[indexPath.row].lessonName
-        cell.teacherLabel.text = lessonsForSomeDay[indexPath.row].teacherName
+        cell.lessonLabel.text = lesson.lessonName
         
-        if lessonsForSomeDay[indexPath.row].teacherName == "" {
-            cell.teacherLabel.text = " "
-        }
-
-        if currentLessonId == lessonsForSomeDay[indexPath.row].lessonID {
+        cell.teacherLabel.text = lesson.teacherName != "" ? lesson.teacherName : " "
+        
+        if currentLessonId == lesson.lessonID {
             cell.backgroundColor = .orange
         }
         
-        if nextLessonId == lessonsForSomeDay[indexPath.row].lessonID {
-            cell.backgroundColor = colour1
+        if nextLessonId == lesson.lessonID {
+            cell.backgroundColor = blue
         }
         
-        let timeStart = String(lessonsForSomeDay[indexPath.row].timeStart[..<5])
-        
-        let timeEnd = String(lessonsForSomeDay[indexPath.row].timeEnd[..<5])
-        
-        cell.startLabel.text = timeStart
-        cell.endLabel.text = timeEnd
-        cell.roomLabel.text = lessonsForSomeDay[indexPath.row].lessonType.rawValue + " " + lessonsForSomeDay[indexPath.row].lessonRoom
+        cell.startLabel.text = String(lesson.timeStart[..<5])
+        cell.endLabel.text = String(lesson.timeEnd[..<5])
+        cell.roomLabel.text = lesson.lessonType.rawValue + " " + lesson.lessonRoom
         cell.timeLeftLabel.text = ""
         
         return cell

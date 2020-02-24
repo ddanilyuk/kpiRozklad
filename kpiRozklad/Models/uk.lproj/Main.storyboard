@@ -625,15 +625,15 @@
             <objects>
                 <viewController storyboardIdentifier="TeacherSheduleViewController" id="StT-wO-RBg" customClass="TeacherSheduleViewController" customModule="KPI_Rozklad" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="sT5-E5-eIb">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="724"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="6uy-Lx-1YN" customClass="Teac">
-                                <rect key="frame" x="0.0" y="88" width="375" height="641"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="641"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                             </tableView>
                             <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="aXm-Uf-t5P">
-                                <rect key="frame" x="0.0" y="390" width="375" height="37"/>
+                                <rect key="frame" x="0.0" y="302" width="375" height="37"/>
                             </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
@@ -650,23 +650,38 @@
                         <viewLayoutGuide key="safeArea" id="WFT-WZ-9dT"/>
                     </view>
                     <navigationItem key="navigationItem" title="Зараз   тиждень" id="bUt-BO-BjC">
-                        <barButtonItem key="rightBarButtonItem" style="plain" id="tlm-hn-UJD">
-                            <segmentedControl key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="m5f-ON-rhO">
-                                <rect key="frame" x="276" y="5.6666666666666679" width="83" height="33"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <segments>
-                                    <segment title="1"/>
-                                    <segment title="2"/>
-                                </segments>
-                                <color key="selectedSegmentTintColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <connections>
-                                    <action selector="weekChanged:" destination="StT-wO-RBg" eventType="valueChanged" id="jbE-yH-4cf"/>
-                                </connections>
-                            </segmentedControl>
-                        </barButtonItem>
+                        <rightBarButtonItems>
+                            <barButtonItem style="plain" id="tlm-hn-UJD">
+                                <segmentedControl key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="m5f-ON-rhO">
+                                    <rect key="frame" x="276" y="5.6666666666666679" width="83" height="33"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <segments>
+                                        <segment title="1"/>
+                                        <segment title="2"/>
+                                    </segments>
+                                    <color key="selectedSegmentTintColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <connections>
+                                        <action selector="weekChanged:" destination="StT-wO-RBg" eventType="valueChanged" id="jbE-yH-4cf"/>
+                                    </connections>
+                                </segmentedControl>
+                            </barButtonItem>
+                            <barButtonItem style="plain" id="z6T-aG-WRZ">
+                                <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="TdN-Rd-4AK">
+                                    <rect key="frame" x="218" y="0.0" width="50" height="44"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <state key="normal" image="icons8-christmas-star-75-add-1"/>
+                                    <connections>
+                                        <action selector="didPressFavourite:" destination="StT-wO-RBg" eventType="touchUpInside" id="Xmc-7E-lDi"/>
+                                        <action selector="didPressFavouriteButton:" destination="VGz-qr-qiP" eventType="touchUpInside" id="BfP-1K-N5i"/>
+                                    </connections>
+                                </button>
+                            </barButtonItem>
+                        </rightBarButtonItems>
                     </navigationItem>
                     <connections>
                         <outlet property="activityIndicator" destination="aXm-Uf-t5P" id="jTF-hp-rxV"/>
+                        <outlet property="favouriteBarButtonItem" destination="z6T-aG-WRZ" id="MJp-sN-Jcu"/>
+                        <outlet property="favouriteButton" destination="TdN-Rd-4AK" id="35h-XJ-QJO"/>
                         <outlet property="navBar" destination="bUt-BO-BjC" id="2fA-mh-ZsX"/>
                         <outlet property="tableView" destination="6uy-Lx-1YN" id="wpa-uC-bGX"/>
                         <outlet property="weekSwitch" destination="m5f-ON-rhO" id="Hih-z3-2at"/>
@@ -686,6 +701,6 @@
         <image name="icons8-user-group-90" width="30" height="30"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="5QF-Tv-CiU"/>
+        <segue reference="eOz-94-s6B"/>
     </inferredMetricsTieBreakers>
 </document>

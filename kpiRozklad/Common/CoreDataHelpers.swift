@@ -30,7 +30,7 @@ func fetchingCoreData() -> [Lesson] {
         for lesson in lessonsCoreData {
             
             guard let lessonID = lesson.value(forKey: "lessonID") as? String,
-                let groupID = lesson.value(forKey: "groupID") as? String,
+                
                 let dayNumber = lesson.value(forKey: "dayNumber") as? String,
                 let dayName = lesson.value(forKey: "dayName") as? String,
                 let lessonType = lesson.value(forKey: "lessonType") as? String,
@@ -44,6 +44,8 @@ func fetchingCoreData() -> [Lesson] {
                 let timeEnd = lesson.value(forKey: "timeEnd") as? String,
                 let rate = lesson.value(forKey: "rate") as? String else { return [] }
                 
+            let groupID = lesson.value(forKey: "groupID") as? String ?? ""
+            
             /// Add data to enum  (maybe can changed)
             let dayNameCoreData = DayName(rawValue: dayName) ?? DayName.mounday
             let lessonTypeCoreData = LessonType(rawValue: lessonType) ?? LessonType.empty

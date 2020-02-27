@@ -24,6 +24,7 @@
 		5F46AD6323FEC85E00B145D5 /* GroupsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F46AD6223FEC85E00B145D5 /* GroupsViewController.swift */; };
 		5F46AD6523FFD66E00B145D5 /* GroupsChooserNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F46AD6423FFD66E00B145D5 /* GroupsChooserNavigationController.swift */; };
 		5F46AD682401A0F700B145D5 /* Favourites.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F46AD672401A0F700B145D5 /* Favourites.swift */; };
+		5F4E51ED2403D9DD0034D250 /* GreetingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F4E51EC2403D9DD0034D250 /* GreetingViewController.swift */; };
 		5F5000AF238D704A0003E13B /* UIViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F5000AE238D704A0003E13B /* UIViewExtension.swift */; };
 		5F686F3A23800CFB008B0915 /* AddLessonViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F686F3923800CFB008B0915 /* AddLessonViewController.swift */; };
 		5F6A08062370A175000A9C79 /* kpiRozklad.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 5F6A08042370A175000A9C79 /* kpiRozklad.xcdatamodeld */; };
@@ -95,6 +96,7 @@
 		5F46AD6223FEC85E00B145D5 /* GroupsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupsViewController.swift; sourceTree = "<group>"; };
 		5F46AD6423FFD66E00B145D5 /* GroupsChooserNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupsChooserNavigationController.swift; sourceTree = "<group>"; };
 		5F46AD672401A0F700B145D5 /* Favourites.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Favourites.swift; sourceTree = "<group>"; };
+		5F4E51EC2403D9DD0034D250 /* GreetingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GreetingViewController.swift; sourceTree = "<group>"; };
 		5F5000AE238D704A0003E13B /* UIViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewExtension.swift; sourceTree = "<group>"; };
 		5F686F3923800CFB008B0915 /* AddLessonViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddLessonViewController.swift; sourceTree = "<group>"; };
 		5F6A08052370A175000A9C79 /* Lesson.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Lesson.xcdatamodel; sourceTree = "<group>"; };
@@ -188,8 +190,8 @@
 		5F46AD6023FEC7EA00B145D5 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
-				5F46AD6223FEC85E00B145D5 /* GroupsViewController.swift */,
 				5F46AD6423FFD66E00B145D5 /* GroupsChooserNavigationController.swift */,
+				5F46AD6223FEC85E00B145D5 /* GroupsViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -353,6 +355,7 @@
 				5FE0486C23930C3000092422 /* SheduleVC+UIPickerVC.swift */,
 				D363E7A9233BB74B00573EB2 /* SheduleDetailViewController.swift */,
 				5F686F3923800CFB008B0915 /* AddLessonViewController.swift */,
+				5F4E51EC2403D9DD0034D250 /* GreetingViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -607,6 +610,7 @@
 				D300F1DA2364CF490098CA83 /* SettingsTableViewController.swift in Sources */,
 				5F4457E42376FB05008F9E21 /* Settings.swift in Sources */,
 				5FE048652392D16A00092422 /* EditingLessons.swift in Sources */,
+				5F4E51ED2403D9DD0034D250 /* GreetingViewController.swift in Sources */,
 				5F5000AF238D704A0003E13B /* UIViewExtension.swift in Sources */,
 				5FE0486B2393087900092422 /* CoreDataHelpers.swift in Sources */,
 				D313F4B2233C773B0076CFF8 /* Lesson.swift in Sources */,

@@ -95,12 +95,15 @@ class SheduleViewController: UIViewController {
     /// Favourites singleton
     var favourites = Favourites.shared
     
+//    var requestTypeChoosen: SheduleType = .teachers
+
+    
     // MARK: - viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
         
         /// presenting `GroupChooserViewController` if `settings.groupName == ""`
-        presentGroupChooser()
+        presentGroupChooser(requestType: global.sheduleType)
         
         /// Button `Edit` & title (group name)
         setupNavigation()
@@ -126,7 +129,7 @@ class SheduleViewController: UIViewController {
             
             checkIfGroupInFavourites()
 
-        } else if settings.groupName != "" {
+        } else if settings.groupName != "" || settings.teacherName != "" {
             /// setUpCurrentWeek (choosing week)
             self.navigationItem.rightBarButtonItems = [segmentBatButtonItem]
             
@@ -163,10 +166,10 @@ class SheduleViewController: UIViewController {
         setupAtivityIndicator()
 
         /// presenting `GroupChooserViewController` if `settings.groupName == ""`
-        presentGroupChooser()
+        presentGroupChooser(requestType: global.sheduleType)
         
         /// Choosing new Curent and next lesson
-        if settings.groupName != "" {
+        if settings.groupName != "" || settings.teacherName != "" {
             makeLessonsShedule(lessonsInit: nil)
         }
         
@@ -183,7 +186,7 @@ class SheduleViewController: UIViewController {
             /// Start animating and show activityIndicator
             setupAtivityIndicator()
             
-            server()
+            server(requestType: global.sheduleType)
             
             settings.isTryToRefreshShedule = false
         }
@@ -236,7 +239,11 @@ class SheduleViewController: UIViewController {
             self.navigationItem.leftBarButtonItem = self.editButtonItem
             self.navigationController?.navigationBar.prefersLargeTitles = true
             self.navigationController?.navigationItem.largeTitleDisplayMode = .always
-            self.navigationItem.title = settings.groupName.uppercased()
+            if global.sheduleType == .groups {
+                self.navigationItem.title = settings.groupName.uppercased()
+            } else {
+                self.navigationItem.title = "Мій розклад"
+            }
 
         } else {
             self.navigationController?.navigationBar.prefersLargeTitles = false
@@ -261,6 +268,7 @@ class SheduleViewController: UIViewController {
     }
     
     func checkIfGroupInFavourites() {
+        
         if let strongGroup = group {
             if favourites.favouriteGroupsID.contains(strongGroup.groupID) {
                 if let image = UIImage(named: "icons8-christmas-star-90-filled") {
@@ -274,31 +282,60 @@ class SheduleViewController: UIViewController {
     
     // MARK: - presentGroupChooser
     /// Func which present `GroupChooserViewController` (navigationGroupChooser)
-    func presentGroupChooser() {
-        if settings.groupName == "" {
-            deleteAllFromCoreData()
+    func presentGroupChooser(requestType: SheduleType) {
+        if requestType == .groups {
+            if settings.groupName == "" {
+                deleteAllFromCoreData()
 
-            self.lessonsForTableView = [DayName.mounday: [],
-                                        .tuesday: [],
-                                        .wednesday: [],
-                                        .thursday: [],
-                                        .friday: [],
-                                        .saturday: []].sorted{$0.key < $1.key}
-            tableView.reloadData()
-            
-            let mainStoryboard = UIStoryboard(name: "Main", bundle: Bundle.main)
-            guard let groupsChooserNavigationController = mainStoryboard.instantiateViewController(withIdentifier: GroupsChooserNavigationController.identifier) as? GroupsChooserNavigationController else { return }
-            
-            groupsChooserNavigationController.isMainChooser = true
-            
-            if #available(iOS 13.0, *) {
-                groupsChooserNavigationController.isModalInPresentation = true
-            } else {
-                // Fallback on earlier versions
+                self.lessonsForTableView = [DayName.mounday: [],
+                                            .tuesday: [],
+                                            .wednesday: [],
+                                            .thursday: [],
+                                            .friday: [],
+                                            .saturday: []].sorted{$0.key < $1.key}
+                tableView.reloadData()
+                
+                let mainStoryboard = UIStoryboard(name: "Main", bundle: Bundle.main)
+                guard let groupsChooserNavigationController = mainStoryboard.instantiateViewController(withIdentifier: GroupsChooserNavigationController.identifier) as? GroupsChooserNavigationController else { return }
+                
+                groupsChooserNavigationController.isSheduleGroupChooser = true
+                
+                if #available(iOS 13.0, *) {
+                    groupsChooserNavigationController.isModalInPresentation = true
+                } else {
+                    // Fallback on earlier versions
+                }
+                
+                self.present(groupsChooserNavigationController, animated: true, completion: { self.setupAtivityIndicator() })
             }
-            
-            self.present(groupsChooserNavigationController, animated: true, completion: { self.setupAtivityIndicator() })
+        } else {
+            if settings.teacherName == "" {
+                deleteAllFromCoreData()
+
+                self.lessonsForTableView = [DayName.mounday: [],
+                                            .tuesday: [],
+                                            .wednesday: [],
+                                            .thursday: [],
+                                            .friday: [],
+                                            .saturday: []].sorted{$0.key < $1.key}
+                tableView.reloadData()
+                
+                let mainStoryboard = UIStoryboard(name: "Main", bundle: Bundle.main)
+                guard let groupsChooserNavigationController = mainStoryboard.instantiateViewController(withIdentifier: GroupsChooserNavigationController.identifier) as? GroupsChooserNavigationController else { return }
+                
+                groupsChooserNavigationController.isSheduleTeachersChooser = true
+                global.sheduleType = .teachers
+                
+                if #available(iOS 13.0, *) {
+                    groupsChooserNavigationController.isModalInPresentation = true
+                } else {
+                    // Fallback on earlier versions
+                }
+                
+                self.present(groupsChooserNavigationController, animated: true, completion: { self.setupAtivityIndicator() })
+            }
         }
+        
     }
     
     
@@ -462,11 +499,19 @@ class SheduleViewController: UIViewController {
     }
     
     
-    // MARK: - server
+    // MARK: - s
     /// Functon which getting data from server
     /// - note: This fuction call `updateCoreData()`
-    func server() {
-        guard let url = URL(string: "https://api.rozklad.org.ua/v2/groups/\(settings.groupID)/lessons") else { return }
+    func server(requestType: SheduleType) {
+        var stringURL = ""
+        if requestType == .groups {
+            stringURL = "https://api.rozklad.org.ua/v2/groups/\(settings.groupID)/lessons"
+        } else {
+            stringURL = "https://api.rozklad.org.ua/v2/teachers/\(settings.teacherID)/lessons"
+        }
+        
+        guard let url = URL(string: stringURL) else { return }
+        
         let task = URLSession.shared.dataTask(with: url) {(data, response, error) in
             guard let data = data else { return }
             let decoder = JSONDecoder()
@@ -478,7 +523,7 @@ class SheduleViewController: UIViewController {
                             let alert = UIAlertController(title: nil, message: "Розкладу для цієї групи не існує", preferredStyle: .alert)
                             alert.addAction(UIAlertAction(title: "Змінити групу", style: .default, handler: { (_) in
                                 self.settings.groupName = ""
-                                self.presentGroupChooser()
+                                self.presentGroupChooser(requestType: global.sheduleType)
                             }))
                             
                             self.present(alert, animated: true, completion: {

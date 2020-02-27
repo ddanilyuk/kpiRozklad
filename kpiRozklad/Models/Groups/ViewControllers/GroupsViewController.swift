@@ -8,6 +8,11 @@
 
 import UIKit
 
+enum SheduleType {
+    case groups
+    case teachers
+}
+
 class GroupsViewController: UIViewController {
 
     /// groupReuseID
@@ -17,10 +22,14 @@ class GroupsViewController: UIViewController {
     var isSearching = false
     
     /// **Main** variable, show when `isSearching == false`
-    var groups = [Group]()
+    var groups: [Group] = []
     
     /// Variable, show when `isSearching == true`
-    var groupsInSearch = [Group]()
+    var groupsInSearch: [Group] = []
+    
+    var teachers: [Teacher] = []
+    
+    var teachersInSearch: [Teacher] = []
 
     /// Search Controller
     let search = UISearchController(searchResultsController: nil)
@@ -31,7 +40,16 @@ class GroupsViewController: UIViewController {
     
     @IBOutlet weak var startWritingLabelHeight: NSLayoutConstraint!
     
-    var isMainGroupChooser: Bool = false
+    @IBOutlet weak var detailLabel: UILabel!
+    
+    
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+    
+    // If choosing group for shedule (to Shedule VC) if global.sheduleType == .group
+    var isSheduleGroupChooser: Bool = false
+    
+    // If choosing teachers for shedule (to Shedule VC) if global.sheduleType == .teachers
+    var isSheduleTeachersChooser: Bool = false
     
     let settings = Settings.shared
     
@@ -41,9 +59,19 @@ class GroupsViewController: UIViewController {
         
         setupTableView()
         
-        server()
+        setupActivityIndicator()
+        
+        getVariablesFromNavigationController()
+//        requestTypeChoosen = .groups
+        let type: SheduleType = isSheduleTeachersChooser ? .teachers : .groups
+        serverAllTeaachetOrGroups(requestType: type)
         
         setupSearchAndNavigation()
+    }
+    
+    private func setupActivityIndicator() {
+        activityIndicator.isHidden = true
+        activityIndicator.stopAnimating()
     }
     
     private func setupTableView() {
@@ -56,12 +84,32 @@ class GroupsViewController: UIViewController {
         tableView.isHidden = true
     }
     
+    private func getVariablesFromNavigationController() {
+        guard let groupNavigationController = self.navigationController as? GroupsChooserNavigationController else {
+            return
+        }
+        
+        isSheduleGroupChooser = groupNavigationController.isSheduleGroupChooser
+        isSheduleTeachersChooser = groupNavigationController.isSheduleTeachersChooser
+    }
+    
     
     private func setupSearchAndNavigation() {
         /// Search bar settings
         search.searchResultsUpdater = self
         search.obscuresBackgroundDuringPresentation = false
-        search.searchBar.placeholder = "Пошук групи"
+        
+        if isSheduleTeachersChooser {
+            // If choosing teachers show this titles
+            search.searchBar.placeholder = "Пошук викладача"
+            self.title = "Викладачі"
+            detailLabel.text = " Почніть вводити ініціали"
+        } else {
+            search.searchBar.placeholder = "Пошук групи"
+            self.title = "Групи"
+            detailLabel.text = " Почніть вводити назву групи"
+        }
+        
         self.navigationItem.searchController = search
         self.navigationItem.hidesSearchBarWhenScrolling = false
         definesPresentationContext = true
@@ -70,98 +118,45 @@ class GroupsViewController: UIViewController {
     
     // MARK: - server
     /// Functon which getting data from server
-    func server() {
+    func serverAllTeaachetOrGroups(requestType: SheduleType) {
         let decoder = JSONDecoder()
-
-        for i in 0..<25 {
-            /// Making offset because server cant send more than 100 groups for 1 request (and we making 25)
-            let offset = i * 100
-            
-            let stringURL = "https://api.rozklad.org.ua/v2/groups/?filter=%7B'limit':100,'offset':\(String(offset))%7D"
-            
-            guard let url = URL(string: stringURL) else { return }
-            
-            let task = URLSession.shared.dataTask(with: url) {(data, response, error) in
-                guard let data = data else { return }
-
-                do {
+        
+        var stringURL = ""
+        
+        if requestType == .groups {
+            stringURL = "https://api.rozklad.org.ua/v2/groups/?filter=%7B'showAll':true%7D"
+        } else if requestType == .teachers {
+            stringURL = "https://api.rozklad.org.ua/v2/teachers/?filter=%7B'showAll':true%7D"
+        }
+        
+        guard let url = URL(string: stringURL) else { return }
+        
+        let task = URLSession.shared.dataTask(with: url) {(data, response, error) in
+            guard let data = data else { return }
+            print("in data")
+            do {
+                if requestType == .groups {
                     guard let serverFULLDATA = try? decoder.decode(WelcomeGroup.self, from: data) else { return }
                     
-                    self.groups += serverFULLDATA.data
-
-                    DispatchQueue.main.async {
-                        self.tableView.reloadData()
-                        self.groups.sort { (Group1, Group2) -> Bool in
-                            return Group1.groupID < Group2.groupID
-                        }
-                    }
+                    self.groups = serverFULLDATA.data
                     
+                } else if requestType == .teachers {
+                    guard let serverFULLDATA = try? decoder.decode(WelcomeTeachers.self, from: data) else { return }
+                    
+                    self.teachers = serverFULLDATA.data
+                }
+                DispatchQueue.main.async {
+                    self.activityIndicator.stopAnimating()
+                    self.activityIndicator.isHidden = true
+                    self.tableView.reloadData()
                 }
             }
-            task.resume()
         }
-    }
-    
-}
-
-
-// MARK: - Extencions For Table View
-extension GroupsViewController: UITableViewDelegate, UITableViewDataSource {
-    
-    // MARK: - numberOfRowsInSection
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if isSearching {
-            return groupsInSearch.count
-        } else {
-            return groups.count
-        }
-    }
-    
-    // MARK: - cellForRowAt indexPath
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: ServerGetTableViewCell.identifier, for: indexPath) as? ServerGetTableViewCell else { return UITableViewCell() }
-        
-        cell.activityIndicator.isHidden = true
-
-        cell.mainLabel.text = isSearching ? groupsInSearch[indexPath.row].groupFullName : groups[indexPath.row].groupFullName
-
-        return cell
-    }
-    
-    // MARK: - didSelectRowAt
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let mainStoryboard = UIStoryboard(name: "Main", bundle: Bundle.main)
-        let appDelegate = UIApplication.shared.delegate as? AppDelegate
-        guard let window = appDelegate?.window else { return }
-        
-        guard let groupNavigationController = self.navigationController as? GroupsChooserNavigationController else {
-            return
-        }
-        
-        let group = isSearching ? groupsInSearch[indexPath.row] : groups[indexPath.row]
-
-        
-        
-        if groupNavigationController.isMainChooser {
-            settings.groupName = group.groupFullName
-            settings.groupID = group.groupID
-            settings.isTryToRefreshShedule = true
-
-            guard let mainTabBar : UITabBarController = mainStoryboard.instantiateViewController(withIdentifier: "Main") as? UITabBarController else { return }
-
-            self.dismiss(animated: true, completion: {
-                window.rootViewController = mainTabBar
-            })
-            
-        } else {
-            serverGetFreshShedule(group: group, indexPath: indexPath)
-        }
-        
-        tableView.deselectRow(at: indexPath, animated: true)
+        task.resume()
     }
     
     
-    func serverGetFreshShedule(group: Group, indexPath: IndexPath) {
+    func serverGetChoosenGroupShedule(group: Group, indexPath: IndexPath) {
         guard let url = URL(string: "https://api.rozklad.org.ua/v2/groups/\(String(group.groupID))/lessons") else { return }
         
         DispatchQueue.main.async {
@@ -206,6 +201,96 @@ extension GroupsViewController: UITableViewDelegate, UITableViewDataSource {
         task.resume()
     }
     
+    
+}
+
+
+// MARK: - Extencions For Table View
+extension GroupsViewController: UITableViewDelegate, UITableViewDataSource {
+    
+    // MARK: - numberOfRowsInSection
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if isSheduleTeachersChooser {
+            if isSearching {
+                return teachersInSearch.count
+            } else {
+                return teachersInSearch.count
+            }
+        } else {
+            if isSearching {
+                return groupsInSearch.count
+            } else {
+                return groups.count
+            }
+        }
+    }
+    
+    // MARK: - cellForRowAt indexPath
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: ServerGetTableViewCell.identifier, for: indexPath) as? ServerGetTableViewCell else { return UITableViewCell() }
+        
+        cell.activityIndicator.isHidden = true
+        
+        if isSheduleTeachersChooser {
+            cell.mainLabel.text = isSearching ? teachersInSearch[indexPath.row].teacherFullName : teachersInSearch[indexPath.row].teacherFullName
+        } else {
+            cell.mainLabel.text = isSearching ? groupsInSearch[indexPath.row].groupFullName : groups[indexPath.row].groupFullName
+        }
+
+        return cell
+    }
+    
+    // MARK: - didSelectRowAt
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let mainStoryboard = UIStoryboard(name: "Main", bundle: Bundle.main)
+        let appDelegate = UIApplication.shared.delegate as? AppDelegate
+        guard let window = appDelegate?.window else { return }
+        
+        
+        
+        
+        
+        if isSheduleTeachersChooser {
+            
+            let teacher = isSearching ? teachersInSearch[indexPath.row] : teachers[indexPath.row]
+            
+            settings.groupName = ""
+            settings.groupID = 0
+            
+            settings.teacherName = teacher.teacherName
+            settings.teacherID = Int(teacher.teacherID) ?? 0
+            
+            settings.isTryToRefreshShedule = true
+
+            guard let mainTabBar : UITabBarController = mainStoryboard.instantiateViewController(withIdentifier: "Main") as? UITabBarController else { return }
+            
+            self.dismiss(animated: true, completion: {
+                window.rootViewController = mainTabBar
+            })
+        } else if isSheduleGroupChooser {
+            let group = isSearching ? groupsInSearch[indexPath.row] : groups[indexPath.row]
+
+            settings.groupName = group.groupFullName
+            settings.groupID = group.groupID
+            
+            settings.teacherName = ""
+            settings.teacherID = 0
+            
+            settings.isTryToRefreshShedule = true
+
+            guard let mainTabBar : UITabBarController = mainStoryboard.instantiateViewController(withIdentifier: "Main") as? UITabBarController else { return }
+
+            self.dismiss(animated: true, completion: {
+                window.rootViewController = mainTabBar
+            })
+        } else {
+            let group = isSearching ? groupsInSearch[indexPath.row] : groups[indexPath.row]
+
+            serverGetChoosenGroupShedule(group: group, indexPath: indexPath)
+        }
+        
+        tableView.deselectRow(at: indexPath, animated: true)
+    }
 }
 
 
@@ -222,31 +307,64 @@ extension GroupsViewController: UISearchResultsUpdating {
         if searchText == "" {
             isSearching = false
             groupsInSearch = []
+            teachersInSearch = []
+
+            activityIndicator.isHidden = true
+            activityIndicator.stopAnimating()
             
             startWritingLabel.isHidden = false
-        
-
             tableView.isHidden = true
-            
             tableView.reloadData()
-        } else {
+            return
+        }
+        
+        if isSheduleTeachersChooser {
+                            
+            isSearching = true
+            teachersInSearch = []
             
             startWritingLabel.isHidden = true
-            
-            
             tableView.isHidden = false
+
+            
+            if teachers.count == 0 {
+                tableView.isHidden = true
+                activityIndicator.isHidden = false
+                activityIndicator.startAnimating()
+                serverAllTeaachetOrGroups(requestType: .teachers)
+            }
+            
+            for teacher in teachers {
+                if teacher.teacherFullName.lowercased().contains(lowerCaseSearchText){
+                    teachersInSearch.append(teacher)
+                }
+            }
+            
+        } else {
             
             isSearching = true
             groupsInSearch = []
+            
+            startWritingLabel.isHidden = true
+            tableView.isHidden = false
+
+        
+            if groups.count == 0 {
+                tableView.isHidden = true
+                activityIndicator.isHidden = false
+                activityIndicator.startAnimating()
+                serverAllTeaachetOrGroups(requestType: .groups)
+            }
             
             for group in groups {
                 if group.groupFullName.lowercased().contains(lowerCaseSearchText){
                     groupsInSearch.append(group)
                 }
             }
-            
-            tableView.reloadData()
         }
+        
+        tableView.reloadData()
+
     }
 }
 

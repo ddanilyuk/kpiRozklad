@@ -74,7 +74,7 @@ class SheduleDetailViewController: UIViewController {
     // MARK: - prepare
     /// Seque to `TeacherSheduleViewController`
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "showTeacherShedule" {
+        if segue.identifier == "showTeacherSheduleFromDetail" {
             if let destination = segue.destination as? TeacherSheduleViewController {
                 destination.teacher = self.teacher
             }

@@ -10,7 +10,11 @@ import UIKit
 
 class GroupsChooserNavigationController: UINavigationController {
     
-    var isMainChooser: Bool = false
+    var isSheduleGroupChooser: Bool = false
+    
+    var isSheduleTeachersChooser: Bool = false
+
+//    var requestTypeChoosen: SheduleType = .groups
 
     override func viewDidLoad() {
         super.viewDidLoad()

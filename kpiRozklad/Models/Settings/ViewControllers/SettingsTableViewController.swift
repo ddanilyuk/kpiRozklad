@@ -36,7 +36,6 @@ class SettingsTableViewController: UITableViewController {
         tableView.dataSource = self
         tableView.backgroundColor = tint
         tableView.tintColor = .blue
-        
     }
 
     
@@ -52,7 +51,7 @@ class SettingsTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
         if section == 0 {
-            return 2
+            return 3
         } else if section == 1 {
             return 2
         } else {
@@ -122,8 +121,12 @@ class SettingsTableViewController: UITableViewController {
             if indexPath.row == 0 {
                 cell.textLabel?.text = "Оновити розклад"
             } else if indexPath.row == 1 {
-                cell.textLabel?.text = "Вибрати групу"
+                let name = global.sheduleType == .groups ? "групу" : "викладача"
+                cell.textLabel?.text = "Змінити \(name)"
                 cell.detailTextLabel?.text = settings.groupName.uppercased()
+            } else if indexPath.row == 2 {
+                let name = global.sheduleType == .groups ? "вчителів" : "студентів"
+                cell.textLabel?.text = "Змінити на розклад для \(name)"
             }
             return cell
 
@@ -157,6 +160,8 @@ class SettingsTableViewController: UITableViewController {
                 didPressUpdateShedule()
             } else if indexPath.row == 1 {
                 didPressChangeGroup()
+            } else if indexPath.row == 2 {
+                didPressChangeSheduleType()
             }
         } else if indexPath.section == 1 {
             if indexPath.row == 0 {
@@ -244,6 +249,51 @@ class SettingsTableViewController: UITableViewController {
         })
     }
     
+    
+    func didPressChangeSheduleType() {
+        let alert = UIAlertController(title: nil, message: "Чи бажаєте Ви змінити тип розкладу \n Всі ваші редагування розкладу пропадуть!", preferredStyle: .actionSheet)
+        alert.addAction(UIAlertAction(title: "Змінити", style: .destructive, handler: { (_) in
+            self.settings.groupName = ""
+            self.settings.teacherName = ""
+            
+            self.settings.groupID = 0
+            self.settings.teacherID = 0
+            
+            self.settings.isTryToRefreshShedule = true
+            
+            deleteAllFromCoreData()
+            
+            
+            let mainStoryboard = UIStoryboard(name: "Main", bundle: Bundle.main)
+            guard let greetingVC = mainStoryboard.instantiateViewController(withIdentifier: "GreetingViewController") as? GreetingViewController else { return }
+
+            let appDelegate = UIApplication.shared.delegate as? AppDelegate
+            guard let window = appDelegate?.window else { return }
+            window.rootViewController = greetingVC
+            
+            
+            
+            window.makeKeyAndVisible()
+            
+            let options: UIView.AnimationOptions = .transitionCrossDissolve
+            greetingVC.modalTransitionStyle = .crossDissolve
+
+            let duration: TimeInterval = 0.4
+
+        
+            UIView.transition(with: window, duration: duration, options: options, animations: {}, completion:
+                { completed in
+            })
+            
+            
+        }))
+        
+        alert.addAction(UIAlertAction(title: "Скасувати", style: .cancel, handler: { (_) in
+        }))
+        
+        self.present(alert, animated: true, completion: {
+        })
+    }
     
     
     func serverTimeUpdate() {

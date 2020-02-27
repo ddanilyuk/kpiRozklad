@@ -57,7 +57,7 @@ struct Lesson: Codable {
 
 }
 
-let emptyLesson: Lesson = Lesson(lessonID: "", dayNumber: "", groupID: "", dayName: .mounday, lessonName: "", lessonFullName: "", lessonNumber: "", lessonRoom: "", lessonType: .empty, teacherName: "", lessonWeek: "", timeStart: "", timeEnd: "", rate: "", teachers: nil, rooms: [Room(roomID: "", roomName: "", roomLatitude: "", roomLongitude: "")], groups: nil)
+//let emptyLesson: Lesson = Lesson(lessonID: "", dayNumber: "", groupID: "", dayName: .mounday, lessonName: "", lessonFullName: "", lessonNumber: "", lessonRoom: "", lessonType: .empty, teacherName: "", lessonWeek: "", timeStart: "", timeEnd: "", rate: "", teachers: nil, rooms: [Room(roomID: "", roomName: "", roomLatitude: "", roomLongitude: "")], groups: nil)
 
 
 extension Lesson: Comparable {

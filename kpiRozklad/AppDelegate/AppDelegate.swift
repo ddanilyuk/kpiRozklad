@@ -10,6 +10,9 @@ import UIKit
 import UserNotifications
 import CoreData
 
+struct global {
+    static var sheduleType: SheduleType = .groups
+}
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -17,15 +20,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
     let notificationCenter = UNUserNotificationCenter.current()
     private let settings = Settings.shared
-
+    
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
-//        settings.favourite.append("favourite")
-        print(Favourites.shared.favouriteGroupsNames)
-        print(Favourites.shared.favouriteGroupsID)
-
-
+        
+        settings.isShowGreetings = false
+//        settings.isGroupsShedule = false
+//        settings.isTeacherShedule = true
+//
+        if settings.isGroupsShedule == true && settings.isTeacherShedule == false {
+            global.sheduleType = .groups
+        } else {
+            global.sheduleType = .teachers
+        }
+//        settings.teacherName = ""
+        
         if settings.sheduleUpdateTime == "" {
             settings.isTryToRefreshShedule = true
             deleteAllFromCoreData()
@@ -42,14 +52,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             
             let mainStoryboard = UIStoryboard(name: "Main", bundle: Bundle.main)
             if let sheduleVC : SheduleViewController = mainStoryboard.instantiateViewController(withIdentifier: SheduleViewController.identifier) as? SheduleViewController {
-                sheduleVC.server()
+                sheduleVC.server(requestType: SheduleType.groups)
             }
+        } else {
+//            settings.isShowGreetings = false
         }
         
         
         let mainStoryboard = UIStoryboard(name: "Main", bundle: Bundle.main)
         let mainVC = mainStoryboard.instantiateInitialViewController()
-        window?.rootViewController = mainVC
+        guard let greetingVC = mainStoryboard.instantiateViewController(withIdentifier: GreetingViewController.identifier) as? GreetingViewController else { return false }
+        
+        window?.rootViewController = settings.isShowGreetings ? greetingVC : mainVC
         
         return true
     }

@@ -341,7 +341,7 @@ class SettingsTableViewController: UITableViewController {
     
     
     func didPressChangeSheduleType() {
-        let alert = UIAlertController(title: nil, message: "Чи бажаєте Ви змінити тип розкладу \n Всі ваші редагування розкладу пропадуть!", preferredStyle: .actionSheet)
+        let alert = UIAlertController(title: nil, message: "Чи бажаєте ви змінити тип розкладу \n Всі ваші редагування розкладу пропадуть!", preferredStyle: .actionSheet)
         alert.addAction(UIAlertAction(title: "Змінити", style: .destructive, handler: { (_) in
             self.settings.groupName = ""
             self.settings.teacherName = ""

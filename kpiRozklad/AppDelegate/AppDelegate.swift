@@ -9,6 +9,7 @@
 import UIKit
 import UserNotifications
 import CoreData
+import PanModal
 
 struct global {
     static var sheduleType: SheduleType = .groups
@@ -47,15 +48,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
             Settings.shared.sheduleUpdateTime = formatter.string(from: date)
         } else if settings.updateAtOnce == "" {
-//            settings.isTryToRefreshShedule = true
+            settings.isTryToRefreshShedule = true
             settings.updateAtOnce = "updated"
             global.sheduleType = .groups
             deleteAllFromCoreData()
             
-//            let mainStoryboard = UIStoryboard(name: "Main", bundle: Bundle.main)
-//            if let sheduleVC : SheduleViewController = mainStoryboard.instantiateViewController(withIdentifier: SheduleViewController.identifier) as? SheduleViewController {
-//                sheduleVC.server(requestType: SheduleType.groups)
-//            }
         } else if settings.updateAtOnceSecond == "" {
             settings.updateAtOnceSecond = "updated"
             global.sheduleType = .groups
@@ -92,13 +89,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                         guard let sheduleDetailVC : SheduleDetailViewController = mainStoryboard.instantiateViewController(withIdentifier: SheduleDetailViewController.identifier) as? SheduleDetailViewController else { return false }
                         
                         sheduleDetailVC.lesson = lesson
+                        
+                        
+                        guard let sheduleDetailNavigationVC : SheduleDetailNavigationController = mainStoryboard.instantiateViewController(withIdentifier: SheduleDetailNavigationController.identifier) as? SheduleDetailNavigationController else { return false }
+                        
+                        sheduleDetailNavigationVC.lesson = lesson
 
                         guard let mainTabBar : UITabBarController = mainStoryboard.instantiateViewController(withIdentifier: "Main") as? UITabBarController else { return false }
                         
                         mainTabBar.selectedIndex = 0
                         DispatchQueue.main.async {
                             if let vc = mainTabBar.selectedViewController as? UINavigationController {
-                                vc.pushViewController(sheduleDetailVC, animated: true)
+//                                vc.pushViewController(sheduleDetailVC, animated: true)
+                                vc.presentPanModal(sheduleDetailNavigationVC, sourceView: nil, sourceRect: .zero)
+//                                presentPanModal(sheduleDetailNavigationVC)
                             }
                         }
                       

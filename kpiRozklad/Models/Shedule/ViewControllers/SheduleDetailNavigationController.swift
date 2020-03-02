@@ -138,7 +138,7 @@ class SheduleDetailNavigationController: UINavigationController, PanModalPresent
     }
 
     var transitionDuration: Double {
-        return 0.7
+        return 0.5
     }
     
 //    var panScrollable: UIScrollView? {

@@ -17,7 +17,7 @@ import CoreData
 /// 2. `makeLessonsShedule()` remake `[Lesson]` to `[(key: DayName, value: [Lesson])]`
 /// 3. `server()` call `updateCoreData(datum:  [Lesson])` where datum is `[Lesson]` from API
 /// 4. `fetchingCoreData() -> [Lesson]` return `[Lesson]` from Core Data
-class SheduleViewController: UIViewController, UIViewControllerTransitioningDelegate {
+class SheduleViewController: UIViewController {
 
     @IBOutlet weak var tableView: UITableView!
     

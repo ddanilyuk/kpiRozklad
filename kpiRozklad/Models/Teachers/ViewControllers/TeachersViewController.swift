@@ -8,72 +8,180 @@
 
 import UIKit
 
+enum SheduleType {
+    case groups
+    case teachers
+}
+
 class TeachersViewController: UIViewController {
+    
     
     @IBOutlet weak var tableView: UITableView!
     
     let reuseID = "reuseIDForTeachers"
     
+    var teachers: [Teacher] = []
+    var teachersInSearch: [Teacher] = []
     
-    var teachers = [Teacher]()
-    var groupTeachers = [Teacher]()
-    var allTeachers = [Teacher]()
+    /// **Main** variable, show when `isSearching == false`
+    var groups: [Group] = []
     
+    /// Variable, show when `isSearching == true`
+    var groupsInSearch: [Group] = []
+
+    var groupTeachers: [Teacher] = []
     
+    var allTeachers: [Teacher] = []
+
+
     var isSearching = false
     let search = UISearchController(searchResultsController: nil)
-    var teachersInSearch = [Teacher]()
+    
 
+    let settings = Settings.shared
 
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+    
     @IBOutlet weak var segmentControl: UISegmentedControl!
+    
+    @IBOutlet weak var startWriteLabel: UILabel!
+    
+    
+    // If choosing group for shedule (to Shedule VC) if global.sheduleType == .group
+    var isSheduleGroupChooser: Bool = false
+    
+    // If choosing teachers for shedule (to Shedule VC) if global.sheduleType == .teachers
+    var isSheduleTeachersChooser: Bool = false
+    
+    var isGroupViewController: Bool = false
+    
+    var isTeacherViewController: Bool = false
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        getVariablesFromNavigationController()
+        
+        if isSheduleTeachersChooser == false && isSheduleGroupChooser == false && isGroupViewController == false {
+            isTeacherViewController = true
+        }
+        
         setupActivityIndicator()
 
-        serverGetAllTeachers()
-        
-        setupSegmentControl()
-        
-        setupNavigationAndSearch()
-        
         setupTableView()
+
+        setupNavigationAndSearch()
+
+        print("isSheduleGroupChooser", isSheduleGroupChooser)
+        print("isSheduleTeachersChooser", isSheduleTeachersChooser)
+        print("isGroupViewController", isGroupViewController)
+        print("isTeacherViewController", isTeacherViewController)
+
         
-        if global.sheduleType == .groups {
+        if isSheduleTeachersChooser {
+            
+            disableSegmentControl()
+            serverAllTeachersOrGroups(requestType: .teachers)
+            
+        } else if isSheduleGroupChooser {
+            
+            disableSegmentControl()
+            serverAllTeachersOrGroups(requestType: .groups)
+            
+        } else if isGroupViewController {
+            
+            showWithoutStartWriteLabel()
+            disableSegmentControl()
+            serverAllTeachersOrGroups(requestType: .groups)
+            
+        } else if isTeacherViewController && global.sheduleType == .teachers {
+            
+            showWithoutStartWriteLabel()
+            disableSegmentControl()
+            serverAllTeachersOrGroups(requestType: .teachers)
+            
+        } else if isTeacherViewController && global.sheduleType == .groups {
+            
+            showWithoutStartWriteLabel()
             serverGroupTeachers()
+            serverAllTeachersOrGroups(requestType: .teachers)
+            
         }
         
     }
     
-    private func setupSegmentControl() {
-        if global.sheduleType == .teachers {
-            segmentControl.selectedSegmentIndex = 1
-            didSegmentControlChangeState(segmentControl)
-            segmentControl.isHidden = true
-        }
+    private func showWithoutStartWriteLabel() {
+        tableView.isHidden = true
+        startWriteLabel.isHidden = true
+        activityIndicatorStartAndVisible()
     }
+    
+    private func disableSegmentControl() {
+        segmentControl.selectedSegmentIndex = 1
+        didSegmentControlChangeState(segmentControl)
+        segmentControl.isHidden = true
+    }
+    
+    
+    private func activityIndicatorStopAndHide() {
+        activityIndicator.stopAnimating()
+        activityIndicator.isHidden = true
+    }
+    
+    private func activityIndicatorStartAndVisible() {
+        activityIndicator.startAnimating()
+        activityIndicator.isHidden = false
+    }
+    
+    private func getVariablesFromNavigationController() {
+        guard let groupNavigationController = self.navigationController as? MyNavigationController else { return }
+        
+        isSheduleGroupChooser = groupNavigationController.isSheduleGroupChooser
+        isSheduleTeachersChooser = groupNavigationController.isSheduleTeachersChooser
+        
+    }
+    
     
     private func setupActivityIndicator() {
-        activityIndicator.startAnimating()
+        activityIndicator.stopAnimating()
         tableView.isHidden = true
-        activityIndicator.isHidden = false
+        activityIndicator.isHidden = true
         self.view.bringSubviewToFront(activityIndicator)
     }
     
     private func setupTableView() {
+        tableView.register(UINib(nibName: ServerGetTableViewCell.identifier, bundle: Bundle.main), forCellReuseIdentifier: ServerGetTableViewCell.identifier)
+
         tableView.delegate = self
         tableView.dataSource = self
     }
     
     private func setupNavigationAndSearch() {
+        
+        
         search.searchResultsUpdater = self
         search.obscuresBackgroundDuringPresentation = false
-        search.searchBar.placeholder = "Пошук викладачів"
+        // Search bar settings
+        search.searchResultsUpdater = self
+        search.obscuresBackgroundDuringPresentation = false
+        
+        if isSheduleTeachersChooser || isTeacherViewController {
+            // If choosing teachers show this titles
+            search.searchBar.placeholder = "Пошук викладача"
+            self.title = "Викладачі"
+            startWriteLabel.text = " Почніть вводити ініціали"
+        } else {
+            search.searchBar.placeholder = "Пошук групи"
+            self.title = "Групи"
+            startWriteLabel.text = " Почніть вводити назву групи"
+        }
+        
         self.navigationItem.searchController = search
+        self.navigationItem.hidesSearchBarWhenScrolling = false
         definesPresentationContext = true
     }
+    
     
     @IBAction func didSegmentControlChangeState(_ sender: UISegmentedControl) {
         switch segmentControl.selectedSegmentIndex {
@@ -97,6 +205,7 @@ class TeachersViewController: UIViewController {
         }
     }
     
+    
     func serverGroupTeachers() {
         let stringURL = "https://api.rozklad.org.ua/v2/groups/\(Settings.shared.groupID)/teachers"
         guard let url = URL(string: stringURL) else { return }
@@ -110,11 +219,14 @@ class TeachersViewController: UIViewController {
                 self.groupTeachers = serverFULLDATA.data
                 
                 DispatchQueue.main.async {
-                    self.activityIndicator.stopAnimating()
-                    self.activityIndicator.isHidden = true
+                    self.activityIndicatorStopAndHide()
+                    
                     self.tableView.isHidden = false
                     
-                    self.teachers = self.groupTeachers
+                    self.segmentControl.selectedSegmentIndex = 0
+                    self.didSegmentControlChangeState(self.segmentControl)
+                    
+//                    self.teachers = self.groupTeachers
                     self.tableView.reloadData()
 
                 }
@@ -123,53 +235,137 @@ class TeachersViewController: UIViewController {
         task.resume()
     }
     
-    func serverGetAllTeachers() {
-        let stringURL = "https://api.rozklad.org.ua/v2/teachers/?filter=%7B'showAll':true%7D"
+    
+    // MARK: - server
+    /// Functon which getting data from server
+    func serverAllTeachersOrGroups(requestType: SheduleType) {
+        let decoder = JSONDecoder()
+        
+        var stringURL = ""
+        
+        if requestType == .groups {
+            stringURL = "https://api.rozklad.org.ua/v2/groups/?filter=%7B'showAll':true%7D"
+        } else if requestType == .teachers {
+            stringURL = "https://api.rozklad.org.ua/v2/teachers/?filter=%7B'showAll':true%7D"
+        }
+        
         guard let url = URL(string: stringURL) else { return }
         
         let task = URLSession.shared.dataTask(with: url) {(data, response, error) in
-        guard let data = data else { return }
-        let decoder = JSONDecoder()
+            guard let data = data else { return }
             do {
-                guard let serverFULLDATA = try? decoder.decode(WelcomeTeachers.self, from: data) else { return }
-                self.allTeachers = serverFULLDATA.data
-                 
-                DispatchQueue.main.async {
-                    self.activityIndicator.stopAnimating()
-                    self.activityIndicator.isHidden = true
-                    self.tableView.isHidden = false
+                if requestType == .groups {
+                    guard let serverFULLDATA = try? decoder.decode(WelcomeGroup.self, from: data) else { return }
                     
-                    if global.sheduleType == .teachers {
-                        self.teachers = self.allTeachers
-                        self.tableView.reloadData()
+                    self.groups = serverFULLDATA.data
+                    
+                } else if requestType == .teachers {
+                    guard let serverFULLDATA = try? decoder.decode(WelcomeTeachers.self, from: data) else { return }
+                    
+                    if self.isSheduleTeachersChooser || (self.isTeacherViewController && global.sheduleType == .teachers) {
+                        self.teachers = serverFULLDATA.data
+                    } else {
+
+                        self.allTeachers = serverFULLDATA.data
                     }
-                 }
-             }
-         }
-         task.resume()
+                }
+                DispatchQueue.main.async {
+                    self.activityIndicatorStopAndHide()
+                    
+                    if self.isSheduleGroupChooser || self.isSheduleTeachersChooser {
+                        self.tableView.isHidden = true
+                    } else {
+                        self.tableView.isHidden = false
+                    }
+                    
+                    self.tableView.reloadData()
+                }
+            }
+        }
+        task.resume()
     }
+    
+    
+    func serverGetChoosenGroupShedule(group: Group, indexPath: IndexPath) {
+        guard let url = URL(string: "https://api.rozklad.org.ua/v2/groups/\(String(group.groupID))/lessons") else { return }
+        
+        DispatchQueue.main.async {
+            if let cell = self.tableView.cellForRow(at: indexPath) as? ServerGetTableViewCell {
+                cell.activityIndicator.isHidden = false
+                cell.activityIndicator.startAnimating()
+            }
+        }
+        
+        let task = URLSession.shared.dataTask(with: url) {(data, response, error) in
+            guard let data = data else { return }
+            let decoder = JSONDecoder()
+
+            do {
+                DispatchQueue.main.async {
+                    guard let serverFULLDATA = try? decoder.decode(WelcomeLessons.self, from: data) else { return }
+                    
+                    if let cell = self.tableView.cellForRow(at: indexPath) as? ServerGetTableViewCell {
+                        cell.activityIndicator.isHidden = true
+                        cell.activityIndicator.stopAnimating()
+                    }
+
+                    let mainStoryboard = UIStoryboard(name: "Main", bundle: Bundle.main)
+                    guard let sheduleVC : SheduleViewController = mainStoryboard.instantiateViewController(withIdentifier: SheduleViewController.identifier) as? SheduleViewController else { return }
+                    
+                    sheduleVC.isFromGroups = true
+                    sheduleVC.currentWeek = 1
+                    
+                    sheduleVC.lessonsFromServer = serverFULLDATA.data
+                    
+                    sheduleVC.navigationController?.navigationItem.largeTitleDisplayMode = .never
+                    sheduleVC.navigationController?.navigationBar.prefersLargeTitles = false
+                    sheduleVC.navigationItem.largeTitleDisplayMode = .never
+                    sheduleVC.navigationItem.title = group.groupFullName.uppercased()
+                    
+                    sheduleVC.group = group
+                    
+                    self.navigationController?.pushViewController(sheduleVC, animated: true)
+                }
+            }
+        }
+        task.resume()
+    }
+    
+    
+    
+    
 }
 
 
 extension TeachersViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if isSearching {
-            return teachersInSearch.count
+        if isSheduleTeachersChooser || isTeacherViewController {
+            if isSearching {
+                return teachersInSearch.count
+            } else {
+                return teachers.count
+            }
         } else {
-            return teachers.count
+            if isSearching {
+                return groupsInSearch.count
+            } else {
+                return groups.count
+            }
         }
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = UITableViewCell(style: .default, reuseIdentifier: reuseID)
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: ServerGetTableViewCell.identifier, for: indexPath) as? ServerGetTableViewCell else { return UITableViewCell() }
         
-        if isSearching {
-            cell.textLabel?.text = teachersInSearch[indexPath.row].teacherName
+        cell.activityIndicator.isHidden = true
+        
+        if isSheduleTeachersChooser || isTeacherViewController {
+            cell.mainLabel.text = isSearching ? teachersInSearch[indexPath.row].teacherName : teachers[indexPath.row].teacherName
         } else {
-            cell.textLabel?.text = teachers[indexPath.row].teacherName
+            cell.mainLabel.text = isSearching ? groupsInSearch[indexPath.row].groupFullName : groups[indexPath.row].groupFullName
         }
-        
+
         return cell
     }
     
@@ -188,8 +384,55 @@ extension TeachersViewController: UITableViewDelegate, UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard (storyboard?.instantiateViewController(withIdentifier: "TeacherSheduleViewController") as? TeacherSheduleViewController) != nil else { return }
-        performSegue(withIdentifier: "showTeacherSheduleFromAllTeachers", sender: self)
+        
+        let mainStoryboard = UIStoryboard(name: "Main", bundle: Bundle.main)
+        let appDelegate = UIApplication.shared.delegate as? AppDelegate
+        guard let window = appDelegate?.window else { return }
+        
+        
+        if isSheduleTeachersChooser {
+            
+            let teacher = isSearching ? teachersInSearch[indexPath.row] : teachers[indexPath.row]
+            
+            settings.groupName = ""
+            settings.groupID = 0
+            
+            settings.teacherName = teacher.teacherName
+            settings.teacherID = Int(teacher.teacherID) ?? 0
+            
+            settings.isTryToRefreshShedule = true
+
+            guard let mainTabBar : UITabBarController = mainStoryboard.instantiateViewController(withIdentifier: "Main") as? UITabBarController else { return }
+            
+            self.dismiss(animated: true, completion: {
+                window.rootViewController = mainTabBar
+            })
+        } else if isSheduleGroupChooser {
+            let group = isSearching ? groupsInSearch[indexPath.row] : groups[indexPath.row]
+
+            settings.groupName = group.groupFullName
+            settings.groupID = group.groupID
+            
+            settings.teacherName = ""
+            settings.teacherID = 0
+            
+            settings.isTryToRefreshShedule = true
+
+            guard let mainTabBar : UITabBarController = mainStoryboard.instantiateViewController(withIdentifier: "Main") as? UITabBarController else { return }
+
+            self.dismiss(animated: true, completion: {
+                window.rootViewController = mainTabBar
+            })
+        } else if isGroupViewController {
+            let group = isSearching ? groupsInSearch[indexPath.row] : groups[indexPath.row]
+            serverGetChoosenGroupShedule(group: group, indexPath: indexPath)
+        } else if isTeacherViewController {
+            guard (storyboard?.instantiateViewController(withIdentifier: "TeacherSheduleViewController") as? TeacherSheduleViewController) != nil else { return }
+            performSegue(withIdentifier: "showTeacherSheduleFromAllTeachers", sender: self)
+        }
+        
+        
+        
         tableView.deselectRow(at: indexPath, animated: true)
     }
 }
@@ -198,31 +441,73 @@ extension TeachersViewController: UITableViewDelegate, UITableViewDataSource {
 //Mark: - extencions for search
 extension TeachersViewController: UISearchResultsUpdating{
 
+        // MARK: - updateSearchResults
     func updateSearchResults(for searchController: UISearchController) {
+        
         guard let searchText = searchController.searchBar.text else { return }
-                
+        
+        let lowerCaseSearchText = searchText.lowercased()
+        
         if searchText == "" {
             isSearching = false
+            groupsInSearch = []
             teachersInSearch = []
 
+            activityIndicator.isHidden = true
+            activityIndicator.stopAnimating()
+            
+            if isSheduleGroupChooser || isSheduleTeachersChooser {
+                startWriteLabel.isHidden = false
+                tableView.isHidden = true
+            }
+            
             tableView.reloadData()
-        } else {
+            return
+        }
+        
+        if isSheduleTeachersChooser || isTeacherViewController {
             isSearching = true
             teachersInSearch = []
             
-            /// If search is taped change segmentControll to all teachers
-            if global.sheduleType == .groups {
-                segmentControl.selectedSegmentIndex = 1
-                didSegmentControlChangeState(segmentControl)
-            }
+            startWriteLabel.isHidden = true
+            tableView.isHidden = false
 
+            if teachers.count == 0 {
+                tableView.isHidden = true
+                activityIndicator.isHidden = false
+                activityIndicator.startAnimating()
+                serverAllTeachersOrGroups(requestType: .teachers)
+            }
+            
             for teacher in teachers {
-                if teacher.teacherFullName.lowercased().contains(searchText.lowercased()){
+                if teacher.teacherFullName.lowercased().contains(lowerCaseSearchText){
                     teachersInSearch.append(teacher)
                 }
             }
-            tableView.reloadData()
+            
+        } else {
+            isSearching = true
+            groupsInSearch = []
+            
+            startWriteLabel.isHidden = true
+            tableView.isHidden = false
+
+            if groups.count == 0 {
+                tableView.isHidden = true
+                activityIndicator.isHidden = false
+                activityIndicator.startAnimating()
+                serverAllTeachersOrGroups(requestType: .groups)
+            }
+            
+            for group in groups {
+                if group.groupFullName.lowercased().contains(lowerCaseSearchText){
+                    groupsInSearch.append(group)
+                }
+            }
         }
+        
+        tableView.reloadData()
+
     }
     
 }

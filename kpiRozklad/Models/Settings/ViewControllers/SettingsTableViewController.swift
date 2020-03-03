@@ -218,6 +218,8 @@ class SettingsTableViewController: UITableViewController {
         let alert = UIAlertController(title: nil, message: "Чи бажаєте Ви змінити вашу групу?\n Всі ваші редагування розкладу пропадуть!", preferredStyle: .actionSheet)
         alert.addAction(UIAlertAction(title: "Змінити", style: .destructive, handler: { (_) in
             self.settings.groupName = ""
+            self.settings.teacherName = ""
+
             self.settings.isTryToRefreshShedule = true
             deleteAllFromCoreData()
             

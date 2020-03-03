@@ -8,12 +8,12 @@
 
 import UIKit
 
-enum SheduleType {
-    case groups
-    case teachers
-}
+//enum SheduleType {
+//    case groups
+//    case teachers
+//}
 
-class GroupsViewController: UIViewController {
+class GroupsOrTeachersChooserViewController: UIViewController {
 
     /// groupReuseID
     let groupReuseID = "groupReuseID"
@@ -39,8 +39,6 @@ class GroupsViewController: UIViewController {
     @IBOutlet weak var startWritingLabel: UILabel!
     
     @IBOutlet weak var startWritingLabelHeight: NSLayoutConstraint!
-    
-    @IBOutlet weak var detailLabel: UILabel!
     
     
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
@@ -85,7 +83,7 @@ class GroupsViewController: UIViewController {
     }
     
     private func getVariablesFromNavigationController() {
-        guard let groupNavigationController = self.navigationController as? GroupsChooserNavigationController else {
+        guard let groupNavigationController = self.navigationController as? MyNavigationController else {
             return
         }
         
@@ -103,11 +101,11 @@ class GroupsViewController: UIViewController {
             // If choosing teachers show this titles
             search.searchBar.placeholder = "Пошук викладача"
             self.title = "Викладачі"
-            detailLabel.text = " Почніть вводити ініціали"
+            startWritingLabel.text = " Почніть вводити ініціали"
         } else {
             search.searchBar.placeholder = "Пошук групи"
             self.title = "Групи"
-            detailLabel.text = " Почніть вводити назву групи"
+            startWritingLabel.text = " Почніть вводити назву групи"
         }
         
         self.navigationItem.searchController = search
@@ -206,7 +204,7 @@ class GroupsViewController: UIViewController {
 
 
 // MARK: - Extencions For Table View
-extension GroupsViewController: UITableViewDelegate, UITableViewDataSource {
+extension GroupsOrTeachersChooserViewController: UITableViewDelegate, UITableViewDataSource {
     
     // MARK: - numberOfRowsInSection
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -245,9 +243,6 @@ extension GroupsViewController: UITableViewDelegate, UITableViewDataSource {
         let mainStoryboard = UIStoryboard(name: "Main", bundle: Bundle.main)
         let appDelegate = UIApplication.shared.delegate as? AppDelegate
         guard let window = appDelegate?.window else { return }
-        
-        
-        
         
         
         if isSheduleTeachersChooser {
@@ -295,7 +290,7 @@ extension GroupsViewController: UITableViewDelegate, UITableViewDataSource {
 
 
 // MARK: - Extencions For Search
-extension GroupsViewController: UISearchResultsUpdating {
+extension GroupsOrTeachersChooserViewController: UISearchResultsUpdating {
 
     // MARK: - updateSearchResults
     func updateSearchResults(for searchController: UISearchController) {
@@ -319,14 +314,12 @@ extension GroupsViewController: UISearchResultsUpdating {
         }
         
         if isSheduleTeachersChooser {
-                            
             isSearching = true
             teachersInSearch = []
             
             startWritingLabel.isHidden = true
             tableView.isHidden = false
 
-            
             if teachers.count == 0 {
                 tableView.isHidden = true
                 activityIndicator.isHidden = false
@@ -341,14 +334,12 @@ extension GroupsViewController: UISearchResultsUpdating {
             }
             
         } else {
-            
             isSearching = true
             groupsInSearch = []
             
             startWritingLabel.isHidden = true
             tableView.isHidden = false
 
-        
             if groups.count == 0 {
                 tableView.isHidden = true
                 activityIndicator.isHidden = false

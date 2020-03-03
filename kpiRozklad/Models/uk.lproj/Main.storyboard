@@ -117,7 +117,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hUq-vG-52O" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-4122" y="-301"/>
+            <point key="canvasLocation" x="-4110" y="-440"/>
         </scene>
         <!--Greeting View Controller-->
         <scene sceneID="bi7-x0-IpZ">
@@ -131,7 +131,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                                 <color key="backgroundColor" red="0.19607738520000001" green="0.3024468381" blue="0.39129083129999997" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                             </view>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.5" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="loadingV1" translatesAutoresizingMaskIntoConstraints="NO" id="xyz-86-Bu6">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.65000000000000002" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="loadingV1" translatesAutoresizingMaskIntoConstraints="NO" id="xyz-86-Bu6">
                                 <rect key="frame" x="0.0" y="-189" width="375" height="1001"/>
                             </imageView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="Sxj-d0-TR3">
@@ -152,13 +152,13 @@
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DMz-mI-C3P">
                                                 <rect key="frame" x="40" y="13.666666666666629" width="295" height="60"/>
-                                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="60" id="MUK-07-Aom"/>
                                                 </constraints>
                                                 <fontDescription key="fontDescription" type="system" pointSize="26"/>
                                                 <state key="normal" title="Я викладач">
-                                                    <color key="titleColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </state>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
@@ -186,13 +186,13 @@
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="v4P-VG-DbU">
                                                 <rect key="frame" x="40" y="13.666666666666742" width="295" height="60"/>
-                                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="60" id="Ij8-n2-w4S"/>
                                                 </constraints>
                                                 <fontDescription key="fontDescription" type="system" pointSize="26"/>
                                                 <state key="normal" title="Я студент">
-                                                    <color key="titleColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </state>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
@@ -238,7 +238,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Zts-k6-7tn" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-3353" y="533"/>
+            <point key="canvasLocation" x="-3119" y="-440"/>
         </scene>
         <!--Розклад-->
         <scene sceneID="R5c-ao-yeO">
@@ -329,7 +329,7 @@
         <!--Викладачі-->
         <scene sceneID="UTN-su-Qgb">
             <objects>
-                <navigationController id="KXC-1K-S0d" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="MyNavigationController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="KXC-1K-S0d" customClass="MyNavigationController" customModule="KPI_Rozklad" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Викладачі" image="icons8-teacher-90" id="mOh-4a-EI2"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="TWW-Se-E3A">
                         <rect key="frame" x="0.0" y="44" width="375" height="44"/>
@@ -358,13 +358,25 @@
                             <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="DY7-sa-ene">
                                 <rect key="frame" x="169" y="390" width="37" height="37"/>
                             </activityIndicatorView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" Почніть вводити назву групи" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ooM-zV-5FE">
+                                <rect key="frame" x="8" y="108" width="359" height="35"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="35" id="cg0-0W-pJP"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="19"/>
+                                <color key="textColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
+                            <constraint firstItem="ooM-zV-5FE" firstAttribute="trailing" secondItem="A37-eR-HtN" secondAttribute="trailing" constant="-8" id="1mh-Bs-f6B"/>
                             <constraint firstItem="ozO-6T-Pnc" firstAttribute="bottom" secondItem="A37-eR-HtN" secondAttribute="bottom" id="BHJ-Jg-KTx"/>
+                            <constraint firstItem="ooM-zV-5FE" firstAttribute="top" secondItem="A37-eR-HtN" secondAttribute="top" constant="20" id="GKz-3C-962"/>
                             <constraint firstItem="DY7-sa-ene" firstAttribute="centerX" secondItem="A37-eR-HtN" secondAttribute="centerX" id="KWO-On-4PF"/>
                             <constraint firstItem="DY7-sa-ene" firstAttribute="centerY" secondItem="A37-eR-HtN" secondAttribute="centerY" id="Ql4-A1-PzD"/>
                             <constraint firstItem="ozO-6T-Pnc" firstAttribute="top" secondItem="r28-T8-AU0" secondAttribute="top" id="Rbs-3e-aCI"/>
+                            <constraint firstItem="ooM-zV-5FE" firstAttribute="leading" secondItem="A37-eR-HtN" secondAttribute="leading" constant="8" id="b8r-b7-MrT"/>
                             <constraint firstItem="ozO-6T-Pnc" firstAttribute="leading" secondItem="A37-eR-HtN" secondAttribute="leading" id="pD6-Va-qhl"/>
                             <constraint firstItem="ozO-6T-Pnc" firstAttribute="trailing" secondItem="A37-eR-HtN" secondAttribute="trailing" id="xTA-Th-9Ue"/>
                         </constraints>
@@ -390,6 +402,7 @@
                     <connections>
                         <outlet property="activityIndicator" destination="DY7-sa-ene" id="Dhr-ez-0qY"/>
                         <outlet property="segmentControl" destination="bXl-wA-VMP" id="WOz-aL-VX7"/>
+                        <outlet property="startWriteLabel" destination="ooM-zV-5FE" id="Qg0-Fa-0Em"/>
                         <outlet property="tableView" destination="ozO-6T-Pnc" id="evC-DR-UwR"/>
                         <segue destination="StT-wO-RBg" kind="show" identifier="showTeacherSheduleFromAllTeachers" id="5QF-Tv-CiU"/>
                     </connections>
@@ -686,15 +699,12 @@
         <!--Групи-->
         <scene sceneID="cZ6-Lo-xOW">
             <objects>
-                <navigationController storyboardIdentifier="GroupsChooserNavigationController" id="rzP-Vb-AVW" customClass="GroupsChooserNavigationController" customModule="KPI_Rozklad" customModuleProvider="target" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="GroupsOrTeachersChooserNavigationController" id="rzP-Vb-AVW" customClass="GroupsOrTeachersChooserNavigationController" customModule="KPI_Rozklad" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Групи" image="icons8-user-group-90" id="eQe-0B-TmU"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="hZs-TU-Rdh">
                         <rect key="frame" x="0.0" y="44" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
-                    <connections>
-                        <segue destination="jBb-Zu-RO6" kind="relationship" relationship="rootViewController" id="TKb-fY-2Ny"/>
-                    </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Efv-9v-qmo" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -703,20 +713,20 @@
         <!--Групи-->
         <scene sceneID="vaf-AF-DH1">
             <objects>
-                <viewController storyboardIdentifier="GroupsViewController" id="jBb-Zu-RO6" customClass="GroupsViewController" customModule="KPI_Rozklad" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="GroupsViewController" id="jBb-Zu-RO6" customClass="GroupsOrTeachersChooserViewController" customModule="KPI_Rozklad" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="LnH-Wi-JB7">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="HQM-27-wzL">
-                                <rect key="frame" x="169" y="390" width="37" height="37"/>
+                                <rect key="frame" x="169" y="392.66666666666669" width="37" height="37"/>
                             </activityIndicatorView>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="eQv-ab-jKf">
-                                <rect key="frame" x="0.0" y="88" width="375" height="641"/>
+                                <rect key="frame" x="0.0" y="44" width="375" height="734"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                             </tableView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" Почніть вводити назву групи" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NwA-E1-zgF">
-                                <rect key="frame" x="0.0" y="96" width="375" height="35"/>
+                                <rect key="frame" x="0.0" y="52" width="375" height="35"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="35" id="1Dh-US-Hd9"/>
                                 </constraints>
@@ -742,7 +752,6 @@
                     <navigationItem key="navigationItem" title="Групи" id="mWL-QV-YM5"/>
                     <connections>
                         <outlet property="activityIndicator" destination="HQM-27-wzL" id="zz6-Aq-Y9l"/>
-                        <outlet property="detailLabel" destination="NwA-E1-zgF" id="gtd-NG-sym"/>
                         <outlet property="startWritingLabel" destination="NwA-E1-zgF" id="z9T-C3-tEK"/>
                         <outlet property="startWritingLabelHeight" destination="1Dh-US-Hd9" id="7hK-nq-B2m"/>
                         <outlet property="tableView" destination="eQv-ab-jKf" id="x3S-ow-QS1"/>

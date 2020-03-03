@@ -296,7 +296,7 @@ class SheduleViewController: UIViewController {
                 tableView.reloadData()
                 
                 let mainStoryboard = UIStoryboard(name: "Main", bundle: Bundle.main)
-                guard let groupsChooserNavigationController = mainStoryboard.instantiateViewController(withIdentifier: GroupsChooserNavigationController.identifier) as? GroupsChooserNavigationController else { return }
+                guard let groupsChooserNavigationController = mainStoryboard.instantiateViewController(withIdentifier: MyNavigationController.identifier) as? MyNavigationController else { return }
                 
                 groupsChooserNavigationController.isSheduleGroupChooser = true
                 
@@ -321,7 +321,7 @@ class SheduleViewController: UIViewController {
                 tableView.reloadData()
                 
                 let mainStoryboard = UIStoryboard(name: "Main", bundle: Bundle.main)
-                guard let groupsChooserNavigationController = mainStoryboard.instantiateViewController(withIdentifier: GroupsChooserNavigationController.identifier) as? GroupsChooserNavigationController else { return }
+                guard let groupsChooserNavigationController = mainStoryboard.instantiateViewController(withIdentifier: MyNavigationController.identifier) as? MyNavigationController else { return }
                 
                 groupsChooserNavigationController.isSheduleTeachersChooser = true
                 global.sheduleType = .teachers
@@ -520,9 +520,14 @@ class SheduleViewController: UIViewController {
                 if let error = try? decoder.decode(Error.self, from: data) {
                     if error.message == "Lessons not found" {
                         DispatchQueue.main.async {
-                            let alert = UIAlertController(title: nil, message: "Розкладу для цієї групи не існує", preferredStyle: .alert)
-                            alert.addAction(UIAlertAction(title: "Змінити групу", style: .default, handler: { (_) in
+                            let messageAlert = global.sheduleType == .groups ? "Розкладу для цієї групи не існує" : "Розкладу для цього викладача не існує"
+                            let actionTitle = global.sheduleType == .groups ? "Змінити групу" : "Змінити викладача"
+                            
+                            let alert = UIAlertController(title: nil, message: messageAlert, preferredStyle: .alert)
+                            alert.addAction(UIAlertAction(title: actionTitle, style: .default, handler: { (_) in
                                 self.settings.groupName = ""
+                                self.settings.teacherName = ""
+                    
                                 self.presentGroupChooser(requestType: global.sheduleType)
                             }))
                             
@@ -535,9 +540,8 @@ class SheduleViewController: UIViewController {
                 
                 
                 guard let serverFULLDATA = try? decoder.decode(WelcomeLessons.self, from: data) else { return }
-                let datum = serverFULLDATA.data
 
-                updateCoreData(vc: self, datum: datum)
+                updateCoreData(vc: self, datum: serverFULLDATA.data)
             }
         }
         task.resume()

@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ServerGetTableViewCell: UITableViewCell {
+class TeacherOrGroupLoadingTableViewCell: UITableViewCell {
     @IBOutlet weak var mainLabel: UILabel!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     

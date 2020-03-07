@@ -9,7 +9,11 @@
 import UIKit
 import UserNotifications
 import CoreData
+import PanModal
 
+struct global {
+    static var sheduleType: SheduleType = .groups
+}
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -17,10 +21,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
     let notificationCenter = UNUserNotificationCenter.current()
     private let settings = Settings.shared
-
+    
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+        
+        
+//        settings.isShowGreetings = false
 
+
+        if settings.isGroupsShedule == false && settings.isTeacherShedule == true {
+            global.sheduleType = .teachers
+        } else {
+            global.sheduleType = .groups
+        }
+//        settings.teacherName = ""
+        
+        print(settings.updateAtOnceSecond)
+        
         if settings.sheduleUpdateTime == "" {
             settings.isTryToRefreshShedule = true
             deleteAllFromCoreData()
@@ -33,18 +50,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         } else if settings.updateAtOnce == "" {
             settings.isTryToRefreshShedule = true
             settings.updateAtOnce = "updated"
+            global.sheduleType = .groups
             deleteAllFromCoreData()
             
-            let mainStoryboard = UIStoryboard(name: "Main", bundle: Bundle.main)
-            if let sheduleVC : SheduleViewController = mainStoryboard.instantiateViewController(withIdentifier: SheduleViewController.identifier) as? SheduleViewController {
-                sheduleVC.server()
-            }
+        } else if settings.updateAtOnceSecond == "" {
+            settings.updateAtOnceSecond = "updated"
+            global.sheduleType = .groups
         }
         
         
         let mainStoryboard = UIStoryboard(name: "Main", bundle: Bundle.main)
         let mainVC = mainStoryboard.instantiateInitialViewController()
-        window?.rootViewController = mainVC
+        guard let greetingVC = mainStoryboard.instantiateViewController(withIdentifier: GreetingViewController.identifier) as? GreetingViewController else { return false }
+        
+        window?.rootViewController = settings.isShowGreetings ? greetingVC : mainVC
         
         return true
     }
@@ -70,13 +89,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                         guard let sheduleDetailVC : SheduleDetailViewController = mainStoryboard.instantiateViewController(withIdentifier: SheduleDetailViewController.identifier) as? SheduleDetailViewController else { return false }
                         
                         sheduleDetailVC.lesson = lesson
+                        
+                        
+                        guard let sheduleDetailNavigationVC : SheduleDetailNavigationController = mainStoryboard.instantiateViewController(withIdentifier: SheduleDetailNavigationController.identifier) as? SheduleDetailNavigationController else { return false }
+                        
+                        sheduleDetailNavigationVC.lesson = lesson
 
                         guard let mainTabBar : UITabBarController = mainStoryboard.instantiateViewController(withIdentifier: "Main") as? UITabBarController else { return false }
                         
                         mainTabBar.selectedIndex = 0
                         DispatchQueue.main.async {
                             if let vc = mainTabBar.selectedViewController as? UINavigationController {
-                                vc.pushViewController(sheduleDetailVC, animated: true)
+//                                vc.pushViewController(sheduleDetailVC, animated: true)
+                                vc.presentPanModal(sheduleDetailNavigationVC, sourceView: nil, sourceRect: .zero)
+//                                presentPanModal(sheduleDetailNavigationVC)
                             }
                         }
                       

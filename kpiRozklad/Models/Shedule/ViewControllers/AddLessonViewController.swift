@@ -241,14 +241,19 @@ class AddLessonViewController: UIViewController {
         Settings.shared.isTryToReloadTableView = true
 
         /// Updating Core Data
-        updateCoreData(vc: sheduleViewController, datum: lessons)
+        updateCoreDataV2(vc: sheduleViewController, datum: lessons)
         
         /// SHOW NEW sheduleViewController
         let mainTabBar : UITabBarController = mainStoryboard.instantiateViewController(withIdentifier: "Main") as! UITabBarController
         
-        self.dismiss(animated: true, completion: {
+        if #available(iOS 13, *) {
+            self.dismiss(animated: true, completion: {
+                window.rootViewController = mainTabBar
+            })
+        } else {
+            self.navigationController?.popViewController(animated: true)
             window.rootViewController = mainTabBar
-        })
+        }
         
     }
     

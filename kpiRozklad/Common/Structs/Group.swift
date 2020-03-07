@@ -40,6 +40,7 @@ struct Group: Codable {
         case groupURL = "group_url"
     }
 }
+let emptyGroup = Group(groupID: 0, groupFullName: "", groupPrefix: "", groupOkr: .magister, groupType: .daily, groupURL: "")
 
 enum GroupOkr: String, Codable {
     case bachelor = "bachelor"

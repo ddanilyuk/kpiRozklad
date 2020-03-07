@@ -81,7 +81,18 @@ class TeacherSheduleViewController: UIViewController {
     /// ActivityIndicator
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
+    @IBOutlet weak var favouriteBarButtonItem: UIBarButtonItem!
     
+    @IBOutlet weak var favouriteButton: UIButton!
+    
+    var isFavourite: Bool = false
+    
+    let favourites = Favourites.shared
+    
+    var isFromFavourites: Bool = false
+    
+    var lessonsFromServer: [Lesson] = []
+
     // MARK: - viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -102,30 +113,49 @@ class TeacherSheduleViewController: UIViewController {
         let title = "Зараз \(self.currentWeekFromTodayDate) тиждень"
         self.navBar.title = title
         
-//        /// Making request from server
-//        server()
         
         if teacher != nil {
             teacherID = teacher?.teacherID
         }
-        
-        /// Making request from server
-        server()
-
-        makeTeachersLessonsShedule()
         
         /// Start animating and show activityIndicator
         activityIndicator.startAnimating()
         tableView.isHidden = true
         self.view.bringSubviewToFront(activityIndicator)
         
+        /// Making request from server
+        if isFromFavourites {
+            lessons = lessonsFromServer
+            
+            DispatchQueue.main.async {
+                /// Show tableView
+                self.tableView.isHidden = false
+                
+                /// Hide Activity Indicator
+                self.activityIndicator.stopAnimating()
+                self.activityIndicator.isHidden = true
+            }
+        } else {
+            server()
+        }
+        
+        makeTeachersLessonsShedule()
+        
+        checkIfGroupInFavourites()
     }
     
     
-//    // MARK: - viewDidAppear
-//    override func viewDidAppear(_ animated: Bool) {
-//          getCurrentAndNextLesson(lessons: lessons)
-//    }
+    func checkIfGroupInFavourites() {
+        if let strongTeacher = teacher {
+            if favourites.favouriteTeachersID.contains(Int(strongTeacher.teacherID) ?? 0) {
+                if let image = UIImage(named: "icons8-christmas-star-90-filled") {
+                    favouriteButton.setImage(image, for: .normal)
+                    isFavourite = true
+                }
+            }
+        }
+    }
+    
     
     
     // MARK: - getDayNumAndWeekOfYear
@@ -309,7 +339,46 @@ class TeacherSheduleViewController: UIViewController {
                 break
         }
     }
+    
+    
+    
+    @IBAction func didPressFavourite(_ sender: UIButton) {
+        guard let strongTeacher = teacher else { return }
         
+        if isFavourite {
+            if let image = UIImage(named: "icons8-christmas-star-75-add-1") {
+                print(favourites.favouriteTeachersID)
+
+                for i in 0..<favourites.favouriteTeachersID.count {
+                    
+                    if Int(strongTeacher.teacherID) ?? 0 == favourites.favouriteTeachersID[i] {
+                        favouriteButton.setImage(image, for: .normal)
+                        _ = favourites.favouriteTeachersNames.remove(at: i)
+                        _ = favourites.favouriteTeachersID.remove(at: i)
+                        isFavourite = false
+                        return
+                    }
+                }
+                
+                print(favourites.favouriteTeachersNames)
+                print(favourites.favouriteTeachersID)
+            }
+        } else {
+            if let image = UIImage(named: "icons8-christmas-star-90-filled") {
+                favouriteButton.setImage(image, for: .normal)
+                favourites.favouriteTeachersNames.append(strongTeacher.teacherFullName)
+                favourites.favouriteTeachersID.append(Int(strongTeacher.teacherID) ?? 0)
+
+                isFavourite = true
+                
+                print(favourites.favouriteTeachersNames)
+                print(favourites.favouriteTeachersID)
+            }
+        }
+        
+    }
+    
+    
 
 }
 
@@ -358,7 +427,37 @@ extension TeacherSheduleViewController: UITableViewDelegate, UITableViewDataSour
         
         tableView.deselectRow(at: indexPath, animated: true)
     }
-        
+    
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 30
+    }
+    
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let returnedView = UIView(frame: CGRect(x: 0, y: 0, width: view.frame.size.width, height: 35))
+        let array: [String] = [DayName.mounday.rawValue,
+                               DayName.tuesday.rawValue,
+                               DayName.wednesday.rawValue,
+                               DayName.thursday.rawValue,
+                               DayName.friday.rawValue,
+                               DayName.saturday.rawValue]
+                
+        returnedView.backgroundColor = sectionColour
+
+        let label = UILabel(frame: CGRect(x: 16, y: 3, width: view.frame.size.width, height: 25))
+        label.text = array[section]
+
+        if #available(iOS 13.0, *) {
+            label.textColor = .label
+        } else {
+            label.textColor = .black
+        }
+        returnedView.addSubview(label)
+
+        return returnedView
+    }
+    
     
     // MARK: - cellForRowAt
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

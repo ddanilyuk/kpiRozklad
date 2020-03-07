@@ -129,16 +129,65 @@ func getGroupsOfLessonString(lesson: Lesson) -> String {
     var groupsNames: String  = ""
 
     if let groups = lesson.groups {
-        
-        for i in 0..<groups.count {
-            let group = groups[i]
+        var groupsSorted: [Group] = []
+        groupsSorted = groups.sorted { (group1, group2) -> Bool in
+            return group1.groupFullName < group2.groupFullName
+        }
+        for i in 0..<groupsSorted.count {
+            let group = groupsSorted[i]
             if i == groups.count - 1 {
-                groupsNames += group.groupFullName
+                groupsNames += group.groupFullName.uppercased()
             } else {
-                groupsNames += group.groupFullName + ", "
+                groupsNames += group.groupFullName.uppercased() + ", "
             }
         }
     }
     
     return groupsNames
 }
+
+//
+//func serverGetFreshShedule(group: Group, indexPath: IndexPath) {
+//    guard let url = URL(string: "https://api.rozklad.org.ua/v2/groups/\(String(group.groupID))/lessons") else { return }
+//
+//    DispatchQueue.main.async {
+//        if let cell = self.tableView.cellForRow(at: indexPath) as? ServerGetTableViewCell {
+//            cell.activityIndicator.isHidden = false
+//            cell.activityIndicator.startAnimating()
+//        }
+//    }
+//
+//    let task = URLSession.shared.dataTask(with: url) {(data, response, error) in
+//        guard let data = data else { return }
+//        let decoder = JSONDecoder()
+//
+//        do {
+//            DispatchQueue.main.async {
+//                guard let serverFULLDATA = try? decoder.decode(WelcomeLessons.self, from: data) else { return }
+//
+//                if let cell = self.tableView.cellForRow(at: indexPath) as? ServerGetTableViewCell {
+//                    cell.activityIndicator.isHidden = true
+//                    cell.activityIndicator.stopAnimating()
+//                }
+//
+//                let mainStoryboard = UIStoryboard(name: "Main", bundle: Bundle.main)
+//                guard let sheduleVC : SheduleViewController = mainStoryboard.instantiateViewController(withIdentifier: SheduleViewController.identifier) as? SheduleViewController else { return }
+//
+//                sheduleVC.isFromGroups = true
+//                sheduleVC.currentWeek = 1
+//
+//                sheduleVC.lessonsFromServer = serverFULLDATA.data
+//
+//                sheduleVC.navigationController?.navigationItem.largeTitleDisplayMode = .never
+//                sheduleVC.navigationController?.navigationBar.prefersLargeTitles = false
+//                sheduleVC.navigationItem.largeTitleDisplayMode = .never
+//                sheduleVC.navigationItem.title = group.groupFullName.uppercased()
+//
+//                sheduleVC.group = group
+//
+//                self.navigationController?.pushViewController(sheduleVC, animated: true)
+//            }
+//        }
+//    }
+//    task.resume()
+//}

@@ -1,5 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="15508" systemVersion="19B88" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="15702" systemVersion="19D76" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="GroupData" representedClassName="GroupData" syncable="YES" codeGenerationType="class">
+        <attribute name="groupFullName" optional="YES" attributeType="String"/>
+        <attribute name="groupID" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="groupOkr" optional="YES" attributeType="String"/>
+        <attribute name="groupPrefix" optional="YES" attributeType="String"/>
+        <attribute name="groupType" optional="YES" attributeType="String"/>
+        <attribute name="groupURL" optional="YES" attributeType="String"/>
+        <relationship name="groupsRelationship" optional="YES" maxCount="1" deletionRule="No Action" destinationEntity="LessonData" inverseName="groupsRelationship" inverseEntity="LessonData"/>
+    </entity>
     <entity name="LessonData" representedClassName="LessonData" syncable="YES" codeGenerationType="class">
         <attribute name="dayName" optional="YES" attributeType="String"/>
         <attribute name="dayNumber" optional="YES" attributeType="String"/>
@@ -15,6 +24,7 @@
         <attribute name="teacherName" optional="YES" attributeType="String"/>
         <attribute name="timeEnd" optional="YES" attributeType="String"/>
         <attribute name="timeStart" optional="YES" attributeType="String"/>
+        <relationship name="groupsRelationship" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="GroupData" inverseName="groupsRelationship" inverseEntity="GroupData"/>
         <relationship name="roomsRelationship" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="RoomsData" inverseName="roomsRelationship" inverseEntity="RoomsData"/>
         <relationship name="teachersRelationship" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="TeachersData" inverseName="teachersRelationship" inverseEntity="TeachersData"/>
     </entity>
@@ -35,8 +45,9 @@
         <relationship name="teachersRelationship" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="LessonData" inverseName="teachersRelationship" inverseEntity="LessonData"/>
     </entity>
     <elements>
-        <element name="LessonData" positionX="-63" positionY="-18" width="128" height="283"/>
-        <element name="TeachersData" positionX="241.29296875" positionY="48.12109375" width="128" height="148"/>
+        <element name="GroupData" positionX="117" positionY="135" width="128" height="148"/>
+        <element name="LessonData" positionX="-63" positionY="-18" width="128" height="298"/>
         <element name="RoomsData" positionX="90" positionY="99" width="128" height="28"/>
+        <element name="TeachersData" positionX="241.29296875" positionY="48.12109375" width="128" height="148"/>
     </elements>
 </model>

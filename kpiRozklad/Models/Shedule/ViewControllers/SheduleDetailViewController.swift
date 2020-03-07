@@ -7,8 +7,10 @@
 //
 
 import UIKit
+import PanModal
 
 class SheduleDetailViewController: UIViewController {
+    
 
     /// Variable from seque
     var lesson: Lesson? = nil
@@ -38,16 +40,23 @@ class SheduleDetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        getVariablesFromNavigationController()
+        self.title = "Деталі"
+        
         /// Guarding lesson
         guard let lesson = lesson else { return }
+        
+        print(lesson)
         
         if lesson.teachers?.count != 0 {
             teacher = lesson.teachers?[0]
                         
             if teacher?.teacherFullName != "" {
                 teacherLabel.text = teacher?.teacherFullName
-            } else {
+            } else if teacher?.teacherName != "" {
                 teacherLabel.text = teacher?.teacherName
+            } else {
+                teacherLabel.text = lesson.teacherName
             }
             
             teacherRatingLabel.text = "Рейтинг викладача: " + (teacher?.teacherRating ?? "0.0000")
@@ -67,14 +76,31 @@ class SheduleDetailViewController: UIViewController {
         
         checkTeacherShedule.layer.cornerRadius = 25
         
-        server(dayNumber: lesson.dayNumber, lessonNumber: lesson.lessonNumber, teacherID: teacher?.teacherID ?? "0", lessonWeek: lesson.lessonWeek)
+        if lesson.groups?.count == 0 {
+            server(dayNumber: lesson.dayNumber, lessonNumber: lesson.lessonNumber, teacherID: teacher?.teacherID ?? "0", lessonWeek: lesson.lessonWeek)
+        } else {
+            self.groupsLabel.text = "Групи: \(getGroupsOfLessonString(lesson: lesson))"
+        }
+        
+        // TODO подивитись на розклад групи
+        if global.sheduleType == .teachers {
+            checkTeacherShedule.isHidden = true
+        }
+        
     }
     
+    private func getVariablesFromNavigationController() {
+        guard let navigationVC = self.navigationController as? SheduleDetailNavigationController else {
+            return
+        }
+        self.lesson = navigationVC.lesson
+        
+    }
     
     // MARK: - prepare
     /// Seque to `TeacherSheduleViewController`
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "showTeacherShedule" {
+        if segue.identifier == "showTeacherSheduleFromDetail" {
             if let destination = segue.destination as? TeacherSheduleViewController {
                 destination.teacher = self.teacher
             }
@@ -115,8 +141,7 @@ class SheduleDetailViewController: UIViewController {
                 }
                 
                 guard let serverFULLDATA = try? decoder.decode(WelcomeLessons.self, from: data) else { return }
-                let datum = serverFULLDATA.data
-                lessons = datum
+                lessons = serverFULLDATA.data
                 print(lessons)
                 self.getGroups(dayNumber: dayNumber, lessonNumber: lessonNumber, teacherID: teacherID, lessonWeek: lessonWeek, lessons: lessons)
 

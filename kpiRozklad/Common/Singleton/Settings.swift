@@ -49,6 +49,24 @@ class Settings {
         }
     }
     
+    var teacherName: String {
+        get {
+            return userDefaults.string(forKey: "teacherName") ?? ""
+        }
+        set {
+            userDefaults.set(newValue, forKey: "teacherName")
+        }
+    }
+    
+    var teacherID: Int {
+        get {
+            return userDefaults.integer(forKey: "teacherID")
+        }
+        set {
+            userDefaults.set(newValue, forKey: "teacherID")
+        }
+    }
+    
     var sheduleUpdateTime: String {
         get {
             return userDefaults.string(forKey: "sheduleUpdateTime") ?? ""
@@ -74,6 +92,42 @@ class Settings {
         }
         set {
             userDefaults.set(newValue, forKey: "updateAtOnce")
+        }
+    }
+    
+    var updateAtOnceSecond: String {
+        get {
+            return userDefaults.string(forKey: "updateAtOnceSecond") ?? ""
+        }
+        set {
+            userDefaults.set(newValue, forKey: "updateAtOnceSecond")
+        }
+    }
+    
+    var isShowGreetings: Bool {
+        get {
+            return userDefaults.bool(forKey: "isShowGreetings")
+        }
+        set {
+            userDefaults.set(newValue, forKey: "isShowGreetings")
+        }
+    }
+    
+    var isGroupsShedule: Bool {
+        get {
+            return userDefaults.bool(forKey: "isGroupsShedule")
+        }
+        set {
+            userDefaults.set(newValue, forKey: "isGroupsShedule")
+        }
+    }
+    
+    var isTeacherShedule: Bool {
+        get {
+            return userDefaults.bool(forKey: "isTeacherShedule")
+        }
+        set {
+            userDefaults.set(newValue, forKey: "isTeacherShedule")
         }
     }
  }

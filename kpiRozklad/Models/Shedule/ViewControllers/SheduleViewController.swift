@@ -118,12 +118,17 @@ class SheduleViewController: UIViewController, UIViewControllerTransitioningDele
         setupDate()
         
         if isFromSettingsGetFreshShedule {
+            
+            
+            self.navigationController?.navigationBar.prefersLargeTitles = true
             self.navigationItem.largeTitleDisplayMode = .never
+            self.navigationController?.navigationItem.largeTitleDisplayMode = .never
+            
             self.navigationItem.rightBarButtonItems = [segmentBatButtonItem]
             self.weekSwitch.frame = CGRect(x: 0, y: 0, width: 90, height: weekSwitch.frame.height)
 
         } else if isFromGroups {
-            self.navigationItem.largeTitleDisplayMode = .never
+//            self.navigationItem.largeTitleDisplayMode = .never
             self.navigationItem.rightBarButtonItems = [segmentBatButtonItem, favouriteBarButtonItem]
             self.weekSwitch.frame = CGRect(x: 0, y: 0, width: 90, height: weekSwitch.frame.height)
             
@@ -150,6 +155,8 @@ class SheduleViewController: UIViewController, UIViewControllerTransitioningDele
         }
         
     }
+    
+    
     
     @objc func reloadAfterOpenApp() {
         let lessons = [Lesson]()
@@ -208,7 +215,13 @@ class SheduleViewController: UIViewController, UIViewControllerTransitioningDele
     
     
     override func viewDidAppear(_ animated: Bool) {
-        self.navigationItem.largeTitleDisplayMode = .always
+        if !isFromSettingsGetFreshShedule {
+            
+            
+            self.navigationItem.largeTitleDisplayMode = .always
+
+        }
+//        self.navigationItem.largeTitleDisplayMode = .always
     }
     
     
@@ -712,25 +725,44 @@ extension SheduleViewController: UITableViewDelegate, UITableViewDataSource {
         } else {
             if indexPath.section != lessonsForTableView.count {
                 
-                if #available(iOS 13.0, *) {
-                    dismiss(animated: true, completion: nil)
-
-                    guard let vc = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(identifier: SheduleDetailNavigationController.identifier) as? SheduleDetailNavigationController else { return }
-                    
-                    
-                    vc.lesson = lessonsForTableView[indexPath.section].value[indexPath.row]
-                    
-//                    let options: UIView.AnimationOptions = .transitionCrossDissolve
-//                    UIView.transition(with: self.view, duration: 0.7, options: options, animations: {}, completion:
-//                        { completed in
-//                            self.view.alpha = 0.4
-//                    })
-                    
-                    presentPanModal(vc)
-                    
-                } else {
-                    performSegue(withIdentifier: "showDetailViewController", sender: self)
+//                if #available(iOS 13.0, *) {
+//                    dismiss(animated: true, completion: nil)
+//
+//                    guard let vc = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(identifier: SheduleDetailNavigationController.identifier) as? SheduleDetailNavigationController else { return }
+//                    
+//                    
+//                    vc.lesson = lessonsForTableView[indexPath.section].value[indexPath.row]
+//                    
+//                    
+//                    presentPanModal(vc)
+//                    
+//                } else {
+////                    guard let vc = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(identifier: SheduleDetailNavigationController.identifier) as? SheduleDetailNavigationController else {
+////                        return
+////
+////                    }
+//                    guard let vc = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: SheduleDetailNavigationController.identifier) as? SheduleDetailNavigationController else {
+//                        return
+//                    }
+//                    
+//                    vc.lesson = lessonsForTableView[indexPath.section].value[indexPath.row]
+//                    
+//                    
+//                    presentPanModal(vc)
+//                    
+////                    performSegue(withIdentifier: "showDetailViewController", sender: self)
+//                }
+                
+                guard let vc = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: SheduleDetailNavigationController.identifier) as? SheduleDetailNavigationController else {
+                    return
                 }
+                
+                vc.lesson = lessonsForTableView[indexPath.section].value[indexPath.row]
+                
+                
+                presentPanModal(vc)
+                
+                
                 
             }
         }

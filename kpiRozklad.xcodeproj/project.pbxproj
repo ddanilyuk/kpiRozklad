@@ -31,6 +31,8 @@
 		5F6A08062370A175000A9C79 /* kpiRozklad.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 5F6A08042370A175000A9C79 /* kpiRozklad.xcdatamodeld */; };
 		5F7BABBF23A163C8009E3CA6 /* Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F7BABBE23A163C8009E3CA6 /* Error.swift */; };
 		5FA2B79D2379F5A7006C466B /* Group.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FA2B79C2379F5A7006C466B /* Group.swift */; };
+		5FA5CE5A2413E32D00D2796A /* SettingsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FA5CE582413E32D00D2796A /* SettingsTableViewCell.swift */; };
+		5FA5CE5B2413E32D00D2796A /* SettingsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5FA5CE592413E32D00D2796A /* SettingsTableViewCell.xib */; };
 		5FACFF5323EC70A70022DF88 /* ServerGetTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FACFF5123EC70A70022DF88 /* ServerGetTableViewCell.swift */; };
 		5FACFF5423EC70A70022DF88 /* ServerGetTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5FACFF5223EC70A70022DF88 /* ServerGetTableViewCell.xib */; };
 		5FACFF7E23ED63D40022DF88 /* NotificationCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FACFF7D23ED63D40022DF88 /* NotificationCenter.framework */; };
@@ -108,6 +110,8 @@
 		5F6A08052370A175000A9C79 /* Lesson.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Lesson.xcdatamodel; sourceTree = "<group>"; };
 		5F7BABBE23A163C8009E3CA6 /* Error.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Error.swift; sourceTree = "<group>"; };
 		5FA2B79C2379F5A7006C466B /* Group.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Group.swift; sourceTree = "<group>"; };
+		5FA5CE582413E32D00D2796A /* SettingsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTableViewCell.swift; sourceTree = "<group>"; };
+		5FA5CE592413E32D00D2796A /* SettingsTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SettingsTableViewCell.xib; sourceTree = "<group>"; };
 		5FACFF5123EC70A70022DF88 /* ServerGetTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerGetTableViewCell.swift; sourceTree = "<group>"; };
 		5FACFF5223EC70A70022DF88 /* ServerGetTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ServerGetTableViewCell.xib; sourceTree = "<group>"; };
 		5FACFF7B23ED63D40022DF88 /* Widget.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = Widget.appex; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -236,6 +240,15 @@
 				5F46AD672401A0F700B145D5 /* Favourites.swift */,
 			);
 			path = Singleton;
+			sourceTree = "<group>";
+		};
+		5FA5CE572413E30800D2796A /* SettingsTableViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				5FA5CE582413E32D00D2796A /* SettingsTableViewCell.swift */,
+				5FA5CE592413E32D00D2796A /* SettingsTableViewCell.xib */,
+			);
+			path = SettingsTableViewCell;
 			sourceTree = "<group>";
 		};
 		5FACFF4F23EC70420022DF88 /* ServerUpdateTableViewCell */ = {
@@ -402,6 +415,7 @@
 		D3FFAADB234F7A3D0065E9CE /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				5FA5CE572413E30800D2796A /* SettingsTableViewCell */,
 				5FACFF5023EC705C0022DF88 /* ServerGetTableViewCell */,
 				5FACFF4F23EC70420022DF88 /* ServerUpdateTableViewCell */,
 			);
@@ -602,6 +616,7 @@
 				5FACFF5423EC70A70022DF88 /* ServerGetTableViewCell.xib in Resources */,
 				5F034A322389B16D00D90DB7 /* Main.storyboard in Resources */,
 				D313F4B6233D1F090076CFF8 /* LessonTableViewCell.xib in Resources */,
+				5FA5CE5B2413E32D00D2796A /* SettingsTableViewCell.xib in Resources */,
 				5FC991EF23DF10BB00612266 /* ServerUpdateTableViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -712,6 +727,7 @@
 				5F5000AF238D704A0003E13B /* UIViewExtension.swift in Sources */,
 				5FE0486B2393087900092422 /* CoreDataHelpers.swift in Sources */,
 				D313F4B2233C773B0076CFF8 /* Lesson.swift in Sources */,
+				5FA5CE5A2413E32D00D2796A /* SettingsTableViewCell.swift in Sources */,
 				5F2F313F2395C62100FC28CB /* Colours.swift in Sources */,
 				5F46AD682401A0F700B145D5 /* Favourites.swift in Sources */,
 				5FE96785240F0C22000AD157 /* SheduleDetailNavigationController.swift in Sources */,

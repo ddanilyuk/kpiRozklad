@@ -53,8 +53,10 @@ class SheduleDetailViewController: UIViewController {
                         
             if teacher?.teacherFullName != "" {
                 teacherLabel.text = teacher?.teacherFullName
-            } else {
+            } else if teacher?.teacherName != "" {
                 teacherLabel.text = teacher?.teacherName
+            } else {
+                teacherLabel.text = lesson.teacherName
             }
             
             teacherRatingLabel.text = "Рейтинг викладача: " + (teacher?.teacherRating ?? "0.0000")
@@ -78,6 +80,11 @@ class SheduleDetailViewController: UIViewController {
             server(dayNumber: lesson.dayNumber, lessonNumber: lesson.lessonNumber, teacherID: teacher?.teacherID ?? "0", lessonWeek: lesson.lessonWeek)
         } else {
             self.groupsLabel.text = "Групи: \(getGroupsOfLessonString(lesson: lesson))"
+        }
+        
+        // TODO подивитись на розклад групи
+        if global.sheduleType == .teachers {
+            checkTeacherShedule.isHidden = true
         }
         
     }

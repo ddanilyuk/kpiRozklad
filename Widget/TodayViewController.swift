@@ -88,7 +88,10 @@ class TodayViewController: UIViewController, NCWidgetProviding {
             self.preferredContentSize = CGSize(width: maxSize.width, height: maxSize.height)
         } else if activeDisplayMode == .expanded {
             if dayNumberFromCurrentDate != 7 {
-                let height = lessonsForTableView[dayNumberFromCurrentDate - 1].value.count * 68
+                var height = lessonsForTableView[dayNumberFromCurrentDate - 1].value.count * 68
+                if height == 0 {
+                    height = 110
+                }
                 self.preferredContentSize = CGSize(width: maxSize.width, height: CGFloat(height))
             }
         }
@@ -158,96 +161,182 @@ class TodayViewController: UIViewController, NCWidgetProviding {
             }
         }
     }
-
-    func fetchingCoreData() -> [Lesson] {
-        /// Core data request
+    func fetchingCoreDataV2() -> [Lesson] {
 
         let managedContext = self.persistentContainer.viewContext
 
-        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "LessonData")
-        
-        var lessons: [Lesson] = []
-        
-        /// Getting all data from Core Data to [Lesson] struct
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "LessonData")
+
+        var lessonsArray: [Lesson] = []
         do {
-            let lessonsCoreData = try managedContext.fetch(fetchRequest)
-            lessons = []
+            guard let fetchResult = try managedContext.fetch(fetchRequest) as? [LessonData] else { return [] }
+
+            for lessonData in fetchResult {
+                
+                var roomsArray: [Room] = []
+                let room: Room?
+                
+                if let roomData = lessonData.roomsRelationship {
+                    room = Room(roomID: roomData.roomID ?? "",
+                                roomName: roomData.roomName ?? "",
+                                roomLatitude: roomData.roomLatitude ?? "",
+                                roomLongitude: roomData.roomLongitude ?? "")
+                    
+                    if let room = room {
+                        roomsArray.append(room)
+                    }
+                }
+                
+                
+                var teachersArray: [Teacher] = []
+                let teacher: Teacher?
+                
+                if let teacherData = lessonData.teachersRelationship {
+                    teacher = Teacher(teacherID: teacherData.teacherID ?? "",
+                                      teacherName: teacherData.teacherName ?? "",
+                                      teacherFullName: teacherData.teacherFullName ?? "",
+                                      teacherShortName: teacherData.teacherShortName ?? "",
+                                      teacherURL: teacherData.teacherURL ?? "",
+                                      teacherRating: teacherData.teacherRating ?? "")
+                    
+                    if let teacher = teacher {
+                        teachersArray.append(teacher)
+                    }
+                }
             
-            for lesson in lessonsCoreData {
                 
-                guard let lessonID = lesson.value(forKey: "lessonID") as? String,
-                    let groupID = lesson.value(forKey: "groupID") as? String,
-                    let dayNumber = lesson.value(forKey: "dayNumber") as? String,
-                    let dayName = lesson.value(forKey: "dayName") as? String,
-                    let lessonType = lesson.value(forKey: "lessonType") as? String,
-                    let lessonName = lesson.value(forKey: "lessonName") as? String,
-                    let lessonFullName = lesson.value(forKey: "lessonFullName") as? String,
-                    let lessonNumber = lesson.value(forKey: "lessonNumber") as? String,
-                    let lessonRoom = lesson.value(forKey: "lessonRoom") as? String,
-                    let teacherName = lesson.value(forKey: "teacherName") as? String,
-                    let lessonWeek = lesson.value(forKey: "lessonWeek") as? String,
-                    let timeStart = lesson.value(forKey: "timeStart") as? String,
-                    let timeEnd = lesson.value(forKey: "timeEnd") as? String,
-                    let rate = lesson.value(forKey: "rate") as? String else { return [] }
-                    
-                /// Add data to enum  (maybe can changed)
-                let dayNameCoreData = DayName(rawValue: dayName) ?? DayName.mounday
-                let lessonTypeCoreData = LessonType(rawValue: lessonType) ?? LessonType.empty
-                
-                
-                /// Array of teacher which added to  variable `lesson` and then added to main variable `lessons`
-                var teachers: [Teacher] = []
-                
-                /// Trying to fetch all Teacher Data from TeacherData entity in teachersRelationship
-                if let teacherData = lesson.value(forKey: "teachersRelationship") as? TeachersData {
+                var groupsArray: [Group] = []
 
-                    guard let teacherId = teacherData.teacherID,
-                        let teacherShortName = teacherData.teacherShortName,
-                        let teacherFullName = teacherData.teacherFullName,
-                        let teacherURL = teacherData.teacherURL,
-                        let teacherRating = teacherData.teacherRating else { return []}
-                    
-                    let teacher = Teacher(teacherID: teacherId, teacherName: teacherName, teacherFullName: teacherFullName, teacherShortName: teacherShortName, teacherURL: teacherURL, teacherRating: teacherRating)
-                    
-                    teachers.append(teacher)
+                if let groupsDataArray = lessonData.groupsRelationship?.allObjects as? [GroupData] {
+                    for groupData in groupsDataArray {
+                        let group = Group(groupID: Int(groupData.groupID),
+                                          groupFullName: groupData.groupFullName ?? "",
+                                          groupPrefix: groupData.groupFullName ?? "",
+                                          groupOkr: GroupOkr(rawValue: groupData.groupOkr ?? "") ?? GroupOkr.bachelor,
+                                          groupType: GroupType(rawValue: groupData.groupType ?? "") ?? GroupType.daily,
+                                          groupURL: groupData.groupURL ?? "")
+                        
+                        groupsArray.append(group)
+                    }
                 }
                 
                 
-                /// Array of rooms which added to  variable `lesson` and then added to main variable `lessons`
-                var rooms: [Room] = []
+                let lesson = Lesson(lessonID: lessonData.lessonID ?? "",
+                                    dayNumber: lessonData.dayNumber ?? "",
+                                    groupID: lessonData.groupID ?? "",
+                                    dayName: DayName(rawValue: lessonData.dayName ?? "") ?? DayName.mounday,
+                                    lessonName: lessonData.lessonName ?? "",
+                                    lessonFullName: lessonData.lessonFullName ?? "",
+                                    lessonNumber: lessonData.lessonNumber ?? "",
+                                    lessonRoom: lessonData.lessonRoom ?? "",
+                                    lessonType: LessonType(rawValue: lessonData.lessonType ?? "") ?? LessonType.empty,
+                                    teacherName: lessonData.teacherName ?? "",
+                                    lessonWeek: lessonData.lessonWeek ?? "",
+                                    timeStart: lessonData.timeStart ?? "",
+                                    timeEnd: lessonData.timeEnd ?? "",
+                                    rate: lessonData.rate ?? "",
+                                    teachers: teachersArray,
+                                    rooms: roomsArray,
+                                    groups: groupsArray)
                 
-                if let roomData = lesson.value(forKey: "roomsRelationship") as? RoomsData {
-
-                    guard let roomID = roomData.roomID,
-                        let roomName = roomData.roomName,
-                        let roomLatitude = roomData.roomLatitude,
-                        let roomLongitude = roomData.roomLongitude else { return []}
-
-                    let room = Room(roomID: roomID, roomName: roomName, roomLatitude: roomLatitude, roomLongitude: roomLongitude)
-
-                    rooms.append(room)
-                }
-                
-                /// Creating `Lesson`
-                let lesson = Lesson(lessonID: lessonID, dayNumber: dayNumber, groupID: groupID,
-                                   dayName: dayNameCoreData, lessonName: lessonName, lessonFullName: lessonFullName,
-                                   lessonNumber: lessonNumber, lessonRoom: lessonRoom, lessonType: lessonTypeCoreData,
-                                   teacherName: teacherName, lessonWeek: lessonWeek, timeStart: timeStart,
-                                   timeEnd: timeEnd, rate: rate, teachers: teachers, rooms: rooms, groups: [])
-                
-                lessons.append(lesson)
+                lessonsArray.append(lesson)
             }
-            
         } catch let error as NSError {
-            print("Could not fetch. \(error), \(error.userInfo)")
+            print("Could not save. \(error), \(error.userInfo)")
         }
-        return lessons
+        
+        return lessonsArray
     }
+
+//    func fetchingCoreData() -> [Lesson] {
+//        /// Core data request
+//
+//        let managedContext = self.persistentContainer.viewContext
+//
+//        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "LessonData")
+//
+//        var lessons: [Lesson] = []
+//
+//        /// Getting all data from Core Data to [Lesson] struct
+//        do {
+//            let lessonsCoreData = try managedContext.fetch(fetchRequest)
+//            lessons = []
+//
+//            for lesson in lessonsCoreData {
+//
+//                guard let lessonID = lesson.value(forKey: "lessonID") as? String,
+//                    let groupID = lesson.value(forKey: "groupID") as? String,
+//                    let dayNumber = lesson.value(forKey: "dayNumber") as? String,
+//                    let dayName = lesson.value(forKey: "dayName") as? String,
+//                    let lessonType = lesson.value(forKey: "lessonType") as? String,
+//                    let lessonName = lesson.value(forKey: "lessonName") as? String,
+//                    let lessonFullName = lesson.value(forKey: "lessonFullName") as? String,
+//                    let lessonNumber = lesson.value(forKey: "lessonNumber") as? String,
+//                    let lessonRoom = lesson.value(forKey: "lessonRoom") as? String,
+//                    let teacherName = lesson.value(forKey: "teacherName") as? String,
+//                    let lessonWeek = lesson.value(forKey: "lessonWeek") as? String,
+//                    let timeStart = lesson.value(forKey: "timeStart") as? String,
+//                    let timeEnd = lesson.value(forKey: "timeEnd") as? String,
+//                    let rate = lesson.value(forKey: "rate") as? String else { return [] }
+//
+//                /// Add data to enum  (maybe can changed)
+//                let dayNameCoreData = DayName(rawValue: dayName) ?? DayName.mounday
+//                let lessonTypeCoreData = LessonType(rawValue: lessonType) ?? LessonType.empty
+//
+//
+//                /// Array of teacher which added to  variable `lesson` and then added to main variable `lessons`
+//                var teachers: [Teacher] = []
+//
+//                /// Trying to fetch all Teacher Data from TeacherData entity in teachersRelationship
+//                if let teacherData = lesson.value(forKey: "teachersRelationship") as? TeachersData {
+//
+//                    guard let teacherId = teacherData.teacherID,
+//                        let teacherShortName = teacherData.teacherShortName,
+//                        let teacherFullName = teacherData.teacherFullName,
+//                        let teacherURL = teacherData.teacherURL,
+//                        let teacherRating = teacherData.teacherRating else { return []}
+//
+//                    let teacher = Teacher(teacherID: teacherId, teacherName: teacherName, teacherFullName: teacherFullName, teacherShortName: teacherShortName, teacherURL: teacherURL, teacherRating: teacherRating)
+//
+//                    teachers.append(teacher)
+//                }
+//
+//
+//                /// Array of rooms which added to  variable `lesson` and then added to main variable `lessons`
+//                var rooms: [Room] = []
+//
+//                if let roomData = lesson.value(forKey: "roomsRelationship") as? RoomsData {
+//
+//                    guard let roomID = roomData.roomID,
+//                        let roomName = roomData.roomName,
+//                        let roomLatitude = roomData.roomLatitude,
+//                        let roomLongitude = roomData.roomLongitude else { return []}
+//
+//                    let room = Room(roomID: roomID, roomName: roomName, roomLatitude: roomLatitude, roomLongitude: roomLongitude)
+//
+//                    rooms.append(room)
+//                }
+//
+//                /// Creating `Lesson`
+//                let lesson = Lesson(lessonID: lessonID, dayNumber: dayNumber, groupID: groupID,
+//                                   dayName: dayNameCoreData, lessonName: lessonName, lessonFullName: lessonFullName,
+//                                   lessonNumber: lessonNumber, lessonRoom: lessonRoom, lessonType: lessonTypeCoreData,
+//                                   teacherName: teacherName, lessonWeek: lessonWeek, timeStart: timeStart,
+//                                   timeEnd: timeEnd, rate: rate, teachers: teachers, rooms: rooms, groups: [])
+//
+//                lessons.append(lesson)
+//            }
+//
+//        } catch let error as NSError {
+//            print("Could not fetch. \(error), \(error.userInfo)")
+//        }
+//        return lessons
+//    }
     
     func makeLessonsShedule() {
         /// fetching Core Data
         var lessons: [Lesson] = []
-        lessons = fetchingCoreData()
+        lessons = fetchingCoreDataV2()
         setupDate()
         let currentAndNext = getCurrentAndNextLesson(lessons: lessons, timeIsNowString: timeIsNowString, dayNumberFromCurrentDate: dayNumberFromCurrentDate, currentWeekFromTodayDate: currentWeekFromTodayDate)
         

@@ -25,15 +25,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
         
-        settings.isShowGreetings = false
+//        settings.isShowGreetings = false
 
 
-        if settings.isGroupsShedule == true && settings.isTeacherShedule == false {
-            global.sheduleType = .groups
-        } else {
+        if settings.isGroupsShedule == false && settings.isTeacherShedule == true {
             global.sheduleType = .teachers
+        } else {
+            global.sheduleType = .groups
         }
 //        settings.teacherName = ""
+        
+        print(settings.updateAtOnceSecond)
         
         if settings.sheduleUpdateTime == "" {
             settings.isTryToRefreshShedule = true
@@ -45,14 +47,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
             Settings.shared.sheduleUpdateTime = formatter.string(from: date)
         } else if settings.updateAtOnce == "" {
-            settings.isTryToRefreshShedule = true
+//            settings.isTryToRefreshShedule = true
             settings.updateAtOnce = "updated"
+            global.sheduleType = .groups
             deleteAllFromCoreData()
             
-            let mainStoryboard = UIStoryboard(name: "Main", bundle: Bundle.main)
-            if let sheduleVC : SheduleViewController = mainStoryboard.instantiateViewController(withIdentifier: SheduleViewController.identifier) as? SheduleViewController {
-                sheduleVC.server(requestType: SheduleType.groups)
-            }
+//            let mainStoryboard = UIStoryboard(name: "Main", bundle: Bundle.main)
+//            if let sheduleVC : SheduleViewController = mainStoryboard.instantiateViewController(withIdentifier: SheduleViewController.identifier) as? SheduleViewController {
+//                sheduleVC.server(requestType: SheduleType.groups)
+//            }
         } else if settings.updateAtOnceSecond == "" {
             settings.updateAtOnceSecond = "updated"
             global.sheduleType = .groups

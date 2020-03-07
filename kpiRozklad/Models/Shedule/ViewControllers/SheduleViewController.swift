@@ -217,11 +217,35 @@ class SheduleViewController: UIViewController, UIViewControllerTransitioningDele
     override func viewDidAppear(_ animated: Bool) {
         if !isFromSettingsGetFreshShedule {
             
+            self.navigationController?.navigationBar.barTintColor = tint
+            self.navigationController?.navigationBar.backgroundColor = tint
+            if #available(iOS 13.0, *) {
+                let app = UIApplication.shared
+                let statusBarHeight: CGFloat = app.statusBarFrame.size.height
+                
+                let statusbarView = UIView()
+                statusbarView.backgroundColor = tint
+                view.addSubview(statusbarView)
+              
+                statusbarView.translatesAutoresizingMaskIntoConstraints = false
+                statusbarView.heightAnchor
+                    .constraint(equalToConstant: statusBarHeight).isActive = true
+                statusbarView.widthAnchor
+                    .constraint(equalTo: view.widthAnchor, multiplier: 1.0).isActive = true
+                statusbarView.topAnchor
+                    .constraint(equalTo: view.topAnchor).isActive = true
+                statusbarView.centerXAnchor
+                    .constraint(equalTo: view.centerXAnchor).isActive = true
+              
+            } else {
+                let statusBar = UIApplication.shared.value(forKeyPath: "statusBarWindow.statusBar") as? UIView
+                statusBar?.backgroundColor = tint
+            }
+            
             
             self.navigationItem.largeTitleDisplayMode = .always
 
         }
-//        self.navigationItem.largeTitleDisplayMode = .always
     }
     
     
@@ -229,6 +253,11 @@ class SheduleViewController: UIViewController, UIViewControllerTransitioningDele
         tableView.register(UINib(nibName: LessonTableViewCell.identifier, bundle: Bundle.main), forCellReuseIdentifier: LessonTableViewCell.identifier)
         tableView.delegate = self
         tableView.dataSource = self
+        if #available(iOS 13.0, *) {
+            tableView.backgroundColor = tint
+        } else {
+            tableView.backgroundColor = .white
+        }
     }
     
 
@@ -250,10 +279,12 @@ class SheduleViewController: UIViewController, UIViewControllerTransitioningDele
     
     
     private func setupNavigation() {
+        
         if !isFromSettingsGetFreshShedule && !isFromGroups {
             self.navigationItem.leftBarButtonItem = self.editButtonItem
             self.navigationController?.navigationBar.prefersLargeTitles = true
             self.navigationController?.navigationItem.largeTitleDisplayMode = .always
+//            self.navigationController?.navigationBar.backgroundColor = tint
             if global.sheduleType == .groups {
                 self.navigationItem.title = settings.groupName.uppercased()
             } else {
@@ -311,7 +342,7 @@ class SheduleViewController: UIViewController, UIViewControllerTransitioningDele
                 tableView.reloadData()
                 
                 let mainStoryboard = UIStoryboard(name: "Main", bundle: Bundle.main)
-                guard let groupsChooserNavigationController = mainStoryboard.instantiateViewController(withIdentifier: MyNavigationController.identifier) as? MyNavigationController else { return }
+                guard let groupsChooserNavigationController = mainStoryboard.instantiateViewController(withIdentifier: TeachersNavigationController.identifier) as? TeachersNavigationController else { return }
                 
                 groupsChooserNavigationController.isSheduleGroupChooser = true
                 
@@ -336,7 +367,7 @@ class SheduleViewController: UIViewController, UIViewControllerTransitioningDele
                 tableView.reloadData()
                 
                 let mainStoryboard = UIStoryboard(name: "Main", bundle: Bundle.main)
-                guard let groupsChooserNavigationController = mainStoryboard.instantiateViewController(withIdentifier: MyNavigationController.identifier) as? MyNavigationController else { return }
+                guard let groupsChooserNavigationController = mainStoryboard.instantiateViewController(withIdentifier: TeachersNavigationController.identifier) as? TeachersNavigationController else { return }
                 
                 groupsChooserNavigationController.isSheduleTeachersChooser = true
                 global.sheduleType = .teachers
@@ -643,6 +674,39 @@ extension SheduleViewController: UITableViewDelegate, UITableViewDataSource {
         }
     }
 
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return 0.001
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 30
+    }
+
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let returnedView = UIView(frame: CGRect(x: 0, y: 0, width: view.frame.size.width, height: 35))
+        var array: [String] = [DayName.mounday.rawValue,
+                               DayName.tuesday.rawValue,
+                               DayName.wednesday.rawValue,
+                               DayName.thursday.rawValue,
+                               DayName.friday.rawValue,
+                               DayName.saturday.rawValue]
+        
+        self.isEditing ? array.append("Нова пара") : nil
+        
+        returnedView.backgroundColor = sectionColour
+
+        let label = UILabel(frame: CGRect(x: 16, y: 3, width: view.frame.size.width, height: 25))
+        label.text = array[section]
+
+        if #available(iOS 13.0, *) {
+            label.textColor = .label
+        } else {
+            label.textColor = .black
+        }
+        returnedView.addSubview(label)
+
+        return returnedView
+    }
     
     // MARK: - titleForHeaderInSection
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
@@ -725,33 +789,7 @@ extension SheduleViewController: UITableViewDelegate, UITableViewDataSource {
         } else {
             if indexPath.section != lessonsForTableView.count {
                 
-//                if #available(iOS 13.0, *) {
-//                    dismiss(animated: true, completion: nil)
-//
-//                    guard let vc = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(identifier: SheduleDetailNavigationController.identifier) as? SheduleDetailNavigationController else { return }
-//                    
-//                    
-//                    vc.lesson = lessonsForTableView[indexPath.section].value[indexPath.row]
-//                    
-//                    
-//                    presentPanModal(vc)
-//                    
-//                } else {
-////                    guard let vc = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(identifier: SheduleDetailNavigationController.identifier) as? SheduleDetailNavigationController else {
-////                        return
-////
-////                    }
-//                    guard let vc = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: SheduleDetailNavigationController.identifier) as? SheduleDetailNavigationController else {
-//                        return
-//                    }
-//                    
-//                    vc.lesson = lessonsForTableView[indexPath.section].value[indexPath.row]
-//                    
-//                    
-//                    presentPanModal(vc)
-//                    
-////                    performSegue(withIdentifier: "showDetailViewController", sender: self)
-//                }
+
                 
                 guard let vc = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: SheduleDetailNavigationController.identifier) as? SheduleDetailNavigationController else {
                     return
@@ -781,9 +819,14 @@ extension SheduleViewController: UITableViewDelegate, UITableViewDataSource {
             return cell
         }
         
+        
         /// Creating main cell
         guard let cell = tableView.dequeueReusableCell(withIdentifier: LessonTableViewCell.identifier, for: indexPath) as? LessonTableViewCell else { return UITableViewCell() }
-        
+        if #available(iOS 13.0, *) {
+            cell.backgroundColor = .systemBackground
+        } else {
+            cell.backgroundColor = .white
+        }
         let lesson = lessonsForTableView[indexPath.section].value[indexPath.row]
         
         cell.lessonLabel.text = lesson.lessonName
@@ -824,9 +867,12 @@ extension SheduleViewController: UITableViewDelegate, UITableViewDataSource {
                 }
             }
             
-            self.lessonsForTableView[indexPath.section].value.remove(at: indexPath.row)
-            self.tableView.deleteRows(at: [indexPath], with: .automatic)
             updateCoreDataV2(vc: self, datum: lessons)
+        
+            self.lessonsForTableView[indexPath.section].value.remove(at: indexPath.row)
+            
+            self.tableView.deleteRows(at: [indexPath], with: .fade)
+
             
         } else if editingStyle == .insert {
             presentAddLesson()

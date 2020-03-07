@@ -19,51 +19,42 @@ class FavouriteViewController: UIViewController {
     
     let favourites = Favourites.shared
     
-//    var favouritesList: [(name: String, id: Int, type: typeFavourite)] = []
+    @IBOutlet weak var emptyFavouritesLabel: UILabel!
     
-
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
         setupTableView()
+        
+
     }
     
     override func viewWillAppear(_ animated: Bool) {
-//        setFavouritesList()
         tableView.reloadData()
+        
+        if favourites.favouriteGroupsNames.count == 0 && favourites.favouriteTeachersNames.count == 0 {
+            tableView.isHidden = true
+            emptyFavouritesLabel.isHidden = false
+        } else {
+            tableView.isHidden = false
+            emptyFavouritesLabel.isHidden = true
+        }
+
     }
     
     private func setupTableView() {
-        tableView.register(UINib(nibName: ServerGetTableViewCell.identifier, bundle: Bundle.main), forCellReuseIdentifier: ServerGetTableViewCell.identifier)
+        tableView.register(UINib(nibName: TeacherOrGroupLoadingTableViewCell.identifier, bundle: Bundle.main), forCellReuseIdentifier: TeacherOrGroupLoadingTableViewCell.identifier)
         tableView.delegate = self
         tableView.dataSource = self
     }
     
-//    func setFavouritesList() {
-//        favouritesList = []
-//        let favouriteGroupsNames = favourites.favouriteGroupsNames
-//        let favouriteGroupsID = favourites.favouriteGroupsID
-//
-//        let favouriteTeachersNames = favourites.favouriteTeachersNames
-//        let favouriteTeachersID = favourites.favouriteTeachersID
-//
-//
-//        for i in 0..<favourites.favouriteGroupsNames.count {
-//            favouritesList.append((name: favouriteGroupsNames[i], id: favouriteGroupsID[i], .group))
-//        }
-//
-//        for i in 0..<favourites.favouriteTeachersNames.count {
-//            favouritesList.append((name: favouriteTeachersNames[i], id: favouriteTeachersID[i], .teacher))
-//        }
-//    }
     
     func serverGroupShedule(group: Group, indexPath: IndexPath) {
         guard let url = URL(string: "https://api.rozklad.org.ua/v2/groups/\(String(group.groupID))/lessons") else { return }
-        print(url)
         
         DispatchQueue.main.async {
-            if let cell = self.tableView.cellForRow(at: indexPath) as? ServerGetTableViewCell {
+            if let cell = self.tableView.cellForRow(at: indexPath) as? TeacherOrGroupLoadingTableViewCell {
                 cell.activityIndicator.isHidden = false
                 cell.activityIndicator.startAnimating()
             }
@@ -77,7 +68,7 @@ class FavouriteViewController: UIViewController {
                 DispatchQueue.main.async {
                     guard let serverFULLDATA = try? decoder.decode(WelcomeLessons.self, from: data) else { return }
                     
-                    if let cell = self.tableView.cellForRow(at: indexPath) as? ServerGetTableViewCell {
+                    if let cell = self.tableView.cellForRow(at: indexPath) as? TeacherOrGroupLoadingTableViewCell {
                         cell.activityIndicator.isHidden = true
                         cell.activityIndicator.stopAnimating()
                     }
@@ -107,12 +98,12 @@ class FavouriteViewController: UIViewController {
     
     func serverTeacherShedule(teacher: Teacher, indexPath: IndexPath) {
         guard var url = URL(string: "https://api.rozklad.org.ua/v2/teachers/") else { return }
-        url.appendPathComponent(teacher.teacherID ?? "")
+        url.appendPathComponent(teacher.teacherID)
         url.appendPathComponent("/lessons")
         print(url)
         
         DispatchQueue.main.async {
-            if let cell = self.tableView.cellForRow(at: indexPath) as? ServerGetTableViewCell {
+            if let cell = self.tableView.cellForRow(at: indexPath) as? TeacherOrGroupLoadingTableViewCell {
                 cell.activityIndicator.isHidden = false
                 cell.activityIndicator.startAnimating()
             }
@@ -126,7 +117,7 @@ class FavouriteViewController: UIViewController {
                 DispatchQueue.main.async {
                     guard let serverFULLDATA = try? decoder.decode(WelcomeLessons.self, from: data) else { return }
                     
-                    if let cell = self.tableView.cellForRow(at: indexPath) as? ServerGetTableViewCell {
+                    if let cell = self.tableView.cellForRow(at: indexPath) as? TeacherOrGroupLoadingTableViewCell {
                         cell.activityIndicator.isHidden = true
                         cell.activityIndicator.stopAnimating()
                     }
@@ -142,9 +133,7 @@ class FavouriteViewController: UIViewController {
                     sheduleVC.navigationController?.navigationItem.largeTitleDisplayMode = .never
                     sheduleVC.navigationController?.navigationBar.prefersLargeTitles = false
                     sheduleVC.navigationItem.largeTitleDisplayMode = .never
-//                    sheduleVC.navigationItem.title = group.groupFullName.uppercased()
-                    
-//                    Teacher(teacherID: <#T##String#>, teacherName: <#T##String#>, teacherFullName: <#T##String#>, teacherShortName: <#T##String#>, teacherURL: <#T##String#>, teacherRating: <#T##String#>)
+
                     sheduleVC.teacher = teacher
                     
                     self.navigationController?.pushViewController(sheduleVC, animated: true)
@@ -175,18 +164,9 @@ extension FavouriteViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: ServerGetTableViewCell.identifier, for: indexPath) as? ServerGetTableViewCell else { return UITableViewCell() }
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: TeacherOrGroupLoadingTableViewCell.identifier, for: indexPath) as? TeacherOrGroupLoadingTableViewCell else { return UITableViewCell() }
         
-//        var groups: [(name: String, id: Int)] = []
-//        var teachers: [(name: String, id: Int)] = []
-//
-//        for favourite in favouritesList {
-//            if favourite.type == .group {
-//                groups.append((name: favourite.name, id: favourite.id))
-//            } else if favourite.type == .teacher {
-//                teachers.append((name: favourite.name, id: favourite.id))
-//            }
-//        }
+
         cell.activityIndicator.isHidden = true
 
         if indexPath.section == 0 {
@@ -210,5 +190,63 @@ extension FavouriteViewController: UITableViewDelegate, UITableViewDataSource {
         }
         
         tableView.deselectRow(at: indexPath, animated: true)
+    }
+    
+    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+    //        let view = UIView(frame: CGRect(x: 0, y: 0, width: 0, height: 1))
+        let view = UIView()
+
+//        view.backgroundColor = tint
+        return view
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 30
+    }
+
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let returnedView = UIView(frame: CGRect(x: 0, y: 0, width: view.frame.size.width, height: 35))
+        let array: [String] = ["Групи", "Викладачі"]
+        
+        
+        returnedView.backgroundColor = sectionColour
+
+        let label = UILabel(frame: CGRect(x: 16, y: 3, width: view.frame.size.width, height: 25))
+        label.text = array[section]
+
+        if #available(iOS 13.0, *) {
+            label.textColor = .label
+        } else {
+            label.textColor = .black
+        }
+        returnedView.addSubview(label)
+
+        return returnedView
+    }
+    
+    
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return 0.0001
+    }
+    
+    func tableView(_ tableView: UITableView, editActionsForRowAt: IndexPath) -> [UITableViewRowAction]? {
+        let delete = UITableViewRowAction(style: .destructive, title: "Видалити") { action, index in
+            if index.section == 0 {
+                _ = self.favourites.favouriteGroupsNames.remove(at: index.row)
+                _ = self.favourites.favouriteGroupsID.remove(at: index.row)
+            } else if index.section == 1 {
+                _ = self.favourites.favouriteTeachersID.remove(at: index.row)
+                _ = self.favourites.favouriteTeachersNames.remove(at: index.row)
+            }
+            
+            tableView.deleteRows(at: [index], with: .fade)
+
+        }
+
+        return [delete]
+    }
+    
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true
     }
 }

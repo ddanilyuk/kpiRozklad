@@ -8,7 +8,7 @@
 
 import UIKit
 
-class GroupsOrTeachersChooserNavigationController: UINavigationController {
+class GroupsNavigationController: UINavigationController {
     
 //    var isSheduleGroupChooser: Bool = false
 //    

@@ -22,8 +22,7 @@
 		5F2F313F2395C62100FC28CB /* Colours.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F2F313E2395C62100FC28CB /* Colours.swift */; };
 		5F4457E42376FB05008F9E21 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F4457E32376FB05008F9E21 /* Settings.swift */; };
 		5F46AD5E23FEC43500B145D5 /* FavouriteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F46AD5D23FEC43500B145D5 /* FavouriteViewController.swift */; };
-		5F46AD6323FEC85E00B145D5 /* GroupsOrTeachersChooserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F46AD6223FEC85E00B145D5 /* GroupsOrTeachersChooserViewController.swift */; };
-		5F46AD6523FFD66E00B145D5 /* GroupsOrTeachersChooserNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F46AD6423FFD66E00B145D5 /* GroupsOrTeachersChooserNavigationController.swift */; };
+		5F46AD6523FFD66E00B145D5 /* GroupsNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F46AD6423FFD66E00B145D5 /* GroupsNavigationController.swift */; };
 		5F46AD682401A0F700B145D5 /* Favourites.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F46AD672401A0F700B145D5 /* Favourites.swift */; };
 		5F4E51ED2403D9DD0034D250 /* GreetingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F4E51EC2403D9DD0034D250 /* GreetingViewController.swift */; };
 		5F5000AF238D704A0003E13B /* UIViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F5000AE238D704A0003E13B /* UIViewExtension.swift */; };
@@ -33,8 +32,8 @@
 		5FA2B79D2379F5A7006C466B /* Group.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FA2B79C2379F5A7006C466B /* Group.swift */; };
 		5FA5CE5A2413E32D00D2796A /* SettingsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FA5CE582413E32D00D2796A /* SettingsTableViewCell.swift */; };
 		5FA5CE5B2413E32D00D2796A /* SettingsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5FA5CE592413E32D00D2796A /* SettingsTableViewCell.xib */; };
-		5FACFF5323EC70A70022DF88 /* ServerGetTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FACFF5123EC70A70022DF88 /* ServerGetTableViewCell.swift */; };
-		5FACFF5423EC70A70022DF88 /* ServerGetTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5FACFF5223EC70A70022DF88 /* ServerGetTableViewCell.xib */; };
+		5FACFF5323EC70A70022DF88 /* TeacherOrGroupLoadingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FACFF5123EC70A70022DF88 /* TeacherOrGroupLoadingTableViewCell.swift */; };
+		5FACFF5423EC70A70022DF88 /* TeacherOrGroupLoadingTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5FACFF5223EC70A70022DF88 /* TeacherOrGroupLoadingTableViewCell.xib */; };
 		5FACFF7E23ED63D40022DF88 /* NotificationCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FACFF7D23ED63D40022DF88 /* NotificationCenter.framework */; };
 		5FACFF8123ED63D40022DF88 /* TodayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FACFF8023ED63D40022DF88 /* TodayViewController.swift */; };
 		5FACFF8423ED63D40022DF88 /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5FACFF8223ED63D40022DF88 /* MainInterface.storyboard */; };
@@ -49,7 +48,7 @@
 		5FE048692393027900092422 /* TimeAndDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FE048682393027900092422 /* TimeAndDate.swift */; };
 		5FE0486B2393087900092422 /* CoreDataHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FE0486A2393087900092422 /* CoreDataHelpers.swift */; };
 		5FE0486D23930C3000092422 /* SheduleVC+UIPickerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FE0486C23930C3000092422 /* SheduleVC+UIPickerVC.swift */; };
-		5FE9678324091880000AD157 /* MyNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FE9678224091880000AD157 /* MyNavigationController.swift */; };
+		5FE9678324091880000AD157 /* TeachersNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FE9678224091880000AD157 /* TeachersNavigationController.swift */; };
 		5FE96785240F0C22000AD157 /* SheduleDetailNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FE96784240F0C22000AD157 /* SheduleDetailNavigationController.swift */; };
 		90A353C4EB2D15AEC0D9F8D1 /* Pods_kpiRozklad.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 25B70702B56A794A30F2DB1A /* Pods_kpiRozklad.framework */; };
 		D300F1D62364CEA30098CA83 /* TeachersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D300F1D52364CEA30098CA83 /* TeachersViewController.swift */; };
@@ -101,8 +100,7 @@
 		5F2F313E2395C62100FC28CB /* Colours.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colours.swift; sourceTree = "<group>"; };
 		5F4457E32376FB05008F9E21 /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		5F46AD5D23FEC43500B145D5 /* FavouriteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouriteViewController.swift; sourceTree = "<group>"; };
-		5F46AD6223FEC85E00B145D5 /* GroupsOrTeachersChooserViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupsOrTeachersChooserViewController.swift; sourceTree = "<group>"; };
-		5F46AD6423FFD66E00B145D5 /* GroupsOrTeachersChooserNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupsOrTeachersChooserNavigationController.swift; sourceTree = "<group>"; };
+		5F46AD6423FFD66E00B145D5 /* GroupsNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupsNavigationController.swift; sourceTree = "<group>"; };
 		5F46AD672401A0F700B145D5 /* Favourites.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Favourites.swift; sourceTree = "<group>"; };
 		5F4E51EC2403D9DD0034D250 /* GreetingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GreetingViewController.swift; sourceTree = "<group>"; };
 		5F5000AE238D704A0003E13B /* UIViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewExtension.swift; sourceTree = "<group>"; };
@@ -112,8 +110,8 @@
 		5FA2B79C2379F5A7006C466B /* Group.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Group.swift; sourceTree = "<group>"; };
 		5FA5CE582413E32D00D2796A /* SettingsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTableViewCell.swift; sourceTree = "<group>"; };
 		5FA5CE592413E32D00D2796A /* SettingsTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SettingsTableViewCell.xib; sourceTree = "<group>"; };
-		5FACFF5123EC70A70022DF88 /* ServerGetTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerGetTableViewCell.swift; sourceTree = "<group>"; };
-		5FACFF5223EC70A70022DF88 /* ServerGetTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ServerGetTableViewCell.xib; sourceTree = "<group>"; };
+		5FACFF5123EC70A70022DF88 /* TeacherOrGroupLoadingTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeacherOrGroupLoadingTableViewCell.swift; sourceTree = "<group>"; };
+		5FACFF5223EC70A70022DF88 /* TeacherOrGroupLoadingTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TeacherOrGroupLoadingTableViewCell.xib; sourceTree = "<group>"; };
 		5FACFF7B23ED63D40022DF88 /* Widget.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = Widget.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		5FACFF7D23ED63D40022DF88 /* NotificationCenter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NotificationCenter.framework; path = System/Library/Frameworks/NotificationCenter.framework; sourceTree = SDKROOT; };
 		5FACFF8023ED63D40022DF88 /* TodayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayViewController.swift; sourceTree = "<group>"; };
@@ -128,7 +126,7 @@
 		5FE048682393027900092422 /* TimeAndDate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeAndDate.swift; sourceTree = "<group>"; };
 		5FE0486A2393087900092422 /* CoreDataHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataHelpers.swift; sourceTree = "<group>"; };
 		5FE0486C23930C3000092422 /* SheduleVC+UIPickerVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SheduleVC+UIPickerVC.swift"; sourceTree = "<group>"; };
-		5FE9678224091880000AD157 /* MyNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyNavigationController.swift; sourceTree = "<group>"; };
+		5FE9678224091880000AD157 /* TeachersNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeachersNavigationController.swift; sourceTree = "<group>"; };
 		5FE96784240F0C22000AD157 /* SheduleDetailNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheduleDetailNavigationController.swift; sourceTree = "<group>"; };
 		5FE9678C240FAFA6000AD157 /* Lessonv2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Lessonv2.xcdatamodel; sourceTree = "<group>"; };
 		64742B8F505E8689AB85A1F6 /* Pods_Widget.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Widget.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -220,8 +218,7 @@
 		5F46AD6023FEC7EA00B145D5 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
-				5F46AD6423FFD66E00B145D5 /* GroupsOrTeachersChooserNavigationController.swift */,
-				5F46AD6223FEC85E00B145D5 /* GroupsOrTeachersChooserViewController.swift */,
+				5F46AD6423FFD66E00B145D5 /* GroupsNavigationController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -260,13 +257,13 @@
 			path = ServerUpdateTableViewCell;
 			sourceTree = "<group>";
 		};
-		5FACFF5023EC705C0022DF88 /* ServerGetTableViewCell */ = {
+		5FACFF5023EC705C0022DF88 /* TeacherOrGroupLoadingTableViewCell */ = {
 			isa = PBXGroup;
 			children = (
-				5FACFF5123EC70A70022DF88 /* ServerGetTableViewCell.swift */,
-				5FACFF5223EC70A70022DF88 /* ServerGetTableViewCell.xib */,
+				5FACFF5123EC70A70022DF88 /* TeacherOrGroupLoadingTableViewCell.swift */,
+				5FACFF5223EC70A70022DF88 /* TeacherOrGroupLoadingTableViewCell.xib */,
 			);
-			path = ServerGetTableViewCell;
+			path = TeacherOrGroupLoadingTableViewCell;
 			sourceTree = "<group>";
 		};
 		5FACFF7C23ED63D40022DF88 /* Frameworks */ = {
@@ -364,8 +361,8 @@
 			isa = PBXGroup;
 			children = (
 				D3FFAAD7234F79760065E9CE /* Shedule */,
-				D3FFAAE32352464D0065E9CE /* Teachers */,
 				5F46AD5F23FEC7D800B145D5 /* Groups */,
+				D3FFAAE32352464D0065E9CE /* Teachers */,
 				5F46AD5823FEC35E00B145D5 /* Favourite */,
 				D3FFAADA234F7A2C0065E9CE /* Settings */,
 				5F034A342389B16D00D90DB7 /* Main.storyboard */,
@@ -416,7 +413,6 @@
 			isa = PBXGroup;
 			children = (
 				5FA5CE572413E30800D2796A /* SettingsTableViewCell */,
-				5FACFF5023EC705C0022DF88 /* ServerGetTableViewCell */,
 				5FACFF4F23EC70420022DF88 /* ServerUpdateTableViewCell */,
 			);
 			path = Views;
@@ -502,6 +498,7 @@
 		D3FFAAE4235246570065E9CE /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				5FACFF5023EC705C0022DF88 /* TeacherOrGroupLoadingTableViewCell */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -509,9 +506,9 @@
 		D3FFAAE52352466A0065E9CE /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				5FE9678224091880000AD157 /* TeachersNavigationController.swift */,
 				D300F1D52364CEA30098CA83 /* TeachersViewController.swift */,
 				D3FFAAE62352467F0065E9CE /* TeacherSheduleViewController.swift */,
-				5FE9678224091880000AD157 /* MyNavigationController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -613,7 +610,7 @@
 				D313F4A2233AAB6D0076CFF8 /* LaunchScreen.storyboard in Resources */,
 				D313F49F233AAB6D0076CFF8 /* Preview Assets.xcassets in Resources */,
 				5F2F313D2395972900FC28CB /* Assets.xcassets in Resources */,
-				5FACFF5423EC70A70022DF88 /* ServerGetTableViewCell.xib in Resources */,
+				5FACFF5423EC70A70022DF88 /* TeacherOrGroupLoadingTableViewCell.xib in Resources */,
 				5F034A322389B16D00D90DB7 /* Main.storyboard in Resources */,
 				D313F4B6233D1F090076CFF8 /* LessonTableViewCell.xib in Resources */,
 				5FA5CE5B2413E32D00D2796A /* SettingsTableViewCell.xib in Resources */,
@@ -710,7 +707,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5F46AD6323FEC85E00B145D5 /* GroupsOrTeachersChooserViewController.swift in Sources */,
 				D313F496233AAB6C0076CFF8 /* AppDelegate.swift in Sources */,
 				5F686F3A23800CFB008B0915 /* AddLessonViewController.swift in Sources */,
 				5F7BABBF23A163C8009E3CA6 /* Error.swift in Sources */,
@@ -735,13 +731,13 @@
 				5FE048692393027900092422 /* TimeAndDate.swift in Sources */,
 				D313F4AE233AAF920076CFF8 /* SheduleViewController.swift in Sources */,
 				D300F1DC2365BC270098CA83 /* Teacher.swift in Sources */,
-				5FE9678324091880000AD157 /* MyNavigationController.swift in Sources */,
+				5FE9678324091880000AD157 /* TeachersNavigationController.swift in Sources */,
 				5F0275B423F3476B00743637 /* CoreDataStack.swift in Sources */,
 				D313F4B5233D1F090076CFF8 /* LessonTableViewCell.swift in Sources */,
 				5F6A08062370A175000A9C79 /* kpiRozklad.xcdatamodeld in Sources */,
-				5F46AD6523FFD66E00B145D5 /* GroupsOrTeachersChooserNavigationController.swift in Sources */,
+				5F46AD6523FFD66E00B145D5 /* GroupsNavigationController.swift in Sources */,
 				D363E7AA233BB74B00573EB2 /* SheduleDetailViewController.swift in Sources */,
-				5FACFF5323EC70A70022DF88 /* ServerGetTableViewCell.swift in Sources */,
+				5FACFF5323EC70A70022DF88 /* TeacherOrGroupLoadingTableViewCell.swift in Sources */,
 				5FC991EE23DF10BB00612266 /* ServerUpdateTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -249,6 +249,9 @@
                         <rect key="frame" x="0.0" y="44" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
+                    <toolbar key="toolbar" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="VX1-jq-IpV">
+                        <autoresizingMask key="autoresizingMask"/>
+                    </toolbar>
                     <connections>
                         <segue destination="VGz-qr-qiP" kind="relationship" relationship="rootViewController" id="423-5u-vYX"/>
                     </connections>
@@ -265,7 +268,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="724"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelectionDuringEditing="YES" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Bv9-u6-c2Z">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" allowsSelectionDuringEditing="YES" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="Bv9-u6-c2Z">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="641"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                             </tableView>
@@ -329,7 +332,7 @@
         <!--Викладачі-->
         <scene sceneID="UTN-su-Qgb">
             <objects>
-                <navigationController storyboardIdentifier="MyNavigationController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="KXC-1K-S0d" customClass="MyNavigationController" customModule="KPI_Rozklad" customModuleProvider="target" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="TeachersNavigationController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="KXC-1K-S0d" customClass="TeachersNavigationController" customModule="KPI_Rozklad" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Викладачі" image="icons8-teacher-90" id="mOh-4a-EI2"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="TWW-Se-E3A">
                         <rect key="frame" x="0.0" y="44" width="375" height="44"/>
@@ -516,53 +519,53 @@
             <objects>
                 <viewController storyboardIdentifier="SheduleDetailViewController" id="Xi8-a3-NCy" customClass="SheduleDetailViewController" customModule="KPI_Rozklad" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="rN8-a6-edx">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="724"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="-10" translatesAutoresizingMaskIntoConstraints="NO" id="EC3-Vx-FUB">
-                                <rect key="frame" x="8" y="88" width="359" height="690"/>
+                                <rect key="frame" x="8" y="0.0" width="359" height="641"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Предмет" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ivE-Xg-CUV">
-                                        <rect key="frame" x="0.0" y="0.0" width="359" height="95"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="359" height="89"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="27"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Викладач невідомий" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OeH-tc-sYc">
-                                        <rect key="frame" x="0.0" y="85" width="359" height="95"/>
+                                        <rect key="frame" x="0.0" y="79" width="359" height="88.666666666666686"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Аудиторія" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3XJ-JC-uFy">
-                                        <rect key="frame" x="0.0" y="170" width="359" height="95"/>
+                                        <rect key="frame" x="0.0" y="157.66666666666666" width="359" height="89"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Рейтинг викладача: 0.0000" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="g7U-Eb-yfz">
-                                        <rect key="frame" x="0.0" y="255" width="359" height="95"/>
+                                        <rect key="frame" x="0.0" y="236.66666666666669" width="359" height="89"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="День" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5sC-gB-DCP">
-                                        <rect key="frame" x="0.0" y="340" width="359" height="95"/>
+                                        <rect key="frame" x="0.0" y="315.66666666666669" width="359" height="88.666666666666686"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="PXQ-OR-yxm">
-                                        <rect key="frame" x="0.0" y="425" width="359" height="95"/>
+                                        <rect key="frame" x="0.0" y="394.33333333333331" width="359" height="89"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Початок: " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IrS-4v-Q3a">
-                                                <rect key="frame" x="0.0" y="37.333333333333371" width="179.66666666666666" height="20.333333333333329"/>
+                                                <rect key="frame" x="0.0" y="34.333333333333314" width="179.66666666666666" height="20.333333333333329"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Кінець: " textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Jk1-ef-DRl">
-                                                <rect key="frame" x="179.66666666666663" y="37.333333333333371" width="179.33333333333337" height="20.333333333333329"/>
+                                                <rect key="frame" x="179.66666666666663" y="34.333333333333314" width="179.33333333333337" height="20.333333333333329"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
@@ -570,16 +573,16 @@
                                         </subviews>
                                     </stackView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Групи:" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ew4-56-aNU">
-                                        <rect key="frame" x="0.0" y="510" width="359" height="95"/>
+                                        <rect key="frame" x="0.0" y="473.33333333333343" width="359" height="88.666666666666686"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cni-hA-6qM">
-                                        <rect key="frame" x="0.0" y="595" width="359" height="95"/>
+                                        <rect key="frame" x="0.0" y="552" width="359" height="89"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DFO-PY-g7X">
-                                                <rect key="frame" x="24.666666666666657" y="22.666666666666629" width="310" height="50"/>
+                                                <rect key="frame" x="24.666666666666657" y="19.666666666666629" width="310" height="50"/>
                                                 <color key="backgroundColor" systemColor="linkColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="50" id="SuZ-NH-B0x"/>
@@ -669,18 +672,31 @@
                                 <rect key="frame" x="0.0" y="88" width="375" height="641"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                             </tableView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Цей список порожній. Додайте групу або викладача до улюблених та слідкуйте за їх розкладом." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="10" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GWM-hc-aA6">
+                                <rect key="frame" x="8" y="108" width="359" height="200"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="200" id="Ts0-9G-eBc"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="19"/>
+                                <color key="textColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
+                            <constraint firstItem="GWM-hc-aA6" firstAttribute="top" secondItem="1uv-6j-VKN" secondAttribute="top" constant="20" id="425-rI-aY9"/>
                             <constraint firstItem="1uv-6j-VKN" firstAttribute="trailing" secondItem="aVE-R4-tFU" secondAttribute="trailing" id="KNV-eM-78q"/>
+                            <constraint firstItem="GWM-hc-aA6" firstAttribute="leading" secondItem="1uv-6j-VKN" secondAttribute="leading" constant="8" id="Rua-lP-hiL"/>
                             <constraint firstItem="aVE-R4-tFU" firstAttribute="top" secondItem="1uv-6j-VKN" secondAttribute="top" id="XHb-C4-dp0"/>
                             <constraint firstItem="aVE-R4-tFU" firstAttribute="leading" secondItem="1uv-6j-VKN" secondAttribute="leading" id="dTq-56-ZuZ"/>
                             <constraint firstItem="1uv-6j-VKN" firstAttribute="bottom" secondItem="aVE-R4-tFU" secondAttribute="bottom" id="kZS-vz-Ra1"/>
+                            <constraint firstItem="1uv-6j-VKN" firstAttribute="trailing" secondItem="GWM-hc-aA6" secondAttribute="trailing" constant="8" id="nPC-8z-wtT"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="1uv-6j-VKN"/>
                     </view>
                     <navigationItem key="navigationItem" title="Улюблені" id="8ng-ze-BB2"/>
                     <connections>
+                        <outlet property="emptyFavouritesLabel" destination="GWM-hc-aA6" id="he7-Ud-nDs"/>
                         <outlet property="tableView" destination="aVE-R4-tFU" id="naz-Ev-n0c"/>
                     </connections>
                 </viewController>
@@ -691,7 +707,7 @@
         <!--Групи-->
         <scene sceneID="cZ6-Lo-xOW">
             <objects>
-                <navigationController storyboardIdentifier="GroupsOrTeachersChooserNavigationController" id="rzP-Vb-AVW" customClass="GroupsOrTeachersChooserNavigationController" customModule="KPI_Rozklad" customModuleProvider="target" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="GroupsOrTeachersChooserNavigationController" id="rzP-Vb-AVW" customClass="GroupsNavigationController" customModule="KPI_Rozklad" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Групи" image="icons8-user-group-90" id="eQe-0B-TmU"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="hZs-TU-Rdh">
                         <rect key="frame" x="0.0" y="44" width="375" height="44"/>
@@ -701,57 +717,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Efv-9v-qmo" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="486" y="-440"/>
-        </scene>
-        <!--Групи-->
-        <scene sceneID="vaf-AF-DH1">
-            <objects>
-                <viewController storyboardIdentifier="GroupsViewController" id="jBb-Zu-RO6" customClass="GroupsOrTeachersChooserViewController" customModule="KPI_Rozklad" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="LnH-Wi-JB7">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="HQM-27-wzL">
-                                <rect key="frame" x="169" y="392.66666666666669" width="37" height="37"/>
-                            </activityIndicatorView>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="eQv-ab-jKf">
-                                <rect key="frame" x="0.0" y="44" width="375" height="734"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                            </tableView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" Почніть вводити назву групи" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NwA-E1-zgF">
-                                <rect key="frame" x="0.0" y="52" width="375" height="35"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="35" id="1Dh-US-Hd9"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="19"/>
-                                <color key="textColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                        </subviews>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                        <constraints>
-                            <constraint firstItem="NwA-E1-zgF" firstAttribute="leading" secondItem="hnS-gk-6Lo" secondAttribute="leading" id="0ed-fI-AEh"/>
-                            <constraint firstItem="HQM-27-wzL" firstAttribute="centerX" secondItem="hnS-gk-6Lo" secondAttribute="centerX" id="1KZ-s2-p10"/>
-                            <constraint firstItem="eQv-ab-jKf" firstAttribute="trailing" secondItem="hnS-gk-6Lo" secondAttribute="trailing" id="6CM-GD-BO9"/>
-                            <constraint firstItem="eQv-ab-jKf" firstAttribute="leading" secondItem="hnS-gk-6Lo" secondAttribute="leading" id="Mw8-zf-iJe"/>
-                            <constraint firstItem="eQv-ab-jKf" firstAttribute="bottom" secondItem="hnS-gk-6Lo" secondAttribute="bottom" id="b7a-AR-Bj6"/>
-                            <constraint firstItem="eQv-ab-jKf" firstAttribute="top" secondItem="hnS-gk-6Lo" secondAttribute="top" id="laA-jw-Os1"/>
-                            <constraint firstItem="HQM-27-wzL" firstAttribute="centerY" secondItem="hnS-gk-6Lo" secondAttribute="centerY" id="nUt-E1-zXC"/>
-                            <constraint firstItem="NwA-E1-zgF" firstAttribute="top" secondItem="hnS-gk-6Lo" secondAttribute="top" constant="8" id="pnb-B6-buY"/>
-                            <constraint firstItem="hnS-gk-6Lo" firstAttribute="trailing" secondItem="NwA-E1-zgF" secondAttribute="trailing" id="wAb-bg-iWd"/>
-                        </constraints>
-                        <viewLayoutGuide key="safeArea" id="hnS-gk-6Lo"/>
-                    </view>
-                    <navigationItem key="navigationItem" title="Групи" id="mWL-QV-YM5"/>
-                    <connections>
-                        <outlet property="activityIndicator" destination="HQM-27-wzL" id="zz6-Aq-Y9l"/>
-                        <outlet property="startWritingLabel" destination="NwA-E1-zgF" id="z9T-C3-tEK"/>
-                        <outlet property="startWritingLabelHeight" destination="1Dh-US-Hd9" id="7hK-nq-B2m"/>
-                        <outlet property="tableView" destination="eQv-ab-jKf" id="x3S-ow-QS1"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="2Ct-Dz-NOS" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1760.8" y="-440.39408866995075"/>
         </scene>
         <!--Shedule Detail Navigation Controller-->
         <scene sceneID="IUh-1N-zF0">
@@ -782,7 +747,7 @@
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                             </tableView>
                             <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="aXm-Uf-t5P">
-                                <rect key="frame" x="0.0" y="414.66666666666669" width="375" height="37"/>
+                                <rect key="frame" x="0.0" y="390" width="375" height="37"/>
                             </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
@@ -851,7 +816,7 @@
         <image name="loadingV1" width="1242" height="2208"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="eOz-94-s6B"/>
-        <segue reference="lpq-Ok-3P8"/>
+        <segue reference="5QF-Tv-CiU"/>
+        <segue reference="RJQ-je-C9R"/>
     </inferredMetricsTieBreakers>
 </document>

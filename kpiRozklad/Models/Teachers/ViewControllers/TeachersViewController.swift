@@ -135,11 +135,11 @@ class TeachersViewController: UIViewController {
     }
     
     private func getVariablesFromNavigationController() {
-        guard let groupNavigationController = self.navigationController as? MyNavigationController else { return }
+        guard let groupNavigationController = self.navigationController as? TeachersNavigationController else { return }
         
         isSheduleGroupChooser = groupNavigationController.isSheduleGroupChooser
         isSheduleTeachersChooser = groupNavigationController.isSheduleTeachersChooser
-        
+        isTeacherViewController = groupNavigationController.isTeacherViewController
     }
     
     
@@ -151,7 +151,7 @@ class TeachersViewController: UIViewController {
     }
     
     private func setupTableView() {
-        tableView.register(UINib(nibName: ServerGetTableViewCell.identifier, bundle: Bundle.main), forCellReuseIdentifier: ServerGetTableViewCell.identifier)
+        tableView.register(UINib(nibName: TeacherOrGroupLoadingTableViewCell.identifier, bundle: Bundle.main), forCellReuseIdentifier: TeacherOrGroupLoadingTableViewCell.identifier)
 
         tableView.delegate = self
         tableView.dataSource = self
@@ -290,7 +290,7 @@ class TeachersViewController: UIViewController {
         guard let url = URL(string: "https://api.rozklad.org.ua/v2/groups/\(String(group.groupID))/lessons") else { return }
         
         DispatchQueue.main.async {
-            if let cell = self.tableView.cellForRow(at: indexPath) as? ServerGetTableViewCell {
+            if let cell = self.tableView.cellForRow(at: indexPath) as? TeacherOrGroupLoadingTableViewCell {
                 cell.activityIndicator.isHidden = false
                 cell.activityIndicator.startAnimating()
             }
@@ -304,7 +304,7 @@ class TeachersViewController: UIViewController {
                 DispatchQueue.main.async {
                     guard let serverFULLDATA = try? decoder.decode(WelcomeLessons.self, from: data) else { return }
                     
-                    if let cell = self.tableView.cellForRow(at: indexPath) as? ServerGetTableViewCell {
+                    if let cell = self.tableView.cellForRow(at: indexPath) as? TeacherOrGroupLoadingTableViewCell {
                         cell.activityIndicator.isHidden = true
                         cell.activityIndicator.stopAnimating()
                     }
@@ -356,7 +356,7 @@ extension TeachersViewController: UITableViewDelegate, UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: ServerGetTableViewCell.identifier, for: indexPath) as? ServerGetTableViewCell else { return UITableViewCell() }
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: TeacherOrGroupLoadingTableViewCell.identifier, for: indexPath) as? TeacherOrGroupLoadingTableViewCell else { return UITableViewCell() }
         
         cell.activityIndicator.isHidden = true
         
@@ -435,11 +435,21 @@ extension TeachersViewController: UITableViewDelegate, UITableViewDataSource {
         
         tableView.deselectRow(at: indexPath, animated: true)
     }
+    
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return 0.001
+    }
+    
+//    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+//        let view = UIView()
+//        view.backgroundColor = .clear
+//        return view
+//    }
 }
 
 
 //Mark: - extencions for search
-extension TeachersViewController: UISearchResultsUpdating{
+extension TeachersViewController: UISearchResultsUpdating {
 
         // MARK: - updateSearchResults
     func updateSearchResults(for searchController: UISearchController) {

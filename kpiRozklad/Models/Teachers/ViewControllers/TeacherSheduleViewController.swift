@@ -427,7 +427,37 @@ extension TeacherSheduleViewController: UITableViewDelegate, UITableViewDataSour
         
         tableView.deselectRow(at: indexPath, animated: true)
     }
-        
+    
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 30
+    }
+    
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let returnedView = UIView(frame: CGRect(x: 0, y: 0, width: view.frame.size.width, height: 35))
+        let array: [String] = [DayName.mounday.rawValue,
+                               DayName.tuesday.rawValue,
+                               DayName.wednesday.rawValue,
+                               DayName.thursday.rawValue,
+                               DayName.friday.rawValue,
+                               DayName.saturday.rawValue]
+                
+        returnedView.backgroundColor = sectionColour
+
+        let label = UILabel(frame: CGRect(x: 16, y: 3, width: view.frame.size.width, height: 25))
+        label.text = array[section]
+
+        if #available(iOS 13.0, *) {
+            label.textColor = .label
+        } else {
+            label.textColor = .black
+        }
+        returnedView.addSubview(label)
+
+        return returnedView
+    }
+    
     
     // MARK: - cellForRowAt
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

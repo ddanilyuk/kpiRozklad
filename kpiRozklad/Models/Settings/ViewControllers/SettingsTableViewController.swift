@@ -39,7 +39,7 @@ class SettingsTableViewController: UITableViewController {
         tableView.register(UINib(nibName: SettingsTableViewCell.identifier, bundle: Bundle.main), forCellReuseIdentifier: SettingsTableViewCell.identifier)
         
         
-        tableView.register(UINib(nibName: ServerGetTableViewCell.identifier, bundle: Bundle.main), forCellReuseIdentifier: ServerGetTableViewCell.identifier)
+        tableView.register(UINib(nibName: TeacherOrGroupLoadingTableViewCell.identifier, bundle: Bundle.main), forCellReuseIdentifier: TeacherOrGroupLoadingTableViewCell.identifier)
 
         tableView.delegate = self
         tableView.dataSource = self
@@ -149,7 +149,7 @@ class SettingsTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = UITableViewCell(style: .value1, reuseIdentifier: "settings")
         
-        var colour: UIColor = { 
+        let colour: UIColor = { 
             if #available(iOS 13, *) {
                 return .secondarySystemGroupedBackground
             } else {
@@ -158,13 +158,7 @@ class SettingsTableViewController: UITableViewController {
             }
         }()
         
-        if #available(iOS 13, *) {
-            colour = .secondarySystemGroupedBackground
-        } else {
-            /// Return a fallback color for iOS 12 and lower.
-            colour = UIColor.white
-        }
-        
+    
 
         
         cell.backgroundColor = colour
@@ -271,7 +265,7 @@ class SettingsTableViewController: UITableViewController {
     // MARK:- deleteAllFromCoreData
     func didPressUpdateShedule() {
         
-        let alert = UIAlertController(title: nil, message: "Чи бажаєте Ви оновити ваш розклад?\n Всі ваші редагування розкладу пропадуть!", preferredStyle: .actionSheet)
+        let alert = UIAlertController(title: nil, message: "Чи бажаєте ви оновити розклад?\n Всі ваші редагування розкладу пропадуть!", preferredStyle: .actionSheet)
         alert.addAction(UIAlertAction(title: "Оновити", style: .destructive, handler: { (_) in
             
             self.settings.isTryToRefreshShedule = true
@@ -309,7 +303,7 @@ class SettingsTableViewController: UITableViewController {
     
     
     func didPressChangeGroup() {
-        let alert = UIAlertController(title: nil, message: "Чи бажаєте Ви змінити вашу групу?\n Всі ваші редагування розкладу пропадуть!", preferredStyle: .actionSheet)
+        let alert = UIAlertController(title: nil, message: "Чи бажаєте ви змінити вашу групу?\n Всі ваші редагування розкладу пропадуть!", preferredStyle: .actionSheet)
         alert.addAction(UIAlertAction(title: "Змінити", style: .destructive, handler: { (_) in
             self.settings.groupName = ""
             self.settings.teacherName = ""

@@ -129,9 +129,12 @@ func getGroupsOfLessonString(lesson: Lesson) -> String {
     var groupsNames: String  = ""
 
     if let groups = lesson.groups {
-        
-        for i in 0..<groups.count {
-            let group = groups[i]
+        var groupsSorted: [Group] = []
+        groupsSorted = groups.sorted { (group1, group2) -> Bool in
+            return group1.groupFullName < group2.groupFullName
+        }
+        for i in 0..<groupsSorted.count {
+            let group = groupsSorted[i]
             if i == groups.count - 1 {
                 groupsNames += group.groupFullName
             } else {

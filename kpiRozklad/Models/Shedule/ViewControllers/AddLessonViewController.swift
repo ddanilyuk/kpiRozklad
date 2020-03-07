@@ -241,7 +241,7 @@ class AddLessonViewController: UIViewController {
         Settings.shared.isTryToReloadTableView = true
 
         /// Updating Core Data
-        updateCoreData(vc: sheduleViewController, datum: lessons)
+        updateCoreDataV2(vc: sheduleViewController, datum: lessons)
         
         /// SHOW NEW sheduleViewController
         let mainTabBar : UITabBarController = mainStoryboard.instantiateViewController(withIdentifier: "Main") as! UITabBarController

@@ -347,8 +347,10 @@ class TeacherSheduleViewController: UIViewController {
         
         if isFavourite {
             if let image = UIImage(named: "icons8-christmas-star-75-add-1") {
-                
-                for i in 0..<favourites.favouriteGroupsID.count {
+                print(favourites.favouriteTeachersID)
+
+                for i in 0..<favourites.favouriteTeachersID.count {
+                    
                     if Int(strongTeacher.teacherID) ?? 0 == favourites.favouriteTeachersID[i] {
                         favouriteButton.setImage(image, for: .normal)
                         _ = favourites.favouriteTeachersNames.remove(at: i)

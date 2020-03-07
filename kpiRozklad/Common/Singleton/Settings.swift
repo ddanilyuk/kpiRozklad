@@ -95,6 +95,15 @@ class Settings {
         }
     }
     
+    var updateAtOnceSecond: String {
+        get {
+            return userDefaults.string(forKey: "updateAtOnceSecond") ?? ""
+        }
+        set {
+            userDefaults.set(newValue, forKey: "updateAtOnceSecond")
+        }
+    }
+    
     var isShowGreetings: Bool {
         get {
             return userDefaults.bool(forKey: "isShowGreetings")

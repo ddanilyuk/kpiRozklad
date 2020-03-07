@@ -15,7 +15,7 @@ import UIKit
 /// - Parameter indexPath: (indexPathFromPicker) Index Path from popup which edit number of lesson (tap on lesson while editing)
 func editLessonNumber(vc: SheduleViewController, indexPath: IndexPath) {
     
-    var lessons = fetchingCoreData()
+    var lessons = fetchingCoreDataV2()
     let lesson = vc.lessonsForTableView[indexPath.section].value[indexPath.row]
     
     /// timeStart && timeEnd
@@ -119,14 +119,14 @@ func editLessonNumber(vc: SheduleViewController, indexPath: IndexPath) {
     lessons = sortLessons(lessons: lessons)
 
     /// updateCoreData with edited variable `lessons`
-    updateCoreData(vc: vc, datum: lessons)
+    updateCoreDataV2(vc: vc, datum: lessons)
     vc.tableView.reloadData()
 }
 
 
 func moveRow(vc: SheduleViewController, sourceIndexPath: IndexPath, destinationIndexPath: IndexPath) {
     /// getting all lessons (this variable will refresh coreData)
-    var lessons: [Lesson] = fetchingCoreData()
+    var lessons: [Lesson] = fetchingCoreDataV2()
     
     /// lesson which we moved
     let lesson: Lesson = vc.lessonsForTableView[sourceIndexPath.section].value[sourceIndexPath.row]
@@ -300,6 +300,6 @@ func moveRow(vc: SheduleViewController, sourceIndexPath: IndexPath, destinationI
     
     lessons = sortLessons(lessons: lessons)
 
-    updateCoreData(vc: vc, datum: lessons)
+    updateCoreDataV2(vc: vc, datum: lessons)
     vc.tableView.reloadData()
 }

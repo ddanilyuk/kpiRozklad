@@ -125,7 +125,7 @@ class SettingsTableViewController: UITableViewController {
                 cell.textLabel?.text = "Змінити \(name)"
                 cell.detailTextLabel?.text = settings.groupName.uppercased()
             } else if indexPath.row == 2 {
-                let name = global.sheduleType == .groups ? "вчителів" : "студентів"
+                let name = global.sheduleType == .groups ? "викладачів" : "студентів"
                 cell.textLabel?.text = "Змінити на розклад для \(name)"
             }
             return cell

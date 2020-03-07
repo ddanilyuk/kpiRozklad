@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="15702" systemVersion="19D76" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="GroupData" representedClassName="GroupData" syncable="YES" codeGenerationType="class">
+        <attribute name="groupFullName" optional="YES" attributeType="String"/>
+        <attribute name="groupID" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="groupOkr" optional="YES" attributeType="String"/>
+        <attribute name="groupPrefix" optional="YES" attributeType="String"/>
+        <attribute name="groupType" optional="YES" attributeType="String"/>
+        <attribute name="groupURL" optional="YES" attributeType="String"/>
+        <relationship name="groupsRelationship" optional="YES" maxCount="1" deletionRule="No Action" destinationEntity="LessonData" inverseName="groupsRelationship" inverseEntity="LessonData"/>
+    </entity>
+    <entity name="LessonData" representedClassName="LessonData" syncable="YES" codeGenerationType="class">
+        <attribute name="dayName" optional="YES" attributeType="String"/>
+        <attribute name="dayNumber" optional="YES" attributeType="String"/>
+        <attribute name="groupID" optional="YES" attributeType="String"/>
+        <attribute name="lessonFullName" optional="YES" attributeType="String"/>
+        <attribute name="lessonID" optional="YES" attributeType="String"/>
+        <attribute name="lessonName" optional="YES" attributeType="String"/>
+        <attribute name="lessonNumber" optional="YES" attributeType="String"/>
+        <attribute name="lessonRoom" optional="YES" attributeType="String"/>
+        <attribute name="lessonType" optional="YES" attributeType="String"/>
+        <attribute name="lessonWeek" optional="YES" attributeType="String"/>
+        <attribute name="rate" optional="YES" attributeType="String"/>
+        <attribute name="teacherName" optional="YES" attributeType="String"/>
+        <attribute name="timeEnd" optional="YES" attributeType="String"/>
+        <attribute name="timeStart" optional="YES" attributeType="String"/>
+        <relationship name="groupsRelationship" optional="YES" toMany="YES" deletionRule="No Action" destinationEntity="GroupData" inverseName="groupsRelationship" inverseEntity="GroupData"/>
+        <relationship name="roomsRelationship" optional="YES" maxCount="1" deletionRule="No Action" destinationEntity="RoomsData" inverseName="roomsRelationship" inverseEntity="LessonData"/>
+        <relationship name="teachersRelationship" optional="YES" maxCount="1" deletionRule="No Action" destinationEntity="TeachersData" inverseName="teachersRelationship" inverseEntity="LessonData"/>
+    </entity>
+    <entity name="RoomsData" representedClassName="RoomsData" syncable="YES" codeGenerationType="class">
+        <attribute name="roomID" optional="YES" attributeType="String"/>
+        <attribute name="roomLatitude" optional="YES" attributeType="String"/>
+        <attribute name="roomLongitude" optional="YES" attributeType="String"/>
+        <attribute name="roomName" optional="YES" attributeType="String"/>
+        <relationship name="roomsRelationship" optional="YES" maxCount="1" deletionRule="No Action" destinationEntity="LessonData" inverseName="roomsRelationship" inverseEntity="RoomsData"/>
+    </entity>
+    <entity name="TeachersData" representedClassName="TeachersData" syncable="YES" codeGenerationType="class">
+        <attribute name="teacherFullName" optional="YES" attributeType="String"/>
+        <attribute name="teacherID" optional="YES" attributeType="String"/>
+        <attribute name="teacherName" optional="YES" attributeType="String"/>
+        <attribute name="teacherRating" optional="YES" attributeType="String"/>
+        <attribute name="teacherShortName" optional="YES" attributeType="String"/>
+        <attribute name="teacherURL" optional="YES" attributeType="String"/>
+        <relationship name="teachersRelationship" optional="YES" maxCount="1" deletionRule="No Action" destinationEntity="LessonData" inverseName="teachersRelationship" inverseEntity="TeachersData"/>
+    </entity>
+    <elements>
+        <element name="RoomsData" positionX="-9" positionY="36" width="128" height="118"/>
+        <element name="TeachersData" positionX="-9" positionY="36" width="128" height="148"/>
+        <element name="GroupData" positionX="0" positionY="45" width="128" height="148"/>
+        <element name="LessonData" positionX="18" positionY="63" width="128" height="298"/>
+    </elements>
+</model>

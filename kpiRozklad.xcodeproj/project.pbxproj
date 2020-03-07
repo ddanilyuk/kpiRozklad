@@ -3,10 +3,11 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		41D0ADD6C368C60E200A9E11 /* Pods_Widget.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 64742B8F505E8689AB85A1F6 /* Pods_Widget.framework */; };
 		5F0275B223F3472300743637 /* kpiRozklad.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 5F6A08042370A175000A9C79 /* kpiRozklad.xcdatamodeld */; };
 		5F0275B423F3476B00743637 /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F0275B323F3476B00743637 /* CoreDataStack.swift */; };
 		5F0275B823F3493B00743637 /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F0275B323F3476B00743637 /* CoreDataStack.swift */; };
@@ -47,6 +48,8 @@
 		5FE0486B2393087900092422 /* CoreDataHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FE0486A2393087900092422 /* CoreDataHelpers.swift */; };
 		5FE0486D23930C3000092422 /* SheduleVC+UIPickerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FE0486C23930C3000092422 /* SheduleVC+UIPickerVC.swift */; };
 		5FE9678324091880000AD157 /* MyNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FE9678224091880000AD157 /* MyNavigationController.swift */; };
+		5FE96785240F0C22000AD157 /* SheduleDetailNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FE96784240F0C22000AD157 /* SheduleDetailNavigationController.swift */; };
+		90A353C4EB2D15AEC0D9F8D1 /* Pods_kpiRozklad.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 25B70702B56A794A30F2DB1A /* Pods_kpiRozklad.framework */; };
 		D300F1D62364CEA30098CA83 /* TeachersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D300F1D52364CEA30098CA83 /* TeachersViewController.swift */; };
 		D300F1DA2364CF490098CA83 /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D300F1D92364CF490098CA83 /* SettingsTableViewController.swift */; };
 		D300F1DC2365BC270098CA83 /* Teacher.swift in Sources */ = {isa = PBXBuildFile; fileRef = D300F1DB2365BC270098CA83 /* Teacher.swift */; };
@@ -87,6 +90,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		25B70702B56A794A30F2DB1A /* Pods_kpiRozklad.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_kpiRozklad.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		2960C0C9F6C4061BFC696188 /* Pods-Widget.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Widget.release.xcconfig"; path = "Target Support Files/Pods-Widget/Pods-Widget.release.xcconfig"; sourceTree = "<group>"; };
 		5F0275B323F3476B00743637 /* CoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
 		5F034A352389B1F500D90DB7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		5F034A3E2389B2E600D90DB7 /* uk */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = uk; path = uk.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -120,6 +125,10 @@
 		5FE0486A2393087900092422 /* CoreDataHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataHelpers.swift; sourceTree = "<group>"; };
 		5FE0486C23930C3000092422 /* SheduleVC+UIPickerVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SheduleVC+UIPickerVC.swift"; sourceTree = "<group>"; };
 		5FE9678224091880000AD157 /* MyNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyNavigationController.swift; sourceTree = "<group>"; };
+		5FE96784240F0C22000AD157 /* SheduleDetailNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheduleDetailNavigationController.swift; sourceTree = "<group>"; };
+		5FE9678C240FAFA6000AD157 /* Lessonv2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Lessonv2.xcdatamodel; sourceTree = "<group>"; };
+		64742B8F505E8689AB85A1F6 /* Pods_Widget.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Widget.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C33203580DD02E686E10BAEC /* Pods-kpiRozklad.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-kpiRozklad.release.xcconfig"; path = "Target Support Files/Pods-kpiRozklad/Pods-kpiRozklad.release.xcconfig"; sourceTree = "<group>"; };
 		D300F1D52364CEA30098CA83 /* TeachersViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeachersViewController.swift; sourceTree = "<group>"; };
 		D300F1D92364CF490098CA83 /* SettingsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
 		D300F1DB2365BC270098CA83 /* Teacher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Teacher.swift; sourceTree = "<group>"; };
@@ -135,6 +144,8 @@
 		D363E7A9233BB74B00573EB2 /* SheduleDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheduleDetailViewController.swift; sourceTree = "<group>"; };
 		D38DEB43233A250F00BB0075 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		D3FFAAE62352467F0065E9CE /* TeacherSheduleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeacherSheduleViewController.swift; sourceTree = "<group>"; };
+		EDD61A393E606C9EDEAF6451 /* Pods-Widget.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Widget.debug.xcconfig"; path = "Target Support Files/Pods-Widget/Pods-Widget.debug.xcconfig"; sourceTree = "<group>"; };
+		FDF92BF3AE056AD077FE3AD8 /* Pods-kpiRozklad.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-kpiRozklad.debug.xcconfig"; path = "Target Support Files/Pods-kpiRozklad/Pods-kpiRozklad.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -143,6 +154,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5FACFF7E23ED63D40022DF88 /* NotificationCenter.framework in Frameworks */,
+				41D0ADD6C368C60E200A9E11 /* Pods_Widget.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -150,12 +162,24 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				90A353C4EB2D15AEC0D9F8D1 /* Pods_kpiRozklad.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		27FE3C497895B2A14E7B0A78 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				EDD61A393E606C9EDEAF6451 /* Pods-Widget.debug.xcconfig */,
+				2960C0C9F6C4061BFC696188 /* Pods-Widget.release.xcconfig */,
+				FDF92BF3AE056AD077FE3AD8 /* Pods-kpiRozklad.debug.xcconfig */,
+				C33203580DD02E686E10BAEC /* Pods-kpiRozklad.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
 		5F46AD5823FEC35E00B145D5 /* Favourite */ = {
 			isa = PBXGroup;
 			children = (
@@ -236,6 +260,8 @@
 			isa = PBXGroup;
 			children = (
 				5FACFF7D23ED63D40022DF88 /* NotificationCenter.framework */,
+				64742B8F505E8689AB85A1F6 /* Pods_Widget.framework */,
+				25B70702B56A794A30F2DB1A /* Pods_kpiRozklad.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -270,6 +296,7 @@
 				5FACFF7F23ED63D40022DF88 /* Widget */,
 				5FACFF7C23ED63D40022DF88 /* Frameworks */,
 				D313F493233AAB6C0076CFF8 /* Products */,
+				27FE3C497895B2A14E7B0A78 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -356,6 +383,7 @@
 				D313F4AD233AAF920076CFF8 /* SheduleViewController.swift */,
 				5FE0486C23930C3000092422 /* SheduleVC+UIPickerVC.swift */,
 				D363E7A9233BB74B00573EB2 /* SheduleDetailViewController.swift */,
+				5FE96784240F0C22000AD157 /* SheduleDetailNavigationController.swift */,
 				5F686F3923800CFB008B0915 /* AddLessonViewController.swift */,
 				5F4E51EC2403D9DD0034D250 /* GreetingViewController.swift */,
 			);
@@ -481,6 +509,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 5FACFF8C23ED63D40022DF88 /* Build configuration list for PBXNativeTarget "Widget" */;
 			buildPhases = (
+				1A25F8C57CDB337E2A8CA8BC /* [CP] Check Pods Manifest.lock */,
 				5FACFF7723ED63D40022DF88 /* Sources */,
 				5FACFF7823ED63D40022DF88 /* Frameworks */,
 				5FACFF7923ED63D40022DF88 /* Resources */,
@@ -498,10 +527,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = D313F4A6233AAB6D0076CFF8 /* Build configuration list for PBXNativeTarget "kpiRozklad" */;
 			buildPhases = (
+				3F6840CDF772DCC380CFA899 /* [CP] Check Pods Manifest.lock */,
 				D313F48E233AAB6C0076CFF8 /* Sources */,
 				D313F48F233AAB6C0076CFF8 /* Frameworks */,
 				D313F490233AAB6C0076CFF8 /* Resources */,
 				5FACFF8923ED63D40022DF88 /* Embed App Extensions */,
+				0B387FB7E467EFF61FB57315 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -577,6 +608,70 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		0B387FB7E467EFF61FB57315 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-kpiRozklad/Pods-kpiRozklad-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-kpiRozklad/Pods-kpiRozklad-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-kpiRozklad/Pods-kpiRozklad-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		1A25F8C57CDB337E2A8CA8BC /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Widget-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		3F6840CDF772DCC380CFA899 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-kpiRozklad-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		5FACFF7723ED63D40022DF88 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -619,6 +714,7 @@
 				D313F4B2233C773B0076CFF8 /* Lesson.swift in Sources */,
 				5F2F313F2395C62100FC28CB /* Colours.swift in Sources */,
 				5F46AD682401A0F700B145D5 /* Favourites.swift in Sources */,
+				5FE96785240F0C22000AD157 /* SheduleDetailNavigationController.swift in Sources */,
 				D300F1D62364CEA30098CA83 /* TeachersViewController.swift in Sources */,
 				5FE048692393027900092422 /* TimeAndDate.swift in Sources */,
 				D313F4AE233AAF920076CFF8 /* SheduleViewController.swift in Sources */,
@@ -674,6 +770,7 @@
 /* Begin XCBuildConfiguration section */
 		5FACFF8A23ED63D40022DF88 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = EDD61A393E606C9EDEAF6451 /* Pods-Widget.debug.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = Widget/Widget.entitlements;
 				CODE_SIGN_STYLE = Automatic;
@@ -696,6 +793,7 @@
 		};
 		5FACFF8B23ED63D40022DF88 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2960C0C9F6C4061BFC696188 /* Pods-Widget.release.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = Widget/Widget.entitlements;
 				CODE_SIGN_STYLE = Automatic;
@@ -834,8 +932,9 @@
 		};
 		D313F4A7233AAB6D0076CFF8 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = FDF92BF3AE056AD077FE3AD8 /* Pods-kpiRozklad.debug.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "kpiRozklad/KPI Rozklad.entitlements";
 				CODE_SIGN_STYLE = Automatic;
@@ -859,8 +958,9 @@
 		};
 		D313F4A8233AAB6D0076CFF8 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = C33203580DD02E686E10BAEC /* Pods-kpiRozklad.release.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "kpiRozklad/KPI Rozklad.entitlements";
 				CODE_SIGN_STYLE = Automatic;
@@ -918,6 +1018,7 @@
 		5F6A08042370A175000A9C79 /* kpiRozklad.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
+				5FE9678C240FAFA6000AD157 /* Lessonv2.xcdatamodel */,
 				5F6A08052370A175000A9C79 /* Lesson.xcdatamodel */,
 			);
 			currentVersion = 5F6A08052370A175000A9C79 /* Lesson.xcdatamodel */;

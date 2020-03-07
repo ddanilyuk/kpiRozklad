@@ -26,9 +26,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         
         settings.isShowGreetings = false
-//        settings.isGroupsShedule = false
-//        settings.isTeacherShedule = true
-//
+
+
         if settings.isGroupsShedule == true && settings.isTeacherShedule == false {
             global.sheduleType = .groups
         } else {
@@ -54,8 +53,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             if let sheduleVC : SheduleViewController = mainStoryboard.instantiateViewController(withIdentifier: SheduleViewController.identifier) as? SheduleViewController {
                 sheduleVC.server(requestType: SheduleType.groups)
             }
-        } else {
-//            settings.isShowGreetings = false
+        } else if settings.updateAtOnceSecond == "" {
+            settings.updateAtOnceSecond = "updated"
+            global.sheduleType = .groups
         }
         
         

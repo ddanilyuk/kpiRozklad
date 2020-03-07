@@ -17,7 +17,7 @@ import CoreData
 /// 2. `makeLessonsShedule()` remake `[Lesson]` to `[(key: DayName, value: [Lesson])]`
 /// 3. `server()` call `updateCoreData(datum:  [Lesson])` where datum is `[Lesson]` from API
 /// 4. `fetchingCoreData() -> [Lesson]` return `[Lesson]` from Core Data
-class SheduleViewController: UIViewController {
+class SheduleViewController: UIViewController, UIViewControllerTransitioningDelegate {
 
     @IBOutlet weak var tableView: UITableView!
     
@@ -162,6 +162,8 @@ class SheduleViewController: UIViewController {
     
     // MARK: - viewWillAppear
     override func viewWillAppear(_ animated: Bool) {
+        
+        self.view.alpha = 1
         
         setupAtivityIndicator()
 
@@ -345,7 +347,7 @@ class SheduleViewController: UIViewController {
         let mainStoryboard = UIStoryboard(name: "Main", bundle: Bundle.main)
         let addLesson: AddLessonViewController = mainStoryboard.instantiateViewController(withIdentifier: AddLessonViewController.identifier) as! AddLessonViewController
         
-        addLesson.lessons = fetchingCoreData()
+        addLesson.lessons = fetchingCoreDataV2()
         addLesson.currentWeek = self.currentWeek
         
         if #available(iOS 13, *) {
@@ -400,7 +402,7 @@ class SheduleViewController: UIViewController {
             nextLessonId = "-1"
             
         } else {
-            lessons = fetchingCoreData()
+            lessons = fetchingCoreDataV2()
             setupDate()
             let currentAndNext = getCurrentAndNextLesson(lessons: lessons, timeIsNowString: timeIsNowString, dayNumberFromCurrentDate: dayNumberFromCurrentDate, currentWeekFromTodayDate: currentWeekFromTodayDate)
             
@@ -541,7 +543,7 @@ class SheduleViewController: UIViewController {
                 
                 guard let serverFULLDATA = try? decoder.decode(WelcomeLessons.self, from: data) else { return }
 
-                updateCoreData(vc: self, datum: serverFULLDATA.data)
+                updateCoreDataV2(vc: self, datum: serverFULLDATA.data)
             }
         }
         task.resume()
@@ -657,6 +659,7 @@ extension SheduleViewController: UITableViewDelegate, UITableViewDataSource {
     
     // MARK: - prepare
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+   
         if segue.identifier == "showDetailViewController" {
             if let strongDestinationLesson = destinationLesson {
                 if let destination = segue.destination as? SheduleDetailViewController {
@@ -708,7 +711,27 @@ extension SheduleViewController: UITableViewDelegate, UITableViewDataSource {
             present(alertView, animated: true, completion: nil)
         } else {
             if indexPath.section != lessonsForTableView.count {
-                performSegue(withIdentifier: "showDetailViewController", sender: self)
+                
+                if #available(iOS 13.0, *) {
+                    dismiss(animated: true, completion: nil)
+
+                    guard let vc = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(identifier: SheduleDetailNavigationController.identifier) as? SheduleDetailNavigationController else { return }
+                    
+                    
+                    vc.lesson = lessonsForTableView[indexPath.section].value[indexPath.row]
+                    
+//                    let options: UIView.AnimationOptions = .transitionCrossDissolve
+//                    UIView.transition(with: self.view, duration: 0.7, options: options, animations: {}, completion:
+//                        { completed in
+//                            self.view.alpha = 0.4
+//                    })
+                    
+                    presentPanModal(vc)
+                    
+                } else {
+                    performSegue(withIdentifier: "showDetailViewController", sender: self)
+                }
+                
             }
         }
         
@@ -758,7 +781,7 @@ extension SheduleViewController: UITableViewDelegate, UITableViewDataSource {
             /// Lesson to delete
             let lesson = self.lessonsForTableView[indexPath.section].value[indexPath.row]
             
-            var lessons = fetchingCoreData()
+            var lessons = fetchingCoreDataV2()
             
             /// deleting from `lessons`  which will be used for further updates in `updateCoreData(datum: lessons)`
             for i in 0..<lessons.count {
@@ -771,7 +794,7 @@ extension SheduleViewController: UITableViewDelegate, UITableViewDataSource {
             
             self.lessonsForTableView[indexPath.section].value.remove(at: indexPath.row)
             self.tableView.deleteRows(at: [indexPath], with: .automatic)
-            updateCoreData(vc: self, datum: lessons)
+            updateCoreDataV2(vc: self, datum: lessons)
             
         } else if editingStyle == .insert {
             presentAddLesson()

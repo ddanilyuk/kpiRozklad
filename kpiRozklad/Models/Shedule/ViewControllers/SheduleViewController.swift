@@ -850,11 +850,18 @@ extension SheduleViewController: UITableViewDelegate, UITableViewDataSource {
        cell.lessonLabel.textColor = colourTextLabel
         
         if currentLessonId == lesson.lessonID {
-            cell.backgroundColor = .orange
+            cell.backgroundColor = settings.cellCurrentColour
+            let textColour: UIColor = cell.backgroundColor?.isWhiteText ?? true ? .white : .black
+            
+            cell.startLabel.textColor = textColour
+            cell.endLabel.textColor = textColour
+            cell.teacherLabel.textColor = textColour
+            cell.roomLabel.textColor = textColour
+            cell.lessonLabel.textColor = textColour
         }
         
         if nextLessonId == lesson.lessonID {
-            cell.backgroundColor = Settings.shared.cellColour
+            cell.backgroundColor = Settings.shared.cellNextColour
             let textColour: UIColor = cell.backgroundColor?.isWhiteText ?? true ? .white : .black
             
             cell.startLabel.textColor = textColour

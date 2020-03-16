@@ -131,10 +131,12 @@ class Settings {
         }
     }
     
-    var cellColour: UIColor {
+    var cellNextColour: UIColor {
         get {
-            let color = NSKeyedUnarchiver.unarchiveObject(with: userDefaults.data(forKey: "cellColour") ?? Data()) as? UIColor
-            return color ?? UIColor.black
+//            let color = NSKeyedUnarchiver.unarchiveObject(with: userDefaults.data(forKey: "cellNextColour") ?? Data()) as? UIColor
+            
+            let colour = try? NSKeyedUnarchiver.unarchivedObject(ofClass: UIColor.self, from: userDefaults.data(forKey: "cellNextColour") ?? Data())
+            return colour ?? blue
         }
         
         set {
@@ -145,7 +147,27 @@ class Settings {
                 
             }
 
-            userDefaults.set(colorData, forKey: "cellColour")
+            userDefaults.set(colorData, forKey: "cellNextColour")
+            
+        }
+    }
+    
+    
+    var cellCurrentColour: UIColor {
+        get {
+            let color = try? NSKeyedUnarchiver.unarchivedObject(ofClass: UIColor.self, from: userDefaults.data(forKey: "cellNowColour") ?? Data())
+            return color ?? UIColor.orange
+        }
+        
+        set {
+            var colorData: NSData?
+            do {
+                colorData = try NSKeyedArchiver.archivedData(withRootObject: newValue, requiringSecureCoding: false) as NSData?
+            } catch {
+                
+            }
+
+            userDefaults.set(colorData, forKey: "cellNowColour")
             
         }
     }

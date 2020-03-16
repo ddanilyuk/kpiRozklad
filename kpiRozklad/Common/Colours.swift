@@ -77,3 +77,5 @@ public var seettingsTableViewBackgroundColour: UIColor = {
         return  UIColor.white
     }
 }()
+
+

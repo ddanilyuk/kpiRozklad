@@ -8,13 +8,19 @@
 
 import UIKit
 
+enum CellType {
+    case current
+    case next
+}
+
 class ColourPickerViewController: UIViewController {
 
     @IBOutlet weak var colorPickerView: ColorPickerView!
-    
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var segmentControl: UISegmentedControl!
     
     var defaultColour: UIColor?
+    let settings = Settings.shared
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,65 +31,121 @@ class ColourPickerViewController: UIViewController {
         
         colorPickerView.delegate = self
         colorPickerView.layoutDelegate = self
+        colorPickerView.isSelectedColorTappable = false
+        colorPickerView.selectionStyle = .check
+        colorPickerView.layoutSubviews()
 //        colorPickerView.selectColor(at: 2, animated: true)
-        colorPickerView.reloadInputViews()
         
         self.tableView.register(UINib(nibName: LessonTableViewCell.identifier, bundle: Bundle.main), forCellReuseIdentifier: LessonTableViewCell.identifier)
         self.tableView.delegate = self
         self.tableView.dataSource = self
         self.tableView.isScrollEnabled = false
         
-        guard let defaultColour = defaultColour else {
-            return
-        }
-        
-        self.tableView.backgroundColor = defaultColour
-        self.tableView.reloadData()
+//        guard let defaultColour = defaultColour else {
+//            return
+//        }
+//
+//        self.tableView.backgroundColor = defaultColour
+//        self.tableView.reloadData()
         // Do any additional setup after loading the view.
     }
     
-//    override func viewWillAppear(_ animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
 //        guard let defaultColour = defaultColour else {
 //            return
 //        }
 //        self.tableView.backgroundColor = defaultColour
+//
+//        colorPickerView.layoutSubviews()
+//
+//
+//        if let cell = self.tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as? LessonTableViewCell {
+//
+//
+//            let textColour: UIColor = defaultColour.isWhiteText ? .white : .black
+//
+//            cell.startLabel.textColor = textColour
+//
+//            cell.endLabel.textColor = textColour
+//
+//            cell.teacherLabel.textColor = textColour
+//
+//            cell.roomLabel.textColor = textColour
+//
+//            cell.lessonLabel.textColor = textColour
+//
+//
+//            cell.backgroundColor = defaultColour
+//
+//        }
 //        self.tableView.reloadData()
-////        if let cell = self.tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as? LessonTableViewCell {
-////
-////            cell.backgroundColor = defaultColour
-////
-////            tableView.reloadData()
-////        }
-//    }
+
+    }
     
     
     override func viewDidAppear(_ animated: Bool) {
-        var index = 0
-        for i in 0..<colorPickerView.colors.count {
-            let colour = colorPickerView.colors[i]
-            if colour == Settings.shared.cellColour {
-                index = i
-            }
-        }
-        if colorPickerView.indexOfSelectedColor != index {
-            colorPickerView.selectColor(at: index, animated: true)
+        selectDefaultColour(cellType: .current)
+    }
+    
+    
+    @IBAction func didChangeCellType(_ sender: UISegmentedControl) {
+        switch segmentControl.selectedSegmentIndex {
+        case 0:
+            selectDefaultColour(cellType: .current)
+//            colorPickerView.reloadInputViews()
+            
+//            for i in 0..<colorPickerView.colors.count {
+//                let index = IndexPath(row: i, section: 0)
+//                guard let cell = colorPickerView?.collectionView.cellForItem(at: index) as? ColorPickerCell else {
+//                    return
+//                }
+//                if selectionStyle == .check {
+//                    cell.checkbox.setCheckState(.unchecked, animated: true)
+//                }
+//            }
+            
+        case 1:
+            selectDefaultColour(cellType: .next)
+            colorPickerView.reloadInputViews()
+        default: break
+            
         }
     }
     
-    @IBAction func didChangeCellType(_ sender: UISegmentedControl) {
+    
+    func selectDefaultColour(cellType: CellType) {
+        let index = findIndexOfDefaultСolour(cellType: cellType)
+
+        if colorPickerView.indexOfSelectedColor != index {
+            colorPickerView.selectColor(at: index, animated: true)
+//            colorPickerView.layoutSubviews()
+        }
+    }
+    
+    
+    func findIndexOfDefaultСolour(cellType: CellType) -> Int {
+        var colourToFind = UIColor.clear
+        
+        if cellType == .current {
+            colourToFind = settings.cellCurrentColour
+        } else if cellType == .next {
+            colourToFind = settings.cellNextColour
+        }
+        
+        var index = 0
+        for i in 0..<colorPickerView.colors.count {
+            let colour = colorPickerView.colors[i]
+            if colour == colourToFind {
+                index = i
+            }
+        }
+        
+        return index
+
     }
     
     @IBAction func didPressSave(_ sender: UIButton) {
     }
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
     
 
 }
@@ -94,30 +156,29 @@ extension ColourPickerViewController: ColorPickerViewDelegate {
     func colorPickerView(_ colorPickerView: ColorPickerView, didSelectItemAt indexPath: IndexPath) {
         // A color has been selected
 //        tableView.backgroundColor = colorPickerView.colors[indexPath.row]
-        
+//        colorPickerView.reloadInputViews()
+//        colorPickerView.layoutSubviews()
         
         if let cell = self.tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as? LessonTableViewCell {
             let backgroundColour: UIColor = colorPickerView.colors[indexPath.row]
-
+            
             let textColour: UIColor = backgroundColour.isWhiteText ? .white : .black
             
-            
             cell.startLabel.textColor = textColour
-            
             cell.endLabel.textColor = textColour
-            
             cell.teacherLabel.textColor = textColour
-            
             cell.roomLabel.textColor = textColour
-            
             cell.lessonLabel.textColor = textColour
-            
-            
             cell.backgroundColor = backgroundColour
             
             self.tableView.backgroundColor = backgroundColour
             
-            Settings.shared.cellColour = backgroundColour
+            if segmentControl.selectedSegmentIndex == 0 {
+                settings.cellCurrentColour = backgroundColour
+            } else if segmentControl.selectedSegmentIndex == 1 {
+                settings.cellNextColour = backgroundColour
+            }
+            
             
             tableView.reloadData()
         }
@@ -125,28 +186,10 @@ extension ColourPickerViewController: ColorPickerViewDelegate {
     
     
 
-      // This is an optional method
-      func colorPickerView(_ colorPickerView: ColorPickerView, didDeselectItemAt indexPath: IndexPath) {
-        // A color has been deselected
-        
-//        if let cell = self.tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as? TableViewCell {
-//            if colorPickerView.colors[indexPath.row] == cell.backgroundColor {
-//                cell.backgroundColor = .white
+//      // This is an optional method
+//      func colorPickerView(_ colorPickerView: ColorPickerView, didDeselectItemAt indexPath: IndexPath) {
 //
-//                cell.timeStartLabel?.textColor = .black
-//                cell.teacherNameLabel.textColor = .black
-//
-//                cell.roomLabel.textColor = .black
-//                cell.timeEndLabel.textColor = .black
-//                cell.lessonNameLabel.textColor = .black
-//
-//
-//                tableView.reloadData()
-//            }
-//
-//
-//        }
-      }
+//      }
 
 }
  
@@ -180,7 +223,22 @@ extension ColourPickerViewController: UITableViewDelegate, UITableViewDataSource
         cell.lessonLabel.text = "Предмет"
         
         cell.timeLeftLabel.text = ""
-//        cell.backgroundColor =
+        
+        if let defaultColour = defaultColour {
+
+            cell.backgroundColor = defaultColour
+            tableView.backgroundColor = defaultColour
+            
+            let textColour: UIColor = defaultColour.isWhiteText ? .white : .black
+            
+            cell.startLabel.textColor = textColour
+            cell.endLabel.textColor = textColour
+            cell.teacherLabel.textColor = textColour
+            cell.roomLabel.textColor = textColour
+            cell.lessonLabel.textColor = textColour
+            self.defaultColour = nil
+        }
+        
         
         return cell
     }

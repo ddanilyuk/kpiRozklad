@@ -539,6 +539,7 @@
                                     <segment title="Поточна"/>
                                     <segment title="Наступна"/>
                                 </segments>
+                                <color key="selectedSegmentTintColor" systemColor="linkColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <connections>
                                     <action selector="didChangeCellType:" destination="sed-iu-RU8" eventType="valueChanged" id="5R4-ou-01T"/>
                                     <action selector="didChangeCellType:" destination="zDR-53-jP4" eventType="valueChanged" id="a3s-oM-65F"/>
@@ -582,13 +583,14 @@
                     </view>
                     <connections>
                         <outlet property="colorPickerView" destination="2R5-91-UBf" id="gEe-iL-5ZS"/>
+                        <outlet property="segmentControl" destination="dzE-CC-Pod" id="hID-z6-DBb"/>
                         <outlet property="tableView" destination="qWK-B5-AOA" id="OXE-Td-7gT"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gvr-8t-VVO" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <exit id="zDR-53-jP4" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="3958" y="-1882"/>
+            <point key="canvasLocation" x="4132" y="-1912"/>
         </scene>
         <!--Shedule Detail View Controller-->
         <scene sceneID="YJy-Mv-orq">

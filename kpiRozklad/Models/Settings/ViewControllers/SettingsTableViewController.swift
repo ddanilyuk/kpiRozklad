@@ -309,7 +309,7 @@ class SettingsTableViewController: UITableViewController {
         let colorPickerView = ColorPickerView()
         for i in 0..<colorPickerView.colors.count {
             let colour = colorPickerView.colors[i]
-            if colour == Settings.shared.cellColour {
+            if colour == Settings.shared.cellCurrentColour {
                 colourVC.defaultColour = colour
             }
         }

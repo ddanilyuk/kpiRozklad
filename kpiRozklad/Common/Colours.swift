@@ -49,3 +49,31 @@ public var sectionColour: UIColor = {
     }
 }()
 
+public var tableViewBackground: UIColor = {
+    if #available(iOS 13, *) {
+        return UIColor { (UITraitCollection: UITraitCollection) -> UIColor in
+            if UITraitCollection.userInterfaceStyle == .dark {
+                /// Return the color for Dark Mode
+                return .black
+                
+            } else {
+                /// Return the color for Light Mode
+//                return UIColor(red: 200/255, green: 200/255, blue: 200/255, alpha: 1)
+                return UIColor(red: 242/255, green: 242/255, blue: 247/255, alpha: 1)
+            }
+        }
+    } else {
+        /// Return a fallback color for iOS 12 and lower.
+        return UIColor(red: 242/255, green: 242/255, blue: 247/255, alpha: 1)
+    }
+}()
+
+
+public var seettingsTableViewBackgroundColour: UIColor = {
+    if #available(iOS 13, *) {
+        return .secondarySystemGroupedBackground
+    } else {
+        /// Return a fallback color for iOS 12 and lower.
+        return  UIColor.white
+    }
+}()

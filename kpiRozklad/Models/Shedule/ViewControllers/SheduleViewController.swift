@@ -545,7 +545,7 @@ class SheduleViewController: UIViewController {
     }
     
     
-    // MARK: - s
+    // MARK: - server
     /// Functon which getting data from server
     /// - note: This fuction call `updateCoreData()`
     func server(requestType: SheduleType) {
@@ -560,6 +560,7 @@ class SheduleViewController: UIViewController {
         
         let task = URLSession.shared.dataTask(with: url) {(data, response, error) in
             guard let data = data else { return }
+            
             let decoder = JSONDecoder()
 
             do {
@@ -833,18 +834,43 @@ extension SheduleViewController: UITableViewDelegate, UITableViewDataSource {
         
         cell.teacherLabel.text = lesson.teacherName != "" ? lesson.teacherName : " "
         
+        var colourTextLabel: UIColor {
+            if #available(iOS 13.0, *) {
+                return .label
+            } else {
+                return .black
+            }
+        }
+               
+               
+       cell.startLabel.textColor = colourTextLabel
+       cell.endLabel.textColor = colourTextLabel
+       cell.teacherLabel.textColor = colourTextLabel
+       cell.roomLabel.textColor = colourTextLabel
+       cell.lessonLabel.textColor = colourTextLabel
+        
         if currentLessonId == lesson.lessonID {
             cell.backgroundColor = .orange
         }
         
         if nextLessonId == lesson.lessonID {
-            cell.backgroundColor = blue
+            cell.backgroundColor = Settings.shared.cellColour
+            let textColour: UIColor = cell.backgroundColor?.isWhiteText ?? true ? .white : .black
+            
+            cell.startLabel.textColor = textColour
+            cell.endLabel.textColor = textColour
+            cell.teacherLabel.textColor = textColour
+            cell.roomLabel.textColor = textColour
+            cell.lessonLabel.textColor = textColour
         }
         
         cell.startLabel.text = String(lesson.timeStart[..<5])
         cell.endLabel.text = String(lesson.timeEnd[..<5])
         cell.roomLabel.text = lesson.lessonType.rawValue + " " + lesson.lessonRoom
         cell.timeLeftLabel.text = ""
+        
+       
+        
         
         return cell
     }

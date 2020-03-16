@@ -142,7 +142,6 @@ class SheduleDetailViewController: UIViewController {
                 
                 guard let serverFULLDATA = try? decoder.decode(WelcomeLessons.self, from: data) else { return }
                 lessons = serverFULLDATA.data
-                print(lessons)
                 self.getGroups(dayNumber: dayNumber, lessonNumber: lessonNumber, teacherID: teacherID, lessonWeek: lessonWeek, lessons: lessons)
 
             }

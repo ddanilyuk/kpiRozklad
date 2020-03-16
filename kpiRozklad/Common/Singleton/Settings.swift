@@ -130,4 +130,23 @@ class Settings {
             userDefaults.set(newValue, forKey: "isTeacherShedule")
         }
     }
+    
+    var cellColour: UIColor {
+        get {
+            let color = NSKeyedUnarchiver.unarchiveObject(with: userDefaults.data(forKey: "cellColour") ?? Data()) as? UIColor
+            return color ?? UIColor.black
+        }
+        
+        set {
+            var colorData: NSData?
+            do {
+                colorData = try NSKeyedArchiver.archivedData(withRootObject: newValue, requiringSecureCoding: false) as NSData?
+            } catch {
+                
+            }
+
+            userDefaults.set(colorData, forKey: "cellColour")
+            
+        }
+    }
  }

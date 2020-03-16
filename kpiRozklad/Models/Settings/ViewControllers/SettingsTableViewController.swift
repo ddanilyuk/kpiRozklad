@@ -73,7 +73,7 @@ class SettingsTableViewController: UITableViewController {
         // #warning Incomplete implementation, return the number of rows
         if section == 0 {
 
-            return 2
+            return 3
         } else if section == 1 {
 
             return 2
@@ -148,35 +148,14 @@ class SettingsTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = UITableViewCell(style: .value1, reuseIdentifier: "settings")
-        
-        let colour: UIColor = { 
-            if #available(iOS 13, *) {
-                return .secondarySystemGroupedBackground
-            } else {
-                /// Return a fallback color for iOS 12 and lower.
-                return  UIColor.white
-            }
-        }()
-        
     
-
+        cell.backgroundColor = seettingsTableViewBackgroundColour
         
-        cell.backgroundColor = colour
-
-
         if indexPath.section == 0 {
             cell.separatorInset = .zero
             cell.accessoryType = .disclosureIndicator
 
             if indexPath.row == 0 {
-//                guard let cell = tableView.dequeueReusableCell(withIdentifier: SettingsTableViewCell.identifier, for: indexPath) as? SettingsTableViewCell
-//                    else { return UITableViewCell() }
-//
-//                cell.mainLabel?.text = "Оновити розклад"
-//                cell.imageDetailView?.image = UIImage(named: "icons8-refresh-90-orange")
-//                cell.activityIndicator.isHidden = true
-                
-                
                 cell.textLabel?.text = "Оновити розклад"
                 cell.imageView?.image = UIImage(named: "icons8-refresh-80-orange")
             } else if indexPath.row == 1 {
@@ -185,13 +164,12 @@ class SettingsTableViewController: UITableViewController {
                 cell.imageView?.image = UIImage(named: "icons8-refresh-80-red")
                 cell.detailTextLabel?.text = settings.groupName.uppercased()
             }
-//            else if indexPath.row == 2 {
-//
-//                cell.imageView?.image = UIImage(named: "icons8-refresh-80-red")
-//                let name = global.sheduleType == .groups ? "викладачів" : "студентів"
-//                cell.textLabel?.text = "Змінити на розклад для \(name)"
-//
-//            }
+            else if indexPath.row == 2 {
+
+                cell.textLabel?.text = "Колір поточної та наступної пари"
+                cell.imageView?.image = UIImage(named: "icons8-paint-brush-80")
+
+            }
             return cell
 
         } else if indexPath.section == 1 {
@@ -199,38 +177,24 @@ class SettingsTableViewController: UITableViewController {
             if indexPath.row == 0 {
                 guard let cell = tableView.dequeueReusableCell(withIdentifier: SettingsTableViewCell.identifier, for: indexPath) as? SettingsTableViewCell else { return UITableViewCell() }
                 
-                cell.backgroundColor = colour
+                cell.backgroundColor = seettingsTableViewBackgroundColour
                 cell.accessoryType = .disclosureIndicator
                 cell.imageDetailView.image = UIImage(named: "icons8-index-80")
                 cell.mainLabel.text = "Розклад без змін"
                 cell.activityIndicator.isHidden = true
                 cell.separator(shouldBeHidden: true)
-
-//                cell.separatorInset.right = .greatestFiniteMagnitude
-
-//                cell.separatorInset = UIEdgeInsets(top: 0, left: cell.bounds.size.width, bottom: 0, right: 0)
                 
                 return cell
                 
             } else if indexPath.row == 1 {
 
-                
                 guard let cell = tableView.dequeueReusableCell(withIdentifier: ServerUpdateTableViewCell.identifier, for: indexPath) as? ServerUpdateTableViewCell else { return UITableViewCell() }
 
                 cell.backgroundColor = tint
-//                cell.selectionStyle = .none
+                cell.selectionStyle = .none
                 cell.separator(shouldBeHidden: true)
-//                cell.separatorInset.right = .greatestFiniteMagnitude
-
-//                cell.separatorInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: .greatestFiniteMagnitude)
-//                cell.separatorInset = .init(top: 1, left: 100, bottom: 1, right: 10)
-//                cell.separatorInset = UIEdgeInsets(top: 0, left: 10000, bottom: 0, right: 0);
-
-//                cell.separatorInset = .init(top: 0, left: 0, bottom: <#T##CGFloat#>, right: <#T##CGFloat#>)
-//                cell.layoutMargins = .zero
-                
                 cell.deviceSaveLabel.text = settings.sheduleUpdateTime
-                
+
                 return cell
             }
         }
@@ -243,17 +207,13 @@ class SettingsTableViewController: UITableViewController {
             if indexPath.row == 0 {
                 didPressUpdateShedule()
             } else if indexPath.row == 1 {
-//                didPressChangeGroup()
                 didPressChangeSheduleType()
-
+            } else if indexPath.row == 2 {
+                didPressEditColours()
             }
-//            else if indexPath.row == 2 {
-//                didPressChangeSheduleType()
-//            }
         } else if indexPath.section == 1 {
             if indexPath.row == 0 {
                 serverGetFreshShedule(requestType: global.sheduleType)
-
             } else if indexPath.row == 1 {
                 tableView.deselectRow(at: indexPath, animated: true)
             }
@@ -339,6 +299,23 @@ class SettingsTableViewController: UITableViewController {
         })
     }
     
+    func didPressEditColours() {
+        guard let colourVC = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "ColourPickerViewController") as? ColourPickerViewController else { return }
+        colourVC.navigationController?.navigationBar.prefersLargeTitles = true
+        colourVC.navigationItem.largeTitleDisplayMode = .never
+        colourVC.navigationController?.navigationItem.largeTitleDisplayMode = .never
+        
+//        var index = 0
+        let colorPickerView = ColorPickerView()
+        for i in 0..<colorPickerView.colors.count {
+            let colour = colorPickerView.colors[i]
+            if colour == Settings.shared.cellColour {
+                colourVC.defaultColour = colour
+            }
+        }
+        
+        self.navigationController?.pushViewController(colourVC, animated: true)
+    }
     
     func didPressChangeSheduleType() {
         let alert = UIAlertController(title: nil, message: "Чи бажаєте ви змінити тип розкладу \n Всі ваші редагування розкладу пропадуть!", preferredStyle: .actionSheet)
@@ -351,7 +328,6 @@ class SettingsTableViewController: UITableViewController {
             
             self.settings.isTryToRefreshShedule = true
             deleteAllFromCoreData()
-            
             
             let indexPath = IndexPath(row: 1, section: 1)
             let date = Date()
@@ -373,7 +349,6 @@ class SettingsTableViewController: UITableViewController {
             let appDelegate = UIApplication.shared.delegate as? AppDelegate
             guard let window = appDelegate?.window else { return }
             window.rootViewController = greetingVC
-            
             
             
             window.makeKeyAndVisible()
@@ -402,12 +377,11 @@ class SettingsTableViewController: UITableViewController {
     func serverTimeUpdate() {
         guard let url = URL(string: "https://rozklad.org.ua/?noredirect") else { return }
         
-        print(url)
         let task = URLSession.shared.dataTask(with: url) {(data, response, error) in
         
             do {
                 let myHTMLString = try String(contentsOf: url)
-                print("HTML : \(myHTMLString)")
+//                print("HTML : \(myHTMLString)")
                 
                 if let index = myHTMLString.index(of: "Останнє оновлення: "), let index2 = myHTMLString.index(of: "<!--Всього") {
                     let substring = myHTMLString[index..<index2]   // ab
@@ -486,8 +460,4 @@ class SettingsTableViewController: UITableViewController {
 }
 
 
-extension UITableViewCell {
-  func separator(shouldBeHidden: Bool) {
-    separatorInset.left += shouldBeHidden ? bounds.size.width : 0
-  }
-}
+

@@ -97,14 +97,9 @@ class TeacherSheduleViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-                
-        /// TableView delegate and dataSource
-        tableView.delegate = self
-        tableView.dataSource = self
-        tableView.register(UINib(nibName: "LessonTableViewCell", bundle: Bundle.main), forCellReuseIdentifier: "LessonTableViewCell")
+        setupTableView()
         
-        /// Getting dayNumber and week of year from device Date()
-        getDayNumAndWeekOfYear()
+        setupDate()
         
         /// setUpCurrentWeek (choosing week)
         setUpCurrentWeek()
@@ -157,41 +152,54 @@ class TeacherSheduleViewController: UIViewController {
     }
     
     
-    
-    // MARK: - getDayNumAndWeekOfYear
-    /// Getting dayNumber and week of year from device Date()
-    func getDayNumAndWeekOfYear() {
-        /// Current date from device
-        let date = Date()
-        
-        /// Calendar
-        let calendar = Calendar.current
-        
-        /// "EEEE"  formatter (day)
-        let formatter1 = DateFormatter()
-        
-        /// "HH:mm"  formatter (hours and minutes)
-        let formatter2 = DateFormatter()
-
-        formatter1.dateFormat = "EEEE"
-        formatter2.dateFormat = "HH:mm"
-        
-        /// time is now
-        timeIsNowString = formatter2.string(from: date)
-        
-        /// Get number of week (in year) and weekday
-        let components = calendar.dateComponents([.weekOfYear, .month, .day, .weekday], from: date)
-        
-        dayNumberFromCurrentDate = (components.weekday ?? 0) - 1
-        weekOfYear = components.weekOfYear ?? 0
-        
-        /// In USA calendar week start on Sunday but in my shedule it start from mounday
-        /// and if today is Sunday, in USA we start new week but for me its wrong and we take away one week and set dayNumber == 7
-        if dayNumberFromCurrentDate == 0 {
-            weekOfYear -= 1
-            dayNumberFromCurrentDate = 7
-        }
+    private func setupDate() {
+        let result = getTimeAndDayNumAndWeekOfYear()
+        timeIsNowString = result.timeIsNowString
+        dayNumberFromCurrentDate = result.dayNumberFromCurrentDate
+        weekOfYear = result.weekOfYear
     }
+    
+    
+    private func setupTableView() {
+        /// TableView delegate and dataSource
+        tableView.delegate = self
+        tableView.dataSource = self
+        tableView.register(UINib(nibName: "LessonTableViewCell", bundle: Bundle.main), forCellReuseIdentifier: "LessonTableViewCell")
+    }
+//    // MARK: - getDayNumAndWeekOfYear
+//    /// Getting dayNumber and week of year from device Date()
+//    func getDayNumAndWeekOfYear() {
+//        /// Current date from device
+//        let date = Date()
+//
+//        /// Calendar
+//        let calendar = Calendar.current
+//
+//        /// "EEEE"  formatter (day)
+//        let formatter1 = DateFormatter()
+//
+//        /// "HH:mm"  formatter (hours and minutes)
+//        let formatter2 = DateFormatter()
+//
+//        formatter1.dateFormat = "EEEE"
+//        formatter2.dateFormat = "HH:mm"
+//
+//        /// time is now
+//        timeIsNowString = formatter2.string(from: date)
+//
+//        /// Get number of week (in year) and weekday
+//        let components = calendar.dateComponents([.weekOfYear, .month, .day, .weekday], from: date)
+//
+//        dayNumberFromCurrentDate = (components.weekday ?? 0) - 1
+//        weekOfYear = components.weekOfYear ?? 0
+//
+//        /// In USA calendar week start on Sunday but in my shedule it start from mounday
+//        /// and if today is Sunday, in USA we start new week but for me its wrong and we take away one week and set dayNumber == 7
+//        if dayNumberFromCurrentDate == 0 {
+//            weekOfYear -= 1
+//            dayNumberFromCurrentDate = 7
+//        }
+//    }
     
     
     // MARK: - setUpCurrentWeek

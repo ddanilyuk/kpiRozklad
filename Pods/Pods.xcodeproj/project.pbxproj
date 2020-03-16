@@ -7,92 +7,153 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		05F04A97EAF799F05D9EFBE5A251D777 /* Pods-kpiRozklad-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 9123824070B07BB53A909D9A7CE8E4FD /* Pods-kpiRozklad-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		1C3285773ABC2DD2DE55DC70BD703BBC /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3212113385A8FBBDB272BD23C409FF61 /* Foundation.framework */; };
-		2E429C92AE2DC78C28DA149D8A1B1514 /* PanContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5B64125CFB97DD89EA823520B4D63AD /* PanContainerView.swift */; };
-		36730230F0155836AF793194F7BEF702 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3212113385A8FBBDB272BD23C409FF61 /* Foundation.framework */; };
-		3DB448A3E9B64E934BC76FE0FC7621FE /* PanModalPresentationDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D399ABFCE35E06B5B2F4E3D0A3ABDF5 /* PanModalPresentationDelegate.swift */; };
-		4568EDD1163363300EAC0BA60D5CD7AB /* DimmedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5643A094CE857C76D6901A2A3E99139C /* DimmedView.swift */; };
-		45CF72ED3BCD237B440ACB19851A589A /* PanModalHeight.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50675809C478CA03587F404F86AA6F32 /* PanModalHeight.swift */; };
-		572381E04E5194A352D7D7D57A046C50 /* Pods-kpiRozklad-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F2B8C34969F2456741695D6E117E15 /* Pods-kpiRozklad-dummy.m */; };
+		0348E72A279882575367B52CE6A0C2B1 /* M13CheckboxFlatController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 211CBBF20DA0F118C85A0493F5336717 /* M13CheckboxFlatController.swift */; };
+		2229A6998218AC6DFF497473500021C7 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FD608BCCF279B1277BB911F33106997F /* Foundation.framework */; };
+		254315B3201BB02B083E2B189DD456E3 /* M13Checkbox-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EB8EC295880753686527B152BA2C405 /* M13Checkbox-dummy.m */; };
+		2E429C92AE2DC78C28DA149D8A1B1514 /* PanContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC434772E2719604F2A5543330A8FDFE /* PanContainerView.swift */; };
+		36730230F0155836AF793194F7BEF702 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FD608BCCF279B1277BB911F33106997F /* Foundation.framework */; };
+		38AFE203BA33874D1E643490F7F3FD15 /* Pods-kpiRozklad-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 9123824070B07BB53A909D9A7CE8E4FD /* Pods-kpiRozklad-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3BDF33D94849D5A3C64F76D2737FDAF7 /* Pods-kpiRozklad-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F2B8C34969F2456741695D6E117E15 /* Pods-kpiRozklad-dummy.m */; };
+		3DB448A3E9B64E934BC76FE0FC7621FE /* PanModalPresentationDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4410BEA78753476FE111943134D5BA95 /* PanModalPresentationDelegate.swift */; };
+		3E3EB29E1A912DA51B5A537C152AA490 /* M13CheckboxGestureRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46C04DA16B7B0682B270E78B235CD740 /* M13CheckboxGestureRecognizer.swift */; };
+		4568EDD1163363300EAC0BA60D5CD7AB /* DimmedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61C94A3BC7F21AB520D09CE700934E86 /* DimmedView.swift */; };
+		45CF72ED3BCD237B440ACB19851A589A /* PanModalHeight.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84987F43700948237F4C136371CA0B25 /* PanModalHeight.swift */; };
+		54295CEF5B5271B336B17776A282D3C6 /* M13CheckboxStrokeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57467DE580098785FBB15CD6BA73C87B /* M13CheckboxStrokeController.swift */; };
+		56BC1A6298E10CCE7703ADBC5AD48FAC /* M13CheckboxExpandController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9FD1D284B7291DA7A83DD19C23783F1 /* M13CheckboxExpandController.swift */; };
 		5CD79672AF70DF5C29EB14EAF3E240A9 /* Pods-Widget-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 4D4E4D86706863C6BE428628D7B6A953 /* Pods-Widget-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		5D55EB3EC082E70D15B02C607CF6440E /* PanModalPresentationAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 677964F9AF1EA88EBB4D7388B2F3D00B /* PanModalPresentationAnimator.swift */; };
-		6A88FBA7BC5D3D69E315F9AE2E0DEE3B /* PanModalPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80350C830FDD23D789D9A3DBE7662006 /* PanModalPresenter.swift */; };
-		80212493C474B326F66876261FA57C65 /* UIViewController+PanModalPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FF0E40047CECCCE10536F7118E7A9BE /* UIViewController+PanModalPresenter.swift */; };
-		8098DAF576BD71BF8514ECF921F96AA3 /* PanModalPresentable+UIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72AF61CFEF3915BAA43D809D00E2D6D8 /* PanModalPresentable+UIViewController.swift */; };
-		83444168FD31011F7217EFA2684AE936 /* PanModalAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55CD574D71CCE535D5A9F7EDA183D42D /* PanModalAnimator.swift */; };
-		93C1556DDAED08BE604B2B685155F553 /* PanModalPresentable+LayoutHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E6417A2EEDD003A4283155E81E0C685 /* PanModalPresentable+LayoutHelpers.swift */; };
-		94C0C0D3B74CB1ED66EA24D0F4237133 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3212113385A8FBBDB272BD23C409FF61 /* Foundation.framework */; };
-		B46152373E6CBC6791AAE85205C33F98 /* PanModalPresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BFA267ED71330D0AFD1113500F64F7F /* PanModalPresentable.swift */; };
-		BD030684DB491453C175AA7F99C5DE13 /* PanModal.h in Headers */ = {isa = PBXBuildFile; fileRef = 717802698F6D392E27812AF0996FF326 /* PanModal.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5D55EB3EC082E70D15B02C607CF6440E /* PanModalPresentationAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 938EB9AAA7FD1BA95D49FDD4DECFDFED /* PanModalPresentationAnimator.swift */; };
+		690A3616858F1EF14011B02B88924458 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 01BDA658338AD3813D969D7011B56B8D /* UIKit.framework */; };
+		6A88FBA7BC5D3D69E315F9AE2E0DEE3B /* PanModalPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A40EFC15B6BA4F7B202C763C8D5F61A /* PanModalPresenter.swift */; };
+		7AF77E6823887DFE89A3E24E9E57A34E /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 276842F3A283EE87124FE6C3EAAFD184 /* CoreGraphics.framework */; };
+		80212493C474B326F66876261FA57C65 /* UIViewController+PanModalPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27DE53C7555B275688253BB62A876EEE /* UIViewController+PanModalPresenter.swift */; };
+		8098DAF576BD71BF8514ECF921F96AA3 /* PanModalPresentable+UIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4F3BB49DD9D4CBA573A97D73483A629 /* PanModalPresentable+UIViewController.swift */; };
+		83444168FD31011F7217EFA2684AE936 /* PanModalAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F210A0EFCC0B71DF333529DD50A3A765 /* PanModalAnimator.swift */; };
+		91DE47E4BCDE92CC97123C314723B3A8 /* M13CheckboxDisclosurePathGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29A3D38D89902F12A66C2BD0830797C5 /* M13CheckboxDisclosurePathGenerator.swift */; };
+		93C1556DDAED08BE604B2B685155F553 /* PanModalPresentable+LayoutHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3221556247AECF4A349F0385255AC42C /* PanModalPresentable+LayoutHelpers.swift */; };
+		94C0C0D3B74CB1ED66EA24D0F4237133 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FD608BCCF279B1277BB911F33106997F /* Foundation.framework */; };
+		97A18E7CA66BA87E83A038BF75B2DCB2 /* M13CheckboxAnimationGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15D3BFE8B97D13A058E54146A869BFA6 /* M13CheckboxAnimationGenerator.swift */; };
+		99FBBAF5AEB8A1895DAB1752E3AB115C /* M13CheckboxRadioPathGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCD70ADEA5C59BDDE5D052A31F70BAE3 /* M13CheckboxRadioPathGenerator.swift */; };
+		A14D173D1A208AE9ADB6419B6BFBF426 /* M13Checkbox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B420B9A34C791B780AA3B39D56BF850 /* M13Checkbox.swift */; };
+		A7448C3B3357059EE87853CFF2BE09C4 /* M13CheckboxAddRemovePathGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ADDDB03F01C357D236D81FB5FB85ECA /* M13CheckboxAddRemovePathGenerator.swift */; };
+		AE32CE1F494D51291E92F6B0C29D7034 /* M13CheckboxSpiralController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0A6BBCC2DCD68CF5DC981DD04EBDD78 /* M13CheckboxSpiralController.swift */; };
+		B0471D9061D1AE1F54C08242A5773ECF /* M13CheckboxFillController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF40D2ADF5169FE7DB3392A01F396F7E /* M13CheckboxFillController.swift */; };
+		B323D65D6BE2950D9615F791E7A90A7F /* M13CheckboxDotController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C7265CA2FC2BDA6C396572C522B779B /* M13CheckboxDotController.swift */; };
+		B46152373E6CBC6791AAE85205C33F98 /* PanModalPresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41825384951848B69129D4660AD7FEBD /* PanModalPresentable.swift */; };
+		B642D0A666A7B76CE25C412820331536 /* M13Checkbox+IB.swift in Sources */ = {isa = PBXBuildFile; fileRef = B48495425247356A29D29C13224D1980 /* M13Checkbox+IB.swift */; };
+		BD030684DB491453C175AA7F99C5DE13 /* PanModal.h in Headers */ = {isa = PBXBuildFile; fileRef = 258608076D398324F4338E36A1EB56AD /* PanModal.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C2BA008A914F681607429815D2EDEA95 /* M13CheckboxPathGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F51FC318A503D5359B935B9825F5509E /* M13CheckboxPathGenerator.swift */; };
+		C53B2F713D2385ABD463CB807DE0D120 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FD608BCCF279B1277BB911F33106997F /* Foundation.framework */; };
+		CA89E0222ABBC43F957E4F3BF7F46142 /* M13Checkbox-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = C31FDE008CC996D10F58F27C33C450EB /* M13Checkbox-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		CB1EA2A94B01C8B1CE93AB593060B678 /* Pods-Widget-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = A72132DF8881344DFFDDBD5B1AD86D17 /* Pods-Widget-dummy.m */; };
-		D1F413745F02F75C0D42753DCB9D79BC /* PanModalPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F38FD17D21ABDBB7BBA56653CFA1537 /* PanModalPresentationController.swift */; };
-		DC1A70CACD0B2ACA2A3FAA5EF320C15B /* PanModal-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = F9D37321C8D02592480FD41E7E5D6888 /* PanModal-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		F2021C557BAABC303255C299C768CBA8 /* PanModal-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = D6BF0E7FF9FAFDFB8EF29BED827F0C06 /* PanModal-dummy.m */; };
-		F87BF668A74FAF0D05C057C5033DF52F /* PanModalPresentable+Defaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0C6B445DB591CEDA3E40A817B0C3648 /* PanModalPresentable+Defaults.swift */; };
+		D035EDC528DBF5BA980CDF5299828034 /* M13CheckboxBounceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E74AA2D7FDCF8D04C4095AF5988C0B4D /* M13CheckboxBounceController.swift */; };
+		D1F413745F02F75C0D42753DCB9D79BC /* PanModalPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1505C43D46285E21188CB6AAB7DDFA2 /* PanModalPresentationController.swift */; };
+		D5584524FE609C7CD27E83BCB74CE685 /* M13CheckboxController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE441DDD808EECC6508A63F04AD3DDCF /* M13CheckboxController.swift */; };
+		DC1A70CACD0B2ACA2A3FAA5EF320C15B /* PanModal-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = AF77E8AD1836FDA33E5C47F843971701 /* PanModal-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E08B31BE69E7F9FD79F888D6878470CE /* DefaultValues.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CB5BBFCC98EFB941F95AD40FFA7802D /* DefaultValues.swift */; };
+		E9D6E5290AA728E26BB83686BABD683A /* M13CheckboxCheckPathGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82F023B86FB9446BB1FA8F27AB89E260 /* M13CheckboxCheckPathGenerator.swift */; };
+		F2021C557BAABC303255C299C768CBA8 /* PanModal-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 2224C1B938526E0B2C0E7B46EA0DD5E5 /* PanModal-dummy.m */; };
+		F87BF668A74FAF0D05C057C5033DF52F /* PanModalPresentable+Defaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F694773EAA33AC75F1BD7C3A95AF48F /* PanModalPresentable+Defaults.swift */; };
+		FF6BF71F784703DB5F302C257245A51B /* M13CheckboxFadeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D45421B6B65460A6E627246EC773989 /* M13CheckboxFadeController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		A4C3825F6B1D6F20813DD0FBDB9CD724 /* PBXContainerItemProxy */ = {
+		7449957C55346841E340F39AA267430A /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = AD16B149CC82594F15860A512FDBB6B9;
 			remoteInfo = PanModal;
 		};
+		AFC232700AE3B012B470FFF72020F1F3 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 7111E54EAE43E89F451A75076C3525ED;
+			remoteInfo = M13Checkbox;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		01BDA658338AD3813D969D7011B56B8D /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS12.2.sdk/System/Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
+		07BFF2B79C09E136D2D1E1344D7BAB6F /* M13Checkbox.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = M13Checkbox.xcconfig; sourceTree = "<group>"; };
+		0A40EFC15B6BA4F7B202C763C8D5F61A /* PanModalPresenter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = PanModalPresenter.swift; path = PanModal/Presenter/PanModalPresenter.swift; sourceTree = "<group>"; };
 		0A74C59C921780C121B2113CAB329B58 /* Pods-kpiRozklad.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-kpiRozklad.release.xcconfig"; sourceTree = "<group>"; };
+		15D3BFE8B97D13A058E54146A869BFA6 /* M13CheckboxAnimationGenerator.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = M13CheckboxAnimationGenerator.swift; path = Sources/M13CheckboxAnimationGenerator.swift; sourceTree = "<group>"; };
 		161277983660BBB6908A635083708CFB /* PanModal.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = PanModal.framework; path = PanModal.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		3212113385A8FBBDB272BD23C409FF61 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS12.2.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
-		4274C760D275EE77E6F71037CE3C5D86 /* PanModal-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "PanModal-prefix.pch"; sourceTree = "<group>"; };
+		20D7E11EEF85C10DAF2972B9DF5F3B67 /* M13Checkbox.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = M13Checkbox.modulemap; sourceTree = "<group>"; };
+		211CBBF20DA0F118C85A0493F5336717 /* M13CheckboxFlatController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = M13CheckboxFlatController.swift; path = Sources/Managers/M13CheckboxFlatController.swift; sourceTree = "<group>"; };
+		2224C1B938526E0B2C0E7B46EA0DD5E5 /* PanModal-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "PanModal-dummy.m"; sourceTree = "<group>"; };
+		258608076D398324F4338E36A1EB56AD /* PanModal.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = PanModal.h; path = PanModal/PanModal.h; sourceTree = "<group>"; };
+		276842F3A283EE87124FE6C3EAAFD184 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS12.2.sdk/System/Library/Frameworks/CoreGraphics.framework; sourceTree = DEVELOPER_DIR; };
+		27DE53C7555B275688253BB62A876EEE /* UIViewController+PanModalPresenter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "UIViewController+PanModalPresenter.swift"; path = "PanModal/Presenter/UIViewController+PanModalPresenter.swift"; sourceTree = "<group>"; };
+		29A3D38D89902F12A66C2BD0830797C5 /* M13CheckboxDisclosurePathGenerator.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = M13CheckboxDisclosurePathGenerator.swift; path = Sources/Paths/M13CheckboxDisclosurePathGenerator.swift; sourceTree = "<group>"; };
+		3221556247AECF4A349F0385255AC42C /* PanModalPresentable+LayoutHelpers.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "PanModalPresentable+LayoutHelpers.swift"; path = "PanModal/Presentable/PanModalPresentable+LayoutHelpers.swift"; sourceTree = "<group>"; };
+		326D82CAF8926E8DB526D36A6822370F /* M13Checkbox-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "M13Checkbox-prefix.pch"; sourceTree = "<group>"; };
+		36AFFED48020C05E111025DAD0085DE7 /* PanModal.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = PanModal.xcconfig; sourceTree = "<group>"; };
+		3B420B9A34C791B780AA3B39D56BF850 /* M13Checkbox.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = M13Checkbox.swift; path = Sources/M13Checkbox.swift; sourceTree = "<group>"; };
+		3EB8EC295880753686527B152BA2C405 /* M13Checkbox-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "M13Checkbox-dummy.m"; sourceTree = "<group>"; };
+		41825384951848B69129D4660AD7FEBD /* PanModalPresentable.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = PanModalPresentable.swift; path = PanModal/Presentable/PanModalPresentable.swift; sourceTree = "<group>"; };
+		4410BEA78753476FE111943134D5BA95 /* PanModalPresentationDelegate.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = PanModalPresentationDelegate.swift; path = PanModal/Delegate/PanModalPresentationDelegate.swift; sourceTree = "<group>"; };
+		46C04DA16B7B0682B270E78B235CD740 /* M13CheckboxGestureRecognizer.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = M13CheckboxGestureRecognizer.swift; path = Sources/M13CheckboxGestureRecognizer.swift; sourceTree = "<group>"; };
+		4ADDDB03F01C357D236D81FB5FB85ECA /* M13CheckboxAddRemovePathGenerator.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = M13CheckboxAddRemovePathGenerator.swift; path = Sources/Paths/M13CheckboxAddRemovePathGenerator.swift; sourceTree = "<group>"; };
 		4D4E4D86706863C6BE428628D7B6A953 /* Pods-Widget-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-Widget-umbrella.h"; sourceTree = "<group>"; };
-		4F38FD17D21ABDBB7BBA56653CFA1537 /* PanModalPresentationController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = PanModalPresentationController.swift; path = PanModal/Controller/PanModalPresentationController.swift; sourceTree = "<group>"; };
 		4F6184A30955DBBE1DCBF7530FDC8AD0 /* Pods_kpiRozklad.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_kpiRozklad.framework; path = "Pods-kpiRozklad.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
-		50675809C478CA03587F404F86AA6F32 /* PanModalHeight.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = PanModalHeight.swift; path = PanModal/Presentable/PanModalHeight.swift; sourceTree = "<group>"; };
-		540B439D7CEB9E58C4AC36B6B3EDE0CA /* PanModal.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = PanModal.modulemap; sourceTree = "<group>"; };
-		55CD574D71CCE535D5A9F7EDA183D42D /* PanModalAnimator.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = PanModalAnimator.swift; path = PanModal/Animator/PanModalAnimator.swift; sourceTree = "<group>"; };
-		5643A094CE857C76D6901A2A3E99139C /* DimmedView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = DimmedView.swift; path = PanModal/View/DimmedView.swift; sourceTree = "<group>"; };
-		5D399ABFCE35E06B5B2F4E3D0A3ABDF5 /* PanModalPresentationDelegate.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = PanModalPresentationDelegate.swift; path = PanModal/Delegate/PanModalPresentationDelegate.swift; sourceTree = "<group>"; };
-		677964F9AF1EA88EBB4D7388B2F3D00B /* PanModalPresentationAnimator.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = PanModalPresentationAnimator.swift; path = PanModal/Animator/PanModalPresentationAnimator.swift; sourceTree = "<group>"; };
-		6BFA267ED71330D0AFD1113500F64F7F /* PanModalPresentable.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = PanModalPresentable.swift; path = PanModal/Presentable/PanModalPresentable.swift; sourceTree = "<group>"; };
-		6E6417A2EEDD003A4283155E81E0C685 /* PanModalPresentable+LayoutHelpers.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "PanModalPresentable+LayoutHelpers.swift"; path = "PanModal/Presentable/PanModalPresentable+LayoutHelpers.swift"; sourceTree = "<group>"; };
-		6FF0E40047CECCCE10536F7118E7A9BE /* UIViewController+PanModalPresenter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "UIViewController+PanModalPresenter.swift"; path = "PanModal/Presenter/UIViewController+PanModalPresenter.swift"; sourceTree = "<group>"; };
-		717802698F6D392E27812AF0996FF326 /* PanModal.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = PanModal.h; path = PanModal/PanModal.h; sourceTree = "<group>"; };
-		72AF61CFEF3915BAA43D809D00E2D6D8 /* PanModalPresentable+UIViewController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "PanModalPresentable+UIViewController.swift"; path = "PanModal/Presentable/PanModalPresentable+UIViewController.swift"; sourceTree = "<group>"; };
-		73B53E5D26299077BD0D217732B6E55C /* PanModal.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = PanModal.xcconfig; sourceTree = "<group>"; };
-		80350C830FDD23D789D9A3DBE7662006 /* PanModalPresenter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = PanModalPresenter.swift; path = PanModal/Presenter/PanModalPresenter.swift; sourceTree = "<group>"; };
+		57467DE580098785FBB15CD6BA73C87B /* M13CheckboxStrokeController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = M13CheckboxStrokeController.swift; path = Sources/Managers/M13CheckboxStrokeController.swift; sourceTree = "<group>"; };
+		5CE79C5BF20743404E59BEFD080A364D /* M13Checkbox.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = M13Checkbox.framework; path = M13Checkbox.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		61C94A3BC7F21AB520D09CE700934E86 /* DimmedView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = DimmedView.swift; path = PanModal/View/DimmedView.swift; sourceTree = "<group>"; };
+		6C7265CA2FC2BDA6C396572C522B779B /* M13CheckboxDotController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = M13CheckboxDotController.swift; path = Sources/Managers/M13CheckboxDotController.swift; sourceTree = "<group>"; };
+		6CB5BBFCC98EFB941F95AD40FFA7802D /* DefaultValues.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = DefaultValues.swift; path = Sources/DefaultValues.swift; sourceTree = "<group>"; };
+		6D45421B6B65460A6E627246EC773989 /* M13CheckboxFadeController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = M13CheckboxFadeController.swift; path = Sources/Managers/M13CheckboxFadeController.swift; sourceTree = "<group>"; };
+		7F694773EAA33AC75F1BD7C3A95AF48F /* PanModalPresentable+Defaults.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "PanModalPresentable+Defaults.swift"; path = "PanModal/Presentable/PanModalPresentable+Defaults.swift"; sourceTree = "<group>"; };
+		82F023B86FB9446BB1FA8F27AB89E260 /* M13CheckboxCheckPathGenerator.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = M13CheckboxCheckPathGenerator.swift; path = Sources/Paths/M13CheckboxCheckPathGenerator.swift; sourceTree = "<group>"; };
+		84987F43700948237F4C136371CA0B25 /* PanModalHeight.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = PanModalHeight.swift; path = PanModal/Presentable/PanModalHeight.swift; sourceTree = "<group>"; };
+		89CD7060D2F8934EF3C9AD35C1A57B7E /* M13Checkbox-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "M13Checkbox-Info.plist"; sourceTree = "<group>"; };
 		8A5D71AD566FD5370E1676524C28E83F /* Pods-kpiRozklad-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-kpiRozklad-acknowledgements.markdown"; sourceTree = "<group>"; };
 		9123824070B07BB53A909D9A7CE8E4FD /* Pods-kpiRozklad-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-kpiRozklad-umbrella.h"; sourceTree = "<group>"; };
+		938EB9AAA7FD1BA95D49FDD4DECFDFED /* PanModalPresentationAnimator.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = PanModalPresentationAnimator.swift; path = PanModal/Animator/PanModalPresentationAnimator.swift; sourceTree = "<group>"; };
 		9703ACFDCAA12EC2A734DED646D3A6BC /* Pods-Widget.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-Widget.modulemap"; sourceTree = "<group>"; };
 		974E29BBFDC8ADD241893547254B42B5 /* Pods-kpiRozklad.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-kpiRozklad.modulemap"; sourceTree = "<group>"; };
 		9B9AB7ED2AC4647453B2E8AAFBA89A0C /* Pods-kpiRozklad-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-kpiRozklad-Info.plist"; sourceTree = "<group>"; };
 		9D940727FF8FB9C785EB98E56350EF41 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
-		A5B64125CFB97DD89EA823520B4D63AD /* PanContainerView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = PanContainerView.swift; path = PanModal/View/PanContainerView.swift; sourceTree = "<group>"; };
+		A4F3BB49DD9D4CBA573A97D73483A629 /* PanModalPresentable+UIViewController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "PanModalPresentable+UIViewController.swift"; path = "PanModal/Presentable/PanModalPresentable+UIViewController.swift"; sourceTree = "<group>"; };
 		A72132DF8881344DFFDDBD5B1AD86D17 /* Pods-Widget-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-Widget-dummy.m"; sourceTree = "<group>"; };
 		A72865797CD3E300DF8D8AD5F70B1909 /* Pods_Widget.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_Widget.framework; path = "Pods-Widget.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		A817B9C69BE172C3384C043FF7135DD7 /* PanModal-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "PanModal-prefix.pch"; sourceTree = "<group>"; };
+		AF77E8AD1836FDA33E5C47F843971701 /* PanModal-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "PanModal-umbrella.h"; sourceTree = "<group>"; };
+		B48495425247356A29D29C13224D1980 /* M13Checkbox+IB.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "M13Checkbox+IB.swift"; path = "Sources/M13Checkbox+IB.swift"; sourceTree = "<group>"; };
+		B801969BC66CCD9BB2A6E7D4C40553C8 /* PanModal-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "PanModal-Info.plist"; sourceTree = "<group>"; };
 		B8F2B8C34969F2456741695D6E117E15 /* Pods-kpiRozklad-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-kpiRozklad-dummy.m"; sourceTree = "<group>"; };
 		BB5697CC4BAC8F6186EE56061E678198 /* Pods-kpiRozklad.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-kpiRozklad.debug.xcconfig"; sourceTree = "<group>"; };
 		BF09FAC42246A41C4B7065D30D292BB0 /* Pods-Widget.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Widget.release.xcconfig"; sourceTree = "<group>"; };
 		C00DF37A829A2F3DF6E4560A97627208 /* Pods-Widget-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-Widget-acknowledgements.plist"; sourceTree = "<group>"; };
-		C0C6B445DB591CEDA3E40A817B0C3648 /* PanModalPresentable+Defaults.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "PanModalPresentable+Defaults.swift"; path = "PanModal/Presentable/PanModalPresentable+Defaults.swift"; sourceTree = "<group>"; };
-		C4FB8102E3BE508027E8D3D90C5CDF52 /* PanModal-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "PanModal-Info.plist"; sourceTree = "<group>"; };
+		C0A6BBCC2DCD68CF5DC981DD04EBDD78 /* M13CheckboxSpiralController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = M13CheckboxSpiralController.swift; path = Sources/Managers/M13CheckboxSpiralController.swift; sourceTree = "<group>"; };
+		C1505C43D46285E21188CB6AAB7DDFA2 /* PanModalPresentationController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = PanModalPresentationController.swift; path = PanModal/Controller/PanModalPresentationController.swift; sourceTree = "<group>"; };
+		C31FDE008CC996D10F58F27C33C450EB /* M13Checkbox-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "M13Checkbox-umbrella.h"; sourceTree = "<group>"; };
 		C82CF82450C94672E73FC0774A375C72 /* Pods-kpiRozklad-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-kpiRozklad-acknowledgements.plist"; sourceTree = "<group>"; };
-		D6BF0E7FF9FAFDFB8EF29BED827F0C06 /* PanModal-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "PanModal-dummy.m"; sourceTree = "<group>"; };
 		D7C0A9AE694322A8BAA73B3BBB146D38 /* Pods-Widget-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-Widget-Info.plist"; sourceTree = "<group>"; };
+		D9FD1D284B7291DA7A83DD19C23783F1 /* M13CheckboxExpandController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = M13CheckboxExpandController.swift; path = Sources/Managers/M13CheckboxExpandController.swift; sourceTree = "<group>"; };
 		E108096FBC6E1CA2D9C353FDF84005AA /* Pods-Widget.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Widget.debug.xcconfig"; sourceTree = "<group>"; };
 		E6CA36BE5181DD7804F19F2D15C668C9 /* Pods-kpiRozklad-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-kpiRozklad-frameworks.sh"; sourceTree = "<group>"; };
+		E74AA2D7FDCF8D04C4095AF5988C0B4D /* M13CheckboxBounceController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = M13CheckboxBounceController.swift; path = Sources/Managers/M13CheckboxBounceController.swift; sourceTree = "<group>"; };
 		EA3AB39801770561CDF96040ABF36813 /* Pods-Widget-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-Widget-acknowledgements.markdown"; sourceTree = "<group>"; };
-		F9D37321C8D02592480FD41E7E5D6888 /* PanModal-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "PanModal-umbrella.h"; sourceTree = "<group>"; };
+		EA8C5832A88913F2B1786F05FD308FB3 /* PanModal.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = PanModal.modulemap; sourceTree = "<group>"; };
+		EC434772E2719604F2A5543330A8FDFE /* PanContainerView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = PanContainerView.swift; path = PanModal/View/PanContainerView.swift; sourceTree = "<group>"; };
+		EF40D2ADF5169FE7DB3392A01F396F7E /* M13CheckboxFillController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = M13CheckboxFillController.swift; path = Sources/Managers/M13CheckboxFillController.swift; sourceTree = "<group>"; };
+		F210A0EFCC0B71DF333529DD50A3A765 /* PanModalAnimator.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = PanModalAnimator.swift; path = PanModal/Animator/PanModalAnimator.swift; sourceTree = "<group>"; };
+		F51FC318A503D5359B935B9825F5509E /* M13CheckboxPathGenerator.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = M13CheckboxPathGenerator.swift; path = Sources/Paths/M13CheckboxPathGenerator.swift; sourceTree = "<group>"; };
+		FCD70ADEA5C59BDDE5D052A31F70BAE3 /* M13CheckboxRadioPathGenerator.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = M13CheckboxRadioPathGenerator.swift; path = Sources/Paths/M13CheckboxRadioPathGenerator.swift; sourceTree = "<group>"; };
+		FD608BCCF279B1277BB911F33106997F /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS12.2.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
+		FE441DDD808EECC6508A63F04AD3DDCF /* M13CheckboxController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = M13CheckboxController.swift; path = Sources/M13CheckboxController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		150E9FFB57C43874DF9EC251C506517A /* Frameworks */ = {
+		044E0DF3E8A742E72242925B2FFEF0FE /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1C3285773ABC2DD2DE55DC70BD703BBC /* Foundation.framework in Frameworks */,
+				7AF77E6823887DFE89A3E24E9E57A34E /* CoreGraphics.framework in Frameworks */,
+				2229A6998218AC6DFF497473500021C7 /* Foundation.framework in Frameworks */,
+				690A3616858F1EF14011B02B88924458 /* UIKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -112,9 +173,25 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		CC8FFD5B0B527510A5547B84A44DFAE4 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C53B2F713D2385ABD463CB807DE0D120 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		03C5C200A0787E300053CFA8F53CA094 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				ABE8076CBFEE71A3B199C34F20F66745 /* iOS */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		1A6B9C574B4402EE7F8412AD3568EF1D /* Targets Support Files */ = {
 			isa = PBXGroup;
 			children = (
@@ -122,6 +199,31 @@
 				346517DFB1F3C4459114D53B81D3FE70 /* Pods-Widget */,
 			);
 			name = "Targets Support Files";
+			sourceTree = "<group>";
+		};
+		20DF0A3F93B92E066F8297E4CA2FB6F0 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				5CE79C5BF20743404E59BEFD080A364D /* M13Checkbox.framework */,
+				161277983660BBB6908A635083708CFB /* PanModal.framework */,
+				4F6184A30955DBBE1DCBF7530FDC8AD0 /* Pods_kpiRozklad.framework */,
+				A72865797CD3E300DF8D8AD5F70B1909 /* Pods_Widget.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		2CF99C96B1855C2253C49F52176D845B /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				20D7E11EEF85C10DAF2972B9DF5F3B67 /* M13Checkbox.modulemap */,
+				07BFF2B79C09E136D2D1E1344D7BAB6F /* M13Checkbox.xcconfig */,
+				3EB8EC295880753686527B152BA2C405 /* M13Checkbox-dummy.m */,
+				89CD7060D2F8934EF3C9AD35C1A57B7E /* M13Checkbox-Info.plist */,
+				326D82CAF8926E8DB526D36A6822370F /* M13Checkbox-prefix.pch */,
+				C31FDE008CC996D10F58F27C33C450EB /* M13Checkbox-umbrella.h */,
+			);
+			name = "Support Files";
+			path = "../Target Support Files/M13Checkbox";
 			sourceTree = "<group>";
 		};
 		346517DFB1F3C4459114D53B81D3FE70 /* Pods-Widget */ = {
@@ -140,36 +242,36 @@
 			path = "Target Support Files/Pods-Widget";
 			sourceTree = "<group>";
 		};
-		3FDFED2FC6BE5D22A60DA231DB3F8F37 /* Support Files */ = {
+		7C49CB146038EEEEE3CF988EEF3324AC /* PanModal */ = {
 			isa = PBXGroup;
 			children = (
-				540B439D7CEB9E58C4AC36B6B3EDE0CA /* PanModal.modulemap */,
-				73B53E5D26299077BD0D217732B6E55C /* PanModal.xcconfig */,
-				D6BF0E7FF9FAFDFB8EF29BED827F0C06 /* PanModal-dummy.m */,
-				C4FB8102E3BE508027E8D3D90C5CDF52 /* PanModal-Info.plist */,
-				4274C760D275EE77E6F71037CE3C5D86 /* PanModal-prefix.pch */,
-				F9D37321C8D02592480FD41E7E5D6888 /* PanModal-umbrella.h */,
+				61C94A3BC7F21AB520D09CE700934E86 /* DimmedView.swift */,
+				EC434772E2719604F2A5543330A8FDFE /* PanContainerView.swift */,
+				258608076D398324F4338E36A1EB56AD /* PanModal.h */,
+				F210A0EFCC0B71DF333529DD50A3A765 /* PanModalAnimator.swift */,
+				84987F43700948237F4C136371CA0B25 /* PanModalHeight.swift */,
+				41825384951848B69129D4660AD7FEBD /* PanModalPresentable.swift */,
+				7F694773EAA33AC75F1BD7C3A95AF48F /* PanModalPresentable+Defaults.swift */,
+				3221556247AECF4A349F0385255AC42C /* PanModalPresentable+LayoutHelpers.swift */,
+				A4F3BB49DD9D4CBA573A97D73483A629 /* PanModalPresentable+UIViewController.swift */,
+				938EB9AAA7FD1BA95D49FDD4DECFDFED /* PanModalPresentationAnimator.swift */,
+				C1505C43D46285E21188CB6AAB7DDFA2 /* PanModalPresentationController.swift */,
+				4410BEA78753476FE111943134D5BA95 /* PanModalPresentationDelegate.swift */,
+				0A40EFC15B6BA4F7B202C763C8D5F61A /* PanModalPresenter.swift */,
+				27DE53C7555B275688253BB62A876EEE /* UIViewController+PanModalPresenter.swift */,
+				992E13E57FB986898C716376052121FC /* Support Files */,
 			);
-			name = "Support Files";
-			path = "../Target Support Files/PanModal";
+			name = PanModal;
+			path = PanModal;
 			sourceTree = "<group>";
 		};
-		57EDE32A83AB5C267EA7AB42187F58A9 /* Pods */ = {
+		8380355C2B41FC33F5293EB8742BCE1D /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				DBEF42191C78F6F6699E6078456D93E7 /* PanModal */,
+				8A130E2A55FDDC57B0C7CD33EFCB2623 /* M13Checkbox */,
+				7C49CB146038EEEEE3CF988EEF3324AC /* PanModal */,
 			);
 			name = Pods;
-			sourceTree = "<group>";
-		};
-		58AB6F5EA9BA481B365F3ACF0C419B36 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				161277983660BBB6908A635083708CFB /* PanModal.framework */,
-				4F6184A30955DBBE1DCBF7530FDC8AD0 /* Pods_kpiRozklad.framework */,
-				A72865797CD3E300DF8D8AD5F70B1909 /* Pods_Widget.framework */,
-			);
-			name = Products;
 			sourceTree = "<group>";
 		};
 		849831CEB8E2B8946E90251EBD48E48A /* Pods-kpiRozklad */ = {
@@ -189,10 +291,54 @@
 			path = "Target Support Files/Pods-kpiRozklad";
 			sourceTree = "<group>";
 		};
-		C0834CEBB1379A84116EF29F93051C60 /* iOS */ = {
+		8A130E2A55FDDC57B0C7CD33EFCB2623 /* M13Checkbox */ = {
 			isa = PBXGroup;
 			children = (
-				3212113385A8FBBDB272BD23C409FF61 /* Foundation.framework */,
+				6CB5BBFCC98EFB941F95AD40FFA7802D /* DefaultValues.swift */,
+				3B420B9A34C791B780AA3B39D56BF850 /* M13Checkbox.swift */,
+				B48495425247356A29D29C13224D1980 /* M13Checkbox+IB.swift */,
+				4ADDDB03F01C357D236D81FB5FB85ECA /* M13CheckboxAddRemovePathGenerator.swift */,
+				15D3BFE8B97D13A058E54146A869BFA6 /* M13CheckboxAnimationGenerator.swift */,
+				E74AA2D7FDCF8D04C4095AF5988C0B4D /* M13CheckboxBounceController.swift */,
+				82F023B86FB9446BB1FA8F27AB89E260 /* M13CheckboxCheckPathGenerator.swift */,
+				FE441DDD808EECC6508A63F04AD3DDCF /* M13CheckboxController.swift */,
+				29A3D38D89902F12A66C2BD0830797C5 /* M13CheckboxDisclosurePathGenerator.swift */,
+				6C7265CA2FC2BDA6C396572C522B779B /* M13CheckboxDotController.swift */,
+				D9FD1D284B7291DA7A83DD19C23783F1 /* M13CheckboxExpandController.swift */,
+				6D45421B6B65460A6E627246EC773989 /* M13CheckboxFadeController.swift */,
+				EF40D2ADF5169FE7DB3392A01F396F7E /* M13CheckboxFillController.swift */,
+				211CBBF20DA0F118C85A0493F5336717 /* M13CheckboxFlatController.swift */,
+				46C04DA16B7B0682B270E78B235CD740 /* M13CheckboxGestureRecognizer.swift */,
+				F51FC318A503D5359B935B9825F5509E /* M13CheckboxPathGenerator.swift */,
+				FCD70ADEA5C59BDDE5D052A31F70BAE3 /* M13CheckboxRadioPathGenerator.swift */,
+				C0A6BBCC2DCD68CF5DC981DD04EBDD78 /* M13CheckboxSpiralController.swift */,
+				57467DE580098785FBB15CD6BA73C87B /* M13CheckboxStrokeController.swift */,
+				2CF99C96B1855C2253C49F52176D845B /* Support Files */,
+			);
+			name = M13Checkbox;
+			path = M13Checkbox;
+			sourceTree = "<group>";
+		};
+		992E13E57FB986898C716376052121FC /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				EA8C5832A88913F2B1786F05FD308FB3 /* PanModal.modulemap */,
+				36AFFED48020C05E111025DAD0085DE7 /* PanModal.xcconfig */,
+				2224C1B938526E0B2C0E7B46EA0DD5E5 /* PanModal-dummy.m */,
+				B801969BC66CCD9BB2A6E7D4C40553C8 /* PanModal-Info.plist */,
+				A817B9C69BE172C3384C043FF7135DD7 /* PanModal-prefix.pch */,
+				AF77E8AD1836FDA33E5C47F843971701 /* PanModal-umbrella.h */,
+			);
+			name = "Support Files";
+			path = "../Target Support Files/PanModal";
+			sourceTree = "<group>";
+		};
+		ABE8076CBFEE71A3B199C34F20F66745 /* iOS */ = {
+			isa = PBXGroup;
+			children = (
+				276842F3A283EE87124FE6C3EAAFD184 /* CoreGraphics.framework */,
+				FD608BCCF279B1277BB911F33106997F /* Foundation.framework */,
+				01BDA658338AD3813D969D7011B56B8D /* UIKit.framework */,
 			);
 			name = iOS;
 			sourceTree = "<group>";
@@ -201,42 +347,11 @@
 			isa = PBXGroup;
 			children = (
 				9D940727FF8FB9C785EB98E56350EF41 /* Podfile */,
-				D210D550F4EA176C3123ED886F8F87F5 /* Frameworks */,
-				57EDE32A83AB5C267EA7AB42187F58A9 /* Pods */,
-				58AB6F5EA9BA481B365F3ACF0C419B36 /* Products */,
+				03C5C200A0787E300053CFA8F53CA094 /* Frameworks */,
+				8380355C2B41FC33F5293EB8742BCE1D /* Pods */,
+				20DF0A3F93B92E066F8297E4CA2FB6F0 /* Products */,
 				1A6B9C574B4402EE7F8412AD3568EF1D /* Targets Support Files */,
 			);
-			sourceTree = "<group>";
-		};
-		D210D550F4EA176C3123ED886F8F87F5 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				C0834CEBB1379A84116EF29F93051C60 /* iOS */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		DBEF42191C78F6F6699E6078456D93E7 /* PanModal */ = {
-			isa = PBXGroup;
-			children = (
-				5643A094CE857C76D6901A2A3E99139C /* DimmedView.swift */,
-				A5B64125CFB97DD89EA823520B4D63AD /* PanContainerView.swift */,
-				717802698F6D392E27812AF0996FF326 /* PanModal.h */,
-				55CD574D71CCE535D5A9F7EDA183D42D /* PanModalAnimator.swift */,
-				50675809C478CA03587F404F86AA6F32 /* PanModalHeight.swift */,
-				6BFA267ED71330D0AFD1113500F64F7F /* PanModalPresentable.swift */,
-				C0C6B445DB591CEDA3E40A817B0C3648 /* PanModalPresentable+Defaults.swift */,
-				6E6417A2EEDD003A4283155E81E0C685 /* PanModalPresentable+LayoutHelpers.swift */,
-				72AF61CFEF3915BAA43D809D00E2D6D8 /* PanModalPresentable+UIViewController.swift */,
-				677964F9AF1EA88EBB4D7388B2F3D00B /* PanModalPresentationAnimator.swift */,
-				4F38FD17D21ABDBB7BBA56653CFA1537 /* PanModalPresentationController.swift */,
-				5D399ABFCE35E06B5B2F4E3D0A3ABDF5 /* PanModalPresentationDelegate.swift */,
-				80350C830FDD23D789D9A3DBE7662006 /* PanModalPresenter.swift */,
-				6FF0E40047CECCCE10536F7118E7A9BE /* UIViewController+PanModalPresenter.swift */,
-				3FDFED2FC6BE5D22A60DA231DB3F8F37 /* Support Files */,
-			);
-			name = PanModal;
-			path = PanModal;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -250,14 +365,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		858FD96223BF6126F3A86A800A2ACD6F /* Headers */ = {
-			isa = PBXHeadersBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				05F04A97EAF799F05D9EFBE5A251D777 /* Pods-kpiRozklad-umbrella.h in Headers */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		8705DA2E5DC48F320712CA746DD1D402 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
@@ -267,22 +374,39 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		E2451AF72D6F6E49E6DDD89EBEB5F3B0 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CA89E0222ABBC43F957E4F3BF7F46142 /* M13Checkbox-umbrella.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EE8BCF6B5B6068B37565F4D9ACAC2BB3 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				38AFE203BA33874D1E643490F7F3FD15 /* Pods-kpiRozklad-umbrella.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
 		3CE7ED85497B19C134FFCF93FDF220FE /* Pods-kpiRozklad */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 838F528FB4023D32E9013CEF0EE3372E /* Build configuration list for PBXNativeTarget "Pods-kpiRozklad" */;
+			buildConfigurationList = 17D54E63D3E23AD520B700CD99C6E3FE /* Build configuration list for PBXNativeTarget "Pods-kpiRozklad" */;
 			buildPhases = (
-				858FD96223BF6126F3A86A800A2ACD6F /* Headers */,
-				EF55875EB9E2C1A5BB62B47D311E7127 /* Sources */,
-				150E9FFB57C43874DF9EC251C506517A /* Frameworks */,
-				64AF38DE71D75B583EE0FB022E837BD6 /* Resources */,
+				EE8BCF6B5B6068B37565F4D9ACAC2BB3 /* Headers */,
+				091B063A6B8369837D567D7F038DA3EB /* Sources */,
+				CC8FFD5B0B527510A5547B84A44DFAE4 /* Frameworks */,
+				B59EC2146E226B58C9B895A4C14312E6 /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				5637255CE3150ADDF916F4E5456E1240 /* PBXTargetDependency */,
+				00341664EE307B67EF9D9E04EC16DC13 /* PBXTargetDependency */,
+				09500EBEC7027F65B0AB1B1C9A78D678 /* PBXTargetDependency */,
 			);
 			name = "Pods-kpiRozklad";
 			productName = "Pods-kpiRozklad";
@@ -305,6 +429,24 @@
 			name = "Pods-Widget";
 			productName = "Pods-Widget";
 			productReference = A72865797CD3E300DF8D8AD5F70B1909 /* Pods_Widget.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		7111E54EAE43E89F451A75076C3525ED /* M13Checkbox */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 0C969E3F923CFEC15B65102F99FD224A /* Build configuration list for PBXNativeTarget "M13Checkbox" */;
+			buildPhases = (
+				E2451AF72D6F6E49E6DDD89EBEB5F3B0 /* Headers */,
+				503F91742D9CCF37EC57DE6A97BFC95F /* Sources */,
+				044E0DF3E8A742E72242925B2FFEF0FE /* Frameworks */,
+				5CD1EAD0AB3217599754FFDCB8C48357 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = M13Checkbox;
+			productName = M13Checkbox;
+			productReference = 5CE79C5BF20743404E59BEFD080A364D /* M13Checkbox.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 		AD16B149CC82594F15860A512FDBB6B9 /* PanModal */ = {
@@ -343,10 +485,11 @@
 				Base,
 			);
 			mainGroup = CF1408CF629C7361332E53B88F7BD30C;
-			productRefGroup = 58AB6F5EA9BA481B365F3ACF0C419B36 /* Products */;
+			productRefGroup = 20DF0A3F93B92E066F8297E4CA2FB6F0 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
+				7111E54EAE43E89F451A75076C3525ED /* M13Checkbox */,
 				AD16B149CC82594F15860A512FDBB6B9 /* PanModal */,
 				3CE7ED85497B19C134FFCF93FDF220FE /* Pods-kpiRozklad */,
 				69C836D1EE9FFD6AF784944024D7380E /* Pods-Widget */,
@@ -355,7 +498,7 @@
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		64AF38DE71D75B583EE0FB022E837BD6 /* Resources */ = {
+		5CD1EAD0AB3217599754FFDCB8C48357 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -363,6 +506,13 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		8249F06773990446D028752DCD9ED398 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B59EC2146E226B58C9B895A4C14312E6 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -379,6 +529,41 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		091B063A6B8369837D567D7F038DA3EB /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3BDF33D94849D5A3C64F76D2737FDAF7 /* Pods-kpiRozklad-dummy.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		503F91742D9CCF37EC57DE6A97BFC95F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E08B31BE69E7F9FD79F888D6878470CE /* DefaultValues.swift in Sources */,
+				B642D0A666A7B76CE25C412820331536 /* M13Checkbox+IB.swift in Sources */,
+				254315B3201BB02B083E2B189DD456E3 /* M13Checkbox-dummy.m in Sources */,
+				A14D173D1A208AE9ADB6419B6BFBF426 /* M13Checkbox.swift in Sources */,
+				A7448C3B3357059EE87853CFF2BE09C4 /* M13CheckboxAddRemovePathGenerator.swift in Sources */,
+				97A18E7CA66BA87E83A038BF75B2DCB2 /* M13CheckboxAnimationGenerator.swift in Sources */,
+				D035EDC528DBF5BA980CDF5299828034 /* M13CheckboxBounceController.swift in Sources */,
+				E9D6E5290AA728E26BB83686BABD683A /* M13CheckboxCheckPathGenerator.swift in Sources */,
+				D5584524FE609C7CD27E83BCB74CE685 /* M13CheckboxController.swift in Sources */,
+				91DE47E4BCDE92CC97123C314723B3A8 /* M13CheckboxDisclosurePathGenerator.swift in Sources */,
+				B323D65D6BE2950D9615F791E7A90A7F /* M13CheckboxDotController.swift in Sources */,
+				56BC1A6298E10CCE7703ADBC5AD48FAC /* M13CheckboxExpandController.swift in Sources */,
+				FF6BF71F784703DB5F302C257245A51B /* M13CheckboxFadeController.swift in Sources */,
+				B0471D9061D1AE1F54C08242A5773ECF /* M13CheckboxFillController.swift in Sources */,
+				0348E72A279882575367B52CE6A0C2B1 /* M13CheckboxFlatController.swift in Sources */,
+				3E3EB29E1A912DA51B5A537C152AA490 /* M13CheckboxGestureRecognizer.swift in Sources */,
+				C2BA008A914F681607429815D2EDEA95 /* M13CheckboxPathGenerator.swift in Sources */,
+				99FBBAF5AEB8A1895DAB1752E3AB115C /* M13CheckboxRadioPathGenerator.swift in Sources */,
+				AE32CE1F494D51291E92F6B0C29D7034 /* M13CheckboxSpiralController.swift in Sources */,
+				54295CEF5B5271B336B17776A282D3C6 /* M13CheckboxStrokeController.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		6DF0C107B3EB308A3AD99D62CE074AAD /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -408,27 +593,25 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		EF55875EB9E2C1A5BB62B47D311E7127 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				572381E04E5194A352D7D7D57A046C50 /* Pods-kpiRozklad-dummy.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		5637255CE3150ADDF916F4E5456E1240 /* PBXTargetDependency */ = {
+		00341664EE307B67EF9D9E04EC16DC13 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = M13Checkbox;
+			target = 7111E54EAE43E89F451A75076C3525ED /* M13Checkbox */;
+			targetProxy = AFC232700AE3B012B470FFF72020F1F3 /* PBXContainerItemProxy */;
+		};
+		09500EBEC7027F65B0AB1B1C9A78D678 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = PanModal;
 			target = AD16B149CC82594F15860A512FDBB6B9 /* PanModal */;
-			targetProxy = A4C3825F6B1D6F20813DD0FBDB9CD724 /* PBXContainerItemProxy */;
+			targetProxy = 7449957C55346841E340F39AA267430A /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
-		3A8E56E5CCF21B124A3DE4EC08BF96A5 /* Release */ = {
+		3578BABE0E39A55820AB0614B05ED4C0 /* Release */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 0A74C59C921780C121B2113CAB329B58 /* Pods-kpiRozklad.release.xcconfig */;
 			buildSettings = {
@@ -533,7 +716,7 @@
 		};
 		65BFC4D7F98268C241139D52B0910E3E /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 73B53E5D26299077BD0D217732B6E55C /* PanModal.xcconfig */;
+			baseConfigurationReference = 36AFFED48020C05E111025DAD0085DE7 /* PanModal.xcconfig */;
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = NO;
 				CODE_SIGN_IDENTITY = "";
@@ -567,12 +750,10 @@
 			};
 			name = Debug;
 		};
-		86D6E996E2769317D7C038BDA8698619 /* Debug */ = {
+		7FBC2164C77486E1C6CE0ACCD088B56F /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = BB5697CC4BAC8F6186EE56061E678198 /* Pods-kpiRozklad.debug.xcconfig */;
+			baseConfigurationReference = 07BFF2B79C09E136D2D1E1344D7BAB6F /* M13Checkbox.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
-				CLANG_ENABLE_OBJC_WEAK = NO;
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
@@ -582,28 +763,63 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = "Target Support Files/Pods-kpiRozklad/Pods-kpiRozklad-Info.plist";
+				GCC_PREFIX_HEADER = "Target Support Files/M13Checkbox/M13Checkbox-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/M13Checkbox/M13Checkbox-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MACH_O_TYPE = staticlib;
-				MODULEMAP_FILE = "Target Support Files/Pods-kpiRozklad/Pods-kpiRozklad.modulemap";
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PODS_ROOT = "$(SRCROOT)";
-				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
-				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				MODULEMAP_FILE = "Target Support Files/M13Checkbox/M13Checkbox.modulemap";
+				PRODUCT_MODULE_NAME = M13Checkbox;
+				PRODUCT_NAME = M13Checkbox;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
 			name = Debug;
+		};
+		856A4A3102DF1AB41D672284C54D29F5 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 07BFF2B79C09E136D2D1E1344D7BAB6F /* M13Checkbox.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_PREFIX_HEADER = "Target Support Files/M13Checkbox/M13Checkbox-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/M13Checkbox/M13Checkbox-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MODULEMAP_FILE = "Target Support Files/M13Checkbox/M13Checkbox.modulemap";
+				PRODUCT_MODULE_NAME = M13Checkbox;
+				PRODUCT_NAME = M13Checkbox;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
 		};
 		8C7F9B8BF21506AC9344652DF5F6410C /* Release */ = {
 			isa = XCBuildConfiguration;
@@ -706,7 +922,7 @@
 		};
 		B49F9EFD7F12EA383AF802B056EEF302 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 73B53E5D26299077BD0D217732B6E55C /* PanModal.xcconfig */;
+			baseConfigurationReference = 36AFFED48020C05E111025DAD0085DE7 /* PanModal.xcconfig */;
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = NO;
 				CODE_SIGN_IDENTITY = "";
@@ -779,23 +995,70 @@
 			};
 			name = Debug;
 		};
+		FFC427B0135050FF5B40361744BBA33E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = BB5697CC4BAC8F6186EE56061E678198 /* Pods-kpiRozklad.debug.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = "Target Support Files/Pods-kpiRozklad/Pods-kpiRozklad-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/Pods-kpiRozklad/Pods-kpiRozklad.modulemap";
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		0C969E3F923CFEC15B65102F99FD224A /* Build configuration list for PBXNativeTarget "M13Checkbox" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7FBC2164C77486E1C6CE0ACCD088B56F /* Debug */,
+				856A4A3102DF1AB41D672284C54D29F5 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		17D54E63D3E23AD520B700CD99C6E3FE /* Build configuration list for PBXNativeTarget "Pods-kpiRozklad" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FFC427B0135050FF5B40361744BBA33E /* Debug */,
+				3578BABE0E39A55820AB0614B05ED4C0 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		4821239608C13582E20E6DA73FD5F1F9 /* Build configuration list for PBXProject "Pods" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				6410F571BA8C1AEC6A19403F1B61B0B5 /* Debug */,
 				A27713CB74E99AF202AADC23200A32F4 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		838F528FB4023D32E9013CEF0EE3372E /* Build configuration list for PBXNativeTarget "Pods-kpiRozklad" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				86D6E996E2769317D7C038BDA8698619 /* Debug */,
-				3A8E56E5CCF21B124A3DE4EC08BF96A5 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

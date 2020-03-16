@@ -8,6 +8,7 @@
 
 import UIKit
 
+
 // MARK: - getDayNumAndWeekOfYear
 /// Getting dayNumber and week of year from device Date()
 func getTimeAndDayNumAndWeekOfYear() -> (timeIsNowString: String, dayNumberFromCurrentDate: Int, weekOfYear: Int){

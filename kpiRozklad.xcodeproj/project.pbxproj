@@ -15,7 +15,7 @@
 		5F0275BA23F34A0C00743637 /* Teacher.swift in Sources */ = {isa = PBXBuildFile; fileRef = D300F1DB2365BC270098CA83 /* Teacher.swift */; };
 		5F0275BB23F34A0F00743637 /* Group.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FA2B79C2379F5A7006C466B /* Group.swift */; };
 		5F0275BC23F34BD100743637 /* TimeAndDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FE048682393027900092422 /* TimeAndDate.swift */; };
-		5F0275BD23F34D9000743637 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D34BEBC4233CCFC10035F7B4 /* Extensions.swift */; };
+		5F0275BD23F34D9000743637 /* OtherExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D34BEBC4233CCFC10035F7B4 /* OtherExtensions.swift */; };
 		5F0275BE23F34FC800743637 /* ManagingLessons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FE048662392D4FA00092422 /* ManagingLessons.swift */; };
 		5F034A322389B16D00D90DB7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5F034A342389B16D00D90DB7 /* Main.storyboard */; };
 		5F2F313D2395972900FC28CB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5F2F313C2395972900FC28CB /* Assets.xcassets */; };
@@ -43,6 +43,21 @@
 		5FACFF9123ED65020022DF88 /* UIViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F5000AE238D704A0003E13B /* UIViewExtension.swift */; };
 		5FC991EE23DF10BB00612266 /* ServerUpdateTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FC991EC23DF10BB00612266 /* ServerUpdateTableViewCell.swift */; };
 		5FC991EF23DF10BB00612266 /* ServerUpdateTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5FC991ED23DF10BB00612266 /* ServerUpdateTableViewCell.xib */; };
+		5FCBB9FD241C404F00E7654F /* StringExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FCBB9FC241C404F00E7654F /* StringExtensions.swift */; };
+		5FCBB9FF241C40B900E7654F /* UIButtonExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FCBB9FE241C40B900E7654F /* UIButtonExtensions.swift */; };
+		5FCBBA01241C41DE00E7654F /* UIViewControllerExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FCBBA00241C41DE00E7654F /* UIViewControllerExtensions.swift */; };
+		5FCBBA03241C45BD00E7654F /* UITableViewCellExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FCBBA02241C45BD00E7654F /* UITableViewCellExtensions.swift */; };
+		5FCBBA04241C468F00E7654F /* StringExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FCBB9FC241C404F00E7654F /* StringExtensions.swift */; };
+		5FCBBA05241C469200E7654F /* UIButtonExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FCBB9FE241C40B900E7654F /* UIButtonExtensions.swift */; };
+		5FCBBA06241C469500E7654F /* UIViewControllerExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FCBBA00241C41DE00E7654F /* UIViewControllerExtensions.swift */; };
+		5FCBBA07241C469700E7654F /* UITableViewCellExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FCBBA02241C45BD00E7654F /* UITableViewCellExtensions.swift */; };
+		5FCBBA09241C4B3000E7654F /* ColourPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FCBBA08241C4B3000E7654F /* ColourPickerViewController.swift */; };
+		5FCBBA18241C4F1F00E7654F /* DefaultValuesMy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FCBBA17241C4F1F00E7654F /* DefaultValuesMy.swift */; };
+		5FCBBA1A241C4F5F00E7654F /* ColorPickerViewDelegateMy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FCBBA19241C4F5F00E7654F /* ColorPickerViewDelegateMy.swift */; };
+		5FCBBA1C241C4F7A00E7654F /* ColorPickerViewDelegateFlowLayoutMy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FCBBA1B241C4F7A00E7654F /* ColorPickerViewDelegateFlowLayoutMy.swift */; };
+		5FCBBA1E241C4FCC00E7654F /* ColorPickerCellMy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FCBBA1D241C4FCC00E7654F /* ColorPickerCellMy.swift */; };
+		5FCBBA20241C4FF600E7654F /* ColorPickerViewMy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FCBBA1F241C4FF600E7654F /* ColorPickerViewMy.swift */; };
+		5FCBBA22241C501E00E7654F /* UIColorExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FCBBA21241C501E00E7654F /* UIColorExtensions.swift */; };
 		5FE048652392D16A00092422 /* EditingLessons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FE048642392D16A00092422 /* EditingLessons.swift */; };
 		5FE048672392D4FA00092422 /* ManagingLessons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FE048662392D4FA00092422 /* ManagingLessons.swift */; };
 		5FE048692393027900092422 /* TimeAndDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FE048682393027900092422 /* TimeAndDate.swift */; };
@@ -61,7 +76,7 @@
 		D313F4B2233C773B0076CFF8 /* Lesson.swift in Sources */ = {isa = PBXBuildFile; fileRef = D313F4B1233C773B0076CFF8 /* Lesson.swift */; };
 		D313F4B5233D1F090076CFF8 /* LessonTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D313F4B3233D1F090076CFF8 /* LessonTableViewCell.swift */; };
 		D313F4B6233D1F090076CFF8 /* LessonTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D313F4B4233D1F090076CFF8 /* LessonTableViewCell.xib */; };
-		D34BEBC5233CCFC10035F7B4 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D34BEBC4233CCFC10035F7B4 /* Extensions.swift */; };
+		D34BEBC5233CCFC10035F7B4 /* OtherExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D34BEBC4233CCFC10035F7B4 /* OtherExtensions.swift */; };
 		D363E7AA233BB74B00573EB2 /* SheduleDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D363E7A9233BB74B00573EB2 /* SheduleDetailViewController.swift */; };
 		D3FFAAE72352467F0065E9CE /* TeacherSheduleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3FFAAE62352467F0065E9CE /* TeacherSheduleViewController.swift */; };
 /* End PBXBuildFile section */
@@ -121,6 +136,17 @@
 		5FACFF8E23ED63E90022DF88 /* KPI Rozklad.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "KPI Rozklad.entitlements"; sourceTree = "<group>"; };
 		5FC991EC23DF10BB00612266 /* ServerUpdateTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerUpdateTableViewCell.swift; sourceTree = "<group>"; };
 		5FC991ED23DF10BB00612266 /* ServerUpdateTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ServerUpdateTableViewCell.xib; sourceTree = "<group>"; };
+		5FCBB9FC241C404F00E7654F /* StringExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExtensions.swift; sourceTree = "<group>"; };
+		5FCBB9FE241C40B900E7654F /* UIButtonExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIButtonExtensions.swift; sourceTree = "<group>"; };
+		5FCBBA00241C41DE00E7654F /* UIViewControllerExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewControllerExtensions.swift; sourceTree = "<group>"; };
+		5FCBBA02241C45BD00E7654F /* UITableViewCellExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITableViewCellExtensions.swift; sourceTree = "<group>"; };
+		5FCBBA08241C4B3000E7654F /* ColourPickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColourPickerViewController.swift; sourceTree = "<group>"; };
+		5FCBBA17241C4F1F00E7654F /* DefaultValuesMy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultValuesMy.swift; sourceTree = "<group>"; };
+		5FCBBA19241C4F5F00E7654F /* ColorPickerViewDelegateMy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorPickerViewDelegateMy.swift; sourceTree = "<group>"; };
+		5FCBBA1B241C4F7A00E7654F /* ColorPickerViewDelegateFlowLayoutMy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorPickerViewDelegateFlowLayoutMy.swift; sourceTree = "<group>"; };
+		5FCBBA1D241C4FCC00E7654F /* ColorPickerCellMy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorPickerCellMy.swift; sourceTree = "<group>"; };
+		5FCBBA1F241C4FF600E7654F /* ColorPickerViewMy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorPickerViewMy.swift; sourceTree = "<group>"; };
+		5FCBBA21241C501E00E7654F /* UIColorExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorExtensions.swift; sourceTree = "<group>"; };
 		5FE048642392D16A00092422 /* EditingLessons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditingLessons.swift; sourceTree = "<group>"; };
 		5FE048662392D4FA00092422 /* ManagingLessons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManagingLessons.swift; sourceTree = "<group>"; };
 		5FE048682393027900092422 /* TimeAndDate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeAndDate.swift; sourceTree = "<group>"; };
@@ -142,7 +168,7 @@
 		D313F4B1233C773B0076CFF8 /* Lesson.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Lesson.swift; sourceTree = "<group>"; };
 		D313F4B3233D1F090076CFF8 /* LessonTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LessonTableViewCell.swift; sourceTree = "<group>"; };
 		D313F4B4233D1F090076CFF8 /* LessonTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LessonTableViewCell.xib; sourceTree = "<group>"; };
-		D34BEBC4233CCFC10035F7B4 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		D34BEBC4233CCFC10035F7B4 /* OtherExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtherExtensions.swift; sourceTree = "<group>"; };
 		D363E7A9233BB74B00573EB2 /* SheduleDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheduleDetailViewController.swift; sourceTree = "<group>"; };
 		D38DEB43233A250F00BB0075 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		D3FFAAE62352467F0065E9CE /* TeacherSheduleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeacherSheduleViewController.swift; sourceTree = "<group>"; };
@@ -287,6 +313,18 @@
 			path = Widget;
 			sourceTree = "<group>";
 		};
+		5FCBBA0A241C4B3800E7654F /* ColourPicker */ = {
+			isa = PBXGroup;
+			children = (
+				5FCBBA1D241C4FCC00E7654F /* ColorPickerCellMy.swift */,
+				5FCBBA1F241C4FF600E7654F /* ColorPickerViewMy.swift */,
+				5FCBBA17241C4F1F00E7654F /* DefaultValuesMy.swift */,
+				5FCBBA1B241C4F7A00E7654F /* ColorPickerViewDelegateFlowLayoutMy.swift */,
+				5FCBBA19241C4F5F00E7654F /* ColorPickerViewDelegateMy.swift */,
+			);
+			path = ColourPicker;
+			sourceTree = "<group>";
+		};
 		5FE0486E23930D0700092422 /* Structs */ = {
 			isa = PBXGroup;
 			children = (
@@ -403,6 +441,7 @@
 		D3FFAADA234F7A2C0065E9CE /* Settings */ = {
 			isa = PBXGroup;
 			children = (
+				5FCBBA0A241C4B3800E7654F /* ColourPicker */,
 				D3FFAADC234F7A410065E9CE /* ViewControllers */,
 				D3FFAADB234F7A3D0065E9CE /* Views */,
 			);
@@ -422,6 +461,7 @@
 			isa = PBXGroup;
 			children = (
 				D300F1D92364CF490098CA83 /* SettingsTableViewController.swift */,
+				5FCBBA08241C4B3000E7654F /* ColourPickerViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -480,8 +520,13 @@
 		D3FFAAE223521BAC0065E9CE /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				D34BEBC4233CCFC10035F7B4 /* Extensions.swift */,
+				D34BEBC4233CCFC10035F7B4 /* OtherExtensions.swift */,
 				5F5000AE238D704A0003E13B /* UIViewExtension.swift */,
+				5FCBB9FC241C404F00E7654F /* StringExtensions.swift */,
+				5FCBB9FE241C40B900E7654F /* UIButtonExtensions.swift */,
+				5FCBBA00241C41DE00E7654F /* UIViewControllerExtensions.swift */,
+				5FCBBA02241C45BD00E7654F /* UITableViewCellExtensions.swift */,
+				5FCBBA21241C501E00E7654F /* UIColorExtensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -689,17 +734,21 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5FCBBA04241C468F00E7654F /* StringExtensions.swift in Sources */,
 				5F0275BC23F34BD100743637 /* TimeAndDate.swift in Sources */,
 				5F0275BE23F34FC800743637 /* ManagingLessons.swift in Sources */,
 				5F0275BB23F34A0F00743637 /* Group.swift in Sources */,
 				5FACFF9123ED65020022DF88 /* UIViewExtension.swift in Sources */,
 				5FACFF8123ED63D40022DF88 /* TodayViewController.swift in Sources */,
+				5FCBBA06241C469500E7654F /* UIViewControllerExtensions.swift in Sources */,
 				5F0275B823F3493B00743637 /* CoreDataStack.swift in Sources */,
+				5FCBBA05241C469200E7654F /* UIButtonExtensions.swift in Sources */,
 				5F0275BA23F34A0C00743637 /* Teacher.swift in Sources */,
 				5F0275B223F3472300743637 /* kpiRozklad.xcdatamodeld in Sources */,
 				5F0275B923F34A0900743637 /* Lesson.swift in Sources */,
-				5F0275BD23F34D9000743637 /* Extensions.swift in Sources */,
+				5F0275BD23F34D9000743637 /* OtherExtensions.swift in Sources */,
 				5FACFF8F23ED64840022DF88 /* LessonTableViewCell.swift in Sources */,
+				5FCBBA07241C469700E7654F /* UITableViewCellExtensions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -712,30 +761,41 @@
 				5F7BABBF23A163C8009E3CA6 /* Error.swift in Sources */,
 				D3FFAAE72352467F0065E9CE /* TeacherSheduleViewController.swift in Sources */,
 				5F46AD5E23FEC43500B145D5 /* FavouriteViewController.swift in Sources */,
-				D34BEBC5233CCFC10035F7B4 /* Extensions.swift in Sources */,
+				D34BEBC5233CCFC10035F7B4 /* OtherExtensions.swift in Sources */,
+				5FCBB9FD241C404F00E7654F /* StringExtensions.swift in Sources */,
 				5FA2B79D2379F5A7006C466B /* Group.swift in Sources */,
+				5FCBBA20241C4FF600E7654F /* ColorPickerViewMy.swift in Sources */,
 				5FE0486D23930C3000092422 /* SheduleVC+UIPickerVC.swift in Sources */,
+				5FCBB9FF241C40B900E7654F /* UIButtonExtensions.swift in Sources */,
 				5FE048672392D4FA00092422 /* ManagingLessons.swift in Sources */,
+				5FCBBA03241C45BD00E7654F /* UITableViewCellExtensions.swift in Sources */,
 				D300F1DA2364CF490098CA83 /* SettingsTableViewController.swift in Sources */,
 				5F4457E42376FB05008F9E21 /* Settings.swift in Sources */,
 				5FE048652392D16A00092422 /* EditingLessons.swift in Sources */,
 				5F4E51ED2403D9DD0034D250 /* GreetingViewController.swift in Sources */,
 				5F5000AF238D704A0003E13B /* UIViewExtension.swift in Sources */,
+				5FCBBA18241C4F1F00E7654F /* DefaultValuesMy.swift in Sources */,
+				5FCBBA1C241C4F7A00E7654F /* ColorPickerViewDelegateFlowLayoutMy.swift in Sources */,
 				5FE0486B2393087900092422 /* CoreDataHelpers.swift in Sources */,
 				D313F4B2233C773B0076CFF8 /* Lesson.swift in Sources */,
 				5FA5CE5A2413E32D00D2796A /* SettingsTableViewCell.swift in Sources */,
+				5FCBBA1A241C4F5F00E7654F /* ColorPickerViewDelegateMy.swift in Sources */,
 				5F2F313F2395C62100FC28CB /* Colours.swift in Sources */,
 				5F46AD682401A0F700B145D5 /* Favourites.swift in Sources */,
 				5FE96785240F0C22000AD157 /* SheduleDetailNavigationController.swift in Sources */,
 				D300F1D62364CEA30098CA83 /* TeachersViewController.swift in Sources */,
 				5FE048692393027900092422 /* TimeAndDate.swift in Sources */,
 				D313F4AE233AAF920076CFF8 /* SheduleViewController.swift in Sources */,
+				5FCBBA09241C4B3000E7654F /* ColourPickerViewController.swift in Sources */,
 				D300F1DC2365BC270098CA83 /* Teacher.swift in Sources */,
+				5FCBBA1E241C4FCC00E7654F /* ColorPickerCellMy.swift in Sources */,
 				5FE9678324091880000AD157 /* TeachersNavigationController.swift in Sources */,
+				5FCBBA01241C41DE00E7654F /* UIViewControllerExtensions.swift in Sources */,
 				5F0275B423F3476B00743637 /* CoreDataStack.swift in Sources */,
 				D313F4B5233D1F090076CFF8 /* LessonTableViewCell.swift in Sources */,
 				5F6A08062370A175000A9C79 /* kpiRozklad.xcdatamodeld in Sources */,
 				5F46AD6523FFD66E00B145D5 /* GroupsNavigationController.swift in Sources */,
+				5FCBBA22241C501E00E7654F /* UIColorExtensions.swift in Sources */,
 				D363E7AA233BB74B00573EB2 /* SheduleDetailViewController.swift in Sources */,
 				5FACFF5323EC70A70022DF88 /* TeacherOrGroupLoadingTableViewCell.swift in Sources */,
 				5FC991EE23DF10BB00612266 /* ServerUpdateTableViewCell.swift in Sources */,

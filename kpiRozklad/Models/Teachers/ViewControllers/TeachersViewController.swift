@@ -155,6 +155,9 @@ class TeachersViewController: UIViewController {
 
         tableView.delegate = self
         tableView.dataSource = self
+        tableView.backgroundColor = tableViewBackground
+        self.view.backgroundColor = tableViewBackground
+
     }
     
     private func setupNavigationAndSearch() {
@@ -442,7 +445,8 @@ extension TeachersViewController: UITableViewDelegate, UITableViewDataSource {
     
 //    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
 //        let view = UIView()
-//        view.backgroundColor = .clear
+//        view.backgroundColor = sectionColour
+//
 //        return view
 //    }
 }

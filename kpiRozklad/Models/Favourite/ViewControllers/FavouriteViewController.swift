@@ -36,6 +36,8 @@ class FavouriteViewController: UIViewController {
         if favourites.favouriteGroupsNames.count == 0 && favourites.favouriteTeachersNames.count == 0 {
             tableView.isHidden = true
             emptyFavouritesLabel.isHidden = false
+            self.view.backgroundColor = tableViewBackground
+            
         } else {
             tableView.isHidden = false
             emptyFavouritesLabel.isHidden = true
@@ -47,6 +49,8 @@ class FavouriteViewController: UIViewController {
         tableView.register(UINib(nibName: TeacherOrGroupLoadingTableViewCell.identifier, bundle: Bundle.main), forCellReuseIdentifier: TeacherOrGroupLoadingTableViewCell.identifier)
         tableView.delegate = self
         tableView.dataSource = self
+        tableView.backgroundColor = sectionColour
+
     }
     
     
@@ -195,7 +199,7 @@ extension FavouriteViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
     //        let view = UIView(frame: CGRect(x: 0, y: 0, width: 0, height: 1))
         let view = UIView()
-
+        view.backgroundColor = sectionColour
 //        view.backgroundColor = tint
         return view
     }
@@ -229,6 +233,8 @@ extension FavouriteViewController: UITableViewDelegate, UITableViewDataSource {
         return 0.0001
     }
     
+    
+    
     func tableView(_ tableView: UITableView, editActionsForRowAt: IndexPath) -> [UITableViewRowAction]? {
         let delete = UITableViewRowAction(style: .destructive, title: "Видалити") { action, index in
             if index.section == 0 {
@@ -240,6 +246,11 @@ extension FavouriteViewController: UITableViewDelegate, UITableViewDataSource {
             }
             
             tableView.deleteRows(at: [index], with: .fade)
+            if self.favourites.favouriteGroupsNames.count == 0 &&  self.favourites.favouriteTeachersNames.count == 0 {
+                self.tableView.isHidden = true
+                self.emptyFavouritesLabel.isHidden = false
+                self.view.backgroundColor = sectionColour
+            }
 
         }
 

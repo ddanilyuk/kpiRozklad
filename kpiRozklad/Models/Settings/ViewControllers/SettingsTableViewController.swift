@@ -18,20 +18,17 @@ class SettingsTableViewController: UITableViewController {
         super.viewDidLoad()
         setupTableView()
         serverTimeUpdate()
-        self.navigationItem.largeTitleDisplayMode = .always
-        self.navigationController?.navigationBar.prefersLargeTitles = true
-        self.navigationController?.navigationItem.largeTitleDisplayMode = .always
+
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        self.navigationController?.navigationBar.backgroundColor = tint
-    }
     
     override func viewWillAppear(_ animated: Bool) {
-        self.navigationItem.largeTitleDisplayMode = .always
-        self.navigationController?.navigationBar.prefersLargeTitles = true
-        self.navigationController?.navigationItem.largeTitleDisplayMode = .always
+
+        super.viewWillAppear(animated)
+        setLargeTitleDisplayMode(.always)
+
     }
+    
 
     private func setupTableView() {
         tableView.register(UINib(nibName: ServerUpdateTableViewCell.identifier, bundle: Bundle.main), forCellReuseIdentifier: ServerUpdateTableViewCell.identifier)
@@ -301,9 +298,9 @@ class SettingsTableViewController: UITableViewController {
     
     func didPressEditColours() {
         guard let colourVC = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "ColourPickerViewController") as? ColourPickerViewController else { return }
-        colourVC.navigationController?.navigationBar.prefersLargeTitles = true
-        colourVC.navigationItem.largeTitleDisplayMode = .never
-        colourVC.navigationController?.navigationItem.largeTitleDisplayMode = .never
+//        colourVC.navigationController?.navigationBar.prefersLargeTitles = false
+//        colourVC.navigationItem.largeTitleDisplayMode = .never
+//        colourVC.navigationController?.navigationItem.largeTitleDisplayMode = .never
         
 //        var index = 0
         let colorPickerView = ColorPickerView()

@@ -8,7 +8,7 @@
 
 import UIKit
 
-class Settings {
+public class Settings {
     private let userDefaults = UserDefaults.standard
      
     static let shared = Settings()

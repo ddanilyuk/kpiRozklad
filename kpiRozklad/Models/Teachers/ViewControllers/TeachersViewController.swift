@@ -304,13 +304,33 @@ class TeachersViewController: UIViewController {
             let decoder = JSONDecoder()
 
             do {
+                
                 DispatchQueue.main.async {
+                    guard let cell = self.tableView.cellForRow(at: indexPath) as? TeacherOrGroupLoadingTableViewCell else {
+                        return
+                    }
+                    print(url)
+                    if let error = try? decoder.decode(Error.self, from: data) {
+                        if error.message == "Lessons not found" {
+                            
+                            DispatchQueue.main.async {
+                                let alert = UIAlertController(title: nil, message: "Розкладу для цієї групи не існує", preferredStyle: .alert)
+                                alert.addAction(UIAlertAction(title: "Назад", style: .default, handler: { (_) in
+                                    self.navigationController?.popViewController(animated: true)
+                                }))
+                                
+                                self.present(alert, animated: true, completion: {
+                                    cell.activityIndicator.isHidden = true
+                                    cell.activityIndicator.stopAnimating()
+                                })
+                            }
+                        }
+                    }
+                    
                     guard let serverFULLDATA = try? decoder.decode(WelcomeLessons.self, from: data) else { return }
                     
-                    if let cell = self.tableView.cellForRow(at: indexPath) as? TeacherOrGroupLoadingTableViewCell {
-                        cell.activityIndicator.isHidden = true
-                        cell.activityIndicator.stopAnimating()
-                    }
+                    cell.activityIndicator.isHidden = true
+                    cell.activityIndicator.stopAnimating()
 
                     let mainStoryboard = UIStoryboard(name: "Main", bundle: Bundle.main)
                     guard let sheduleVC : SheduleViewController = mainStoryboard.instantiateViewController(withIdentifier: SheduleViewController.identifier) as? SheduleViewController else { return }
@@ -332,6 +352,69 @@ class TeachersViewController: UIViewController {
             }
         }
         task.resume()
+    }
+    
+    // MARK: - server
+    func serverGetChoosenTeacherShedule(teacher: Teacher, indexPath: IndexPath) {
+        guard var url = URL(string: "https://api.rozklad.org.ua/v2/teachers/") else { return }
+        url.appendPathComponent(teacher.teacherID )
+        url.appendPathComponent("/lessons")
+        print(url)
+        
+        DispatchQueue.main.async {
+            if let cell = self.tableView.cellForRow(at: indexPath) as? TeacherOrGroupLoadingTableViewCell {
+                cell.activityIndicator.isHidden = false
+                cell.activityIndicator.startAnimating()
+            }
+        }
+        
+        let task = URLSession.shared.dataTask(with: url) {(data, response, error) in
+            guard let data = data else { return }
+            let decoder = JSONDecoder()
+
+            do {
+                DispatchQueue.main.async {
+                    guard let cell = self.tableView.cellForRow(at: indexPath) as? TeacherOrGroupLoadingTableViewCell else { return }
+                    if let error = try? decoder.decode(Error.self, from: data) {
+                        if error.message == "Lessons not found" {
+                            DispatchQueue.main.async {
+                                let alert = UIAlertController(title: nil, message: "Розкладу для цього викладача не існує", preferredStyle: .alert)
+                                alert.addAction(UIAlertAction(title: "Назад", style: .default, handler: { (_) in
+                                    self.navigationController?.popViewController(animated: true)
+                                }))
+                                
+                                self.present(alert, animated: true, completion: {
+                                    cell.activityIndicator.isHidden = true
+                                    cell.activityIndicator.stopAnimating()
+                                })
+                            }
+                        }
+                    }
+                    
+                    guard let serverFULLDATA = try? decoder.decode(WelcomeLessons.self, from: data) else { return }
+                    
+                    cell.activityIndicator.isHidden = true
+                    cell.activityIndicator.stopAnimating()
+
+                    let mainStoryboard = UIStoryboard(name: "Main", bundle: Bundle.main)
+                    guard let teacherSheduleVC  = mainStoryboard.instantiateViewController(withIdentifier: TeacherSheduleViewController.identifier) as? TeacherSheduleViewController else { return }
+                    
+                    teacherSheduleVC.lessonsFromServer = serverFULLDATA.data
+                    
+                    teacherSheduleVC.isFromTeachersVC = true
+                    
+                    teacherSheduleVC.teacher = teacher
+                    
+                    self.navigationController?.pushViewController(teacherSheduleVC, animated: true)
+
+                }
+                
+            }
+            
+        }
+        
+        task.resume()
+        
     }
     
     
@@ -430,8 +513,12 @@ extension TeachersViewController: UITableViewDelegate, UITableViewDataSource {
             let group = isSearching ? groupsInSearch[indexPath.row] : groups[indexPath.row]
             serverGetChoosenGroupShedule(group: group, indexPath: indexPath)
         } else if isTeacherViewController {
-            guard (storyboard?.instantiateViewController(withIdentifier: "TeacherSheduleViewController") as? TeacherSheduleViewController) != nil else { return }
-            performSegue(withIdentifier: "showTeacherSheduleFromAllTeachers", sender: self)
+            
+            let teacher = isSearching ? teachersInSearch[indexPath.row] : teachers[indexPath.row]
+            serverGetChoosenTeacherShedule(teacher: teacher, indexPath: indexPath)
+            
+//            guard (storyboard?.instantiateViewController(withIdentifier: "TeacherSheduleViewController") as? TeacherSheduleViewController) != nil else { return }
+//            performSegue(withIdentifier: "showTeacherSheduleFromAllTeachers", sender: self)
         }
         
         

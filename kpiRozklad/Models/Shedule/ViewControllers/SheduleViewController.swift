@@ -659,6 +659,30 @@ class SheduleViewController: UIViewController {
     }
     
     
+    public func setupNextLessonCell(cell: LessonTableViewCell) {
+        cell.backgroundColor = Settings.shared.cellNextColour
+        
+        let textColour: UIColor = cell.backgroundColor?.isWhiteText ?? true ? .white : .black
+        
+        cell.startLabel.textColor = textColour
+        cell.endLabel.textColor = textColour
+        cell.teacherLabel.textColor = textColour
+        cell.roomLabel.textColor = textColour
+        cell.lessonLabel.textColor = textColour
+    }
+
+    public func setupCurrentLessonCell(cell: LessonTableViewCell) {
+        cell.backgroundColor = Settings.shared.cellCurrentColour
+        
+        let textColour: UIColor = cell.backgroundColor?.isWhiteText ?? true ? .white : .black
+        
+        cell.startLabel.textColor = textColour
+        cell.endLabel.textColor = textColour
+        cell.teacherLabel.textColor = textColour
+        cell.roomLabel.textColor = textColour
+        cell.lessonLabel.textColor = textColour
+    }
+    
 }
 
 
@@ -850,37 +874,23 @@ extension SheduleViewController: UITableViewDelegate, UITableViewDataSource {
        cell.lessonLabel.textColor = colourTextLabel
         
         if currentLessonId == lesson.lessonID {
-            cell.backgroundColor = settings.cellCurrentColour
-            let textColour: UIColor = cell.backgroundColor?.isWhiteText ?? true ? .white : .black
             
-            cell.startLabel.textColor = textColour
-            cell.endLabel.textColor = textColour
-            cell.teacherLabel.textColor = textColour
-            cell.roomLabel.textColor = textColour
-            cell.lessonLabel.textColor = textColour
+            setupCurrentLessonCell(cell: cell)
         }
         
         if nextLessonId == lesson.lessonID {
-            cell.backgroundColor = Settings.shared.cellNextColour
-            let textColour: UIColor = cell.backgroundColor?.isWhiteText ?? true ? .white : .black
-            
-            cell.startLabel.textColor = textColour
-            cell.endLabel.textColor = textColour
-            cell.teacherLabel.textColor = textColour
-            cell.roomLabel.textColor = textColour
-            cell.lessonLabel.textColor = textColour
+            setupNextLessonCell(cell: cell)
         }
         
         cell.startLabel.text = String(lesson.timeStart[..<5])
         cell.endLabel.text = String(lesson.timeEnd[..<5])
         cell.roomLabel.text = lesson.lessonType.rawValue + " " + lesson.lessonRoom
         cell.timeLeftLabel.text = ""
-        
-       
-        
-        
+    
         return cell
     }
+    
+    
     
     
     // MARK: - commit editingStyle forRowAt

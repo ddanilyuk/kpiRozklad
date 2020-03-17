@@ -145,3 +145,4 @@ func getGroupsOfLessonString(lesson: Lesson) -> String {
     
     return groupsNames
 }
+

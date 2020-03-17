@@ -91,6 +91,8 @@ class TeacherSheduleViewController: UIViewController {
     
     var isFromFavourites: Bool = false
     
+    var isFromTeachersVC: Bool = false
+    
     var lessonsFromServer: [Lesson] = []
 
     // MARK: - viewDidLoad
@@ -119,7 +121,7 @@ class TeacherSheduleViewController: UIViewController {
         self.view.bringSubviewToFront(activityIndicator)
         
         /// Making request from server
-        if isFromFavourites {
+        if isFromFavourites || isFromTeachersVC {
             lessons = lessonsFromServer
             
             DispatchQueue.main.async {
@@ -480,14 +482,17 @@ extension TeacherSheduleViewController: UITableViewDelegate, UITableViewDataSour
             let nothing = " "
             cell.teacherLabel.text = nothing
         }
-
+        
+        let vc = SheduleViewController()
         
         if currentLessonId == lessonsForSomeDay[indexPath.row].lessonID {
-            cell.backgroundColor = .orange
+            vc.setupCurrentLessonCell(cell: cell)
         }
         
         if nextLessonId == lessonsForSomeDay[indexPath.row].lessonID {
-            cell.backgroundColor = colour1
+            vc.setupNextLessonCell(cell: cell)
+
+//            cell.backgroundColor = colour1
         }
         
     

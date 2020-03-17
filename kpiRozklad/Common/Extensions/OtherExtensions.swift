@@ -16,3 +16,4 @@ public var screenWidth: CGFloat {
 public var screenHeight: CGFloat {
     return UIScreen.main.bounds.height
 }
+

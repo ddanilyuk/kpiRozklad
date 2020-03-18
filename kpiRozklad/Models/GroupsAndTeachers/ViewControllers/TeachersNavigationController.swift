@@ -22,8 +22,5 @@ class TeachersNavigationController: UINavigationController {
         if isSheduleTeachersChooser == false && global.sheduleType == .teachers {
             isTeacherViewController = true
         }
-
     }
-    
-
 }

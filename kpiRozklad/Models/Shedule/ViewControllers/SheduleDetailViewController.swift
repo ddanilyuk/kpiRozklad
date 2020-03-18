@@ -91,9 +91,7 @@ class SheduleDetailViewController: UIViewController {
     }
     
     private func getVariablesFromNavigationController() {
-        guard let navigationVC = self.navigationController as? SheduleDetailNavigationController else {
-            return
-        }
+        guard let navigationVC = self.navigationController as? SheduleDetailNavigationController else { return }
         self.lesson = navigationVC.lesson
         
     }
@@ -118,7 +116,6 @@ class SheduleDetailViewController: UIViewController {
             }
         }
     }
-    
     
     
     // MARK: - server

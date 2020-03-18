@@ -120,7 +120,7 @@ class TeacherSheduleViewController: UIViewController {
         tableView.isHidden = true
         self.view.bringSubviewToFront(activityIndicator)
         
-        /// Making request from server
+        
         if isFromFavourites || isFromTeachersVC {
             lessons = lessonsFromServer
             
@@ -133,7 +133,7 @@ class TeacherSheduleViewController: UIViewController {
                 self.activityIndicator.isHidden = true
             }
         } else {
-            server()
+//            server()
         }
         
         makeTeachersLessonsShedule()
@@ -302,34 +302,31 @@ class TeacherSheduleViewController: UIViewController {
                             alert.addAction(UIAlertAction(title: "Назад", style: .default, handler: { (_) in
                                 self.navigationController?.popViewController(animated: true)
                             }))
-                            
+
                             self.present(alert, animated: true, completion: {
                             })
                         }
                     }
                 }
-                
-                
                 guard let serverFULLDATA = try? decoder.decode(WelcomeLessons.self, from: data) else { return }
-                let datum = serverFULLDATA.data
-                self.lessons = datum
+                self.lessons = serverFULLDATA.data
             }
-            
+
             DispatchQueue.main.async {
                 /// Making normal shedule + reloading tableVIew
                 self.makeTeachersLessonsShedule()
-                
+
                 /// Show tableView
                 self.tableView.isHidden = false
-                
+
                 /// Hide Activity Indicator
                 self.activityIndicator.stopAnimating()
                 self.activityIndicator.isHidden = true
             }
         }
-        
+
         task.resume()
-        
+
     }
     
     
@@ -486,16 +483,13 @@ extension TeacherSheduleViewController: UITableViewDelegate, UITableViewDataSour
         let vc = SheduleViewController()
         
         if currentLessonId == lessonsForSomeDay[indexPath.row].lessonID {
-            vc.setupCurrentLessonCell(cell: cell)
+            vc.setupCurrentOrNextLessonCell(cell: cell, cellType: .currentCell)
         }
         
         if nextLessonId == lessonsForSomeDay[indexPath.row].lessonID {
-            vc.setupNextLessonCell(cell: cell)
-
-//            cell.backgroundColor = colour1
+            vc.setupCurrentOrNextLessonCell(cell: cell, cellType: .nextCell)
         }
         
-    
         let timeStartString = lessonsForSomeDay[indexPath.row].timeStart
         let substringTimeStart = String(timeStartString[..<5])
         

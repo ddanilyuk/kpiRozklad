@@ -18,6 +18,7 @@
 		5F0275BD23F34D9000743637 /* OtherExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D34BEBC4233CCFC10035F7B4 /* OtherExtensions.swift */; };
 		5F0275BE23F34FC800743637 /* ManagingLessons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FE048662392D4FA00092422 /* ManagingLessons.swift */; };
 		5F034A322389B16D00D90DB7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5F034A342389B16D00D90DB7 /* Main.storyboard */; };
+		5F2E61572422C00400B362A2 /* GroupsAndTeachersVC+ServerApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F2E61562422C00400B362A2 /* GroupsAndTeachersVC+ServerApi.swift */; };
 		5F2F313D2395972900FC28CB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5F2F313C2395972900FC28CB /* Assets.xcassets */; };
 		5F2F313F2395C62100FC28CB /* Colours.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F2F313E2395C62100FC28CB /* Colours.swift */; };
 		5F305C77242260560035B509 /* SheduleVC+UITableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F305C76242260560035B509 /* SheduleVC+UITableView.swift */; };
@@ -117,6 +118,7 @@
 		5F0275B323F3476B00743637 /* CoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
 		5F034A352389B1F500D90DB7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		5F034A3E2389B2E600D90DB7 /* uk */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = uk; path = uk.lproj/Main.storyboard; sourceTree = "<group>"; };
+		5F2E61562422C00400B362A2 /* GroupsAndTeachersVC+ServerApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GroupsAndTeachersVC+ServerApi.swift"; sourceTree = "<group>"; };
 		5F2F313C2395972900FC28CB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		5F2F313E2395C62100FC28CB /* Colours.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colours.swift; sourceTree = "<group>"; };
 		5F305C76242260560035B509 /* SheduleVC+UITableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SheduleVC+UITableView.swift"; sourceTree = "<group>"; };
@@ -556,6 +558,7 @@
 				5F46AD6423FFD66E00B145D5 /* GroupsNavigationController.swift */,
 				5FE9678224091880000AD157 /* TeachersNavigationController.swift */,
 				D300F1D52364CEA30098CA83 /* GroupsAndTeachersViewController.swift */,
+				5F2E61562422C00400B362A2 /* GroupsAndTeachersVC+ServerApi.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -793,6 +796,7 @@
 				5FE96785240F0C22000AD157 /* SheduleDetailNavigationController.swift in Sources */,
 				D300F1D62364CEA30098CA83 /* GroupsAndTeachersViewController.swift in Sources */,
 				5FE048692393027900092422 /* TimeAndDate.swift in Sources */,
+				5F2E61572422C00400B362A2 /* GroupsAndTeachersVC+ServerApi.swift in Sources */,
 				D313F4AE233AAF920076CFF8 /* SheduleViewController.swift in Sources */,
 				5FCBBA09241C4B3000E7654F /* ColourPickerViewController.swift in Sources */,
 				D300F1DC2365BC270098CA83 /* Teacher.swift in Sources */,

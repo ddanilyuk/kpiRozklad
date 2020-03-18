@@ -147,13 +147,16 @@ class FavouriteViewController: UIViewController {
 }
 
 extension FavouriteViewController: UITableViewDelegate, UITableViewDataSource {
+    
     func numberOfSections(in tableView: UITableView) -> Int {
         return 2
     }
     
+    
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         return ["Групи", "Викладачі"][section]
     }
+    
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
@@ -163,6 +166,7 @@ extension FavouriteViewController: UITableViewDelegate, UITableViewDataSource {
             return favourites.favouriteTeachersNames.count
         }
     }
+    
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: TeacherOrGroupLoadingTableViewCell.identifier, for: indexPath) as? TeacherOrGroupLoadingTableViewCell else { return UITableViewCell() }
@@ -179,9 +183,9 @@ extension FavouriteViewController: UITableViewDelegate, UITableViewDataSource {
         return cell
     }
     
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.section == 0 {
-//            let favouriteChoosen = favourites.favouriteTeachersNames[indexPath.row]
             let group = Group(groupID: favourites.favouriteGroupsID[indexPath.row], groupFullName: favourites.favouriteGroupsNames[indexPath.row], groupPrefix: "", groupOkr: .magister, groupType: .daily, groupURL: "")
             
             serverGroupShedule(group: group, indexPath: indexPath)
@@ -193,6 +197,7 @@ extension FavouriteViewController: UITableViewDelegate, UITableViewDataSource {
         tableView.deselectRow(at: indexPath, animated: true)
     }
     
+    
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
     //        let view = UIView(frame: CGRect(x: 0, y: 0, width: 0, height: 1))
         let view = UIView()
@@ -201,10 +206,12 @@ extension FavouriteViewController: UITableViewDelegate, UITableViewDataSource {
         return view
     }
     
+    
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 30
     }
 
+    
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let returnedView = UIView(frame: CGRect(x: 0, y: 0, width: view.frame.size.width, height: 35))
         let array: [String] = ["Групи", "Викладачі"]
@@ -253,6 +260,7 @@ extension FavouriteViewController: UITableViewDelegate, UITableViewDataSource {
 
         return [delete]
     }
+
     
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         return true

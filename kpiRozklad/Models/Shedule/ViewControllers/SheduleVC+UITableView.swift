@@ -197,11 +197,11 @@ extension SheduleViewController: UITableViewDelegate, UITableViewDataSource {
         
         if currentLessonId == lesson.lessonID {
             
-            setupCurrentLessonCell(cell: cell)
+            setupCurrentOrNextLessonCell(cell: cell, cellType: .currentCell)
         }
         
         if nextLessonId == lesson.lessonID {
-            setupNextLessonCell(cell: cell)
+            setupCurrentOrNextLessonCell(cell: cell, cellType: .nextCell)
         }
         
         cell.startLabel.text = String(lesson.timeStart[..<5])
@@ -293,8 +293,7 @@ extension SheduleViewController: UITableViewDelegate, UITableViewDataSource {
         if editing {
             self.tableView.setEditing(true, animated: true)
             self.tableView.insertSections(IndexSet(integer: self.lessonsForTableView.count), with: .automatic)
-        }
-        else {
+        } else {
             self.tableView.setEditing(false, animated: true)
             self.tableView.deleteSections(IndexSet(integer: self.lessonsForTableView.count), with: .automatic)
         }

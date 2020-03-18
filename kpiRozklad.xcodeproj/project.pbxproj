@@ -20,6 +20,10 @@
 		5F034A322389B16D00D90DB7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5F034A342389B16D00D90DB7 /* Main.storyboard */; };
 		5F2F313D2395972900FC28CB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5F2F313C2395972900FC28CB /* Assets.xcassets */; };
 		5F2F313F2395C62100FC28CB /* Colours.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F2F313E2395C62100FC28CB /* Colours.swift */; };
+		5F305C77242260560035B509 /* SheduleVC+UITableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F305C76242260560035B509 /* SheduleVC+UITableView.swift */; };
+		5F305C792422639D0035B509 /* UIColorExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FCBBA21241C501E00E7654F /* UIColorExtensions.swift */; };
+		5F305C7A242263A70035B509 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F4457E32376FB05008F9E21 /* Settings.swift */; };
+		5F305C7B242263BC0035B509 /* Colours.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F2F313E2395C62100FC28CB /* Colours.swift */; };
 		5F4457E42376FB05008F9E21 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F4457E32376FB05008F9E21 /* Settings.swift */; };
 		5F46AD5E23FEC43500B145D5 /* FavouriteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F46AD5D23FEC43500B145D5 /* FavouriteViewController.swift */; };
 		5F46AD6523FFD66E00B145D5 /* GroupsNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F46AD6423FFD66E00B145D5 /* GroupsNavigationController.swift */; };
@@ -58,6 +62,8 @@
 		5FCBBA1E241C4FCC00E7654F /* ColorPickerCellMy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FCBBA1D241C4FCC00E7654F /* ColorPickerCellMy.swift */; };
 		5FCBBA20241C4FF600E7654F /* ColorPickerViewMy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FCBBA1F241C4FF600E7654F /* ColorPickerViewMy.swift */; };
 		5FCBBA22241C501E00E7654F /* UIColorExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FCBBA21241C501E00E7654F /* UIColorExtensions.swift */; };
+		5FD5B7152422171900B86FB7 /* Enums.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FD5B7142422171900B86FB7 /* Enums.swift */; };
+		5FD5B7162422174B00B86FB7 /* Enums.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FD5B7142422171900B86FB7 /* Enums.swift */; };
 		5FE048652392D16A00092422 /* EditingLessons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FE048642392D16A00092422 /* EditingLessons.swift */; };
 		5FE048672392D4FA00092422 /* ManagingLessons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FE048662392D4FA00092422 /* ManagingLessons.swift */; };
 		5FE048692393027900092422 /* TimeAndDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FE048682393027900092422 /* TimeAndDate.swift */; };
@@ -66,7 +72,7 @@
 		5FE9678324091880000AD157 /* TeachersNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FE9678224091880000AD157 /* TeachersNavigationController.swift */; };
 		5FE96785240F0C22000AD157 /* SheduleDetailNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FE96784240F0C22000AD157 /* SheduleDetailNavigationController.swift */; };
 		90A353C4EB2D15AEC0D9F8D1 /* Pods_kpiRozklad.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 25B70702B56A794A30F2DB1A /* Pods_kpiRozklad.framework */; };
-		D300F1D62364CEA30098CA83 /* TeachersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D300F1D52364CEA30098CA83 /* TeachersViewController.swift */; };
+		D300F1D62364CEA30098CA83 /* GroupsAndTeachersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D300F1D52364CEA30098CA83 /* GroupsAndTeachersViewController.swift */; };
 		D300F1DA2364CF490098CA83 /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D300F1D92364CF490098CA83 /* SettingsTableViewController.swift */; };
 		D300F1DC2365BC270098CA83 /* Teacher.swift in Sources */ = {isa = PBXBuildFile; fileRef = D300F1DB2365BC270098CA83 /* Teacher.swift */; };
 		D313F496233AAB6C0076CFF8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D313F495233AAB6C0076CFF8 /* AppDelegate.swift */; };
@@ -113,6 +119,7 @@
 		5F034A3E2389B2E600D90DB7 /* uk */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = uk; path = uk.lproj/Main.storyboard; sourceTree = "<group>"; };
 		5F2F313C2395972900FC28CB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		5F2F313E2395C62100FC28CB /* Colours.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colours.swift; sourceTree = "<group>"; };
+		5F305C76242260560035B509 /* SheduleVC+UITableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SheduleVC+UITableView.swift"; sourceTree = "<group>"; };
 		5F4457E32376FB05008F9E21 /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		5F46AD5D23FEC43500B145D5 /* FavouriteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouriteViewController.swift; sourceTree = "<group>"; };
 		5F46AD6423FFD66E00B145D5 /* GroupsNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupsNavigationController.swift; sourceTree = "<group>"; };
@@ -147,6 +154,7 @@
 		5FCBBA1D241C4FCC00E7654F /* ColorPickerCellMy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorPickerCellMy.swift; sourceTree = "<group>"; };
 		5FCBBA1F241C4FF600E7654F /* ColorPickerViewMy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorPickerViewMy.swift; sourceTree = "<group>"; };
 		5FCBBA21241C501E00E7654F /* UIColorExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorExtensions.swift; sourceTree = "<group>"; };
+		5FD5B7142422171900B86FB7 /* Enums.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Enums.swift; sourceTree = "<group>"; };
 		5FE048642392D16A00092422 /* EditingLessons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditingLessons.swift; sourceTree = "<group>"; };
 		5FE048662392D4FA00092422 /* ManagingLessons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManagingLessons.swift; sourceTree = "<group>"; };
 		5FE048682393027900092422 /* TimeAndDate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeAndDate.swift; sourceTree = "<group>"; };
@@ -157,7 +165,7 @@
 		5FE9678C240FAFA6000AD157 /* Lessonv2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Lessonv2.xcdatamodel; sourceTree = "<group>"; };
 		64742B8F505E8689AB85A1F6 /* Pods_Widget.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Widget.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C33203580DD02E686E10BAEC /* Pods-kpiRozklad.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-kpiRozklad.release.xcconfig"; path = "Target Support Files/Pods-kpiRozklad/Pods-kpiRozklad.release.xcconfig"; sourceTree = "<group>"; };
-		D300F1D52364CEA30098CA83 /* TeachersViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeachersViewController.swift; sourceTree = "<group>"; };
+		D300F1D52364CEA30098CA83 /* GroupsAndTeachersViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupsAndTeachersViewController.swift; sourceTree = "<group>"; };
 		D300F1D92364CF490098CA83 /* SettingsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
 		D300F1DB2365BC270098CA83 /* Teacher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Teacher.swift; sourceTree = "<group>"; };
 		D313F492233AAB6C0076CFF8 /* KPI Rozklad.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "KPI Rozklad.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -208,6 +216,14 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
+		5F305C7C242264400035B509 /* Other */ = {
+			isa = PBXGroup;
+			children = (
+				5FD5B71724226F1C00B86FB7 /* ViewControllers */,
+			);
+			path = Other;
+			sourceTree = "<group>";
+		};
 		5F46AD5823FEC35E00B145D5 /* Favourite */ = {
 			isa = PBXGroup;
 			children = (
@@ -226,30 +242,6 @@
 			sourceTree = "<group>";
 		};
 		5F46AD5A23FEC3DF00B145D5 /* Views */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Views;
-			sourceTree = "<group>";
-		};
-		5F46AD5F23FEC7D800B145D5 /* Groups */ = {
-			isa = PBXGroup;
-			children = (
-				5F46AD6023FEC7EA00B145D5 /* ViewControllers */,
-				5F46AD6123FEC83100B145D5 /* Views */,
-			);
-			path = Groups;
-			sourceTree = "<group>";
-		};
-		5F46AD6023FEC7EA00B145D5 /* ViewControllers */ = {
-			isa = PBXGroup;
-			children = (
-				5F46AD6423FFD66E00B145D5 /* GroupsNavigationController.swift */,
-			);
-			path = ViewControllers;
-			sourceTree = "<group>";
-		};
-		5F46AD6123FEC83100B145D5 /* Views */ = {
 			isa = PBXGroup;
 			children = (
 			);
@@ -323,6 +315,15 @@
 				5FCBBA19241C4F5F00E7654F /* ColorPickerViewDelegateMy.swift */,
 			);
 			path = ColourPicker;
+			sourceTree = "<group>";
+		};
+		5FD5B71724226F1C00B86FB7 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				5F686F3923800CFB008B0915 /* AddLessonViewController.swift */,
+				5F4E51EC2403D9DD0034D250 /* GreetingViewController.swift */,
+			);
+			path = ViewControllers;
 			sourceTree = "<group>";
 		};
 		5FE0486E23930D0700092422 /* Structs */ = {
@@ -399,10 +400,10 @@
 			isa = PBXGroup;
 			children = (
 				D3FFAAD7234F79760065E9CE /* Shedule */,
-				5F46AD5F23FEC7D800B145D5 /* Groups */,
-				D3FFAAE32352464D0065E9CE /* Teachers */,
+				D3FFAAE32352464D0065E9CE /* GroupsAndTeachers */,
 				5F46AD5823FEC35E00B145D5 /* Favourite */,
 				D3FFAADA234F7A2C0065E9CE /* Settings */,
+				5F305C7C242264400035B509 /* Other */,
 				5F034A342389B16D00D90DB7 /* Main.storyboard */,
 			);
 			path = Models;
@@ -411,8 +412,8 @@
 		D3FFAAD7234F79760065E9CE /* Shedule */ = {
 			isa = PBXGroup;
 			children = (
-				D3FFAAD8234F79AA0065E9CE /* Views */,
 				D3FFAAD9234F79CE0065E9CE /* ViewControllers */,
+				D3FFAAD8234F79AA0065E9CE /* Views */,
 			);
 			path = Shedule;
 			sourceTree = "<group>";
@@ -430,10 +431,10 @@
 			children = (
 				D313F4AD233AAF920076CFF8 /* SheduleViewController.swift */,
 				5FE0486C23930C3000092422 /* SheduleVC+UIPickerVC.swift */,
+				5F305C76242260560035B509 /* SheduleVC+UITableView.swift */,
+				D3FFAAE62352467F0065E9CE /* TeacherSheduleViewController.swift */,
 				D363E7A9233BB74B00573EB2 /* SheduleDetailViewController.swift */,
 				5FE96784240F0C22000AD157 /* SheduleDetailNavigationController.swift */,
-				5F686F3923800CFB008B0915 /* AddLessonViewController.swift */,
-				5F4E51EC2403D9DD0034D250 /* GreetingViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -511,6 +512,7 @@
 				5FE048682393027900092422 /* TimeAndDate.swift */,
 				5FE0486A2393087900092422 /* CoreDataHelpers.swift */,
 				5F2F313E2395C62100FC28CB /* Colours.swift */,
+				5FD5B7142422171900B86FB7 /* Enums.swift */,
 				5FE0486E23930D0700092422 /* Structs */,
 				D3FFAAE223521BAC0065E9CE /* Extensions */,
 			);
@@ -531,13 +533,13 @@
 			path = Extensions;
 			sourceTree = "<group>";
 		};
-		D3FFAAE32352464D0065E9CE /* Teachers */ = {
+		D3FFAAE32352464D0065E9CE /* GroupsAndTeachers */ = {
 			isa = PBXGroup;
 			children = (
 				D3FFAAE52352466A0065E9CE /* ViewControllers */,
 				D3FFAAE4235246570065E9CE /* Views */,
 			);
-			path = Teachers;
+			path = GroupsAndTeachers;
 			sourceTree = "<group>";
 		};
 		D3FFAAE4235246570065E9CE /* Views */ = {
@@ -551,9 +553,9 @@
 		D3FFAAE52352466A0065E9CE /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				5F46AD6423FFD66E00B145D5 /* GroupsNavigationController.swift */,
 				5FE9678224091880000AD157 /* TeachersNavigationController.swift */,
-				D300F1D52364CEA30098CA83 /* TeachersViewController.swift */,
-				D3FFAAE62352467F0065E9CE /* TeacherSheduleViewController.swift */,
+				D300F1D52364CEA30098CA83 /* GroupsAndTeachersViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -737,9 +739,11 @@
 				5FCBBA04241C468F00E7654F /* StringExtensions.swift in Sources */,
 				5F0275BC23F34BD100743637 /* TimeAndDate.swift in Sources */,
 				5F0275BE23F34FC800743637 /* ManagingLessons.swift in Sources */,
+				5F305C7A242263A70035B509 /* Settings.swift in Sources */,
 				5F0275BB23F34A0F00743637 /* Group.swift in Sources */,
 				5FACFF9123ED65020022DF88 /* UIViewExtension.swift in Sources */,
 				5FACFF8123ED63D40022DF88 /* TodayViewController.swift in Sources */,
+				5F305C7B242263BC0035B509 /* Colours.swift in Sources */,
 				5FCBBA06241C469500E7654F /* UIViewControllerExtensions.swift in Sources */,
 				5F0275B823F3493B00743637 /* CoreDataStack.swift in Sources */,
 				5FCBBA05241C469200E7654F /* UIButtonExtensions.swift in Sources */,
@@ -749,6 +753,8 @@
 				5F0275BD23F34D9000743637 /* OtherExtensions.swift in Sources */,
 				5FACFF8F23ED64840022DF88 /* LessonTableViewCell.swift in Sources */,
 				5FCBBA07241C469700E7654F /* UITableViewCellExtensions.swift in Sources */,
+				5F305C792422639D0035B509 /* UIColorExtensions.swift in Sources */,
+				5FD5B7162422174B00B86FB7 /* Enums.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -757,11 +763,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				D313F496233AAB6C0076CFF8 /* AppDelegate.swift in Sources */,
+				5F305C77242260560035B509 /* SheduleVC+UITableView.swift in Sources */,
 				5F686F3A23800CFB008B0915 /* AddLessonViewController.swift in Sources */,
 				5F7BABBF23A163C8009E3CA6 /* Error.swift in Sources */,
 				D3FFAAE72352467F0065E9CE /* TeacherSheduleViewController.swift in Sources */,
 				5F46AD5E23FEC43500B145D5 /* FavouriteViewController.swift in Sources */,
 				D34BEBC5233CCFC10035F7B4 /* OtherExtensions.swift in Sources */,
+				5FD5B7152422171900B86FB7 /* Enums.swift in Sources */,
 				5FCBB9FD241C404F00E7654F /* StringExtensions.swift in Sources */,
 				5FA2B79D2379F5A7006C466B /* Group.swift in Sources */,
 				5FCBBA20241C4FF600E7654F /* ColorPickerViewMy.swift in Sources */,
@@ -783,7 +791,7 @@
 				5F2F313F2395C62100FC28CB /* Colours.swift in Sources */,
 				5F46AD682401A0F700B145D5 /* Favourites.swift in Sources */,
 				5FE96785240F0C22000AD157 /* SheduleDetailNavigationController.swift in Sources */,
-				D300F1D62364CEA30098CA83 /* TeachersViewController.swift in Sources */,
+				D300F1D62364CEA30098CA83 /* GroupsAndTeachersViewController.swift in Sources */,
 				5FE048692393027900092422 /* TimeAndDate.swift in Sources */,
 				D313F4AE233AAF920076CFF8 /* SheduleViewController.swift in Sources */,
 				5FCBBA09241C4B3000E7654F /* ColourPickerViewController.swift in Sources */,

@@ -8,12 +8,9 @@
 
 import UIKit
 
-enum SheduleType {
-    case groups
-    case teachers
-}
 
-class TeachersViewController: UIViewController {
+
+class GroupsAndTeachersViewController: UIViewController {
     
     
     @IBOutlet weak var tableView: UITableView!
@@ -423,7 +420,7 @@ class TeachersViewController: UIViewController {
 }
 
 
-extension TeachersViewController: UITableViewDelegate, UITableViewDataSource {
+extension GroupsAndTeachersViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if isSheduleTeachersChooser || isTeacherViewController {
@@ -540,7 +537,7 @@ extension TeachersViewController: UITableViewDelegate, UITableViewDataSource {
 
 
 //Mark: - extencions for search
-extension TeachersViewController: UISearchResultsUpdating {
+extension GroupsAndTeachersViewController: UISearchResultsUpdating {
 
         // MARK: - updateSearchResults
     func updateSearchResults(for searchController: UISearchController) {

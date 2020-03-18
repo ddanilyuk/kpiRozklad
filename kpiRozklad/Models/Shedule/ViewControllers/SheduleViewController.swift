@@ -34,7 +34,12 @@ class SheduleViewController: UIViewController {
     @IBOutlet weak var favouriteButton: UIButton!
     
     /// The **main** variable with which the table is updated
-    var lessonsForTableView: [(key: DayName, value: [Lesson])] = []
+    var lessonsForTableView: [(key: DayName, value: [Lesson])] = [DayName.mounday: [],
+                                                                  .tuesday: [],
+                                                                  .wednesday: [],
+                                                                  .thursday: [],
+                                                                  .friday: [],
+                                                                  .saturday: []].sorted{$0.key < $1.key}
         
     /**
         Сurrent week whlessonsCoreDataich is obtained from the date on the device
@@ -80,7 +85,6 @@ class SheduleViewController: UIViewController {
     
     var destinationLesson: Lesson?
     
-    
     var isFromSettingsGetFreshShedule: Bool = false
     
     var isFromGroups: Bool = false
@@ -95,15 +99,20 @@ class SheduleViewController: UIViewController {
     /// Favourites singleton
     var favourites = Favourites.shared
     
+    var window: UIWindow?
+
+    
 //    var requestTypeChoosen: SheduleType = .teachers
 
     
     // MARK: - viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.window = UIWindow(frame: UIScreen.main.bounds)
+
         
         /// presenting `GroupChooserViewController` if `settings.groupName == ""`
-        presentGroupChooser(requestType: global.sheduleType)
+        presentGroupOrTeacherChooser(requestType: global.sheduleType)
         
         /// Button `Edit` & title (group name)
         setupNavigation()
@@ -126,11 +135,19 @@ class SheduleViewController: UIViewController {
             
             self.navigationItem.rightBarButtonItems = [segmentBatButtonItem]
             self.weekSwitch.frame = CGRect(x: 0, y: 0, width: 90, height: weekSwitch.frame.height)
+            
+            makeLessonsShedule()
+
+//            activityIndicator.stopAnimating()
+//            activityIndicator.isHidden = true
+//            tableView.isHidden = false
 
         } else if isFromGroups {
 //            self.navigationItem.largeTitleDisplayMode = .never
             self.navigationItem.rightBarButtonItems = [segmentBatButtonItem, favouriteBarButtonItem]
             self.weekSwitch.frame = CGRect(x: 0, y: 0, width: 90, height: weekSwitch.frame.height)
+            
+            makeLessonsShedule()
             
             checkIfGroupInFavourites()
 
@@ -145,7 +162,7 @@ class SheduleViewController: UIViewController {
             setupCurrentWeek()
             
             /// Fetching Core Data and make variable for tableView
-            makeLessonsShedule(lessonsInit: nil)
+            makeLessonsShedule()
 
             if isNeedToScroll {
                 scrollToCurrentOrNext()
@@ -158,13 +175,7 @@ class SheduleViewController: UIViewController {
     
     
     
-    @objc func reloadAfterOpenApp() {
-        let lessons = [Lesson]()
-        
-        makeLessonsShedule(lessonsInit: lessons)
-        
-        makeLessonsShedule(lessonsInit: nil)
-    }
+
         
     
     // MARK: - viewWillAppear
@@ -172,38 +183,40 @@ class SheduleViewController: UIViewController {
         
         self.view.alpha = 1
         
-        setupAtivityIndicator()
+//        setupAtivityIndicator()
 
         /// presenting `GroupChooserViewController` if `settings.groupName == ""`
-        presentGroupChooser(requestType: global.sheduleType)
+        presentGroupOrTeacherChooser(requestType: global.sheduleType)
         
         /// Choosing new Curent and next lesson
-        if settings.groupName != "" || settings.teacherName != "" {
-            makeLessonsShedule(lessonsInit: nil)
-        }
+//        if settings.groupName != "" || settings.teacherName != "" {
+//            makeLessonsShedule()
+//        }
         
-        if  lessonsForTableView[0].value.count == 0 &&
-            lessonsForTableView[1].value.count == 0 &&
-            lessonsForTableView[2].value.count == 0 &&
-            lessonsForTableView[3].value.count == 0 &&
-            lessonsForTableView[4].value.count == 0 {
-            setupAtivityIndicator()
-        }
+//        if  lessonsForTableView[0].value.count == 0 &&
+//            lessonsForTableView[1].value.count == 0 &&
+//            lessonsForTableView[2].value.count == 0 &&
+//            lessonsForTableView[3].value.count == 0 &&
+//            lessonsForTableView[4].value.count == 0 {
+//            setupAtivityIndicator()
+//        }
+//        setupAtivityIndicator()
+
         
         /// If Core Data is empty, making request from server
         if settings.isTryToRefreshShedule {
             /// Start animating and show activityIndicator
-            setupAtivityIndicator()
+//            setupAtivityIndicator()
             
             server(requestType: global.sheduleType)
             
             settings.isTryToRefreshShedule = false
         }
 
-        /// Reloading tableView if need
+        /// Reloading tableView if need (used iwith add lesson)
         if settings.isTryToReloadTableView {
             DispatchQueue.main.async {
-                self.makeLessonsShedule(lessonsInit: nil)
+                self.makeLessonsShedule()
                 
                 self.tableView.reloadData()
                 
@@ -217,6 +230,7 @@ class SheduleViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         if !isFromSettingsGetFreshShedule {
             
+            // setup navigation and status bar colour
             self.navigationController?.navigationBar.barTintColor = tint
             self.navigationController?.navigationBar.backgroundColor = tint
             if #available(iOS 13.0, *) {
@@ -228,14 +242,10 @@ class SheduleViewController: UIViewController {
                 view.addSubview(statusbarView)
               
                 statusbarView.translatesAutoresizingMaskIntoConstraints = false
-                statusbarView.heightAnchor
-                    .constraint(equalToConstant: statusBarHeight).isActive = true
-                statusbarView.widthAnchor
-                    .constraint(equalTo: view.widthAnchor, multiplier: 1.0).isActive = true
-                statusbarView.topAnchor
-                    .constraint(equalTo: view.topAnchor).isActive = true
-                statusbarView.centerXAnchor
-                    .constraint(equalTo: view.centerXAnchor).isActive = true
+                statusbarView.heightAnchor.constraint(equalToConstant: statusBarHeight).isActive = true
+                statusbarView.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 1.0).isActive = true
+                statusbarView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+                statusbarView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
               
             } else {
                 let statusBar = UIApplication.shared.value(forKeyPath: "statusBarWindow.statusBar") as? UIView
@@ -328,31 +338,53 @@ class SheduleViewController: UIViewController {
     
     // MARK: - presentGroupChooser
     /// Func which present `GroupChooserViewController` (navigationGroupChooser)
-    func presentGroupChooser(requestType: SheduleType) {
+    func presentGroupOrTeacherChooser(requestType: SheduleType) {
         if requestType == .groups {
             if settings.groupName == "" {
-                deleteAllFromCoreData()
-
-                self.lessonsForTableView = [DayName.mounday: [],
-                                            .tuesday: [],
-                                            .wednesday: [],
-                                            .thursday: [],
-                                            .friday: [],
-                                            .saturday: []].sorted{$0.key < $1.key}
-                tableView.reloadData()
-                
-                let mainStoryboard = UIStoryboard(name: "Main", bundle: Bundle.main)
-                guard let groupsChooserNavigationController = mainStoryboard.instantiateViewController(withIdentifier: TeachersNavigationController.identifier) as? TeachersNavigationController else { return }
-                
-                groupsChooserNavigationController.isSheduleGroupChooser = true
-                
-                if #available(iOS 13.0, *) {
-                    groupsChooserNavigationController.isModalInPresentation = true
-                } else {
-                    // Fallback on earlier versions
+                guard let greetingVC = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: GreetingViewController.identifier) as? GreetingViewController else {
+                    return
                 }
                 
-                self.present(groupsChooserNavigationController, animated: true, completion: { self.setupAtivityIndicator() })
+                guard let window = window else { return }
+
+                
+                window.rootViewController = greetingVC
+                window.makeKeyAndVisible()
+                
+                let options: UIView.AnimationOptions = .transitionCrossDissolve
+                greetingVC.modalTransitionStyle = .crossDissolve
+
+                // The duration of the transition animation, measured in seconds.
+                let duration: TimeInterval = 0.4
+
+                UIView.transition(with: window, duration: duration, options: options, animations: {}, completion:
+                    { completed in
+                    // maybe do something on completion here
+                })
+//                deleteAllFromCoreData()
+//
+//                self.lessonsForTableView = [DayName.mounday: [],
+//                                            .tuesday: [],
+//                                            .wednesday: [],
+//                                            .thursday: [],
+//                                            .friday: [],
+//                                            .saturday: []].sorted{$0.key < $1.key}
+
+//                return
+//                tableView.reloadData()
+//
+//                let mainStoryboard = UIStoryboard(name: "Main", bundle: Bundle.main)
+//                guard let groupsChooserNavigationController = mainStoryboard.instantiateViewController(withIdentifier: TeachersNavigationController.identifier) as? TeachersNavigationController else { return }
+//
+//                groupsChooserNavigationController.isSheduleGroupChooser = true
+//
+//                if #available(iOS 13.0, *) {
+//                    groupsChooserNavigationController.isModalInPresentation = true
+//                } else {
+//                    // Fallback on earlier versions
+//                }
+//
+//                self.present(groupsChooserNavigationController, animated: true, completion: { self.setupAtivityIndicator() })
             }
         } else {
             if settings.teacherName == "" {
@@ -404,7 +436,7 @@ class SheduleViewController: UIViewController {
     }
     
     
-    func scrollToCurrentOrNext() {
+    private func scrollToCurrentOrNext() {
         var indexPathToScroll = IndexPath(row: 0, section: 0)
 
         k: for section in 0..<self.lessonsForTableView.count {
@@ -436,7 +468,8 @@ class SheduleViewController: UIViewController {
     /// Main function which fetch lessons from core data and remake `[Lesson]` to `[(key: DayName, value: [Lesson])]`
     /// - Note: call in `weekChanged()` and after getting data from `server()`
     /// - Remark: make shedule only for one week.
-    func makeLessonsShedule(lessonsInit: [Lesson]?) {
+    func makeLessonsShedule() {
+        //lessonsInit: [Lesson]?
         /// fetching Core Data
         var lessons: [Lesson] = []
         
@@ -448,16 +481,16 @@ class SheduleViewController: UIViewController {
         } else {
             lessons = fetchingCoreDataV2()
             setupDate()
+            
             let currentAndNext = getCurrentAndNextLesson(lessons: lessons, timeIsNowString: timeIsNowString, dayNumberFromCurrentDate: dayNumberFromCurrentDate, currentWeekFromTodayDate: currentWeekFromTodayDate)
             
             currentLessonId = currentAndNext.currentLessonID
             nextLessonId = currentAndNext.nextLessonID
         }
         
-        if lessonsInit != nil {
-            lessons = lessonsInit ?? []
-        }
-
+//        if lessonsInit != nil {
+//            lessons = lessonsInit ?? []
+//        }
 
         /// Getting lesson for first week and second
         var lessonsFirst: [Lesson] = []
@@ -575,7 +608,7 @@ class SheduleViewController: UIViewController {
                                 self.settings.groupName = ""
                                 self.settings.teacherName = ""
                     
-                                self.presentGroupChooser(requestType: global.sheduleType)
+                                self.presentGroupOrTeacherChooser(requestType: global.sheduleType)
                             }))
                             
                             self.present(alert, animated: true, completion: {
@@ -601,11 +634,11 @@ class SheduleViewController: UIViewController {
         switch weekSwitch.selectedSegmentIndex {
             case 0:
                 currentWeek = 1
-                makeLessonsShedule(lessonsInit: nil)
+                makeLessonsShedule()
                 tableView.reloadData()
             case 1:
                 currentWeek = 2
-                makeLessonsShedule(lessonsInit: nil)
+                makeLessonsShedule()
                 tableView.reloadData()
             default:
                 break
@@ -613,19 +646,9 @@ class SheduleViewController: UIViewController {
     }
     
     
-    // MARK: - setEditing
-    /// Calls when editing starts
-    override func setEditing(_ editing: Bool, animated: Bool) {
-        super.setEditing(editing, animated: animated)
-        if editing {
-            self.tableView.setEditing(true, animated: true)
-            self.tableView.insertSections(IndexSet(integer: self.lessonsForTableView.count), with: .automatic)
-        }
-        else {
-            self.tableView.setEditing(false, animated: true)
-            self.tableView.deleteSections(IndexSet(integer: self.lessonsForTableView.count), with: .automatic)
-        }
-    }
+    
+    
+    
     
     @IBAction func didPressFavouriteButton(_ sender: UIButton) {
         guard let strongGroup = group else { return }
@@ -659,6 +682,7 @@ class SheduleViewController: UIViewController {
     }
     
     
+    // MARK: - Other functions
     public func setupNextLessonCell(cell: LessonTableViewCell) {
         cell.backgroundColor = Settings.shared.cellNextColour
         
@@ -671,6 +695,7 @@ class SheduleViewController: UIViewController {
         cell.lessonLabel.textColor = textColour
     }
 
+    
     public func setupCurrentLessonCell(cell: LessonTableViewCell) {
         cell.backgroundColor = Settings.shared.cellCurrentColour
         
@@ -683,283 +708,12 @@ class SheduleViewController: UIViewController {
         cell.lessonLabel.textColor = textColour
     }
     
-}
-
-
-// MARK: - Table View Settings
-extension SheduleViewController: UITableViewDelegate, UITableViewDataSource {
-    
-    
-    // MARK: - numberOfSections
-    func numberOfSections(in tableView: UITableView) -> Int {
-        if self.isEditing == true {
-            return 7
-        } else {
-            return 6
-        }
-    }
-
-    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        return 0.001
+    @objc func reloadAfterOpenApp() {
+//        let lessons = [Lesson]()
+        
+//        makeLessonsShedule(lessonsInit: lessons)
+        
+        makeLessonsShedule()
     }
     
-    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 30
-    }
-
-    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let returnedView = UIView(frame: CGRect(x: 0, y: 0, width: view.frame.size.width, height: 35))
-        var array: [String] = [DayName.mounday.rawValue,
-                               DayName.tuesday.rawValue,
-                               DayName.wednesday.rawValue,
-                               DayName.thursday.rawValue,
-                               DayName.friday.rawValue,
-                               DayName.saturday.rawValue]
-        
-        self.isEditing ? array.append("Нова пара") : nil
-        
-        returnedView.backgroundColor = sectionColour
-
-        let label = UILabel(frame: CGRect(x: 16, y: 3, width: view.frame.size.width, height: 25))
-        label.text = array[section]
-
-        if #available(iOS 13.0, *) {
-            label.textColor = .label
-        } else {
-            label.textColor = .black
-        }
-        returnedView.addSubview(label)
-
-        return returnedView
-    }
-    
-    // MARK: - titleForHeaderInSection
-    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        
-        var array: [String] = [DayName.mounday.rawValue,
-                               DayName.tuesday.rawValue,
-                               DayName.wednesday.rawValue,
-                               DayName.thursday.rawValue,
-                               DayName.friday.rawValue,
-                               DayName.saturday.rawValue]
-                        
-        self.isEditing ? array.append("Нова пара") : nil
-        return array[section]
-    }
-    
-    
-    // MARK: - numberOfRowsInSection
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if self.isEditing == true && section == self.lessonsForTableView.count {
-            return 1
-        }
-        else {
-            return self.lessonsForTableView[section].value.count
-        }
-    }
-    
-    
-    // MARK: - prepare
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-   
-        if segue.identifier == "showDetailViewController" {
-            if let strongDestinationLesson = destinationLesson {
-                if let destination = segue.destination as? SheduleDetailViewController {
-                    destination.lesson = strongDestinationLesson
-                }
-            } else {
-                if let indexPath = tableView.indexPathForSelectedRow {
-                    if let destination = segue.destination as? SheduleDetailViewController {
-                        if indexPath.section != lessonsForTableView.count {
-                            destination.lesson = lessonsForTableView[indexPath.section].value[indexPath.row]
-                        }
-                    }
-                }
-            }
-        }
-    }
-    
-    
-    // MARK: - heightForRowAt
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 68
-    }
-    
-    // MARK: - didSelectRowAt
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if indexPath.section == lessonsForTableView.count {
-            presentAddLesson()
-        } else if isEditing {
-            /// Presenting alert (popup) with pickerView
-            let alertView = UIAlertController(
-                               title: nil,
-                               message: "\n\n\n\n\n\n",
-                               preferredStyle: .actionSheet)
-
-            let pickerView = UIPickerView(frame: CGRect(x: 0, y: 0, width: screenWidth - 16, height: 140))
-            
-            pickerView.dataSource = self
-            pickerView.delegate = self
-
-            alertView.view.addSubview(pickerView)
-            
-            alertView.addAction(UIAlertAction(title: "Змінити", style: .default, handler: { (_) in
-                editLessonNumber(vc: self, indexPath: indexPath)
-            }))
-            
-            alertView.addAction(UIAlertAction(title: "Назад", style: .cancel, handler: { (_) in
-            }))
-
-            present(alertView, animated: true, completion: nil)
-        } else {
-            if indexPath.section != lessonsForTableView.count {
-                
-
-                
-                guard let vc = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: SheduleDetailNavigationController.identifier) as? SheduleDetailNavigationController else {
-                    return
-                }
-                
-                vc.lesson = lessonsForTableView[indexPath.section].value[indexPath.row]
-                
-                
-                presentPanModal(vc)
-                
-                
-                
-            }
-        }
-        
-        tableView.deselectRow(at: indexPath, animated: true)
-    }
-        
-    
-    // MARK: - cellForRowAt
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
-        /// Creating cell for adding new lessson
-        if indexPath.section == self.lessonsForTableView.count && self.isEditing == true {
-            let cell = UITableViewCell(style: .default, reuseIdentifier: "addCell")
-            cell.textLabel?.text = "Додати пару"
-            return cell
-        }
-        
-        
-        /// Creating main cell
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: LessonTableViewCell.identifier, for: indexPath) as? LessonTableViewCell else { return UITableViewCell() }
-        if #available(iOS 13.0, *) {
-            cell.backgroundColor = .systemBackground
-        } else {
-            cell.backgroundColor = .white
-        }
-        let lesson = lessonsForTableView[indexPath.section].value[indexPath.row]
-        
-        cell.lessonLabel.text = lesson.lessonName
-        
-        cell.teacherLabel.text = lesson.teacherName != "" ? lesson.teacherName : " "
-        
-        var colourTextLabel: UIColor {
-            if #available(iOS 13.0, *) {
-                return .label
-            } else {
-                return .black
-            }
-        }
-               
-               
-       cell.startLabel.textColor = colourTextLabel
-       cell.endLabel.textColor = colourTextLabel
-       cell.teacherLabel.textColor = colourTextLabel
-       cell.roomLabel.textColor = colourTextLabel
-       cell.lessonLabel.textColor = colourTextLabel
-        
-        if currentLessonId == lesson.lessonID {
-            
-            setupCurrentLessonCell(cell: cell)
-        }
-        
-        if nextLessonId == lesson.lessonID {
-            setupNextLessonCell(cell: cell)
-        }
-        
-        cell.startLabel.text = String(lesson.timeStart[..<5])
-        cell.endLabel.text = String(lesson.timeEnd[..<5])
-        cell.roomLabel.text = lesson.lessonType.rawValue + " " + lesson.lessonRoom
-        cell.timeLeftLabel.text = ""
-    
-        return cell
-    }
-    
-    
-    
-    
-    // MARK: - commit editingStyle forRowAt
-    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            /// Lesson to delete
-            let lesson = self.lessonsForTableView[indexPath.section].value[indexPath.row]
-            
-            var lessons = fetchingCoreDataV2()
-            
-            /// deleting from `lessons`  which will be used for further updates in `updateCoreData(datum: lessons)`
-            for i in 0..<lessons.count {
-                let lessonAll = lessons[i]
-                if lessonAll.lessonID == lesson.lessonID {
-                    lessons.remove(at: i)
-                    break
-                }
-            }
-            
-            updateCoreDataV2(vc: self, datum: lessons)
-        
-            self.lessonsForTableView[indexPath.section].value.remove(at: indexPath.row)
-            
-            self.tableView.deleteRows(at: [indexPath], with: .fade)
-
-            
-        } else if editingStyle == .insert {
-            presentAddLesson()
-        }
-    }
-     
-    
-    // MARK: - moveRowAt sourceIndexPath to destinationIndexPath
-    /// - todo: try to use iterator for `lessonsToEdit`
-    func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
-        moveRow(vc: self, sourceIndexPath: sourceIndexPath, destinationIndexPath: destinationIndexPath)
-    }
-    
-    
-    // MARK: - canMoveRowAt
-    func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        if indexPath.section == self.lessonsForTableView.count {
-            return false
-        }
-        else {
-            return true
-        }
-    }
-    
-    
-    // MARK: - editingStyleForRowAt
-    func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
-        if indexPath.section == self.lessonsForTableView.count {
-            return .insert
-        } else if isEditing {
-            return .delete
-        } else {
-            return .none
-        }
-    }
-    
-    
-    // MARK: - targetIndexPathForMoveFromRowAt sourceIndexPath toProposedIndexPath
-    func tableView(_ tableView: UITableView, targetIndexPathForMoveFromRowAt sourceIndexPath: IndexPath, toProposedIndexPath proposedDestinationIndexPath: IndexPath) -> IndexPath {
-        if proposedDestinationIndexPath.section >= self.lessonsForTableView.count {
-            return sourceIndexPath
-        }
-        else {
-            return proposedDestinationIndexPath
-        }
-    }
 }

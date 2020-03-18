@@ -184,7 +184,7 @@ func updateCoreDataV2(vc: SheduleViewController, datum:  [Lesson]) {
             
         }
         
-        vc.makeLessonsShedule(lessonsInit: nil)
+        vc.makeLessonsShedule()
     }
     
 }

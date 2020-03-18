@@ -8,10 +8,7 @@
 
 import UIKit
 
-enum typeFavourite {
-    case group
-    case teacher
-}
+
 
 class FavouriteViewController: UIViewController {
 

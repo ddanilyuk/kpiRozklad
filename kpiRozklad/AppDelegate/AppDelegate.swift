@@ -79,7 +79,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         for i in 1..<3 {
             sheduleVC.currentWeek = i
             sheduleVC.isNeedToScroll = false
-            sheduleVC.makeLessonsShedule(lessonsInit: nil)
+            sheduleVC.makeLessonsShedule()
             let lessonsForTableView = sheduleVC.lessonsForTableView
             for day in lessonsForTableView {
                 let lessons = day.value

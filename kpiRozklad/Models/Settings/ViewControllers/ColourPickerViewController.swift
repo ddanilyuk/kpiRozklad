@@ -8,10 +8,10 @@
 
 import UIKit
 
-enum CellType {
-    case current
-    case next
-}
+//enum CellType {
+//    case current
+//    case next
+//}
 
 class ColourPickerViewController: UIViewController {
 
@@ -184,23 +184,23 @@ class ColourPickerViewController: UIViewController {
     
     
     override func viewDidAppear(_ animated: Bool) {
-        selectDefaultColour(cellType: .current)
+        selectDefaultColour(cellType: .currentCell)
     }
     
     
     @IBAction func didChangeCellType(_ sender: UISegmentedControl) {
         switch segmentControl.selectedSegmentIndex {
         case 0:
-            selectDefaultColour(cellType: .current)
+            selectDefaultColour(cellType: .currentCell)
         case 1:
-            selectDefaultColour(cellType: .next)
+            selectDefaultColour(cellType: .nextCell)
         default: break
             
         }
     }
     
     
-    func selectDefaultColour(cellType: CellType) {
+    func selectDefaultColour(cellType: SheduleCellType) {
         let index = findIndexOfDefaultСolour(cellType: cellType)
 
         if colorPickerView.indexOfSelectedColor != index {
@@ -210,12 +210,12 @@ class ColourPickerViewController: UIViewController {
     }
     
     
-    func findIndexOfDefaultСolour(cellType: CellType) -> Int {
+    func findIndexOfDefaultСolour(cellType: SheduleCellType) -> Int {
         var colourToFind = UIColor.clear
         
-        if cellType == .current {
+        if cellType == .currentCell {
             colourToFind = settings.cellCurrentColour
-        } else if cellType == .next {
+        } else if cellType == .nextCell {
             colourToFind = settings.cellNextColour
         }
         

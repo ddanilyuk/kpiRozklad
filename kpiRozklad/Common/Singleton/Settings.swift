@@ -9,7 +9,9 @@
 import UIKit
 
 public class Settings {
-    private let userDefaults = UserDefaults.standard
+    private var userDefaults = UserDefaults.standard
+    private var userDefaultsWidget = UserDefaults(suiteName: "group.kpiRozkladWidget") ?? UserDefaults()
+
      
     static let shared = Settings()
      
@@ -133,10 +135,15 @@ public class Settings {
     
     var cellNextColour: UIColor {
         get {
-//            let color = NSKeyedUnarchiver.unarchiveObject(with: userDefaults.data(forKey: "cellNextColour") ?? Data()) as? UIColor
+//            let color2 = NSKeyedUnarchiver.unarchiveObject(with: userDefaults.data(forKey: "cellNextColour") ?? Data()) as? UIColor
             
-            let colour = try? NSKeyedUnarchiver.unarchivedObject(ofClass: UIColor.self, from: userDefaults.data(forKey: "cellNextColour") ?? Data())
-            return colour ?? blue
+            var color = try? NSKeyedUnarchiver.unarchivedObject(ofClass: UIColor.self, from: userDefaults.data(forKey: "cellNextColour") ?? Data())
+            
+            if color == nil {
+                color = try? NSKeyedUnarchiver.unarchivedObject(ofClass: UIColor.self, from: userDefaultsWidget.data(forKey: "cellNextColour") ?? Data())
+                
+            }
+            return color ?? blue
         }
         
         set {
@@ -148,6 +155,7 @@ public class Settings {
             }
 
             userDefaults.set(colorData, forKey: "cellNextColour")
+            userDefaultsWidget.set(colorData, forKey: "cellNextColour")
             
         }
     }
@@ -155,7 +163,11 @@ public class Settings {
     
     var cellCurrentColour: UIColor {
         get {
-            let color = try? NSKeyedUnarchiver.unarchivedObject(ofClass: UIColor.self, from: userDefaults.data(forKey: "cellNowColour") ?? Data())
+            var color = try? NSKeyedUnarchiver.unarchivedObject(ofClass: UIColor.self, from: userDefaults.data(forKey: "cellNowColour") ?? Data())
+            if color == nil {
+                color = try? NSKeyedUnarchiver.unarchivedObject(ofClass: UIColor.self, from: userDefaultsWidget.data(forKey: "cellNowColour") ?? Data())
+                
+            }
             return color ?? UIColor.orange
         }
         
@@ -168,6 +180,7 @@ public class Settings {
             }
 
             userDefaults.set(colorData, forKey: "cellNowColour")
+            userDefaultsWidget.set(colorData, forKey: "cellNowColour")
             
         }
     }

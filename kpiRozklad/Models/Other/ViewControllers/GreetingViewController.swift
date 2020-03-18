@@ -27,7 +27,8 @@ class GreetingViewController: UIViewController {
         settings.groupID = 0
         settings.isGroupsShedule = false
         settings.isTeacherShedule = true
-        showMainStoryboard()
+//        showMainStoryboard()
+        presentGroupOrTeacherChooser(requestType: .teachers)
     }
     
     @IBAction func didPressStudentButton(_ sender: UIButton) {
@@ -36,7 +37,9 @@ class GreetingViewController: UIViewController {
         settings.teacherID = 0
         settings.isGroupsShedule = true
         settings.isTeacherShedule = false
-        showMainStoryboard()
+//        showMainStoryboard()
+        presentGroupOrTeacherChooser(requestType: .groups)
+
     }
     
     private func showMainStoryboard() {
@@ -60,5 +63,40 @@ class GreetingViewController: UIViewController {
             // maybe do something on completion here
         })
     }
+    
+    
+    
+    // MARK: - presentGroupChooser
+    /// Func which present `GroupChooserViewController` (navigationGroupChooser)
+    func presentGroupOrTeacherChooser(requestType: SheduleType) {
+        if requestType == .groups {
+            if settings.groupName == "" {
+                deleteAllFromCoreData()
+                
+                let mainStoryboard = UIStoryboard(name: "Main", bundle: Bundle.main)
+                guard let groupsChooserNavigationController = mainStoryboard.instantiateViewController(withIdentifier: TeachersNavigationController.identifier) as? TeachersNavigationController else { return }
+                
+                groupsChooserNavigationController.isSheduleGroupChooser = true
+                
+                self.present(groupsChooserNavigationController, animated: true, completion: nil)
+            }
+        } else {
+            if settings.teacherName == "" {
+                deleteAllFromCoreData()
+                
+                let mainStoryboard = UIStoryboard(name: "Main", bundle: Bundle.main)
+                guard let groupsChooserNavigationController = mainStoryboard.instantiateViewController(withIdentifier: TeachersNavigationController.identifier) as? TeachersNavigationController else { return }
+                
+                groupsChooserNavigationController.isSheduleTeachersChooser = true
+                global.sheduleType = .teachers
+                
+
+                
+                self.present(groupsChooserNavigationController, animated: true, completion: nil)
+            }
+        }
+        
+    }
+    
     
 }

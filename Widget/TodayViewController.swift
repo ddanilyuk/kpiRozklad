@@ -10,6 +10,8 @@ import UIKit
 import CoreData
 import NotificationCenter
 
+
+
 class TodayViewController: UIViewController, NCWidgetProviding {
     @IBOutlet weak var tableView: UITableView!
     var lessons: [Lesson] = []
@@ -494,12 +496,17 @@ extension TodayViewController: UITableViewDataSource, UITableViewDelegate {
             cell.teacherLabel.text = " "
         }
 
+//        let vc = SheduleViewController()
+        
         if currentLessonId == lessonsForSomeDay[indexPath.row].lessonID {
-            cell.backgroundColor = #colorLiteral(red: 1, green: 0.5781051517, blue: 0, alpha: 0.85)
+//            cell.backgroundColor = #colorLiteral(red: 1, green: 0.5781051517, blue: 0, alpha: 0.85)
+            setupCurrentOrNextLessonCell(cell: cell, cellType: .currentCell)
         }
 
         if nextLessonId == lessonsForSomeDay[indexPath.row].lessonID {
-            cell.backgroundColor = colour1
+            setupCurrentOrNextLessonCell(cell: cell, cellType: .nextCell)
+
+//            cell.backgroundColor = colour1
         }
         
         let timeStart = String(lessonsForSomeDay[indexPath.row].timeStart[..<5])
@@ -595,6 +602,41 @@ extension TodayViewController: UITableViewDataSource, UITableViewDelegate {
         cell.timeLeftLabel.text = dateString
         
         return cell
+    }
+    
+    
+    
+//    public func setupNextLessonCell(cell: LessonTableViewCell) {
+//        cell.backgroundColor = Settings.shared.cellNextColour
+//
+//        let textColour: UIColor = cell.backgroundColor?.isWhiteText ?? true ? .white : .black
+//
+//        cell.startLabel.textColor = textColour
+//        cell.endLabel.textColor = textColour
+//        cell.teacherLabel.textColor = textColour
+//        cell.roomLabel.textColor = textColour
+//        cell.lessonLabel.textColor = textColour
+//        cell.timeLeftLabel.textColor = textColour
+//
+//    }
+
+    
+    public func setupCurrentOrNextLessonCell(cell: LessonTableViewCell, cellType: SheduleCellType) {
+        
+        if cellType == .currentCell {
+            cell.backgroundColor = Settings.shared.cellCurrentColour
+        } else if cellType == .nextCell {
+            cell.backgroundColor = Settings.shared.cellNextColour
+        }
+        
+        let textColour: UIColor = cell.backgroundColor?.isWhiteText ?? true ? .white : .black
+        
+        cell.startLabel.textColor = textColour
+        cell.endLabel.textColor = textColour
+        cell.teacherLabel.textColor = textColour
+        cell.roomLabel.textColor = textColour
+        cell.lessonLabel.textColor = textColour
+        cell.timeLeftLabel.textColor = textColour
     }
     
     

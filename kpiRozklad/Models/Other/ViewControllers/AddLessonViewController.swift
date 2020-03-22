@@ -137,6 +137,7 @@ class AddLessonViewController: UIViewController {
             }
         }
         self.arrayPairs = array
+        self.lessonNumber = Int(String(arrayPairs[0][..<1])) ?? 1
     }
     
     

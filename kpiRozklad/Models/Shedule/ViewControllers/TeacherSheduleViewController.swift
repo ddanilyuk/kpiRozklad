@@ -106,39 +106,54 @@ class TeacherSheduleViewController: UIViewController {
         /// setUpCurrentWeek (choosing week)
         setUpCurrentWeek()
         
-        /// Set Up title
-        let title = "Зараз \(self.currentWeekFromTodayDate) тиждень"
-        self.navBar.title = title
-        
-        
-        if teacher != nil {
-            teacherID = teacher?.teacherID
-        }
+        setupNavigation()
         
         /// Start animating and show activityIndicator
-        activityIndicator.startAnimating()
-        tableView.isHidden = true
-        self.view.bringSubviewToFront(activityIndicator)
+        setupActivityIndicator()
         
         
+        guard let teacher = teacher else { return }
+        teacherID = teacher.teacherID
+
         if isFromFavourites || isFromTeachersVC {
             lessons = lessonsFromServer
-            
-            DispatchQueue.main.async {
-                /// Show tableView
-                self.tableView.isHidden = false
-                
-                /// Hide Activity Indicator
-                self.activityIndicator.stopAnimating()
-                self.activityIndicator.isHidden = true
-            }
+            stopLoading()
+//            DispatchQueue.main.async {
+//                self.stopLoading()
+//            }
         } else {
-//            server()
+            server()
         }
         
         makeTeachersLessonsShedule()
         
         checkIfGroupInFavourites()
+    }
+    
+    
+    private func setupNavigation() {
+        self.navBar.title = "Зараз \(self.currentWeekFromTodayDate) тиждень"
+    }
+    
+    
+    private func setupActivityIndicator() {
+        activityIndicator.startAnimating()
+        tableView.isHidden = true
+        self.view.bringSubviewToFront(activityIndicator)
+    }
+    
+    
+    func startLoading() {
+        activityIndicator.startAnimating()
+        activityIndicator.isHidden = false
+        tableView.isHidden = true
+    }
+    
+    
+    func stopLoading() {
+        activityIndicator.stopAnimating()
+        activityIndicator.isHidden = true
+        tableView.isHidden = false
     }
     
     
@@ -168,40 +183,6 @@ class TeacherSheduleViewController: UIViewController {
         tableView.dataSource = self
         tableView.register(UINib(nibName: "LessonTableViewCell", bundle: Bundle.main), forCellReuseIdentifier: "LessonTableViewCell")
     }
-//    // MARK: - getDayNumAndWeekOfYear
-//    /// Getting dayNumber and week of year from device Date()
-//    func getDayNumAndWeekOfYear() {
-//        /// Current date from device
-//        let date = Date()
-//
-//        /// Calendar
-//        let calendar = Calendar.current
-//
-//        /// "EEEE"  formatter (day)
-//        let formatter1 = DateFormatter()
-//
-//        /// "HH:mm"  formatter (hours and minutes)
-//        let formatter2 = DateFormatter()
-//
-//        formatter1.dateFormat = "EEEE"
-//        formatter2.dateFormat = "HH:mm"
-//
-//        /// time is now
-//        timeIsNowString = formatter2.string(from: date)
-//
-//        /// Get number of week (in year) and weekday
-//        let components = calendar.dateComponents([.weekOfYear, .month, .day, .weekday], from: date)
-//
-//        dayNumberFromCurrentDate = (components.weekday ?? 0) - 1
-//        weekOfYear = components.weekOfYear ?? 0
-//
-//        /// In USA calendar week start on Sunday but in my shedule it start from mounday
-//        /// and if today is Sunday, in USA we start new week but for me its wrong and we take away one week and set dayNumber == 7
-//        if dayNumberFromCurrentDate == 0 {
-//            weekOfYear -= 1
-//            dayNumberFromCurrentDate = 7
-//        }
-//    }
     
     
     // MARK: - setUpCurrentWeek
@@ -295,19 +276,19 @@ class TeacherSheduleViewController: UIViewController {
             let decoder = JSONDecoder()
 
             do {
-                if let error = try? decoder.decode(Error.self, from: data) {
-                    if error.message == "Lessons not found" {
-                        DispatchQueue.main.async {
-                            let alert = UIAlertController(title: nil, message: "Розкладу для цього викладача не існує", preferredStyle: .alert)
-                            alert.addAction(UIAlertAction(title: "Назад", style: .default, handler: { (_) in
-                                self.navigationController?.popViewController(animated: true)
-                            }))
-
-                            self.present(alert, animated: true, completion: {
-                            })
-                        }
-                    }
-                }
+//                if let error = try? decoder.decode(Error.self, from: data) {
+//                    if error.message == "Lessons not found" {
+//                        DispatchQueue.main.async {
+//                            let alert = UIAlertController(title: nil, message: "Розкладу для цього викладача не існує", preferredStyle: .alert)
+//                            alert.addAction(UIAlertAction(title: "Назад", style: .default, handler: { (_) in
+//                                self.navigationController?.popViewController(animated: true)
+//                            }))
+//
+//                            self.present(alert, animated: true, completion: {
+//                            })
+//                        }
+//                    }
+//                }
                 guard let serverFULLDATA = try? decoder.decode(WelcomeLessons.self, from: data) else { return }
                 self.lessons = serverFULLDATA.data
             }
@@ -316,12 +297,7 @@ class TeacherSheduleViewController: UIViewController {
                 /// Making normal shedule + reloading tableVIew
                 self.makeTeachersLessonsShedule()
 
-                /// Show tableView
-                self.tableView.isHidden = false
-
-                /// Hide Activity Indicator
-                self.activityIndicator.stopAnimating()
-                self.activityIndicator.isHidden = true
+                self.stopLoading()
             }
         }
 
@@ -354,8 +330,7 @@ class TeacherSheduleViewController: UIViewController {
         
         if isFavourite {
             if let image = UIImage(named: "icons8-christmas-star-75-add-1") {
-                print(favourites.favouriteTeachersID)
-
+                
                 for i in 0..<favourites.favouriteTeachersID.count {
                     
                     if Int(strongTeacher.teacherID) ?? 0 == favourites.favouriteTeachersID[i] {
@@ -366,27 +341,19 @@ class TeacherSheduleViewController: UIViewController {
                         return
                     }
                 }
-                
-                print(favourites.favouriteTeachersNames)
-                print(favourites.favouriteTeachersID)
             }
         } else {
             if let image = UIImage(named: "icons8-christmas-star-90-filled") {
                 favouriteButton.setImage(image, for: .normal)
-                favourites.favouriteTeachersNames.append(strongTeacher.teacherFullName)
+                // If teacherName is empty user teacherFullName
+                let teacherName = strongTeacher.teacherName == "" ? strongTeacher.teacherFullName : strongTeacher.teacherName
+                favourites.favouriteTeachersNames.append(teacherName)
                 favourites.favouriteTeachersID.append(Int(strongTeacher.teacherID) ?? 0)
 
                 isFavourite = true
-                
-                print(favourites.favouriteTeachersNames)
-                print(favourites.favouriteTeachersID)
             }
         }
-        
     }
-    
-    
-
 }
 
 
@@ -476,8 +443,7 @@ extension TeacherSheduleViewController: UITableViewDelegate, UITableViewDataSour
         cell.teacherLabel.text = lessonsForSomeDay[indexPath.row].teacherName
         
         if lessonsForSomeDay[indexPath.row].teacherName == "" {
-            let nothing = " "
-            cell.teacherLabel.text = nothing
+            cell.teacherLabel.text = " "
         }
         
         let vc = SheduleViewController()

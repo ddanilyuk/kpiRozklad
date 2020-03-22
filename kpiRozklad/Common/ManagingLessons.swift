@@ -14,9 +14,8 @@ import UIKit
 func getCurrentAndNextLesson(lessons: [Lesson],
                              timeIsNowString: String,
                              dayNumberFromCurrentDate: Int,
-                             currentWeekFromTodayDate: Int) -> (nextLessonID: String, currentLessonID: String) {
-    
-
+                             currentWeekFromTodayDate: Int) ->
+                             (nextLessonID: String, currentLessonID: String) {
     
     var nextLessonId = String()
     var currentLessonId = String()

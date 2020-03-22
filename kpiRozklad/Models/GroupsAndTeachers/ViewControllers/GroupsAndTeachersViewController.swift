@@ -271,9 +271,15 @@ extension GroupsAndTeachersViewController: UITableViewDelegate, UITableViewDataS
 
             guard let mainTabBar : UITabBarController = mainStoryboard.instantiateViewController(withIdentifier: "Main") as? UITabBarController else { return }
             
-            self.dismiss(animated: true, completion: {
+            if #available(iOS 13, *) {
+                self.dismiss(animated: true, completion: {
+                    window.rootViewController = mainTabBar
+                })
+            } else {
                 window.rootViewController = mainTabBar
-            })
+                window.makeKeyAndVisible()
+            }
+            
         } else if isSheduleGroupChooser {
             let group = isSearching ? groupsInSearch[indexPath.row] : groups[indexPath.row]
 
@@ -286,10 +292,17 @@ extension GroupsAndTeachersViewController: UITableViewDelegate, UITableViewDataS
             settings.isTryToRefreshShedule = true
 
             guard let mainTabBar : UITabBarController = mainStoryboard.instantiateViewController(withIdentifier: "Main") as? UITabBarController else { return }
-
-            self.dismiss(animated: true, completion: {
+            
+            if #available(iOS 13, *) {
+                self.dismiss(animated: true, completion: {
+                    window.rootViewController = mainTabBar
+                })
+            } else {
                 window.rootViewController = mainTabBar
-            })
+                window.makeKeyAndVisible()
+            }
+            
+            
         } else if isGroupViewController {
             let group = isSearching ? groupsInSearch[indexPath.row] : groups[indexPath.row]
             serverGetChoosenGroupShedule(group: group, indexPath: indexPath)

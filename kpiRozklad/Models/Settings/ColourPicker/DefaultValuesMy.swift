@@ -10,8 +10,10 @@ import UIKit
 
 struct DefaultValues {
     
-    static let cellSize: CGSize = CGSize(width: 48, height: 48)
-    static let insets: UIEdgeInsets = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16)
-    static let minimumLineSpacingForSectionAt: CGFloat = 0
-    static let minimumInteritemSpacingForSectionAt: CGFloat = 0
+//    static let cellSize: CGSize = CGSize(width: screenWidth / 11 , height: screenWidth / 11)
+    static let cellSize: CGSize = CGSize(width: screenWidth/3 - 50, height: screenWidth/3 - 50)
+    
+    static let insets: UIEdgeInsets = UIEdgeInsets(top: 4, left: 20, bottom: 4, right: 20)
+    static let minimumLineSpacingForSectionAt: CGFloat = 30
+    static let minimumInteritemSpacingForSectionAt: CGFloat = 30
 }

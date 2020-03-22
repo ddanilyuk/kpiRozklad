@@ -421,24 +421,34 @@ class SheduleViewController: UIViewController {
             }
         }
         
-        var dayArrays = [lessonMounday, lessonTuesday, lessonWednesday, lessonThursday, lessonFriday, lessonSaturday]
+//        var dayArrays = [lessonMounday, lessonTuesday, lessonWednesday, lessonThursday, lessonFriday, lessonSaturday]
+//
+//        for i in 0..<dayArrays.count {
+//            var day = dayArrays[i]
+//            day.sort { (lesson1, lesson2) -> Bool in
+//                return lesson1.lessonNumber < lesson2.lessonNumber
+//            }
+//            dayArrays.remove(at: i)
+//            dayArrays.insert(day, at: i)
+//        }
+//
+//        /// .sorting is soting from mounday to saturday (must be in normal order)
+//        self.lessonsForTableView = [DayName.mounday: dayArrays[0],
+//                                    .tuesday: dayArrays[1],
+//                                    .wednesday: dayArrays[2],
+//                                    .thursday: dayArrays[3],
+//                                    .friday: dayArrays[4],
+//                                    .saturday: dayArrays[5]].sorted{$0.key < $1.key}
         
-        for i in 0..<dayArrays.count {
-            var day = dayArrays[i]
-            day.sort { (lesson1, lesson2) -> Bool in
-                return lesson1.lessonNumber < lesson2.lessonNumber
-            }
-            dayArrays.remove(at: i)
-            dayArrays.insert(day, at: i)
-        }
         
-        /// .sorting is soting from mounday to saturday (must be in normal order)
-        self.lessonsForTableView = [DayName.mounday: dayArrays[0],
-                                    .tuesday: dayArrays[1],
-                                    .wednesday: dayArrays[2],
-                                    .thursday: dayArrays[3],
-                                    .friday: dayArrays[4],
-                                    .saturday: dayArrays[5]].sorted{$0.key < $1.key}
+        
+        /// .sorted is sorting from mounday to saturday (must be in normal order)
+        self.lessonsForTableView = [DayName.mounday: lessonMounday,
+                                    DayName.tuesday: lessonTuesday,
+                                    DayName.wednesday: lessonWednesday,
+                                    DayName.thursday: lessonThursday,
+                                    DayName.friday: lessonFriday,
+                                    DayName.saturday: lessonSaturday].sorted{$0.key < $1.key}
         
         /// (self.activityIndicator != nil)  because if when we push information from another VC tableView can be not exist
         if self.activityIndicator != nil {

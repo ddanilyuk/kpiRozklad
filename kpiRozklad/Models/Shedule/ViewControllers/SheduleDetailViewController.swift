@@ -82,7 +82,7 @@ class SheduleDetailViewController: UIViewController {
             self.groupsLabel.text = "Групи: \(getGroupsOfLessonString(lesson: lesson))"
         }
         
-        // TODO подивитись на розклад групи
+        // TODO: - подивитись на розклад групи
         if global.sheduleType == .teachers {
             self.groupsLabel.text = "Групи: \(getGroupsOfLessonString(lesson: lesson))"
             checkTeacherShedule.isHidden = true

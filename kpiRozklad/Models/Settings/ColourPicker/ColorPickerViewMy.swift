@@ -24,7 +24,7 @@ open class ColorPickerView: UIView, UICollectionViewDelegate, UICollectionViewDa
     // MARK: - Open properties
     
     /// Array of UIColor you want to show in the color picker
-    open var colors: [UIColor] = [.white, .black, .orange, blue, #colorLiteral(red: 1, green: 0.5411764706, blue: 0.5019607843, alpha: 1), #colorLiteral(red: 1, green: 0.09019607843, blue: 0.2666666667, alpha: 1), #colorLiteral(red: 0.8352941176, green: 0, blue: 0, alpha: 1),
+    open var colors: [UIColor] = [.white, .black, .orange, #colorLiteral(red: 1, green: 0.5411764706, blue: 0.5019607843, alpha: 1), #colorLiteral(red: 1, green: 0.09019607843, blue: 0.2666666667, alpha: 1), #colorLiteral(red: 0.8352941176, green: 0, blue: 0, alpha: 1),
                                   #colorLiteral(red: 0.7254901961, green: 0.9647058824, blue: 0.7921568627, alpha: 1), #colorLiteral(red: 0, green: 0.9019607843, blue: 0.462745098, alpha: 1), #colorLiteral(red: 0, green: 0.7843137255, blue: 0.3254901961, alpha: 1),
                                   #colorLiteral(red: 0.9176470588, green: 0.5019607843, blue: 0.9882352941, alpha: 1), #colorLiteral(red: 0.8352941176, green: 0, blue: 0.9764705882, alpha: 1), #colorLiteral(red: 0.6666666667, green: 0, blue: 1, alpha: 1),
                                   #colorLiteral(red: 1, green: 1, blue: 0.5529411765, alpha: 1), #colorLiteral(red: 1, green: 0.9176470588, blue: 0, alpha: 1), #colorLiteral(red: 1, green: 0.8392156863, blue: 0, alpha: 1),
@@ -115,23 +115,52 @@ open class ColorPickerView: UIView, UICollectionViewDelegate, UICollectionViewDa
     // MARK: - Private Methods
     
     private func _selectColor(at indexPath: IndexPath, animated: Bool) {
+        for i in 0..<self.colors.count {
+            let index = IndexPath(row: i, section: 0)
+
+            if let cell = collectionView.cellForItem(at: index) as? ColorPickerCell {
+                print(i)
+                if selectionStyle == .check {
+                    cell.checkbox.setCheckState(.unchecked, animated: true)
+                }
+            }
+        }
+        
+        delegate?.colorPickerView(self, didSelectItemAt: indexPath)
+
         
         guard let colorPickerCell = collectionView.cellForItem(at: indexPath) as? ColorPickerCell else { return }
         
-        if indexPath.item == _indexOfSelectedColor, !isSelectedColorTappable {
-            return
-        }
+//        if indexPath.item == _indexOfSelectedColor {
+//            return
+//        }
         
-        // my override
-        for i in 0..<self.colors.count {
-            let index = IndexPath(row: i, section: 0)
-            guard let cell = collectionView.cellForItem(at: index) as? ColorPickerCell else {
-                return
-            }
-            if selectionStyle == .check {
-                cell.checkbox.setCheckState(.unchecked, animated: true)
-            }
-        }
+//        if indexPath.item == _indexOfSelectedColor, !isSelectedColorTappable {
+//            return
+//        }
+        
+        
+//        // my override
+//        for i in 0..<self.colors.count {
+//            let index = IndexPath(row: i, section: 0)
+//            guard let cell = collectionView.cellForItem(at: index) as? ColorPickerCell else {
+//                return
+//            }
+//            if selectionStyle == .check {
+//                cell.checkbox.setCheckState(.unchecked, animated: true)
+//            }
+//        }
+        
+//        for i in 0..<self.colors.count {
+//            let index = IndexPath(row: i, section: 0)
+//
+//            if let cell = collectionView.cellForItem(at: index) as? ColorPickerCell {
+//                print(i)
+//                if selectionStyle == .check {
+//                    cell.checkbox.setCheckState(.unchecked, animated: true)
+//                }
+//            }
+//        }
         
         if selectionStyle == .check {
             
@@ -140,7 +169,8 @@ open class ColorPickerView: UIView, UICollectionViewDelegate, UICollectionViewDa
                     _indexOfSelectedColor = nil
                     colorPickerCell.checkbox.setCheckState(.unchecked, animated: animated)
                 }
-                return
+//                return
+                colorPickerCell.checkbox.setCheckState(.unchecked, animated: animated)
             }
             
             _indexOfSelectedColor = indexPath.item
@@ -150,7 +180,7 @@ open class ColorPickerView: UIView, UICollectionViewDelegate, UICollectionViewDa
             
         }
         
-        delegate?.colorPickerView(self, didSelectItemAt: indexPath)
+//        delegate?.colorPickerView(self, didSelectItemAt: indexPath)
     
     }
     
@@ -172,6 +202,11 @@ open class ColorPickerView: UIView, UICollectionViewDelegate, UICollectionViewDa
     }
     
     public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+//        print("indexPath.item", indexPath.item)
+//        print("indexPath.row", indexPath.row)
+//        print("indexPath", indexPath)
+//        print("--------")
+
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ColorPickerCell.cellIdentifier, for: indexPath) as! ColorPickerCell
         
         cell.backgroundColor = colors[indexPath.item]
@@ -179,19 +214,46 @@ open class ColorPickerView: UIView, UICollectionViewDelegate, UICollectionViewDa
         if style == .circle {
             cell.layer.cornerRadius = cell.bounds.width / 2
         }
-        if indexPath.row == 0 {
+        let bc = cell.backgroundColor
+        cell.layer.borderWidth = 0
+
+        if cell.backgroundColor == colors[0] || cell.backgroundColor == colors[1] {
             cell.layer.borderWidth = 1
-            
+
             if #available(iOS 13.0, *) {
-                cell.layer.borderColor = CGColor(srgbRed: 0, green: 0, blue: 0, alpha: 1)
-                cell.checkbox.tintColor = .green
-                cell.checkbox.isHidden = false
-                cell.checkbox.setCheckState(.checked, animated: false)
-//                cell.checkbox.
+                let borderColour = UIColor.label.cgColor
+                cell.layer.borderColor = borderColour
+
             } else {
-                // Fallback on earlier versions
+                let borderColour = UIColor.black.cgColor
+                cell.layer.borderColor = borderColour
             }
         }
+
+//        if indexPath.item == 0 || indexPath.item == 1 {
+//
+//            if #available(iOS 13.0, *) {
+//                let borderColour = UIColor.label.cgColor
+//                cell.layer.borderColor = borderColour
+//
+//            } else {
+//                let borderColour = UIColor.black.cgColor
+//                cell.layer.borderColor = borderColour
+//
+//            }
+//        }
+        
+        guard indexPath.item == _indexOfSelectedColor else {
+            cell.checkbox.setCheckState(.unchecked, animated: false)
+            return cell
+        }
+        
+//        if indexOfSelectedColor == indexPath.row {
+//            self._selectColor(at: IndexPath(row: indexPath.row, section: 0), animated: true)
+//        }
+        
+        cell.checkbox.tintColor = colors[indexPath.item].isWhiteText ? .white : .black
+        cell.checkbox.setCheckState(.checked, animated: false)
         
         return cell
     }
@@ -208,28 +270,58 @@ open class ColorPickerView: UIView, UICollectionViewDelegate, UICollectionViewDa
             colorPickerCell.checkbox.setCheckState(.unchecked, animated: false)
             return
         }
+//        cell.layer.borderWidth = 1
+//
+//        if indexPath.item == 0 || indexPath.item == 1 {
+//
+//            if #available(iOS 13.0, *) {
+//                let borderColour = UIColor.label.cgColor
+//                cell.layer.borderColor = borderColour
+//
+//            } else {
+//                let borderColour = UIColor.black.cgColor
+//                cell.layer.borderColor = borderColour
+//
+//            }
+//        }
+        //                cell.layer.borderColor = CGColor(srgbRed: 1, green: 1, blue: 1, alpha: 1)
+
+//        if indexOfSelectedColor == indexPath.row {
+//            self._selectColor(at: IndexPath(row: indexPath.row, section: 0), animated: true)
+//        }
         
         colorPickerCell.checkbox.tintColor = colors[indexPath.item].isWhiteText ? .white : .black
-//        colorPickerCell.checkbox.setCheckState(.checked, animated: false)
+        colorPickerCell.checkbox.setCheckState(.checked, animated: false)
     }
     
     public func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
 //        guard let oldColorCell = collectionView.cellForItem(at: indexPath) as? ColorPickerCell else {
 //            return
 //        }
-        for i in 0..<self.colors.count {
-            let index = IndexPath(row: i, section: 0)
-            guard let cell = collectionView.cellForItem(at: index) as? ColorPickerCell else {
-                return
-            }
-            cell.checkbox.setCheckState(.unchecked, animated: true)
-//            if selectionStyle == .check {
-//                cell.checkbox.setCheckState(.unchecked, animated: true)
+//        for i in 0..<self.colors.count {
+//            let index = IndexPath(row: i, section: 0)
+//            guard let cell = collectionView.cellForItem(at: index) as? ColorPickerCell else {
+//                return
 //            }
-        }
+//            cell.checkbox.setCheckState(.unchecked, animated: true)
+////            if selectionStyle == .check {
+////                cell.checkbox.setCheckState(.unchecked, animated: true)
+////            }
+//        }
         
 //        if selectionStyle == .check {
 //            oldColorCell.checkbox.setCheckState(.unchecked, animated: true)
+//        }
+        
+//        for i in 0..<self.colors.count {
+//            let index = IndexPath(row: i, section: 0)
+//
+//            if let cell = collectionView.cellForItem(at: index) as? ColorPickerCell {
+//                if selectionStyle == .check {
+//                    cell.checkbox.setCheckState(.unchecked, animated: true)
+//                }
+//            }
+//
 //        }
         
         self._selectColor(at: indexPath, animated: true)

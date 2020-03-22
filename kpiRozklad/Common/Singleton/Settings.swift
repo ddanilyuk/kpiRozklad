@@ -143,7 +143,7 @@ public class Settings {
                 color = try? NSKeyedUnarchiver.unarchivedObject(ofClass: UIColor.self, from: userDefaultsWidget.data(forKey: "cellNextColour") ?? Data())
                 
             }
-            return color ?? blue
+            return color ?? #colorLiteral(red: 0, green: 0.568627451, blue: 0.9176470588, alpha: 1)
         }
         
         set {

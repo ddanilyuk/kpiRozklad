@@ -31,6 +31,7 @@ class ColourPickerViewController: UIViewController {
         setupNavigation()
         setupColourPickerView()
         setupTableView()
+        setupSegmetControll()
         setLargeTitleDisplayMode(.never)
 
     }
@@ -143,10 +144,19 @@ class ColourPickerViewController: UIViewController {
     }
     
     
+    private func setupSegmetControll() {
+        let titleTextAttributesSelected = [NSAttributedString.Key.foregroundColor: UIColor.white]
+        let titleTextAttributesNormal = [NSAttributedString.Key.foregroundColor: UIColor.systemBlue]
+
+        segmentControl.setTitleTextAttributes(titleTextAttributesNormal, for: .normal)
+        segmentControl.setTitleTextAttributes(titleTextAttributesSelected, for: .selected)
+    }
+    
     private func setupColourPickerView() {
         colorPickerView.delegate = self
         colorPickerView.layoutDelegate = self
         colorPickerView.isSelectedColorTappable = false
+//        colorPickerView.isSelectedColorTappable = true
         colorPickerView.selectionStyle = .check
         colorPickerView.layoutSubviews()
     }
@@ -205,6 +215,7 @@ class ColourPickerViewController: UIViewController {
 
         if colorPickerView.indexOfSelectedColor != index {
             colorPickerView.selectColor(at: index, animated: true)
+            colorPickerView.preselectedIndex = index
 //            colorPickerView.layoutSubviews()
         }
     }
@@ -222,11 +233,21 @@ class ColourPickerViewController: UIViewController {
         var index = 0
         for i in 0..<colorPickerView.colors.count {
             let colour = colorPickerView.colors[i]
+            
+//            print(colour.redValue, colourToFind.redValue)
+//            print(colour.greenValue, colourToFind.greenValue)
+//            print("colour", colour.cgColor.components?.description)
+//            print("colourToFind", colourToFind.cgColor.components?.description)
+//            print(colour.cgColor.components?.description == colourToFind.cgColor.components?.description)
+//            print("***")
+
             if colour == colourToFind {
                 index = i
+                print("INDEX:", index)
+                return index
             }
         }
-        
+        print("----------------")
         return index
 
     }

@@ -78,7 +78,14 @@ class GreetingViewController: UIViewController {
                 
                 groupsChooserNavigationController.isSheduleGroupChooser = true
                 
-                self.present(groupsChooserNavigationController, animated: true, completion: nil)
+                if #available(iOS 13, *) {
+                    self.present(groupsChooserNavigationController, animated: true, completion: nil)
+
+                } else {
+//                    self.navigationController?.pushViewController(groupsChooserNavigationController, animated: true)
+                    self.present(groupsChooserNavigationController, animated: true, completion: nil)
+
+                }
             }
         } else {
             if settings.teacherName == "" {
@@ -90,9 +97,15 @@ class GreetingViewController: UIViewController {
                 groupsChooserNavigationController.isSheduleTeachersChooser = true
                 global.sheduleType = .teachers
                 
+                if #available(iOS 13, *) {
+                    self.present(groupsChooserNavigationController, animated: true, completion: nil)
 
+                } else {
+//                    self.navigationController?.pushViewController(groupsChooserNavigationController, animated: true)
+                    self.present(groupsChooserNavigationController, animated: true, completion: nil)
+
+                }
                 
-                self.present(groupsChooserNavigationController, animated: true, completion: nil)
             }
         }
         

@@ -40,7 +40,6 @@ func getTimeAndDayNumAndWeekOfYear() -> (timeIsNowString: String, dayNumberFromC
     }
     
     return (timeIsNowString: timeIsNowString, dayNumberFromCurrentDate: dayNumberFromCurrentDate, weekOfYear: weekOfYear)
-
 }
 
 

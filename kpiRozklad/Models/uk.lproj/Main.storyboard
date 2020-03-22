@@ -530,10 +530,10 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="dzE-CC-Pod">
-                                <rect key="frame" x="132" y="69" width="150" height="32"/>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="dzE-CC-Pod">
+                                <rect key="frame" x="117" y="59" width="180" height="32"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="150" id="nst-xY-YRk"/>
+                                    <constraint firstAttribute="width" constant="180" id="nst-xY-YRk"/>
                                 </constraints>
                                 <segments>
                                     <segment title="Поточна"/>
@@ -546,14 +546,14 @@
                                 </connections>
                             </segmentedControl>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="qWK-B5-AOA">
-                                <rect key="frame" x="0.0" y="120" width="414" height="68"/>
+                                <rect key="frame" x="0.0" y="105" width="414" height="68"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="68" id="VQI-Dl-CTu"/>
                                 </constraints>
                             </tableView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2R5-91-UBf" customClass="ColorPickerView" customModule="KPI_Rozklad" customModuleProvider="target">
-                                <rect key="frame" x="8" y="198" width="398" height="656"/>
+                                <rect key="frame" x="8" y="173" width="398" height="689"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                             </view>
                         </subviews>
@@ -561,13 +561,13 @@
                         <constraints>
                             <constraint firstItem="dzE-CC-Pod" firstAttribute="centerX" secondItem="Cna-yJ-d8u" secondAttribute="centerX" id="0bX-81-MhE"/>
                             <constraint firstItem="Cna-yJ-d8u" firstAttribute="trailing" secondItem="qWK-B5-AOA" secondAttribute="trailing" id="Ajw-as-hC1"/>
-                            <constraint firstItem="qWK-B5-AOA" firstAttribute="top" secondItem="dzE-CC-Pod" secondAttribute="bottom" constant="20" id="MKc-IN-X1g"/>
-                            <constraint firstItem="Cna-yJ-d8u" firstAttribute="bottom" secondItem="2R5-91-UBf" secondAttribute="bottom" constant="8" id="Vg1-ib-ukE"/>
-                            <constraint firstItem="2R5-91-UBf" firstAttribute="top" secondItem="qWK-B5-AOA" secondAttribute="bottom" constant="10" id="agk-wH-YMv"/>
+                            <constraint firstItem="qWK-B5-AOA" firstAttribute="top" secondItem="dzE-CC-Pod" secondAttribute="bottom" constant="15" id="MKc-IN-X1g"/>
+                            <constraint firstItem="Cna-yJ-d8u" firstAttribute="bottom" secondItem="2R5-91-UBf" secondAttribute="bottom" id="Vg1-ib-ukE"/>
+                            <constraint firstItem="2R5-91-UBf" firstAttribute="top" secondItem="qWK-B5-AOA" secondAttribute="bottom" id="agk-wH-YMv"/>
                             <constraint firstItem="2R5-91-UBf" firstAttribute="leading" secondItem="Cna-yJ-d8u" secondAttribute="leading" constant="8" id="jhQ-Bb-Ou4"/>
                             <constraint firstItem="qWK-B5-AOA" firstAttribute="leading" secondItem="Cna-yJ-d8u" secondAttribute="leading" id="kEx-wZ-yge"/>
                             <constraint firstItem="Cna-yJ-d8u" firstAttribute="trailing" secondItem="2R5-91-UBf" secondAttribute="trailing" constant="8" id="psB-Id-JV1"/>
-                            <constraint firstItem="dzE-CC-Pod" firstAttribute="top" secondItem="Cna-yJ-d8u" secondAttribute="top" constant="25" id="v5a-p1-f8R"/>
+                            <constraint firstItem="dzE-CC-Pod" firstAttribute="top" secondItem="Cna-yJ-d8u" secondAttribute="top" constant="15" id="v5a-p1-f8R"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Cna-yJ-d8u"/>
                     </view>
@@ -580,7 +580,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gvr-8t-VVO" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <exit id="zDR-53-jP4" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="4132" y="-1912"/>
+            <point key="canvasLocation" x="4030" y="-1882"/>
         </scene>
         <!--Shedule Detail View Controller-->
         <scene sceneID="YJy-Mv-orq">

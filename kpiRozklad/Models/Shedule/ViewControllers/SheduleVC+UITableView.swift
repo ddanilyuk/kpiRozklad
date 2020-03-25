@@ -11,7 +11,6 @@ import UIKit
 
 extension SheduleViewController: UITableViewDelegate, UITableViewDataSource {
     
-    
     // MARK: - numberOfSections
     func numberOfSections(in tableView: UITableView) -> Int {
         if self.isEditing == true {
@@ -21,29 +20,26 @@ extension SheduleViewController: UITableViewDelegate, UITableViewDataSource {
         }
     }
 
+    
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         return 0.001
     }
+    
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 30
     }
 
+    
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let returnedView = UIView(frame: CGRect(x: 0, y: 0, width: view.frame.size.width, height: 35))
-        var array: [String] = [DayName.mounday.rawValue,
-                               DayName.tuesday.rawValue,
-                               DayName.wednesday.rawValue,
-                               DayName.thursday.rawValue,
-                               DayName.friday.rawValue,
-                               DayName.saturday.rawValue]
         
-        self.isEditing ? array.append("Нова пара") : nil
+        self.isEditing ? daysArray.append("Нова пара") : nil
         
         returnedView.backgroundColor = sectionColour
 
         let label = UILabel(frame: CGRect(x: 16, y: 3, width: view.frame.size.width, height: 25))
-        label.text = array[section]
+        label.text = daysArray[section]
 
         if #available(iOS 13.0, *) {
             label.textColor = .label
@@ -55,18 +51,11 @@ extension SheduleViewController: UITableViewDelegate, UITableViewDataSource {
         return returnedView
     }
     
+    
     // MARK: - titleForHeaderInSection
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        
-        var array: [String] = [DayName.mounday.rawValue,
-                               DayName.tuesday.rawValue,
-                               DayName.wednesday.rawValue,
-                               DayName.thursday.rawValue,
-                               DayName.friday.rawValue,
-                               DayName.saturday.rawValue]
-                        
-        self.isEditing ? array.append("Нова пара") : nil
-        return array[section]
+        self.isEditing ? daysArray.append("Нова пара") : nil
+        return daysArray[section]
     }
     
     
@@ -81,31 +70,11 @@ extension SheduleViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     
-    // MARK: - prepare
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-   
-        if segue.identifier == "showDetailViewController" {
-            if let strongDestinationLesson = destinationLesson {
-                if let destination = segue.destination as? SheduleDetailViewController {
-                    destination.lesson = strongDestinationLesson
-                }
-            } else {
-                if let indexPath = tableView.indexPathForSelectedRow {
-                    if let destination = segue.destination as? SheduleDetailViewController {
-                        if indexPath.section != lessonsForTableView.count {
-                            destination.lesson = lessonsForTableView[indexPath.section].value[indexPath.row]
-                        }
-                    }
-                }
-            }
-        }
-    }
-    
-    
     // MARK: - heightForRowAt
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 68
     }
+    
     
     // MARK: - didSelectRowAt
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -129,26 +98,17 @@ extension SheduleViewController: UITableViewDelegate, UITableViewDataSource {
                 editLessonNumber(vc: self, indexPath: indexPath)
             }))
             
-            alertView.addAction(UIAlertAction(title: "Назад", style: .cancel, handler: { (_) in
-            }))
+            alertView.addAction(UIAlertAction(title: "Назад", style: .cancel, handler: nil ))
 
             present(alertView, animated: true, completion: nil)
         } else {
             if indexPath.section != lessonsForTableView.count {
-                
 
+                guard let sheduleDetailNC = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: SheduleDetailNavigationController.identifier) as? SheduleDetailNavigationController else { return }
                 
-                guard let vc = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: SheduleDetailNavigationController.identifier) as? SheduleDetailNavigationController else {
-                    return
-                }
+                sheduleDetailNC.lesson = lessonsForTableView[indexPath.section].value[indexPath.row]
                 
-                vc.lesson = lessonsForTableView[indexPath.section].value[indexPath.row]
-                
-                
-                presentPanModal(vc)
-                
-                
-                
+                presentPanModal(sheduleDetailNC)
             }
         }
         
@@ -166,7 +126,6 @@ extension SheduleViewController: UITableViewDelegate, UITableViewDataSource {
             return cell
         }
         
-        
         /// Creating main cell
         guard let cell = tableView.dequeueReusableCell(withIdentifier: LessonTableViewCell.identifier, for: indexPath) as? LessonTableViewCell else { return UITableViewCell() }
         if #available(iOS 13.0, *) {
@@ -177,7 +136,6 @@ extension SheduleViewController: UITableViewDelegate, UITableViewDataSource {
         let lesson = lessonsForTableView[indexPath.section].value[indexPath.row]
         
         cell.lessonLabel.text = lesson.lessonName
-        
         cell.teacherLabel.text = lesson.teacherName != "" ? lesson.teacherName : " "
         
         var colourTextLabel: UIColor {
@@ -187,16 +145,14 @@ extension SheduleViewController: UITableViewDelegate, UITableViewDataSource {
                 return .black
             }
         }
-               
-               
-       cell.startLabel.textColor = colourTextLabel
-       cell.endLabel.textColor = colourTextLabel
-       cell.teacherLabel.textColor = colourTextLabel
-       cell.roomLabel.textColor = colourTextLabel
-       cell.lessonLabel.textColor = colourTextLabel
+        
+        cell.startLabel.textColor = colourTextLabel
+        cell.endLabel.textColor = colourTextLabel
+        cell.teacherLabel.textColor = colourTextLabel
+        cell.roomLabel.textColor = colourTextLabel
+        cell.lessonLabel.textColor = colourTextLabel
         
         if currentLessonId == lesson.lessonID {
-            
             setupCurrentOrNextLessonCell(cell: cell, cellType: .currentCell)
         }
         
@@ -211,9 +167,7 @@ extension SheduleViewController: UITableViewDelegate, UITableViewDataSource {
     
         return cell
     }
-    
-    
-    
+
     
     // MARK: - commit editingStyle forRowAt
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
@@ -232,12 +186,15 @@ extension SheduleViewController: UITableViewDelegate, UITableViewDataSource {
                 }
             }
             
-            updateCoreDataV2(vc: self, datum: lessons)
-        
+            self.tableView.beginUpdates()
             self.lessonsForTableView[indexPath.section].value.remove(at: indexPath.row)
-            
-            self.tableView.deleteRows(at: [indexPath], with: .fade)
+            self.tableView.deleteRows(at: [indexPath], with: .automatic)
+            self.tableView.endUpdates()
 
+            // If delete DispatchQueue animation broken
+            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .seconds(1)) {
+                updateCoreDataV2(vc: self, datum: lessons)
+            }
             
         } else if editingStyle == .insert {
             presentAddLesson()
@@ -254,12 +211,7 @@ extension SheduleViewController: UITableViewDelegate, UITableViewDataSource {
     
     // MARK: - canMoveRowAt
     func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        if indexPath.section == self.lessonsForTableView.count {
-            return false
-        }
-        else {
-            return true
-        }
+        return indexPath.section == self.lessonsForTableView.count ? false : true
     }
     
     
@@ -277,12 +229,7 @@ extension SheduleViewController: UITableViewDelegate, UITableViewDataSource {
     
     // MARK: - targetIndexPathForMoveFromRowAt sourceIndexPath toProposedIndexPath
     func tableView(_ tableView: UITableView, targetIndexPathForMoveFromRowAt sourceIndexPath: IndexPath, toProposedIndexPath proposedDestinationIndexPath: IndexPath) -> IndexPath {
-        if proposedDestinationIndexPath.section >= self.lessonsForTableView.count {
-            return sourceIndexPath
-        }
-        else {
-            return proposedDestinationIndexPath
-        }
+        return proposedDestinationIndexPath.section >= self.lessonsForTableView.count ? sourceIndexPath : proposedDestinationIndexPath
     }
     
     

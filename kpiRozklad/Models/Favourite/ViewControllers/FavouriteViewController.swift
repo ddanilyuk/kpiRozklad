@@ -23,10 +23,9 @@ class FavouriteViewController: UIViewController {
         super.viewDidLoad()
         
         setupTableView()
-        self.navigationController?.navigationBar.isTranslucent = true
-        self.tabBarController?.tabBar.isTranslucent = true
-
+        setupNavigation()
     }
+    
     
     override func viewWillAppear(_ animated: Bool) {
         tableView.reloadData()
@@ -43,11 +42,17 @@ class FavouriteViewController: UIViewController {
 
     }
     
+    
+    private func setupNavigation() {
+        self.navigationController?.navigationBar.isTranslucent = true
+        self.tabBarController?.tabBar.isTranslucent = true
+    }
+    
+    
     private func setupTableView() {
         tableView.register(UINib(nibName: TeacherOrGroupLoadingTableViewCell.identifier, bundle: Bundle.main), forCellReuseIdentifier: TeacherOrGroupLoadingTableViewCell.identifier)
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.backgroundColor = sectionColour
         if #available(iOS 13.0, *) {
             tableView.backgroundColor = tint
         } else {
@@ -56,98 +61,203 @@ class FavouriteViewController: UIViewController {
     }
     
     
-    func serverGroupShedule(group: Group, indexPath: IndexPath) {
-        guard let url = URL(string: "https://api.rozklad.org.ua/v2/groups/\(String(group.groupID))/lessons") else { return }
-        
+//    func serverGroupShedule(group: Group, indexPath: IndexPath) {
+//        guard let url = URL(string: "https://api.rozklad.org.ua/v2/groups/\(String(group.groupID))/lessons") else { return }
+//
+//        DispatchQueue.main.async {
+//            if let cell = self.tableView.cellForRow(at: indexPath) as? TeacherOrGroupLoadingTableViewCell {
+//                cell.activityIndicator.isHidden = false
+//                cell.activityIndicator.startAnimating()
+//            }
+//        }
+//
+//        let task = URLSession.shared.dataTask(with: url) {(data, response, error) in
+//            guard let data = data else { return }
+//            let decoder = JSONDecoder()
+//
+//            do {
+//                DispatchQueue.main.async {
+//                    guard let serverFULLDATA = try? decoder.decode(WelcomeLessons.self, from: data) else { return }
+//
+//                    if let cell = self.tableView.cellForRow(at: indexPath) as? TeacherOrGroupLoadingTableViewCell {
+//                        cell.activityIndicator.isHidden = true
+//                        cell.activityIndicator.stopAnimating()
+//                    }
+//
+//                    let mainStoryboard = UIStoryboard(name: "Main", bundle: Bundle.main)
+//                    guard let sheduleVC : SheduleViewController = mainStoryboard.instantiateViewController(withIdentifier: SheduleViewController.identifier) as? SheduleViewController else { return }
+//
+//                    sheduleVC.isFromGroups = true
+//                    sheduleVC.currentWeek = 1
+//
+//                    sheduleVC.lessonsFromServer = serverFULLDATA.data
+//
+////                    sheduleVC.navigationController?.navigationItem.largeTitleDisplayMode = .never
+////                    sheduleVC.navigationController?.navigationBar.prefersLargeTitles = false
+////                    sheduleVC.navigationItem.largeTitleDisplayMode = .never
+//                    sheduleVC.navigationItem.title = group.groupFullName.uppercased()
+//
+//                    sheduleVC.group = group
+//
+//                    self.navigationController?.pushViewController(sheduleVC, animated: true)
+//                }
+//            }
+//        }
+//        task.resume()
+//    }
+    
+    
+    
+    func getGroupLessons(group: Group, indexPath: IndexPath) {
+        guard let cell = self.tableView.cellForRow(at: indexPath) as? TeacherOrGroupLoadingTableViewCell else { return }
         DispatchQueue.main.async {
-            if let cell = self.tableView.cellForRow(at: indexPath) as? TeacherOrGroupLoadingTableViewCell {
-                cell.activityIndicator.isHidden = false
-                cell.activityIndicator.startAnimating()
-            }
+            cell.activityIndicator.isHidden = false
+            cell.activityIndicator.startAnimating()
         }
         
-        let task = URLSession.shared.dataTask(with: url) {(data, response, error) in
-            guard let data = data else { return }
-            let decoder = JSONDecoder()
+        API.getStudentLessons(forGroupWithId: group.groupID).done({ [weak self] (lessons) in
+            guard let this = self else { return }
+            
+            cell.activityIndicator.isHidden = true
+            cell.activityIndicator.stopAnimating()
 
-            do {
-                DispatchQueue.main.async {
-                    guard let serverFULLDATA = try? decoder.decode(WelcomeLessons.self, from: data) else { return }
-                    
-                    if let cell = self.tableView.cellForRow(at: indexPath) as? TeacherOrGroupLoadingTableViewCell {
-                        cell.activityIndicator.isHidden = true
-                        cell.activityIndicator.stopAnimating()
-                    }
+            guard let sheduleVC: SheduleViewController = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: SheduleViewController.identifier) as? SheduleViewController else { return }
+            
+            sheduleVC.isFromGroups = true
+            sheduleVC.currentWeek = 1
+            
+            sheduleVC.lessonsFromServer = lessons
+            sheduleVC.group = group
 
-                    let mainStoryboard = UIStoryboard(name: "Main", bundle: Bundle.main)
-                    guard let sheduleVC : SheduleViewController = mainStoryboard.instantiateViewController(withIdentifier: SheduleViewController.identifier) as? SheduleViewController else { return }
+            sheduleVC.navigationItem.title = group.groupFullName.uppercased()
+            
+            this.navigationController?.pushViewController(sheduleVC, animated: true)
+            
+        }).catch({ [weak self] (error) in
+            guard let this = self else { return }
+
+            if error.localizedDescription == NetworkingApiError.lessonsNotFound.localizedDescription {
+                let alert = UIAlertController(title: nil, message: "Розкладу для цієї групи не існує", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "Назад", style: .default, handler: { (_) in
+                    this.navigationController?.popViewController(animated: true)
+                }))
+                
+                this.present(alert, animated: true, completion: {
+                    cell.activityIndicator.isHidden = true
+                    cell.activityIndicator.stopAnimating()
+                })
+            } else {
+                let alert = UIAlertController(title: "Помилка", message: error.localizedDescription, preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "Ок", style: .default, handler: { (_) in
                     
-                    sheduleVC.isFromGroups = true
-                    sheduleVC.currentWeek = 1
-                    
-                    sheduleVC.lessonsFromServer = serverFULLDATA.data
-                    
-                    sheduleVC.navigationController?.navigationItem.largeTitleDisplayMode = .never
-                    sheduleVC.navigationController?.navigationBar.prefersLargeTitles = false
-                    sheduleVC.navigationItem.largeTitleDisplayMode = .never
-                    sheduleVC.navigationItem.title = group.groupFullName.uppercased()
-                    
-                    sheduleVC.group = group
-                    
-                    self.navigationController?.pushViewController(sheduleVC, animated: true)
-                }
+                }))
+                alert.addAction(UIAlertAction(title: "Оновити", style: .default, handler: { (_) in
+                    this.getGroupLessons(group: group, indexPath: indexPath)
+                }))
+
+                this.present(alert, animated: true, completion: nil)
             }
-        }
-        task.resume()
+        })
     }
     
     
-    func serverTeacherShedule(teacher: Teacher, indexPath: IndexPath) {
-        guard var url = URL(string: "https://api.rozklad.org.ua/v2/teachers/") else { return }
-        url.appendPathComponent(teacher.teacherID)
-        url.appendPathComponent("/lessons")
-        print(url)
-        
+    func getTeacherLessons(teacher: Teacher, indexPath: IndexPath) {
+        guard let cell = self.tableView.cellForRow(at: indexPath) as? TeacherOrGroupLoadingTableViewCell else { return }
         DispatchQueue.main.async {
-            if let cell = self.tableView.cellForRow(at: indexPath) as? TeacherOrGroupLoadingTableViewCell {
-                cell.activityIndicator.isHidden = false
-                cell.activityIndicator.startAnimating()
-            }
+            cell.activityIndicator.isHidden = false
+            cell.activityIndicator.startAnimating()
         }
         
-        let task = URLSession.shared.dataTask(with: url) {(data, response, error) in
-            guard let data = data else { return }
-            let decoder = JSONDecoder()
+        API.getTeacherLessons(forTeacherWithId: Int(teacher.teacherID) ?? 0).done({ [weak self] (lessons) in
+            guard let this = self else { return }
+            
+            cell.activityIndicator.isHidden = true
+            cell.activityIndicator.stopAnimating()
 
-            do {
-                DispatchQueue.main.async {
-                    guard let serverFULLDATA = try? decoder.decode(WelcomeLessons.self, from: data) else { return }
-                    
-                    if let cell = self.tableView.cellForRow(at: indexPath) as? TeacherOrGroupLoadingTableViewCell {
-                        cell.activityIndicator.isHidden = true
-                        cell.activityIndicator.stopAnimating()
-                    }
+            let mainStoryboard = UIStoryboard(name: "Main", bundle: Bundle.main)
+            guard let teacherSheduleVC  = mainStoryboard.instantiateViewController(withIdentifier: TeacherSheduleViewController.identifier) as? TeacherSheduleViewController else { return }
+            
+            teacherSheduleVC.lessonsFromServer = lessons
+            
+            teacherSheduleVC.isFromTeachersVC = true
+            
+            teacherSheduleVC.teacher = teacher
+            
+            this.navigationController?.pushViewController(teacherSheduleVC, animated: true)
 
-                    let mainStoryboard = UIStoryboard(name: "Main", bundle: Bundle.main)
-                    guard let sheduleVC : TeacherSheduleViewController = mainStoryboard.instantiateViewController(withIdentifier: TeacherSheduleViewController.identifier) as? TeacherSheduleViewController else { return }
-                    
-                    sheduleVC.isFromFavourites = true
-                    sheduleVC.currentWeek = 1
-                    
-                    sheduleVC.lessonsFromServer = serverFULLDATA.data
-                    
-                    sheduleVC.navigationController?.navigationItem.largeTitleDisplayMode = .never
-                    sheduleVC.navigationController?.navigationBar.prefersLargeTitles = false
-                    sheduleVC.navigationItem.largeTitleDisplayMode = .never
+        }).catch({ [weak self] (error) in
+            guard let this = self else { return }
 
-                    sheduleVC.teacher = teacher
+            if error.localizedDescription == NetworkingApiError.lessonsNotFound.localizedDescription {
+                let alert = UIAlertController(title: nil, message: "Розкладу для цього викладача не існує", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "Назад", style: .default, handler: { (_) in
+                }))
+                
+                this.present(alert, animated: true, completion: {
+                    cell.activityIndicator.isHidden = true
+                    cell.activityIndicator.stopAnimating()
+                })
+            } else {
+                let alert = UIAlertController(title: "Помилка", message: error.localizedDescription, preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "Ок", style: .default, handler: { (_) in
                     
-                    self.navigationController?.pushViewController(sheduleVC, animated: true)
-                }
+                }))
+                alert.addAction(UIAlertAction(title: "Оновити", style: .default, handler: { (_) in
+                    this.getTeacherLessons(teacher: teacher, indexPath: indexPath)
+                }))
+
+                this.present(alert, animated: true, completion: nil)
             }
-        }
-        task.resume()
+        })
     }
+    
+    
+//    func serverTeacherShedule(teacher: Teacher, indexPath: IndexPath) {
+//        guard var url = URL(string: "https://api.rozklad.org.ua/v2/teachers/") else { return }
+//        url.appendPathComponent(teacher.teacherID)
+//        url.appendPathComponent("/lessons")
+//        print(url)
+//
+//        DispatchQueue.main.async {
+//            if let cell = self.tableView.cellForRow(at: indexPath) as? TeacherOrGroupLoadingTableViewCell {
+//                cell.activityIndicator.isHidden = false
+//                cell.activityIndicator.startAnimating()
+//            }
+//        }
+//
+//        let task = URLSession.shared.dataTask(with: url) {(data, response, error) in
+//            guard let data = data else { return }
+//            let decoder = JSONDecoder()
+//
+//            do {
+//                DispatchQueue.main.async {
+//                    guard let serverFULLDATA = try? decoder.decode(WelcomeLessons.self, from: data) else { return }
+//
+//                    if let cell = self.tableView.cellForRow(at: indexPath) as? TeacherOrGroupLoadingTableViewCell {
+//                        cell.activityIndicator.isHidden = true
+//                        cell.activityIndicator.stopAnimating()
+//                    }
+//
+//                    let mainStoryboard = UIStoryboard(name: "Main", bundle: Bundle.main)
+//                    guard let sheduleVC : TeacherSheduleViewController = mainStoryboard.instantiateViewController(withIdentifier: TeacherSheduleViewController.identifier) as? TeacherSheduleViewController else { return }
+//
+//                    sheduleVC.isFromFavourites = true
+//                    sheduleVC.currentWeek = 1
+//
+//                    sheduleVC.lessonsFromServer = serverFULLDATA.data
+//
+//                    sheduleVC.navigationController?.navigationItem.largeTitleDisplayMode = .never
+//                    sheduleVC.navigationController?.navigationBar.prefersLargeTitles = false
+//                    sheduleVC.navigationItem.largeTitleDisplayMode = .never
+//
+//                    sheduleVC.teacher = teacher
+//
+//                    self.navigationController?.pushViewController(sheduleVC, animated: true)
+//                }
+//            }
+//        }
+//        task.resume()
+//    }
     
 }
 
@@ -193,10 +303,10 @@ extension FavouriteViewController: UITableViewDelegate, UITableViewDataSource {
         if indexPath.section == 0 {
             let group = Group(groupID: favourites.favouriteGroupsID[indexPath.row], groupFullName: favourites.favouriteGroupsNames[indexPath.row], groupPrefix: "", groupOkr: .magister, groupType: .daily, groupURL: "")
             
-            serverGroupShedule(group: group, indexPath: indexPath)
+            getGroupLessons(group: group, indexPath: indexPath)
         } else {
             let teacher = Teacher(teacherID: String(favourites.favouriteTeachersID[indexPath.row]), teacherName: favourites.favouriteTeachersNames[indexPath.row], teacherFullName: favourites.favouriteTeachersNames[indexPath.row], teacherShortName: "", teacherURL: "", teacherRating: "")
-            serverTeacherShedule(teacher: teacher, indexPath: indexPath)
+            getTeacherLessons(teacher: teacher, indexPath: indexPath)
         }
         
         tableView.deselectRow(at: indexPath, animated: true)
@@ -243,7 +353,6 @@ extension FavouriteViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     
-    
     func tableView(_ tableView: UITableView, editActionsForRowAt: IndexPath) -> [UITableViewRowAction]? {
         let delete = UITableViewRowAction(style: .destructive, title: "Видалити") { action, index in
             if index.section == 0 {
@@ -260,7 +369,6 @@ extension FavouriteViewController: UITableViewDelegate, UITableViewDataSource {
                 self.emptyFavouritesLabel.isHidden = false
                 self.view.backgroundColor = sectionColour
             }
-
         }
 
         return [delete]

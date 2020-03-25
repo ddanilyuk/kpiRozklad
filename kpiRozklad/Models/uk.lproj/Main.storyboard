@@ -32,15 +32,14 @@
                                         <rect key="frame" x="0.0" y="572.5" width="414" height="215.5"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LRj-yV-DA1">
-                                                <rect key="frame" x="52" y="82.5" width="310" height="50"/>
+                                                <rect key="frame" x="62" y="82.5" width="290" height="50"/>
                                                 <color key="backgroundColor" systemColor="linkColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="width" constant="310" id="FsW-9I-3SQ"/>
                                                     <constraint firstAttribute="height" constant="50" id="rWO-0i-KFY"/>
                                                 </constraints>
                                                 <fontDescription key="fontDescription" type="system" pointSize="19"/>
                                                 <state key="normal" title="Додати">
-                                                    <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <color key="titleColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
                                                 </state>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
@@ -59,6 +58,7 @@
                                         <constraints>
                                             <constraint firstItem="LRj-yV-DA1" firstAttribute="centerY" secondItem="BfK-Lh-bTB" secondAttribute="centerY" id="1XH-Q9-kLy"/>
                                             <constraint firstItem="LRj-yV-DA1" firstAttribute="centerX" secondItem="BfK-Lh-bTB" secondAttribute="centerX" id="dhZ-Qb-DWr"/>
+                                            <constraint firstItem="LRj-yV-DA1" firstAttribute="width" secondItem="BfK-Lh-bTB" secondAttribute="width" multiplier="0.7" id="xeQ-1D-KJj"/>
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ioj-Et-szQ">
@@ -289,7 +289,7 @@
                     </view>
                     <navigationItem key="navigationItem" title="ІВ-82" largeTitleDisplayMode="never" id="HCW-ay-CZY">
                         <rightBarButtonItems>
-                            <barButtonItem style="plain" id="5M2-o9-kLT">
+                            <barButtonItem id="5M2-o9-kLT">
                                 <segmentedControl key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" id="kCf-Y9-PTf">
                                     <rect key="frame" x="264" y="5.5" width="130" height="33"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -303,7 +303,7 @@
                                     </connections>
                                 </segmentedControl>
                             </barButtonItem>
-                            <barButtonItem style="plain" id="Lwa-Bg-e65">
+                            <barButtonItem id="Lwa-Bg-e65">
                                 <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="fm9-Lo-1DY">
                                     <rect key="frame" x="206" y="0.0" width="50" height="44"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -387,7 +387,7 @@
                     </view>
                     <tabBarItem key="tabBarItem" title="Преподаватели" id="Yrj-YQ-4gU"/>
                     <navigationItem key="navigationItem" title="Викладачі" id="TEz-7E-uSY">
-                        <barButtonItem key="rightBarButtonItem" style="plain" id="2Tw-jJ-Ixu">
+                        <barButtonItem key="rightBarButtonItem" id="2Tw-jJ-Ixu">
                             <segmentedControl key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bordered" selectedSegmentIndex="0" id="bXl-wA-VMP">
                                 <rect key="frame" x="311" y="5.5" width="83" height="33"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -590,105 +590,111 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="-10" translatesAutoresizingMaskIntoConstraints="NO" id="EC3-Vx-FUB">
-                                <rect key="frame" x="16" y="88" width="382" height="715"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" translatesAutoresizingMaskIntoConstraints="NO" id="EC3-Vx-FUB">
+                                <rect key="frame" x="16" y="88" width="382" height="700"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Предмет" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="5" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ivE-Xg-CUV">
-                                        <rect key="frame" x="0.0" y="0.0" width="382" height="98"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Предмет Предмет Предмет Предмет Предмет" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ivE-Xg-CUV">
+                                        <rect key="frame" x="0.0" y="0.0" width="382" height="181.5"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="27"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                         <size key="shadowOffset" width="0.0" height="0.0"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Викладач невідомий" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OeH-tc-sYc">
-                                        <rect key="frame" x="0.0" y="88" width="382" height="98.5"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Аудиторія" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3XJ-JC-uFy">
-                                        <rect key="frame" x="0.0" y="176.5" width="382" height="98"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Рейтинг викладача: 0.0000" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="g7U-Eb-yfz">
-                                        <rect key="frame" x="0.0" y="264.5" width="382" height="98"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="День" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5sC-gB-DCP">
-                                        <rect key="frame" x="0.0" y="352.5" width="382" height="98"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="PXQ-OR-yxm">
-                                        <rect key="frame" x="0.0" y="440.5" width="382" height="98.5"/>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="TQT-IO-vRv">
+                                        <rect key="frame" x="0.0" y="181.5" width="382" height="518.5"/>
                                         <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Початок: " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IrS-4v-Q3a">
-                                                <rect key="frame" x="0.0" y="39" width="191" height="20.5"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Викладач невідомий" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OeH-tc-sYc">
+                                                <rect key="frame" x="0.0" y="0.0" width="382" height="74"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Кінець: " textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Jk1-ef-DRl">
-                                                <rect key="frame" x="191" y="39" width="191" height="20.5"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Аудиторія" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3XJ-JC-uFy">
+                                                <rect key="frame" x="0.0" y="74" width="382" height="74"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Рейтинг викладача" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6mq-3s-ZAK">
+                                                <rect key="frame" x="0.0" y="148" width="382" height="74"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="День" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5sC-gB-DCP">
+                                                <rect key="frame" x="0.0" y="222" width="382" height="74"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="PXQ-OR-yxm">
+                                                <rect key="frame" x="0.0" y="296" width="382" height="74.5"/>
+                                                <subviews>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Початок: " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IrS-4v-Q3a">
+                                                        <rect key="frame" x="0.0" y="27" width="191" height="20.5"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Кінець: " textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Jk1-ef-DRl">
+                                                        <rect key="frame" x="191" y="27" width="191" height="20.5"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                </subviews>
+                                            </stackView>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Групи:" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ew4-56-aNU">
+                                                <rect key="frame" x="0.0" y="370.5" width="382" height="74"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cni-hA-6qM">
+                                                <rect key="frame" x="0.0" y="444.5" width="382" height="74"/>
+                                                <subviews>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DFO-PY-g7X">
+                                                        <rect key="frame" x="36" y="12" width="310" height="50"/>
+                                                        <color key="backgroundColor" systemColor="linkColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="50" id="SuZ-NH-B0x"/>
+                                                            <constraint firstAttribute="width" constant="310" id="iju-1h-vxi"/>
+                                                        </constraints>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                        <state key="normal" title="Розклад викладача">
+                                                            <color key="titleColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                        </state>
+                                                        <userDefinedRuntimeAttributes>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                                <real key="value" value="1"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                            <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                                <color key="value" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                        </userDefinedRuntimeAttributes>
+                                                        <connections>
+                                                            <segue destination="StT-wO-RBg" kind="show" identifier="showTeacherSheduleFromDetail" id="eOz-94-s6B"/>
+                                                        </connections>
+                                                    </button>
+                                                </subviews>
+                                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                                <constraints>
+                                                    <constraint firstItem="DFO-PY-g7X" firstAttribute="centerY" secondItem="cni-hA-6qM" secondAttribute="centerY" id="YlA-h2-fem"/>
+                                                    <constraint firstItem="DFO-PY-g7X" firstAttribute="centerX" secondItem="cni-hA-6qM" secondAttribute="centerX" id="ZuP-Vg-tu3"/>
+                                                </constraints>
+                                            </view>
                                         </subviews>
                                     </stackView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Групи:" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ew4-56-aNU">
-                                        <rect key="frame" x="0.0" y="529" width="382" height="98"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cni-hA-6qM">
-                                        <rect key="frame" x="0.0" y="617" width="382" height="98"/>
-                                        <subviews>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DFO-PY-g7X">
-                                                <rect key="frame" x="36" y="24" width="310" height="50"/>
-                                                <color key="backgroundColor" systemColor="linkColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="height" constant="50" id="SuZ-NH-B0x"/>
-                                                    <constraint firstAttribute="width" constant="310" id="iju-1h-vxi"/>
-                                                </constraints>
-                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                <state key="normal" title="Розклад викладача">
-                                                    <color key="titleColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
-                                                </state>
-                                                <userDefinedRuntimeAttributes>
-                                                    <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
-                                                        <real key="value" value="1"/>
-                                                    </userDefinedRuntimeAttribute>
-                                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
-                                                        <color key="value" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
-                                                    </userDefinedRuntimeAttribute>
-                                                </userDefinedRuntimeAttributes>
-                                                <connections>
-                                                    <segue destination="StT-wO-RBg" kind="show" identifier="showTeacherSheduleFromDetail" id="eOz-94-s6B"/>
-                                                </connections>
-                                            </button>
-                                        </subviews>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                                        <constraints>
-                                            <constraint firstItem="DFO-PY-g7X" firstAttribute="centerY" secondItem="cni-hA-6qM" secondAttribute="centerY" id="YlA-h2-fem"/>
-                                            <constraint firstItem="DFO-PY-g7X" firstAttribute="centerX" secondItem="cni-hA-6qM" secondAttribute="centerX" id="ZuP-Vg-tu3"/>
-                                        </constraints>
-                                    </view>
                                 </subviews>
                             </stackView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
                             <constraint firstItem="EC3-Vx-FUB" firstAttribute="leading" secondItem="FvJ-V7-JA1" secondAttribute="leading" constant="16" id="68O-wc-Avl"/>
-                            <constraint firstItem="FvJ-V7-JA1" firstAttribute="bottom" secondItem="EC3-Vx-FUB" secondAttribute="bottom" constant="10" id="a9Z-Ee-BqI"/>
+                            <constraint firstItem="FvJ-V7-JA1" firstAttribute="bottom" secondItem="EC3-Vx-FUB" secondAttribute="bottom" constant="25" id="Fed-7Q-pGc"/>
                             <constraint firstItem="FvJ-V7-JA1" firstAttribute="trailing" secondItem="EC3-Vx-FUB" secondAttribute="trailing" constant="16" id="rAE-5h-EQV"/>
                             <constraint firstItem="EC3-Vx-FUB" firstAttribute="top" secondItem="FvJ-V7-JA1" secondAttribute="top" id="rwF-0x-CBs"/>
+                            <constraint firstItem="ivE-Xg-CUV" firstAttribute="height" secondItem="FvJ-V7-JA1" secondAttribute="height" multiplier="0.25" id="wPG-ls-SxY"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="FvJ-V7-JA1"/>
                     </view>
@@ -699,16 +705,16 @@
                         <outlet property="groupsLabel" destination="ew4-56-aNU" id="VXT-PW-A2K"/>
                         <outlet property="lessonNameLabel" destination="ivE-Xg-CUV" id="2qF-SD-rcC"/>
                         <outlet property="roomTypeLabel" destination="3XJ-JC-uFy" id="3zZ-sS-sXt"/>
-                        <outlet property="stackView" destination="EC3-Vx-FUB" id="jGa-YC-tSZ"/>
+                        <outlet property="stackView" destination="TQT-IO-vRv" id="hyT-zN-efm"/>
                         <outlet property="teacherLabel" destination="OeH-tc-sYc" id="uPS-ey-MfF"/>
-                        <outlet property="teacherRatingLabel" destination="g7U-Eb-yfz" id="JFg-I4-0fM"/>
+                        <outlet property="teacherRatingLabel" destination="6mq-3s-ZAK" id="hti-m9-mb7"/>
                         <outlet property="timeEndLabel" destination="Jk1-ef-DRl" id="fPl-5T-lqh"/>
                         <outlet property="timeStartLabel" destination="IrS-4v-Q3a" id="SSU-LA-oWW"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Qoh-jr-SS1" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2878" y="1190"/>
+            <point key="canvasLocation" x="2876.811594202899" y="1189.9553571428571"/>
         </scene>
         <!--Улюблені-->
         <scene sceneID="KTP-aq-mkn">
@@ -832,7 +838,7 @@
                     </view>
                     <navigationItem key="navigationItem" title="Зараз   тиждень" id="bUt-BO-BjC">
                         <rightBarButtonItems>
-                            <barButtonItem style="plain" id="tlm-hn-UJD">
+                            <barButtonItem id="tlm-hn-UJD">
                                 <segmentedControl key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="m5f-ON-rhO">
                                     <rect key="frame" x="311" y="5.5" width="83" height="33"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -846,7 +852,7 @@
                                     </connections>
                                 </segmentedControl>
                             </barButtonItem>
-                            <barButtonItem style="plain" id="z6T-aG-WRZ">
+                            <barButtonItem id="z6T-aG-WRZ">
                                 <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="TdN-Rd-4AK">
                                     <rect key="frame" x="253" y="0.0" width="50" height="44"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>

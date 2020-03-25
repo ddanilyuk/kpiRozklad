@@ -130,7 +130,11 @@ class SheduleDetailNavigationController: UINavigationController, PanModalPresent
     }
 
     var shortFormHeight: PanModalHeight {
-        return .contentHeight((3 * screenHeight)/8)
+        if screenHeight > 737 {
+            return .contentHeight(((3.25 * screenHeight) / 8) + 20)
+        } else {
+            return .contentHeight((3.25 * screenHeight) / 8)
+        }
     }
 
     var longFormHeight: PanModalHeight {

@@ -122,7 +122,7 @@ class TeacherSheduleViewController: UIViewController {
 //                self.stopLoading()
 //            }
         } else {
-            server()
+            getTeacherLessons()
         }
         
         makeTeachersLessonsShedule()
@@ -266,43 +266,72 @@ class TeacherSheduleViewController: UIViewController {
     
     
     // MARK: - server
-    func server() {
-        guard var url = URL(string: "https://api.rozklad.org.ua/v2/teachers/") else { return }
-        url.appendPathComponent(teacherID ?? "")
-        url.appendPathComponent("/lessons")
-        print(url)
-        let task = URLSession.shared.dataTask(with: url) {(data, response, error) in
-            guard let data = data else { return }
-            let decoder = JSONDecoder()
-
-            do {
-//                if let error = try? decoder.decode(Error.self, from: data) {
-//                    if error.message == "Lessons not found" {
-//                        DispatchQueue.main.async {
-//                            let alert = UIAlertController(title: nil, message: "Розкладу для цього викладача не існує", preferredStyle: .alert)
-//                            alert.addAction(UIAlertAction(title: "Назад", style: .default, handler: { (_) in
-//                                self.navigationController?.popViewController(animated: true)
-//                            }))
+//    func server() {
+//        guard var url = URL(string: "https://api.rozklad.org.ua/v2/teachers/") else { return }
+//        url.appendPathComponent(teacherID ?? "")
+//        url.appendPathComponent("/lessons")
+//        print(url)
+//        let task = URLSession.shared.dataTask(with: url) {(data, response, error) in
+//            guard let data = data else { return }
+//            let decoder = JSONDecoder()
 //
-//                            self.present(alert, animated: true, completion: {
-//                            })
-//                        }
-//                    }
-//                }
-                guard let serverFULLDATA = try? decoder.decode(WelcomeLessons.self, from: data) else { return }
-                self.lessons = serverFULLDATA.data
+//            do {
+////                if let error = try? decoder.decode(Error.self, from: data) {
+////                    if error.message == "Lessons not found" {
+////                        DispatchQueue.main.async {
+////                            let alert = UIAlertController(title: nil, message: "Розкладу для цього викладача не існує", preferredStyle: .alert)
+////                            alert.addAction(UIAlertAction(title: "Назад", style: .default, handler: { (_) in
+////                                self.navigationController?.popViewController(animated: true)
+////                            }))
+////
+////                            self.present(alert, animated: true, completion: {
+////                            })
+////                        }
+////                    }
+////                }
+//                guard let serverFULLDATA = try? decoder.decode(WelcomeLessons.self, from: data) else { return }
+//                self.lessons = serverFULLDATA.data
+//            }
+//
+//            DispatchQueue.main.async {
+//                /// Making normal shedule + reloading tableVIew
+//                self.makeTeachersLessonsShedule()
+//
+//                self.stopLoading()
+//            }
+//        }
+//
+//        task.resume()
+//
+//    }
+    
+    private func getTeacherLessons() {
+        API.getTeacherLessons(forTeacherWithId: Int(teacherID ?? "") ?? 0).done({ [weak self] (lessons) in
+            self?.lessons = lessons
+            self?.makeTeachersLessonsShedule()
+            self?.stopLoading()
+        }).catch({ [weak self] (error) in
+            guard let this = self else { return }
+
+            if error.localizedDescription == NetworkingApiError.lessonsNotFound.localizedDescription {
+                let alert = UIAlertController(title: nil, message: "Розкладу для цього викладача не існує", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "Назад", style: .default, handler: { (_) in
+                    this.navigationController?.popViewController(animated: true)
+                }))
+                
+                this.present(alert, animated: true, completion: nil)
+            } else {
+                let alert = UIAlertController(title: "Помилка", message: error.localizedDescription, preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "Ок", style: .default, handler: { (_) in
+                    
+                }))
+                alert.addAction(UIAlertAction(title: "Оновити", style: .default, handler: { (_) in
+                    this.getTeacherLessons()
+                }))
+
+                this.present(alert, animated: true, completion: nil)
             }
-
-            DispatchQueue.main.async {
-                /// Making normal shedule + reloading tableVIew
-                self.makeTeachersLessonsShedule()
-
-                self.stopLoading()
-            }
-        }
-
-        task.resume()
-
+        })
     }
     
     

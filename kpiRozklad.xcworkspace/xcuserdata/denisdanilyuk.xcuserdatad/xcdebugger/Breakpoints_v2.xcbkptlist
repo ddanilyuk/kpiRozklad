@@ -46,8 +46,8 @@
             filePath = "kpiRozklad/Models/GroupsAndTeachers/ViewControllers/GroupsAndTeachersViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "284"
-            endingLineNumber = "284"
+            startingLineNumber = "294"
+            endingLineNumber = "294"
             landmarkName = "tableView(_:didSelectRowAt:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -62,8 +62,8 @@
             filePath = "kpiRozklad/Models/GroupsAndTeachers/ViewControllers/GroupsAndTeachersViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "301"
-            endingLineNumber = "301"
+            startingLineNumber = "311"
+            endingLineNumber = "311"
             landmarkName = "tableView(_:didSelectRowAt:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -119,16 +119,32 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "C3DE7A41-2086-4032-9278-8F662EDDC5F0"
+            uuid = "040B92CB-DC45-45DB-A99C-24F172BE8986"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "kpiRozklad/Models/Shedule/ViewControllers/TeacherSheduleViewController.swift"
+            filePath = "kpiRozklad/Models/GroupsAndTeachers/ViewControllers/GroupsAndTeachersVC+ServerApi.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "118"
-            endingLineNumber = "118"
-            landmarkName = "viewDidLoad()"
+            startingLineNumber = "292"
+            endingLineNumber = "292"
+            landmarkName = "getDefaultErrorAlert(localizedDescription:alertCase:group:teacher:indexPath:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "087E3361-AF60-4338-87DA-F4144E79C7BF"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "kpiRozklad/Models/GroupsAndTeachers/ViewControllers/GroupsAndTeachersVC+ServerApi.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "50"
+            endingLineNumber = "50"
+            landmarkName = "getTeachersOfGroup()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

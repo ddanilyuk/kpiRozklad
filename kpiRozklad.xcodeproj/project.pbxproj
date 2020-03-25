@@ -19,6 +19,10 @@
 		5F0275BE23F34FC800743637 /* ManagingLessons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FE048662392D4FA00092422 /* ManagingLessons.swift */; };
 		5F034A322389B16D00D90DB7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5F034A342389B16D00D90DB7 /* Main.storyboard */; };
 		5F2E61572422C00400B362A2 /* GroupsAndTeachersVC+ServerApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F2E61562422C00400B362A2 /* GroupsAndTeachersVC+ServerApi.swift */; };
+		5F2E617F2428252000B362A2 /* NetworkingApiFacade.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F2E617A2428251F00B362A2 /* NetworkingApiFacade.swift */; };
+		5F2E61812428252000B362A2 /* NetworkingApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F2E617C2428252000B362A2 /* NetworkingApi.swift */; };
+		5F2E61822428252000B362A2 /* NetworkingApiError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F2E617D2428252000B362A2 /* NetworkingApiError.swift */; };
+		5F2E61832428252000B362A2 /* ErrorMessageResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F2E617E2428252000B362A2 /* ErrorMessageResponse.swift */; };
 		5F2F313D2395972900FC28CB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5F2F313C2395972900FC28CB /* Assets.xcassets */; };
 		5F2F313F2395C62100FC28CB /* Colours.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F2F313E2395C62100FC28CB /* Colours.swift */; };
 		5F305C77242260560035B509 /* SheduleVC+UITableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F305C76242260560035B509 /* SheduleVC+UITableView.swift */; };
@@ -119,6 +123,10 @@
 		5F034A352389B1F500D90DB7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		5F034A3E2389B2E600D90DB7 /* uk */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = uk; path = uk.lproj/Main.storyboard; sourceTree = "<group>"; };
 		5F2E61562422C00400B362A2 /* GroupsAndTeachersVC+ServerApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GroupsAndTeachersVC+ServerApi.swift"; sourceTree = "<group>"; };
+		5F2E617A2428251F00B362A2 /* NetworkingApiFacade.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkingApiFacade.swift; sourceTree = "<group>"; };
+		5F2E617C2428252000B362A2 /* NetworkingApi.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkingApi.swift; sourceTree = "<group>"; };
+		5F2E617D2428252000B362A2 /* NetworkingApiError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkingApiError.swift; sourceTree = "<group>"; };
+		5F2E617E2428252000B362A2 /* ErrorMessageResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ErrorMessageResponse.swift; sourceTree = "<group>"; };
 		5F2F313C2395972900FC28CB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		5F2F313E2395C62100FC28CB /* Colours.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colours.swift; sourceTree = "<group>"; };
 		5F305C76242260560035B509 /* SheduleVC+UITableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SheduleVC+UITableView.swift"; sourceTree = "<group>"; };
@@ -216,6 +224,17 @@
 				C33203580DD02E686E10BAEC /* Pods-kpiRozklad.release.xcconfig */,
 			);
 			path = Pods;
+			sourceTree = "<group>";
+		};
+		5F2E6179242824A800B362A2 /* Networking */ = {
+			isa = PBXGroup;
+			children = (
+				5F2E617E2428252000B362A2 /* ErrorMessageResponse.swift */,
+				5F2E617C2428252000B362A2 /* NetworkingApi.swift */,
+				5F2E617D2428252000B362A2 /* NetworkingApiError.swift */,
+				5F2E617A2428251F00B362A2 /* NetworkingApiFacade.swift */,
+			);
+			path = Networking;
 			sourceTree = "<group>";
 		};
 		5F305C7C242264400035B509 /* Other */ = {
@@ -507,6 +526,7 @@
 		D3FFAAE123521BA40065E9CE /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				5F2E6179242824A800B362A2 /* Networking */,
 				5F46AD662401A0D800B145D5 /* Singleton */,
 				5FE048642392D16A00092422 /* EditingLessons.swift */,
 				5FE048662392D4FA00092422 /* ManagingLessons.swift */,
@@ -776,6 +796,7 @@
 				5FCBB9FD241C404F00E7654F /* StringExtensions.swift in Sources */,
 				5FA2B79D2379F5A7006C466B /* Group.swift in Sources */,
 				5FCBBA20241C4FF600E7654F /* ColorPickerViewMy.swift in Sources */,
+				5F2E61812428252000B362A2 /* NetworkingApi.swift in Sources */,
 				5FE0486D23930C3000092422 /* SheduleVC+UIPickerVC.swift in Sources */,
 				5FCBB9FF241C40B900E7654F /* UIButtonExtensions.swift in Sources */,
 				5FE048672392D4FA00092422 /* ManagingLessons.swift in Sources */,
@@ -784,7 +805,9 @@
 				5F4457E42376FB05008F9E21 /* Settings.swift in Sources */,
 				5FE048652392D16A00092422 /* EditingLessons.swift in Sources */,
 				5F4E51ED2403D9DD0034D250 /* GreetingViewController.swift in Sources */,
+				5F2E61832428252000B362A2 /* ErrorMessageResponse.swift in Sources */,
 				5F5000AF238D704A0003E13B /* UIViewExtension.swift in Sources */,
+				5F2E61822428252000B362A2 /* NetworkingApiError.swift in Sources */,
 				5FCBBA18241C4F1F00E7654F /* DefaultValuesMy.swift in Sources */,
 				5FCBBA1C241C4F7A00E7654F /* ColorPickerViewDelegateFlowLayoutMy.swift in Sources */,
 				5FE0486B2393087900092422 /* CoreDataHelpers.swift in Sources */,
@@ -796,6 +819,7 @@
 				5FE96785240F0C22000AD157 /* SheduleDetailNavigationController.swift in Sources */,
 				D300F1D62364CEA30098CA83 /* GroupsAndTeachersViewController.swift in Sources */,
 				5FE048692393027900092422 /* TimeAndDate.swift in Sources */,
+				5F2E617F2428252000B362A2 /* NetworkingApiFacade.swift in Sources */,
 				5F2E61572422C00400B362A2 /* GroupsAndTeachersVC+ServerApi.swift in Sources */,
 				D313F4AE233AAF920076CFF8 /* SheduleViewController.swift in Sources */,
 				5FCBBA09241C4B3000E7654F /* ColourPickerViewController.swift in Sources */,

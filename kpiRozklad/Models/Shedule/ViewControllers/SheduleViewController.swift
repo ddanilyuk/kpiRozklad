@@ -8,6 +8,7 @@
 
 import UIKit
 import CoreData
+import PromiseKit
 
 /// Some about how it works
 ///
@@ -166,7 +167,8 @@ class SheduleViewController: UIViewController {
         
         
         if settings.isTryToRefreshShedule {
-            server(requestType: global.sheduleType)
+//            server(requestType: global.sheduleType)
+            getLessons()
                     
             settings.isTryToRefreshShedule = false
         }
@@ -194,6 +196,7 @@ class SheduleViewController: UIViewController {
             // setup navigation and status bar colour
             self.navigationController?.navigationBar.barTintColor = tint
             self.navigationController?.navigationBar.backgroundColor = tint
+            self.navigationController?.navigationBar.isTranslucent = true
             if #available(iOS 13.0, *) {
                 let app = UIApplication.shared
                 let statusBarHeight: CGFloat = app.statusBarFrame.size.height
@@ -467,50 +470,87 @@ class SheduleViewController: UIViewController {
     // MARK: - server
     /// Functon which getting data from server
     /// - note: This fuction call `updateCoreData()`
-    func server(requestType: SheduleType) {
-        var stringURL = ""
-        if requestType == .groups {
-            stringURL = "https://api.rozklad.org.ua/v2/groups/\(settings.groupID)/lessons"
-        } else {
-            stringURL = "https://api.rozklad.org.ua/v2/teachers/\(settings.teacherID)/lessons"
-        }
+//    func server(requestType: SheduleType) {
+//        var stringURL = ""
+//        if requestType == .groups {
+//            stringURL = "https://api.rozklad.org.ua/v2/groups/\(settings.groupID)/lessons"
+//        } else {
+//            stringURL = "https://api.rozklad.org.ua/v2/teachers/\(settings.teacherID)/lessons"
+//        }
+//        
+//        guard let url = URL(string: stringURL) else { return }
+//        print(url)
+//        
+//        let task = URLSession.shared.dataTask(with: url) {(data, response, error) in
+//            guard let data = data else { return }
+//            
+//            let decoder = JSONDecoder()
+//
+//            do {
+//                // print error
+//                if let error = try? decoder.decode(Error.self, from: data) {
+//                    if error.message == "Lessons not found" {
+//                        DispatchQueue.main.async {
+//                            let messageAlert = global.sheduleType == .groups ? "Розкладу для цієї групи не існує" : "Розкладу для цього викладача не існує"
+//                            let actionTitle = global.sheduleType == .groups ? "Змінити групу" : "Змінити викладача"
+//                            
+//                            let alert = UIAlertController(title: nil, message: messageAlert, preferredStyle: .alert)
+//                            alert.addAction(UIAlertAction(title: actionTitle, style: .default, handler: { (_) in
+//                                self.settings.groupName = ""
+//                                self.settings.teacherName = ""
+//                                self.presentGroupOrTeacherChooser(requestType: global.sheduleType)
+//                            }))
+//                            
+//                            self.present(alert, animated: true, completion: {
+//                                self.settings.isTryToRefreshShedule = true
+//                            })
+//                        }
+//                    }
+//                }
+//                
+//                guard let serverFULLDATA = try? decoder.decode(WelcomeLessons.self, from: data) else { return }
+//
+//                updateCoreDataV2(vc: self, datum: serverFULLDATA.data)
+//            }
+//        }
+//        task.resume()
+//    }
+    
+    private func getLessons() {
+        let serverLessons: Promise<[Lesson]> = global.sheduleType == .groups ? API.getStudentLessons(forGroupWithId: settings.groupID) : API.getTeacherLessons(forTeacherWithId: settings.teacherID)
         
-        guard let url = URL(string: stringURL) else { return }
-        print(url)
-        
-        let task = URLSession.shared.dataTask(with: url) {(data, response, error) in
-            guard let data = data else { return }
-            
-            let decoder = JSONDecoder()
+        serverLessons.done({ [weak self] (lessons) in
+            guard let this = self else { return }
+            updateCoreDataV2(vc: this, datum: lessons)
+        }).catch({ [weak self] (error) in
+            guard let this = self else { return }
 
-            do {
-                // print error
-                if let error = try? decoder.decode(Error.self, from: data) {
-                    if error.message == "Lessons not found" {
-                        DispatchQueue.main.async {
-                            let messageAlert = global.sheduleType == .groups ? "Розкладу для цієї групи не існує" : "Розкладу для цього викладача не існує"
-                            let actionTitle = global.sheduleType == .groups ? "Змінити групу" : "Змінити викладача"
-                            
-                            let alert = UIAlertController(title: nil, message: messageAlert, preferredStyle: .alert)
-                            alert.addAction(UIAlertAction(title: actionTitle, style: .default, handler: { (_) in
-                                self.settings.groupName = ""
-                                self.settings.teacherName = ""
-                                self.presentGroupOrTeacherChooser(requestType: global.sheduleType)
-                            }))
-                            
-                            self.present(alert, animated: true, completion: {
-                                self.settings.isTryToRefreshShedule = true
-                            })
-                        }
-                    }
-                }
+            if error.localizedDescription == NetworkingApiError.lessonsNotFound.localizedDescription {
+                let messageAlert = global.sheduleType == .groups ? "Розкладу для цієї групи не існує" : "Розкладу для цього викладача не існує"
+                let actionTitle = global.sheduleType == .groups ? "Змінити групу" : "Змінити викладача"
                 
-                guard let serverFULLDATA = try? decoder.decode(WelcomeLessons.self, from: data) else { return }
+                let alert = UIAlertController(title: nil, message: messageAlert, preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: actionTitle, style: .default, handler: { (_) in
+                    this.settings.groupName = ""
+                    this.settings.teacherName = ""
+                    this.presentGroupOrTeacherChooser(requestType: global.sheduleType)
+                }))
+                
+                this.present(alert, animated: true, completion: {
+                    this.settings.isTryToRefreshShedule = true
+                })
+            } else {
+                let alert = UIAlertController(title: "Помилка", message: error.localizedDescription, preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "Ок", style: .default, handler: { (_) in
+                    
+                }))
+                alert.addAction(UIAlertAction(title: "Оновити", style: .default, handler: { (_) in
+                    this.getLessons()
+                }))
 
-                updateCoreDataV2(vc: self, datum: serverFULLDATA.data)
+                this.present(alert, animated: true, completion: nil)
             }
-        }
-        task.resume()
+        })
     }
     
     

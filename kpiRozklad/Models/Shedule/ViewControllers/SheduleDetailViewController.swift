@@ -77,7 +77,7 @@ class SheduleDetailViewController: UIViewController {
         checkTeacherShedule.layer.cornerRadius = 25
         
         if lesson.groups?.count == 0 {
-            server(dayNumber: lesson.dayNumber, lessonNumber: lesson.lessonNumber, teacherID: teacher?.teacherID ?? "0", lessonWeek: lesson.lessonWeek)
+            getTeacherLessons(dayNumber: lesson.dayNumber, lessonNumber: lesson.lessonNumber, teacherID: teacher?.teacherID ?? "0", lessonWeek: lesson.lessonWeek)
         } else {
             self.groupsLabel.text = "Групи: \(getGroupsOfLessonString(lesson: lesson))"
         }
@@ -118,34 +118,58 @@ class SheduleDetailViewController: UIViewController {
     }
     
     
-    // MARK: - server
-    func server(dayNumber: String, lessonNumber: String, teacherID: String, lessonWeek: String) {
-        
-        var lessons: [Lesson] = []
-        
-        guard var url = URL(string: "https://api.rozklad.org.ua/v2/teachers/") else { return }
-        url.appendPathComponent(teacherID)
-        url.appendPathComponent("/lessons")
-        print(url)
-        let task = URLSession.shared.dataTask(with: url) {(data, response, error) in
-            guard let data = data else { return }
-            let decoder = JSONDecoder()
+//    // MARK: - server
+//    func server(dayNumber: String, lessonNumber: String, teacherID: String, lessonWeek: String) {
+//
+//        var lessons: [Lesson] = []
+//
+//        guard var url = URL(string: "https://api.rozklad.org.ua/v2/teachers/") else { return }
+//        url.appendPathComponent(teacherID)
+//        url.appendPathComponent("/lessons")
+//        print(url)
+//        let task = URLSession.shared.dataTask(with: url) {(data, response, error) in
+//            guard let data = data else { return }
+//            let decoder = JSONDecoder()
+//
+//            do {
+//                if let error = try? decoder.decode(Error.self, from: data) {
+//                    if error.message == "Lessons not found" {
+//
+//                    }
+//                }
+//
+//                guard let serverFULLDATA = try? decoder.decode(WelcomeLessons.self, from: data) else { return }
+//                lessons = serverFULLDATA.data
+//                self.getGroups(dayNumber: dayNumber, lessonNumber: lessonNumber, teacherID: teacherID, lessonWeek: lessonWeek, lessons: lessons)
+//            }
+//        }
+//        task.resume()
+//
+//    }
+    
+    
+    private func getTeacherLessons(dayNumber: String, lessonNumber: String, teacherID: String, lessonWeek: String) {
+        API.getTeacherLessons(forTeacherWithId: Int(teacherID) ?? 0).done({ [weak self] (lessons) in
+            self?.getGroups(dayNumber: dayNumber, lessonNumber: lessonNumber, teacherID: teacherID, lessonWeek: lessonWeek, lessons: lessons)
+        }).catch({ [weak self] (error) in
+            guard let this = self else { return }
 
-            do {
-                if let error = try? decoder.decode(Error.self, from: data) {
-                    if error.message == "Lessons not found" {
-
-                    }
-                }
+            if error.localizedDescription == NetworkingApiError.lessonsNotFound.localizedDescription {
+                let alert = UIAlertController(title: nil, message: "Розкладу для цього викладача не існує", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "Назад", style: .default, handler: { (_) in
+                    this.navigationController?.popViewController(animated: true)
+                }))
                 
-                guard let serverFULLDATA = try? decoder.decode(WelcomeLessons.self, from: data) else { return }
-                lessons = serverFULLDATA.data
-                self.getGroups(dayNumber: dayNumber, lessonNumber: lessonNumber, teacherID: teacherID, lessonWeek: lessonWeek, lessons: lessons)
+                this.present(alert, animated: true, completion: nil)
+            } else {
+                let alert = UIAlertController(title: "Помилка", message: error.localizedDescription, preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "Оновити", style: .default, handler: { (_) in
+                    this.getTeacherLessons(dayNumber: dayNumber, lessonNumber: lessonNumber, teacherID: teacherID, lessonWeek: lessonWeek)
+                }))
 
+                this.present(alert, animated: true, completion: nil)
             }
-        }
-        task.resume()
-        
+        })
     }
 
 }

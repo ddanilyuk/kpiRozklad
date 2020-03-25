@@ -15,6 +15,8 @@ struct global {
     static var sheduleType: SheduleType = .groups
 }
 
+var API = NetworkingApiFacade(apiService: NetworkingApi())
+
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
@@ -35,13 +37,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             global.sheduleType = .groups
         }
 //        settings.teacherName = ""
-        
-        print(settings.updateAtOnceSecond)
-        
+                
         if settings.sheduleUpdateTime == "" {
             settings.isTryToRefreshShedule = true
             deleteAllFromCoreData()
- 
+            settings.updateAtOnce = "updated"
+            settings.updateAtOnceSecond = "updated"
+
             let date = Date()
             let formatter = DateFormatter()
             formatter.dateFormat = "dd.MM.yyyy"
@@ -50,6 +52,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         } else if settings.updateAtOnce == "" {
             settings.isTryToRefreshShedule = true
             settings.updateAtOnce = "updated"
+            settings.updateAtOnceSecond = "updated"
+
             global.sheduleType = .groups
             deleteAllFromCoreData()
             

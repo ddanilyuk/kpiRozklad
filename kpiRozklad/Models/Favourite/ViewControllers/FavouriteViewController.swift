@@ -23,7 +23,8 @@ class FavouriteViewController: UIViewController {
         super.viewDidLoad()
         
         setupTableView()
-        
+        self.navigationController?.navigationBar.isTranslucent = true
+        self.tabBarController?.tabBar.isTranslucent = true
 
     }
     
@@ -47,7 +48,11 @@ class FavouriteViewController: UIViewController {
         tableView.delegate = self
         tableView.dataSource = self
         tableView.backgroundColor = sectionColour
-
+        if #available(iOS 13.0, *) {
+            tableView.backgroundColor = tint
+        } else {
+            tableView.backgroundColor = .white
+        }
     }
     
     

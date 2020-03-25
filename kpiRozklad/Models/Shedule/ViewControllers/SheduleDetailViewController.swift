@@ -46,11 +46,33 @@ class SheduleDetailViewController: UIViewController {
         /// Guarding lesson
         guard let lesson = lesson else { return }
         
-        print(lesson)
         
         if lesson.teachers?.count != 0 {
             teacher = lesson.teachers?[0]
-                        
+            if teacher?.teacherID == "" {
+                teacherLabel.isHidden = true
+                teacherRatingLabel.isHidden = true
+                groupsLabel.isHidden = true
+                
+                stackView.removeArrangedSubview(teacherLabel)
+                stackView.removeArrangedSubview(teacherRatingLabel)
+                stackView.removeArrangedSubview(groupsLabel)
+                
+                stackView.addArrangedSubview(UIView())
+                stackView.addArrangedSubview(UIView())
+                stackView.addArrangedSubview(UIView())
+
+                checkTeacherShedule.isEnabled = false
+                checkTeacherShedule.backgroundColor = .lightGray
+                checkTeacherShedule.borderColor = .lightGray
+            }
+            
+            if lesson.lessonRoom == "" && lesson.lessonType == .empty {
+                stackView.removeArrangedSubview(roomTypeLabel)
+                stackView.addArrangedSubview(UIView())
+            }
+            
+            
             if teacher?.teacherFullName != "" {
                 teacherLabel.text = teacher?.teacherFullName
             } else if teacher?.teacherName != "" {
@@ -59,11 +81,17 @@ class SheduleDetailViewController: UIViewController {
                 teacherLabel.text = lesson.teacherName
             }
             
-            teacherRatingLabel.text = "Рейтинг викладача: " + (teacher?.teacherRating ?? "0.0000")
-        } else {
-            checkTeacherShedule.isEnabled = false
-            checkTeacherShedule.backgroundColor = .lightGray
-            checkTeacherShedule.borderColor = .lightGray
+            if let rating = teacher?.teacherRating {
+                teacherRatingLabel.text = rating != "" ? "Рейтинг викладача: \(rating)" : ""
+                if rating == "" {
+                    if !teacherLabel.isHidden {
+                        stackView.removeArrangedSubview(teacherRatingLabel)
+                        stackView.addArrangedSubview(UIView())
+                    }
+                    
+                }
+            }
+            
         }
         
         lessonNameLabel.text = lesson.lessonName
@@ -86,6 +114,8 @@ class SheduleDetailViewController: UIViewController {
         if global.sheduleType == .teachers {
             self.groupsLabel.text = "Групи: \(getGroupsOfLessonString(lesson: lesson))"
             checkTeacherShedule.isHidden = true
+//            stackView.removeArrangedSubview(checkTeacherShedule)
+            
         }
         
     }
@@ -109,7 +139,9 @@ class SheduleDetailViewController: UIViewController {
     
     func getGroups(dayNumber: String, lessonNumber: String, teacherID: String, lessonWeek: String, lessons: [Lesson]) {
         for lesson in lessons {
-            if lesson.dayNumber == dayNumber && lesson.lessonNumber == lessonNumber && lesson.lessonWeek == lessonWeek {
+            if lesson.dayNumber == dayNumber &&
+                lesson.lessonNumber == lessonNumber &&
+                lesson.lessonWeek == lessonWeek {
                 DispatchQueue.main.async {
                     self.groupsLabel.text = "Групи: \(getGroupsOfLessonString(lesson: lesson))"
                 }
@@ -153,21 +185,11 @@ class SheduleDetailViewController: UIViewController {
             self?.getGroups(dayNumber: dayNumber, lessonNumber: lessonNumber, teacherID: teacherID, lessonWeek: lessonWeek, lessons: lessons)
         }).catch({ [weak self] (error) in
             guard let this = self else { return }
-
-            if error.localizedDescription == NetworkingApiError.lessonsNotFound.localizedDescription {
-                let alert = UIAlertController(title: nil, message: "Розкладу для цього викладача не існує", preferredStyle: .alert)
-                alert.addAction(UIAlertAction(title: "Назад", style: .default, handler: { (_) in
-                    this.navigationController?.popViewController(animated: true)
-                }))
-                
-                this.present(alert, animated: true, completion: nil)
-            } else {
-                let alert = UIAlertController(title: "Помилка", message: error.localizedDescription, preferredStyle: .alert)
-                alert.addAction(UIAlertAction(title: "Оновити", style: .default, handler: { (_) in
+            
+            if error.localizedDescription != NetworkingApiError.lessonsNotFound.localizedDescription {
+                DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .seconds(5)) {
                     this.getTeacherLessons(dayNumber: dayNumber, lessonNumber: lessonNumber, teacherID: teacherID, lessonWeek: lessonWeek)
-                }))
-
-                this.present(alert, animated: true, completion: nil)
+                }
             }
         })
     }

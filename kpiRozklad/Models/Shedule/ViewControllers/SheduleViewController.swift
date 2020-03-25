@@ -191,41 +191,45 @@ class SheduleViewController: UIViewController {
     }
     
     
-    override func viewDidAppear(_ animated: Bool) {
-        if !isFromSettingsGetFreshShedule {
-            // setup navigation and status bar colour
-            self.navigationController?.navigationBar.barTintColor = tint
-            self.navigationController?.navigationBar.backgroundColor = tint
-            self.navigationController?.navigationBar.isTranslucent = true
-            if #available(iOS 13.0, *) {
-                let app = UIApplication.shared
-                let statusBarHeight: CGFloat = app.statusBarFrame.size.height
-                
-                let statusbarView = UIView()
-                statusbarView.backgroundColor = tint
-                view.addSubview(statusbarView)
-              
-                statusbarView.translatesAutoresizingMaskIntoConstraints = false
-                statusbarView.heightAnchor.constraint(equalToConstant: statusBarHeight).isActive = true
-                statusbarView.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 1.0).isActive = true
-                statusbarView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
-                statusbarView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-              
-            } else {
-                let statusBar = UIApplication.shared.value(forKeyPath: "statusBarWindow.statusBar") as? UIView
-                statusBar?.backgroundColor = tint
-            }
-            
-            self.navigationItem.largeTitleDisplayMode = .always
-
-        }
-    }
+//    override func viewDidAppear(_ animated: Bool) {
+//        if !isFromSettingsGetFreshShedule {
+//            // setup navigation and status bar colour
+//            self.navigationController?.navigationBar.barTintColor = tint
+//            self.navigationController?.navigationBar.backgroundColor = tint
+//            if #available(iOS 13.0, *) {
+//                let app = UIApplication.shared
+//                let statusBarHeight: CGFloat = app.statusBarFrame.size.height
+//
+//                let statusbarView = UIView()
+//                statusbarView.backgroundColor = tint
+//                view.addSubview(statusbarView)
+//
+//                statusbarView.translatesAutoresizingMaskIntoConstraints = false
+//                statusbarView.heightAnchor.constraint(equalToConstant: statusBarHeight).isActive = true
+//                statusbarView.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 1.0).isActive = true
+//                statusbarView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+//                statusbarView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+//
+//            } else {
+//                let statusBar = UIApplication.shared.value(forKeyPath: "statusBarWindow.statusBar") as? UIView
+//                statusBar?.backgroundColor = tint
+//            }
+//
+//            self.navigationItem.largeTitleDisplayMode = .always
+//
+//        }
+//        self.navigationController?.navigationBar.isTranslucent = true
+//
+//
+//    }
     
     
     private func setupTableView() {
         tableView.register(UINib(nibName: LessonTableViewCell.identifier, bundle: Bundle.main), forCellReuseIdentifier: LessonTableViewCell.identifier)
         tableView.delegate = self
         tableView.dataSource = self
+        
+        
         if #available(iOS 13.0, *) {
             tableView.backgroundColor = tint
         } else {
@@ -254,21 +258,30 @@ class SheduleViewController: UIViewController {
         
         if !isFromSettingsGetFreshShedule && !isFromGroups {
             self.navigationItem.leftBarButtonItem = self.editButtonItem
-            self.navigationController?.navigationBar.prefersLargeTitles = true
-            self.navigationController?.navigationItem.largeTitleDisplayMode = .always
+//            self.navigationController?.navigationBar.prefersLargeTitles = true
+//            self.navigationController?.navigationItem.largeTitleDisplayMode = .always
+            
+//            self.navigationController?.navigationBar.isTranslucent = true
+            
+//            self.navigationItem.largeTitleDisplayMode = .always
+            setLargeTitleDisplayMode(.always)
+
+
 //            self.navigationController?.navigationBar.backgroundColor = tint
             if global.sheduleType == .groups {
                 self.navigationItem.title = settings.groupName.uppercased()
-            } else {
+            } else if global.sheduleType == .teachers {
                 self.navigationItem.title = "Мій розклад"
             }
 
         } else {
-            self.navigationController?.navigationBar.prefersLargeTitles = false
-            self.navigationController?.navigationItem.largeTitleDisplayMode = .never
+//            self.navigationController?.navigationBar.prefersLargeTitles = false
+//            self.navigationController?.navigationItem.largeTitleDisplayMode = .never
+            setLargeTitleDisplayMode(.never)
         }
 
         self.navigationController?.navigationBar.isTranslucent = true
+        self.tabBarController?.tabBar.isTranslucent = true
     }
     
     

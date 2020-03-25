@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="nab-GF-eXo">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="nab-GF-eXo">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16086"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -245,7 +245,7 @@
             <objects>
                 <navigationController storyboardIdentifier="SheduleNavigationVC" id="RNu-Ik-QQg" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Розклад" image="icons8-index-90" id="8Be-PC-7G9"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translucent="NO" id="uN9-z4-vS1">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="uN9-z4-vS1">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -265,25 +265,25 @@
             <objects>
                 <viewController storyboardIdentifier="SheduleViewController" id="VGz-qr-qiP" customClass="SheduleViewController" customModule="KPI_Rozklad" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="P20-9K-3S9">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="808"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" allowsSelectionDuringEditing="YES" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="Bv9-u6-c2Z">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="725"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                             </tableView>
                             <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="q0l-yL-hSA">
-                                <rect key="frame" x="188.5" y="344" width="37" height="37"/>
+                                <rect key="frame" x="188.5" y="432" width="37" height="37"/>
                             </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
-                            <constraint firstItem="Bv9-u6-c2Z" firstAttribute="leading" secondItem="P20-9K-3S9" secondAttribute="leading" id="00Q-yg-prW"/>
+                            <constraint firstItem="Bv9-u6-c2Z" firstAttribute="leading" secondItem="2xZ-kD-GrF" secondAttribute="leading" id="00Q-yg-prW"/>
                             <constraint firstItem="q0l-yL-hSA" firstAttribute="centerX" secondItem="2xZ-kD-GrF" secondAttribute="centerX" id="EVE-ms-vM9"/>
-                            <constraint firstAttribute="trailing" secondItem="Bv9-u6-c2Z" secondAttribute="trailing" id="IdZ-vB-1dd"/>
+                            <constraint firstItem="2xZ-kD-GrF" firstAttribute="trailing" secondItem="Bv9-u6-c2Z" secondAttribute="trailing" id="IdZ-vB-1dd"/>
                             <constraint firstItem="Bv9-u6-c2Z" firstAttribute="top" secondItem="P20-9K-3S9" secondAttribute="top" id="Vcm-6r-ShP"/>
                             <constraint firstItem="q0l-yL-hSA" firstAttribute="centerY" secondItem="2xZ-kD-GrF" secondAttribute="centerY" id="j0z-gc-yMW"/>
-                            <constraint firstItem="Bv9-u6-c2Z" firstAttribute="bottom" secondItem="2xZ-kD-GrF" secondAttribute="bottom" id="yae-U3-fFU"/>
+                            <constraint firstItem="Bv9-u6-c2Z" firstAttribute="bottom" secondItem="P20-9K-3S9" secondAttribute="bottom" id="yae-U3-fFU"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="2xZ-kD-GrF"/>
                     </view>
@@ -355,7 +355,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" tag="-1" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="ozO-6T-Pnc">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="813"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                             </tableView>
                             <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="DY7-sa-ene">
@@ -374,7 +374,7 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
                             <constraint firstItem="ooM-zV-5FE" firstAttribute="trailing" secondItem="A37-eR-HtN" secondAttribute="trailing" constant="-8" id="1mh-Bs-f6B"/>
-                            <constraint firstItem="ozO-6T-Pnc" firstAttribute="bottom" secondItem="A37-eR-HtN" secondAttribute="bottom" id="BHJ-Jg-KTx"/>
+                            <constraint firstItem="ozO-6T-Pnc" firstAttribute="bottom" secondItem="r28-T8-AU0" secondAttribute="bottom" id="BHJ-Jg-KTx"/>
                             <constraint firstItem="ooM-zV-5FE" firstAttribute="top" secondItem="A37-eR-HtN" secondAttribute="top" constant="20" id="GKz-3C-962"/>
                             <constraint firstItem="DY7-sa-ene" firstAttribute="centerX" secondItem="A37-eR-HtN" secondAttribute="centerX" id="KWO-On-4PF"/>
                             <constraint firstItem="DY7-sa-ene" firstAttribute="centerY" secondItem="A37-eR-HtN" secondAttribute="centerY" id="Ql4-A1-PzD"/>
@@ -587,11 +587,11 @@
             <objects>
                 <viewController storyboardIdentifier="SheduleDetailViewController" id="Xi8-a3-NCy" customClass="SheduleDetailViewController" customModule="KPI_Rozklad" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="rN8-a6-edx">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="808"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="-10" translatesAutoresizingMaskIntoConstraints="NO" id="EC3-Vx-FUB">
-                                <rect key="frame" x="16" y="0.0" width="382" height="715"/>
+                                <rect key="frame" x="16" y="88" width="382" height="715"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Предмет" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="5" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ivE-Xg-CUV">
                                         <rect key="frame" x="0.0" y="0.0" width="382" height="98"/>
@@ -659,7 +659,7 @@
                                                 </constraints>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <state key="normal" title="Розклад викладача">
-                                                    <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <color key="titleColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
                                                 </state>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
@@ -699,7 +699,7 @@
                         <outlet property="groupsLabel" destination="ew4-56-aNU" id="VXT-PW-A2K"/>
                         <outlet property="lessonNameLabel" destination="ivE-Xg-CUV" id="2qF-SD-rcC"/>
                         <outlet property="roomTypeLabel" destination="3XJ-JC-uFy" id="3zZ-sS-sXt"/>
-                        <outlet property="stackView" destination="EC3-Vx-FUB" id="Nhs-Rk-kxQ"/>
+                        <outlet property="stackView" destination="EC3-Vx-FUB" id="jGa-YC-tSZ"/>
                         <outlet property="teacherLabel" destination="OeH-tc-sYc" id="uPS-ey-MfF"/>
                         <outlet property="teacherRatingLabel" destination="g7U-Eb-yfz" id="JFg-I4-0fM"/>
                         <outlet property="timeEndLabel" destination="Jk1-ef-DRl" id="fPl-5T-lqh"/>
@@ -736,7 +736,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="aVE-R4-tFU">
-                                <rect key="frame" x="0.0" y="88" width="414" height="725"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                             </tableView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Цей список порожній. Додайте групу або викладача до улюблених та слідкуйте за їх розкладом." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="10" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GWM-hc-aA6">
@@ -754,9 +754,9 @@
                             <constraint firstItem="GWM-hc-aA6" firstAttribute="top" secondItem="1uv-6j-VKN" secondAttribute="top" constant="20" id="425-rI-aY9"/>
                             <constraint firstItem="1uv-6j-VKN" firstAttribute="trailing" secondItem="aVE-R4-tFU" secondAttribute="trailing" id="KNV-eM-78q"/>
                             <constraint firstItem="GWM-hc-aA6" firstAttribute="leading" secondItem="1uv-6j-VKN" secondAttribute="leading" constant="8" id="Rua-lP-hiL"/>
-                            <constraint firstItem="aVE-R4-tFU" firstAttribute="top" secondItem="1uv-6j-VKN" secondAttribute="top" id="XHb-C4-dp0"/>
+                            <constraint firstItem="aVE-R4-tFU" firstAttribute="top" secondItem="YKA-qv-UzK" secondAttribute="top" id="XHb-C4-dp0"/>
                             <constraint firstItem="aVE-R4-tFU" firstAttribute="leading" secondItem="1uv-6j-VKN" secondAttribute="leading" id="dTq-56-ZuZ"/>
-                            <constraint firstItem="1uv-6j-VKN" firstAttribute="bottom" secondItem="aVE-R4-tFU" secondAttribute="bottom" id="kZS-vz-Ra1"/>
+                            <constraint firstAttribute="bottom" secondItem="aVE-R4-tFU" secondAttribute="bottom" id="kZS-vz-Ra1"/>
                             <constraint firstItem="1uv-6j-VKN" firstAttribute="trailing" secondItem="GWM-hc-aA6" secondAttribute="trailing" constant="8" id="nPC-8z-wtT"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="1uv-6j-VKN"/>
@@ -806,15 +806,15 @@
             <objects>
                 <viewController storyboardIdentifier="TeacherSheduleViewController" id="StT-wO-RBg" customClass="TeacherSheduleViewController" customModule="KPI_Rozklad" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="sT5-E5-eIb">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="808"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="6uy-Lx-1YN" customClass="Teac">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="808"/>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="6uy-Lx-1YN">
+                                <rect key="frame" x="0.0" y="88" width="414" height="808"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                             </tableView>
                             <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="aXm-Uf-t5P">
-                                <rect key="frame" x="0.0" y="344" width="414" height="37"/>
+                                <rect key="frame" x="0.0" y="432" width="414" height="37"/>
                             </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
@@ -873,6 +873,10 @@
             <point key="canvasLocation" x="3958" y="1190"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="eOz-94-s6B"/>
+        <segue reference="RJQ-je-C9R"/>
+    </inferredMetricsTieBreakers>
     <resources>
         <image name="icons8-christmas-star-75-1" width="25" height="25"/>
         <image name="icons8-christmas-star-75-add-1" width="25" height="25"/>
@@ -882,8 +886,4 @@
         <image name="icons8-user-group-90" width="30" height="30"/>
         <image name="loadingV1" width="1242" height="2208"/>
     </resources>
-    <inferredMetricsTieBreakers>
-        <segue reference="eOz-94-s6B"/>
-        <segue reference="RJQ-je-C9R"/>
-    </inferredMetricsTieBreakers>
 </document>

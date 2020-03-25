@@ -160,8 +160,14 @@ class GroupsAndTeachersViewController: UIViewController {
 
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.backgroundColor = tableViewBackground
-        self.view.backgroundColor = tableViewBackground
+//        tableView.backgroundColor = tableViewBackground
+//        self.view.backgroundColor = tableViewBackground
+//
+        if #available(iOS 13.0, *) {
+            tableView.backgroundColor = tint
+        } else {
+            tableView.backgroundColor = .white
+        }
     }
     
     
@@ -186,6 +192,8 @@ class GroupsAndTeachersViewController: UIViewController {
         self.navigationItem.searchController = search
         self.navigationItem.hidesSearchBarWhenScrolling = false
         definesPresentationContext = true
+        self.navigationController?.navigationBar.isTranslucent = true
+        self.tabBarController?.tabBar.isTranslucent = true
     }
     
     

@@ -1126,7 +1126,6 @@
 		5F6A08042370A175000A9C79 /* kpiRozklad.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
-				5FE9678C240FAFA6000AD157 /* Lessonv2.xcdatamodel */,
 				5F6A08052370A175000A9C79 /* Lesson.xcdatamodel */,
 			);
 			currentVersion = 5F6A08052370A175000A9C79 /* Lesson.xcdatamodel */;

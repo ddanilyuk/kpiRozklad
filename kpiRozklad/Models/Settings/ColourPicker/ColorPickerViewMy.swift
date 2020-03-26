@@ -119,7 +119,6 @@ open class ColorPickerView: UIView, UICollectionViewDelegate, UICollectionViewDa
             let index = IndexPath(row: i, section: 0)
 
             if let cell = collectionView.cellForItem(at: index) as? ColorPickerCell {
-                print(i)
                 if selectionStyle == .check {
                     cell.checkbox.setCheckState(.unchecked, animated: true)
                 }
@@ -214,7 +213,6 @@ open class ColorPickerView: UIView, UICollectionViewDelegate, UICollectionViewDa
         if style == .circle {
             cell.layer.cornerRadius = cell.bounds.width / 2
         }
-        let bc = cell.backgroundColor
         cell.layer.borderWidth = 0
 
         if cell.backgroundColor == colors[0] || cell.backgroundColor == colors[1] {

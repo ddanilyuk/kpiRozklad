@@ -151,7 +151,7 @@
                                         <rect key="frame" x="0.0" y="175" width="414" height="87.5"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DMz-mI-C3P">
-                                                <rect key="frame" x="40" y="19" width="334" height="50"/>
+                                                <rect key="frame" x="41.5" y="19" width="331" height="50"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="50" id="MUK-07-Aom"/>
@@ -176,8 +176,7 @@
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstItem="DMz-mI-C3P" firstAttribute="centerX" secondItem="zLJ-av-RMG" secondAttribute="centerX" id="AJ5-TM-nmx"/>
-                                            <constraint firstAttribute="trailing" secondItem="DMz-mI-C3P" secondAttribute="trailing" constant="40" id="WL2-P2-3Pc"/>
-                                            <constraint firstItem="DMz-mI-C3P" firstAttribute="leading" secondItem="zLJ-av-RMG" secondAttribute="leading" constant="40" id="XI9-Vp-cuk"/>
+                                            <constraint firstItem="DMz-mI-C3P" firstAttribute="width" secondItem="zLJ-av-RMG" secondAttribute="width" multiplier="0.8" id="GE6-KH-y2F"/>
                                             <constraint firstItem="DMz-mI-C3P" firstAttribute="centerY" secondItem="zLJ-av-RMG" secondAttribute="centerY" id="zAp-mv-3gN"/>
                                         </constraints>
                                     </view>
@@ -185,7 +184,7 @@
                                         <rect key="frame" x="0.0" y="262.5" width="414" height="87.5"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="v4P-VG-DbU">
-                                                <rect key="frame" x="40" y="19" width="334" height="50"/>
+                                                <rect key="frame" x="41.5" y="19" width="331" height="50"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="50" id="Ij8-n2-w4S"/>
@@ -206,9 +205,8 @@
                                         </subviews>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
-                                            <constraint firstAttribute="trailing" secondItem="v4P-VG-DbU" secondAttribute="trailing" constant="40" id="62h-sI-LTk"/>
                                             <constraint firstItem="v4P-VG-DbU" firstAttribute="centerX" secondItem="9HQ-gj-cFP" secondAttribute="centerX" id="9bi-Qd-vWK"/>
-                                            <constraint firstItem="v4P-VG-DbU" firstAttribute="leading" secondItem="9HQ-gj-cFP" secondAttribute="leading" constant="40" id="Cn6-67-L0m"/>
+                                            <constraint firstItem="v4P-VG-DbU" firstAttribute="width" secondItem="9HQ-gj-cFP" secondAttribute="width" multiplier="0.8" id="Wse-K2-7JV"/>
                                             <constraint firstItem="v4P-VG-DbU" firstAttribute="centerY" secondItem="9HQ-gj-cFP" secondAttribute="centerY" id="aK8-kS-b7y"/>
                                         </constraints>
                                     </view>
@@ -239,6 +237,34 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Zts-k6-7tn" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-3119" y="-440"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="Vbu-Vc-dKh">
+            <objects>
+                <viewController id="HmS-Wv-N8t" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="ckS-tJ-Bch">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ce0-QV-rrM">
+                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="ce0-QV-rrM" firstAttribute="top" secondItem="SpH-4X-exh" secondAttribute="top" id="7jD-Zw-CEz"/>
+                            <constraint firstItem="ce0-QV-rrM" firstAttribute="centerY" secondItem="SpH-4X-exh" secondAttribute="centerY" id="Dvv-3n-yoA"/>
+                            <constraint firstItem="ce0-QV-rrM" firstAttribute="centerX" secondItem="SpH-4X-exh" secondAttribute="centerX" id="PvK-4g-UkT"/>
+                            <constraint firstItem="ce0-QV-rrM" firstAttribute="leading" secondItem="SpH-4X-exh" secondAttribute="leading" id="YqG-qQ-Zj4"/>
+                            <constraint firstItem="SpH-4X-exh" firstAttribute="bottom" secondItem="ce0-QV-rrM" secondAttribute="bottom" id="ZdO-lW-LyD"/>
+                            <constraint firstItem="SpH-4X-exh" firstAttribute="trailing" secondItem="ce0-QV-rrM" secondAttribute="trailing" id="thn-i9-CwK"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="SpH-4X-exh"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Lk9-Lc-cns" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-3120" y="256"/>
         </scene>
         <!--Розклад-->
         <scene sceneID="R5c-ao-yeO">
@@ -531,10 +557,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="dzE-CC-Pod">
-                                <rect key="frame" x="117" y="59" width="180" height="32"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="180" id="nst-xY-YRk"/>
-                                </constraints>
+                                <rect key="frame" x="114" y="59" width="186" height="32"/>
                                 <segments>
                                     <segment title="Поточна"/>
                                     <segment title="Наступна"/>
@@ -568,6 +591,7 @@
                             <constraint firstItem="qWK-B5-AOA" firstAttribute="leading" secondItem="Cna-yJ-d8u" secondAttribute="leading" id="kEx-wZ-yge"/>
                             <constraint firstItem="Cna-yJ-d8u" firstAttribute="trailing" secondItem="2R5-91-UBf" secondAttribute="trailing" constant="8" id="psB-Id-JV1"/>
                             <constraint firstItem="dzE-CC-Pod" firstAttribute="top" secondItem="Cna-yJ-d8u" secondAttribute="top" constant="15" id="v5a-p1-f8R"/>
+                            <constraint firstItem="dzE-CC-Pod" firstAttribute="width" relation="greaterThanOrEqual" secondItem="aSW-k1-S08" secondAttribute="width" multiplier="0.45" id="vbo-gD-PXn"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Cna-yJ-d8u"/>
                     </view>
@@ -654,11 +678,10 @@
                                                 <rect key="frame" x="0.0" y="444.5" width="382" height="74"/>
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DFO-PY-g7X">
-                                                        <rect key="frame" x="36" y="12" width="310" height="50"/>
+                                                        <rect key="frame" x="28.5" y="12" width="325" height="50"/>
                                                         <color key="backgroundColor" systemColor="linkColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="50" id="SuZ-NH-B0x"/>
-                                                            <constraint firstAttribute="width" constant="310" id="iju-1h-vxi"/>
                                                         </constraints>
                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                         <state key="normal" title="Розклад викладача">
@@ -679,6 +702,7 @@
                                                 </subviews>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                                 <constraints>
+                                                    <constraint firstItem="DFO-PY-g7X" firstAttribute="width" secondItem="cni-hA-6qM" secondAttribute="width" multiplier="0.85" id="C4Q-Lg-GM5"/>
                                                     <constraint firstItem="DFO-PY-g7X" firstAttribute="centerY" secondItem="cni-hA-6qM" secondAttribute="centerY" id="YlA-h2-fem"/>
                                                     <constraint firstItem="DFO-PY-g7X" firstAttribute="centerX" secondItem="cni-hA-6qM" secondAttribute="centerX" id="ZuP-Vg-tu3"/>
                                                 </constraints>
@@ -880,7 +904,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="eOz-94-s6B"/>
+        <segue reference="5QF-Tv-CiU"/>
         <segue reference="RJQ-je-C9R"/>
     </inferredMetricsTieBreakers>
     <resources>

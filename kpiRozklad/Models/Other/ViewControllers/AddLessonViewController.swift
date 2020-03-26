@@ -180,8 +180,7 @@ class AddLessonViewController: UIViewController {
         /// Variable lesson which already exist (and use it)
         var similarLesson: Lesson?
         
-        /// Some groups have `"лек"` but default is `"Лек"` and we equate this
-        let lessonType2 = lessonType == LessonType.лек1 ? LessonType.лек2 : nil
+        
 
         /// Finding `lesson` which already exist (and use it)
 

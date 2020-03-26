@@ -5,6 +5,7 @@
 //  Copyright © 2018 Tiny Speck, Inc. All rights reserved.
 //
 
+#if os(iOS)
 import UIKit
 
 /**
@@ -46,8 +47,12 @@ public extension PanModalPresentable where Self: UIViewController {
         return [.curveEaseInOut, .allowUserInteraction, .beginFromCurrentState]
     }
 
-    var backgroundAlpha: CGFloat {
-        return 0.7
+    var panModalBackgroundColor: UIColor {
+        return UIColor.black.withAlphaComponent(0.7)
+    }
+
+    var dragIndicatorBackgroundColor: UIColor {
+        return UIColor.lightGray
     }
 
     var scrollIndicatorInsets: UIEdgeInsets {
@@ -69,6 +74,10 @@ public extension PanModalPresentable where Self: UIViewController {
     }
 
     var allowsDragToDismiss: Bool {
+        return true
+    }
+
+    var allowsTapToDismiss: Bool {
         return true
     }
 
@@ -112,4 +121,8 @@ public extension PanModalPresentable where Self: UIViewController {
 
     }
 
+    func panModalDidDismiss() {
+
+    }
 }
+#endif

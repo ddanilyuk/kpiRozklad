@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import PanModal
+//import PanModal
 
 class SheduleDetailViewController: UIViewController {
     

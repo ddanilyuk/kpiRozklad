@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import PanModal
+//import PanModal
 
 class SheduleDetailNavigationController: UINavigationController, PanModalPresentable {
 
@@ -133,7 +133,7 @@ class SheduleDetailNavigationController: UINavigationController, PanModalPresent
         if screenHeight > 737 {
             return .contentHeight(((3.25 * screenHeight) / 8) + 20)
         } else {
-            return .contentHeight((3.25 * screenHeight) / 8)
+            return .contentHeight(((3.25 * screenHeight) / 8) + 45)
         }
     }
 

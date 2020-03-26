@@ -38,6 +38,21 @@
 		5F686F3A23800CFB008B0915 /* AddLessonViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F686F3923800CFB008B0915 /* AddLessonViewController.swift */; };
 		5F6A08062370A175000A9C79 /* kpiRozklad.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 5F6A08042370A175000A9C79 /* kpiRozklad.xcdatamodeld */; };
 		5F7BABBF23A163C8009E3CA6 /* Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F7BABBE23A163C8009E3CA6 /* Error.swift */; };
+		5F8EF0E7242D170400E74220 /* FirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F8EF0E6242D170400E74220 /* FirstViewController.swift */; };
+		5F8EF0E9242D171000E74220 /* BoardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F8EF0E8242D171000E74220 /* BoardViewController.swift */; };
+		5F8EF0F8242D30AE00E74220 /* PanModalPresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F8EF0EB242D30AD00E74220 /* PanModalPresentable.swift */; };
+		5F8EF0F9242D30AE00E74220 /* PanModalPresentationDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F8EF0EC242D30AD00E74220 /* PanModalPresentationDelegate.swift */; };
+		5F8EF0FA242D30AE00E74220 /* DimmedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F8EF0ED242D30AD00E74220 /* DimmedView.swift */; };
+		5F8EF0FB242D30AE00E74220 /* PanModalPresentable+LayoutHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F8EF0EE242D30AD00E74220 /* PanModalPresentable+LayoutHelpers.swift */; };
+		5F8EF0FC242D30AE00E74220 /* PanModalPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F8EF0EF242D30AD00E74220 /* PanModalPresenter.swift */; };
+		5F8EF0FD242D30AE00E74220 /* PanModalPresentable+Defaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F8EF0F0242D30AD00E74220 /* PanModalPresentable+Defaults.swift */; };
+		5F8EF0FE242D30AE00E74220 /* UIViewController+PanModalPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F8EF0F1242D30AD00E74220 /* UIViewController+PanModalPresenter.swift */; };
+		5F8EF0FF242D30AE00E74220 /* PanContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F8EF0F2242D30AD00E74220 /* PanContainerView.swift */; };
+		5F8EF100242D30AE00E74220 /* PanModalPresentable+UIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F8EF0F3242D30AD00E74220 /* PanModalPresentable+UIViewController.swift */; };
+		5F8EF101242D30AE00E74220 /* PanModalPresentationAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F8EF0F4242D30AD00E74220 /* PanModalPresentationAnimator.swift */; };
+		5F8EF102242D30AE00E74220 /* PanModalPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F8EF0F5242D30AE00E74220 /* PanModalPresentationController.swift */; };
+		5F8EF103242D30AE00E74220 /* PanModalAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F8EF0F6242D30AE00E74220 /* PanModalAnimator.swift */; };
+		5F8EF104242D30AE00E74220 /* PanModalHeight.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F8EF0F7242D30AE00E74220 /* PanModalHeight.swift */; };
 		5FA2B79D2379F5A7006C466B /* Group.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FA2B79C2379F5A7006C466B /* Group.swift */; };
 		5FA5CE5A2413E32D00D2796A /* SettingsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FA5CE582413E32D00D2796A /* SettingsTableViewCell.swift */; };
 		5FA5CE5B2413E32D00D2796A /* SettingsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5FA5CE592413E32D00D2796A /* SettingsTableViewCell.xib */; };
@@ -139,6 +154,21 @@
 		5F686F3923800CFB008B0915 /* AddLessonViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddLessonViewController.swift; sourceTree = "<group>"; };
 		5F6A08052370A175000A9C79 /* Lesson.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Lesson.xcdatamodel; sourceTree = "<group>"; };
 		5F7BABBE23A163C8009E3CA6 /* Error.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Error.swift; sourceTree = "<group>"; };
+		5F8EF0E6242D170400E74220 /* FirstViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstViewController.swift; sourceTree = "<group>"; };
+		5F8EF0E8242D171000E74220 /* BoardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardViewController.swift; sourceTree = "<group>"; };
+		5F8EF0EB242D30AD00E74220 /* PanModalPresentable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PanModalPresentable.swift; sourceTree = "<group>"; };
+		5F8EF0EC242D30AD00E74220 /* PanModalPresentationDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PanModalPresentationDelegate.swift; sourceTree = "<group>"; };
+		5F8EF0ED242D30AD00E74220 /* DimmedView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DimmedView.swift; sourceTree = "<group>"; };
+		5F8EF0EE242D30AD00E74220 /* PanModalPresentable+LayoutHelpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "PanModalPresentable+LayoutHelpers.swift"; sourceTree = "<group>"; };
+		5F8EF0EF242D30AD00E74220 /* PanModalPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PanModalPresenter.swift; sourceTree = "<group>"; };
+		5F8EF0F0242D30AD00E74220 /* PanModalPresentable+Defaults.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "PanModalPresentable+Defaults.swift"; sourceTree = "<group>"; };
+		5F8EF0F1242D30AD00E74220 /* UIViewController+PanModalPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+PanModalPresenter.swift"; sourceTree = "<group>"; };
+		5F8EF0F2242D30AD00E74220 /* PanContainerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PanContainerView.swift; sourceTree = "<group>"; };
+		5F8EF0F3242D30AD00E74220 /* PanModalPresentable+UIViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "PanModalPresentable+UIViewController.swift"; sourceTree = "<group>"; };
+		5F8EF0F4242D30AD00E74220 /* PanModalPresentationAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PanModalPresentationAnimator.swift; sourceTree = "<group>"; };
+		5F8EF0F5242D30AE00E74220 /* PanModalPresentationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PanModalPresentationController.swift; sourceTree = "<group>"; };
+		5F8EF0F6242D30AE00E74220 /* PanModalAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PanModalAnimator.swift; sourceTree = "<group>"; };
+		5F8EF0F7242D30AE00E74220 /* PanModalHeight.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PanModalHeight.swift; sourceTree = "<group>"; };
 		5FA2B79C2379F5A7006C466B /* Group.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Group.swift; sourceTree = "<group>"; };
 		5FA5CE582413E32D00D2796A /* SettingsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTableViewCell.swift; sourceTree = "<group>"; };
 		5FA5CE592413E32D00D2796A /* SettingsTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SettingsTableViewCell.xib; sourceTree = "<group>"; };
@@ -172,7 +202,6 @@
 		5FE0486C23930C3000092422 /* SheduleVC+UIPickerVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SheduleVC+UIPickerVC.swift"; sourceTree = "<group>"; };
 		5FE9678224091880000AD157 /* TeachersNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeachersNavigationController.swift; sourceTree = "<group>"; };
 		5FE96784240F0C22000AD157 /* SheduleDetailNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheduleDetailNavigationController.swift; sourceTree = "<group>"; };
-		5FE9678C240FAFA6000AD157 /* Lessonv2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Lessonv2.xcdatamodel; sourceTree = "<group>"; };
 		64742B8F505E8689AB85A1F6 /* Pods_Widget.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Widget.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C33203580DD02E686E10BAEC /* Pods-kpiRozklad.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-kpiRozklad.release.xcconfig"; path = "Target Support Files/Pods-kpiRozklad/Pods-kpiRozklad.release.xcconfig"; sourceTree = "<group>"; };
 		D300F1D52364CEA30098CA83 /* GroupsAndTeachersViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupsAndTeachersViewController.swift; sourceTree = "<group>"; };
@@ -240,6 +269,7 @@
 		5F305C7C242264400035B509 /* Other */ = {
 			isa = PBXGroup;
 			children = (
+				5F8EF0E5242D15D200E74220 /* Frameworks */,
 				5FD5B71724226F1C00B86FB7 /* ViewControllers */,
 			);
 			path = Other;
@@ -276,6 +306,35 @@
 				5F46AD672401A0F700B145D5 /* Favourites.swift */,
 			);
 			path = Singleton;
+			sourceTree = "<group>";
+		};
+		5F8EF0E5242D15D200E74220 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				5F8EF0EA242D30A000E74220 /* PanModal */,
+				5FCBBA0A241C4B3800E7654F /* ColourPicker */,
+			);
+			path = Frameworks;
+			sourceTree = "<group>";
+		};
+		5F8EF0EA242D30A000E74220 /* PanModal */ = {
+			isa = PBXGroup;
+			children = (
+				5F8EF0ED242D30AD00E74220 /* DimmedView.swift */,
+				5F8EF0F2242D30AD00E74220 /* PanContainerView.swift */,
+				5F8EF0F6242D30AE00E74220 /* PanModalAnimator.swift */,
+				5F8EF0F7242D30AE00E74220 /* PanModalHeight.swift */,
+				5F8EF0EB242D30AD00E74220 /* PanModalPresentable.swift */,
+				5F8EF0F0242D30AD00E74220 /* PanModalPresentable+Defaults.swift */,
+				5F8EF0EE242D30AD00E74220 /* PanModalPresentable+LayoutHelpers.swift */,
+				5F8EF0F3242D30AD00E74220 /* PanModalPresentable+UIViewController.swift */,
+				5F8EF0F4242D30AD00E74220 /* PanModalPresentationAnimator.swift */,
+				5F8EF0F5242D30AE00E74220 /* PanModalPresentationController.swift */,
+				5F8EF0EC242D30AD00E74220 /* PanModalPresentationDelegate.swift */,
+				5F8EF0EF242D30AD00E74220 /* PanModalPresenter.swift */,
+				5F8EF0F1242D30AD00E74220 /* UIViewController+PanModalPresenter.swift */,
+			);
+			path = PanModal;
 			sourceTree = "<group>";
 		};
 		5FA5CE572413E30800D2796A /* SettingsTableViewCell */ = {
@@ -343,6 +402,8 @@
 			children = (
 				5F686F3923800CFB008B0915 /* AddLessonViewController.swift */,
 				5F4E51EC2403D9DD0034D250 /* GreetingViewController.swift */,
+				5F8EF0E6242D170400E74220 /* FirstViewController.swift */,
+				5F8EF0E8242D171000E74220 /* BoardViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -463,7 +524,6 @@
 		D3FFAADA234F7A2C0065E9CE /* Settings */ = {
 			isa = PBXGroup;
 			children = (
-				5FCBBA0A241C4B3800E7654F /* ColourPicker */,
 				D3FFAADC234F7A410065E9CE /* ViewControllers */,
 				D3FFAADB234F7A3D0065E9CE /* Views */,
 			);
@@ -794,19 +854,25 @@
 				D34BEBC5233CCFC10035F7B4 /* OtherExtensions.swift in Sources */,
 				5FD5B7152422171900B86FB7 /* Enums.swift in Sources */,
 				5FCBB9FD241C404F00E7654F /* StringExtensions.swift in Sources */,
+				5F8EF104242D30AE00E74220 /* PanModalHeight.swift in Sources */,
+				5F8EF0E7242D170400E74220 /* FirstViewController.swift in Sources */,
+				5F8EF0FC242D30AE00E74220 /* PanModalPresenter.swift in Sources */,
 				5FA2B79D2379F5A7006C466B /* Group.swift in Sources */,
 				5FCBBA20241C4FF600E7654F /* ColorPickerViewMy.swift in Sources */,
 				5F2E61812428252000B362A2 /* NetworkingApi.swift in Sources */,
 				5FE0486D23930C3000092422 /* SheduleVC+UIPickerVC.swift in Sources */,
 				5FCBB9FF241C40B900E7654F /* UIButtonExtensions.swift in Sources */,
 				5FE048672392D4FA00092422 /* ManagingLessons.swift in Sources */,
+				5F8EF100242D30AE00E74220 /* PanModalPresentable+UIViewController.swift in Sources */,
 				5FCBBA03241C45BD00E7654F /* UITableViewCellExtensions.swift in Sources */,
+				5F8EF0FA242D30AE00E74220 /* DimmedView.swift in Sources */,
 				D300F1DA2364CF490098CA83 /* SettingsTableViewController.swift in Sources */,
 				5F4457E42376FB05008F9E21 /* Settings.swift in Sources */,
 				5FE048652392D16A00092422 /* EditingLessons.swift in Sources */,
 				5F4E51ED2403D9DD0034D250 /* GreetingViewController.swift in Sources */,
 				5F2E61832428252000B362A2 /* ErrorMessageResponse.swift in Sources */,
 				5F5000AF238D704A0003E13B /* UIViewExtension.swift in Sources */,
+				5F8EF0E9242D171000E74220 /* BoardViewController.swift in Sources */,
 				5F2E61822428252000B362A2 /* NetworkingApiError.swift in Sources */,
 				5FCBBA18241C4F1F00E7654F /* DefaultValuesMy.swift in Sources */,
 				5FCBBA1C241C4F7A00E7654F /* ColorPickerViewDelegateFlowLayoutMy.swift in Sources */,
@@ -823,17 +889,26 @@
 				5F2E61572422C00400B362A2 /* GroupsAndTeachersVC+ServerApi.swift in Sources */,
 				D313F4AE233AAF920076CFF8 /* SheduleViewController.swift in Sources */,
 				5FCBBA09241C4B3000E7654F /* ColourPickerViewController.swift in Sources */,
+				5F8EF0F9242D30AE00E74220 /* PanModalPresentationDelegate.swift in Sources */,
+				5F8EF0F8242D30AE00E74220 /* PanModalPresentable.swift in Sources */,
 				D300F1DC2365BC270098CA83 /* Teacher.swift in Sources */,
+				5F8EF102242D30AE00E74220 /* PanModalPresentationController.swift in Sources */,
 				5FCBBA1E241C4FCC00E7654F /* ColorPickerCellMy.swift in Sources */,
 				5FE9678324091880000AD157 /* TeachersNavigationController.swift in Sources */,
 				5FCBBA01241C41DE00E7654F /* UIViewControllerExtensions.swift in Sources */,
+				5F8EF0FE242D30AE00E74220 /* UIViewController+PanModalPresenter.swift in Sources */,
+				5F8EF0FB242D30AE00E74220 /* PanModalPresentable+LayoutHelpers.swift in Sources */,
+				5F8EF0FF242D30AE00E74220 /* PanContainerView.swift in Sources */,
+				5F8EF0FD242D30AE00E74220 /* PanModalPresentable+Defaults.swift in Sources */,
 				5F0275B423F3476B00743637 /* CoreDataStack.swift in Sources */,
 				D313F4B5233D1F090076CFF8 /* LessonTableViewCell.swift in Sources */,
+				5F8EF103242D30AE00E74220 /* PanModalAnimator.swift in Sources */,
 				5F6A08062370A175000A9C79 /* kpiRozklad.xcdatamodeld in Sources */,
 				5F46AD6523FFD66E00B145D5 /* GroupsNavigationController.swift in Sources */,
 				5FCBBA22241C501E00E7654F /* UIColorExtensions.swift in Sources */,
 				D363E7AA233BB74B00573EB2 /* SheduleDetailViewController.swift in Sources */,
 				5FACFF5323EC70A70022DF88 /* TeacherOrGroupLoadingTableViewCell.swift in Sources */,
+				5F8EF101242D30AE00E74220 /* PanModalPresentationAnimator.swift in Sources */,
 				5FC991EE23DF10BB00612266 /* ServerUpdateTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

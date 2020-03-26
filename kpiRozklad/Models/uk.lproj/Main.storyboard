@@ -238,33 +238,151 @@
             </objects>
             <point key="canvasLocation" x="-3119" y="-440"/>
         </scene>
-        <!--View Controller-->
+        <!--First View Controller-->
         <scene sceneID="Vbu-Vc-dKh">
             <objects>
-                <viewController id="HmS-Wv-N8t" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="FirstViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="HmS-Wv-N8t" customClass="FirstViewController" customModule="KPI_Rozklad" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="ckS-tJ-Bch">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ce0-QV-rrM">
-                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="loadingV1" translatesAutoresizingMaskIntoConstraints="NO" id="ce0-QV-rrM">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
-                            <constraint firstItem="ce0-QV-rrM" firstAttribute="top" secondItem="SpH-4X-exh" secondAttribute="top" id="7jD-Zw-CEz"/>
-                            <constraint firstItem="ce0-QV-rrM" firstAttribute="centerY" secondItem="SpH-4X-exh" secondAttribute="centerY" id="Dvv-3n-yoA"/>
+                            <constraint firstItem="ce0-QV-rrM" firstAttribute="top" secondItem="ckS-tJ-Bch" secondAttribute="top" id="7jD-Zw-CEz"/>
                             <constraint firstItem="ce0-QV-rrM" firstAttribute="centerX" secondItem="SpH-4X-exh" secondAttribute="centerX" id="PvK-4g-UkT"/>
                             <constraint firstItem="ce0-QV-rrM" firstAttribute="leading" secondItem="SpH-4X-exh" secondAttribute="leading" id="YqG-qQ-Zj4"/>
-                            <constraint firstItem="SpH-4X-exh" firstAttribute="bottom" secondItem="ce0-QV-rrM" secondAttribute="bottom" id="ZdO-lW-LyD"/>
+                            <constraint firstAttribute="bottom" secondItem="ce0-QV-rrM" secondAttribute="bottom" id="ZdO-lW-LyD"/>
                             <constraint firstItem="SpH-4X-exh" firstAttribute="trailing" secondItem="ce0-QV-rrM" secondAttribute="trailing" id="thn-i9-CwK"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="SpH-4X-exh"/>
                     </view>
+                    <connections>
+                        <segue destination="xgX-V5-vyk" kind="custom" id="oYv-v7-cJa"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Lk9-Lc-cns" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-3120" y="256"/>
+            <point key="canvasLocation" x="-3497" y="256"/>
+        </scene>
+        <!--Board View Controller-->
+        <scene sceneID="lRi-hw-Tgk">
+            <objects>
+                <viewController storyboardIdentifier="BoardViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="xgX-V5-vyk" customClass="BoardViewController" customModule="KPI_Rozklad" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="GKJ-Hz-uhx">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="360"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="745-Ys-CPz">
+                                <rect key="frame" x="41.5" y="285" width="331" height="55"/>
+                                <color key="backgroundColor" systemColor="linkColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="55" id="LSf-yY-McX"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="19"/>
+                                <state key="normal" title="Вибрати">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                        <real key="value" value="3"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="20"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                        <color key="value" systemColor="linkColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="didPressChoose:" destination="xgX-V5-vyk" eventType="touchUpInside" id="aHI-FV-qh6"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="j8l-Jf-uSg">
+                                <rect key="frame" x="41.5" y="115" width="331" height="55"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="55" id="vNE-pP-VXI"/>
+                                </constraints>
+                                <state key="normal" title="Я студент">
+                                    <color key="titleColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                        <real key="value" value="3"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="20"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                        <color key="value" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="didPressStudentButton:" destination="xgX-V5-vyk" eventType="touchUpInside" id="0pV-lO-ifo"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Оберіть будь-ласка" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mgn-o9-nKb">
+                                <rect key="frame" x="41.5" y="25" width="331" height="60"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="60" id="RT5-bh-7JJ"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                                <color key="textColor" systemColor="secondaryLabelColor" red="0.23529411759999999" green="0.23529411759999999" blue="0.26274509800000001" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1I9-OS-sbf">
+                                <rect key="frame" x="41.5" y="200" width="331" height="55"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="55" id="Ckh-0T-Ex9"/>
+                                </constraints>
+                                <state key="normal" title="Я викладач">
+                                    <color key="titleColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                        <real key="value" value="3"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                        <color key="value" systemColor="tertiaryLabelColor" red="0.23529411759999999" green="0.23529411759999999" blue="0.26274509800000001" alpha="0.29999999999999999" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="20"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="didPressTeacherButton:" destination="xgX-V5-vyk" eventType="touchUpInside" id="DNh-m5-hP9"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="mgn-o9-nKb" firstAttribute="width" relation="greaterThanOrEqual" secondItem="GKJ-Hz-uhx" secondAttribute="width" multiplier="0.8" id="0bK-sm-DRd"/>
+                            <constraint firstItem="745-Ys-CPz" firstAttribute="top" secondItem="1I9-OS-sbf" secondAttribute="bottom" constant="30" id="17K-Yj-jsc"/>
+                            <constraint firstItem="j8l-Jf-uSg" firstAttribute="centerX" secondItem="kTD-bS-O0z" secondAttribute="centerX" id="5bW-kV-VxU"/>
+                            <constraint firstItem="j8l-Jf-uSg" firstAttribute="width" secondItem="GKJ-Hz-uhx" secondAttribute="width" multiplier="0.8" id="8Wy-a0-Uy9"/>
+                            <constraint firstItem="1I9-OS-sbf" firstAttribute="width" secondItem="GKJ-Hz-uhx" secondAttribute="width" multiplier="0.8" id="D5J-Lk-T6n"/>
+                            <constraint firstItem="745-Ys-CPz" firstAttribute="width" secondItem="GKJ-Hz-uhx" secondAttribute="width" multiplier="0.8" id="KFL-m9-Z2O"/>
+                            <constraint firstItem="mgn-o9-nKb" firstAttribute="centerX" secondItem="kTD-bS-O0z" secondAttribute="centerX" id="Lst-Rb-unL"/>
+                            <constraint firstItem="745-Ys-CPz" firstAttribute="centerX" secondItem="kTD-bS-O0z" secondAttribute="centerX" id="M4O-dL-lmz"/>
+                            <constraint firstItem="1I9-OS-sbf" firstAttribute="top" secondItem="j8l-Jf-uSg" secondAttribute="bottom" constant="30" id="PgH-uh-ynL"/>
+                            <constraint firstItem="j8l-Jf-uSg" firstAttribute="top" secondItem="mgn-o9-nKb" secondAttribute="bottom" constant="30" id="Yn5-7J-Kau"/>
+                            <constraint firstItem="1I9-OS-sbf" firstAttribute="centerX" secondItem="kTD-bS-O0z" secondAttribute="centerX" id="eze-2N-Ihr"/>
+                            <constraint firstItem="mgn-o9-nKb" firstAttribute="top" secondItem="GKJ-Hz-uhx" secondAttribute="top" constant="25" id="j3j-Gi-HJU"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="kTD-bS-O0z"/>
+                    </view>
+                    <size key="freeformSize" width="414" height="360"/>
+                    <connections>
+                        <outlet property="studentButton" destination="j8l-Jf-uSg" id="nCZ-NP-Vso"/>
+                        <outlet property="teacherButton" destination="1I9-OS-sbf" id="4BW-SP-s5q"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="wHr-3B-Ife" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-2725" y="423"/>
         </scene>
         <!--Розклад-->
         <scene sceneID="R5c-ao-yeO">

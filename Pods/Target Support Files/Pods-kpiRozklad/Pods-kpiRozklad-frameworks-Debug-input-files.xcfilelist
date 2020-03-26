@@ -1,4 +1,3 @@
 ${PODS_ROOT}/Target Support Files/Pods-kpiRozklad/Pods-kpiRozklad-frameworks.sh
 ${BUILT_PRODUCTS_DIR}/M13Checkbox/M13Checkbox.framework
-${BUILT_PRODUCTS_DIR}/PanModal/PanModal.framework
 ${BUILT_PRODUCTS_DIR}/PromiseKit/PromiseKit.framework

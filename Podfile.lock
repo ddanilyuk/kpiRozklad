@@ -1,6 +1,5 @@
 PODS:
   - M13Checkbox (3.4.0)
-  - PanModal (1.2.4)
   - PromiseKit (6.13.1):
     - PromiseKit/CorePromise (= 6.13.1)
     - PromiseKit/Foundation (= 6.13.1)
@@ -13,20 +12,17 @@ PODS:
 
 DEPENDENCIES:
   - M13Checkbox
-  - PanModal (= 1.2.4)
   - PromiseKit
 
 SPEC REPOS:
   trunk:
     - M13Checkbox
-    - PanModal
     - PromiseKit
 
 SPEC CHECKSUMS:
   M13Checkbox: 6f59404540ac98ba83a3d1afac335895a40c6a5d
-  PanModal: 275f6d4d07565ddf4ed16d7be5d9cd275682d80d
   PromiseKit: 28fda91c973cc377875d8c0ea4f973013c05b6db
 
-PODFILE CHECKSUM: 6e7922c78cd05600435a1447de215e62d79cd9d9
+PODFILE CHECKSUM: 3d2cacff4f45f6cac9c8de9bbba604e2da40672d
 
 COCOAPODS: 1.9.1

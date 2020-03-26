@@ -268,9 +268,14 @@ class SheduleViewController: UIViewController {
     /// Func which present `GroupChooserViewController` (navigationGroupChooser)
     func presentGroupOrTeacherChooser(requestType: SheduleType) {
         if settings.groupName == "" && settings.teacherName == "" {
-            guard let greetingVC = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: GreetingViewController.identifier) as? GreetingViewController else {
+//            guard let greetingVC = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: GreetingViewController.identifier) as? GreetingViewController else {
+//                return
+//            }
+            
+            guard let greetingVC = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: FirstViewController.identifier) as? FirstViewController else {
                 return
             }
+            
             
             guard let window = window else { return }
 

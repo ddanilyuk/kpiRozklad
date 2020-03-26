@@ -5,6 +5,7 @@
 //  Copyright © 2017 Tiny Speck, Inc. All rights reserved.
 //
 
+#if os(iOS)
 import UIKit
 
 /**
@@ -86,13 +87,20 @@ public protocol PanModalPresentable: AnyObject {
     var transitionAnimationOptions: UIView.AnimationOptions { get }
 
     /**
-     The background view alpha.
+     The background view color.
 
      - Note: This is only utilized at the very start of the transition.
 
-     Default Value is 0.7.
-     */
-    var backgroundAlpha: CGFloat { get }
+     Default Value is black with alpha component 0.7.
+    */
+    var panModalBackgroundColor: UIColor { get }
+
+    /**
+     The drag indicator view color.
+
+     Default value is light gray.
+    */
+    var dragIndicatorBackgroundColor: UIColor { get }
 
     /**
      We configure the panScrollable's scrollIndicatorInsets interally so override this value
@@ -126,6 +134,13 @@ public protocol PanModalPresentable: AnyObject {
      Default value is true.
      */
     var allowsDragToDismiss: Bool { get }
+
+    /**
+     A flag to determine if dismissal should be initiated when tapping on the dimmed background view.
+
+     Default value is true.
+     */
+    var allowsTapToDismiss: Bool { get }
 
     /**
      A flag to toggle user interactions on the container view.
@@ -212,4 +227,11 @@ public protocol PanModalPresentable: AnyObject {
      */
     func panModalWillDismiss()
 
+    /**
+     Notifies the delegate after the pan modal is dismissed.
+
+     Default value is an empty implementation.
+     */
+    func panModalDidDismiss()
 }
+#endif

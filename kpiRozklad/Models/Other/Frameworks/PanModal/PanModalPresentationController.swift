@@ -5,6 +5,7 @@
 //  Copyright © 2019 Tiny Speck, Inc. All rights reserved.
 //
 
+#if os(iOS)
 import UIKit
 
 /**
@@ -22,7 +23,7 @@ import UIKit
  By conforming to the PanModalPresentable protocol & overriding values
  the presented view can define its layout configuration & presentation.
  */
-public class PanModalPresentationController: UIPresentationController {
+open class PanModalPresentationController: UIPresentationController {
 
     /**
      Enum representing the possible presentation states
@@ -105,13 +106,15 @@ public class PanModalPresentationController: UIPresentationController {
      */
     private lazy var backgroundView: DimmedView = {
         let view: DimmedView
-        if let alpha = presentable?.backgroundAlpha {
-            view = DimmedView(dimAlpha: alpha)
+        if let color = presentable?.panModalBackgroundColor {
+            view = DimmedView(dimColor: color)
         } else {
             view = DimmedView()
         }
         view.didTap = { [weak self] _ in
-            self?.dismissPresentedViewController()
+            if self?.presentable?.allowsTapToDismiss == true {
+                self?.presentedViewController.dismiss(animated: true)
+            }
         }
         return view
     }()
@@ -131,7 +134,7 @@ public class PanModalPresentationController: UIPresentationController {
      */
     private lazy var dragIndicatorView: UIView = {
         let view = UIView()
-        view.backgroundColor = .lightGray
+        view.backgroundColor = presentable?.dragIndicatorBackgroundColor
         view.layer.cornerRadius = Constants.dragIndicatorSize.height / 2.0
         return view
     }()
@@ -189,7 +192,14 @@ public class PanModalPresentationController: UIPresentationController {
         })
     }
 
+    override public func presentationTransitionDidEnd(_ completed: Bool) {
+        if completed { return }
+
+        backgroundView.removeFromSuperview()
+    }
+
     override public func dismissalTransitionWillBegin() {
+        presentable?.panModalWillDismiss()
 
         guard let coordinator = presentedViewController.transitionCoordinator else {
             backgroundView.dimState = .off
@@ -207,10 +217,10 @@ public class PanModalPresentationController: UIPresentationController {
         })
     }
 
-    override public func presentationTransitionDidEnd(_ completed: Bool) {
-        if completed { return }
-
-        backgroundView.removeFromSuperview()
+    override public func dismissalTransitionDidEnd(_ completed: Bool) {
+        if !completed { return }
+        
+        presentable?.panModalDidDismiss()
     }
 
     /**
@@ -226,7 +236,6 @@ public class PanModalPresentationController: UIPresentationController {
                 else { return }
 
             self.adjustPresentedViewFrame()
-
             if presentable.shouldRoundTopCorners {
                 self.addRoundedCorners(to: self.presentedView)
             }
@@ -259,35 +268,27 @@ public extension PanModalPresentationController {
     }
 
     /**
-     Set the content offset of the scroll view
+     Operations on the scroll view, such as content height changes,
+     or when inserting/deleting rows can cause the pan modal to jump,
+     caused by the pan modal responding to content offset changes.
 
-     Due to content offset observation, its not possible to programmatically
-     set the content offset directly on the scroll view while in the short form.
-
-     This method pauses the content offset KVO, performs the content offset change
-     and then resumes content offset observation.
+     To avoid this, you can call this method to perform scroll view updates,
+     with scroll observation temporarily disabled.
      */
-    func setContentOffset(offset: CGPoint) {
+    func performUpdates(_ updates: () -> Void) {
 
         guard let scrollView = presentable?.panScrollable
             else { return }
 
-        /**
-         Invalidate scroll view observer
-         to prevent its overriding the content offset change
-         */
+        // Pause scroll observer
         scrollObserver?.invalidate()
         scrollObserver = nil
 
-        /**
-         Set scroll view offset & track scrolling
-         */
-        scrollView.setContentOffset(offset, animated:false)
-        trackScrolling(scrollView)
+        // Perform updates
+        updates()
 
-        /**
-         Add the scroll view observer
-         */
+        // Resume scroll observer
+        trackScrolling(scrollView)
         observe(scrollView: scrollView)
     }
 
@@ -317,7 +318,7 @@ private extension PanModalPresentationController {
     var isPresentedViewAnchored: Bool {
         if !isPresentedViewAnimating
             && extendsPanScrolling
-            && presentedView.frame.minY <= anchoredYPosition {
+            && presentedView.frame.minY.rounded() <= anchoredYPosition.rounded() {
             return true
         }
 
@@ -367,7 +368,16 @@ private extension PanModalPresentationController {
             else { return }
 
         let adjustedSize = CGSize(width: frame.size.width, height: frame.size.height - anchoredYPosition)
+        let panFrame = panContainerView.frame
         panContainerView.frame.size = frame.size
+        
+        if ![shortFormYPosition, longFormYPosition].contains(panFrame.origin.y) {
+            // if the container is already in the correct position, no need to adjust positioning
+            // (rotations & size changes cause positioning to be out of sync)
+            let yPosition = panFrame.origin.y - panFrame.height + frame.height
+            presentedView.frame.origin.y = max(yPosition, anchoredYPosition)
+        }
+        panContainerView.frame.origin.x = frame.origin.x
         presentedViewController.view.frame = CGRect(origin: .zero, size: adjustedSize)
     }
 
@@ -513,7 +523,7 @@ private extension PanModalPresentationController {
                     transition(to: .shortForm)
 
                 } else {
-                    dismissPresentedViewController()
+                    presentedViewController.dismiss(animated: true)
                 }
 
             } else {
@@ -531,7 +541,7 @@ private extension PanModalPresentationController {
                     transition(to: .shortForm)
 
                 } else {
-                    dismissPresentedViewController()
+                    presentedViewController.dismiss(animated: true)
                 }
             }
         }
@@ -670,14 +680,6 @@ private extension PanModalPresentationController {
             else { return number }
         return nearestVal
     }
-
-    /**
-     Dismiss presented view
-     */
-    func dismissPresentedViewController() {
-        presentable?.panModalWillDismiss()
-        presentedViewController.dismiss(animated: true, completion: nil)
-    }
 }
 
 // MARK: - UIScrollView Observer
@@ -782,7 +784,7 @@ private extension PanModalPresentationController {
      */
     func handleScrollViewTopBounce(scrollView: UIScrollView, change: NSKeyValueObservedChange<CGPoint>) {
 
-        guard let oldYValue = change.oldValue?.y
+        guard let oldYValue = change.oldValue?.y, scrollView.isDecelerating
             else { return }
 
         let yOffset = scrollView.contentOffset.y
@@ -887,3 +889,4 @@ private extension UIScrollView {
         return isDragging && !isDecelerating || isTracking
     }
 }
+#endif

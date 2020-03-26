@@ -4,7 +4,6 @@
 target 'kpiRozklad' do
   # Comment the next line if you don't want to use dynamic frameworks
   use_frameworks!
-pod 'PanModal', '1.2.4'
 pod 'PromiseKit'
 pod 'M13Checkbox'
 

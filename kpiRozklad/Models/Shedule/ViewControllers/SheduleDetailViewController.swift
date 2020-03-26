@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import PanModal
+//import PanModal
 
 class SheduleDetailViewController: UIViewController {
     
@@ -46,11 +46,33 @@ class SheduleDetailViewController: UIViewController {
         /// Guarding lesson
         guard let lesson = lesson else { return }
         
-        print(lesson)
         
         if lesson.teachers?.count != 0 {
             teacher = lesson.teachers?[0]
-                        
+            if teacher?.teacherID == "" {
+                teacherLabel.isHidden = true
+                teacherRatingLabel.isHidden = true
+                groupsLabel.isHidden = true
+                
+                stackView.removeArrangedSubview(teacherLabel)
+                stackView.removeArrangedSubview(teacherRatingLabel)
+                stackView.removeArrangedSubview(groupsLabel)
+                
+                stackView.addArrangedSubview(UIView())
+                stackView.addArrangedSubview(UIView())
+                stackView.addArrangedSubview(UIView())
+
+                checkTeacherShedule.isEnabled = false
+                checkTeacherShedule.backgroundColor = .lightGray
+                checkTeacherShedule.borderColor = .lightGray
+            }
+            
+            if lesson.lessonRoom == "" && lesson.lessonType == .empty {
+                stackView.removeArrangedSubview(roomTypeLabel)
+                stackView.addArrangedSubview(UIView())
+            }
+            
+            
             if teacher?.teacherFullName != "" {
                 teacherLabel.text = teacher?.teacherFullName
             } else if teacher?.teacherName != "" {
@@ -59,11 +81,17 @@ class SheduleDetailViewController: UIViewController {
                 teacherLabel.text = lesson.teacherName
             }
             
-            teacherRatingLabel.text = "Рейтинг викладача: " + (teacher?.teacherRating ?? "0.0000")
-        } else {
-            checkTeacherShedule.isEnabled = false
-            checkTeacherShedule.backgroundColor = .lightGray
-            checkTeacherShedule.borderColor = .lightGray
+            if let rating = teacher?.teacherRating {
+                teacherRatingLabel.text = rating != "" ? "Рейтинг викладача: \(rating)" : ""
+                if rating == "" {
+                    if !teacherLabel.isHidden {
+                        stackView.removeArrangedSubview(teacherRatingLabel)
+                        stackView.addArrangedSubview(UIView())
+                    }
+                    
+                }
+            }
+            
         }
         
         lessonNameLabel.text = lesson.lessonName
@@ -77,7 +105,7 @@ class SheduleDetailViewController: UIViewController {
         checkTeacherShedule.layer.cornerRadius = 25
         
         if lesson.groups?.count == 0 {
-            server(dayNumber: lesson.dayNumber, lessonNumber: lesson.lessonNumber, teacherID: teacher?.teacherID ?? "0", lessonWeek: lesson.lessonWeek)
+            getTeacherLessons(dayNumber: lesson.dayNumber, lessonNumber: lesson.lessonNumber, teacherID: teacher?.teacherID ?? "0", lessonWeek: lesson.lessonWeek)
         } else {
             self.groupsLabel.text = "Групи: \(getGroupsOfLessonString(lesson: lesson))"
         }
@@ -86,6 +114,8 @@ class SheduleDetailViewController: UIViewController {
         if global.sheduleType == .teachers {
             self.groupsLabel.text = "Групи: \(getGroupsOfLessonString(lesson: lesson))"
             checkTeacherShedule.isHidden = true
+//            stackView.removeArrangedSubview(checkTeacherShedule)
+            
         }
         
     }
@@ -109,7 +139,9 @@ class SheduleDetailViewController: UIViewController {
     
     func getGroups(dayNumber: String, lessonNumber: String, teacherID: String, lessonWeek: String, lessons: [Lesson]) {
         for lesson in lessons {
-            if lesson.dayNumber == dayNumber && lesson.lessonNumber == lessonNumber && lesson.lessonWeek == lessonWeek {
+            if lesson.dayNumber == dayNumber &&
+                lesson.lessonNumber == lessonNumber &&
+                lesson.lessonWeek == lessonWeek {
                 DispatchQueue.main.async {
                     self.groupsLabel.text = "Групи: \(getGroupsOfLessonString(lesson: lesson))"
                 }
@@ -118,34 +150,48 @@ class SheduleDetailViewController: UIViewController {
     }
     
     
-    // MARK: - server
-    func server(dayNumber: String, lessonNumber: String, teacherID: String, lessonWeek: String) {
-        
-        var lessons: [Lesson] = []
-        
-        guard var url = URL(string: "https://api.rozklad.org.ua/v2/teachers/") else { return }
-        url.appendPathComponent(teacherID)
-        url.appendPathComponent("/lessons")
-        print(url)
-        let task = URLSession.shared.dataTask(with: url) {(data, response, error) in
-            guard let data = data else { return }
-            let decoder = JSONDecoder()
-
-            do {
-                if let error = try? decoder.decode(Error.self, from: data) {
-                    if error.message == "Lessons not found" {
-
-                    }
+//    // MARK: - server
+//    func server(dayNumber: String, lessonNumber: String, teacherID: String, lessonWeek: String) {
+//
+//        var lessons: [Lesson] = []
+//
+//        guard var url = URL(string: "https://api.rozklad.org.ua/v2/teachers/") else { return }
+//        url.appendPathComponent(teacherID)
+//        url.appendPathComponent("/lessons")
+//        print(url)
+//        let task = URLSession.shared.dataTask(with: url) {(data, response, error) in
+//            guard let data = data else { return }
+//            let decoder = JSONDecoder()
+//
+//            do {
+//                if let error = try? decoder.decode(Error.self, from: data) {
+//                    if error.message == "Lessons not found" {
+//
+//                    }
+//                }
+//
+//                guard let serverFULLDATA = try? decoder.decode(WelcomeLessons.self, from: data) else { return }
+//                lessons = serverFULLDATA.data
+//                self.getGroups(dayNumber: dayNumber, lessonNumber: lessonNumber, teacherID: teacherID, lessonWeek: lessonWeek, lessons: lessons)
+//            }
+//        }
+//        task.resume()
+//
+//    }
+    
+    
+    private func getTeacherLessons(dayNumber: String, lessonNumber: String, teacherID: String, lessonWeek: String) {
+        API.getTeacherLessons(forTeacherWithId: Int(teacherID) ?? 0).done({ [weak self] (lessons) in
+            self?.getGroups(dayNumber: dayNumber, lessonNumber: lessonNumber, teacherID: teacherID, lessonWeek: lessonWeek, lessons: lessons)
+        }).catch({ [weak self] (error) in
+            guard let this = self else { return }
+            
+            if error.localizedDescription != NetworkingApiError.lessonsNotFound.localizedDescription {
+                DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .seconds(5)) {
+                    this.getTeacherLessons(dayNumber: dayNumber, lessonNumber: lessonNumber, teacherID: teacherID, lessonWeek: lessonWeek)
                 }
-                
-                guard let serverFULLDATA = try? decoder.decode(WelcomeLessons.self, from: data) else { return }
-                lessons = serverFULLDATA.data
-                self.getGroups(dayNumber: dayNumber, lessonNumber: lessonNumber, teacherID: teacherID, lessonWeek: lessonWeek, lessons: lessons)
-
             }
-        }
-        task.resume()
-        
+        })
     }
 
 }

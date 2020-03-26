@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="15702" systemVersion="19D76" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="16119" systemVersion="19E266" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="GroupData" representedClassName="GroupData" syncable="YES" codeGenerationType="class">
         <attribute name="groupFullName" optional="YES" attributeType="String"/>
         <attribute name="groupID" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
@@ -7,7 +7,7 @@
         <attribute name="groupPrefix" optional="YES" attributeType="String"/>
         <attribute name="groupType" optional="YES" attributeType="String"/>
         <attribute name="groupURL" optional="YES" attributeType="String"/>
-        <relationship name="groupsRelationship" optional="YES" maxCount="1" deletionRule="No Action" destinationEntity="LessonData" inverseName="groupsRelationship" inverseEntity="LessonData"/>
+        <relationship name="groupsRelationship" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="LessonData" inverseName="groupsRelationship" inverseEntity="LessonData"/>
     </entity>
     <entity name="LessonData" representedClassName="LessonData" syncable="YES" codeGenerationType="class">
         <attribute name="dayName" optional="YES" attributeType="String"/>
@@ -24,16 +24,16 @@
         <attribute name="teacherName" optional="YES" attributeType="String"/>
         <attribute name="timeEnd" optional="YES" attributeType="String"/>
         <attribute name="timeStart" optional="YES" attributeType="String"/>
-        <relationship name="groupsRelationship" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="GroupData" inverseName="groupsRelationship" inverseEntity="GroupData"/>
-        <relationship name="roomsRelationship" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="RoomsData" inverseName="roomsRelationship" inverseEntity="RoomsData"/>
-        <relationship name="teachersRelationship" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="TeachersData" inverseName="teachersRelationship" inverseEntity="TeachersData"/>
+        <relationship name="groupsRelationship" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="GroupData" inverseName="groupsRelationship" inverseEntity="GroupData"/>
+        <relationship name="roomsRelationship" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="RoomsData" inverseName="roomsRelationship" inverseEntity="RoomsData"/>
+        <relationship name="teachersRelationship" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="TeachersData" inverseName="teachersRelationship" inverseEntity="TeachersData"/>
     </entity>
     <entity name="RoomsData" representedClassName="RoomsData" syncable="YES" codeGenerationType="class">
         <attribute name="roomID" optional="YES" attributeType="String"/>
         <attribute name="roomLatitude" optional="YES" attributeType="String"/>
         <attribute name="roomLongitude" optional="YES" attributeType="String"/>
         <attribute name="roomName" optional="YES" attributeType="String"/>
-        <relationship name="roomsRelationship" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="LessonData" inverseName="roomsRelationship" inverseEntity="LessonData"/>
+        <relationship name="roomsRelationship" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="LessonData" inverseName="roomsRelationship" inverseEntity="LessonData"/>
     </entity>
     <entity name="TeachersData" representedClassName="TeachersData" syncable="YES" codeGenerationType="class">
         <attribute name="teacherFullName" optional="YES" attributeType="String"/>
@@ -42,12 +42,12 @@
         <attribute name="teacherRating" optional="YES" attributeType="String"/>
         <attribute name="teacherShortName" optional="YES" attributeType="String"/>
         <attribute name="teacherURL" optional="YES" attributeType="String"/>
-        <relationship name="teachersRelationship" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="LessonData" inverseName="teachersRelationship" inverseEntity="LessonData"/>
+        <relationship name="teachersRelationship" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="LessonData" inverseName="teachersRelationship" inverseEntity="LessonData"/>
     </entity>
     <elements>
         <element name="GroupData" positionX="117" positionY="135" width="128" height="148"/>
         <element name="LessonData" positionX="-63" positionY="-18" width="128" height="298"/>
-        <element name="RoomsData" positionX="90" positionY="99" width="128" height="28"/>
+        <element name="RoomsData" positionX="90" positionY="99" width="128" height="118"/>
         <element name="TeachersData" positionX="241.29296875" positionY="48.12109375" width="128" height="148"/>
     </elements>
 </model>

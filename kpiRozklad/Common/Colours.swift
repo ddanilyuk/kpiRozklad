@@ -26,9 +26,9 @@ public var tint: UIColor = {
     }
 }()
 
-public var blue: UIColor = {
-    return UIColor(red: 67/255, green: 127/255, blue: 188/255, alpha: 1)
-}()
+//public var blue: UIColor = {
+//    return UIColor(red: 67/255, green: 127/255, blue: 188/255, alpha: 1)
+//}()
 
 public var sectionColour: UIColor = {
     if #available(iOS 13, *) {

@@ -243,11 +243,9 @@ class ColourPickerViewController: UIViewController {
 
             if colour == colourToFind {
                 index = i
-                print("INDEX:", index)
                 return index
             }
         }
-        print("----------------")
         return index
 
     }

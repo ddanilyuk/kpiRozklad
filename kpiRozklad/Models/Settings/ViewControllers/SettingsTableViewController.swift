@@ -94,7 +94,7 @@ class SettingsTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 10
+        return 0
     }
 
     override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
@@ -341,8 +341,10 @@ class SettingsTableViewController: UITableViewController {
             
             
             let mainStoryboard = UIStoryboard(name: "Main", bundle: Bundle.main)
-            guard let greetingVC = mainStoryboard.instantiateViewController(withIdentifier: "GreetingViewController") as? GreetingViewController else { return }
+//            guard let greetingVC = mainStoryboard.instantiateViewController(withIdentifier: "GreetingViewController") as? GreetingViewController else { return }
 
+            guard let greetingVC = mainStoryboard.instantiateViewController(withIdentifier: "FirstViewController") as? FirstViewController else { return }
+            
             let appDelegate = UIApplication.shared.delegate as? AppDelegate
             guard let window = appDelegate?.window else { return }
             window.rootViewController = greetingVC

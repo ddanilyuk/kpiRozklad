@@ -70,36 +70,46 @@ class GroupsAndTeachersViewController: UIViewController {
 
         setupNavigationAndSearch()
         
+        
+//        self.segmentControl.selectedSegmentIndex = 0
+//        self.didSegmentControlChangeState(self.segmentControl ?? UISegmentedControl())
+        
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
         if isSheduleTeachersChooser {
             
             disableSegmentControl()
-            serverAllTeachersOrGroups(requestType: .teachers)
+//            serverAllTeachersOrGroups(requestType: .teachers)
+            getAllTeachers()
             
         } else if isSheduleGroupChooser {
             
             disableSegmentControl()
-            serverAllTeachersOrGroups(requestType: .groups)
-            
+//            serverAllTeachersOrGroups(requestType: .groups)
+            getAllGroups()
         } else if isGroupViewController {
             
             showWithoutStartWriteLabel()
             disableSegmentControl()
-            serverAllTeachersOrGroups(requestType: .groups)
-            
+//            serverAllTeachersOrGroups(requestType: .groups)
+            getAllGroups()
+
         } else if isTeacherViewController && global.sheduleType == .teachers {
             
             showWithoutStartWriteLabel()
             disableSegmentControl()
-            serverAllTeachersOrGroups(requestType: .teachers)
+            getAllTeachers()
+//            serverAllTeachersOrGroups(requestType: .teachers)
             
         } else if isTeacherViewController && global.sheduleType == .groups {
             
             showWithoutStartWriteLabel()
-            serverGroupTeachers()
-            serverAllTeachersOrGroups(requestType: .teachers)
+            getTeachersOfGroup()
+            getAllTeachers()
             
+//            serverAllTeachersOrGroups(requestType: .teachers)
         }
-        
     }
     
     
@@ -150,8 +160,14 @@ class GroupsAndTeachersViewController: UIViewController {
 
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.backgroundColor = tableViewBackground
-        self.view.backgroundColor = tableViewBackground
+//        tableView.backgroundColor = tableViewBackground
+//        self.view.backgroundColor = tableViewBackground
+//
+        if #available(iOS 13.0, *) {
+            tableView.backgroundColor = tint
+        } else {
+            tableView.backgroundColor = .white
+        }
     }
     
     
@@ -176,6 +192,8 @@ class GroupsAndTeachersViewController: UIViewController {
         self.navigationItem.searchController = search
         self.navigationItem.hidesSearchBarWhenScrolling = false
         definesPresentationContext = true
+        self.navigationController?.navigationBar.isTranslucent = true
+        self.tabBarController?.tabBar.isTranslucent = true
     }
     
     
@@ -305,11 +323,13 @@ extension GroupsAndTeachersViewController: UITableViewDelegate, UITableViewDataS
             
         } else if isGroupViewController {
             let group = isSearching ? groupsInSearch[indexPath.row] : groups[indexPath.row]
-            serverGetChoosenGroupShedule(group: group, indexPath: indexPath)
+//            serverGetChoosenGroupShedule(group: group, indexPath: indexPath)
+            getGroupLessons(group: group, indexPath: indexPath)
         } else if isTeacherViewController {
             
             let teacher = isSearching ? teachersInSearch[indexPath.row] : teachers[indexPath.row]
-            serverGetChoosenTeacherShedule(teacher: teacher, indexPath: indexPath)
+//            serverGetChoosenTeacherShedule(teacher: teacher, indexPath: indexPath)
+            getTeacherLessons(teacher: teacher, indexPath: indexPath)
             
 //            guard (storyboard?.instantiateViewController(withIdentifier: "TeacherSheduleViewController") as? TeacherSheduleViewController) != nil else { return }
 //            performSegue(withIdentifier: "showTeacherSheduleFromAllTeachers", sender: self)
@@ -371,7 +391,7 @@ extension GroupsAndTeachersViewController: UISearchResultsUpdating {
                 tableView.isHidden = true
                 activityIndicator.isHidden = false
                 activityIndicator.startAnimating()
-                serverAllTeachersOrGroups(requestType: .teachers)
+//                serverAllTeachersOrGroups(requestType: .teachers)
             }
             
             for teacher in teachers {
@@ -391,7 +411,7 @@ extension GroupsAndTeachersViewController: UISearchResultsUpdating {
                 tableView.isHidden = true
                 activityIndicator.isHidden = false
                 activityIndicator.startAnimating()
-                serverAllTeachersOrGroups(requestType: .groups)
+//                serverAllTeachersOrGroups(requestType: .groups)
             }
             
             for group in groups {

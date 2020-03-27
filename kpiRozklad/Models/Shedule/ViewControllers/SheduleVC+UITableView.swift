@@ -34,7 +34,12 @@ extension SheduleViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let returnedView = UIView(frame: CGRect(x: 0, y: 0, width: view.frame.size.width, height: 35))
         
-        self.isEditing ? daysArray.append("Нова пара") : nil
+//        self.isEditing ? daysArray.append("Нова пара") : nil
+        if daysArray[0] != "Нова пара" && self.isEditing {
+            daysArray.insert("Нова пара", at: 0)
+        }
+//        self.isEditing ? daysArray.insert("Нова пара", at: 0) : nil
+
         
         returnedView.backgroundColor = sectionColour
 
@@ -52,19 +57,13 @@ extension SheduleViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     
-    // MARK: - titleForHeaderInSection
-    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        self.isEditing ? daysArray.append("Нова пара") : nil
-        return daysArray[section]
-    }
-    
-    
     // MARK: - numberOfRowsInSection
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if self.isEditing == true && section == self.lessonsForTableView.count {
+        if self.isEditing == true && section == 0 {
             return 1
-        }
-        else {
+        } else if self.isEditing == true {
+            return self.lessonsForTableView[section - 1].value.count
+        } else {
             return self.lessonsForTableView[section].value.count
         }
     }
@@ -78,7 +77,7 @@ extension SheduleViewController: UITableViewDelegate, UITableViewDataSource {
     
     // MARK: - didSelectRowAt
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if indexPath.section == lessonsForTableView.count {
+        if indexPath.section == 0 && isEditing {
             presentAddLesson()
         } else if isEditing {
             /// Presenting alert (popup) with pickerView
@@ -93,9 +92,9 @@ extension SheduleViewController: UITableViewDelegate, UITableViewDataSource {
             pickerView.delegate = self
 
             alertView.view.addSubview(pickerView)
-            
+            let newIndexPath = IndexPath(row: indexPath.row, section: indexPath.section - 1)
             alertView.addAction(UIAlertAction(title: "Змінити", style: .default, handler: { (_) in
-                editLessonNumber(vc: self, indexPath: indexPath)
+                editLessonNumber(vc: self, indexPath: newIndexPath)
             }))
             
             alertView.addAction(UIAlertAction(title: "Назад", style: .cancel, handler: nil ))
@@ -118,22 +117,26 @@ extension SheduleViewController: UITableViewDelegate, UITableViewDataSource {
     
     // MARK: - cellForRowAt
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cellBackgroundColor : UIColor = {
+            if #available(iOS 13.0, *) {
+                return .systemBackground
+            } else {
+                return .white
+            }
+        }()
         
         /// Creating cell for adding new lessson
-        if indexPath.section == self.lessonsForTableView.count && self.isEditing == true {
+        if indexPath.section == 0 && self.isEditing == true {
             let cell = UITableViewCell(style: .default, reuseIdentifier: "addCell")
             cell.textLabel?.text = "Додати пару"
+            cell.backgroundColor = cellBackgroundColor
             return cell
         }
         
         /// Creating main cell
         guard let cell = tableView.dequeueReusableCell(withIdentifier: LessonTableViewCell.identifier, for: indexPath) as? LessonTableViewCell else { return UITableViewCell() }
-        if #available(iOS 13.0, *) {
-            cell.backgroundColor = .systemBackground
-        } else {
-            cell.backgroundColor = .white
-        }
-        let lesson = lessonsForTableView[indexPath.section].value[indexPath.row]
+        cell.backgroundColor = cellBackgroundColor
+        let lesson = isEditing ? lessonsForTableView[indexPath.section - 1].value[indexPath.row] : lessonsForTableView[indexPath.section].value[indexPath.row]
         
         cell.lessonLabel.text = lesson.lessonName
         cell.teacherLabel.text = lesson.teacherName != "" ? lesson.teacherName : " "
@@ -211,13 +214,24 @@ extension SheduleViewController: UITableViewDelegate, UITableViewDataSource {
     
     // MARK: - canMoveRowAt
     func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        return indexPath.section == self.lessonsForTableView.count ? false : true
+        if isEditing {
+            return indexPath.section == 0 ? false : true
+        } else {
+            return true
+        }
     }
     
     
     // MARK: - editingStyleForRowAt
     func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
-        if indexPath.section == self.lessonsForTableView.count {
+//        if indexPath.section == self.lessonsForTableView.count {
+//            return .insert
+//        } else if isEditing {
+//            return .delete
+//        } else {
+//            return .none
+//        }
+        if indexPath.section == 0 && isEditing {
             return .insert
         } else if isEditing {
             return .delete
@@ -239,10 +253,11 @@ extension SheduleViewController: UITableViewDelegate, UITableViewDataSource {
         super.setEditing(editing, animated: animated)
         if editing {
             self.tableView.setEditing(true, animated: true)
-            self.tableView.insertSections(IndexSet(integer: self.lessonsForTableView.count), with: .automatic)
+            self.tableView.insertSections(IndexSet(integer: 0), with: .automatic)
         } else {
             self.tableView.setEditing(false, animated: true)
-            self.tableView.deleteSections(IndexSet(integer: self.lessonsForTableView.count), with: .automatic)
+            self.daysArray.remove(at: 0)
+            self.tableView.deleteSections(IndexSet(integer: 0), with: .automatic)
         }
     }
 }

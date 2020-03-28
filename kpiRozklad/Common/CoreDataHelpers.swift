@@ -10,10 +10,15 @@ import UIKit
 import CoreData
 
 
-// MARK:- fetchingCoreData
-/// Function which fetch lesson from core data
-func fetchingCoreDataV2() -> [Lesson] {
-    guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return []}
+/**
+ Function which fetch lesson from core data
+ 
+ - Note: Core Data for entity "Lesson"
+
+ - Returns: Lessons from Core Data
+ */
+func fetchingCoreData() -> [Lesson] {
+    guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return [] }
 
     let managedContext = appDelegate.persistentContainer.viewContext
     
@@ -101,11 +106,15 @@ func fetchingCoreDataV2() -> [Lesson] {
 }
 
 
-// MARK:- updateCoreData
-/// Function which save all data from server in to Core data
-/// - note: Core Data for entity "Lesson"
-/// - Parameter datum: array of  [Lesson] whitch received from server
-func updateCoreDataV2(vc: SheduleViewController, datum:  [Lesson]) {
+/**
+Function which save all data from server in to Core data
+ 
+ - Note: Core Data for entity "Lesson"
+ 
+ - Parameter vc: Shedule VC to call `makeLessonsShedule()`
+ - Parameter datum: array of  [Lesson] which received from server
+*/
+func updateCoreData(vc: SheduleViewController, datum:  [Lesson]) {
     DispatchQueue.main.async {
         /// Delete all
         deleteAllFromCoreData()
@@ -190,8 +199,11 @@ func updateCoreDataV2(vc: SheduleViewController, datum:  [Lesson]) {
 }
 
 
-// MARK:- deleteAllFromCoreData
-/// Simple function that clear Core Data
+/**
+ Function that clear Core Data
+ 
+ - Note: Core Data for entity "Lesson"
+ */
 func deleteAllFromCoreData() {
     let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "LessonData")
 
@@ -216,5 +228,3 @@ func deleteAllFromCoreData() {
         print("Could not delete. \(error)")
     }
 }
-
-

@@ -33,7 +33,6 @@
 		5F46AD5E23FEC43500B145D5 /* FavouriteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F46AD5D23FEC43500B145D5 /* FavouriteViewController.swift */; };
 		5F46AD6523FFD66E00B145D5 /* GroupsNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F46AD6423FFD66E00B145D5 /* GroupsNavigationController.swift */; };
 		5F46AD682401A0F700B145D5 /* Favourites.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F46AD672401A0F700B145D5 /* Favourites.swift */; };
-		5F4E51ED2403D9DD0034D250 /* GreetingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F4E51EC2403D9DD0034D250 /* GreetingViewController.swift */; };
 		5F5000AF238D704A0003E13B /* UIViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F5000AE238D704A0003E13B /* UIViewExtension.swift */; };
 		5F686F3A23800CFB008B0915 /* AddLessonViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F686F3923800CFB008B0915 /* AddLessonViewController.swift */; };
 		5F6A08062370A175000A9C79 /* kpiRozklad.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 5F6A08042370A175000A9C79 /* kpiRozklad.xcdatamodeld */; };
@@ -149,7 +148,6 @@
 		5F46AD5D23FEC43500B145D5 /* FavouriteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouriteViewController.swift; sourceTree = "<group>"; };
 		5F46AD6423FFD66E00B145D5 /* GroupsNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupsNavigationController.swift; sourceTree = "<group>"; };
 		5F46AD672401A0F700B145D5 /* Favourites.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Favourites.swift; sourceTree = "<group>"; };
-		5F4E51EC2403D9DD0034D250 /* GreetingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GreetingViewController.swift; sourceTree = "<group>"; };
 		5F5000AE238D704A0003E13B /* UIViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewExtension.swift; sourceTree = "<group>"; };
 		5F686F3923800CFB008B0915 /* AddLessonViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddLessonViewController.swift; sourceTree = "<group>"; };
 		5F6A08052370A175000A9C79 /* Lesson.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Lesson.xcdatamodel; sourceTree = "<group>"; };
@@ -401,7 +399,6 @@
 			isa = PBXGroup;
 			children = (
 				5F686F3923800CFB008B0915 /* AddLessonViewController.swift */,
-				5F4E51EC2403D9DD0034D250 /* GreetingViewController.swift */,
 				5F8EF0E6242D170400E74220 /* FirstViewController.swift */,
 				5F8EF0E8242D171000E74220 /* BoardViewController.swift */,
 			);
@@ -869,7 +866,6 @@
 				D300F1DA2364CF490098CA83 /* SettingsTableViewController.swift in Sources */,
 				5F4457E42376FB05008F9E21 /* Settings.swift in Sources */,
 				5FE048652392D16A00092422 /* EditingLessons.swift in Sources */,
-				5F4E51ED2403D9DD0034D250 /* GreetingViewController.swift in Sources */,
 				5F2E61832428252000B362A2 /* ErrorMessageResponse.swift in Sources */,
 				5F5000AF238D704A0003E13B /* UIViewExtension.swift in Sources */,
 				5F8EF0E9242D171000E74220 /* BoardViewController.swift in Sources */,

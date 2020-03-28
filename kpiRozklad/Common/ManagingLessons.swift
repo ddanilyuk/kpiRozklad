@@ -10,7 +10,16 @@ import UIKit
 
 
 // MARK: - getCurrentAndNextLesson
-/// Function that makes current lesson **orange** and next lesson **blue**
+/**
+Find current and next lesson ID
+
+ - Parameter lessons: Lessons in which need find current and next
+ - Parameter timeIsNowString: Time is now in string
+ - Parameter dayNumberFromCurrentDate: Current day number [1-7]
+ - Parameter currentWeekFromTodayDate: Current week number [1-2]
+
+  - Returns: Next and current lesson ID
+*/
 func getCurrentAndNextLesson(lessons: [Lesson],
                              timeIsNowString: String,
                              dayNumberFromCurrentDate: Int,
@@ -73,8 +82,13 @@ func getCurrentAndNextLesson(lessons: [Lesson],
 }
 
 
-// MARK: - getTimeFromLessonNumber
-/// Function which make lesson timeStart and timeEnd
+/**
+ Make lesson timeStart and timeEnd
+
+ - Parameter currentWeekFromTodayDate: Current week number [1-2]
+
+  - Returns: timeStart and timeEnd
+ */
 func getTimeFromLessonNumber(lessonNumber: String) -> (timeStart: String, timeEnd: String) {
     var timeStart = ""
     var timeEnd = ""
@@ -107,6 +121,13 @@ func getTimeFromLessonNumber(lessonNumber: String) -> (timeStart: String, timeEn
 }
 
 
+/**
+ Sort lessons in normal order
+ 
+ - Parameter lessons: Lessons to sort
+ 
+  - Returns: Sorted lessons
+ */
 func sortLessons(lessons: [Lesson]) -> [Lesson] {
     var lessonsToSort = lessons
     
@@ -124,6 +145,13 @@ func sortLessons(lessons: [Lesson]) -> [Lesson] {
 }
 
 
+/**
+ Make string with groups in lesson
+
+- Parameter lessons: lesson
+
+ - Returns: String with groups  like `"ІВ-81, ІВ-82, IВ-83"`
+*/
 func getGroupsOfLessonString(lesson: Lesson) -> String {
     var groupsNames: String  = ""
 
@@ -144,4 +172,3 @@ func getGroupsOfLessonString(lesson: Lesson) -> String {
     
     return groupsNames
 }
-

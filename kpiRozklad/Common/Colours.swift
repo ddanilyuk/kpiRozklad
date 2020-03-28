@@ -26,9 +26,6 @@ public var tint: UIColor = {
     }
 }()
 
-//public var blue: UIColor = {
-//    return UIColor(red: 67/255, green: 127/255, blue: 188/255, alpha: 1)
-//}()
 
 public var sectionColour: UIColor = {
     if #available(iOS 13, *) {
@@ -63,7 +60,6 @@ public var tableViewBackground: UIColor = {
             }
         }
     } else {
-        /// Return a fallback color for iOS 12 and lower.
         return UIColor(red: 242/255, green: 242/255, blue: 247/255, alpha: 1)
     }
 }()
@@ -73,9 +69,6 @@ public var seettingsTableViewBackgroundColour: UIColor = {
     if #available(iOS 13, *) {
         return .secondarySystemGroupedBackground
     } else {
-        /// Return a fallback color for iOS 12 and lower.
         return  UIColor.white
     }
 }()
-
-

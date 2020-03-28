@@ -178,7 +178,7 @@ extension SheduleViewController: UITableViewDelegate, UITableViewDataSource {
             /// Lesson to delete
             let lesson = self.lessonsForTableView[indexPath.section].value[indexPath.row]
             
-            var lessons = fetchingCoreDataV2()
+            var lessons = fetchingCoreData()
             
             /// deleting from `lessons`  which will be used for further updates in `updateCoreData(datum: lessons)`
             for i in 0..<lessons.count {
@@ -196,7 +196,7 @@ extension SheduleViewController: UITableViewDelegate, UITableViewDataSource {
 
             // If delete DispatchQueue animation broken
             DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .seconds(1)) {
-                updateCoreDataV2(vc: self, datum: lessons)
+                updateCoreData(vc: self, datum: lessons)
             }
             
         } else if editingStyle == .insert {

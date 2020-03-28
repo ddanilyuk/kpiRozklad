@@ -8,6 +8,7 @@
 
 import UIKit
 
+
 enum SheduleCellType {
     case defaultCell
     case nextCell
@@ -18,8 +19,3 @@ enum SheduleType {
     case groups
     case teachers
 }
-
-//enum typeFavourite {
-//    case group
-//    case teacher
-//}

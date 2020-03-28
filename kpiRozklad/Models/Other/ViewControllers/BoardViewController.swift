@@ -31,7 +31,7 @@ class BoardViewController: UIViewController, PanModalPresentable {
 //        return .contentHeight(360)
 //    }
 
-    var longFormHeight: PanModalHeight = .contentHeight(360)
+    var longFormHeight: PanModalHeight = .contentHeight(340)
 
     var transitionDuration: Double {
         return 0.7
@@ -46,7 +46,7 @@ class BoardViewController: UIViewController, PanModalPresentable {
         return false
     }
     
-    var shortFormHeight: PanModalHeight  = .contentHeight(360)
+    var shortFormHeight: PanModalHeight  = .contentHeight(340)
     
     
 //    var allowsExtendedPanScrolling: Bool {

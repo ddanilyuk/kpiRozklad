@@ -37,27 +37,33 @@ extension GroupsAndTeachersViewController {
                     self.getTeacherLessons(teacher: teacher, indexPath: indexPath)
                 }
             case .getAllGroupType:
-                self.getTeachersOfGroup()
+                self.getAllGroups()
             case .getAllTeachersType:
                 self.getAllTeachers()
             case .getTeachersOfGroupType:
-                self.getAllGroups()
+                self.getTeachersOfGroup()
             }
         }))
 
         self.present(alert, animated: true, completion: nil)
     }
 
-    func getTeachersOfGroup() {
-        API.getTeachersOfGroup(forGroupWithId: settings.groupID).done({ [weak self] (lessons) in
-            self?.groupTeachers = lessons
-
-            self?.activityIndicatorStopAndHide()
-            self?.tableView.isHidden = false
+    func getTeachersOfGroup(isNeedToUpdate: Bool = false) {
+        API.getTeachersOfGroup(forGroupWithId: settings.groupID).done({ [weak self] (teachers) in
+            guard let this = self else { return }
             
-            if self?.teachers.isEmpty ?? false {
-                self?.segmentControl.selectedSegmentIndex = 0
-                self?.didSegmentControlChangeState(self?.segmentControl ?? UISegmentedControl())
+            this.groupTeachers = teachers
+
+            this.activityIndicatorStopAndHide()
+            this.tableView.isHidden = false
+            
+            if this.teachers.isEmpty {
+                this.segmentControl.selectedSegmentIndex = 0
+                this.didSegmentControlChangeState(this.segmentControl ?? UISegmentedControl())
+            }
+            
+            if isNeedToUpdate && this.segmentControl.selectedSegmentIndex == 0 {
+                this.teachers = teachers
             }
             
             self?.tableView.reloadData()
@@ -68,7 +74,7 @@ extension GroupsAndTeachersViewController {
     }
     
     
-    func getAllTeachers() {
+    func getAllTeachers(isNeedToUpdate: Bool = false) {
         API.getAllTeachers().done({ [weak self] (teachers) in
             guard let this = self else { return }
             if this.isSheduleTeachersChooser || (this.isTeacherViewController && global.sheduleType == .teachers) {
@@ -79,13 +85,24 @@ extension GroupsAndTeachersViewController {
             this.activityIndicatorStopAndHide()
             
             if this.isSheduleGroupChooser || this.isSheduleTeachersChooser {
-                this.tableView.isHidden = true
+                if this.startWriteLabel.isHidden {
+                    this.tableView.isHidden = false
+                    this.updateSearchResults(for: this.search)
+//                    this.tableView.reloadData()
+                } else {
+                    this.tableView.isHidden = true
+                }
             } else {
+                if isNeedToUpdate && this.segmentControl.selectedSegmentIndex == 1 {
+                    this.teachers = teachers
+                }
                 this.tableView.isHidden = false
             }
             this.tableView.reloadData()
         }).catch({ [weak self] (error) in
-            self?.getDefaultErrorAlert(localizedDescription: error.localizedDescription, alertCase: .getAllTeachersType, group: nil, teacher: nil, indexPath: nil)
+            if self?.segmentControl.selectedSegmentIndex == 1 {
+                self?.getDefaultErrorAlert(localizedDescription: error.localizedDescription, alertCase: .getAllTeachersType, group: nil, teacher: nil, indexPath: nil)
+            }
         })
     }
     
@@ -97,8 +114,19 @@ extension GroupsAndTeachersViewController {
 
             this.activityIndicatorStopAndHide()
             
-            this.tableView.isHidden = (this.isSheduleGroupChooser || this.isSheduleTeachersChooser) ? true : false
-                        
+//            this.tableView.isHidden = (this.isSheduleGroupChooser || this.isSheduleTeachersChooser) ? true : false
+            if this.isSheduleGroupChooser || this.isSheduleTeachersChooser {
+                if this.startWriteLabel.isHidden {
+                    this.tableView.isHidden = false
+                    this.updateSearchResults(for: this.search)
+//                    this.tableView.reloadData()
+                } else {
+                    this.tableView.isHidden = true
+                }
+            } else {
+                this.tableView.isHidden = false
+            }
+            
             this.tableView.reloadData()
         }).catch({ [weak self] (error) in
             self?.getDefaultErrorAlert(localizedDescription: error.localizedDescription, alertCase: .getAllGroupType, group: nil, teacher: nil, indexPath: nil)

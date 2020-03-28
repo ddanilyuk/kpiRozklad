@@ -77,38 +77,40 @@ class GroupsAndTeachersViewController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        if isSheduleTeachersChooser {
-            
-            disableSegmentControl()
-//            serverAllTeachersOrGroups(requestType: .teachers)
-            getAllTeachers()
-            
-        } else if isSheduleGroupChooser {
-            
-            disableSegmentControl()
-//            serverAllTeachersOrGroups(requestType: .groups)
-            getAllGroups()
-        } else if isGroupViewController {
-            
-            showWithoutStartWriteLabel()
-            disableSegmentControl()
-//            serverAllTeachersOrGroups(requestType: .groups)
-            getAllGroups()
+        if (groups.count == 0 && (isSheduleGroupChooser || isGroupViewController)) ||
+           (teachers.count == 0 && (isSheduleTeachersChooser || isTeacherViewController)) {
+            if isSheduleTeachersChooser {
+                        
+                disableSegmentControl()
+                getAllTeachers()
+                
+            } else if isSheduleGroupChooser {
+                
+                disableSegmentControl()
+                getAllGroups()
+                
+            } else if isGroupViewController {
+                
+                showWithoutStartWriteLabel()
+                disableSegmentControl()
+    //            serverAllTeachersOrGroups(requestType: .groups)
+                getAllGroups()
 
-        } else if isTeacherViewController && global.sheduleType == .teachers {
-            
-            showWithoutStartWriteLabel()
-            disableSegmentControl()
-            getAllTeachers()
-//            serverAllTeachersOrGroups(requestType: .teachers)
-            
-        } else if isTeacherViewController && global.sheduleType == .groups {
-            
-            showWithoutStartWriteLabel()
-            getTeachersOfGroup()
-            getAllTeachers()
-            
-//            serverAllTeachersOrGroups(requestType: .teachers)
+            } else if isTeacherViewController && global.sheduleType == .teachers {
+                
+                showWithoutStartWriteLabel()
+                disableSegmentControl()
+                getAllTeachers()
+    //            serverAllTeachersOrGroups(requestType: .teachers)
+                
+            } else if isTeacherViewController && global.sheduleType == .groups {
+                
+                showWithoutStartWriteLabel()
+                getTeachersOfGroup()
+                getAllTeachers()
+                
+    //            serverAllTeachersOrGroups(requestType: .teachers)
+            }
         }
     }
     
@@ -160,9 +162,6 @@ class GroupsAndTeachersViewController: UIViewController {
 
         tableView.delegate = self
         tableView.dataSource = self
-//        tableView.backgroundColor = tableViewBackground
-//        self.view.backgroundColor = tableViewBackground
-//
         if #available(iOS 13.0, *) {
             tableView.backgroundColor = tint
         } else {
@@ -175,9 +174,9 @@ class GroupsAndTeachersViewController: UIViewController {
         search.searchResultsUpdater = self
         search.obscuresBackgroundDuringPresentation = false
         // Search bar settings
-        search.searchResultsUpdater = self
-        search.obscuresBackgroundDuringPresentation = false
-        
+//        search.searchResultsUpdater = self
+//        search.obscuresBackgroundDuringPresentation = false
+        setLargeTitleDisplayMode(.never)
         if isSheduleTeachersChooser || isTeacherViewController {
             // If choosing teachers show this titles
             search.searchBar.placeholder = "Пошук викладача"
@@ -190,8 +189,9 @@ class GroupsAndTeachersViewController: UIViewController {
         }
         
         self.navigationItem.searchController = search
-        self.navigationItem.hidesSearchBarWhenScrolling = false
         definesPresentationContext = true
+
+        self.navigationItem.hidesSearchBarWhenScrolling = false
         self.navigationController?.navigationBar.isTranslucent = true
         self.tabBarController?.tabBar.isTranslucent = true
     }
@@ -201,15 +201,24 @@ class GroupsAndTeachersViewController: UIViewController {
         switch segmentControl.selectedSegmentIndex {
             case 0:
                 self.teachers = []
-                tableView.reloadData()
+//                tableView.reloadData()
+                if groupTeachers.count == 0 {
+                    activityIndicator.startAnimating()
+                    getTeachersOfGroup(isNeedToUpdate: true)
+                }
                 
                 teachers = groupTeachers
 
                 tableView.reloadData()
             case 1:
-                self.allTeachers = self.allTeachers.sorted{Int($0.teacherID) ?? 0 < Int($1.teacherID) ?? 0}
+//                self.allTeachers = self.allTeachers.sorted{Int($0.teacherID) ?? 0 < Int($1.teacherID) ?? 0}
                 self.teachers = []
-                tableView.reloadData()
+//                tableView.reloadData()
+                
+                if allTeachers.count == 0 {
+                    activityIndicator.startAnimating()
+                    getAllTeachers(isNeedToUpdate: true)
+                }
 
                 teachers = allTeachers
 

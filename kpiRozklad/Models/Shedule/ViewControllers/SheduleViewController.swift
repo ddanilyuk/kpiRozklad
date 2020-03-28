@@ -302,7 +302,7 @@ class SheduleViewController: UIViewController {
         let mainStoryboard = UIStoryboard(name: "Main", bundle: Bundle.main)
         let addLesson: AddLessonViewController = mainStoryboard.instantiateViewController(withIdentifier: AddLessonViewController.identifier) as! AddLessonViewController
         
-        addLesson.lessons = fetchingCoreDataV2()
+        addLesson.lessons = fetchingCoreData()
         addLesson.currentWeek = self.currentWeek
         
         if #available(iOS 13, *) {
@@ -357,7 +357,7 @@ class SheduleViewController: UIViewController {
             nextLessonId = "-1"
             
         } else {
-            lessons = fetchingCoreDataV2()
+            lessons = fetchingCoreData()
             setupDate()
             
             let currentAndNext = getCurrentAndNextLesson(lessons: lessons, timeIsNowString: timeIsNowString, dayNumberFromCurrentDate: dayNumberFromCurrentDate, currentWeekFromTodayDate: currentWeekFromTodayDate)
@@ -435,7 +435,7 @@ class SheduleViewController: UIViewController {
         
         serverLessons.done({ [weak self] (lessons) in
             guard let this = self else { return }
-            updateCoreDataV2(vc: this, datum: lessons)
+            updateCoreData(vc: this, datum: lessons)
         }).catch({ [weak self] (error) in
             guard let this = self else { return }
 

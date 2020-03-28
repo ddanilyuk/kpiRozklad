@@ -11,11 +11,10 @@ import UIKit
 
 class SheduleDetailViewController: UIViewController {
     
-
-    /// Variable from seque
+    /// Variable FROM seque
     var lesson: Lesson? = nil
 
-    /// Variable for seque to `TeacherSheduleViewController`
+    /// Variable FOR seque to `TeacherSheduleViewController`
     var teacher: Teacher? = nil
 
     /// Labels from Stroryboard
@@ -28,25 +27,36 @@ class SheduleDetailViewController: UIViewController {
     @IBOutlet weak var timeEndLabel: UILabel!
     @IBOutlet weak var groupsLabel: UILabel!
     
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+    @IBOutlet weak var viewWithActivityIndicator: UIView!
+    
     /// Big blue button to show Teacher Shedule
     @IBOutlet weak var checkTeacherShedule: UIButton!
 
     /// StackView it which all labels and button are located
     @IBOutlet weak var stackView: UIStackView!
     
-    
     // MARK: - viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "Деталі"
-
+        
+        /// Getting lessons from `SheduleViewController`
         getVariablesFromNavigationController()
+        
+        /// Setup all views in stack view
         setupViews()
+        
+        /// Setup `showTeacherShedulleButton`
         setupButton()
+        
+        ///Setup groups loading activity indicator
+        setupActivityIndicator()
     }
     
     
     private func setupViews() {
+        /// LESSON
         guard let lesson = lesson else { return }
         
         lessonNameLabel.text = lesson.lessonName
@@ -60,6 +70,7 @@ class SheduleDetailViewController: UIViewController {
             roomTypeLabel.text = lesson.lessonType.rawValue + " " + lesson.lessonRoom
         }
         
+        /// TEACHER
         guard let teacher = lesson.teachers?.count != 0 ? lesson.teachers?[0] : nil else {
             checkTeacherShedule.isHidden = true
             groupsLabel.isHidden = true
@@ -87,22 +98,34 @@ class SheduleDetailViewController: UIViewController {
         
         teacherRatingLabel.text = "Рейтинг викладача: \(teacher.teacherRating)"
         
+        /// GROUPS
         if lesson.groups?.count == 0 || lesson.groups == nil {
-            groupsLabel.text = " "
             getTeacherLessons(dayNumber: lesson.dayNumber, lessonNumber: lesson.lessonNumber, teacherID: teacher.teacherID, lessonWeek: lesson.lessonWeek)
             
         } else {
             groupsLabel.text = "Групи: \(getGroupsOfLessonString(lesson: lesson))"
             checkTeacherShedule.isHidden = (global.sheduleType == .teachers && teacher.teacherID == "") ? true : false
+            viewWithActivityIndicator.isHidden = true
         }
     }
     
+    /// setupActivityIndicator
+    private func setupActivityIndicator() {
+        activityIndicator.startAnimating()
+    }
     
+    
+    /// setupButton
     private func setupButton() {
         checkTeacherShedule.layer.cornerRadius = 25
     }
     
     
+    /**
+     Delete array of views from `stackView`
+
+     - Parameter views: Views to delete
+     */
     private func deleteFromStackView(_ views: [UIView]) {
         for view in views {
             view.isHidden = true
@@ -111,7 +134,9 @@ class SheduleDetailViewController: UIViewController {
         }
     }
     
-    
+    /**
+     Get lessons from `SheduleVC` -> `SheduleDetailNaviagationC`
+     */
     private func getVariablesFromNavigationController() {
         guard let navigationVC = self.navigationController as? SheduleDetailNavigationController else { return }
         self.lesson = navigationVC.lesson
@@ -119,8 +144,7 @@ class SheduleDetailViewController: UIViewController {
     }
     
     
-    // MARK: - prepare
-    /// Seque to `TeacherSheduleViewController`
+    /// Pushing `teacher`  to `TeacherSheduleViewController`
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "showTeacherSheduleFromDetail" {
             if let destination = segue.destination as? TeacherSheduleViewController {
@@ -130,13 +154,23 @@ class SheduleDetailViewController: UIViewController {
     }
     
     
+    /**
+     Search for a lesson that is shown in detail  in `getTeacherLessons()`  response
+
+     - Parameter dayNumber: lesson to find dayNumber
+     - Parameter lessonNumber: lesson to find lessonNumber
+     - Parameter teacherID: lesson to find teacherID
+     - Parameter lessonWeek: lesson to find lessonWeek
+     - Parameter lessons: array of lessons from `getTeacherLessons()`  response
+     
+    */
     func getGroups(dayNumber: String, lessonNumber: String, teacherID: String, lessonWeek: String, lessons: [Lesson]) {
         for lesson in lessons {
             if lesson.dayNumber == dayNumber &&
-                lesson.lessonNumber == lessonNumber &&
-                lesson.lessonWeek == lessonWeek {
+               lesson.lessonNumber == lessonNumber &&
+               lesson.lessonWeek == lessonWeek {
                 DispatchQueue.main.async {
-                    self.groupsLabel.isHidden = false
+                    self.viewWithActivityIndicator.isHidden = true
                     self.groupsLabel.text = "Групи: \(getGroupsOfLessonString(lesson: lesson))"
                 }
             }

@@ -154,6 +154,7 @@ class AddLessonViewController: UIViewController {
             }
         }
         arrayTypePairs = typeArr
+        lessonType = arrayTypePairs[0]
     }
     
     
@@ -181,7 +182,6 @@ class AddLessonViewController: UIViewController {
         var similarLesson: Lesson?
         
         
-
         /// Finding `lesson` which already exist (and use it)
 
         let lessonsToFindExist = serverLessons.count != 0 ? serverLessons : lessons
@@ -241,7 +241,7 @@ class AddLessonViewController: UIViewController {
         Settings.shared.isTryToReloadTableView = true
 
         /// Updating Core Data
-        updateCoreDataV2(vc: sheduleViewController, datum: lessons)
+        updateCoreData(vc: sheduleViewController, datum: lessons)
         
         /// SHOW NEW sheduleViewController
         let mainTabBar : UITabBarController = mainStoryboard.instantiateViewController(withIdentifier: "Main") as! UITabBarController

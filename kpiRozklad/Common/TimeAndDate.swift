@@ -9,8 +9,11 @@
 import UIKit
 
 
-// MARK: - getDayNumAndWeekOfYear
-/// Getting dayNumber and week of year from device Date()
+/**
+ Getting dayNumber and week of year from device Date()
+ 
+ - Returns: time, day, week
+ */
 func getTimeAndDayNumAndWeekOfYear() -> (timeIsNowString: String, dayNumberFromCurrentDate: Int, weekOfYear: Int){
     /// Current date from device
     let date = Date()
@@ -41,6 +44,3 @@ func getTimeAndDayNumAndWeekOfYear() -> (timeIsNowString: String, dayNumberFromC
     
     return (timeIsNowString: timeIsNowString, dayNumberFromCurrentDate: dayNumberFromCurrentDate, weekOfYear: weekOfYear)
 }
-
-
-

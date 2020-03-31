@@ -10,31 +10,43 @@ import UIKit
 import CoreData
 import PromiseKit
 
-/// Some about how it works
-///
-/// ## Important things ##
-///
-/// 1. All in tableView works with `lessonsForTableView` variable, but Core Data saving `[Lesson]`
-/// 2. `makeLessonsShedule()` remake `[Lesson]` to `[(key: DayName, value: [Lesson])]`
-/// 3. `server()` call `updateCoreData(datum:  [Lesson])` where datum is `[Lesson]` from API
-/// 4. `fetchingCoreData() -> [Lesson]` return `[Lesson]` from Core Data
+
+/**
+ ## Important things ##
+ 
+ 1.  All in tableView works with `lessonsForTableView` variable, but Core Data saving `[Lesson]`
+ 2. `getLessonsFromServer()` receives data from the server and call `updateCoreData(vc: SheduleViewController, datum:  [Lesson])` where datum is `[Lesson]` from API
+ 3. `fetchingCoreData(vc: SheduleViewController) -> [Lesson]` return `[Lesson]` from Core Data
+ 4. `makeLessonsShedule()` remake `[Lesson]` to `[(key: DayName, value: [Lesson])]`
+ */
 class SheduleViewController: UIViewController {
 
+    // MARK: - Variables
+    /// Window
+    var window: UIWindow?
+    
+    /// Main table view
     @IBOutlet weak var tableView: UITableView!
     
     /// Week switcher (1 and 2 week)
-    @IBOutlet weak var weekSwitch: UISegmentedControl!
+    @IBOutlet weak var weekSegmentControl: UISegmentedControl!
     
-    /// ActivityIndicator
+    /// Activity indicator
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
+    /// Favourite bar button item
     @IBOutlet weak var favouriteBarButtonItem: UIBarButtonItem!
     
+    /// Bar button item with  segment control (which change week)
     @IBOutlet weak var segmentBatButtonItem: UIBarButtonItem!
     
+    /// Favourite vutton
     @IBOutlet weak var favouriteButton: UIButton!
     
-    /// The **main** variable with which the table is updated
+    /**
+     The **main** variable by which the table view is updated
+        - Remark: for default is empty
+     */
     var lessonsForTableView: [(key: DayName, value: [Lesson])] = [DayName.mounday: [],
                                                                   .tuesday: [],
                                                                   .wednesday: [],
@@ -43,17 +55,18 @@ class SheduleViewController: UIViewController {
                                                                   .saturday: []].sorted{$0.key < $1.key}
         
     /**
-        Сurrent week whlessonsCoreDataich is obtained from the date on the device
-        - Remark:
-            Set  up in `setUpCurrentWeek()`
+     Сurrent week which is obtained from the date on the device
+     - Remark:
+        Set  up in `setUpCurrentWeek()`
      */
     var currentWeekFromTodayDate = 1
     
     /**
-        Current  week which user chosed
-        - Remark:
-            Changed   in `weekChanged()`
-            Set  up in `setUpCurrentWeek()`
+     Current  week which user chosed
+     - Remark:
+        Set up in `setUpCurrentWeek()`
+     - Note:
+        Changed in `weekChanged()`
      */
     var currentWeek = 1
     
@@ -66,32 +79,51 @@ class SheduleViewController: UIViewController {
     /// Time is Now from device
     var timeIsNowString = String()
     
-    /// Lesson ID of **current** Lesson
-    ///- Remark:
-    ///     Set  up in `getCurrentAndNextLesson(lessons: [Lesson])`
+    /**
+     Lesson ID of **current** Lesson
+     - Remark:
+        Updated in `makeLessonShedule()` but makes in `getCurrentAndNextLesson(lessons: [Lesson])`
+     */
     var currentLessonId = String()
     
-    /// Lesson ID of **next** Lesson
-    ///- Remark:
-    ///     Set  up in `getCurrentAndNextLesson(lessons: [Lesson])`
+    /**
+     Lesson ID of **next** Lesson
+     - Remark:
+        Updated in `makeLessonShedule()` but makes in `getCurrentAndNextLesson(lessons: [Lesson])`
+     */
     var nextLessonId = String()
     
     /// Picker from popup which edit number of lesson (tap on lesson while editing)
-    var lessonNuberFromPicker: Int = 1
+    var lessonNumberFromPicker: Int = 1
 
+    /**
+     Variable from segue which used when this `SheduleViewControler`
+     is presented with initial lessons like in `SettingsTVC` with `Getting fresh shedule`
+     and therefore lessons do not need to be updated from CoreData
+      - Note: it used in `makeLessonShedule()` if `isFromSettingsGetFreshShedule || isFromGroups`
+     */
+    var lessonsFromSegue: [Lesson] = []
     
-    var lessonsFromServer: [Lesson] = []
-    
-    var group: Group?
-    
-    var destinationLesson: Lesson?
-    
+    /**
+     Variable used in segue from `GroupAndTeachersVC` and `FavouriteVC`
+     to push `Group` and then use this information to show, add or remove it from favourites
+     */
+    var groupFromSegue: Group?
+        
+    /**
+     `true` when segue from`SettingsTVC` with `Getting fresh shedule`
+     */
     var isFromSettingsGetFreshShedule: Bool = false
     
-    var isFromGroups: Bool = false
+    /**
+    `true` when segue from`GroupsAndTeacherVC` or `FavouriteVC`
+    */
+    var isFromGroupsAndTeacherOrFavourite: Bool = false
     
+    /// Is need to scroll or not
     var isNeedToScroll: Bool = true
     
+    /// `true` when group is in favourite
     var isFavourite: Bool = false
     
     /// Settings singleton
@@ -100,32 +132,29 @@ class SheduleViewController: UIViewController {
     /// Favourites singleton
     var favourites = Favourites.shared
     
-    var window: UIWindow?
-    
+    /// Array with day names
     var daysArray: [String] = [DayName.mounday.rawValue,
-                           DayName.tuesday.rawValue,
-                           DayName.wednesday.rawValue,
-                           DayName.thursday.rawValue,
-                           DayName.friday.rawValue,
-                           DayName.saturday.rawValue]
-
-    
-//    var requestTypeChoosen: SheduleType = .teachers
+                               DayName.tuesday.rawValue,
+                               DayName.wednesday.rawValue,
+                               DayName.thursday.rawValue,
+                               DayName.friday.rawValue,
+                               DayName.saturday.rawValue]
 
     
     // MARK: - viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.window = UIWindow(frame: UIScreen.main.bounds)
-
         
-        /// presenting `GroupChooserViewController` if `settings.groupName == ""`
+        /// Set up window
+        self.window = UIWindow(frame: UIScreen.main.bounds)
+        
+        /// Presenting `GroupChooserViewController` if `settings.groupName == ""`
         presentGroupOrTeacherChooser(requestType: global.sheduleType)
         
-        /// Button `Edit` & title (group name)
+        /// Setup navigationVC  and title
         setupNavigation()
         
-        /// TableView delegate and dataSource
+        /// TableView delegate, dataSource, registration cell
         setupTableView()
 
         /// Start animating and show activityIndicator
@@ -134,55 +163,46 @@ class SheduleViewController: UIViewController {
         /// Getting dayNumber and week of year from device Date()
         setupDate()
         
+        /// Setting current week
+        setupCurrentWeek()
+
         if isFromSettingsGetFreshShedule {
-            
+            /**
+             Setup if is view controller presented from  `SettingsTVC`
+             */
             self.navigationItem.rightBarButtonItems = [segmentBatButtonItem]
-            self.weekSwitch.frame = CGRect(x: 0, y: 0, width: 90, height: weekSwitch.frame.height)
-            makeLessonsShedule()
+            self.weekSegmentControl.frame = CGRect(x: 0, y: 0, width: 90, height: weekSegmentControl.frame.height)
             
-        } else if isFromGroups {
-            
+        } else if isFromGroupsAndTeacherOrFavourite {
+            /**
+             Setup if is view controller presented from  `GroupsAndTeacherVC` or ` FavouriteVC`
+            */
             self.navigationItem.rightBarButtonItems = [segmentBatButtonItem, favouriteBarButtonItem]
-            self.weekSwitch.frame = CGRect(x: 0, y: 0, width: 90, height: weekSwitch.frame.height)
-            makeLessonsShedule()
+            self.weekSegmentControl.frame = CGRect(x: 0, y: 0, width: 90, height: weekSegmentControl.frame.height)
             checkIfGroupInFavourites()
 
         } else if settings.groupName != "" || settings.teacherName != "" {
+            /**
+             Main setup
+             */
             self.navigationItem.rightBarButtonItems = [segmentBatButtonItem]
             self.navigationItem.leftBarButtonItems = [self.editButtonItem]
+            self.weekSegmentControl.frame = CGRect(x: 0, y: 0, width: 120, height: weekSegmentControl.frame.height)
             
-            self.weekSwitch.frame = CGRect(x: 0, y: 0, width: 120, height: weekSwitch.frame.height)
-            
-            setupCurrentWeek()
-            
-            /// Fetching Core Data and make variable for tableView
-            // settings.isTryToRefreshShedule == false if lessons is empty
-            if settings.isTryToRefreshShedule == false {
-                makeLessonsShedule()
-            }
-
-            if isNeedToScroll {
-                scrollToCurrentOrNext()
-            }
-            
+            /// After reopen app, reload lessons and current time
             NotificationCenter.default.addObserver(self, selector:#selector(reloadAfterOpenApp), name: UIApplication.willEnterForegroundNotification, object: nil)
         }
         
-        
+        /// Make server request or call `makeLessonsShedule()`
         if settings.isTryToRefreshShedule {
-            getLessons()
+            getLessonsFromServer()
             settings.isTryToRefreshShedule = false
+        } else {
+            makeLessonsShedule()
         }
         
-        
-        if settings.isTryToReloadTableView {
-            DispatchQueue.main.async {
-                self.makeLessonsShedule()
-                                
-                self.settings.isTryToReloadTableView = false
-            }
-        }
-        
+        /// If `isNeedToScroll` == true, scroll
+        _ = isNeedToScroll ? scrollToCurrentOrNext() : nil
     }
     
     
@@ -193,15 +213,12 @@ class SheduleViewController: UIViewController {
     }
 
     
+    // MARK: - SETUP functions
+    
     private func setupTableView() {
         tableView.register(UINib(nibName: LessonTableViewCell.identifier, bundle: Bundle.main), forCellReuseIdentifier: LessonTableViewCell.identifier)
         tableView.delegate = self
         tableView.dataSource = self
-        
-        // ??????
-        self.tableView.estimatedRowHeight = 0
-        self.tableView.estimatedSectionHeaderHeight = 0
-        self.tableView.estimatedSectionFooterHeight = 0
         
         if #available(iOS 13.0, *) {
             tableView.backgroundColor = tint
@@ -228,10 +245,7 @@ class SheduleViewController: UIViewController {
     
     
     private func setupNavigation() {
-        
-        if !isFromSettingsGetFreshShedule && !isFromGroups {
-//            self.navigationItem.leftBarButtonItem = self.editButtonItem
-            
+        if !isFromSettingsGetFreshShedule && !isFromGroupsAndTeacherOrFavourite {
             setLargeTitleDisplayMode(.always)
             
             if global.sheduleType == .groups {
@@ -249,33 +263,26 @@ class SheduleViewController: UIViewController {
     }
     
     
-    // MARK: - setupCurrentWeek
-    /// Simple function to set up currnet week in viewDidLoad
+    /// Function to set up currnet week in viewDidLoad
     func setupCurrentWeek() {
         if self.weekOfYear % 2 == 0 {
             self.currentWeekFromTodayDate = 1
-            self.weekSwitch.selectedSegmentIndex = 0
+            self.weekSegmentControl.selectedSegmentIndex = 0
             self.currentWeek = 1
         } else {
             self.currentWeekFromTodayDate = 2
-            self.weekSwitch.selectedSegmentIndex = 1
+            self.weekSegmentControl.selectedSegmentIndex = 1
             self.currentWeek = 2
         }
     }
     
     
     // MARK: - presentGroupChooser
-    /// Func which present `GroupChooserViewController` (navigationGroupChooser)
+    /// Func which present `FirstViewController`
     func presentGroupOrTeacherChooser(requestType: SheduleType) {
         if settings.groupName == "" && settings.teacherName == "" {
-//            guard let greetingVC = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: GreetingViewController.identifier) as? GreetingViewController else {
-//                return
-//            }
             
-            guard let greetingVC = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: FirstViewController.identifier) as? FirstViewController else {
-                return
-            }
-            
+            guard let greetingVC = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: FirstViewController.identifier) as? FirstViewController else { return }
             
             guard let window = window else { return }
 
@@ -289,9 +296,7 @@ class SheduleViewController: UIViewController {
             let duration: TimeInterval = 0.4
 
             UIView.transition(with: window, duration: duration, options: options, animations: {}, completion:
-                { completed in
-            })
-
+                { completed in })
         }
     }
     
@@ -299,19 +304,16 @@ class SheduleViewController: UIViewController {
     // MARK: - presentAddLesson
     /// Func which present `AddLessonViewController`
     func presentAddLesson() {
-        let mainStoryboard = UIStoryboard(name: "Main", bundle: Bundle.main)
-        let addLesson: AddLessonViewController = mainStoryboard.instantiateViewController(withIdentifier: AddLessonViewController.identifier) as! AddLessonViewController
+        guard let addLesson: AddLessonViewController = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: AddLessonViewController.identifier) as? AddLessonViewController else { return }
         
         addLesson.lessons = fetchingCoreData()
         addLesson.currentWeek = self.currentWeek
         
         if #available(iOS 13, *) {
-            addLesson.modalPresentationStyle = .formSheet
             self.present(addLesson, animated: true, completion: nil)
         } else {
             self.navigationController?.pushViewController(addLesson, animated: true)
         }
-        
     }
     
     
@@ -344,26 +346,22 @@ class SheduleViewController: UIViewController {
     
     
     // MARK: - makeLessonsShedule
-    /// Main function which fetch lessons from core data and remake `[Lesson]` to `[(key: DayName, value: [Lesson])]`
-    /// - Note: call in `weekChanged()` and after getting data from `server()`
-    /// - Remark: make shedule only for one week.
+    /**
+     Function which fetch lessons from CoreData and remake `[Lesson]` to `[(key: DayName, value: [Lesson])]`
+     - Note: call in `weekChanged()` and after getting data from `getLessonsFromServer()`
+     - Remark: make shedule only for one week.
+     */
     func makeLessonsShedule() {
-        /// fetching Core Data
         var lessons: [Lesson] = []
         
-        if isFromSettingsGetFreshShedule || isFromGroups {
-            lessons = lessonsFromServer
-            currentLessonId = "-1"
-            nextLessonId = "-1"
-            
+        /// When the program is reopen, you need to update the time and the current and next lesson
+        setupDate()
+        (currentLessonId, nextLessonId) = getCurrentAndNextLesson(lessons: lessons, timeIsNowString: timeIsNowString, dayNumberFromCurrentDate: dayNumberFromCurrentDate, currentWeekFromTodayDate: currentWeekFromTodayDate)
+        
+        if isFromSettingsGetFreshShedule || isFromGroupsAndTeacherOrFavourite {
+            lessons = lessonsFromSegue
         } else {
             lessons = fetchingCoreData()
-            setupDate()
-            
-            let currentAndNext = getCurrentAndNextLesson(lessons: lessons, timeIsNowString: timeIsNowString, dayNumberFromCurrentDate: dayNumberFromCurrentDate, currentWeekFromTodayDate: currentWeekFromTodayDate)
-            
-            currentLessonId = currentAndNext.currentLessonID
-            nextLessonId = currentAndNext.nextLessonID
         }
 
         /// Getting lesson for first week and second
@@ -427,10 +425,12 @@ class SheduleViewController: UIViewController {
     }
     
     
-    // MARK: - server
-    /// Functon which getting data from server
-    /// - note: This fuction call `updateCoreData()`
-    private func getLessons() {
+    // MARK: - Server
+    /**
+     Functon which getting data from server
+     - note: This fuction call `updateCoreData(vc: SheduleViewController)`
+     */
+    private func getLessonsFromServer() {
         let serverLessons: Promise<[Lesson]> = global.sheduleType == .groups ? API.getStudentLessons(forGroupWithId: settings.groupID) : API.getTeacherLessons(forTeacherWithId: settings.teacherID)
         
         serverLessons.done({ [weak self] (lessons) in
@@ -457,7 +457,7 @@ class SheduleViewController: UIViewController {
                 let alert = UIAlertController(title: "Помилка", message: error.localizedDescription, preferredStyle: .alert)
                 alert.addAction(UIAlertAction(title: "Ок", style: .default, handler: nil))
                 alert.addAction(UIAlertAction(title: "Оновити", style: .default, handler: { (_) in
-                    this.getLessons()
+                    this.getLessonsFromServer()
                 }))
 
                 this.present(alert, animated: true, completion: nil)
@@ -469,7 +469,7 @@ class SheduleViewController: UIViewController {
     // MARK:- weekChanged
     /// Function that calls when the user tap on segment conrol to change current week
     @IBAction func weekChanged(_ sender: UISegmentedControl) {
-        switch weekSwitch.selectedSegmentIndex {
+        switch weekSegmentControl.selectedSegmentIndex {
             case 0:
                 currentWeek = 1
                 makeLessonsShedule()
@@ -486,10 +486,9 @@ class SheduleViewController: UIViewController {
     
     // MARK: - Favourites
     func checkIfGroupInFavourites() {
-        
-        if let strongGroup = group {
+        if let strongGroup = groupFromSegue {
             if favourites.favouriteGroupsID.contains(strongGroup.groupID) {
-                if let image = UIImage(named: "icons8-christmas-star-90-filled") {
+                if let image = UIImage(named: "icons8-favourite-filled") {
                     favouriteButton.setImage(image, for: .normal)
                     isFavourite = true
                 }
@@ -499,9 +498,9 @@ class SheduleViewController: UIViewController {
     
     
     @IBAction func didPressFavouriteButton(_ sender: UIButton) {
-        guard let strongGroup = group else { return }
+        guard let strongGroup = groupFromSegue else { return }
         if isFavourite {
-            if let image = UIImage(named: "icons8-christmas-star-75-add-1") {
+            if let image = UIImage(named: "icons8-favourite-add") {
                 for i in 0..<favourites.favouriteGroupsID.count {
                     if strongGroup.groupID == favourites.favouriteGroupsID[i] {
                         favouriteButton.setImage(image, for: .normal)
@@ -513,7 +512,7 @@ class SheduleViewController: UIViewController {
                 }
             }
         } else {
-            if let image = UIImage(named: "icons8-christmas-star-90-filled") {
+            if let image = UIImage(named: "icons8-favourite-filled") {
                 favouriteButton.setImage(image, for: .normal)
                 favourites.favouriteGroupsNames.append(strongGroup.groupFullName)
                 favourites.favouriteGroupsID.append(strongGroup.groupID)
@@ -547,5 +546,9 @@ class SheduleViewController: UIViewController {
     @objc func reloadAfterOpenApp() {
         makeLessonsShedule()
         setLargeTitleDisplayMode(.never)
+//        setupNavigation()
+//        DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1)) {
+//            self.setLargeTitleDisplayMode(.always)
+//        }
     }
 }

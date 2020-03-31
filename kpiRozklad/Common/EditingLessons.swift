@@ -19,7 +19,7 @@ func editLessonNumber(vc: SheduleViewController, indexPath: IndexPath) {
     let lesson = vc.lessonsForTableView[indexPath.section].value[indexPath.row]
     
     /// timeStart && timeEnd
-    let times = getTimeFromLessonNumber(lessonNumber: String(vc.lessonNuberFromPicker))
+    let times = getTimeFromLessonNumber(lessonNumber: String(vc.lessonNumberFromPicker))
     let timeStart = times.timeStart
     let timeEnd = times.timeEnd
 
@@ -29,7 +29,7 @@ func editLessonNumber(vc: SheduleViewController, indexPath: IndexPath) {
                            dayName: lesson.dayName,
                            lessonName: lesson.lessonName,
                            lessonFullName: lesson.lessonFullName,
-                           lessonNumber: String(vc.lessonNuberFromPicker),
+                           lessonNumber: String(vc.lessonNumberFromPicker),
                            lessonRoom: lesson.lessonRoom,
                            lessonType: lesson.lessonType,
                            teacherName: lesson.teacherName,
@@ -74,7 +74,7 @@ func editLessonNumber(vc: SheduleViewController, indexPath: IndexPath) {
     while let nLesson = iterator.next() {
         let nLessonNumber = Int(nLesson.lessonNumber) ?? 0
 
-        if nLessonNumber <= vc.lessonNuberFromPicker + i && nLessonNumber + i >= vc.lessonNuberFromPicker  && nLesson.lessonID != newLesson.lessonID {
+        if nLessonNumber <= vc.lessonNumberFromPicker + i && nLessonNumber + i >= vc.lessonNumberFromPicker  && nLesson.lessonID != newLesson.lessonID {
             lessonsToEdit.append(nLesson)
             i += 1
         }

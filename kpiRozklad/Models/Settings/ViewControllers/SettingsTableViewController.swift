@@ -441,7 +441,7 @@ class SettingsTableViewController: UITableViewController {
                     
                     sheduleVC.isFromSettingsGetFreshShedule = true
                     sheduleVC.currentWeek = 1
-                    sheduleVC.lessonsFromServer = serverFULLDATA.data
+                    sheduleVC.lessonsFromSegue = serverFULLDATA.data
                     sheduleVC.navigationItem.title = Settings.shared.groupName.uppercased()
 
                     

@@ -72,3 +72,12 @@ public var seettingsTableViewBackgroundColour: UIColor = {
         return  UIColor.white
     }
 }()
+
+
+public let cellBackgroundColor : UIColor = {
+    if #available(iOS 13.0, *) {
+        return .systemBackground
+    } else {
+        return .white
+    }
+}()

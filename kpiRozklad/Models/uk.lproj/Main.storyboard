@@ -332,7 +332,7 @@
                                 <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="fm9-Lo-1DY">
                                     <rect key="frame" x="171" y="0.0" width="50" height="44"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    <state key="normal" image="icons8-christmas-star-75-add-1"/>
+                                    <state key="normal" image="icons8-favourite-add"/>
                                     <connections>
                                         <action selector="didPressFavouriteButton:" destination="VGz-qr-qiP" eventType="touchUpInside" id="rdb-Pr-cKO"/>
                                     </connections>
@@ -346,7 +346,7 @@
                         <outlet property="favouriteButton" destination="fm9-Lo-1DY" id="pW7-OR-lQW"/>
                         <outlet property="segmentBatButtonItem" destination="5M2-o9-kLT" id="2dL-tD-9wT"/>
                         <outlet property="tableView" destination="Bv9-u6-c2Z" id="eAJ-5z-7Hq"/>
-                        <outlet property="weekSwitch" destination="kCf-Y9-PTf" id="20s-Tg-fBT"/>
+                        <outlet property="weekSegmentControl" destination="kCf-Y9-PTf" id="20s-Tg-fBT"/>
                         <segue destination="Xi8-a3-NCy" kind="show" identifier="showDetailViewController" id="RJQ-je-C9R"/>
                     </connections>
                 </viewController>
@@ -603,7 +603,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gvr-8t-VVO" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <exit id="zDR-53-jP4" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="4030" y="-1882"/>
+            <point key="canvasLocation" x="3958" y="-1882"/>
         </scene>
         <!--Shedule Detail View Controller-->
         <scene sceneID="YJy-Mv-orq">
@@ -778,7 +778,7 @@
         <scene sceneID="KTP-aq-mkn">
             <objects>
                 <navigationController id="FMc-RC-gIG" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Улюблені" image="icons8-christmas-star-75-1" id="jET-SE-hcS"/>
+                    <tabBarItem key="tabBarItem" title="Улюблені" image="icons8-favourite" id="jET-SE-hcS"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="pt8-p5-pGZ">
                         <rect key="frame" x="0.0" y="44" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -914,7 +914,7 @@
                                 <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="TdN-Rd-4AK">
                                     <rect key="frame" x="218" y="0.0" width="50" height="44"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    <state key="normal" image="icons8-christmas-star-75-add-1"/>
+                                    <state key="normal" image="icons8-favourite-add"/>
                                     <connections>
                                         <action selector="didPressFavourite:" destination="StT-wO-RBg" eventType="touchUpInside" id="Xmc-7E-lDi"/>
                                         <action selector="didPressFavouriteButton:" destination="VGz-qr-qiP" eventType="touchUpInside" id="BfP-1K-N5i"/>
@@ -942,8 +942,8 @@
         <segue reference="RJQ-je-C9R"/>
     </inferredMetricsTieBreakers>
     <resources>
-        <image name="icons8-christmas-star-75-1" width="25" height="25"/>
-        <image name="icons8-christmas-star-75-add-1" width="25" height="25"/>
+        <image name="icons8-favourite" width="25" height="25"/>
+        <image name="icons8-favourite-add" width="25" height="25"/>
         <image name="icons8-index-90" width="30" height="30"/>
         <image name="icons8-settings-90" width="30" height="30"/>
         <image name="icons8-teacher-90" width="30" height="30"/>

@@ -238,7 +238,7 @@ class AddLessonViewController: UIViewController {
         
         guard let sheduleViewController : SheduleViewController = mainStoryboard.instantiateViewController(withIdentifier: "SheduleViewController") as? SheduleViewController else { return }
         
-        Settings.shared.isTryToReloadTableView = true
+//        Settings.shared.isTryToReloadTableView = true
 
         /// Updating Core Data
         updateCoreData(vc: sheduleViewController, datum: lessons)

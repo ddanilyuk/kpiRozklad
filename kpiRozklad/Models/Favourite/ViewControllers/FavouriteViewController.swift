@@ -39,11 +39,11 @@ class FavouriteViewController: UIViewController {
             tableView.isHidden = false
             emptyFavouritesLabel.isHidden = true
         }
-
     }
     
     
     private func setupNavigation() {
+        setLargeTitleDisplayMode(.never)
         self.navigationController?.navigationBar.isTranslucent = true
         self.tabBarController?.tabBar.isTranslucent = true
     }
@@ -123,11 +123,12 @@ class FavouriteViewController: UIViewController {
 
             guard let sheduleVC: SheduleViewController = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: SheduleViewController.identifier) as? SheduleViewController else { return }
             
-            sheduleVC.isFromGroups = true
-            sheduleVC.currentWeek = 1
+            sheduleVC.isFromGroupsAndTeacherOrFavourite = true
+//            sheduleVC.currentWeek = 1
             
-            sheduleVC.lessonsFromServer = lessons
-            sheduleVC.group = group
+            sheduleVC.lessonsFromSegue = lessons
+//            getCurrentAndNextLesson(lessons: [Lesson], timeIsNowString: <#T##String#>, dayNumberFromCurrentDate: <#T##Int#>, currentWeekFromTodayDate: <#T##Int#>)
+            sheduleVC.groupFromSegue = group
 
             sheduleVC.navigationItem.title = group.groupFullName.uppercased()
             
@@ -177,7 +178,7 @@ class FavouriteViewController: UIViewController {
             let mainStoryboard = UIStoryboard(name: "Main", bundle: Bundle.main)
             guard let teacherSheduleVC  = mainStoryboard.instantiateViewController(withIdentifier: TeacherSheduleViewController.identifier) as? TeacherSheduleViewController else { return }
             
-            teacherSheduleVC.lessonsFromServer = lessons
+            teacherSheduleVC.lessonsFromSegue = lessons
             
             teacherSheduleVC.isFromTeachersVC = true
             
@@ -210,55 +211,6 @@ class FavouriteViewController: UIViewController {
             }
         })
     }
-    
-    
-//    func serverTeacherShedule(teacher: Teacher, indexPath: IndexPath) {
-//        guard var url = URL(string: "https://api.rozklad.org.ua/v2/teachers/") else { return }
-//        url.appendPathComponent(teacher.teacherID)
-//        url.appendPathComponent("/lessons")
-//        print(url)
-//
-//        DispatchQueue.main.async {
-//            if let cell = self.tableView.cellForRow(at: indexPath) as? TeacherOrGroupLoadingTableViewCell {
-//                cell.activityIndicator.isHidden = false
-//                cell.activityIndicator.startAnimating()
-//            }
-//        }
-//
-//        let task = URLSession.shared.dataTask(with: url) {(data, response, error) in
-//            guard let data = data else { return }
-//            let decoder = JSONDecoder()
-//
-//            do {
-//                DispatchQueue.main.async {
-//                    guard let serverFULLDATA = try? decoder.decode(WelcomeLessons.self, from: data) else { return }
-//
-//                    if let cell = self.tableView.cellForRow(at: indexPath) as? TeacherOrGroupLoadingTableViewCell {
-//                        cell.activityIndicator.isHidden = true
-//                        cell.activityIndicator.stopAnimating()
-//                    }
-//
-//                    let mainStoryboard = UIStoryboard(name: "Main", bundle: Bundle.main)
-//                    guard let sheduleVC : TeacherSheduleViewController = mainStoryboard.instantiateViewController(withIdentifier: TeacherSheduleViewController.identifier) as? TeacherSheduleViewController else { return }
-//
-//                    sheduleVC.isFromFavourites = true
-//                    sheduleVC.currentWeek = 1
-//
-//                    sheduleVC.lessonsFromServer = serverFULLDATA.data
-//
-//                    sheduleVC.navigationController?.navigationItem.largeTitleDisplayMode = .never
-//                    sheduleVC.navigationController?.navigationBar.prefersLargeTitles = false
-//                    sheduleVC.navigationItem.largeTitleDisplayMode = .never
-//
-//                    sheduleVC.teacher = teacher
-//
-//                    self.navigationController?.pushViewController(sheduleVC, animated: true)
-//                }
-//            }
-//        }
-//        task.resume()
-//    }
-    
 }
 
 extension FavouriteViewController: UITableViewDelegate, UITableViewDataSource {
@@ -330,7 +282,6 @@ extension FavouriteViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let returnedView = UIView(frame: CGRect(x: 0, y: 0, width: view.frame.size.width, height: 35))
         let array: [String] = ["Групи", "Викладачі"]
-        
         
         returnedView.backgroundColor = sectionColour
 

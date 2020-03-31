@@ -24,14 +24,14 @@ public class Settings {
         }
     }
     
-    var isTryToReloadTableView: Bool {
-        get {
-            return userDefaults.bool(forKey: "isTryToReloadTableView")
-        }
-        set {
-            userDefaults.set(newValue, forKey: "isTryToReloadTableView")
-        }
-    }
+//    var isTryToReloadTableView: Bool {
+//        get {
+//            return userDefaults.bool(forKey: "isTryToReloadTableView")
+//        }
+//        set {
+//            userDefaults.set(newValue, forKey: "isTryToReloadTableView")
+//        }
+//    }
     
     var groupName: String {
         get {

@@ -60,23 +60,17 @@ class GroupsAndTeachersViewController: UIViewController {
         
         getVariablesFromNavigationController()
         
-        if isSheduleTeachersChooser == false && isSheduleGroupChooser == false && isGroupViewController == false {
-            isTeacherViewController = true
-        }
-        
         setupActivityIndicator()
 
         setupTableView()
 
         setupNavigationAndSearch()
         
-        
-//        self.segmentControl.selectedSegmentIndex = 0
-//        self.didSegmentControlChangeState(self.segmentControl ?? UISegmentedControl())
-        
     }
     
+    
     override func viewWillAppear(_ animated: Bool) {
+        /// If groups or teachers is empty, make request again
         if (groups.count == 0 && (isSheduleGroupChooser || isGroupViewController)) ||
            (teachers.count == 0 && (isSheduleTeachersChooser || isTeacherViewController)) {
             if isSheduleTeachersChooser {
@@ -93,7 +87,6 @@ class GroupsAndTeachersViewController: UIViewController {
                 
                 showWithoutStartWriteLabel()
                 disableSegmentControl()
-    //            serverAllTeachersOrGroups(requestType: .groups)
                 getAllGroups()
 
             } else if isTeacherViewController && global.sheduleType == .teachers {
@@ -101,15 +94,12 @@ class GroupsAndTeachersViewController: UIViewController {
                 showWithoutStartWriteLabel()
                 disableSegmentControl()
                 getAllTeachers()
-    //            serverAllTeachersOrGroups(requestType: .teachers)
                 
             } else if isTeacherViewController && global.sheduleType == .groups {
                 
                 showWithoutStartWriteLabel()
                 getTeachersOfGroup()
                 getAllTeachers()
-                
-    //            serverAllTeachersOrGroups(requestType: .teachers)
             }
         }
     }
@@ -147,6 +137,10 @@ class GroupsAndTeachersViewController: UIViewController {
         isSheduleGroupChooser = groupNavigationController.isSheduleGroupChooser
         isSheduleTeachersChooser = groupNavigationController.isSheduleTeachersChooser
         isTeacherViewController = groupNavigationController.isTeacherViewController
+        
+        if isSheduleTeachersChooser == false && isSheduleGroupChooser == false && isGroupViewController == false {
+            isTeacherViewController = true
+        }
     }
     
     
@@ -156,6 +150,7 @@ class GroupsAndTeachersViewController: UIViewController {
         activityIndicator.isHidden = true
         self.view.bringSubviewToFront(activityIndicator)
     }
+    
     
     private func setupTableView() {
         tableView.register(UINib(nibName: TeacherOrGroupLoadingTableViewCell.identifier, bundle: Bundle.main), forCellReuseIdentifier: TeacherOrGroupLoadingTableViewCell.identifier)
@@ -171,11 +166,10 @@ class GroupsAndTeachersViewController: UIViewController {
     
     
     private func setupNavigationAndSearch() {
+        /// Search bar settings
         search.searchResultsUpdater = self
         search.obscuresBackgroundDuringPresentation = false
-        // Search bar settings
-//        search.searchResultsUpdater = self
-//        search.obscuresBackgroundDuringPresentation = false
+        
         setLargeTitleDisplayMode(.never)
         if isSheduleTeachersChooser || isTeacherViewController {
             // If choosing teachers show this titles
@@ -189,9 +183,9 @@ class GroupsAndTeachersViewController: UIViewController {
         }
         
         self.navigationItem.searchController = search
+        self.navigationItem.hidesSearchBarWhenScrolling = false
         definesPresentationContext = true
 
-        self.navigationItem.hidesSearchBarWhenScrolling = false
         self.navigationController?.navigationBar.isTranslucent = true
         self.tabBarController?.tabBar.isTranslucent = true
     }
@@ -201,19 +195,16 @@ class GroupsAndTeachersViewController: UIViewController {
         switch segmentControl.selectedSegmentIndex {
             case 0:
                 self.teachers = []
-//                tableView.reloadData()
+                
                 if groupTeachers.count == 0 {
                     activityIndicator.startAnimating()
                     getTeachersOfGroup(isNeedToUpdate: true)
                 }
                 
                 teachers = groupTeachers
-
                 tableView.reloadData()
             case 1:
-//                self.allTeachers = self.allTeachers.sorted{Int($0.teacherID) ?? 0 < Int($1.teacherID) ?? 0}
                 self.teachers = []
-//                tableView.reloadData()
                 
                 if allTeachers.count == 0 {
                     activityIndicator.startAnimating()
@@ -221,13 +212,11 @@ class GroupsAndTeachersViewController: UIViewController {
                 }
 
                 teachers = allTeachers
-
                 tableView.reloadData()
             default:
                 break
         }
     }
-    
 }
 
 
@@ -248,6 +237,7 @@ extension GroupsAndTeachersViewController: UITableViewDelegate, UITableViewDataS
             }
         }
     }
+    
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: TeacherOrGroupLoadingTableViewCell.identifier, for: indexPath) as? TeacherOrGroupLoadingTableViewCell else { return UITableViewCell() }
@@ -263,6 +253,7 @@ extension GroupsAndTeachersViewController: UITableViewDelegate, UITableViewDataS
         return cell
     }
     
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "showTeacherSheduleFromAllTeachers" {
             if let indexPath = tableView.indexPathForSelectedRow {
@@ -276,13 +267,13 @@ extension GroupsAndTeachersViewController: UITableViewDelegate, UITableViewDataS
             }
         }
     }
+    
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         let mainStoryboard = UIStoryboard(name: "Main", bundle: Bundle.main)
         let appDelegate = UIApplication.shared.delegate as? AppDelegate
         guard let window = appDelegate?.window else { return }
-        
         
         if isSheduleTeachersChooser {
             

@@ -150,11 +150,11 @@ extension GroupsAndTeachersViewController {
             let mainStoryboard = UIStoryboard(name: "Main", bundle: Bundle.main)
             guard let sheduleVC : SheduleViewController = mainStoryboard.instantiateViewController(withIdentifier: SheduleViewController.identifier) as? SheduleViewController else { return }
             
-            sheduleVC.isFromGroups = true
+            sheduleVC.isFromGroupsAndTeacherOrFavourite = true
             sheduleVC.currentWeek = 1
             
-            sheduleVC.lessonsFromServer = lessons
-            sheduleVC.group = group
+            sheduleVC.lessonsFromSegue = lessons
+            sheduleVC.groupFromSegue = group
 
             sheduleVC.navigationItem.title = group.groupFullName.uppercased()
             
@@ -195,7 +195,7 @@ extension GroupsAndTeachersViewController {
 
             guard let teacherSheduleVC  = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: TeacherSheduleViewController.identifier) as? TeacherSheduleViewController else { return }
             
-            teacherSheduleVC.lessonsFromServer = lessons
+            teacherSheduleVC.lessonsFromSegue = lessons
             teacherSheduleVC.teacher = teacher
 
             teacherSheduleVC.isFromTeachersVC = true

@@ -19,27 +19,27 @@ extension SheduleViewController: UITableViewDelegate, UITableViewDataSource {
             return 6
         }
     }
-
     
+
+    // MARK: - heightForFooterInSection
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         return 0.001
     }
     
     
+    // MARK: - heightForHeaderInSection
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 30
     }
 
     
+    // MARK: - viewForHeaderInSection
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let returnedView = UIView(frame: CGRect(x: 0, y: 0, width: view.frame.size.width, height: 35))
         
-//        self.isEditing ? daysArray.append("Нова пара") : nil
         if daysArray[0] != "Нова пара" && self.isEditing {
             daysArray.insert("Нова пара", at: 0)
         }
-//        self.isEditing ? daysArray.insert("Нова пара", at: 0) : nil
-
         
         returnedView.backgroundColor = sectionColour
 
@@ -117,14 +117,7 @@ extension SheduleViewController: UITableViewDelegate, UITableViewDataSource {
     
     // MARK: - cellForRowAt
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cellBackgroundColor : UIColor = {
-            if #available(iOS 13.0, *) {
-                return .systemBackground
-            } else {
-                return .white
-            }
-        }()
-        
+    
         /// Creating cell for adding new lessson
         if indexPath.section == 0 && self.isEditing == true {
             let cell = UITableViewCell(style: .default, reuseIdentifier: "addCell")
@@ -175,8 +168,9 @@ extension SheduleViewController: UITableViewDelegate, UITableViewDataSource {
     // MARK: - commit editingStyle forRowAt
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
+            let newIndexPath = IndexPath(row: indexPath.row, section: indexPath.section - 1)
             /// Lesson to delete
-            let lesson = self.lessonsForTableView[indexPath.section].value[indexPath.row]
+            let lesson = self.lessonsForTableView[newIndexPath.section].value[newIndexPath.row]
             
             var lessons = fetchingCoreData()
             
@@ -190,7 +184,7 @@ extension SheduleViewController: UITableViewDelegate, UITableViewDataSource {
             }
             
             self.tableView.beginUpdates()
-            self.lessonsForTableView[indexPath.section].value.remove(at: indexPath.row)
+            self.lessonsForTableView[newIndexPath.section].value.remove(at: newIndexPath.row)
             self.tableView.deleteRows(at: [indexPath], with: .automatic)
             self.tableView.endUpdates()
 
@@ -208,7 +202,9 @@ extension SheduleViewController: UITableViewDelegate, UITableViewDataSource {
     // MARK: - moveRowAt sourceIndexPath to destinationIndexPath
     /// - todo: try to use iterator for `lessonsToEdit`
     func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
-        moveRow(vc: self, sourceIndexPath: sourceIndexPath, destinationIndexPath: destinationIndexPath)
+        let newSourceIndexPath = IndexPath(row: sourceIndexPath.row, section: sourceIndexPath.section - 1)
+        let newdestinationIndexPath = IndexPath(row: destinationIndexPath.row, section: destinationIndexPath.section - 1)
+        moveRow(vc: self, sourceIndexPath: newSourceIndexPath, destinationIndexPath: newdestinationIndexPath)
     }
     
     
@@ -224,13 +220,6 @@ extension SheduleViewController: UITableViewDelegate, UITableViewDataSource {
     
     // MARK: - editingStyleForRowAt
     func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
-//        if indexPath.section == self.lessonsForTableView.count {
-//            return .insert
-//        } else if isEditing {
-//            return .delete
-//        } else {
-//            return .none
-//        }
         if indexPath.section == 0 && isEditing {
             return .insert
         } else if isEditing {

@@ -93,7 +93,7 @@ class TeacherSheduleViewController: UIViewController {
     
     var isFromTeachersVC: Bool = false
     
-    var lessonsFromServer: [Lesson] = []
+    var lessonsFromSegue: [Lesson] = []
 
     // MARK: - viewDidLoad
     override func viewDidLoad() {
@@ -116,7 +116,7 @@ class TeacherSheduleViewController: UIViewController {
         teacherID = teacher.teacherID
 
         if isFromFavourites || isFromTeachersVC {
-            lessons = lessonsFromServer
+            lessons = lessonsFromSegue
             stopLoading()
 //            DispatchQueue.main.async {
 //                self.stopLoading()
@@ -133,6 +133,7 @@ class TeacherSheduleViewController: UIViewController {
     
     private func setupNavigation() {
         self.navBar.title = "Зараз \(self.currentWeekFromTodayDate) тиждень"
+        setLargeTitleDisplayMode(.never)
     }
     
     
@@ -160,7 +161,7 @@ class TeacherSheduleViewController: UIViewController {
     func checkIfGroupInFavourites() {
         if let strongTeacher = teacher {
             if favourites.favouriteTeachersID.contains(Int(strongTeacher.teacherID) ?? 0) {
-                if let image = UIImage(named: "icons8-christmas-star-90-filled") {
+                if let image = UIImage(named: "icons8-favourite-filled") {
                     favouriteButton.setImage(image, for: .normal)
                     isFavourite = true
                 }
@@ -265,46 +266,6 @@ class TeacherSheduleViewController: UIViewController {
     }
     
     
-    // MARK: - server
-//    func server() {
-//        guard var url = URL(string: "https://api.rozklad.org.ua/v2/teachers/") else { return }
-//        url.appendPathComponent(teacherID ?? "")
-//        url.appendPathComponent("/lessons")
-//        print(url)
-//        let task = URLSession.shared.dataTask(with: url) {(data, response, error) in
-//            guard let data = data else { return }
-//            let decoder = JSONDecoder()
-//
-//            do {
-////                if let error = try? decoder.decode(Error.self, from: data) {
-////                    if error.message == "Lessons not found" {
-////                        DispatchQueue.main.async {
-////                            let alert = UIAlertController(title: nil, message: "Розкладу для цього викладача не існує", preferredStyle: .alert)
-////                            alert.addAction(UIAlertAction(title: "Назад", style: .default, handler: { (_) in
-////                                self.navigationController?.popViewController(animated: true)
-////                            }))
-////
-////                            self.present(alert, animated: true, completion: {
-////                            })
-////                        }
-////                    }
-////                }
-//                guard let serverFULLDATA = try? decoder.decode(WelcomeLessons.self, from: data) else { return }
-//                self.lessons = serverFULLDATA.data
-//            }
-//
-//            DispatchQueue.main.async {
-//                /// Making normal shedule + reloading tableVIew
-//                self.makeTeachersLessonsShedule()
-//
-//                self.stopLoading()
-//            }
-//        }
-//
-//        task.resume()
-//
-//    }
-    
     private func getTeacherLessons() {
         API.getTeacherLessons(forTeacherWithId: Int(teacherID ?? "") ?? 0).done({ [weak self] (lessons) in
             self?.lessons = lessons
@@ -358,7 +319,7 @@ class TeacherSheduleViewController: UIViewController {
         guard let strongTeacher = teacher else { return }
         
         if isFavourite {
-            if let image = UIImage(named: "icons8-christmas-star-75-add-1") {
+            if let image = UIImage(named: "icons8-favourite-add") {
                 
                 for i in 0..<favourites.favouriteTeachersID.count {
                     
@@ -372,7 +333,7 @@ class TeacherSheduleViewController: UIViewController {
                 }
             }
         } else {
-            if let image = UIImage(named: "icons8-christmas-star-90-filled") {
+            if let image = UIImage(named: "icons8-favourite-filled") {
                 favouriteButton.setImage(image, for: .normal)
                 // If teacherName is empty user teacherFullName
                 let teacherName = strongTeacher.teacherName == "" ? strongTeacher.teacherFullName : strongTeacher.teacherName

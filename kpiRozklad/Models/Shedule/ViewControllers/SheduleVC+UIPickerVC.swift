@@ -50,7 +50,6 @@ extension SheduleViewController: UIPickerViewDelegate, UIPickerViewDataSource {
     
     // MARK: - didSelectRow
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        lessonNuberFromPicker = row + 1
+        lessonNumberFromPicker = row + 1
     }
-    
 }

@@ -143,16 +143,26 @@ class SheduleDetailViewController: UIViewController {
         
     }
     
-    
-    /// Pushing `teacher`  to `TeacherSheduleViewController`
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "showTeacherSheduleFromDetail" {
-            if let destination = segue.destination as? TeacherSheduleViewController {
-                destination.teacher = self.teacher
-            }
-        }
+    @IBAction func didPressGetTeacherShedule(_ sender: UIButton) {
+        guard let sheduleVC = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: SheduleViewController.identifier) as? SheduleViewController else { return }
+        
+        sheduleVC.isTeachersShedule = true
+        sheduleVC.teacherFromSegue = teacher
+        Settings.shared.isTryToRefreshShedule = true
+        
+        navigationController?.pushViewController(sheduleVC, animated: true)
     }
     
+
+    /// Pushing `teacher`  to `TeacherSheduleViewController`
+//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+//        if segue.identifier == "showTeacherSheduleFromDetail" {
+//            if let destination = segue.destination as? TeacherSheduleViewController {
+//                destination.teacher = self.teacher
+//            }
+//        }
+//    }
+//    
     
     /**
      Search for a lesson that is shown in detail  in `getTeacherLessons()`  response

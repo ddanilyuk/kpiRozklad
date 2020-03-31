@@ -15,27 +15,24 @@ class SheduleDetailNavigationController: UINavigationController, PanModalPresent
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        print(self.parent?.description)
 //        self.topViewController
         panModalSetNeedsLayoutUpdate()
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        NotificationCenter.default.addObserver(self, selector:#selector(reloadAfterOpenApp), name: UIApplication.willEnterForegroundNotification, object: nil)
+        
+//        if #available(iOS 13.0, *) {
+//            self.navigationController?.navigationBar.backgroundColor = tint
+//        } else {
+//            self.navigationController?.navigationBar.backgroundColor = .white
+//        }
+        navigationBar.backgroundColor = tint
 
     }
+
     
 //    override var preferredStatusBarStyle: UIStatusBarStyle {
 //        return .default
 //    }
     
-    @objc func reloadAfterOpenApp() {
-        guard let top = self.parent else {
-            return
-        }
-//        top.navigationController?.navigationBar.backgroundColor = .green
-        top.setLargeTitleDisplayMode(.never)
-    }
+
     
     var panScrollable: UIScrollView? {
         return nil

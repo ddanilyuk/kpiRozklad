@@ -52,6 +52,8 @@
 		5F8EF102242D30AE00E74220 /* PanModalPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F8EF0F5242D30AE00E74220 /* PanModalPresentationController.swift */; };
 		5F8EF103242D30AE00E74220 /* PanModalAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F8EF0F6242D30AE00E74220 /* PanModalAnimator.swift */; };
 		5F8EF104242D30AE00E74220 /* PanModalHeight.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F8EF0F7242D30AE00E74220 /* PanModalHeight.swift */; };
+		5F96B89924339DE50035DA86 /* UITableViewCell+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F96B89824339DE50035DA86 /* UITableViewCell+Extensions.swift */; };
+		5F96B89B2433A41A0035DA86 /* GroupsAndTeachersVC+Search.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F96B89A2433A41A0035DA86 /* GroupsAndTeachersVC+Search.swift */; };
 		5FA2B79D2379F5A7006C466B /* Group.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FA2B79C2379F5A7006C466B /* Group.swift */; };
 		5FA5CE5A2413E32D00D2796A /* SettingsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FA5CE582413E32D00D2796A /* SettingsTableViewCell.swift */; };
 		5FA5CE5B2413E32D00D2796A /* SettingsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5FA5CE592413E32D00D2796A /* SettingsTableViewCell.xib */; };
@@ -103,7 +105,6 @@
 		D313F4B6233D1F090076CFF8 /* LessonTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D313F4B4233D1F090076CFF8 /* LessonTableViewCell.xib */; };
 		D34BEBC5233CCFC10035F7B4 /* OtherExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D34BEBC4233CCFC10035F7B4 /* OtherExtensions.swift */; };
 		D363E7AA233BB74B00573EB2 /* SheduleDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D363E7A9233BB74B00573EB2 /* SheduleDetailViewController.swift */; };
-		D3FFAAE72352467F0065E9CE /* TeacherSheduleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3FFAAE62352467F0065E9CE /* TeacherSheduleViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -167,6 +168,8 @@
 		5F8EF0F5242D30AE00E74220 /* PanModalPresentationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PanModalPresentationController.swift; sourceTree = "<group>"; };
 		5F8EF0F6242D30AE00E74220 /* PanModalAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PanModalAnimator.swift; sourceTree = "<group>"; };
 		5F8EF0F7242D30AE00E74220 /* PanModalHeight.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PanModalHeight.swift; sourceTree = "<group>"; };
+		5F96B89824339DE50035DA86 /* UITableViewCell+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableViewCell+Extensions.swift"; sourceTree = "<group>"; };
+		5F96B89A2433A41A0035DA86 /* GroupsAndTeachersVC+Search.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GroupsAndTeachersVC+Search.swift"; sourceTree = "<group>"; };
 		5FA2B79C2379F5A7006C466B /* Group.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Group.swift; sourceTree = "<group>"; };
 		5FA5CE582413E32D00D2796A /* SettingsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTableViewCell.swift; sourceTree = "<group>"; };
 		5FA5CE592413E32D00D2796A /* SettingsTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SettingsTableViewCell.xib; sourceTree = "<group>"; };
@@ -216,7 +219,6 @@
 		D34BEBC4233CCFC10035F7B4 /* OtherExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtherExtensions.swift; sourceTree = "<group>"; };
 		D363E7A9233BB74B00573EB2 /* SheduleDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheduleDetailViewController.swift; sourceTree = "<group>"; };
 		D38DEB43233A250F00BB0075 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
-		D3FFAAE62352467F0065E9CE /* TeacherSheduleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeacherSheduleViewController.swift; sourceTree = "<group>"; };
 		EDD61A393E606C9EDEAF6451 /* Pods-Widget.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Widget.debug.xcconfig"; path = "Target Support Files/Pods-Widget/Pods-Widget.debug.xcconfig"; sourceTree = "<group>"; };
 		FDF92BF3AE056AD077FE3AD8 /* Pods-kpiRozklad.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-kpiRozklad.debug.xcconfig"; path = "Target Support Files/Pods-kpiRozklad/Pods-kpiRozklad.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -511,9 +513,8 @@
 				D313F4AD233AAF920076CFF8 /* SheduleViewController.swift */,
 				5FE0486C23930C3000092422 /* SheduleVC+UIPickerVC.swift */,
 				5F305C76242260560035B509 /* SheduleVC+UITableView.swift */,
-				D3FFAAE62352467F0065E9CE /* TeacherSheduleViewController.swift */,
-				D363E7A9233BB74B00573EB2 /* SheduleDetailViewController.swift */,
 				5FE96784240F0C22000AD157 /* SheduleDetailNavigationController.swift */,
+				D363E7A9233BB74B00573EB2 /* SheduleDetailViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -608,6 +609,7 @@
 				5FCBBA00241C41DE00E7654F /* UIViewControllerExtensions.swift */,
 				5FCBBA02241C45BD00E7654F /* UITableViewCellExtensions.swift */,
 				5FCBBA21241C501E00E7654F /* UIColorExtensions.swift */,
+				5F96B89824339DE50035DA86 /* UITableViewCell+Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -636,6 +638,7 @@
 				5FE9678224091880000AD157 /* TeachersNavigationController.swift */,
 				D300F1D52364CEA30098CA83 /* GroupsAndTeachersViewController.swift */,
 				5F2E61562422C00400B362A2 /* GroupsAndTeachersVC+ServerApi.swift */,
+				5F96B89A2433A41A0035DA86 /* GroupsAndTeachersVC+Search.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -846,7 +849,6 @@
 				5F305C77242260560035B509 /* SheduleVC+UITableView.swift in Sources */,
 				5F686F3A23800CFB008B0915 /* AddLessonViewController.swift in Sources */,
 				5F7BABBF23A163C8009E3CA6 /* Error.swift in Sources */,
-				D3FFAAE72352467F0065E9CE /* TeacherSheduleViewController.swift in Sources */,
 				5F46AD5E23FEC43500B145D5 /* FavouriteViewController.swift in Sources */,
 				D34BEBC5233CCFC10035F7B4 /* OtherExtensions.swift in Sources */,
 				5FD5B7152422171900B86FB7 /* Enums.swift in Sources */,
@@ -890,6 +892,7 @@
 				D300F1DC2365BC270098CA83 /* Teacher.swift in Sources */,
 				5F8EF102242D30AE00E74220 /* PanModalPresentationController.swift in Sources */,
 				5FCBBA1E241C4FCC00E7654F /* ColorPickerCellMy.swift in Sources */,
+				5F96B89924339DE50035DA86 /* UITableViewCell+Extensions.swift in Sources */,
 				5FE9678324091880000AD157 /* TeachersNavigationController.swift in Sources */,
 				5FCBBA01241C41DE00E7654F /* UIViewControllerExtensions.swift in Sources */,
 				5F8EF0FE242D30AE00E74220 /* UIViewController+PanModalPresenter.swift in Sources */,
@@ -898,6 +901,7 @@
 				5F8EF0FD242D30AE00E74220 /* PanModalPresentable+Defaults.swift in Sources */,
 				5F0275B423F3476B00743637 /* CoreDataStack.swift in Sources */,
 				D313F4B5233D1F090076CFF8 /* LessonTableViewCell.swift in Sources */,
+				5F96B89B2433A41A0035DA86 /* GroupsAndTeachersVC+Search.swift in Sources */,
 				5F8EF103242D30AE00E74220 /* PanModalAnimator.swift in Sources */,
 				5F6A08062370A175000A9C79 /* kpiRozklad.xcdatamodeld in Sources */,
 				5F46AD6523FFD66E00B145D5 /* GroupsNavigationController.swift in Sources */,

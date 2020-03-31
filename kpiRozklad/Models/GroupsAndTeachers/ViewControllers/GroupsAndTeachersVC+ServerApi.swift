@@ -193,14 +193,16 @@ extension GroupsAndTeachersViewController {
             cell.activityIndicator.isHidden = true
             cell.activityIndicator.stopAnimating()
 
-            guard let teacherSheduleVC  = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: TeacherSheduleViewController.identifier) as? TeacherSheduleViewController else { return }
+            guard let sheduleVC  = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: SheduleViewController.identifier) as? SheduleViewController else { return }
             
-            teacherSheduleVC.lessonsFromSegue = lessons
-            teacherSheduleVC.teacher = teacher
+            sheduleVC.lessonsFromSegue = lessons
+            sheduleVC.teacherFromSegue = teacher
+            sheduleVC.isFromGroupsAndTeacherOrFavourite = true
+            sheduleVC.isTeachersShedule = true
 
-            teacherSheduleVC.isFromTeachersVC = true
+//            sheduleVC.isFromTeachersVC = true
             
-            this.navigationController?.pushViewController(teacherSheduleVC, animated: true)
+            this.navigationController?.pushViewController(sheduleVC, animated: true)
 
         }).catch({ [weak self] (error) in
             guard let this = self else { return }

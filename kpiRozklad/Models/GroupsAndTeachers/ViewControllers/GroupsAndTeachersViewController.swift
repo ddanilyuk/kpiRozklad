@@ -18,6 +18,7 @@ class GroupsAndTeachersViewController: UIViewController {
     let reuseID = "reuseIDForTeachers"
     
     var teachers: [Teacher] = []
+    
     var teachersInSearch: [Teacher] = []
     
     /// **Main** variable, show when `isSearching == false`
@@ -26,15 +27,14 @@ class GroupsAndTeachersViewController: UIViewController {
     /// Variable, show when `isSearching == true`
     var groupsInSearch: [Group] = []
 
-    var groupTeachers: [Teacher] = []
     
+    var groupTeachers: [Teacher] = []
     var allTeachers: [Teacher] = []
 
-
+    
     var isSearching = false
     let search = UISearchController(searchResultsController: nil)
     
-
     let settings = Settings.shared
 
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
@@ -65,7 +65,6 @@ class GroupsAndTeachersViewController: UIViewController {
         setupTableView()
 
         setupNavigationAndSearch()
-        
     }
     
     
@@ -154,14 +153,9 @@ class GroupsAndTeachersViewController: UIViewController {
     
     private func setupTableView() {
         tableView.register(UINib(nibName: TeacherOrGroupLoadingTableViewCell.identifier, bundle: Bundle.main), forCellReuseIdentifier: TeacherOrGroupLoadingTableViewCell.identifier)
-
         tableView.delegate = self
         tableView.dataSource = self
-        if #available(iOS 13.0, *) {
-            tableView.backgroundColor = tint
-        } else {
-            tableView.backgroundColor = .white
-        }
+        tableView.backgroundColor = tint
     }
     
     
@@ -252,42 +246,21 @@ extension GroupsAndTeachersViewController: UITableViewDelegate, UITableViewDataS
 
         return cell
     }
-    
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "showTeacherSheduleFromAllTeachers" {
-            if let indexPath = tableView.indexPathForSelectedRow {
-                if let destination = segue.destination as? TeacherSheduleViewController {
-                    if isSearching {
-                        destination.teacher = teachersInSearch[indexPath.row]
-                    } else {
-                        destination.teacher = teachers[indexPath.row]
-                    }
-                }
-            }
-        }
-    }
-    
+        
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
         let mainStoryboard = UIStoryboard(name: "Main", bundle: Bundle.main)
         let appDelegate = UIApplication.shared.delegate as? AppDelegate
         guard let window = appDelegate?.window else { return }
+        guard let mainTabBar: UITabBarController = mainStoryboard.instantiateViewController(withIdentifier: "Main") as? UITabBarController else { return }
         
         if isSheduleTeachersChooser {
-            
             let teacher = isSearching ? teachersInSearch[indexPath.row] : teachers[indexPath.row]
-            
-            settings.groupName = ""
-            settings.groupID = 0
             
             settings.teacherName = teacher.teacherName
             settings.teacherID = Int(teacher.teacherID) ?? 0
             
             settings.isTryToRefreshShedule = true
-
-            guard let mainTabBar : UITabBarController = mainStoryboard.instantiateViewController(withIdentifier: "Main") as? UITabBarController else { return }
             
             if #available(iOS 13, *) {
                 self.dismiss(animated: true, completion: {
@@ -304,13 +277,8 @@ extension GroupsAndTeachersViewController: UITableViewDelegate, UITableViewDataS
             settings.groupName = group.groupFullName
             settings.groupID = group.groupID
             
-            settings.teacherName = ""
-            settings.teacherID = 0
-            
             settings.isTryToRefreshShedule = true
 
-            guard let mainTabBar : UITabBarController = mainStoryboard.instantiateViewController(withIdentifier: "Main") as? UITabBarController else { return }
-            
             if #available(iOS 13, *) {
                 self.dismiss(animated: true, completion: {
                     window.rootViewController = mainTabBar
@@ -319,110 +287,20 @@ extension GroupsAndTeachersViewController: UITableViewDelegate, UITableViewDataS
                 window.rootViewController = mainTabBar
                 window.makeKeyAndVisible()
             }
-            
-            
+
         } else if isGroupViewController {
             let group = isSearching ? groupsInSearch[indexPath.row] : groups[indexPath.row]
-//            serverGetChoosenGroupShedule(group: group, indexPath: indexPath)
             getGroupLessons(group: group, indexPath: indexPath)
         } else if isTeacherViewController {
-            
             let teacher = isSearching ? teachersInSearch[indexPath.row] : teachers[indexPath.row]
-//            serverGetChoosenTeacherShedule(teacher: teacher, indexPath: indexPath)
             getTeacherLessons(teacher: teacher, indexPath: indexPath)
-            
-//            guard (storyboard?.instantiateViewController(withIdentifier: "TeacherSheduleViewController") as? TeacherSheduleViewController) != nil else { return }
-//            performSegue(withIdentifier: "showTeacherSheduleFromAllTeachers", sender: self)
         }
-        
-        
         
         tableView.deselectRow(at: indexPath, animated: true)
     }
     
+    
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         return 0.001
     }
-    
-//    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-//        let view = UIView()
-//        view.backgroundColor = sectionColour
-//
-//        return view
-//    }
-}
-
-
-//Mark: - extencions for search
-extension GroupsAndTeachersViewController: UISearchResultsUpdating {
-
-        // MARK: - updateSearchResults
-    func updateSearchResults(for searchController: UISearchController) {
-        
-        guard let searchText = searchController.searchBar.text else { return }
-        
-        let lowerCaseSearchText = searchText.lowercased()
-        
-        if searchText == "" {
-            isSearching = false
-            groupsInSearch = []
-            teachersInSearch = []
-
-            activityIndicator.isHidden = true
-            activityIndicator.stopAnimating()
-            
-            if isSheduleGroupChooser || isSheduleTeachersChooser {
-                startWriteLabel.isHidden = false
-                tableView.isHidden = true
-            }
-            
-            tableView.reloadData()
-            return
-        }
-        
-        if isSheduleTeachersChooser || isTeacherViewController {
-            isSearching = true
-            teachersInSearch = []
-            
-            startWriteLabel.isHidden = true
-            tableView.isHidden = false
-
-            if teachers.count == 0 {
-                tableView.isHidden = true
-                activityIndicator.isHidden = false
-                activityIndicator.startAnimating()
-//                serverAllTeachersOrGroups(requestType: .teachers)
-            }
-            
-            for teacher in teachers {
-                if teacher.teacherFullName.lowercased().contains(lowerCaseSearchText){
-                    teachersInSearch.append(teacher)
-                }
-            }
-            
-        } else {
-            isSearching = true
-            groupsInSearch = []
-            
-            startWriteLabel.isHidden = true
-            tableView.isHidden = false
-
-            if groups.count == 0 {
-                tableView.isHidden = true
-                activityIndicator.isHidden = false
-                activityIndicator.startAnimating()
-//                serverAllTeachersOrGroups(requestType: .groups)
-            }
-            
-            for group in groups {
-                if group.groupFullName.lowercased().contains(lowerCaseSearchText){
-                    groupsInSearch.append(group)
-                }
-            }
-        }
-        
-        tableView.reloadData()
-
-    }
-    
 }

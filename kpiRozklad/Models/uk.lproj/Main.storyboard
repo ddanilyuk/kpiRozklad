@@ -270,8 +270,8 @@
             <objects>
                 <navigationController storyboardIdentifier="SheduleNavigationVC" id="RNu-Ik-QQg" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Розклад" image="icons8-index-90" id="8Be-PC-7G9"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="uN9-z4-vS1">
-                        <rect key="frame" x="0.0" y="44" width="375" height="44"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" largeTitles="YES" id="uN9-z4-vS1">
+                        <rect key="frame" x="0.0" y="44" width="375" height="96"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <toolbar key="toolbar" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="VX1-jq-IpV">
@@ -288,12 +288,12 @@
         <!--ІВ-82-->
         <scene sceneID="Z7E-0m-5wG">
             <objects>
-                <viewController storyboardIdentifier="SheduleViewController" id="VGz-qr-qiP" customClass="SheduleViewController" customModule="KPI_Rozklad" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="SheduleViewController" extendedLayoutIncludesOpaqueBars="YES" id="VGz-qr-qiP" customClass="SheduleViewController" customModule="KPI_Rozklad" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="P20-9K-3S9">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" allowsSelectionDuringEditing="YES" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="Bv9-u6-c2Z">
+                            <tableView contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" allowsSelectionDuringEditing="YES" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="Bv9-u6-c2Z">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                             </tableView>
@@ -432,7 +432,6 @@
                         <outlet property="segmentControl" destination="bXl-wA-VMP" id="WOz-aL-VX7"/>
                         <outlet property="startWriteLabel" destination="ooM-zV-5FE" id="Qg0-Fa-0Em"/>
                         <outlet property="tableView" destination="ozO-6T-Pnc" id="evC-DR-UwR"/>
-                        <segue destination="StT-wO-RBg" kind="show" identifier="showTeacherSheduleFromAllTeachers" id="5QF-Tv-CiU"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NnJ-Cw-TTi" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -728,7 +727,7 @@
                                                             </userDefinedRuntimeAttribute>
                                                         </userDefinedRuntimeAttributes>
                                                         <connections>
-                                                            <segue destination="StT-wO-RBg" kind="show" identifier="showTeacherSheduleFromDetail" id="eOz-94-s6B"/>
+                                                            <action selector="didPressGetTeacherShedule:" destination="Xi8-a3-NCy" eventType="touchUpInside" id="8iI-9v-QRx"/>
                                                         </connections>
                                                     </button>
                                                 </subviews>
@@ -865,80 +864,8 @@
             </objects>
             <point key="canvasLocation" x="2106" y="1938"/>
         </scene>
-        <!--Зараз   тиждень-->
-        <scene sceneID="iN0-Y0-247">
-            <objects>
-                <viewController storyboardIdentifier="TeacherSheduleViewController" id="StT-wO-RBg" customClass="TeacherSheduleViewController" customModule="KPI_Rozklad" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="sT5-E5-eIb">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="6uy-Lx-1YN">
-                                <rect key="frame" x="0.0" y="88" width="375" height="724"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                            </tableView>
-                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="aXm-Uf-t5P">
-                                <rect key="frame" x="0.0" y="390" width="375" height="37"/>
-                            </activityIndicatorView>
-                        </subviews>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                        <constraints>
-                            <constraint firstItem="6uy-Lx-1YN" firstAttribute="bottom" secondItem="sT5-E5-eIb" secondAttribute="bottom" id="12i-51-ddR"/>
-                            <constraint firstItem="aXm-Uf-t5P" firstAttribute="centerX" secondItem="WFT-WZ-9dT" secondAttribute="centerX" id="3CT-jr-F58"/>
-                            <constraint firstItem="aXm-Uf-t5P" firstAttribute="centerY" secondItem="WFT-WZ-9dT" secondAttribute="centerY" id="5J8-jA-Zt6"/>
-                            <constraint firstItem="6uy-Lx-1YN" firstAttribute="trailing" secondItem="aXm-Uf-t5P" secondAttribute="trailing" id="EUf-mh-wwC"/>
-                            <constraint firstItem="WFT-WZ-9dT" firstAttribute="trailing" secondItem="aXm-Uf-t5P" secondAttribute="trailing" id="GS5-Qw-jdY"/>
-                            <constraint firstItem="6uy-Lx-1YN" firstAttribute="leading" secondItem="aXm-Uf-t5P" secondAttribute="leading" id="aUB-i3-XSY"/>
-                            <constraint firstItem="6uy-Lx-1YN" firstAttribute="top" secondItem="WFT-WZ-9dT" secondAttribute="top" id="blT-Z6-hj7"/>
-                            <constraint firstItem="aXm-Uf-t5P" firstAttribute="leading" secondItem="WFT-WZ-9dT" secondAttribute="leading" id="v2N-L5-FjC"/>
-                        </constraints>
-                        <viewLayoutGuide key="safeArea" id="WFT-WZ-9dT"/>
-                    </view>
-                    <navigationItem key="navigationItem" title="Зараз   тиждень" id="bUt-BO-BjC">
-                        <rightBarButtonItems>
-                            <barButtonItem id="tlm-hn-UJD">
-                                <segmentedControl key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="m5f-ON-rhO">
-                                    <rect key="frame" x="276" y="5.6666666666666679" width="83" height="33"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    <segments>
-                                        <segment title="1"/>
-                                        <segment title="2"/>
-                                    </segments>
-                                    <color key="selectedSegmentTintColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                    <connections>
-                                        <action selector="weekChanged:" destination="StT-wO-RBg" eventType="valueChanged" id="jbE-yH-4cf"/>
-                                    </connections>
-                                </segmentedControl>
-                            </barButtonItem>
-                            <barButtonItem id="z6T-aG-WRZ">
-                                <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="TdN-Rd-4AK">
-                                    <rect key="frame" x="218" y="0.0" width="50" height="44"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    <state key="normal" image="icons8-favourite-add"/>
-                                    <connections>
-                                        <action selector="didPressFavourite:" destination="StT-wO-RBg" eventType="touchUpInside" id="Xmc-7E-lDi"/>
-                                        <action selector="didPressFavouriteButton:" destination="VGz-qr-qiP" eventType="touchUpInside" id="BfP-1K-N5i"/>
-                                    </connections>
-                                </button>
-                            </barButtonItem>
-                        </rightBarButtonItems>
-                    </navigationItem>
-                    <connections>
-                        <outlet property="activityIndicator" destination="aXm-Uf-t5P" id="jTF-hp-rxV"/>
-                        <outlet property="favouriteBarButtonItem" destination="z6T-aG-WRZ" id="MJp-sN-Jcu"/>
-                        <outlet property="favouriteButton" destination="TdN-Rd-4AK" id="35h-XJ-QJO"/>
-                        <outlet property="navBar" destination="bUt-BO-BjC" id="2fA-mh-ZsX"/>
-                        <outlet property="tableView" destination="6uy-Lx-1YN" id="wpa-uC-bGX"/>
-                        <outlet property="weekSwitch" destination="m5f-ON-rhO" id="Hih-z3-2at"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="hN0-8F-l95" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="3958" y="1190"/>
-        </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="eOz-94-s6B"/>
         <segue reference="RJQ-je-C9R"/>
     </inferredMetricsTieBreakers>
     <resources>

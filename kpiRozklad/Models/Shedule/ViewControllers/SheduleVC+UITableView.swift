@@ -13,17 +13,20 @@ extension SheduleViewController: UITableViewDelegate, UITableViewDataSource {
     
     // MARK: - numberOfSections
     func numberOfSections(in tableView: UITableView) -> Int {
-        if self.isEditing == true {
-            return 7
-        } else {
-            return 6
-        }
+        return isEditing ? 7 : 6
     }
     
 
     // MARK: - heightForFooterInSection
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         return 0.001
+    }
+    
+    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        let view = UIView()
+        view.backgroundColor = .clear
+        
+        return view
     }
     
     
@@ -102,12 +105,28 @@ extension SheduleViewController: UITableViewDelegate, UITableViewDataSource {
             present(alertView, animated: true, completion: nil)
         } else {
             if indexPath.section != lessonsForTableView.count {
-
-                guard let sheduleDetailNC = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: SheduleDetailNavigationController.identifier) as? SheduleDetailNavigationController else { return }
                 
-                sheduleDetailNC.lesson = lessonsForTableView[indexPath.section].value[indexPath.row]
-                
-                presentPanModal(sheduleDetailNC)
+                if isTeachersShedule {
+                    let lesson = lessonsForTableView[indexPath.section].value[indexPath.row]
+                    
+                    let groupsNames = getGroupsOfLessonString(lesson: lesson)
+                    
+                    let alert = UIAlertController(title: nil, message: "Групи: \(groupsNames)", preferredStyle: .alert)
+                    alert.addAction(UIAlertAction(title: "Назад", style: .cancel, handler: { (_) in
+                        
+                    }))
+                    
+                    self.present(alert, animated: true, completion: {
+                    })
+                    
+                    tableView.deselectRow(at: indexPath, animated: true)
+                } else {
+                    guard let sheduleDetailNC = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: SheduleDetailNavigationController.identifier) as? SheduleDetailNavigationController else { return }
+                    
+                    sheduleDetailNC.lesson = lessonsForTableView[indexPath.section].value[indexPath.row]
+                    
+                    presentPanModal(sheduleDetailNC)
+                }
             }
         }
         

@@ -120,6 +120,12 @@ class SheduleViewController: UIViewController {
     */
     var isFromGroupsAndTeacherOrFavourite: Bool = false
     
+    
+    var isTeachersShedule: Bool = false
+    
+    
+    var teacherFromSegue: Teacher?
+
     /// Is need to scroll or not
     var isNeedToScroll: Bool = true
     
@@ -140,6 +146,7 @@ class SheduleViewController: UIViewController {
                                DayName.friday.rawValue,
                                DayName.saturday.rawValue]
 
+    var isEditInserts: Bool = false
     
     // MARK: - viewDidLoad
     override func viewDidLoad() {
@@ -181,6 +188,14 @@ class SheduleViewController: UIViewController {
             self.weekSegmentControl.frame = CGRect(x: 0, y: 0, width: 90, height: weekSegmentControl.frame.height)
             checkIfGroupInFavourites()
 
+        } else if isTeachersShedule {
+            
+            self.navigationItem.rightBarButtonItems = [segmentBatButtonItem, favouriteBarButtonItem]
+            self.weekSegmentControl.frame = CGRect(x: 0, y: 0, width: 90, height: weekSegmentControl.frame.height)
+            checkIfTeacherInFavourites()
+            
+            
+            
         } else if settings.groupName != "" || settings.teacherName != "" {
             /**
              Main setup
@@ -195,7 +210,9 @@ class SheduleViewController: UIViewController {
         
         /// Make server request or call `makeLessonsShedule()`
         if settings.isTryToRefreshShedule {
-            getLessonsFromServer()
+            
+            getLessonsFromServer(isMainShedule: !isTeachersShedule)
+            
             settings.isTryToRefreshShedule = false
         } else {
             makeLessonsShedule()
@@ -203,15 +220,68 @@ class SheduleViewController: UIViewController {
         
         /// If `isNeedToScroll` == true, scroll
         _ = isNeedToScroll ? scrollToCurrentOrNext() : nil
+        
+        isEditInserts = true
     }
     
     
     // MARK: - viewWillAppear
     override func viewWillAppear(_ animated: Bool) {
+//        super.viewWillAppear(true)
         tableView.reloadData()
-        setupNavigation()
+        
+//        setLargeTitleDisplayMode(.never)
+//        DispatchQueue.main.async {
+////            navigationController?.navigationBar.prefersLargeTitles = true
+//
+//            self.setLargeTitleDisplayMode(.always)
+//
+//            if #available(iOS 13.0, *) {
+//                if !self.isEditInserts {
+//                    self.tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: -20, right: 0)
+//                }
+//                self.isEditInserts = false
+//            }
+//        }
+        if isTeachersShedule {
+            setLargeTitleDisplayMode(.never)
+        } else if !isFromSettingsGetFreshShedule && !isFromGroupsAndTeacherOrFavourite && !isTeachersShedule {
+            setLargeTitleDisplayMode(.always)
+        } else {
+            setLargeTitleDisplayMode(.never)
+        }
+        
+        if #available(iOS 13.0, *) {
+        
+            if !isEditInserts {
+                self.tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: -20, right: 0)
+            }
+            isEditInserts = false
+        }
+        
     }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        if self.navigationController?.navigationBar.frame.size.height ?? 44 > CGFloat(50) {
+            setLargeTitleDisplayMode(.always)
+        } else {
+            if #available(iOS 13.0, *) {
+//                if lessonsForTableView[0].value.count != 0 {
+//                    
+//                }
+                
+                let firstLessonValue = lessonsForTableView[0].value.count != 0 ?  Int(lessonsForTableView[0].value[0].lessonID) ?? 0 : -1
+                let next = Int(nextLessonId) ?? 0
+                let current = Int(nextLessonId) ?? 0
 
+                if (next != firstLessonValue) && (current != firstLessonValue) {
+                    self.tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: -20, right: 0)
+                }
+            }
+            setLargeTitleDisplayMode(.never)
+        }
+    }
+    
     
     // MARK: - SETUP functions
     
@@ -220,11 +290,7 @@ class SheduleViewController: UIViewController {
         tableView.delegate = self
         tableView.dataSource = self
         
-        if #available(iOS 13.0, *) {
-            tableView.backgroundColor = tint
-        } else {
-            tableView.backgroundColor = .white
-        }
+        tableView.backgroundColor = tint
     }
 
     
@@ -245,7 +311,13 @@ class SheduleViewController: UIViewController {
     
     
     private func setupNavigation() {
-        if !isFromSettingsGetFreshShedule && !isFromGroupsAndTeacherOrFavourite {
+
+        self.navigationController?.navigationBar.prefersLargeTitles = false
+
+        if isTeachersShedule {
+            self.navigationItem.title = "Зараз \(self.currentWeekFromTodayDate) тиждень"
+            setLargeTitleDisplayMode(.never)
+        } else if !isFromSettingsGetFreshShedule && !isFromGroupsAndTeacherOrFavourite && !isTeachersShedule {
             setLargeTitleDisplayMode(.always)
             
             if global.sheduleType == .groups {
@@ -257,7 +329,9 @@ class SheduleViewController: UIViewController {
         } else {
             setLargeTitleDisplayMode(.never)
         }
+        
 
+//        self.extendedLayoutIncludesOpaqueBars = true
         self.navigationController?.navigationBar.isTranslucent = true
         self.tabBarController?.tabBar.isTranslucent = true
     }
@@ -338,9 +412,58 @@ class SheduleViewController: UIViewController {
         if self.tableView != nil {
             DispatchQueue.main.async {
                 if self.lessonsForTableView[indexPathToScroll.section].value.count > indexPathToScroll.row {
+                    self.isNeedToScroll = false
+//                    self.tableView.beginUpdates()
+                    if indexPathToScroll.section == 0 && indexPathToScroll.row == 0 {
+                        self.navigationController?.navigationBar.prefersLargeTitles = true
+                    } else {
+//                        self.tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: -20, right: 0)
+                        self.navigationController?.navigationBar.prefersLargeTitles = false
+                    }
+//                    self.tableView.insetsContentViewsToSafeArea = false
+//                    let value = (self.navigationController?.navigationBar.frame.size.height ?? 0.0) - 30
+
                     self.tableView.scrollToRow(at: indexPathToScroll, at: .top, animated: true)
+                    
+                    self.navigationController?.navigationBar.prefersLargeTitles = true
+//                    self.setLargeTitleDisplayMode(.always)
+                    
+                    if #available(iOS 13.0, *) {
+                        if indexPathToScroll.section == 0 && indexPathToScroll.row == 0 {
+                            self.tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+                        } else {
+                            self.tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: -20, right: 0)
+                        }
+                    }
+                    
+//                    DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(1)) {
+//                        self.navigationController?.navigationBar.prefersLargeTitles = true
+//                        self.tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0);
+//                    }
+
+                    
+
+//                    self.tableView.endUpdates()
                 }
             }
+//            if self.lessonsForTableView[indexPathToScroll.section].value.count > indexPathToScroll.row {
+//                if indexPathToScroll.section == 0 && indexPathToScroll.row == 0 {
+//                    self.navigationController?.navigationBar.prefersLargeTitles = true
+//                } else {
+//                    self.navigationController?.navigationBar.prefersLargeTitles = false
+//                }
+////                    self.tableView.insetsContentViewsToSafeArea = false
+////                    let value = (self.navigationController?.navigationBar.frame.size.height ?? 0.0) - 30
+////                    self.tableView.contentInset = UIEdgeInsets(top: (-1 * 44), left: 0, bottom: 0, right: 0);
+////                self.tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0);
+//
+//                self.tableView.scrollToRow(at: indexPathToScroll, at: .top, animated: true)
+//
+//                self.navigationController?.navigationBar.prefersLargeTitles = true
+////                self.tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0);
+//
+//            }
+            
         }
     }
     
@@ -355,15 +478,16 @@ class SheduleViewController: UIViewController {
         var lessons: [Lesson] = []
         
         /// When the program is reopen, you need to update the time and the current and next lesson
-        setupDate()
-        (currentLessonId, nextLessonId) = getCurrentAndNextLesson(lessons: lessons, timeIsNowString: timeIsNowString, dayNumberFromCurrentDate: dayNumberFromCurrentDate, currentWeekFromTodayDate: currentWeekFromTodayDate)
         
-        if isFromSettingsGetFreshShedule || isFromGroupsAndTeacherOrFavourite {
+        if (isFromSettingsGetFreshShedule || isFromGroupsAndTeacherOrFavourite ||  isTeachersShedule) {
             lessons = lessonsFromSegue
         } else {
             lessons = fetchingCoreData()
         }
 
+        setupDate()
+        (nextLessonId, currentLessonId) = getCurrentAndNextLesson(lessons: lessons, timeIsNowString: timeIsNowString, dayNumberFromCurrentDate: dayNumberFromCurrentDate, currentWeekFromTodayDate: currentWeekFromTodayDate)
+        
         /// Getting lesson for first week and second
         var lessonsFirst: [Lesson] = []
         var lessonsSecond: [Lesson] = []
@@ -422,6 +546,9 @@ class SheduleViewController: UIViewController {
             self.tableView.isHidden = self.tableView.isHidden ? false : false
             self.tableView.reloadData()
         }
+        if isNeedToScroll {
+            self.scrollToCurrentOrNext()
+        }
     }
     
     
@@ -430,18 +557,33 @@ class SheduleViewController: UIViewController {
      Functon which getting data from server
      - note: This fuction call `updateCoreData(vc: SheduleViewController)`
      */
-    private func getLessonsFromServer() {
-        let serverLessons: Promise<[Lesson]> = global.sheduleType == .groups ? API.getStudentLessons(forGroupWithId: settings.groupID) : API.getTeacherLessons(forTeacherWithId: settings.teacherID)
+    private func getLessonsFromServer(isMainShedule: Bool = true) {
+        let serverLessonsOptional: Promise<[Lesson]>?
         
+        if isMainShedule {
+            serverLessonsOptional = global.sheduleType == .groups ? API.getStudentLessons(forGroupWithId: settings.groupID) : API.getTeacherLessons(forTeacherWithId: settings.teacherID)
+        } else {
+            serverLessonsOptional = API.getTeacherLessons(forTeacherWithId: Int(teacherFromSegue?.teacherID ?? "") ?? 0)
+        }
+        
+        guard let serverLessons = serverLessonsOptional else { return }
+                
         serverLessons.done({ [weak self] (lessons) in
             guard let this = self else { return }
-            updateCoreData(vc: this, datum: lessons)
+
+            if isMainShedule {
+                this.isNeedToScroll = true
+                updateCoreData(vc: this, datum: lessons)
+            } else {
+                this.lessonsFromSegue = lessons
+                this.makeLessonsShedule()
+            }
         }).catch({ [weak self] (error) in
             guard let this = self else { return }
 
             if error.localizedDescription == NetworkingApiError.lessonsNotFound.localizedDescription {
-                let messageAlert = global.sheduleType == .groups ? "Розкладу для цієї групи не існує" : "Розкладу для цього викладача не існує"
-                let actionTitle = global.sheduleType == .groups ? "Змінити групу" : "Змінити викладача"
+                let messageAlert = (global.sheduleType == .groups || !isMainShedule) ? "Розкладу для цієї групи не існує" : "Розкладу для цього викладача не існує"
+                let actionTitle = (global.sheduleType == .groups || !isMainShedule) ? "Змінити групу" : "Змінити викладача"
                 
                 let alert = UIAlertController(title: nil, message: messageAlert, preferredStyle: .alert)
                 alert.addAction(UIAlertAction(title: actionTitle, style: .default, handler: { (_) in
@@ -457,7 +599,7 @@ class SheduleViewController: UIViewController {
                 let alert = UIAlertController(title: "Помилка", message: error.localizedDescription, preferredStyle: .alert)
                 alert.addAction(UIAlertAction(title: "Ок", style: .default, handler: nil))
                 alert.addAction(UIAlertAction(title: "Оновити", style: .default, handler: { (_) in
-                    this.getLessonsFromServer()
+                    _ = isMainShedule ? this.getLessonsFromServer() :                         this.getLessonsFromServer(isMainShedule: false)
                 }))
 
                 this.present(alert, animated: true, completion: nil)
@@ -497,27 +639,69 @@ class SheduleViewController: UIViewController {
     }
     
     
+    func checkIfTeacherInFavourites() {
+        if let strongTeacher = teacherFromSegue {
+            if favourites.favouriteTeachersID.contains(Int(strongTeacher.teacherID) ?? 0) {
+                if let image = UIImage(named: "icons8-favourite-filled") {
+                    favouriteButton.setImage(image, for: .normal)
+                    isFavourite = true
+                }
+            }
+        }
+    }
+    
+    
     @IBAction func didPressFavouriteButton(_ sender: UIButton) {
-        guard let strongGroup = groupFromSegue else { return }
-        if isFavourite {
-            if let image = UIImage(named: "icons8-favourite-add") {
-                for i in 0..<favourites.favouriteGroupsID.count {
-                    if strongGroup.groupID == favourites.favouriteGroupsID[i] {
-                        favouriteButton.setImage(image, for: .normal)
-                        _ = favourites.favouriteGroupsNames.remove(at: i)
-                        _ = favourites.favouriteGroupsID.remove(at: i)
-                        isFavourite = false
-                        return
+        if isTeachersShedule {
+            guard let strongTeacher = teacherFromSegue else { return }
+            
+            if isFavourite {
+                if let image = UIImage(named: "icons8-favourite-add") {
+                    
+                    for i in 0..<favourites.favouriteTeachersID.count {
+                        
+                        if Int(strongTeacher.teacherID) ?? 0 == favourites.favouriteTeachersID[i] {
+                            favouriteButton.setImage(image, for: .normal)
+                            _ = favourites.favouriteTeachersNames.remove(at: i)
+                            _ = favourites.favouriteTeachersID.remove(at: i)
+                            isFavourite = false
+                            return
+                        }
                     }
+                }
+            } else {
+                if let image = UIImage(named: "icons8-favourite-filled") {
+                    favouriteButton.setImage(image, for: .normal)
+                    // If teacherName is empty user teacherFullName
+                    let teacherName = strongTeacher.teacherName == "" ? strongTeacher.teacherFullName : strongTeacher.teacherName
+                    favourites.favouriteTeachersNames.append(teacherName)
+                    favourites.favouriteTeachersID.append(Int(strongTeacher.teacherID) ?? 0)
+
+                    isFavourite = true
                 }
             }
         } else {
-            if let image = UIImage(named: "icons8-favourite-filled") {
-                favouriteButton.setImage(image, for: .normal)
-                favourites.favouriteGroupsNames.append(strongGroup.groupFullName)
-                favourites.favouriteGroupsID.append(strongGroup.groupID)
+            guard let strongGroup = groupFromSegue else { return }
+            if isFavourite {
+                if let image = UIImage(named: "icons8-favourite-add") {
+                    for i in 0..<favourites.favouriteGroupsID.count {
+                        if strongGroup.groupID == favourites.favouriteGroupsID[i] {
+                            favouriteButton.setImage(image, for: .normal)
+                            _ = favourites.favouriteGroupsNames.remove(at: i)
+                            _ = favourites.favouriteGroupsID.remove(at: i)
+                            isFavourite = false
+                            return
+                        }
+                    }
+                }
+            } else {
+                if let image = UIImage(named: "icons8-favourite-filled") {
+                    favouriteButton.setImage(image, for: .normal)
+                    favourites.favouriteGroupsNames.append(strongGroup.groupFullName)
+                    favourites.favouriteGroupsID.append(strongGroup.groupID)
 
-                isFavourite = true
+                    isFavourite = true
+                }
             }
         }
     }
@@ -545,10 +729,5 @@ class SheduleViewController: UIViewController {
     
     @objc func reloadAfterOpenApp() {
         makeLessonsShedule()
-        setLargeTitleDisplayMode(.never)
-//        setupNavigation()
-//        DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1)) {
-//            self.setLargeTitleDisplayMode(.always)
-//        }
     }
 }

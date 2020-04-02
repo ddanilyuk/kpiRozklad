@@ -405,9 +405,9 @@ class SettingsTableViewController: UITableViewController {
             sheduleVC.navigationItem.title = Settings.shared.groupName.uppercased()
 
             
-            sheduleVC.navigationController?.navigationBar.prefersLargeTitles = true
-            sheduleVC.navigationItem.largeTitleDisplayMode = .never
-            sheduleVC.navigationController?.navigationItem.largeTitleDisplayMode = .never
+//            sheduleVC.navigationController?.navigationBar.prefersLargeTitles = true
+//            sheduleVC.navigationItem.largeTitleDisplayMode = .never
+//            sheduleVC.navigationController?.navigationItem.largeTitleDisplayMode = .never
 
             this.navigationController?.pushViewController(sheduleVC, animated: true)
             

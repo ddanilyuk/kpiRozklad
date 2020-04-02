@@ -100,7 +100,7 @@ class SheduleDetailViewController: UIViewController {
         
         /// GROUPS
         if lesson.groups?.count == 0 || lesson.groups == nil {
-            getTeacherLessons(dayNumber: lesson.dayNumber, lessonNumber: lesson.lessonNumber, teacherID: teacher.teacherID, lessonWeek: lesson.lessonWeek)
+            getTeacherLessons(dayNumber: lesson.dayNumber, lessonNumber: lesson.lessonNumber, teacherID: teacher.teacherID, lessonWeek: lesson.lessonWeek, lessonId: Int(lesson.lessonID) ?? 0)
             
         } else {
             groupsLabel.text = "Групи: \(getGroupsOfLessonString(lesson: lesson))"
@@ -174,7 +174,7 @@ class SheduleDetailViewController: UIViewController {
      - Parameter lessons: array of lessons from `getTeacherLessons()`  response
      
     */
-    func getGroups(dayNumber: String, lessonNumber: String, teacherID: String, lessonWeek: String, lessons: [Lesson]) {
+    func getGroups(dayNumber: String, lessonNumber: String, teacherID: String, lessonWeek: String, lessons: [Lesson], lessonId: Int) {
         for lesson in lessons {
             if lesson.dayNumber == dayNumber &&
                lesson.lessonNumber == lessonNumber &&
@@ -183,20 +183,32 @@ class SheduleDetailViewController: UIViewController {
                     self.viewWithActivityIndicator.isHidden = true
                     self.groupsLabel.text = "Групи: \(getGroupsOfLessonString(lesson: lesson))"
                 }
+                break
+
+            }
+        }
+        
+        for lesson in lessons {
+            if Int(lesson.lessonID) == lessonId {
+                DispatchQueue.main.async {
+                    self.viewWithActivityIndicator.isHidden = true
+                    self.groupsLabel.text = "Групи: \(getGroupsOfLessonString(lesson: lesson))"
+                }
+                break
             }
         }
     }
     
     
-    private func getTeacherLessons(dayNumber: String, lessonNumber: String, teacherID: String, lessonWeek: String) {
+    private func getTeacherLessons(dayNumber: String, lessonNumber: String, teacherID: String, lessonWeek: String, lessonId: Int) {
         API.getTeacherLessons(forTeacherWithId: Int(teacherID) ?? 0).done({ [weak self] (lessons) in
-            self?.getGroups(dayNumber: dayNumber, lessonNumber: lessonNumber, teacherID: teacherID, lessonWeek: lessonWeek, lessons: lessons)
+            self?.getGroups(dayNumber: dayNumber, lessonNumber: lessonNumber, teacherID: teacherID, lessonWeek: lessonWeek, lessons: lessons, lessonId: lessonId)
         }).catch({ [weak self] (error) in
             guard let this = self else { return }
             
             if error.localizedDescription != NetworkingApiError.lessonsNotFound.localizedDescription {
                 DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .seconds(3)) {
-                    this.getTeacherLessons(dayNumber: dayNumber, lessonNumber: lessonNumber, teacherID: teacherID, lessonWeek: lessonWeek)
+                    this.getTeacherLessons(dayNumber: dayNumber, lessonNumber: lessonNumber, teacherID: teacherID, lessonWeek: lessonWeek, lessonId: lessonId)
                 }
             }
         })

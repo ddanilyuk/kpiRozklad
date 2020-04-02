@@ -146,7 +146,12 @@ class SheduleViewController: UIViewController {
                                DayName.friday.rawValue,
                                DayName.saturday.rawValue]
 
+    ///`isEditInserts` responsible for ensuring that after loading from `viewDidLoad` not to update `tableView.contentInset` to -20
     var isEditInserts: Bool = false
+    
+    /// Variable used in setEditing to store tableView contentHeight before editing
+    var defaultContentInsets: UIEdgeInsets?
+    
     
     // MARK: - viewDidLoad
     override func viewDidLoad() {
@@ -180,6 +185,14 @@ class SheduleViewController: UIViewController {
             self.navigationItem.rightBarButtonItems = [segmentBatButtonItem]
             self.weekSegmentControl.frame = CGRect(x: 0, y: 0, width: 90, height: weekSegmentControl.frame.height)
             
+        } else if isTeachersShedule {
+            /**
+             Setup if this VC  used to show teacher lessons (not main shedule)
+            */
+            self.navigationItem.rightBarButtonItems = [segmentBatButtonItem, favouriteBarButtonItem]
+            self.weekSegmentControl.frame = CGRect(x: 0, y: 0, width: 90, height: weekSegmentControl.frame.height)
+            checkIfTeacherInFavourites()
+
         } else if isFromGroupsAndTeacherOrFavourite {
             /**
              Setup if is view controller presented from  `GroupsAndTeacherVC` or ` FavouriteVC`
@@ -187,14 +200,6 @@ class SheduleViewController: UIViewController {
             self.navigationItem.rightBarButtonItems = [segmentBatButtonItem, favouriteBarButtonItem]
             self.weekSegmentControl.frame = CGRect(x: 0, y: 0, width: 90, height: weekSegmentControl.frame.height)
             checkIfGroupInFavourites()
-
-        } else if isTeachersShedule {
-            
-            self.navigationItem.rightBarButtonItems = [segmentBatButtonItem, favouriteBarButtonItem]
-            self.weekSegmentControl.frame = CGRect(x: 0, y: 0, width: 90, height: weekSegmentControl.frame.height)
-            checkIfTeacherInFavourites()
-            
-            
             
         } else if settings.groupName != "" || settings.teacherName != "" {
             /**
@@ -221,28 +226,20 @@ class SheduleViewController: UIViewController {
         /// If `isNeedToScroll` == true, scroll
         _ = isNeedToScroll ? scrollToCurrentOrNext() : nil
         
+        /// Set `isEditInserts` for `tableView.contentInset`
         isEditInserts = true
     }
     
     
     // MARK: - viewWillAppear
     override func viewWillAppear(_ animated: Bool) {
-//        super.viewWillAppear(true)
+        /**
+         Some about why is -20 in `tableView.contentInset`
+         In IOS 13.4 after changing large title from .never and then to .always (this changing need because scroll view works incorrectly),
+         at bottom of table view appear strange line which is 20px height.
+         And  variable `isEditInserts`,  code in `viewWillAppear` and `viewWillDisappear` fix this problem.
+         */
         tableView.reloadData()
-        
-//        setLargeTitleDisplayMode(.never)
-//        DispatchQueue.main.async {
-////            navigationController?.navigationBar.prefersLargeTitles = true
-//
-//            self.setLargeTitleDisplayMode(.always)
-//
-//            if #available(iOS 13.0, *) {
-//                if !self.isEditInserts {
-//                    self.tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: -20, right: 0)
-//                }
-//                self.isEditInserts = false
-//            }
-//        }
         if isTeachersShedule {
             setLargeTitleDisplayMode(.never)
         } else if !isFromSettingsGetFreshShedule && !isFromGroupsAndTeacherOrFavourite && !isTeachersShedule {
@@ -252,30 +249,39 @@ class SheduleViewController: UIViewController {
         }
         
         if #available(iOS 13.0, *) {
-        
-            if !isEditInserts {
-                self.tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: -20, right: 0)
+            if self.isTeachersShedule || self.isFromGroupsAndTeacherOrFavourite {
+                tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+            } else if !isEditInserts {
+                tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: -20, right: 0)
             }
             isEditInserts = false
         }
         
     }
     
+    
+    // MARK: - viewWillDisappear
     override func viewWillDisappear(_ animated: Bool) {
+        /**
+         If view disappears with small title, set ` setLargeTitleDisplayMode(.never)`
+         And if view disappears with llarge title, set ` setLargeTitleDisplayMode(.always)`
+         */
         if self.navigationController?.navigationBar.frame.size.height ?? 44 > CGFloat(50) {
             setLargeTitleDisplayMode(.always)
         } else {
             if #available(iOS 13.0, *) {
-//                if lessonsForTableView[0].value.count != 0 {
-//                    
-//                }
-                
+                /**
+                 The part of code in `#available(iOS 13.0, *)` is need for update `tableView.contentInset`
+                 if `current` or `next` lesson is not at top `lessonsForTableView`
+                 */
                 let firstLessonValue = lessonsForTableView[0].value.count != 0 ?  Int(lessonsForTableView[0].value[0].lessonID) ?? 0 : -1
                 let next = Int(nextLessonId) ?? 0
-                let current = Int(nextLessonId) ?? 0
+                let current = Int(currentLessonId) ?? 0
 
-                if (next != firstLessonValue) && (current != firstLessonValue) {
-                    self.tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: -20, right: 0)
+                if self.isTeachersShedule || self.isFromGroupsAndTeacherOrFavourite {
+                    tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+                } else if ((next != firstLessonValue) && (current != firstLessonValue)) {
+                    tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: -20, right: 0)
                 }
             }
             setLargeTitleDisplayMode(.never)
@@ -311,7 +317,6 @@ class SheduleViewController: UIViewController {
     
     
     private func setupNavigation() {
-
         self.navigationController?.navigationBar.prefersLargeTitles = false
 
         if isTeachersShedule {
@@ -329,8 +334,6 @@ class SheduleViewController: UIViewController {
         } else {
             setLargeTitleDisplayMode(.never)
         }
-        
-
 //        self.extendedLayoutIncludesOpaqueBars = true
         self.navigationController?.navigationBar.isTranslucent = true
         self.tabBarController?.tabBar.isTranslucent = true
@@ -352,7 +355,9 @@ class SheduleViewController: UIViewController {
     
     
     // MARK: - presentGroupChooser
-    /// Func which present `FirstViewController`
+    /**
+     Funcion which present `FirstViewController`
+    */
     func presentGroupOrTeacherChooser(requestType: SheduleType) {
         if settings.groupName == "" && settings.teacherName == "" {
             
@@ -363,20 +368,18 @@ class SheduleViewController: UIViewController {
             window.rootViewController = greetingVC
             window.makeKeyAndVisible()
             
-            let options: UIView.AnimationOptions = .transitionCrossDissolve
             greetingVC.modalTransitionStyle = .crossDissolve
 
-            // The duration of the transition animation, measured in seconds.
-            let duration: TimeInterval = 0.4
-
-            UIView.transition(with: window, duration: duration, options: options, animations: {}, completion:
+            UIView.transition(with: window, duration: 0.4, options: .transitionCrossDissolve, animations: {}, completion:
                 { completed in })
         }
     }
     
     
     // MARK: - presentAddLesson
-    /// Func which present `AddLessonViewController`
+    /**
+     Funcion which present `AddLessonViewController`
+     */
     func presentAddLesson() {
         guard let addLesson: AddLessonViewController = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: AddLessonViewController.identifier) as? AddLessonViewController else { return }
         
@@ -391,6 +394,10 @@ class SheduleViewController: UIViewController {
     }
     
     
+    // MARK: - scrollToCurrentOrNext
+    /**
+     Function which scroll to current or next if `isNeedToScroll`
+     */
     private func scrollToCurrentOrNext() {
         var indexPathToScroll = IndexPath(row: 0, section: 0)
 
@@ -410,61 +417,45 @@ class SheduleViewController: UIViewController {
         
         /// (self.tableView != nil)  because if when we push information from another VC tableView can be not exist
         if self.tableView != nil {
+            self.isNeedToScroll = false
+
             DispatchQueue.main.async {
                 if self.lessonsForTableView[indexPathToScroll.section].value.count > indexPathToScroll.row {
-                    self.isNeedToScroll = false
-//                    self.tableView.beginUpdates()
-                    if indexPathToScroll.section == 0 && indexPathToScroll.row == 0 {
+                    let window = UIApplication.shared.keyWindow
+                    
+                    let сontentHeight = self.tableView.contentSize.height - self.tableView.contentOffset.y
+                    let safeAreaHeight = screenHeight - (window?.safeAreaInsets.top ?? 0) - (window?.safeAreaInsets.bottom ?? 0)
+
+                    /// if `current` or `next` lesson is at top `lessonsForTableView`
+                    if (indexPathToScroll.section == 0 && indexPathToScroll.row == 0) || (сontentHeight < safeAreaHeight) {
                         self.navigationController?.navigationBar.prefersLargeTitles = true
                     } else {
-//                        self.tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: -20, right: 0)
                         self.navigationController?.navigationBar.prefersLargeTitles = false
                     }
-//                    self.tableView.insetsContentViewsToSafeArea = false
-//                    let value = (self.navigationController?.navigationBar.frame.size.height ?? 0.0) - 30
 
                     self.tableView.scrollToRow(at: indexPathToScroll, at: .top, animated: true)
                     
-                    self.navigationController?.navigationBar.prefersLargeTitles = true
-//                    self.setLargeTitleDisplayMode(.always)
-                    
+                    if !self.isFromGroupsAndTeacherOrFavourite && !self.isFromSettingsGetFreshShedule {
+                        self.navigationController?.navigationBar.prefersLargeTitles = true
+                    }
+                    /**
+                     In IOS 13.4 after changing large title from .never and then to .always (this changing need because scroll view works incorrectly),
+                     at bottom of table view appear strange line which is 20px height. This is how i fix it.
+                     */
                     if #available(iOS 13.0, *) {
-                        if indexPathToScroll.section == 0 && indexPathToScroll.row == 0 {
+                        if (indexPathToScroll.section == 0 && indexPathToScroll.row == 0) && self.isFromSettingsGetFreshShedule {
+                            self.tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: -20, right: 0)
+                        } else if (indexPathToScroll.section == 0 && indexPathToScroll.row == 0) || self.isTeachersShedule || self.isFromGroupsAndTeacherOrFavourite {
                             self.tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
                         } else {
                             self.tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: -20, right: 0)
                         }
                     }
-                    
-//                    DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(1)) {
-//                        self.navigationController?.navigationBar.prefersLargeTitles = true
-//                        self.tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0);
-//                    }
-
-                    
-
-//                    self.tableView.endUpdates()
                 }
             }
-//            if self.lessonsForTableView[indexPathToScroll.section].value.count > indexPathToScroll.row {
-//                if indexPathToScroll.section == 0 && indexPathToScroll.row == 0 {
-//                    self.navigationController?.navigationBar.prefersLargeTitles = true
-//                } else {
-//                    self.navigationController?.navigationBar.prefersLargeTitles = false
-//                }
-////                    self.tableView.insetsContentViewsToSafeArea = false
-////                    let value = (self.navigationController?.navigationBar.frame.size.height ?? 0.0) - 30
-////                    self.tableView.contentInset = UIEdgeInsets(top: (-1 * 44), left: 0, bottom: 0, right: 0);
-////                self.tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0);
-//
-//                self.tableView.scrollToRow(at: indexPathToScroll, at: .top, animated: true)
-//
-//                self.navigationController?.navigationBar.prefersLargeTitles = true
-////                self.tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0);
-//
-//            }
             
         }
+        
     }
     
     
@@ -478,7 +469,6 @@ class SheduleViewController: UIViewController {
         var lessons: [Lesson] = []
         
         /// When the program is reopen, you need to update the time and the current and next lesson
-        
         if (isFromSettingsGetFreshShedule || isFromGroupsAndTeacherOrFavourite ||  isTeachersShedule) {
             lessons = lessonsFromSegue
         } else {
@@ -609,7 +599,9 @@ class SheduleViewController: UIViewController {
     
     
     // MARK:- weekChanged
-    /// Function that calls when the user tap on segment conrol to change current week
+    /**
+     Function that calls when the user tap on segment conrol to change current week
+     */
     @IBAction func weekChanged(_ sender: UISegmentedControl) {
         switch weekSegmentControl.selectedSegmentIndex {
             case 0:
@@ -627,6 +619,7 @@ class SheduleViewController: UIViewController {
     
     
     // MARK: - Favourites
+    
     func checkIfGroupInFavourites() {
         if let strongGroup = groupFromSegue {
             if favourites.favouriteGroupsID.contains(strongGroup.groupID) {
@@ -650,58 +643,79 @@ class SheduleViewController: UIViewController {
         }
     }
     
+//    func didPress() {
+//        var idToFindOrAdd: Int = 0
+//        var nameToFindOrAdd: String = ""
+//
+//        if isTeachersShedule {
+//            guard let strongTeacher = teacherFromSegue else { return }
+//            idToFindOrAdd = Int(strongTeacher.teacherID) ?? 0
+//            nameToFindOrAdd = strongTeacher.teacherName == "" ? strongTeacher.teacherFullName : strongTeacher.teacherName
+//        } else {
+//            guard let strongGroup = groupFromSegue else { return }
+//            idToFindOrAdd = Int(strongGroup.groupID)
+//            nameToFindOrAdd = strongGroup.groupFullName
+//        }
+//
+//        if isFavourite {
+//            if let image = UIImage(named: "icons8-favourite-add") {
+//                let favouritesID = isTeachersShedule ? favourites.favouriteTeachersID : favourites.favouriteGroupsID
+//
+//                for i in 0..<favouritesID.count {
+//                    if idToFindOrAdd == favouritesID[i] {
+//                        favouriteButton.setImage(image, for: .normal)
+//                        _ = isTeachersShedule ? favourites.favouriteTeachersNames.remove(at: i) : favourites.favouriteGroupsNames.remove(at: i)
+//                        _ = isTeachersShedule ? favourites.favouriteTeachersID.remove(at: i) : favourites.favouriteGroupsID.remove(at: i)
+//                        isFavourite = false
+//                        return
+//                    }
+//                }
+//            }
+//        } else {
+//            if let image = UIImage(named: "icons8-favourite-filled") {
+//                favouriteButton.setImage(image, for: .normal)
+//                _ = isTeachersShedule ? favourites.favouriteTeachersNames.append(nameToFindOrAdd) : favourites.favouriteGroupsNames.append(nameToFindOrAdd)
+//                _ = isTeachersShedule ? favourites.favouriteTeachersID.append(idToFindOrAdd) : favourites.favouriteGroupsID.append(idToFindOrAdd)
+//                isFavourite = true
+//            }
+//        }
+//    }
+    
     
     @IBAction func didPressFavouriteButton(_ sender: UIButton) {
+        var idToFindOrAdd: Int = 0
+        var nameToFindOrAdd: String = ""
+        
         if isTeachersShedule {
             guard let strongTeacher = teacherFromSegue else { return }
-            
-            if isFavourite {
-                if let image = UIImage(named: "icons8-favourite-add") {
-                    
-                    for i in 0..<favourites.favouriteTeachersID.count {
-                        
-                        if Int(strongTeacher.teacherID) ?? 0 == favourites.favouriteTeachersID[i] {
-                            favouriteButton.setImage(image, for: .normal)
-                            _ = favourites.favouriteTeachersNames.remove(at: i)
-                            _ = favourites.favouriteTeachersID.remove(at: i)
-                            isFavourite = false
-                            return
-                        }
+            idToFindOrAdd = Int(strongTeacher.teacherID) ?? 0
+            nameToFindOrAdd = strongTeacher.teacherName == "" ? strongTeacher.teacherFullName : strongTeacher.teacherName
+        } else {
+            guard let strongGroup = groupFromSegue else { return }
+            idToFindOrAdd = Int(strongGroup.groupID)
+            nameToFindOrAdd = strongGroup.groupFullName
+        }
+        
+        if isFavourite {
+            if let image = UIImage(named: "icons8-favourite-add") {
+                let favouritesID = isTeachersShedule ? favourites.favouriteTeachersID : favourites.favouriteGroupsID
+                
+                for i in 0..<favouritesID.count {
+                    if idToFindOrAdd == favouritesID[i] {
+                        favouriteButton.setImage(image, for: .normal)
+                        _ = isTeachersShedule ? favourites.favouriteTeachersNames.remove(at: i) : favourites.favouriteGroupsNames.remove(at: i)
+                        _ = isTeachersShedule ? favourites.favouriteTeachersID.remove(at: i) : favourites.favouriteGroupsID.remove(at: i)
+                        isFavourite = false
+                        return
                     }
-                }
-            } else {
-                if let image = UIImage(named: "icons8-favourite-filled") {
-                    favouriteButton.setImage(image, for: .normal)
-                    // If teacherName is empty user teacherFullName
-                    let teacherName = strongTeacher.teacherName == "" ? strongTeacher.teacherFullName : strongTeacher.teacherName
-                    favourites.favouriteTeachersNames.append(teacherName)
-                    favourites.favouriteTeachersID.append(Int(strongTeacher.teacherID) ?? 0)
-
-                    isFavourite = true
                 }
             }
         } else {
-            guard let strongGroup = groupFromSegue else { return }
-            if isFavourite {
-                if let image = UIImage(named: "icons8-favourite-add") {
-                    for i in 0..<favourites.favouriteGroupsID.count {
-                        if strongGroup.groupID == favourites.favouriteGroupsID[i] {
-                            favouriteButton.setImage(image, for: .normal)
-                            _ = favourites.favouriteGroupsNames.remove(at: i)
-                            _ = favourites.favouriteGroupsID.remove(at: i)
-                            isFavourite = false
-                            return
-                        }
-                    }
-                }
-            } else {
-                if let image = UIImage(named: "icons8-favourite-filled") {
-                    favouriteButton.setImage(image, for: .normal)
-                    favourites.favouriteGroupsNames.append(strongGroup.groupFullName)
-                    favourites.favouriteGroupsID.append(strongGroup.groupID)
-
-                    isFavourite = true
-                }
+            if let image = UIImage(named: "icons8-favourite-filled") {
+                favouriteButton.setImage(image, for: .normal)
+                _ = isTeachersShedule ? favourites.favouriteTeachersNames.append(nameToFindOrAdd) : favourites.favouriteGroupsNames.append(nameToFindOrAdd)
+                _ = isTeachersShedule ? favourites.favouriteTeachersID.append(idToFindOrAdd) : favourites.favouriteGroupsID.append(idToFindOrAdd)
+                isFavourite = true
             }
         }
     }

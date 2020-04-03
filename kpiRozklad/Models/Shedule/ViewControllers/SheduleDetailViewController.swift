@@ -74,6 +74,7 @@ class SheduleDetailViewController: UIViewController {
         guard let teacher = lesson.teachers?.count != 0 ? lesson.teachers?[0] : nil else {
             checkTeacherShedule.isHidden = true
             groupsLabel.isHidden = true
+            viewWithActivityIndicator.isHidden = true
             deleteFromStackView([teacherLabel, teacherRatingLabel, roomTypeLabel])
             return
         }

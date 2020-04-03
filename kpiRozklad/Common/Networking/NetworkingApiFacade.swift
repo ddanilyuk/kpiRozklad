@@ -17,12 +17,6 @@ struct NetworkingApiFacade {
         self.apiService = apiService
     }
     
-//    enum Handler<T> {
-//        case failure(Error)
-//        case success(T)
-//    }
-
-    
     func getStudentLessons(forGroupWithId groupId: Int) -> Promise<[Lesson]> {
         return apiService.getStudentLessons(groupId: groupId).map({ (response) -> [Lesson] in
             return response.data
@@ -52,6 +46,4 @@ struct NetworkingApiFacade {
             return response.data
         })
     }
-
-    
 }

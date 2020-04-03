@@ -8,6 +8,7 @@
 
 import Foundation
 
+
 enum NetworkingApiError: LocalizedError {
     // Data
     case noDataReturned

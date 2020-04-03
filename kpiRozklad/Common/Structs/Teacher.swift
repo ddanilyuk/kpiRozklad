@@ -8,12 +8,6 @@
 
 import Foundation
 
-// This file was generated from JSON Schema using quicktype, do not modify it directly.
-// To parse the JSON, add this file to your project and do:
-//
-//   let teachers = try? newJSONDecoder().decode(Teachers.self, from: jsonData)
-
-import Foundation
 
 // MARK: - Teachers
 struct WelcomeTeachers: Codable {
@@ -50,4 +44,3 @@ struct Meta: Codable {
         case offset, limit
     }
 }
-

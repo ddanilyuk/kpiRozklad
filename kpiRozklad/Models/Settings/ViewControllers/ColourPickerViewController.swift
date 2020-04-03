@@ -15,134 +15,51 @@ import UIKit
 
 class ColourPickerViewController: UIViewController {
 
+    /// Main picker
     @IBOutlet weak var colorPickerView: ColorPickerView!
+    
+    /// Main table view
     @IBOutlet weak var tableView: UITableView!
+    
+    /// Segment contoll which change current or next colour
     @IBOutlet weak var segmentControl: UISegmentedControl!
     
+    /// Choosed colour of next cell
     var newCellNextColour: UIColor?
+    
+    /// Choosed colour of current cell
     var newCellCurrentColour: UIColor?
     
+    /// Variable from `SettingTVC` (to set  default colour of `colorPickerView` )
     var defaultColour: UIColor?
+    
+    /// Settings singleton
     let settings = Settings.shared
     
+    
+    // MARK: - viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         setupButton()
-        setupNavigation()
+        
         setupColourPickerView()
+        
         setupTableView()
+        
         setupSegmetControll()
+        
         setLargeTitleDisplayMode(.never)
-
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-    }
-//    override func viewWillDisappear(_ animated: Bool) {
-//        super.viewWillDisappear(animated)
-//
-//
-//
-//        if self.isMovingFromParent {
-//            // Your code...
-//            let alert = UIAlertController(title: nil, message: "Застосувати зміни?", preferredStyle: .actionSheet)
-//
-//            alert.addAction(UIAlertAction(title: "Так", style: .default, handler: { (_) in
-//
-//                self.settings.cellNextColour = self.newCellNextColour ?? self.settings.cellNextColour
-//                self.settings.cellCurrentColour = self.newCellCurrentColour ?? self.settings.cellCurrentColour
-//
-//            }))
-//
-//            alert.addAction(UIAlertAction(title: "Вийти", style: .default, handler: { (_) in
-//
-//                self.navigationController?.popViewController(animated: true)
-//            }))
-//
-//            if (settings.cellNextColour != newCellNextColour ?? self.settings.cellNextColour) || (settings.cellCurrentColour != newCellCurrentColour ?? self.settings.cellCurrentColour) {
-//                self.present(alert, animated: true, completion: {
-//                })
-//            }
-//        }
-//    }
     
-//    override func didMove(toParent parent: UIViewController?) {
-//        super.didMove(toParent: parent)
-//
-//        if parent == nil {
-//            let alert = UIAlertController(title: nil, message: "Застосувати зміни?", preferredStyle: .actionSheet)
-//
-//            alert.addAction(UIAlertAction(title: "Так", style: .default, handler: { (_) in
-//
-//                self.settings.cellNextColour = self.newCellNextColour ?? self.settings.cellNextColour
-//                self.settings.cellCurrentColour = self.newCellCurrentColour ?? self.settings.cellCurrentColour
-//
-//            }))
-//
-//            alert.addAction(UIAlertAction(title: "Вийти", style: .default, handler: { (_) in
-//
-//                self.navigationController?.popViewController(animated: true)
-//            }))
-//
-//            if (settings.cellNextColour != newCellNextColour ?? self.settings.cellNextColour) || (settings.cellCurrentColour != newCellCurrentColour ?? self.settings.cellCurrentColour) {
-//
-//                parent?.present(alert, animated: true, completion: {
-//                })
-//            }
-//        }
-//    }
-    
-//    override func viewWillDisappear(_ animated: Bool) {
-//
-//
-//
-//        let alert = UIAlertController(title: nil, message: "Застосувати зміни?", preferredStyle: .actionSheet)
-//
-//        alert.addAction(UIAlertAction(title: "Так", style: .default, handler: { (_) in
-//
-//            self.settings.cellNextColour = self.newCellNextColour ?? self.settings.cellNextColour
-//            self.settings.cellCurrentColour = self.newCellCurrentColour ?? self.settings.cellCurrentColour
-//
-//        }))
-//
-//        alert.addAction(UIAlertAction(title: "Вийти", style: .default, handler: { (_) in
-//
-//            self.navigationController?.popViewController(animated: true)
-//        }))
-//
-//        if (settings.cellNextColour != newCellNextColour ?? self.settings.cellNextColour) || (settings.cellCurrentColour != newCellCurrentColour ?? self.settings.cellCurrentColour) {
-//            self.present(alert, animated: true, completion: {
-//            })
-//        }
-//
-//    }
-    
-//    override func viewDidDisappear(_ animated: Bool) {
-//        let alert = UIAlertController(title: nil, message: "Застосувати зміни?", preferredStyle: .actionSheet)
-//
-//        alert.addAction(UIAlertAction(title: "Так", style: .default, handler: { (_) in
-//
-//            self.settings.cellNextColour = self.newCellNextColour ?? self.settings.cellNextColour
-//            self.settings.cellCurrentColour = self.newCellCurrentColour ?? self.settings.cellCurrentColour
-//
-//        }))
-//
-//        alert.addAction(UIAlertAction(title: "Вийти", style: .default, handler: { (_) in
-//        }))
-//
-//        if (settings.cellNextColour != newCellNextColour ?? self.settings.cellNextColour) || (settings.cellCurrentColour != newCellCurrentColour ?? self.settings.cellCurrentColour) {
-//            self.present(alert, animated: true, completion: {
-//            })
-//        }
-//    }
-    
-    
-    private func setupNavigation() {
-//        self.navigationController?.navigationBar.prefersLargeTitles = true
-//        self.navigationItem.largeTitleDisplayMode = .never
-//        self.navigationController?.navigationItem.largeTitleDisplayMode = .never
+    // MARK: - viewDidAppear
+    override func viewDidAppear(_ animated: Bool) {
+        selectDefaultColour(cellType: .currentCell)
     }
     
+    
+    // MARK: - SETUP functions
     
     private func setupSegmetControll() {
         let titleTextAttributesSelected = [NSAttributedString.Key.foregroundColor: UIColor.white]
@@ -152,14 +69,15 @@ class ColourPickerViewController: UIViewController {
         segmentControl.setTitleTextAttributes(titleTextAttributesSelected, for: .selected)
     }
     
+    
     private func setupColourPickerView() {
         colorPickerView.delegate = self
         colorPickerView.layoutDelegate = self
         colorPickerView.isSelectedColorTappable = false
-//        colorPickerView.isSelectedColorTappable = true
         colorPickerView.selectionStyle = .check
         colorPickerView.layoutSubviews()
     }
+    
     
     private func setupTableView() {
         self.tableView.register(UINib(nibName: LessonTableViewCell.identifier, bundle: Bundle.main), forCellReuseIdentifier: LessonTableViewCell.identifier)
@@ -168,11 +86,15 @@ class ColourPickerViewController: UIViewController {
         self.tableView.isScrollEnabled = false
     }
     
+    
     func setupButton() {
         let button = UIBarButtonItem(title: "Зберегти", style: .plain, target: self, action: #selector(show(sender:)))
         navigationItem.rightBarButtonItem = button
     }
     
+    /**
+     Function which call when user tap to save colour
+     */
     @objc func show(sender: UIBarButtonItem) {
         
         let alert = UIAlertController(title: nil, message: "Змінити колір поточної та наступної пари?", preferredStyle: .actionSheet)
@@ -192,12 +114,9 @@ class ColourPickerViewController: UIViewController {
         })
     }
     
-    
-    override func viewDidAppear(_ animated: Bool) {
-        selectDefaultColour(cellType: .currentCell)
-    }
-    
-    
+    /**
+     Segment controll changed
+     */
     @IBAction func didChangeCellType(_ sender: UISegmentedControl) {
         switch segmentControl.selectedSegmentIndex {
         case 0:
@@ -209,18 +128,22 @@ class ColourPickerViewController: UIViewController {
         }
     }
     
-    
+    /**
+     Show the  default color in `colorPickerView`
+     */
     func selectDefaultColour(cellType: SheduleCellType) {
         let index = findIndexOfDefaultСolour(cellType: cellType)
 
         if colorPickerView.indexOfSelectedColor != index {
             colorPickerView.selectColor(at: index, animated: true)
             colorPickerView.preselectedIndex = index
-//            colorPickerView.layoutSubviews()
         }
     }
     
     
+    /**
+     Find index of user current or next colour
+     */
     func findIndexOfDefaultСolour(cellType: SheduleCellType) -> Int {
         var colourToFind = UIColor.clear
         
@@ -234,36 +157,20 @@ class ColourPickerViewController: UIViewController {
         for i in 0..<colorPickerView.colors.count {
             let colour = colorPickerView.colors[i]
             
-//            print(colour.redValue, colourToFind.redValue)
-//            print(colour.greenValue, colourToFind.greenValue)
-//            print("colour", colour.cgColor.components?.description)
-//            print("colourToFind", colourToFind.cgColor.components?.description)
-//            print(colour.cgColor.components?.description == colourToFind.cgColor.components?.description)
-//            print("***")
-
             if colour == colourToFind {
                 index = i
                 return index
             }
         }
         return index
-
     }
-    
-
-    
-
 }
+
 
 // MARK: - ColorPickerViewDelegate
 extension ColourPickerViewController: ColorPickerViewDelegate {
 
     func colorPickerView(_ colorPickerView: ColorPickerView, didSelectItemAt indexPath: IndexPath) {
-        // A color has been selected
-//        tableView.backgroundColor = colorPickerView.colors[indexPath.row]
-//        colorPickerView.reloadInputViews()
-//        colorPickerView.layoutSubviews()
-        
         if let cell = self.tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as? LessonTableViewCell {
             let backgroundColour: UIColor = colorPickerView.colors[indexPath.row]
             
@@ -288,28 +195,26 @@ extension ColourPickerViewController: ColorPickerViewDelegate {
             tableView.reloadData()
         }
     }
-    
-    
-
-//      // This is an optional method
-//      func colorPickerView(_ colorPickerView: ColorPickerView, didDeselectItemAt indexPath: IndexPath) {
-//
-//      }
-
 }
  
+
+// MARK: - ColorPickerViewDelegateFlowLayout
 extension ColourPickerViewController: ColorPickerViewDelegateFlowLayout {
+    
     func colorPickerView(_ colorPickerView: ColorPickerView, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-//        return (screenWidth - 8)
         return 20
     }
+    
+    
     func colorPickerView(_ colorPickerView: ColorPickerView, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
         return 20
     }
 }
 
 
+// MARK: - UITableViewDelegate + DataSource
 extension ColourPickerViewController: UITableViewDelegate, UITableViewDataSource {
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 1
     }
@@ -348,16 +253,18 @@ extension ColourPickerViewController: UITableViewDelegate, UITableViewDataSource
         return cell
     }
     
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
     }
+    
+    
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         return false
     }
+    
+    
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 68
     }
-    
-    
-    
 }

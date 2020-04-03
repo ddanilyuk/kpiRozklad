@@ -13,19 +13,24 @@ import NotificationCenter
 
 
 class TodayViewController: UIViewController, NCWidgetProviding {
-    @IBOutlet weak var tableView: UITableView!
-    var lessons: [Lesson] = []
-    var lessonsForTableView: [(key: DayName, value: [Lesson])] = []
     
-    var currentWeekFromTodayDate = 1
+    /// Main table view
+    @IBOutlet weak var tableView: UITableView!
+    
+    /// Array with lessons used for CoreData
+    var lessons: [Lesson] = []
     
     /**
-        Current  week which user chosed
-        - Remark:
-            Changed   in `weekChanged()`
-            Set  up in `setUpCurrentWeek()`
+     The **main** variable by which the table view is updated
+    */
+    var lessonsForTableView: [(key: DayName, value: [Lesson])] = []
+    
+    /**
+     Сurrent week which is obtained from the date on the device
+     - Remark:
+        Set  up in `setupDate()`
      */
-//    var currentWeek = 1
+    var currentWeekFromTodayDate = 1
     
     /// Week of year from date on the device
     var weekOfYear = 0
@@ -36,24 +41,26 @@ class TodayViewController: UIViewController, NCWidgetProviding {
     /// Time is Now from device
     var timeIsNowString = String()
     
-    /// Lesson ID of **current** Lesson
-    ///- Remark:
-    ///     Set  up in `getCurrentAndNextLesson(lessons: [Lesson])`
+    /**
+     Lesson ID of **current** Lesson
+     - Remark:
+        Updated in `makeLessonShedule()` but makes in `getCurrentAndNextLesson(lessons: [Lesson])`
+     */
     var currentLessonId = String()
     
-    /// Lesson ID of **next** Lesson
-    ///- Remark:
-    ///     Set  up in `getCurrentAndNextLesson(lessons: [Lesson])`
+    /**
+     Lesson ID of **next** Lesson
+     - Remark:
+        Updated in `makeLessonShedule()` but makes in `getCurrentAndNextLesson(lessons: [Lesson])`
+     */
     var nextLessonId = String()
-    
-    /// Colour of next lesson
-    let colour1 = #colorLiteral(red: 0.1764705926, green: 0.4980392158, blue: 0.7568627596, alpha: 0.748046875)
     
     var countDeleteLessons = 0
     
     var isLessonsEnd: Bool = false
 
-    
+
+    // MARK: - viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
         self.extensionContext?.widgetLargestAvailableDisplayMode = .expanded
@@ -63,39 +70,13 @@ class TodayViewController: UIViewController, NCWidgetProviding {
         setupHeight()
     }
         
-    override func viewWillAppear(_ animated: Bool) {
-//        makeLessonsShedule()
-//        setupHeight()
-    }
     
+    // MARK: - SETUP functions
+
     func setupHeight() {
         if dayNumberFromCurrentDate != 7 {
             let height = lessonsForTableView[dayNumberFromCurrentDate - 1].value.count * 68
             self.preferredContentSize = CGSize(width: self.view.frame.size.width, height: CGFloat(height))
-        }
-    }
-    
-    func widgetPerformUpdate(completionHandler: (@escaping (NCUpdateResult) -> Void)) {
-        // Perform any setup necessary in order to update the view.
-        
-        // If an error is encountered, use NCUpdateResult.Failed
-        // If there's no update required, use NCUpdateResult.NoData
-        // If there's an update, use NCUpdateResult.NewData
-        
-        completionHandler(NCUpdateResult.newData)
-    }
-    
-    func widgetActiveDisplayModeDidChange(_ activeDisplayMode: NCWidgetDisplayMode, withMaximumSize maxSize: CGSize) {
-        if activeDisplayMode == .compact {
-            self.preferredContentSize = CGSize(width: maxSize.width, height: maxSize.height)
-        } else if activeDisplayMode == .expanded {
-            if dayNumberFromCurrentDate != 7 {
-                var height = lessonsForTableView[dayNumberFromCurrentDate - 1].value.count * 68
-                if height == 0 {
-                    height = 110
-                }
-                self.preferredContentSize = CGSize(width: maxSize.width, height: CGFloat(height))
-            }
         }
     }
     
@@ -119,51 +100,57 @@ class TodayViewController: UIViewController, NCWidgetProviding {
     }
     
     
-    // MARK: - Core Data stack
+    // MARK: - widget functions
+    
+    func widgetPerformUpdate(completionHandler: (@escaping (NCUpdateResult) -> Void)) {
+        completionHandler(NCUpdateResult.newData)
+    }
+    
+    
+    func widgetActiveDisplayModeDidChange(_ activeDisplayMode: NCWidgetDisplayMode, withMaximumSize maxSize: CGSize) {
+        if activeDisplayMode == .compact {
+            self.preferredContentSize = CGSize(width: maxSize.width, height: maxSize.height)
+        } else if activeDisplayMode == .expanded {
+            if dayNumberFromCurrentDate != 7 {
+                var height = lessonsForTableView[dayNumberFromCurrentDate - 1].value.count * 68
+                if height == 0 {
+                    height = 110
+                }
+                self.preferredContentSize = CGSize(width: maxSize.width, height: CGFloat(height))
+            }
+        }
+    }
+    
+    
+    // MARK: - Core Data functions
+    
     lazy var persistentContainer: NSPersistentContainer = {
-        /*
-         The persistent container for the application. This implementation
-         creates and returns a container, having loaded the store for the
-         application to it. This property is optional since there are legitimate
-         error conditions that could cause the creation of the store to fail.
-         */
         let container = NSCustomPersistentContainer(name: "kpiRozklad")
         
         container.loadPersistentStores(completionHandler: { (storeDescription, error) in
             if let error = error as NSError? {
-                // Replace this implementation with code to handle the error appropriately.
-                // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-                
-                /*
-                 Typical reasons for an error here include:
-                 * The parent directory does not exist, cannot be created, or disallows writing.
-                 * The persistent store is not accessible, due to permissions or data protection when the device is locked.
-                 * The device is out of space.
-                 * The store could not be migrated to the current model version.
-                 Check the error message to determine what the actual problem was.
-                 */
+
                 fatalError("Unresolved error \(error), \(error.userInfo)")
             }
         })
         return container
     }()
 
-    // MARK: - Core Data Saving support
-
+    
     func saveContext () {
         let context = persistentContainer.viewContext
         if context.hasChanges {
             do {
                 try context.save()
             } catch {
-                // Replace this implementation with code to handle the error appropriately.
-                // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
                 let nserror = error as NSError
                 fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
             }
         }
     }
-    func fetchingCoreDataV2() -> [Lesson] {
+    
+    
+    func fetchingCoreData() -> [Lesson] {
 
         let managedContext = self.persistentContainer.viewContext
 
@@ -250,100 +237,14 @@ class TodayViewController: UIViewController, NCWidgetProviding {
         return lessonsArray
     }
 
-//    func fetchingCoreData() -> [Lesson] {
-//        /// Core data request
-//
-//        let managedContext = self.persistentContainer.viewContext
-//
-//        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "LessonData")
-//
-//        var lessons: [Lesson] = []
-//
-//        /// Getting all data from Core Data to [Lesson] struct
-//        do {
-//            let lessonsCoreData = try managedContext.fetch(fetchRequest)
-//            lessons = []
-//
-//            for lesson in lessonsCoreData {
-//
-//                guard let lessonID = lesson.value(forKey: "lessonID") as? String,
-//                    let groupID = lesson.value(forKey: "groupID") as? String,
-//                    let dayNumber = lesson.value(forKey: "dayNumber") as? String,
-//                    let dayName = lesson.value(forKey: "dayName") as? String,
-//                    let lessonType = lesson.value(forKey: "lessonType") as? String,
-//                    let lessonName = lesson.value(forKey: "lessonName") as? String,
-//                    let lessonFullName = lesson.value(forKey: "lessonFullName") as? String,
-//                    let lessonNumber = lesson.value(forKey: "lessonNumber") as? String,
-//                    let lessonRoom = lesson.value(forKey: "lessonRoom") as? String,
-//                    let teacherName = lesson.value(forKey: "teacherName") as? String,
-//                    let lessonWeek = lesson.value(forKey: "lessonWeek") as? String,
-//                    let timeStart = lesson.value(forKey: "timeStart") as? String,
-//                    let timeEnd = lesson.value(forKey: "timeEnd") as? String,
-//                    let rate = lesson.value(forKey: "rate") as? String else { return [] }
-//
-//                /// Add data to enum  (maybe can changed)
-//                let dayNameCoreData = DayName(rawValue: dayName) ?? DayName.mounday
-//                let lessonTypeCoreData = LessonType(rawValue: lessonType) ?? LessonType.empty
-//
-//
-//                /// Array of teacher which added to  variable `lesson` and then added to main variable `lessons`
-//                var teachers: [Teacher] = []
-//
-//                /// Trying to fetch all Teacher Data from TeacherData entity in teachersRelationship
-//                if let teacherData = lesson.value(forKey: "teachersRelationship") as? TeachersData {
-//
-//                    guard let teacherId = teacherData.teacherID,
-//                        let teacherShortName = teacherData.teacherShortName,
-//                        let teacherFullName = teacherData.teacherFullName,
-//                        let teacherURL = teacherData.teacherURL,
-//                        let teacherRating = teacherData.teacherRating else { return []}
-//
-//                    let teacher = Teacher(teacherID: teacherId, teacherName: teacherName, teacherFullName: teacherFullName, teacherShortName: teacherShortName, teacherURL: teacherURL, teacherRating: teacherRating)
-//
-//                    teachers.append(teacher)
-//                }
-//
-//
-//                /// Array of rooms which added to  variable `lesson` and then added to main variable `lessons`
-//                var rooms: [Room] = []
-//
-//                if let roomData = lesson.value(forKey: "roomsRelationship") as? RoomsData {
-//
-//                    guard let roomID = roomData.roomID,
-//                        let roomName = roomData.roomName,
-//                        let roomLatitude = roomData.roomLatitude,
-//                        let roomLongitude = roomData.roomLongitude else { return []}
-//
-//                    let room = Room(roomID: roomID, roomName: roomName, roomLatitude: roomLatitude, roomLongitude: roomLongitude)
-//
-//                    rooms.append(room)
-//                }
-//
-//                /// Creating `Lesson`
-//                let lesson = Lesson(lessonID: lessonID, dayNumber: dayNumber, groupID: groupID,
-//                                   dayName: dayNameCoreData, lessonName: lessonName, lessonFullName: lessonFullName,
-//                                   lessonNumber: lessonNumber, lessonRoom: lessonRoom, lessonType: lessonTypeCoreData,
-//                                   teacherName: teacherName, lessonWeek: lessonWeek, timeStart: timeStart,
-//                                   timeEnd: timeEnd, rate: rate, teachers: teachers, rooms: rooms, groups: [])
-//
-//                lessons.append(lesson)
-//            }
-//
-//        } catch let error as NSError {
-//            print("Could not fetch. \(error), \(error.userInfo)")
-//        }
-//        return lessons
-//    }
     
     func makeLessonsShedule() {
         /// fetching Core Data
-        var lessons: [Lesson] = []
-        lessons = fetchingCoreDataV2()
-        setupDate()
-        let currentAndNext = getCurrentAndNextLesson(lessons: lessons, timeIsNowString: timeIsNowString, dayNumberFromCurrentDate: dayNumberFromCurrentDate, currentWeekFromTodayDate: currentWeekFromTodayDate)
+        let lessons: [Lesson] = fetchingCoreData()
         
-        currentLessonId = currentAndNext.currentLessonID
-        nextLessonId = currentAndNext.nextLessonID
+        setupDate()
+        (nextLessonId, currentLessonId) = getCurrentAndNextLesson(lessons: lessons, timeIsNowString: timeIsNowString, dayNumberFromCurrentDate: dayNumberFromCurrentDate, currentWeekFromTodayDate: currentWeekFromTodayDate)
+
 
         /// Getting lesson for first week and second
         var lessonsFirst: [Lesson] = []
@@ -426,6 +327,8 @@ class TodayViewController: UIViewController, NCWidgetProviding {
 
 }
 
+
+// MARK: - UITableViewDelegate + DataSource
 extension TodayViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if isLessonsEnd {
@@ -466,6 +369,7 @@ extension TodayViewController: UITableViewDataSource, UITableViewDelegate {
         tableView.deselectRow(at: indexPath, animated: true)
     }
     
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: LessonTableViewCell.identifier, for: indexPath) as? LessonTableViewCell else { return UITableViewCell() }
         
@@ -496,17 +400,13 @@ extension TodayViewController: UITableViewDataSource, UITableViewDelegate {
             cell.teacherLabel.text = " "
         }
 
-//        let vc = SheduleViewController()
         
         if currentLessonId == lessonsForSomeDay[indexPath.row].lessonID {
-//            cell.backgroundColor = #colorLiteral(red: 1, green: 0.5781051517, blue: 0, alpha: 0.85)
             setupCurrentOrNextLessonCell(cell: cell, cellType: .currentCell)
         }
 
         if nextLessonId == lessonsForSomeDay[indexPath.row].lessonID {
             setupCurrentOrNextLessonCell(cell: cell, cellType: .nextCell)
-
-//            cell.backgroundColor = colour1
         }
         
         let timeStart = String(lessonsForSomeDay[indexPath.row].timeStart[..<5])
@@ -605,22 +505,6 @@ extension TodayViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     
-    
-//    public func setupNextLessonCell(cell: LessonTableViewCell) {
-//        cell.backgroundColor = Settings.shared.cellNextColour
-//
-//        let textColour: UIColor = cell.backgroundColor?.isWhiteText ?? true ? .white : .black
-//
-//        cell.startLabel.textColor = textColour
-//        cell.endLabel.textColor = textColour
-//        cell.teacherLabel.textColor = textColour
-//        cell.roomLabel.textColor = textColour
-//        cell.lessonLabel.textColor = textColour
-//        cell.timeLeftLabel.textColor = textColour
-//
-//    }
-
-    
     public func setupCurrentOrNextLessonCell(cell: LessonTableViewCell, cellType: SheduleCellType) {
         
         if cellType == .currentCell {
@@ -638,6 +522,4 @@ extension TodayViewController: UITableViewDataSource, UITableViewDelegate {
         cell.lessonLabel.textColor = textColour
         cell.timeLeftLabel.textColor = textColour
     }
-    
-    
 }

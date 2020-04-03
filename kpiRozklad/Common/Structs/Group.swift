@@ -6,21 +6,8 @@
 //  Copyright © 2019 Denis Danilyuk. All rights reserved.
 //
 
-// This file was generated from JSON Schema using quicktype, do not modify it directly.
-// To parse the JSON, add this file to your project and do:
-//
-//   let welcomeGroup = try? newJSONDecoder().decode(WelcomeGroup.self, from: jsonData)
-
 import Foundation
 
-// MARK: - WelcomeGroup
-struct WelcomeGroup: Codable {
-    let statusCode, timeStamp: Int
-    let message: String
-    let debugInfo: JSONNull?
-    let meta: Meta?
-    let data: [Group]
-}
 
 // MARK: - Datum
 struct Group: Codable {
@@ -40,7 +27,7 @@ struct Group: Codable {
         case groupURL = "group_url"
     }
 }
-let emptyGroup = Group(groupID: 0, groupFullName: "", groupPrefix: "", groupOkr: .magister, groupType: .daily, groupURL: "")
+
 
 enum GroupOkr: String, Codable {
     case bachelor = "bachelor"

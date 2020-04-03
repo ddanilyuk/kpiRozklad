@@ -54,7 +54,7 @@ extension GroupsAndTeachersViewController {
             
             this.groupTeachers = teachers
 
-            this.activityIndicatorStopAndHide()
+            this.stopLoading()
             this.tableView.isHidden = false
             
             if this.teachers.isEmpty {
@@ -82,7 +82,7 @@ extension GroupsAndTeachersViewController {
             } else {
                 this.allTeachers = teachers
             }
-            this.activityIndicatorStopAndHide()
+            this.stopLoading()
             
             if this.isSheduleGroupChooser || this.isSheduleTeachersChooser {
                 if this.startWriteLabel.isHidden {
@@ -112,7 +112,7 @@ extension GroupsAndTeachersViewController {
             guard let this = self else { return }
             this.groups = groups
 
-            this.activityIndicatorStopAndHide()
+            this.stopLoading()
             
 //            this.tableView.isHidden = (this.isSheduleGroupChooser || this.isSheduleTeachersChooser) ? true : false
             if this.isSheduleGroupChooser || this.isSheduleTeachersChooser {
@@ -137,15 +137,13 @@ extension GroupsAndTeachersViewController {
     func getGroupLessons(group: Group, indexPath: IndexPath) {
         guard let cell = self.tableView.cellForRow(at: indexPath) as? TeacherOrGroupLoadingTableViewCell else { return }
         DispatchQueue.main.async {
-            cell.activityIndicator.isHidden = false
-            cell.activityIndicator.startAnimating()
+            cell.startLoadingCellIndicator()
         }
         
         API.getStudentLessons(forGroupWithId: group.groupID).done({ [weak self] (lessons) in
             guard let this = self else { return }
             
-            cell.activityIndicator.isHidden = true
-            cell.activityIndicator.stopAnimating()
+            cell.stopLoadingCellIndicator()
 
             let mainStoryboard = UIStoryboard(name: "Main", bundle: Bundle.main)
             guard let sheduleVC : SheduleViewController = mainStoryboard.instantiateViewController(withIdentifier: SheduleViewController.identifier) as? SheduleViewController else { return }
@@ -170,8 +168,7 @@ extension GroupsAndTeachersViewController {
                 }))
                 
                 this.present(alert, animated: true, completion: {
-                    cell.activityIndicator.isHidden = true
-                    cell.activityIndicator.stopAnimating()
+                    cell.stopLoadingCellIndicator()
                 })
             } else {
                 self?.getDefaultErrorAlert(localizedDescription: error.localizedDescription, alertCase: .getGroupLessonsType, group: group, teacher: nil, indexPath: indexPath)
@@ -183,24 +180,20 @@ extension GroupsAndTeachersViewController {
     func getTeacherLessons(teacher: Teacher, indexPath: IndexPath) {
         guard let cell = self.tableView.cellForRow(at: indexPath) as? TeacherOrGroupLoadingTableViewCell else { return }
         DispatchQueue.main.async {
-            cell.activityIndicator.isHidden = false
-            cell.activityIndicator.startAnimating()
+            cell.startLoadingCellIndicator()
         }
         
         API.getTeacherLessons(forTeacherWithId: Int(teacher.teacherID) ?? 0).done({ [weak self] (lessons) in
             guard let this = self else { return }
             
-            cell.activityIndicator.isHidden = true
-            cell.activityIndicator.stopAnimating()
-
+            cell.stopLoadingCellIndicator()
+            
             guard let sheduleVC  = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: SheduleViewController.identifier) as? SheduleViewController else { return }
             
             sheduleVC.lessonsFromSegue = lessons
             sheduleVC.teacherFromSegue = teacher
             sheduleVC.isFromGroupsAndTeacherOrFavourite = true
             sheduleVC.isTeachersShedule = true
-
-//            sheduleVC.isFromTeachersVC = true
             
             this.navigationController?.pushViewController(sheduleVC, animated: true)
 
@@ -213,8 +206,7 @@ extension GroupsAndTeachersViewController {
                 }))
                 
                 this.present(alert, animated: true, completion: {
-                    cell.activityIndicator.isHidden = true
-                    cell.activityIndicator.stopAnimating()
+                    cell.stopLoadingCellIndicator()
                 })
             } else {
                 this.getDefaultErrorAlert(localizedDescription: error.localizedDescription, alertCase: .getTeacherLessonsType, group: nil, teacher: teacher, indexPath: indexPath)

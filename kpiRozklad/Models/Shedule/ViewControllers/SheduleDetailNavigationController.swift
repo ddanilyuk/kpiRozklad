@@ -7,7 +7,7 @@
 //
 
 import UIKit
-//import PanModal
+
 
 class SheduleDetailNavigationController: UINavigationController, PanModalPresentable {
 

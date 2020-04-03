@@ -17,12 +17,3 @@ struct ErrorMessageResponse: Decodable {
 struct ArrayDataResponse<T: Decodable>: Decodable {
     var data: [T]
 }
-
-//struct ArrayDataMetadataResponse<M: Decodable, T: Decodable>: Decodable {
-//    var meta: M
-//    var data: [T]
-//}
-//
-//struct SingleDataResponse<T: Decodable>: Decodable {
-//    var data: T
-//}

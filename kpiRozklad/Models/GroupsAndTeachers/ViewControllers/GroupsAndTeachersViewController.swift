@@ -49,9 +49,9 @@ class GroupsAndTeachersViewController: UIViewController {
     /// Label with "Почніть вводити ..."
     @IBOutlet weak var startWriteLabel: UILabel!
     
+    /// Settings singleton
     let settings = Settings.shared
 
-    
     /// If choosing group for shedule (to Shedule VC) if global.sheduleType == .group
     var isSheduleGroupChooser: Bool = false
     
@@ -72,7 +72,8 @@ class GroupsAndTeachersViewController: UIViewController {
         
         getVariablesFromNavigationController()
         
-        setupActivityIndicator()
+        stopLoading()
+        tableView.isHidden = true
 
         setupTableView()
 
@@ -107,33 +108,36 @@ class GroupsAndTeachersViewController: UIViewController {
         }
     }
     
-    
+    /// When need to show  `tableView` now
     private func showWithoutStartWriteLabel() {
         tableView.isHidden = true
         startWriteLabel.isHidden = true
-        activityIndicatorStartAndVisible()
+        startLoading()
     }
     
-    
+    /// Disable  `segmentControl` which change fom "Мої" and "Всі"
     private func disableSegmentControl() {
         segmentControl.selectedSegmentIndex = 1
         didSegmentControlChangeState(segmentControl)
         segmentControl.isHidden = true
     }
     
-    
-    func activityIndicatorStopAndHide() {
+    /// Stop Loading
+    func stopLoading() {
         activityIndicator.stopAnimating()
         activityIndicator.isHidden = true
     }
     
     
-    func activityIndicatorStartAndVisible() {
+    /// Start Loading
+    func startLoading() {
         activityIndicator.startAnimating()
         activityIndicator.isHidden = false
+        self.view.bringSubviewToFront(activityIndicator)
     }
     
     
+    /// Get All vaiables from `navigationController`
     private func getVariablesFromNavigationController() {
         guard let groupNavigationController = self.navigationController as? TeachersNavigationController else { return }
         
@@ -147,13 +151,7 @@ class GroupsAndTeachersViewController: UIViewController {
     }
     
     
-    private func setupActivityIndicator() {
-        activityIndicator.stopAnimating()
-        tableView.isHidden = true
-        activityIndicator.isHidden = true
-        self.view.bringSubviewToFront(activityIndicator)
-    }
-    
+    // MARK: - SETUP functions
     
     private func setupTableView() {
         tableView.register(UINib(nibName: TeacherOrGroupLoadingTableViewCell.identifier, bundle: Bundle.main), forCellReuseIdentifier: TeacherOrGroupLoadingTableViewCell.identifier)
@@ -189,6 +187,7 @@ class GroupsAndTeachersViewController: UIViewController {
     }
     
     
+    /// Change`segmentControl` state
     @IBAction func didSegmentControlChangeState(_ sender: UISegmentedControl) {
         switch segmentControl.selectedSegmentIndex {
             case 0:
@@ -214,97 +213,5 @@ class GroupsAndTeachersViewController: UIViewController {
             default:
                 break
         }
-    }
-}
-
-
-extension GroupsAndTeachersViewController: UITableViewDelegate, UITableViewDataSource {
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if isSheduleTeachersChooser || isTeacherViewController {
-            if isSearching {
-                return teachersInSearch.count
-            } else {
-                return teachers.count
-            }
-        } else {
-            if isSearching {
-                return groupsInSearch.count
-            } else {
-                return groups.count
-            }
-        }
-    }
-    
-
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: TeacherOrGroupLoadingTableViewCell.identifier, for: indexPath) as? TeacherOrGroupLoadingTableViewCell else { return UITableViewCell() }
-        
-        cell.activityIndicator.isHidden = true
-        
-        if isSheduleTeachersChooser || isTeacherViewController {
-            cell.mainLabel.text = isSearching ? teachersInSearch[indexPath.row].teacherName : teachers[indexPath.row].teacherName
-        } else {
-            cell.mainLabel.text = isSearching ? groupsInSearch[indexPath.row].groupFullName : groups[indexPath.row].groupFullName
-        }
-
-        return cell
-    }
-        
-
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let mainStoryboard = UIStoryboard(name: "Main", bundle: Bundle.main)
-        let appDelegate = UIApplication.shared.delegate as? AppDelegate
-        guard let window = appDelegate?.window else { return }
-        guard let mainTabBar: UITabBarController = mainStoryboard.instantiateViewController(withIdentifier: "Main") as? UITabBarController else { return }
-        
-        if isSheduleTeachersChooser {
-            let teacher = isSearching ? teachersInSearch[indexPath.row] : teachers[indexPath.row]
-            
-            settings.teacherName = teacher.teacherName
-            settings.teacherID = Int(teacher.teacherID) ?? 0
-            
-            settings.isTryToRefreshShedule = true
-            
-            if #available(iOS 13, *) {
-                self.dismiss(animated: true, completion: {
-                    window.rootViewController = mainTabBar
-                })
-            } else {
-                window.rootViewController = mainTabBar
-                window.makeKeyAndVisible()
-            }
-            
-        } else if isSheduleGroupChooser {
-            let group = isSearching ? groupsInSearch[indexPath.row] : groups[indexPath.row]
-
-            settings.groupName = group.groupFullName
-            settings.groupID = group.groupID
-            
-            settings.isTryToRefreshShedule = true
-
-            if #available(iOS 13, *) {
-                self.dismiss(animated: true, completion: {
-                    window.rootViewController = mainTabBar
-                })
-            } else {
-                window.rootViewController = mainTabBar
-                window.makeKeyAndVisible()
-            }
-
-        } else if isGroupViewController {
-            let group = isSearching ? groupsInSearch[indexPath.row] : groups[indexPath.row]
-            getGroupLessons(group: group, indexPath: indexPath)
-        } else if isTeacherViewController {
-            let teacher = isSearching ? teachersInSearch[indexPath.row] : teachers[indexPath.row]
-            getTeacherLessons(teacher: teacher, indexPath: indexPath)
-        }
-        
-        tableView.deselectRow(at: indexPath, animated: true)
-    }
-    
-    
-    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        return 0.001
     }
 }

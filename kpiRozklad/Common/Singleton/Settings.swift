@@ -24,15 +24,6 @@ public class Settings {
         }
     }
     
-//    var isTryToReloadTableView: Bool {
-//        get {
-//            return userDefaults.bool(forKey: "isTryToReloadTableView")
-//        }
-//        set {
-//            userDefaults.set(newValue, forKey: "isTryToReloadTableView")
-//        }
-//    }
-    
     var groupName: String {
         get {
             return userDefaults.string(forKey: "groupName") ?? ""
@@ -135,8 +126,6 @@ public class Settings {
     
     var cellNextColour: UIColor {
         get {
-//            let color2 = NSKeyedUnarchiver.unarchiveObject(with: userDefaults.data(forKey: "cellNextColour") ?? Data()) as? UIColor
-            
             var color = try? NSKeyedUnarchiver.unarchivedObject(ofClass: UIColor.self, from: userDefaults.data(forKey: "cellNextColour") ?? Data())
             
             if color == nil {
@@ -151,7 +140,6 @@ public class Settings {
             do {
                 colorData = try NSKeyedArchiver.archivedData(withRootObject: newValue, requiringSecureCoding: false) as NSData?
             } catch {
-                
             }
 
             userDefaults.set(colorData, forKey: "cellNextColour")
@@ -176,12 +164,10 @@ public class Settings {
             do {
                 colorData = try NSKeyedArchiver.archivedData(withRootObject: newValue, requiringSecureCoding: false) as NSData?
             } catch {
-                
             }
 
             userDefaults.set(colorData, forKey: "cellNowColour")
             userDefaultsWidget.set(colorData, forKey: "cellNowColour")
-            
         }
     }
  }

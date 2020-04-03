@@ -12,14 +12,20 @@ import PromiseKit
 
 class FavouriteViewController: UIViewController {
 
+    /// Main tableView
     @IBOutlet weak var tableView: UITableView!
     
+    /// Label which show "Цей список порожній..."
     @IBOutlet weak var emptyFavouritesLabel: UILabel!
     
+    /// Section names
     let sectionNames: [String] = ["Групи", "Викладачі"]
 
+    /// Favourites singleton
     let favourites = Favourites.shared
 
+    
+    // MARK: - viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
         setupTableView()
@@ -27,6 +33,7 @@ class FavouriteViewController: UIViewController {
     }
     
     
+    // MARK: - viewWillAppear
     override func viewWillAppear(_ animated: Bool) {
         tableView.reloadData()
         
@@ -41,6 +48,8 @@ class FavouriteViewController: UIViewController {
         }
     }
     
+    
+    // MARK: - SETUP functions
     
     private func setupNavigation() {
         setLargeTitleDisplayMode(.never)
@@ -57,6 +66,7 @@ class FavouriteViewController: UIViewController {
     }
     
 
+    /// Get teacher or group to show in `SheduleViewController`
     func getGroupOrTeacherLesson(group: Group?, teacher: Teacher?, indexPath: IndexPath) {
         guard let cell = self.tableView.cellForRow(at: indexPath) as? TeacherOrGroupLoadingTableViewCell else { return }
         
@@ -113,6 +123,7 @@ class FavouriteViewController: UIViewController {
 }
 
 
+// MARK: - UITableViewDelegate + DataSource
 extension FavouriteViewController: UITableViewDelegate, UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {

@@ -133,10 +133,10 @@ class SheduleViewController: UIViewController {
     var isFavourite: Bool = false
     
     /// Settings singleton
-    var settings = Settings.shared
+    let settings = Settings.shared
     
     /// Favourites singleton
-    var favourites = Favourites.shared
+    let favourites = Favourites.shared
     
     /// Array with day names
     var daysArray: [String] = [DayName.mounday.rawValue,
@@ -232,47 +232,14 @@ class SheduleViewController: UIViewController {
     
     
     // MARK: - viewWillAppear
-//    override func viewWillAppear(_ animated: Bool) {
-//        /**
-//         Some about why is -20 in `tableView.contentInset`
-//         In IOS 13.4 after changing large title from .never and then to .always (this changing need because scroll view works incorrectly),
-//         at bottom of table view appear strange line which is 20px height.
-//         And  variable `isEditInserts`,  code in `viewWillAppear` and `viewWillDisappear` fix this problem.
-//         */
-//        tableView.reloadData()
-//        if isTeachersShedule {
-//            setLargeTitleDisplayMode(.never)
-//        } else if !isFromSettingsGetFreshShedule && !isFromGroupsAndTeacherOrFavourite && !isTeachersShedule {
-//            setLargeTitleDisplayMode(.always)
-//        } else {
-//            setLargeTitleDisplayMode(.never)
-//        }
-//
-//        if #available(iOS 13.0, *) {
-////            if self.isTeachersShedule || self.isFromGroupsAndTeacherOrFavourite {
-////                tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
-////            } else if !isEditInserts {
-////                tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: -20, right: 0)
-////            }
-//
-//            if self.isFromSettingsGetFreshShedule {
-//                self.tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: -20, right: 0)
-//            } else if self.isTeachersShedule || self.isFromGroupsAndTeacherOrFavourite  {
-//                self.tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
-//            } else if !(self.navigationController?.navigationBar.prefersLargeTitles ?? false) {
-//                self.tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: -20, right: 0)
-//            } else {
-//                self.tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
-//            }
-//
-//            isEditInserts = false
-//
-//        }
-//    }
-    
-    
     override func viewWillAppear(_ animated: Bool) {
         tableView.reloadData()
+        /**
+         Some about why is -20 in `tableView.contentInset`
+         In IOS 13.4 after changing large title from .never and then to .always (this changing need because scroll view works incorrectly),
+         at bottom of table view appear strange line which is 20px height.
+         And  variable `isEditInserts`,  code in `viewWillAppear` and `viewWillDisappear` fix this problem.
+         */
         if !isFromSettingsGetFreshShedule && !isFromGroupsAndTeacherOrFavourite && !isTeachersShedule && !isTeachersShedule {
             print("MAIN")
             setLargeTitleDisplayMode(.always)
@@ -281,25 +248,18 @@ class SheduleViewController: UIViewController {
                 if self.navigationController?.navigationBar.frame.size.height ?? 44 > CGFloat(50) {
                     print("LARGE")
                     if isEditInserts {
-                        print("isEditInserts")
                         self.tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: -20, right: 0)
                     } else {
-                        print("NOT isEditInserts")
                         self.tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
                     }
                     
                     isEditInserts = false
                 } else {
-                    print("SMALL")
-
                     self.tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: -20, right: 0)
                 }
             }
         } else {
-            print("OTHER")
-
             setLargeTitleDisplayMode(.never)
-            
             tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         }
     }
@@ -313,9 +273,6 @@ class SheduleViewController: UIViewController {
          */
         if self.navigationController?.navigationBar.frame.size.height ?? 44 > CGFloat(50) {
             setLargeTitleDisplayMode(.always)
-//            if global.sheduleType == .groups {
-//                isEditInserts = true
-//            }
         } else {
             setLargeTitleDisplayMode(.never)
 
@@ -344,7 +301,6 @@ class SheduleViewController: UIViewController {
         tableView.register(UINib(nibName: LessonTableViewCell.identifier, bundle: Bundle.main), forCellReuseIdentifier: LessonTableViewCell.identifier)
         tableView.delegate = self
         tableView.dataSource = self
-        
         tableView.backgroundColor = tint
     }
 
@@ -369,7 +325,11 @@ class SheduleViewController: UIViewController {
         self.navigationController?.navigationBar.prefersLargeTitles = false
 
         if isTeachersShedule {
-            self.navigationItem.title = "Зараз \(self.currentWeekFromTodayDate) тиждень"
+            if UIScreen.main.nativeBounds.height < 1140 {
+                self.navigationItem.title = "Зараз \(self.currentWeekFromTodayDate) тиж."
+            } else {
+                self.navigationItem.title = "Зараз \(self.currentWeekFromTodayDate) тиждень"
+            }
             setLargeTitleDisplayMode(.never)
         } else if !isFromSettingsGetFreshShedule && !isFromGroupsAndTeacherOrFavourite && !isTeachersShedule {
             setLargeTitleDisplayMode(.always)
@@ -377,13 +337,16 @@ class SheduleViewController: UIViewController {
             if global.sheduleType == .groups {
                 self.navigationItem.title = settings.groupName.uppercased()
             } else if global.sheduleType == .teachers {
-                self.navigationItem.title = "Мій розклад"
+                if UIScreen.main.nativeBounds.height < 1140 {
+                    self.navigationItem.title = "Розклад"
+                } else {
+                    self.navigationItem.title = "Мій розклад"
+                }
             }
 
         } else {
             setLargeTitleDisplayMode(.never)
         }
-//        self.extendedLayoutIncludesOpaqueBars = true
         self.navigationController?.navigationBar.isTranslucent = true
         self.tabBarController?.tabBar.isTranslucent = true
     }
@@ -589,6 +552,8 @@ class SheduleViewController: UIViewController {
             self.tableView.isHidden = self.tableView.isHidden ? false : false
             self.tableView.reloadData()
         }
+        
+        /// Scroll if need
         if isNeedToScroll {
             self.scrollToCurrentOrNext()
         }
@@ -696,44 +661,6 @@ class SheduleViewController: UIViewController {
         }
     }
     
-//    func didPress() {
-//        var idToFindOrAdd: Int = 0
-//        var nameToFindOrAdd: String = ""
-//
-//        if isTeachersShedule {
-//            guard let strongTeacher = teacherFromSegue else { return }
-//            idToFindOrAdd = Int(strongTeacher.teacherID) ?? 0
-//            nameToFindOrAdd = strongTeacher.teacherName == "" ? strongTeacher.teacherFullName : strongTeacher.teacherName
-//        } else {
-//            guard let strongGroup = groupFromSegue else { return }
-//            idToFindOrAdd = Int(strongGroup.groupID)
-//            nameToFindOrAdd = strongGroup.groupFullName
-//        }
-//
-//        if isFavourite {
-//            if let image = UIImage(named: "icons8-favourite-add") {
-//                let favouritesID = isTeachersShedule ? favourites.favouriteTeachersID : favourites.favouriteGroupsID
-//
-//                for i in 0..<favouritesID.count {
-//                    if idToFindOrAdd == favouritesID[i] {
-//                        favouriteButton.setImage(image, for: .normal)
-//                        _ = isTeachersShedule ? favourites.favouriteTeachersNames.remove(at: i) : favourites.favouriteGroupsNames.remove(at: i)
-//                        _ = isTeachersShedule ? favourites.favouriteTeachersID.remove(at: i) : favourites.favouriteGroupsID.remove(at: i)
-//                        isFavourite = false
-//                        return
-//                    }
-//                }
-//            }
-//        } else {
-//            if let image = UIImage(named: "icons8-favourite-filled") {
-//                favouriteButton.setImage(image, for: .normal)
-//                _ = isTeachersShedule ? favourites.favouriteTeachersNames.append(nameToFindOrAdd) : favourites.favouriteGroupsNames.append(nameToFindOrAdd)
-//                _ = isTeachersShedule ? favourites.favouriteTeachersID.append(idToFindOrAdd) : favourites.favouriteGroupsID.append(idToFindOrAdd)
-//                isFavourite = true
-//            }
-//        }
-//    }
-    
     
     @IBAction func didPressFavouriteButton(_ sender: UIButton) {
         var idToFindOrAdd: Int = 0
@@ -775,6 +702,7 @@ class SheduleViewController: UIViewController {
     
     
     // MARK: - Other functions
+    
     public func setupCurrentOrNextLessonCell(cell: LessonTableViewCell, cellType: SheduleCellType) {
         
         if cellType == .currentCell {

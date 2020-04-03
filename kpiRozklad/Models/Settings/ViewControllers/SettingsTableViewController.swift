@@ -10,25 +10,33 @@ import UIKit
 import CoreData
 import PromiseKit
 
-class SettingsTableViewController: UITableViewController {
 
+class SettingsTableViewController: UITableViewController {
+    
+    /// Settings singleton
     let settings = Settings.shared
     
+    /// Main window
     var window: UIWindow?
 
+    
+    // MARK: - viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
         self.window = UIWindow(frame: UIScreen.main.bounds)
         setupTableView()
-        serverTimeUpdate()
+        getServerTimeUpdate()
     }
     
     
+    // MARK: - viewWillAppear
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         setLargeTitleDisplayMode(.always)
     }
     
+    
+    // MARK: - SETUP functions
 
     private func setupTableView() {
         tableView.register(UINib(nibName: ServerUpdateTableViewCell.identifier, bundle: Bundle.main), forCellReuseIdentifier: ServerUpdateTableViewCell.identifier)
@@ -41,17 +49,18 @@ class SettingsTableViewController: UITableViewController {
     }
 
     
-    // MARK: - Table view data source
+    // MARK: - Table view
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 2
     }
 
+    
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         return ""
     }
     
+    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
         if section == 0 {
             return 3
         } else if section == 1 {
@@ -60,6 +69,7 @@ class SettingsTableViewController: UITableViewController {
             return 0
         }
     }
+    
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if indexPath.section == 0 {
@@ -80,6 +90,7 @@ class SettingsTableViewController: UITableViewController {
         return 0
     }
 
+    
     override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         if section == 0 {
             return 50
@@ -174,7 +185,11 @@ class SettingsTableViewController: UITableViewController {
         tableView.deselectRow(at: indexPath, animated: true)
     }
 
+    // MARK: - Functions which calls
     
+    /**
+     Function which update shedule
+     */
     func didPressUpdateShedule() {
         let alert = UIAlertController(title: nil, message: "Чи бажаєте ви оновити розклад?\n Всі ваші редагування розкладу пропадуть!", preferredStyle: .actionSheet)
         alert.addAction(UIAlertAction(title: "Оновити", style: .destructive, handler: { (_) in
@@ -212,55 +227,9 @@ class SettingsTableViewController: UITableViewController {
     }
     
     
-//    func didPressChangeGroup() {
-//        let alert = UIAlertController(title: nil, message: "Чи бажаєте ви змінити вашу групу?\n Всі ваші редагування розкладу пропадуть!", preferredStyle: .actionSheet)
-//        alert.addAction(UIAlertAction(title: "Змінити", style: .destructive, handler: { (_) in
-//            self.settings.groupName = ""
-//            self.settings.teacherName = ""
-//
-//            self.settings.isTryToRefreshShedule = true
-//            deleteAllFromCoreData()
-//
-//            let indexPath = IndexPath(row: 0, section: 1)
-//            let date = Date()
-//
-//            let formatter = DateFormatter()
-//            formatter.dateFormat = "dd.MM.yyyy"
-//
-//            let time = formatter.string(from: date)
-//            self.settings.sheduleUpdateTime = time
-//
-//            if let cell = self.tableView.cellForRow(at: indexPath) as? ServerUpdateTableViewCell {
-//                cell.deviceSaveLabel.text = time
-//            }
-//
-//            let mainStoryboard = UIStoryboard(name: "Main", bundle: Bundle.main)
-//            guard let mainTabBar : UITabBarController = mainStoryboard.instantiateViewController(withIdentifier: "Main") as? UITabBarController else { return }
-//
-//            let appDelegate = UIApplication.shared.delegate as? AppDelegate
-//            guard let window = appDelegate?.window else { return }
-//            window.rootViewController = mainTabBar
-//        }))
-//
-//        alert.addAction(UIAlertAction(title: "Скасувати", style: .cancel, handler: { (_) in
-//        }))
-//
-//        self.present(alert, animated: true, completion: {
-//        })
-//    }
-    
-    func didPressEditColours() {
-        guard let colourVC = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "ColourPickerViewController") as? ColourPickerViewController else { return }
-        let colorPickerView = ColorPickerView()
-        for i in 0..<colorPickerView.colors.count {
-            let colour = colorPickerView.colors[i]
-            if colour == Settings.shared.cellCurrentColour {
-                colourVC.defaultColour = colour
-            }
-        }
-        self.navigationController?.pushViewController(colourVC, animated: true)
-    }
-    
+    /**
+     Function which change type of shedule
+     */
     func didPressChangeShedule() {
         let alert = UIAlertController(title: nil, message: "Чи бажаєте ви змінити тип розкладу \n Всі ваші редагування розкладу пропадуть!", preferredStyle: .actionSheet)
         alert.addAction(UIAlertAction(title: "Змінити", style: .destructive, handler: { (_) in
@@ -301,14 +270,32 @@ class SettingsTableViewController: UITableViewController {
     }
     
     
-    func serverTimeUpdate() {
+    /**
+     Function which show `ColourPickerViewController`
+     */
+    func didPressEditColours() {
+        guard let colourVC = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "ColourPickerViewController") as? ColourPickerViewController else { return }
+        let colorPickerView = ColorPickerView()
+        for i in 0..<colorPickerView.colors.count {
+            let colour = colorPickerView.colors[i]
+            if colour == Settings.shared.cellCurrentColour {
+                colourVC.defaultColour = colour
+            }
+        }
+        self.navigationController?.pushViewController(colourVC, animated: true)
+    }
+    
+    
+    /**
+     Function which get time when server was updated
+     */
+    func getServerTimeUpdate() {
         guard let url = URL(string: "https://rozklad.org.ua/?noredirect") else { return }
         
         let task = URLSession.shared.dataTask(with: url) {(data, response, error) in
         
             do {
                 let myHTMLString = try String(contentsOf: url)
-//                print("HTML : \(myHTMLString)")
                 
                 if let index = myHTMLString.index(of: "Останнє оновлення: "), let index2 = myHTMLString.index(of: "<!--Всього") {
                     let substring = myHTMLString[index..<index2]   // ab
@@ -331,60 +318,11 @@ class SettingsTableViewController: UITableViewController {
         }
         task.resume()
     }
+
     
-    
-//    func serverGetFreshShedule(requestType: SheduleType) {
-//        var requestString = ""
-//        if requestType == .groups {
-//            requestString = "groups/\(settings.groupID)"
-//        } else if requestType == .teachers{
-//            requestString = "teachers/\(settings.teacherID)"
-//        }
-//        guard let url = URL(string: "https://api.rozklad.org.ua/v2/\(requestString)/lessons") else { return }
-//        let indexPath = IndexPath(row: 0, section: 1)
-//
-//
-//        DispatchQueue.main.async {
-//            if let cell = self.tableView.cellForRow(at: indexPath) as? SettingsTableViewCell {
-//                cell.activityIndicator.isHidden = false
-//                cell.activityIndicator.startAnimating()
-//            }
-//        }
-//
-//
-//        let task = URLSession.shared.dataTask(with: url) {(data, response, error) in
-//            guard let data = data else { return }
-//            let decoder = JSONDecoder()
-//
-//            do {
-//                DispatchQueue.main.async {
-//                    guard let serverFULLDATA = try? decoder.decode(WelcomeLessons.self, from: data) else { return }
-//
-//                    if let cell = self.tableView.cellForRow(at: indexPath) as? SettingsTableViewCell {
-//                        cell.activityIndicator.isHidden = true
-//                        cell.activityIndicator.stopAnimating()
-//                    }
-//
-//                    guard let sheduleVC: SheduleViewController = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: SheduleViewController.identifier) as? SheduleViewController else { return }
-//
-//                    sheduleVC.isFromSettingsGetFreshShedule = true
-//                    sheduleVC.currentWeek = 1
-//                    sheduleVC.lessonsFromSegue = serverFULLDATA.data
-//                    sheduleVC.navigationItem.title = Settings.shared.groupName.uppercased()
-//
-//
-//                    sheduleVC.navigationController?.navigationBar.prefersLargeTitles = true
-//                    sheduleVC.navigationItem.largeTitleDisplayMode = .never
-//                    sheduleVC.navigationController?.navigationItem.largeTitleDisplayMode = .never
-//
-//
-//                    self.navigationController?.pushViewController(sheduleVC, animated: true)
-//                }
-//            }
-//        }
-//        task.resume()
-//    }
-    
+    /**
+     Function which take lesson fom server and swow it in `SheduleViewController`
+     */
     private func getLessonsFromServer() {
         guard let cell = self.tableView.cellForRow(at: IndexPath(row: 0, section: 1)) as? SettingsTableViewCell else { return }
         
@@ -404,11 +342,6 @@ class SettingsTableViewController: UITableViewController {
             sheduleVC.lessonsFromSegue = lessons
             sheduleVC.navigationItem.title = Settings.shared.groupName.uppercased()
 
-            
-//            sheduleVC.navigationController?.navigationBar.prefersLargeTitles = true
-//            sheduleVC.navigationItem.largeTitleDisplayMode = .never
-//            sheduleVC.navigationController?.navigationItem.largeTitleDisplayMode = .never
-
             this.navigationController?.pushViewController(sheduleVC, animated: true)
             
         }).catch({ [weak self] (error) in
@@ -426,6 +359,3 @@ class SettingsTableViewController: UITableViewController {
         })
     }
 }
-
-
-

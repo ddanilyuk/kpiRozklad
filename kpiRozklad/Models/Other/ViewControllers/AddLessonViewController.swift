@@ -65,6 +65,8 @@ class AddLessonViewController: UIViewController {
     /// Lesson Number
     @IBOutlet weak var numberLessonPickerView: UIPickerView!
     
+    @IBOutlet weak var addButton: UIButton!
+    
     
     // MARK: - viewDidLoad
     override func viewDidLoad() {
@@ -84,6 +86,8 @@ class AddLessonViewController: UIViewController {
     }
 
     
+    // MARK: - SETUP functions
+    
     private func setupDefaultValues() {
         freeTimeInDay(dayNumber: dayNumber)
         possibleTypeOfLessons(lessonNameToCheck: unicalNames[0])
@@ -92,11 +96,13 @@ class AddLessonViewController: UIViewController {
         lessonType = arrayTypePairs[0]
     }
     
+    
     private func setupNavigation() {
         self.navigationItem.title = "Додати пару"
         self.navigationController?.navigationItem.largeTitleDisplayMode = .never
         self.navigationController?.navigationBar.prefersLargeTitles = false
     }
+    
     
     private func setupPickers() {
         lessonPickerView.delegate = self
@@ -131,13 +137,25 @@ class AddLessonViewController: UIViewController {
         for lesson in lessons {
             if Int(lesson.dayNumber) ?? 0 == dayNumber && Int(lesson.lessonWeek) == currentWeek {
                 if let index = array.firstIndex(of: "\(lesson.lessonNumber) пара") {
-
                     array.remove(at: index)
                 }
             }
         }
+        
         self.arrayPairs = array
-        self.lessonNumber = Int(String(arrayPairs[0][..<1])) ?? 1
+        if arrayPairs.count > 0 {
+            addButton.isEnabled = true
+            addButton.backgroundColor = .systemBlue
+            self.lessonNumber = Int(String(arrayPairs[0][..<1])) ?? 1
+        } else {
+            /**
+             If in some day 6 pair show ["Немає вільного часу"] and make `addButton` disabled
+             */
+            self.lessonNumber = 0
+            addButton.isEnabled = false
+            addButton.backgroundColor = .gray
+            arrayPairs = ["Немає вільного часу"]
+        }
     }
     
     
@@ -238,8 +256,6 @@ class AddLessonViewController: UIViewController {
         
         guard let sheduleViewController : SheduleViewController = mainStoryboard.instantiateViewController(withIdentifier: "SheduleViewController") as? SheduleViewController else { return }
         
-//        Settings.shared.isTryToReloadTableView = true
-
         /// Updating Core Data
         updateCoreData(vc: sheduleViewController, datum: lessons)
         
@@ -269,9 +285,7 @@ class AddLessonViewController: UIViewController {
             do {
                 guard let serverFULLDATA = try? decoder.decode(WelcomeLessons.self, from: data) else { return }
                 let datum = serverFULLDATA.data
-                
-//                self.unicalLessons = []
-                self.getUnicalLessons(lessons: datum)
+                                self.getUnicalLessons(lessons: datum)
                 self.getUnicalIDs(lessons: datum)
                 self.serverLessons = datum
                 
@@ -279,15 +293,11 @@ class AddLessonViewController: UIViewController {
                     self.lessonPickerView.reloadAllComponents()
                     self.dayPickerView.reloadAllComponents()
                     self.numberLessonPickerView.reloadAllComponents()
-
                 }
             }
         }
         task.resume()
     }
-    
-    
-    
 }
 
 
@@ -373,7 +383,6 @@ extension AddLessonViewController: UIPickerViewDelegate, UIPickerViewDataSource 
            } else {
                 lessonType = arrayTypePairs[row]
             }
-           
         }
         
         if pickerView == dayPickerView {

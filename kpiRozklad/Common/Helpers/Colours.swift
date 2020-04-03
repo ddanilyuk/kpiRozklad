@@ -46,6 +46,7 @@ public var sectionColour: UIColor = {
     }
 }()
 
+
 public var tableViewBackground: UIColor = {
     if #available(iOS 13, *) {
         return UIColor { (UITraitCollection: UITraitCollection) -> UIColor in
@@ -74,10 +75,19 @@ public var seettingsTableViewBackgroundColour: UIColor = {
 }()
 
 
-public let cellBackgroundColor : UIColor = {
+public let cellBackgroundColor: UIColor = {
     if #available(iOS 13.0, *) {
         return .systemBackground
     } else {
         return .white
+    }
+}()
+
+
+public let colourTextLabel: UIColor  = {
+    if #available(iOS 13.0, *) {
+        return .label
+    } else {
+        return .black
     }
 }()

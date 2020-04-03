@@ -110,6 +110,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="uXF-Rg-qns"/>
                     <connections>
+                        <outlet property="addButton" destination="LRj-yV-DA1" id="11I-yq-gBB"/>
                         <outlet property="dayPickerView" destination="Cfg-uJ-NYL" id="lWT-Zt-nrK"/>
                         <outlet property="lessonPickerView" destination="qAa-zj-FAq" id="3rr-S5-hzl"/>
                         <outlet property="numberLessonPickerView" destination="lUU-dI-Ity" id="Cga-of-tmO"/>
@@ -154,11 +155,11 @@
             <objects>
                 <viewController storyboardIdentifier="BoardViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="xgX-V5-vyk" customClass="BoardViewController" customModule="KPI_Rozklad" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="GKJ-Hz-uhx">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="360"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="340"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="745-Ys-CPz">
-                                <rect key="frame" x="41.333333333333343" y="285" width="331.33333333333326" height="55"/>
+                                <rect key="frame" x="41.333333333333343" y="265" width="331.33333333333326" height="55"/>
                                 <color key="backgroundColor" systemColor="linkColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="55" id="LSf-yY-McX"/>
@@ -183,7 +184,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="j8l-Jf-uSg">
-                                <rect key="frame" x="41.333333333333343" y="115" width="331.33333333333326" height="55"/>
+                                <rect key="frame" x="41.333333333333343" y="105" width="331.33333333333326" height="55"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="55" id="vNE-pP-VXI"/>
                                 </constraints>
@@ -206,7 +207,7 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Оберіть будь-ласка" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mgn-o9-nKb">
-                                <rect key="frame" x="41.333333333333343" y="25" width="331.33333333333326" height="60"/>
+                                <rect key="frame" x="41.333333333333343" y="20" width="331.33333333333326" height="60"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="60" id="RT5-bh-7JJ"/>
                                 </constraints>
@@ -215,7 +216,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1I9-OS-sbf">
-                                <rect key="frame" x="41.333333333333343" y="200" width="331.33333333333326" height="55"/>
+                                <rect key="frame" x="41.333333333333343" y="180" width="331.33333333333326" height="55"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="55" id="Ckh-0T-Ex9"/>
                                 </constraints>
@@ -248,14 +249,14 @@
                             <constraint firstItem="745-Ys-CPz" firstAttribute="width" secondItem="GKJ-Hz-uhx" secondAttribute="width" multiplier="0.8" id="KFL-m9-Z2O"/>
                             <constraint firstItem="mgn-o9-nKb" firstAttribute="centerX" secondItem="kTD-bS-O0z" secondAttribute="centerX" id="Lst-Rb-unL"/>
                             <constraint firstItem="745-Ys-CPz" firstAttribute="centerX" secondItem="kTD-bS-O0z" secondAttribute="centerX" id="M4O-dL-lmz"/>
-                            <constraint firstItem="1I9-OS-sbf" firstAttribute="top" secondItem="j8l-Jf-uSg" secondAttribute="bottom" constant="30" id="PgH-uh-ynL"/>
-                            <constraint firstItem="j8l-Jf-uSg" firstAttribute="top" secondItem="mgn-o9-nKb" secondAttribute="bottom" constant="30" id="Yn5-7J-Kau"/>
+                            <constraint firstItem="1I9-OS-sbf" firstAttribute="top" secondItem="j8l-Jf-uSg" secondAttribute="bottom" constant="20" id="PgH-uh-ynL"/>
+                            <constraint firstItem="j8l-Jf-uSg" firstAttribute="top" secondItem="mgn-o9-nKb" secondAttribute="bottom" constant="25" id="Yn5-7J-Kau"/>
                             <constraint firstItem="1I9-OS-sbf" firstAttribute="centerX" secondItem="kTD-bS-O0z" secondAttribute="centerX" id="eze-2N-Ihr"/>
-                            <constraint firstItem="mgn-o9-nKb" firstAttribute="top" secondItem="GKJ-Hz-uhx" secondAttribute="top" constant="25" id="j3j-Gi-HJU"/>
+                            <constraint firstItem="mgn-o9-nKb" firstAttribute="top" secondItem="GKJ-Hz-uhx" secondAttribute="top" constant="20" id="j3j-Gi-HJU"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="kTD-bS-O0z"/>
                     </view>
-                    <size key="freeformSize" width="414" height="360"/>
+                    <size key="freeformSize" width="414" height="340"/>
                     <connections>
                         <outlet property="studentButton" destination="j8l-Jf-uSg" id="nCZ-NP-Vso"/>
                         <outlet property="teacherButton" destination="1I9-OS-sbf" id="4BW-SP-s5q"/>
@@ -802,7 +803,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                             </tableView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Цей список порожній. Додайте групу або викладача до улюблених та слідкуйте за їх розкладом." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="10" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GWM-hc-aA6">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Цей список порожній. Натисніть натисніть на ✩, щоб додати групу або викладача до улюблених." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="10" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GWM-hc-aA6">
                                 <rect key="frame" x="8" y="108" width="359" height="200"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="200" id="Ts0-9G-eBc"/>

@@ -98,9 +98,7 @@ extension SheduleViewController: UITableViewDelegate, UITableViewDataSource {
             
             let newIndexPath = IndexPath(row: indexPath.row, section: indexPath.section - 1)
             alertView.addAction(UIAlertAction(title: "Змінити", style: .default, handler: { (_) in
-//                moveRow(vc: self, sourceIndexPath: newIndexPath, destinationIndexPath: IndexPath(row: self.lessonNumberFromPicker - 1, section: newIndexPath.section))
-
-                editLessonNumber2(vc: self, indexPath: newIndexPath)
+                editLessonNumber(vc: self, indexPath: newIndexPath)
             }))
             
             alertView.addAction(UIAlertAction(title: "Назад", style: .cancel, handler: nil ))
@@ -155,15 +153,7 @@ extension SheduleViewController: UITableViewDelegate, UITableViewDataSource {
         
         cell.lessonLabel.text = lesson.lessonName
         cell.teacherLabel.text = lesson.teacherName != "" ? lesson.teacherName : " "
-        
-        var colourTextLabel: UIColor {
-            if #available(iOS 13.0, *) {
-                return .label
-            } else {
-                return .black
-            }
-        }
-        
+    
         cell.startLabel.textColor = colourTextLabel
         cell.endLabel.textColor = colourTextLabel
         cell.teacherLabel.textColor = colourTextLabel
@@ -205,10 +195,8 @@ extension SheduleViewController: UITableViewDelegate, UITableViewDataSource {
                 }
             }
             
-//            self.tableView.beginUpdates()
             self.lessonsForTableView[newIndexPath.section].value.remove(at: newIndexPath.row)
             self.tableView.deleteRows(at: [indexPath], with: .automatic)
-//            self.tableView.endUpdates()
 
             // If delete DispatchQueue animation broken
             self.tableView.isUserInteractionEnabled = false
@@ -228,7 +216,7 @@ extension SheduleViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
         let newSourceIndexPath = IndexPath(row: sourceIndexPath.row, section: sourceIndexPath.section - 1)
         let newdestinationIndexPath = IndexPath(row: destinationIndexPath.row, section: destinationIndexPath.section - 1)
-        moveRow(vc: self, sourceIndexPath: newSourceIndexPath, destinationIndexPath: newdestinationIndexPath)
+        moveRow3(vc: self, sourceIndexPath: newSourceIndexPath, destinationIndexPath: newdestinationIndexPath)
     }
     
     
@@ -257,128 +245,14 @@ extension SheduleViewController: UITableViewDelegate, UITableViewDataSource {
     // MARK: - targetIndexPathForMoveFromRowAt sourceIndexPath toProposedIndexPath
     func tableView(_ tableView: UITableView, targetIndexPathForMoveFromRowAt sourceIndexPath: IndexPath, toProposedIndexPath proposedDestinationIndexPath: IndexPath) -> IndexPath {
         if proposedDestinationIndexPath.section > 0 {
-            
             let dayLessonCount = lessonsForTableView[proposedDestinationIndexPath.section - 1].value.count
-
-            /// Get the number of lesson which you proposed to add
-            var nextLessonNumber = 0
             
-            if proposedDestinationIndexPath.row == 0 {
-                print("nextLessonNumber 1 if")
-                let dayLessons = lessonsForTableView[proposedDestinationIndexPath.section - 1]
-                if dayLessons.value.count > 0 {
-                    nextLessonNumber = 1
-                }
-                
-            } else if sourceIndexPath.section == proposedDestinationIndexPath.section {
-                print("nextLessonNumber 2 if")
-
-                let dayLessons = lessonsForTableView[proposedDestinationIndexPath.section - 1]
-                nextLessonNumber = Int(dayLessons.value[proposedDestinationIndexPath.row].lessonNumber) ?? 0
-                nextLessonNumber += 1
-
-            } else {
-//                print("here")
-                print("nextLessonNumber 3 if")
-
-                
-                let dayLessons = lessonsForTableView[proposedDestinationIndexPath.section - 1]
-                nextLessonNumber = Int(dayLessons.value[proposedDestinationIndexPath.row - 1].lessonNumber) ?? 0
-                nextLessonNumber += 1
-            }
-            
-            /// Array with lesson numbers
-            var array: [Int] = []
-            for i in 0..<dayLessonCount {
-                let lesson = lessonsForTableView[proposedDestinationIndexPath.section - 1].value[i]
-                array.append(Int(lesson.lessonNumber) ?? 0)
-            }
-            
-            
-            /// Array like  `[true, false, true, false, true, false]` in which true is empty position
-            var arrayBool: [Bool] = []
-            for i in 1...6 {
-                arrayBool.append( array.contains(i) ? false : true )
-            }
-            print("-----")
-            print("nextLessonNumber", nextLessonNumber)
-            
-            /// Last aviable possition
-            var lastAviablePosition = 1
-            for index in stride(from: arrayBool.count - 1, to: 1, by: -1) {
-                if arrayBool[index] {
-                    lastAviablePosition = index
-                    break
-                }
-            }
-            print("arrayBool", arrayBool)
-            print("lastAviablePosition", lastAviablePosition)
-            
-//            if nextLessonNumber > 6 {
-//                print("nextLessonNumber > 6")
-//                let indexPath = IndexPath(row: lastAviablePosition - 2, section: proposedDestinationIndexPath.section)
-//                return indexPath
-//            }
-            
-//            if lastAviablePosition != 0 {
-//                if proposedDestinationIndexPath.section == sourceIndexPath.section {
-//                    lastAviablePosition -= 1
-//                }
-//            }
-            print("row", proposedDestinationIndexPath.row)
-            /// If 6th pair is empty
-            if arrayBool[5] {
-                if nextLessonNumber > lastAviablePosition + 1 {
-                    print("nextLessonNumber > lastAviablePosition")
-                    let row = proposedDestinationIndexPath.section == sourceIndexPath.section ? lastAviablePosition - dayLessonCount - 2 : lastAviablePosition - dayLessonCount - 1
-
-                    let indexPath = IndexPath(row: row, section: proposedDestinationIndexPath.section)
-                    return indexPath
-                } else {
-                    return proposedDestinationIndexPath
-                }
-            } else {
-                if dayLessonCount >= 6 {
-                    print("dayLessonCount >= 6")
-                    return sourceIndexPath
-                } else if nextLessonNumber > lastAviablePosition + 1 {
-                    print("lastAviablePosition", lastAviablePosition)
-                    print("dayLessonCount", dayLessonCount)
-                    print("arrayBool", arrayBool)
-                    var row = proposedDestinationIndexPath.section == sourceIndexPath.section ? lastAviablePosition - dayLessonCount - 2 : lastAviablePosition - dayLessonCount - 1
-//                    if row < 0
-                    row = row < 0 ? 0 : row
-                    let indexPath = IndexPath(row: row, section: proposedDestinationIndexPath.section)
-                    return indexPath
-                } else if proposedDestinationIndexPath.row < lastAviablePosition {
-                    print("here 1")
-                    return proposedDestinationIndexPath
-                } else if (proposedDestinationIndexPath.row >= lastAviablePosition) {
-//                    if proposedDestinationIndexPath.section == sourceIndexPath.section {
-//                        lastAviablePosition = sourceIndexPath.row
-//                    }
-                    print("here 2")
-                    let indexPath = IndexPath(row: lastAviablePosition, section: proposedDestinationIndexPath.section)
-                    return indexPath
-                }
-                else {
-                    print("here 3")
-                    let indexPath = IndexPath(row: lastAviablePosition - dayLessonCount - 1, section: proposedDestinationIndexPath.section)
-                    print(indexPath)
-
-                    return indexPath
-                }
-                
-                
-            }
+            /// If try to add 7 pair return `sourceIndexPath`
+            return (dayLessonCount >= 6 && proposedDestinationIndexPath.section != sourceIndexPath.section) ? sourceIndexPath : proposedDestinationIndexPath
         }
         return sourceIndexPath
     }
     
-    
-    func findCountOfLessonBeforeIndex() {
-        
-    }
     
     // MARK: - setEditing
     /// Calls when editing starts

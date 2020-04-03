@@ -232,31 +232,76 @@ class SheduleViewController: UIViewController {
     
     
     // MARK: - viewWillAppear
+//    override func viewWillAppear(_ animated: Bool) {
+//        /**
+//         Some about why is -20 in `tableView.contentInset`
+//         In IOS 13.4 after changing large title from .never and then to .always (this changing need because scroll view works incorrectly),
+//         at bottom of table view appear strange line which is 20px height.
+//         And  variable `isEditInserts`,  code in `viewWillAppear` and `viewWillDisappear` fix this problem.
+//         */
+//        tableView.reloadData()
+//        if isTeachersShedule {
+//            setLargeTitleDisplayMode(.never)
+//        } else if !isFromSettingsGetFreshShedule && !isFromGroupsAndTeacherOrFavourite && !isTeachersShedule {
+//            setLargeTitleDisplayMode(.always)
+//        } else {
+//            setLargeTitleDisplayMode(.never)
+//        }
+//
+//        if #available(iOS 13.0, *) {
+////            if self.isTeachersShedule || self.isFromGroupsAndTeacherOrFavourite {
+////                tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+////            } else if !isEditInserts {
+////                tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: -20, right: 0)
+////            }
+//
+//            if self.isFromSettingsGetFreshShedule {
+//                self.tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: -20, right: 0)
+//            } else if self.isTeachersShedule || self.isFromGroupsAndTeacherOrFavourite  {
+//                self.tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+//            } else if !(self.navigationController?.navigationBar.prefersLargeTitles ?? false) {
+//                self.tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: -20, right: 0)
+//            } else {
+//                self.tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+//            }
+//
+//            isEditInserts = false
+//
+//        }
+//    }
+    
+    
     override func viewWillAppear(_ animated: Bool) {
-        /**
-         Some about why is -20 in `tableView.contentInset`
-         In IOS 13.4 after changing large title from .never and then to .always (this changing need because scroll view works incorrectly),
-         at bottom of table view appear strange line which is 20px height.
-         And  variable `isEditInserts`,  code in `viewWillAppear` and `viewWillDisappear` fix this problem.
-         */
         tableView.reloadData()
-        if isTeachersShedule {
-            setLargeTitleDisplayMode(.never)
-        } else if !isFromSettingsGetFreshShedule && !isFromGroupsAndTeacherOrFavourite && !isTeachersShedule {
+        if !isFromSettingsGetFreshShedule && !isFromGroupsAndTeacherOrFavourite && !isTeachersShedule && !isTeachersShedule {
+            print("MAIN")
             setLargeTitleDisplayMode(.always)
-        } else {
-            setLargeTitleDisplayMode(.never)
-        }
-        
-        if #available(iOS 13.0, *) {
-            if self.isTeachersShedule || self.isFromGroupsAndTeacherOrFavourite {
-                tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
-            } else if !isEditInserts {
-                tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: -20, right: 0)
+            
+            if #available(iOS 13.0, *) {
+                if self.navigationController?.navigationBar.frame.size.height ?? 44 > CGFloat(50) {
+                    print("LARGE")
+                    if isEditInserts {
+                        print("isEditInserts")
+                        self.tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: -20, right: 0)
+                    } else {
+                        print("NOT isEditInserts")
+                        self.tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+                    }
+                    
+                    isEditInserts = false
+                } else {
+                    print("SMALL")
+
+                    self.tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: -20, right: 0)
+                }
             }
-            isEditInserts = false
+        } else {
+            print("OTHER")
+
+            setLargeTitleDisplayMode(.never)
+            
+            tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         }
-        
     }
     
     
@@ -268,7 +313,12 @@ class SheduleViewController: UIViewController {
          */
         if self.navigationController?.navigationBar.frame.size.height ?? 44 > CGFloat(50) {
             setLargeTitleDisplayMode(.always)
+//            if global.sheduleType == .groups {
+//                isEditInserts = true
+//            }
         } else {
+            setLargeTitleDisplayMode(.never)
+
             if #available(iOS 13.0, *) {
                 /**
                  The part of code in `#available(iOS 13.0, *)` is need for update `tableView.contentInset`
@@ -284,7 +334,6 @@ class SheduleViewController: UIViewController {
                     tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: -20, right: 0)
                 }
             }
-            setLargeTitleDisplayMode(.never)
         }
     }
     
@@ -418,10 +467,12 @@ class SheduleViewController: UIViewController {
         /// (self.tableView != nil)  because if when we push information from another VC tableView can be not exist
         if self.tableView != nil {
             self.isNeedToScroll = false
-
+            
+            self.isEditInserts = false
             DispatchQueue.main.async {
                 if self.lessonsForTableView[indexPathToScroll.section].value.count > indexPathToScroll.row {
                     let window = UIApplication.shared.keyWindow
+                    
                     
                     let сontentHeight = self.tableView.contentSize.height - self.tableView.contentOffset.y
                     let safeAreaHeight = screenHeight - (window?.safeAreaInsets.top ?? 0) - (window?.safeAreaInsets.bottom ?? 0)
@@ -430,6 +481,8 @@ class SheduleViewController: UIViewController {
                     if (indexPathToScroll.section == 0 && indexPathToScroll.row == 0) || (сontentHeight < safeAreaHeight) {
                         self.navigationController?.navigationBar.prefersLargeTitles = true
                     } else {
+                        self.isEditInserts = true
+
                         self.navigationController?.navigationBar.prefersLargeTitles = false
                     }
 

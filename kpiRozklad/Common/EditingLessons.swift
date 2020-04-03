@@ -56,14 +56,40 @@ func editLessonNumber2(vc: SheduleViewController, indexPath: IndexPath) {
 
     var isFirstLesson: Bool = false
     
+    
+    
+    
+    var array: [Int] = []
+    for i in 0..<dayLessonsCount {
+        let lesson = dayLessons[i]
+        array.append(Int(lesson.lessonNumber) ?? 0)
+    }
+    
+    
+    /// Array like  `[true, false, true, false, true, false]` in which true is empty position
+    var arrayBool: [Bool] = []
+    for i in 1...6 {
+        arrayBool.append( array.contains(i) ? false : true )
+    }
+    
+    var isCanMoveBefore: Bool = false
+    
+    for i in 0..<(Int(newLesson.lessonNumber) ?? 0) {
+        if arrayBool[i] {
+            isCanMoveBefore = true
+            break
+        }
+    }
+    
+//    vc.lessonsForTableView[indexPath.section].value.insert(newLesson, at: indexPath.row)
+
     // Int(dayLessons[0].lessonNumber) ?? 0 == 1 || Int(newLesson.lessonNumber) == 1
-    if Int(dayLessons[dayLessonsCount - 1].lessonNumber) ?? 0 == 6 {
-//        for lesson in dayLessons {
-//            if Int(lesson.lessonNumber) ?? 0 <= Int(newLesson.lessonNumber) ?? 0 {
-//                lessonsToEdit.append(lesson)
-//            }
-//        }
+    if dayLessonsCount == 0 {
         vc.lessonsForTableView[indexPath.section].value.insert(newLesson, at: indexPath.row)
+    } else if Int(dayLessons[dayLessonsCount - 1].lessonNumber) ?? 0 == 6 && Int(dayLessons[0].lessonNumber) ?? 0 != 1 && isCanMoveBefore {
+        
+        vc.lessonsForTableView[indexPath.section].value.insert(newLesson, at: indexPath.row)
+        
 
         for lesson in new {
             let nLessonNumber = Int(lesson.element.lessonNumber) ?? 0
@@ -75,14 +101,7 @@ func editLessonNumber2(vc: SheduleViewController, indexPath: IndexPath) {
             
         }
         
-//        while let nLesson = iterator.next() {
-//            let nLessonNumber = Int(nLesson.lessonNumber) ?? 0
-//
-//            if nLessonNumber >= vc.lessonNumberFromPicker + i && nLessonNumber + i >= vc.lessonNumberFromPicker {
-//                lessonsToEdit.append(nLesson)
-//                i += 1
-//            }
-//        }
+
         isFirstLesson = false
         
 

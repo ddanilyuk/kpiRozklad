@@ -205,14 +205,16 @@ extension SheduleViewController: UITableViewDelegate, UITableViewDataSource {
                 }
             }
             
-            self.tableView.beginUpdates()
+//            self.tableView.beginUpdates()
             self.lessonsForTableView[newIndexPath.section].value.remove(at: newIndexPath.row)
             self.tableView.deleteRows(at: [indexPath], with: .automatic)
-            self.tableView.endUpdates()
+//            self.tableView.endUpdates()
 
             // If delete DispatchQueue animation broken
+            self.tableView.isUserInteractionEnabled = false
             DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .milliseconds(500)) {
                 updateCoreData(vc: self, datum: lessons)
+                self.tableView.isUserInteractionEnabled = true
             }
             
         } else if editingStyle == .insert {
@@ -343,14 +345,13 @@ extension SheduleViewController: UITableViewDelegate, UITableViewDataSource {
                     print("lastAviablePosition", lastAviablePosition)
                     print("dayLessonCount", dayLessonCount)
                     print("arrayBool", arrayBool)
-                    let row = proposedDestinationIndexPath.section == sourceIndexPath.section ? lastAviablePosition - dayLessonCount - 2 : lastAviablePosition - dayLessonCount - 1
+                    var row = proposedDestinationIndexPath.section == sourceIndexPath.section ? lastAviablePosition - dayLessonCount - 2 : lastAviablePosition - dayLessonCount - 1
+//                    if row < 0
+                    row = row < 0 ? 0 : row
                     let indexPath = IndexPath(row: row, section: proposedDestinationIndexPath.section)
                     return indexPath
-                }
-                 
-                else if proposedDestinationIndexPath.row < lastAviablePosition {
+                } else if proposedDestinationIndexPath.row < lastAviablePosition {
                     print("here 1")
-
                     return proposedDestinationIndexPath
                 } else if (proposedDestinationIndexPath.row >= lastAviablePosition) {
 //                    if proposedDestinationIndexPath.section == sourceIndexPath.section {
@@ -391,7 +392,9 @@ extension SheduleViewController: UITableViewDelegate, UITableViewDataSource {
             self.tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         } else {
             self.tableView.setEditing(false, animated: true)
-            self.daysArray.remove(at: 0)
+            if daysArray[0] == "Нова пара" {
+                self.daysArray.remove(at: 0)
+            }
             self.tableView.deleteSections(IndexSet(integer: 0), with: .automatic)
             self.tableView.contentInset = defaultContentInsets ?? UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         }

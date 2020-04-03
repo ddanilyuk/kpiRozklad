@@ -269,6 +269,7 @@
 		5F305C7C242264400035B509 /* Other */ = {
 			isa = PBXGroup;
 			children = (
+				5F46AD5823FEC35E00B145D5 /* Favourite */,
 				5F8EF0E5242D15D200E74220 /* Frameworks */,
 				5FD5B71724226F1C00B86FB7 /* ViewControllers */,
 			);
@@ -482,7 +483,6 @@
 			children = (
 				D3FFAAD7234F79760065E9CE /* Shedule */,
 				D3FFAAE32352464D0065E9CE /* GroupsAndTeachers */,
-				5F46AD5823FEC35E00B145D5 /* Favourite */,
 				D3FFAADA234F7A2C0065E9CE /* Settings */,
 				5F305C7C242264400035B509 /* Other */,
 				5F034A342389B16D00D90DB7 /* Main.storyboard */,
@@ -957,7 +957,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = Widget/Widget.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 7;
 				DEVELOPMENT_TEAM = M92VXVU7J9;
 				INFOPLIST_FILE = Widget/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
@@ -981,7 +981,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = Widget/Widget.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 7;
 				DEVELOPMENT_TEAM = M92VXVU7J9;
 				INFOPLIST_FILE = Widget/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
@@ -1123,7 +1123,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "kpiRozklad/KPI Rozklad.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 7;
 				DEVELOPMENT_ASSET_PATHS = "\"kpiRozklad/Resoursces/Preview Content\"";
 				DEVELOPMENT_TEAM = M92VXVU7J9;
 				ENABLE_PREVIEWS = YES;
@@ -1149,7 +1149,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "kpiRozklad/KPI Rozklad.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 7;
 				DEVELOPMENT_ASSET_PATHS = "\"kpiRozklad/Resoursces/Preview Content\"";
 				DEVELOPMENT_TEAM = M92VXVU7J9;
 				ENABLE_PREVIEWS = YES;

@@ -9,54 +9,66 @@
 import UIKit
 
 
-
 class GroupsAndTeachersViewController: UIViewController {
     
-    
+    /// Main table view
     @IBOutlet weak var tableView: UITableView!
     
-    let reuseID = "reuseIDForTeachers"
-    
+    /// Variable to show teachers when `!isSearching`
     var teachers: [Teacher] = []
     
+    /// Variable to show teachers when `isSearching`
     var teachersInSearch: [Teacher] = []
     
-    /// **Main** variable, show when `isSearching == false`
+    /// Variable to show groups when `!isSearching`
     var groups: [Group] = []
     
-    /// Variable, show when `isSearching == true`
+    /// Variable to show groups when `isSearching`
     var groupsInSearch: [Group] = []
 
-    
+    /**
+     Teachers which teach in group
+     */
     var groupTeachers: [Teacher] = []
+    
+    /**
+     All teachers
+     */
     var allTeachers: [Teacher] = []
 
-    
+    /// Searching
     var isSearching = false
     let search = UISearchController(searchResultsController: nil)
     
-    let settings = Settings.shared
-
+    /// Main activity indicator
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
+    /// Segment control that change `groupTeachers` and `allTeachers`
     @IBOutlet weak var segmentControl: UISegmentedControl!
     
+    /// Label with "Почніть вводити ..."
     @IBOutlet weak var startWriteLabel: UILabel!
     
+    let settings = Settings.shared
+
     
-    // If choosing group for shedule (to Shedule VC) if global.sheduleType == .group
+    /// If choosing group for shedule (to Shedule VC) if global.sheduleType == .group
     var isSheduleGroupChooser: Bool = false
     
-    // If choosing teachers for shedule (to Shedule VC) if global.sheduleType == .teachers
+    /// If choosing teachers for shedule (to Shedule VC) if global.sheduleType == .teachers
     var isSheduleTeachersChooser: Bool = false
     
+    /// Show groups (`allTeachers` and `groupTeachers`)
     var isGroupViewController: Bool = false
     
+    /// Show teachers `teachers`
     var isTeacherViewController: Bool = false
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        /// Initial setup
         
         getVariablesFromNavigationController()
         
@@ -72,30 +84,22 @@ class GroupsAndTeachersViewController: UIViewController {
         /// If groups or teachers is empty, make request again
         if (groups.count == 0 && (isSheduleGroupChooser || isGroupViewController)) ||
            (teachers.count == 0 && (isSheduleTeachersChooser || isTeacherViewController)) {
+            
             if isSheduleTeachersChooser {
-                        
                 disableSegmentControl()
                 getAllTeachers()
-                
             } else if isSheduleGroupChooser {
-                
                 disableSegmentControl()
                 getAllGroups()
-                
             } else if isGroupViewController {
-                
                 showWithoutStartWriteLabel()
                 disableSegmentControl()
                 getAllGroups()
-
             } else if isTeacherViewController && global.sheduleType == .teachers {
-                
                 showWithoutStartWriteLabel()
                 disableSegmentControl()
                 getAllTeachers()
-                
             } else if isTeacherViewController && global.sheduleType == .groups {
-                
                 showWithoutStartWriteLabel()
                 getTeachersOfGroup()
                 getAllTeachers()

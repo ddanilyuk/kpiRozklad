@@ -13,32 +13,10 @@ class SheduleDetailNavigationController: UINavigationController, PanModalPresent
 
     var lesson: Lesson?
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-//        self.topViewController
-        panModalSetNeedsLayoutUpdate()
-        
-//        if #available(iOS 13.0, *) {
-//            self.navigationController?.navigationBar.backgroundColor = tint
-//        } else {
-//            self.navigationController?.navigationBar.backgroundColor = .white
-//        }
-        navigationBar.backgroundColor = tint
-
-    }
-
-    
-//    override var preferredStatusBarStyle: UIStatusBarStyle {
-//        return .default
-//    }
-    
-
-    
     var panScrollable: UIScrollView? {
         return nil
     }
 
-    
     var shortFormHeight: PanModalHeight {
         if screenHeight > 737 {
             return .contentHeight(((3.25 * screenHeight) / 8) + 20)
@@ -52,7 +30,17 @@ class SheduleDetailNavigationController: UINavigationController, PanModalPresent
         return .maxHeightWithTopInset(0)
     }
 
+    
     var transitionDuration: Double {
         return 0.5
+    }
+    
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        panModalSetNeedsLayoutUpdate()
+        
+        navigationBar.backgroundColor = tint
     }
 }

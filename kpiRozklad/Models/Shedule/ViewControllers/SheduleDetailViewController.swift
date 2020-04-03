@@ -134,6 +134,7 @@ class SheduleDetailViewController: UIViewController {
         }
     }
     
+    
     /**
      Get lessons from `SheduleVC` -> `SheduleDetailNaviagationC`
      */
@@ -143,6 +144,9 @@ class SheduleDetailViewController: UIViewController {
         
     }
     
+    /**
+     Pushing `teacher`  to `SheduleViewController`
+     */
     @IBAction func didPressGetTeacherShedule(_ sender: UIButton) {
         guard let sheduleVC = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: SheduleViewController.identifier) as? SheduleViewController else { return }
         
@@ -152,17 +156,7 @@ class SheduleDetailViewController: UIViewController {
         
         navigationController?.pushViewController(sheduleVC, animated: true)
     }
-    
 
-    /// Pushing `teacher`  to `TeacherSheduleViewController`
-//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-//        if segue.identifier == "showTeacherSheduleFromDetail" {
-//            if let destination = segue.destination as? TeacherSheduleViewController {
-//                destination.teacher = self.teacher
-//            }
-//        }
-//    }
-//    
     
     /**
      Search for a lesson that is shown in detail  in `getTeacherLessons()`  response
@@ -172,7 +166,8 @@ class SheduleDetailViewController: UIViewController {
      - Parameter teacherID: lesson to find teacherID
      - Parameter lessonWeek: lesson to find lessonWeek
      - Parameter lessons: array of lessons from `getTeacherLessons()`  response
-     
+     - Parameter lessonId: used when lesson were edited
+    
     */
     func getGroups(dayNumber: String, lessonNumber: String, teacherID: String, lessonWeek: String, lessons: [Lesson], lessonId: Int) {
         for lesson in lessons {
@@ -187,7 +182,7 @@ class SheduleDetailViewController: UIViewController {
 
             }
         }
-        
+        /// If lesson were edited, try to finf lesson by `lessonID`
         for lesson in lessons {
             if Int(lesson.lessonID) == lessonId {
                 DispatchQueue.main.async {
@@ -199,7 +194,9 @@ class SheduleDetailViewController: UIViewController {
         }
     }
     
-    
+    /**
+     Server Request to get lessons and then `getGroups()`
+     */
     private func getTeacherLessons(dayNumber: String, lessonNumber: String, teacherID: String, lessonWeek: String, lessonId: Int) {
         API.getTeacherLessons(forTeacherWithId: Int(teacherID) ?? 0).done({ [weak self] (lessons) in
             self?.getGroups(dayNumber: dayNumber, lessonNumber: lessonNumber, teacherID: teacherID, lessonWeek: lessonWeek, lessons: lessons, lessonId: lessonId)
@@ -213,5 +210,4 @@ class SheduleDetailViewController: UIViewController {
             }
         })
     }
-
 }

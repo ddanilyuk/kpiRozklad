@@ -13,6 +13,14 @@ pod 'M13Checkbox'
 
 end
 
+target 'KPIRozkladTests' do
+  use_frameworks!
+pod 'PromiseKit'
+
+end
+
+
+
 target 'Widget' do
   # Comment the next line if you don't want to use dynamic frameworks
   use_frameworks!

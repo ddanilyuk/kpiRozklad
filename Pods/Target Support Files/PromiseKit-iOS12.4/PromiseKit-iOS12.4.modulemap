@@ -1,5 +1,5 @@
 framework module PromiseKit {
-  umbrella header "PromiseKit-umbrella.h"
+  umbrella header "PromiseKit-iOS12.4-umbrella.h"
 
   export *
   module * { export * }

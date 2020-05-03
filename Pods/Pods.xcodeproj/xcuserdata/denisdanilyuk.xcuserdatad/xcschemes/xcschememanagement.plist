@@ -11,12 +11,19 @@
 			<key>orderHint</key>
 			<integer>1</integer>
 		</dict>
-		<key>Pods-Widget.xcscheme</key>
+		<key>Pods-KPIRozkladTests.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
 			<key>orderHint</key>
 			<integer>3</integer>
+		</dict>
+		<key>Pods-Widget.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+			<key>orderHint</key>
+			<integer>4</integer>
 		</dict>
 		<key>Pods-kpiRozklad.xcscheme</key>
 		<dict>
@@ -25,12 +32,19 @@
 			<key>orderHint</key>
 			<integer>2</integer>
 		</dict>
-		<key>PromiseKit.xcscheme</key>
+		<key>PromiseKit-iOS12.4.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
 			<key>orderHint</key>
-			<integer>4</integer>
+			<integer>5</integer>
+		</dict>
+		<key>PromiseKit-iOS13.4.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+			<key>orderHint</key>
+			<integer>6</integer>
 		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>

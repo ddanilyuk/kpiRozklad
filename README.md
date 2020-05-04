@@ -5,7 +5,7 @@
 
 Розклад базується на данних з https://api.rozklad.org.ua.
 
-Планується інтегрування власної бази данних яка буде оновлюватися кожен день.
+Планується інтегрування власної бази данних яка буде оновлюватися кожен день. [GitHub](https://github.com/IlyaStarDR/api-kpi-schedule)
 
 ![url](images/preview1.png)
 ![url](images/preview2.png)

@@ -114,7 +114,7 @@ Function which save all data from server in to Core data
  - Parameter vc: Shedule VC to call `makeLessonsShedule()`
  - Parameter datum: array of  [Lesson] which received from server
 */
-func updateCoreData(vc: SheduleViewController, datum:  [Lesson]) {
+func updateCoreData(lessons:  [Lesson], complition: @escaping () -> ()) {
     DispatchQueue.main.async {
         /// Delete all
         deleteAllFromCoreData()
@@ -123,7 +123,7 @@ func updateCoreData(vc: SheduleViewController, datum:  [Lesson]) {
 
         let managedContext = appDelegate.persistentContainer.viewContext
         
-        for lesson in datum {
+        for lesson in lessons {
             let lessonData = LessonData(context: managedContext)
 
             lessonData.dayName = lesson.dayName.rawValue
@@ -193,7 +193,7 @@ func updateCoreData(vc: SheduleViewController, datum:  [Lesson]) {
             
         }
         
-        vc.makeLessonsShedule()
+        complition()
     }
     
 }

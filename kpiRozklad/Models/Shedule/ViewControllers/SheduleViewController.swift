@@ -581,7 +581,9 @@ class SheduleViewController: UIViewController {
 
             if isMainShedule {
                 this.isNeedToScroll = true
-                updateCoreData(vc: this, datum: lessons)
+                updateCoreData(lessons: lessons) {
+                    this.makeLessonsShedule()
+                }
             } else {
                 this.lessonsFromSegue = lessons
                 this.makeLessonsShedule()

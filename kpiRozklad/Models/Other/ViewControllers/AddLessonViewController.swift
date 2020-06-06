@@ -257,8 +257,9 @@ class AddLessonViewController: UIViewController {
         guard let sheduleViewController : SheduleViewController = mainStoryboard.instantiateViewController(withIdentifier: "SheduleViewController") as? SheduleViewController else { return }
         
         /// Updating Core Data
-        updateCoreData(vc: sheduleViewController, datum: lessons)
-        
+        updateCoreData(lessons: lessons) {
+            sheduleViewController.makeLessonsShedule()
+        }
         /// SHOW NEW sheduleViewController
         let mainTabBar : UITabBarController = mainStoryboard.instantiateViewController(withIdentifier: "Main") as! UITabBarController
         

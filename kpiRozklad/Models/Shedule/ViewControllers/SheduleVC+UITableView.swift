@@ -201,7 +201,9 @@ extension SheduleViewController: UITableViewDelegate, UITableViewDataSource {
             // If delete DispatchQueue animation broken
             self.tableView.isUserInteractionEnabled = false
             DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .milliseconds(500)) {
-                updateCoreData(vc: self, datum: lessons)
+                updateCoreData(lessons: lessons) {
+                    self.makeLessonsShedule()
+                }
                 self.tableView.isUserInteractionEnabled = true
             }
             

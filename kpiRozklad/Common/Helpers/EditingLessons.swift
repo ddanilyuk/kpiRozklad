@@ -93,7 +93,9 @@ func editLessonNumber(vc: SheduleViewController, indexPath: IndexPath) {
     lessonsForCoreData = sortLessons(lessons: lessonsForCoreData)
     
     /// updateCoreData with edited variable `lessons`
-    updateCoreData(vc: vc, datum: lessonsForCoreData)
+    updateCoreData(lessons: lessonsForCoreData) {
+        vc.makeLessonsShedule()
+    }
     vc.lessonNumberFromPicker = 1
 }
 
@@ -224,7 +226,10 @@ func moveRow3(vc: SheduleViewController, sourceIndexPath: IndexPath, destination
     lessonsForCoreData = sortLessons(lessons: lessonsForCoreData)
 
     /// updateCoreData with edited variable `lessons`
-    updateCoreData(vc: vc, datum: lessonsForCoreData)
+    updateCoreData(lessons: lessonsForCoreData) {
+        vc.makeLessonsShedule()
+    }
+    
 }
 
 

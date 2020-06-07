@@ -16,7 +16,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "5FACFF7A23ED63D40022DF88"
-               BuildableName = ".appex"
+               BuildableName = "KPI ROZKLAD.appex"
                BlueprintName = "kpiRozkladWidget"
                ReferencedContainer = "container:kpiRozklad.xcodeproj">
             </BuildableReference>

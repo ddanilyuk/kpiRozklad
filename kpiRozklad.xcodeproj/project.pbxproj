@@ -109,6 +109,26 @@
 		5FCBBA22241C501E00E7654F /* UIColor+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FCBBA21241C501E00E7654F /* UIColor+Extensions.swift */; };
 		5FD5B7152422171900B86FB7 /* Enums.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FD5B7142422171900B86FB7 /* Enums.swift */; };
 		5FD5B7162422174B00B86FB7 /* Enums.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FD5B7142422171900B86FB7 /* Enums.swift */; };
+		5FDCFBD0248D285500568208 /* Interface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5FDCFBCE248D285500568208 /* Interface.storyboard */; };
+		5FDCFBD2248D285600568208 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5FDCFBD1248D285600568208 /* Assets.xcassets */; };
+		5FDCFBD9248D285600568208 /* kpiRozkladWatch Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 5FDCFBD8248D285600568208 /* kpiRozkladWatch Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		5FDCFBDE248D285600568208 /* MainInterfaceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FDCFBDD248D285600568208 /* MainInterfaceController.swift */; };
+		5FDCFBE0248D285600568208 /* ExtensionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FDCFBDF248D285600568208 /* ExtensionDelegate.swift */; };
+		5FDCFBE2248D285600568208 /* NotificationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FDCFBE1248D285600568208 /* NotificationController.swift */; };
+		5FDCFBE4248D285700568208 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5FDCFBE3248D285700568208 /* Assets.xcassets */; };
+		5FDCFBE9248D285700568208 /* kpiRozkladWatch.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = 5FDCFBCC248D285500568208 /* kpiRozkladWatch.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		5FDCFBF3248D28C300568208 /* TableRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FDCFBF2248D28C300568208 /* TableRow.swift */; };
+		5FDCFBF4248D297B00568208 /* ManagingLessons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FE048662392D4FA00092422 /* ManagingLessons.swift */; };
+		5FDCFBF5248D297F00568208 /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F0275B323F3476B00743637 /* CoreDataStack.swift */; };
+		5FDCFBF6248D299100568208 /* CoreDataHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FE0486A2393087900092422 /* CoreDataHelpers.swift */; };
+		5FDCFBF7248D299500568208 /* TimeAndDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FE048682393027900092422 /* TimeAndDate.swift */; };
+		5FDCFBF9248D299B00568208 /* Enums.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FD5B7142422171900B86FB7 /* Enums.swift */; };
+		5FDCFBFA248D29A100568208 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F4457E32376FB05008F9E21 /* Settings.swift */; };
+		5FDCFBFB248D29A800568208 /* Lesson.swift in Sources */ = {isa = PBXBuildFile; fileRef = D313F4B1233C773B0076CFF8 /* Lesson.swift */; };
+		5FDCFBFC248D29A800568208 /* Teacher.swift in Sources */ = {isa = PBXBuildFile; fileRef = D300F1DB2365BC270098CA83 /* Teacher.swift */; };
+		5FDCFBFD248D29A800568208 /* Group.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FA2B79C2379F5A7006C466B /* Group.swift */; };
+		5FDCFBFF248D2BE800568208 /* kpiRozklad.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 5F6A08042370A175000A9C79 /* kpiRozklad.xcdatamodeld */; };
+		5FDCFC00248D2C0900568208 /* String+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FCBB9FC241C404F00E7654F /* String+Extensions.swift */; };
 		5FE048652392D16A00092422 /* EditingLessons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FE048642392D16A00092422 /* EditingLessons.swift */; };
 		5FE048672392D4FA00092422 /* ManagingLessons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FE048662392D4FA00092422 /* ManagingLessons.swift */; };
 		5FE048692393027900092422 /* TimeAndDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FE048682393027900092422 /* TimeAndDate.swift */; };
@@ -147,6 +167,20 @@
 			remoteGlobalIDString = 5FACFF7A23ED63D40022DF88;
 			remoteInfo = Widget;
 		};
+		5FDCFBDA248D285600568208 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D313F48A233AAB6C0076CFF8 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 5FDCFBD7248D285600568208;
+			remoteInfo = "kpiRozkladWatch Extension";
+		};
+		5FDCFBE7248D285700568208 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D313F48A233AAB6C0076CFF8 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 5FDCFBCB248D285500568208;
+			remoteInfo = kpiRozkladWatch;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -159,6 +193,28 @@
 				5FACFF8823ED63D40022DF88 /* KPI ROZKLAD.appex in Embed App Extensions */,
 			);
 			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5FDCFBED248D285700568208 /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				5FDCFBD9248D285600568208 /* kpiRozkladWatch Extension.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5FDCFBF1248D285700568208 /* Embed Watch Content */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "$(CONTENTS_FOLDER_PATH)/Watch";
+			dstSubfolderSpec = 16;
+			files = (
+				5FDCFBE9248D285700568208 /* kpiRozkladWatch.app in Embed Watch Content */,
+			);
+			name = "Embed Watch Content";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
@@ -232,6 +288,18 @@
 		5FCBBA1F241C4FF600E7654F /* ColorPickerViewMy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorPickerViewMy.swift; sourceTree = "<group>"; };
 		5FCBBA21241C501E00E7654F /* UIColor+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extensions.swift"; sourceTree = "<group>"; };
 		5FD5B7142422171900B86FB7 /* Enums.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Enums.swift; sourceTree = "<group>"; };
+		5FDCFBCC248D285500568208 /* kpiRozkladWatch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = kpiRozkladWatch.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		5FDCFBCF248D285500568208 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Interface.storyboard; sourceTree = "<group>"; };
+		5FDCFBD1248D285600568208 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		5FDCFBD3248D285600568208 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		5FDCFBD8248D285600568208 /* kpiRozkladWatch Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "kpiRozkladWatch Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
+		5FDCFBDD248D285600568208 /* MainInterfaceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainInterfaceController.swift; sourceTree = "<group>"; };
+		5FDCFBDF248D285600568208 /* ExtensionDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionDelegate.swift; sourceTree = "<group>"; };
+		5FDCFBE1248D285600568208 /* NotificationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationController.swift; sourceTree = "<group>"; };
+		5FDCFBE3248D285700568208 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		5FDCFBE5248D285700568208 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		5FDCFBE6248D285700568208 /* PushNotificationPayload.apns */ = {isa = PBXFileReference; lastKnownFileType = text; path = PushNotificationPayload.apns; sourceTree = "<group>"; };
+		5FDCFBF2248D28C300568208 /* TableRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableRow.swift; sourceTree = "<group>"; };
 		5FE048642392D16A00092422 /* EditingLessons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditingLessons.swift; sourceTree = "<group>"; };
 		5FE048662392D4FA00092422 /* ManagingLessons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManagingLessons.swift; sourceTree = "<group>"; };
 		5FE048682393027900092422 /* TimeAndDate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeAndDate.swift; sourceTree = "<group>"; };
@@ -277,6 +345,13 @@
 			files = (
 				5FACFF7E23ED63D40022DF88 /* NotificationCenter.framework in Frameworks */,
 				41D0ADD6C368C60E200A9E11 /* Pods_Widget.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5FDCFBD5248D285600568208 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -488,6 +563,30 @@
 			path = ViewControllers;
 			sourceTree = "<group>";
 		};
+		5FDCFBCD248D285500568208 /* kpiRozkladWatch */ = {
+			isa = PBXGroup;
+			children = (
+				5FDCFBCE248D285500568208 /* Interface.storyboard */,
+				5FDCFBD1248D285600568208 /* Assets.xcassets */,
+				5FDCFBD3248D285600568208 /* Info.plist */,
+			);
+			path = kpiRozkladWatch;
+			sourceTree = "<group>";
+		};
+		5FDCFBDC248D285600568208 /* kpiRozkladWatch Extension */ = {
+			isa = PBXGroup;
+			children = (
+				5FDCFBDD248D285600568208 /* MainInterfaceController.swift */,
+				5FDCFBF2248D28C300568208 /* TableRow.swift */,
+				5FDCFBDF248D285600568208 /* ExtensionDelegate.swift */,
+				5FDCFBE1248D285600568208 /* NotificationController.swift */,
+				5FDCFBE3248D285700568208 /* Assets.xcassets */,
+				5FDCFBE5248D285700568208 /* Info.plist */,
+				5FDCFBE6248D285700568208 /* PushNotificationPayload.apns */,
+			);
+			path = "kpiRozkladWatch Extension";
+			sourceTree = "<group>";
+		};
 		5FE0486E23930D0700092422 /* Structs */ = {
 			isa = PBXGroup;
 			children = (
@@ -506,6 +605,8 @@
 				D313F494233AAB6C0076CFF8 /* kpiRozklad */,
 				5FACFF7F23ED63D40022DF88 /* kpiRozkladWidget */,
 				5F75DAD52457915900B1E4C9 /* kpiRozkladTests */,
+				5FDCFBCD248D285500568208 /* kpiRozkladWatch */,
+				5FDCFBDC248D285600568208 /* kpiRozkladWatch Extension */,
 				5FACFF7C23ED63D40022DF88 /* Frameworks */,
 				D313F493233AAB6C0076CFF8 /* Products */,
 				27FE3C497895B2A14E7B0A78 /* Pods */,
@@ -518,6 +619,8 @@
 				D313F492233AAB6C0076CFF8 /* KPI Rozklad.app */,
 				5FACFF7B23ED63D40022DF88 /* KPI ROZKLAD.appex */,
 				5F75DAD42457915900B1E4C9 /* kpiRozkladTests.xctest */,
+				5FDCFBCC248D285500568208 /* kpiRozkladWatch.app */,
+				5FDCFBD8248D285600568208 /* kpiRozkladWatch Extension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -762,6 +865,40 @@
 			productReference = 5FACFF7B23ED63D40022DF88 /* KPI ROZKLAD.appex */;
 			productType = "com.apple.product-type.app-extension";
 		};
+		5FDCFBCB248D285500568208 /* kpiRozkladWatch */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 5FDCFBEE248D285700568208 /* Build configuration list for PBXNativeTarget "kpiRozkladWatch" */;
+			buildPhases = (
+				5FDCFBCA248D285500568208 /* Resources */,
+				5FDCFBED248D285700568208 /* Embed App Extensions */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				5FDCFBDB248D285600568208 /* PBXTargetDependency */,
+			);
+			name = kpiRozkladWatch;
+			productName = kpiRozkladWatch;
+			productReference = 5FDCFBCC248D285500568208 /* kpiRozkladWatch.app */;
+			productType = "com.apple.product-type.application.watchapp2";
+		};
+		5FDCFBD7248D285600568208 /* kpiRozkladWatch Extension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 5FDCFBEA248D285700568208 /* Build configuration list for PBXNativeTarget "kpiRozkladWatch Extension" */;
+			buildPhases = (
+				5FDCFBD4248D285600568208 /* Sources */,
+				5FDCFBD5248D285600568208 /* Frameworks */,
+				5FDCFBD6248D285600568208 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "kpiRozkladWatch Extension";
+			productName = "kpiRozkladWatch Extension";
+			productReference = 5FDCFBD8248D285600568208 /* kpiRozkladWatch Extension.appex */;
+			productType = "com.apple.product-type.watchkit2-extension";
+		};
 		D313F491233AAB6C0076CFF8 /* kpiRozklad */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = D313F4A6233AAB6D0076CFF8 /* Build configuration list for PBXNativeTarget "kpiRozklad" */;
@@ -772,11 +909,13 @@
 				D313F490233AAB6C0076CFF8 /* Resources */,
 				5FACFF8923ED63D40022DF88 /* Embed App Extensions */,
 				0B387FB7E467EFF61FB57315 /* [CP] Embed Pods Frameworks */,
+				5FDCFBF1248D285700568208 /* Embed Watch Content */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 				5FACFF8723ED63D40022DF88 /* PBXTargetDependency */,
+				5FDCFBE8248D285700568208 /* PBXTargetDependency */,
 			);
 			name = kpiRozklad;
 			productName = kpiRozklad;
@@ -789,7 +928,7 @@
 		D313F48A233AAB6C0076CFF8 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 1140;
+				LastSwiftUpdateCheck = 1150;
 				LastUpgradeCheck = 1100;
 				ORGANIZATIONNAME = "Denis Danilyuk";
 				TargetAttributes = {
@@ -799,6 +938,12 @@
 					};
 					5FACFF7A23ED63D40022DF88 = {
 						CreatedOnToolsVersion = 11.3.1;
+					};
+					5FDCFBCB248D285500568208 = {
+						CreatedOnToolsVersion = 11.5;
+					};
+					5FDCFBD7248D285600568208 = {
+						CreatedOnToolsVersion = 11.5;
 					};
 					D313F491233AAB6C0076CFF8 = {
 						CreatedOnToolsVersion = 11.0;
@@ -822,6 +967,8 @@
 				D313F491233AAB6C0076CFF8 /* kpiRozklad */,
 				5FACFF7A23ED63D40022DF88 /* kpiRozkladWidget */,
 				5F75DAD32457915900B1E4C9 /* kpiRozkladTests */,
+				5FDCFBCB248D285500568208 /* kpiRozkladWatch */,
+				5FDCFBD7248D285600568208 /* kpiRozkladWatch Extension */,
 			);
 		};
 /* End PBXProject section */
@@ -840,6 +987,23 @@
 			files = (
 				5FACFF8423ED63D40022DF88 /* MainInterface.storyboard in Resources */,
 				5FACFF9023ED648D0022DF88 /* LessonTableViewCell.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5FDCFBCA248D285500568208 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5FDCFBD2248D285600568208 /* Assets.xcassets in Resources */,
+				5FDCFBD0248D285500568208 /* Interface.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5FDCFBD6248D285600568208 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5FDCFBE4248D285700568208 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1020,6 +1184,28 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		5FDCFBD4248D285600568208 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5FDCFBE2248D285600568208 /* NotificationController.swift in Sources */,
+				5FDCFBF4248D297B00568208 /* ManagingLessons.swift in Sources */,
+				5FDCFBF9248D299B00568208 /* Enums.swift in Sources */,
+				5FDCFBFB248D29A800568208 /* Lesson.swift in Sources */,
+				5FDCFBFC248D29A800568208 /* Teacher.swift in Sources */,
+				5FDCFBF3248D28C300568208 /* TableRow.swift in Sources */,
+				5FDCFBFF248D2BE800568208 /* kpiRozklad.xcdatamodeld in Sources */,
+				5FDCFBF5248D297F00568208 /* CoreDataStack.swift in Sources */,
+				5FDCFBFD248D29A800568208 /* Group.swift in Sources */,
+				5FDCFBF7248D299500568208 /* TimeAndDate.swift in Sources */,
+				5FDCFC00248D2C0900568208 /* String+Extensions.swift in Sources */,
+				5FDCFBF6248D299100568208 /* CoreDataHelpers.swift in Sources */,
+				5FDCFBE0248D285600568208 /* ExtensionDelegate.swift in Sources */,
+				5FDCFBFA248D29A100568208 /* Settings.swift in Sources */,
+				5FDCFBDE248D285600568208 /* MainInterfaceController.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		D313F48E233AAB6C0076CFF8 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1106,6 +1292,16 @@
 			target = 5FACFF7A23ED63D40022DF88 /* kpiRozkladWidget */;
 			targetProxy = 5FACFF8623ED63D40022DF88 /* PBXContainerItemProxy */;
 		};
+		5FDCFBDB248D285600568208 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 5FDCFBD7248D285600568208 /* kpiRozkladWatch Extension */;
+			targetProxy = 5FDCFBDA248D285600568208 /* PBXContainerItemProxy */;
+		};
+		5FDCFBE8248D285700568208 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 5FDCFBCB248D285500568208 /* kpiRozkladWatch */;
+			targetProxy = 5FDCFBE7248D285700568208 /* PBXContainerItemProxy */;
+		};
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
@@ -1123,6 +1319,14 @@
 				5FACFF8323ED63D40022DF88 /* Base */,
 			);
 			name = MainInterface.storyboard;
+			sourceTree = "<group>";
+		};
+		5FDCFBCE248D285500568208 /* Interface.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				5FDCFBCF248D285500568208 /* Base */,
+			);
+			name = Interface.storyboard;
 			sourceTree = "<group>";
 		};
 		D313F4A0233AAB6D0076CFF8 /* LaunchScreen.storyboard */ = {
@@ -1225,6 +1429,88 @@
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Release;
+		};
+		5FDCFBEB248D285700568208 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = M92VXVU7J9;
+				INFOPLIST_FILE = "kpiRozkladWatch Extension/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = ddanilyuk.kpiRozklad.watchkitapp.watchkitextension;
+				PRODUCT_NAME = "${TARGET_NAME}";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 6.2;
+			};
+			name = Debug;
+		};
+		5FDCFBEC248D285700568208 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = M92VXVU7J9;
+				INFOPLIST_FILE = "kpiRozkladWatch Extension/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = ddanilyuk.kpiRozklad.watchkitapp.watchkitextension;
+				PRODUCT_NAME = "${TARGET_NAME}";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 6.2;
+			};
+			name = Release;
+		};
+		5FDCFBEF248D285700568208 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = M92VXVU7J9;
+				IBSC_MODULE = kpiRozkladWatch_Extension;
+				INFOPLIST_FILE = kpiRozkladWatch/Info.plist;
+				PRODUCT_BUNDLE_IDENTIFIER = ddanilyuk.kpiRozklad.watchkitapp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 6.2;
+			};
+			name = Debug;
+		};
+		5FDCFBF0248D285700568208 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = M92VXVU7J9;
+				IBSC_MODULE = kpiRozkladWatch_Extension;
+				INFOPLIST_FILE = kpiRozkladWatch/Info.plist;
+				PRODUCT_BUNDLE_IDENTIFIER = ddanilyuk.kpiRozklad.watchkitapp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 6.2;
 			};
 			name = Release;
 		};
@@ -1413,6 +1699,24 @@
 			buildConfigurations = (
 				5FACFF8A23ED63D40022DF88 /* Debug */,
 				5FACFF8B23ED63D40022DF88 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		5FDCFBEA248D285700568208 /* Build configuration list for PBXNativeTarget "kpiRozkladWatch Extension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5FDCFBEB248D285700568208 /* Debug */,
+				5FDCFBEC248D285700568208 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		5FDCFBEE248D285700568208 /* Build configuration list for PBXNativeTarget "kpiRozkladWatch" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5FDCFBEF248D285700568208 /* Debug */,
+				5FDCFBF0248D285700568208 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

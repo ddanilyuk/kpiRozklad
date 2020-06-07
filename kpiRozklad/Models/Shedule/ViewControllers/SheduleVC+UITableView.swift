@@ -184,7 +184,11 @@ extension SheduleViewController: UITableViewDelegate, UITableViewDataSource {
             /// Lesson to delete
             let lesson = self.lessonsForTableView[newIndexPath.section].value[newIndexPath.row]
             
-            var lessons = fetchingCoreData()
+            guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
+            let managedContext = appDelegate.persistentContainer.viewContext
+
+            
+            var lessons = fetchingCoreData(managedContext: managedContext)
             
             /// deleting from `lessons`  which will be used for further updates in `updateCoreData(datum: lessons)`
             for i in 0..<lessons.count {
@@ -201,7 +205,7 @@ extension SheduleViewController: UITableViewDelegate, UITableViewDataSource {
             // If delete DispatchQueue animation broken
             self.tableView.isUserInteractionEnabled = false
             DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .milliseconds(500)) {
-                updateCoreData(lessons: lessons) {
+                updateCoreData(lessons: lessons, managedContext: managedContext) {
                     self.makeLessonsShedule()
                 }
                 self.tableView.isUserInteractionEnabled = true

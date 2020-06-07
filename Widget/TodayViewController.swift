@@ -137,7 +137,7 @@ class TodayViewController: UIViewController, NCWidgetProviding {
     }()
 
     
-    func saveContext () {
+    func saveContext() {
         let context = persistentContainer.viewContext
         if context.hasChanges {
             do {
@@ -150,97 +150,98 @@ class TodayViewController: UIViewController, NCWidgetProviding {
     }
     
     
-    func fetchingCoreData() -> [Lesson] {
-
-        let managedContext = self.persistentContainer.viewContext
-
-        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "LessonData")
-
-        var lessonsArray: [Lesson] = []
-        do {
-            guard let fetchResult = try managedContext.fetch(fetchRequest) as? [LessonData] else { return [] }
-
-            for lessonData in fetchResult {
-                
-                var roomsArray: [Room] = []
-                let room: Room?
-                
-                if let roomData = lessonData.roomsRelationship {
-                    room = Room(roomID: roomData.roomID ?? "",
-                                roomName: roomData.roomName ?? "",
-                                roomLatitude: roomData.roomLatitude ?? "",
-                                roomLongitude: roomData.roomLongitude ?? "")
-                    
-                    if let room = room {
-                        roomsArray.append(room)
-                    }
-                }
-                
-                
-                var teachersArray: [Teacher] = []
-                let teacher: Teacher?
-                
-                if let teacherData = lessonData.teachersRelationship {
-                    teacher = Teacher(teacherID: teacherData.teacherID ?? "",
-                                      teacherName: teacherData.teacherName ?? "",
-                                      teacherFullName: teacherData.teacherFullName ?? "",
-                                      teacherShortName: teacherData.teacherShortName ?? "",
-                                      teacherURL: teacherData.teacherURL ?? "",
-                                      teacherRating: teacherData.teacherRating ?? "")
-                    
-                    if let teacher = teacher {
-                        teachersArray.append(teacher)
-                    }
-                }
-            
-                
-                var groupsArray: [Group] = []
-
-                if let groupsDataArray = lessonData.groupsRelationship?.allObjects as? [GroupData] {
-                    for groupData in groupsDataArray {
-                        let group = Group(groupID: Int(groupData.groupID),
-                                          groupFullName: groupData.groupFullName ?? "",
-                                          groupPrefix: groupData.groupFullName ?? "",
-                                          groupOkr: GroupOkr(rawValue: groupData.groupOkr ?? "") ?? GroupOkr.bachelor,
-                                          groupType: GroupType(rawValue: groupData.groupType ?? "") ?? GroupType.daily,
-                                          groupURL: groupData.groupURL ?? "")
-                        
-                        groupsArray.append(group)
-                    }
-                }
-                
-                
-                let lesson = Lesson(lessonID: lessonData.lessonID ?? "",
-                                    dayNumber: lessonData.dayNumber ?? "",
-                                    groupID: lessonData.groupID ?? "",
-                                    dayName: DayName(rawValue: lessonData.dayName ?? "") ?? DayName.mounday,
-                                    lessonName: lessonData.lessonName ?? "",
-                                    lessonFullName: lessonData.lessonFullName ?? "",
-                                    lessonNumber: lessonData.lessonNumber ?? "",
-                                    lessonRoom: lessonData.lessonRoom ?? "",
-                                    lessonType: LessonType(rawValue: lessonData.lessonType ?? "") ?? LessonType.empty,
-                                    teacherName: lessonData.teacherName ?? "",
-                                    lessonWeek: lessonData.lessonWeek ?? "",
-                                    timeStart: lessonData.timeStart ?? "",
-                                    timeEnd: lessonData.timeEnd ?? "",
-                                    rate: lessonData.rate ?? "",
-                                    teachers: teachersArray,
-                                    rooms: roomsArray,
-                                    groups: groupsArray)
-                
-                lessonsArray.append(lesson)
-            }
-        } catch let error as NSError {
-            print("Could not save. \(error), \(error.userInfo)")
-        }
-        
-        return lessonsArray
-    }
+//    func fetchingCoreData() -> [Lesson] {
+//
+//        let managedContext = self.persistentContainer.viewContext
+//
+//        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "LessonData")
+//
+//        var lessonsArray: [Lesson] = []
+//
+//        do {
+//            guard let fetchResult = try managedContext.fetch(fetchRequest) as? [LessonData] else { return [] }
+//
+//            for lessonData in fetchResult {
+//
+//                var roomsArray: [Room] = []
+//                let room: Room?
+//
+//                if let roomData = lessonData.roomsRelationship {
+//                    room = Room(roomID: roomData.roomID ?? "",
+//                                roomName: roomData.roomName ?? "",
+//                                roomLatitude: roomData.roomLatitude ?? "",
+//                                roomLongitude: roomData.roomLongitude ?? "")
+//
+//                    if let room = room {
+//                        roomsArray.append(room)
+//                    }
+//                }
+//
+//
+//                var teachersArray: [Teacher] = []
+//                let teacher: Teacher?
+//
+//                if let teacherData = lessonData.teachersRelationship {
+//                    teacher = Teacher(teacherID: teacherData.teacherID ?? "",
+//                                      teacherName: teacherData.teacherName ?? "",
+//                                      teacherFullName: teacherData.teacherFullName ?? "",
+//                                      teacherShortName: teacherData.teacherShortName ?? "",
+//                                      teacherURL: teacherData.teacherURL ?? "",
+//                                      teacherRating: teacherData.teacherRating ?? "")
+//
+//                    if let teacher = teacher {
+//                        teachersArray.append(teacher)
+//                    }
+//                }
+//
+//
+//                var groupsArray: [Group] = []
+//
+//                if let groupsDataArray = lessonData.groupsRelationship?.allObjects as? [GroupData] {
+//                    for groupData in groupsDataArray {
+//                        let group = Group(groupID: Int(groupData.groupID),
+//                                          groupFullName: groupData.groupFullName ?? "",
+//                                          groupPrefix: groupData.groupFullName ?? "",
+//                                          groupOkr: GroupOkr(rawValue: groupData.groupOkr ?? "") ?? GroupOkr.bachelor,
+//                                          groupType: GroupType(rawValue: groupData.groupType ?? "") ?? GroupType.daily,
+//                                          groupURL: groupData.groupURL ?? "")
+//
+//                        groupsArray.append(group)
+//                    }
+//                }
+//
+//
+//                let lesson = Lesson(lessonID: lessonData.lessonID ?? "",
+//                                    dayNumber: lessonData.dayNumber ?? "",
+//                                    groupID: lessonData.groupID ?? "",
+//                                    dayName: DayName(rawValue: lessonData.dayName ?? "") ?? DayName.mounday,
+//                                    lessonName: lessonData.lessonName ?? "",
+//                                    lessonFullName: lessonData.lessonFullName ?? "",
+//                                    lessonNumber: lessonData.lessonNumber ?? "",
+//                                    lessonRoom: lessonData.lessonRoom ?? "",
+//                                    lessonType: LessonType(rawValue: lessonData.lessonType ?? "") ?? LessonType.empty,
+//                                    teacherName: lessonData.teacherName ?? "",
+//                                    lessonWeek: lessonData.lessonWeek ?? "",
+//                                    timeStart: lessonData.timeStart ?? "",
+//                                    timeEnd: lessonData.timeEnd ?? "",
+//                                    rate: lessonData.rate ?? "",
+//                                    teachers: teachersArray,
+//                                    rooms: roomsArray,
+//                                    groups: groupsArray)
+//
+//                lessonsArray.append(lesson)
+//            }
+//        } catch let error as NSError {
+//            print("Could not save. \(error), \(error.userInfo)")
+//        }
+//
+//        return lessonsArray
+//    }
 
     
     func makeLessonsShedule() {
         /// fetching Core Data
-        let lessons: [Lesson] = fetchingCoreData()
+        let lessons: [Lesson] = fetchingCoreData(managedContext: persistentContainer.viewContext)
         
         setupDate()
         (nextLessonId, currentLessonId) = getCurrentAndNextLesson(lessons: lessons, timeIsNowString: timeIsNowString, dayNumberFromCurrentDate: dayNumberFromCurrentDate, currentWeekFromTodayDate: currentWeekFromTodayDate)

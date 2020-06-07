@@ -17,11 +17,8 @@ import CoreData
 
  - Returns: Lessons from Core Data
  */
-func fetchingCoreData() -> [Lesson] {
-    guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return [] }
-
-    let managedContext = appDelegate.persistentContainer.viewContext
-    
+func fetchingCoreData(managedContext: NSManagedObjectContext) -> [Lesson] {
+        
     let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "LessonData")
 
     var lessonsArray: [Lesson] = []
@@ -114,14 +111,12 @@ Function which save all data from server in to Core data
  - Parameter vc: Shedule VC to call `makeLessonsShedule()`
  - Parameter datum: array of  [Lesson] which received from server
 */
-func updateCoreData(lessons:  [Lesson], complition: @escaping () -> ()) {
+func updateCoreData(lessons:  [Lesson], managedContext: NSManagedObjectContext, complition: @escaping () -> ()) {
     DispatchQueue.main.async {
         /// Delete all
-        deleteAllFromCoreData()
+        deleteAllFromCoreData(managedContext: managedContext)
 
-        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
-
-        let managedContext = appDelegate.persistentContainer.viewContext
+        
         
         for lesson in lessons {
             let lessonData = LessonData(context: managedContext)
@@ -204,16 +199,14 @@ func updateCoreData(lessons:  [Lesson], complition: @escaping () -> ()) {
  
  - Note: Core Data for entity "Lesson"
  */
-func deleteAllFromCoreData() {
+func deleteAllFromCoreData(managedContext: NSManagedObjectContext) {
     let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "LessonData")
 
-    guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
 
     // Configure Fetch Request
     fetchRequest.includesPropertyValues = false
 
     do {
-        let managedContext = appDelegate.persistentContainer.viewContext
 
         let items = try managedContext.fetch(fetchRequest) as! [NSManagedObject]
 

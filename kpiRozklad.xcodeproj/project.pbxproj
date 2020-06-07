@@ -114,6 +114,7 @@
 		5FE048692393027900092422 /* TimeAndDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FE048682393027900092422 /* TimeAndDate.swift */; };
 		5FE0486B2393087900092422 /* CoreDataHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FE0486A2393087900092422 /* CoreDataHelpers.swift */; };
 		5FE0486D23930C3000092422 /* SheduleVC+UIPickerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FE0486C23930C3000092422 /* SheduleVC+UIPickerVC.swift */; };
+		5FE40E55248CF1DA000D2899 /* CoreDataHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FE0486A2393087900092422 /* CoreDataHelpers.swift */; };
 		5FE9678324091880000AD157 /* TeachersNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FE9678224091880000AD157 /* TeachersNavigationController.swift */; };
 		5FE96785240F0C22000AD157 /* SheduleDetailNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FE96784240F0C22000AD157 /* SheduleDetailNavigationController.swift */; };
 		90A353C4EB2D15AEC0D9F8D1 /* Pods_kpiRozklad.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 25B70702B56A794A30F2DB1A /* Pods_kpiRozklad.framework */; };
@@ -370,8 +371,8 @@
 				5FE048642392D16A00092422 /* EditingLessons.swift */,
 				5FE048662392D4FA00092422 /* ManagingLessons.swift */,
 				5F0275B323F3476B00743637 /* CoreDataStack.swift */,
-				5FE048682393027900092422 /* TimeAndDate.swift */,
 				5FE0486A2393087900092422 /* CoreDataHelpers.swift */,
+				5FE048682393027900092422 /* TimeAndDate.swift */,
 				5F2F313E2395C62100FC28CB /* Colours.swift */,
 				5FD5B7142422171900B86FB7 /* Enums.swift */,
 			);
@@ -1006,6 +1007,7 @@
 				5F305C7B242263BC0035B509 /* Colours.swift in Sources */,
 				5FCBBA06241C469500E7654F /* UIViewController+Extensions.swift in Sources */,
 				5F0275B823F3493B00743637 /* CoreDataStack.swift in Sources */,
+				5FE40E55248CF1DA000D2899 /* CoreDataHelpers.swift in Sources */,
 				5FCBBA05241C469200E7654F /* UIButton+Extensions.swift in Sources */,
 				5F0275BA23F34A0C00743637 /* Teacher.swift in Sources */,
 				5F0275B223F3472300743637 /* kpiRozklad.xcdatamodeld in Sources */,

@@ -256,8 +256,10 @@ class AddLessonViewController: UIViewController {
         
         guard let sheduleViewController : SheduleViewController = mainStoryboard.instantiateViewController(withIdentifier: "SheduleViewController") as? SheduleViewController else { return }
         
+        guard let managedContext = appDelegate?.persistentContainer.viewContext else { return }
+        
         /// Updating Core Data
-        updateCoreData(lessons: lessons) {
+        updateCoreData(lessons: lessons, managedContext: managedContext) {
             sheduleViewController.makeLessonsShedule()
         }
         /// SHOW NEW sheduleViewController

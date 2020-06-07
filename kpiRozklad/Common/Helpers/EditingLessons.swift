@@ -10,7 +10,10 @@ import UIKit
 
 
 func editLessonNumber(vc: SheduleViewController, indexPath: IndexPath) {
-    var lessonsForCoreData = fetchingCoreData()
+    guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
+    let managedContext = appDelegate.persistentContainer.viewContext
+    
+    var lessonsForCoreData = fetchingCoreData(managedContext: managedContext)
     
     lessonsForCoreData.removeAll { lesson -> Bool in
         var array: [String] = []
@@ -93,7 +96,7 @@ func editLessonNumber(vc: SheduleViewController, indexPath: IndexPath) {
     lessonsForCoreData = sortLessons(lessons: lessonsForCoreData)
     
     /// updateCoreData with edited variable `lessons`
-    updateCoreData(lessons: lessonsForCoreData) {
+    updateCoreData(lessons: lessonsForCoreData, managedContext: managedContext) {
         vc.makeLessonsShedule()
     }
     vc.lessonNumberFromPicker = 1
@@ -112,7 +115,10 @@ func moveRow3(vc: SheduleViewController, sourceIndexPath: IndexPath, destination
     var lessonTemp1: Lesson?
     var lessonTemp2: Lesson?
     
-    var lessonsForCoreData = fetchingCoreData()
+    guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
+    let managedContext = appDelegate.persistentContainer.viewContext
+    
+    var lessonsForCoreData = fetchingCoreData(managedContext: managedContext)
     
     lessonsForCoreData.removeAll { lesson -> Bool in
         var array: [String] = []
@@ -226,7 +232,7 @@ func moveRow3(vc: SheduleViewController, sourceIndexPath: IndexPath, destination
     lessonsForCoreData = sortLessons(lessons: lessonsForCoreData)
 
     /// updateCoreData with edited variable `lessons`
-    updateCoreData(lessons: lessonsForCoreData) {
+    updateCoreData(lessons: lessonsForCoreData, managedContext: managedContext) {
         vc.makeLessonsShedule()
     }
     

@@ -395,7 +395,10 @@ class SheduleViewController: UIViewController {
     func presentAddLesson() {
         guard let addLesson: AddLessonViewController = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: AddLessonViewController.identifier) as? AddLessonViewController else { return }
         
-        addLesson.lessons = fetchingCoreData()
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
+        let managedContext = appDelegate.persistentContainer.viewContext
+        
+        addLesson.lessons = fetchingCoreData(managedContext: managedContext)
         addLesson.currentWeek = self.currentWeek
         
         if #available(iOS 13, *) {
@@ -483,12 +486,14 @@ class SheduleViewController: UIViewController {
      */
     func makeLessonsShedule() {
         var lessons: [Lesson] = []
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
+        let managedContext = appDelegate.persistentContainer.viewContext
         
         /// When the program is reopen, you need to update the time and the current and next lesson
         if (isFromSettingsGetFreshShedule || isFromGroupsAndTeacherOrFavourite ||  isTeachersShedule) {
             lessons = lessonsFromSegue
         } else {
-            lessons = fetchingCoreData()
+            lessons = fetchingCoreData(managedContext: managedContext)
         }
 
         setupDate()
@@ -579,9 +584,12 @@ class SheduleViewController: UIViewController {
         serverLessons.done({ [weak self] (lessons) in
             guard let this = self else { return }
 
+            guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
+            let managedContext = appDelegate.persistentContainer.viewContext
+                
             if isMainShedule {
                 this.isNeedToScroll = true
-                updateCoreData(lessons: lessons) {
+                updateCoreData(lessons: lessons, managedContext: managedContext) {
                     this.makeLessonsShedule()
                 }
             } else {

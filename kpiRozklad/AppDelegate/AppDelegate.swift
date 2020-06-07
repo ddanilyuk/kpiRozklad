@@ -17,6 +17,7 @@ struct global {
 
 var API = NetworkingApiFacade(apiService: NetworkingApi())
 
+
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
@@ -29,7 +30,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         
 //        settings.isShowGreetings = false
-
+        let managedContext = self.persistentContainer.viewContext
 
         if settings.isGroupsShedule == false && settings.isTeacherShedule == true {
             global.sheduleType = .teachers
@@ -40,7 +41,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 
         if settings.sheduleUpdateTime == "" {
             settings.isTryToRefreshShedule = true
-            deleteAllFromCoreData()
+            deleteAllFromCoreData(managedContext: managedContext)
             settings.updateAtOnce = "updated"
             settings.updateAtOnceSecond = "updated"
 
@@ -55,7 +56,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             settings.updateAtOnceSecond = "updated"
 
             global.sheduleType = .groups
-            deleteAllFromCoreData()
+            deleteAllFromCoreData(managedContext: managedContext)
             
         } else if settings.updateAtOnceSecond == "" {
             settings.updateAtOnceSecond = "updated"
@@ -65,9 +66,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         let mainStoryboard = UIStoryboard(name: "Main", bundle: Bundle.main)
         let mainVC = mainStoryboard.instantiateInitialViewController()
-//        guard let greetingVC = mainStoryboard.instantiateViewController(withIdentifier: GreetingViewController.identifier) as? GreetingViewController else { return false }
         
-         guard let greetingVC = mainStoryboard.instantiateViewController(withIdentifier: "FirstViewController") as? FirstViewController else { return false }
+        guard let greetingVC = mainStoryboard.instantiateViewController(withIdentifier: "FirstViewController") as? FirstViewController else { return false }
         
         window?.rootViewController = settings.isShowGreetings ? greetingVC : mainVC
         
@@ -92,7 +92,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 for lesson in lessons {
                     if lesson.lessonID == needID {
                         
-                        guard let sheduleDetailVC : SheduleDetailViewController = mainStoryboard.instantiateViewController(withIdentifier: SheduleDetailViewController.identifier) as? SheduleDetailViewController else { return false }
+                        guard let sheduleDetailVC: SheduleDetailViewController = mainStoryboard.instantiateViewController(withIdentifier: SheduleDetailViewController.identifier) as? SheduleDetailViewController else { return false }
                         
                         sheduleDetailVC.lesson = lesson
                         

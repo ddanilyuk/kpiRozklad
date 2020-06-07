@@ -123,9 +123,12 @@ class BoardViewController: UIViewController, PanModalPresentable {
     // MARK: - presentGroupChooser
     /// Func which present `GroupChooserViewController` (navigationGroupChooser)
     func presentGroupOrTeacherChooser(requestType: SheduleType) {
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
+        let managedContext = appDelegate.persistentContainer.viewContext
+        
         if requestType == .groups {
             if settings.groupName == "" {
-                deleteAllFromCoreData()
+                deleteAllFromCoreData(managedContext: managedContext)
                 guard let groupsChooserNavigationController = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: TeachersNavigationController.identifier) as? TeachersNavigationController else { return }
                 
                 groupsChooserNavigationController.isSheduleGroupChooser = true
@@ -134,7 +137,7 @@ class BoardViewController: UIViewController, PanModalPresentable {
             }
         } else {
             if settings.teacherName == "" {
-                deleteAllFromCoreData()
+                deleteAllFromCoreData(managedContext: managedContext)
                 guard let groupsChooserNavigationController = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: TeachersNavigationController.identifier) as? TeachersNavigationController else { return }
                 
                 groupsChooserNavigationController.isSheduleTeachersChooser = true

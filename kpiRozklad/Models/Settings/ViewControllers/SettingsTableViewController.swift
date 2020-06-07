@@ -194,8 +194,12 @@ class SettingsTableViewController: UITableViewController {
         let alert = UIAlertController(title: nil, message: "Чи бажаєте ви оновити розклад?\n Всі ваші редагування розкладу пропадуть!", preferredStyle: .actionSheet)
         alert.addAction(UIAlertAction(title: "Оновити", style: .destructive, handler: { (_) in
             
+            
             self.settings.isTryToRefreshShedule = true
-            deleteAllFromCoreData()
+            
+            guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
+            let managedContext = appDelegate.persistentContainer.viewContext
+            deleteAllFromCoreData(managedContext: managedContext)
             
             let indexPath = IndexPath(row: 0, section: 1)
             let formatter = DateFormatter()
@@ -209,8 +213,7 @@ class SettingsTableViewController: UITableViewController {
                 cell.deviceSaveLabel.text = time
             }
 
-            let appDelegate = UIApplication.shared.delegate as? AppDelegate
-            guard let window = appDelegate?.window else { return }
+            guard let window = appDelegate.window else { return }
             
 
 
@@ -239,7 +242,10 @@ class SettingsTableViewController: UITableViewController {
             self.settings.teacherID = 0
             
             self.settings.isTryToRefreshShedule = true
-            deleteAllFromCoreData()
+            
+            guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
+            let managedContext = appDelegate.persistentContainer.viewContext
+            deleteAllFromCoreData(managedContext: managedContext)
             
             let indexPath = IndexPath(row: 1, section: 1)
             let formatter = DateFormatter()

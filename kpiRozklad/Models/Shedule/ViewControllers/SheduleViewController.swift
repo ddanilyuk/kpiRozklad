@@ -230,29 +230,12 @@ class SheduleViewController: UIViewController{
         /// Set `isEditInserts` for `tableView.contentInset`
         isEditInserts = true
         
-        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
-        let managedContext = appDelegate.persistentContainer.viewContext
+        
         
         
 //        let session = WCSession.default
 
-        if WCSession.isSupported() {
-            let session = WCSession.default
-            do {
-                let lessons = fetchingCoreData(managedContext: managedContext)
-                
-                let encoder = JSONEncoder.init()
-                
-                let dataLessons = try encoder.encode(lessons)
-                
-                let dictionary: [String: Any] = ["lessons7": dataLessons, "time": Date().timeIntervalSince1970]
-                print(dictionary)
-                try session.updateApplicationContext(dictionary)
-                
-            } catch {
-                print("Error: \(error)")
-            }
-        }
+        
         
         
 //        if WCSession.isSupported() {
@@ -299,6 +282,40 @@ class SheduleViewController: UIViewController{
         } else {
             setLargeTitleDisplayMode(.never)
             tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+        }
+        
+        
+        if WCSession.isSupported() {
+            let session = WCSession.default
+            do {
+                guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
+                let managedContext = appDelegate.persistentContainer.viewContext
+                
+                let lessons = fetchingCoreData(managedContext: managedContext)
+                
+                let encoder = JSONEncoder.init()
+                
+                let dataLessons = try encoder.encode(lessons)
+                
+                let name = isTeachersShedule ? settings.teacherName : settings.groupName
+                
+                let currentColourData = settings.cellCurrentColour.encode()
+                let nextColourData = settings.cellNextColour.encode()
+
+                
+//                let some = UIColor(\)
+                
+                
+                
+                let dictionary: [String: Any] = ["lessons": dataLessons, "time": Date().timeIntervalSince1970, "name": name, "currentColourData": currentColourData, "nextColourData": nextColourData]
+//                let dictionary: [String: Any] = ["lessons": dataLessons, "name": name, "currentColourData": currentColourData, "nextColourData": nextColourData]
+
+                print(dictionary)
+                try session.updateApplicationContext(dictionary)
+                
+            } catch {
+                print("Error: \(error)")
+            }
         }
     }
     

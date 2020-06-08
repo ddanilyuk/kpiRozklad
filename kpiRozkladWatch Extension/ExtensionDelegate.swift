@@ -10,6 +10,9 @@ import WatchKit
 import WatchConnectivity
 
 var lessonsGlobal: [Lesson] = []
+var name: String = ""
+var cellNextColour: UIColor?
+var cellCurrentColour: UIColor?
 
 class ExtensionDelegate: NSObject, WKExtensionDelegate {
 
@@ -80,11 +83,22 @@ extension ExtensionDelegate: WCSessionDelegate {
 //        print(WCSession.default.applicationContext)
         
         
-        guard let data = applicationContext["lessons7"] as? Data else { return }
+        guard let data = applicationContext["lessons"] as? Data else { return }
         
         let decoder = JSONDecoder.init()
         do {
             lessonsGlobal = try decoder.decode([Lesson].self, from: data)
+            name = applicationContext["name"] as? String ?? ""
+            print("before colours")
+            
+            guard let currentColourData = applicationContext["currentColourData"] as? Data else { return }
+            guard let nextColourData = applicationContext["nextColourData"] as? Data else { return }
+            print("after colours")
+
+            cellCurrentColour = UIColor.color(withData: currentColourData)
+            cellNextColour = UIColor.color(withData: nextColourData)
+
+//            print(name)
         } catch {
             print(error.localizedDescription)
         }

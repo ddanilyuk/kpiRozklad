@@ -6,12 +6,14 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBWatchKitPlugin" version="16012"/>
     </dependencies>
     <scenes>
-        <!--123-->
+        <!--Interface Controller-->
         <scene sceneID="aou-V4-d1y">
             <objects>
-                <controller title="123" id="AgC-eL-Hgc" customClass="InterfaceController" customModule="kpiRozkladWatch" customModuleProvider="target">
+                <controller id="AgC-eL-Hgc" customClass="InterfaceController" customModule="kpiRozkladWatch" customModuleProvider="target">
                     <items>
-                        <label alignment="left" text="Label" id="Ku5-nt-KT3"/>
+                        <label alignment="left" text="-" id="Ku5-nt-KT3">
+                            <fontDescription key="font" style="UICTFontTextStyleTitle1"/>
+                        </label>
                         <table alignment="left" id="bBF-ct-9HQ">
                             <items>
                                 <tableRow identifier="TitleRow" id="rJo-kN-N4E" customClass="TitleRow" customModule="kpiRozkladWatch_Extension">
@@ -31,7 +33,7 @@
                                     <group key="rootItem" width="1" height="0.0" alignment="left" layout="vertical" id="9iF-ch-pJu">
                                         <items>
                                             <label alignment="left" verticalAlignment="center" text="Label" numberOfLines="2" id="857-x0-Whp">
-                                                <fontDescription key="font" style="UICTFontTextStyleTitle3"/>
+                                                <fontDescription key="font" type="system" weight="semibold" pointSize="18"/>
                                             </label>
                                             <label alignment="left" verticalAlignment="center" text="Label" id="ZFb-nn-4RF"/>
                                         </items>
@@ -39,11 +41,31 @@
                                     <connections>
                                         <outlet property="lessonNameLabel" destination="857-x0-Whp" id="IrC-7G-OBt"/>
                                         <outlet property="lessonRoomLabel" destination="ZFb-nn-4RF" id="aN8-pz-vHy"/>
+                                        <outlet property="rowGroup" destination="9iF-ch-pJu" id="lex-06-H6n"/>
                                     </connections>
                                 </tableRow>
                             </items>
                         </table>
                     </items>
+                    <menu key="menu" id="HPZ-ne-S1v">
+                        <items>
+                            <menuItem title="1 тиждень" icon="info" id="uls-nQ-Bcq">
+                                <connections>
+                                    <action selector="setFirstWeek" destination="AgC-eL-Hgc" id="qJx-st-k3H"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="2 тиждень" icon="info" id="iTj-DK-GXQ">
+                                <connections>
+                                    <action selector="setSecondWeek" destination="AgC-eL-Hgc" id="Eq0-5u-Qwk"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Cьогодні" icon="info" id="iQ5-5b-8na">
+                                <connections>
+                                    <action selector="setToday" destination="AgC-eL-Hgc" id="OqU-zf-G2S"/>
+                                </connections>
+                            </menuItem>
+                        </items>
+                    </menu>
                     <connections>
                         <outlet property="label" destination="Ku5-nt-KT3" id="Y9S-Ce-0jI"/>
                         <outlet property="tableView" destination="bBF-ct-9HQ" id="D0m-w6-KcN"/>

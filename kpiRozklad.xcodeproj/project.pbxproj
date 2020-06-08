@@ -56,6 +56,8 @@
 		5F46AD6523FFD66E00B145D5 /* GroupsNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F46AD6423FFD66E00B145D5 /* GroupsNavigationController.swift */; };
 		5F46AD682401A0F700B145D5 /* Favourites.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F46AD672401A0F700B145D5 /* Favourites.swift */; };
 		5F5000AF238D704A0003E13B /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F5000AE238D704A0003E13B /* UIView+Extension.swift */; };
+		5F56541D248E675700F2EB6E /* TimeAndDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FE048682393027900092422 /* TimeAndDate.swift */; };
+		5F56541E248E6ACF00F2EB6E /* UIColor+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FCBBA21241C501E00E7654F /* UIColor+Extensions.swift */; };
 		5F686F3A23800CFB008B0915 /* AddLessonViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F686F3923800CFB008B0915 /* AddLessonViewController.swift */; };
 		5F6A08062370A175000A9C79 /* kpiRozklad.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 5F6A08042370A175000A9C79 /* kpiRozklad.xcdatamodeld */; };
 		5F6FF30A24334DB700FADBD6 /* GroupsAndTeachersVC+UITableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F6FF30924334DB700FADBD6 /* GroupsAndTeachersVC+UITableView.swift */; };
@@ -1186,11 +1188,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				5FDCFCDF248D8C2F00568208 /* NotificationController.swift in Sources */,
+				5F56541D248E675700F2EB6E /* TimeAndDate.swift in Sources */,
 				5FDCFCEF248D8F4B00568208 /* Teacher.swift in Sources */,
 				5FDCFCF4248D911900568208 /* TableRow.swift in Sources */,
 				5FDCFCF6248E561C00568208 /* TitleRow.swift in Sources */,
 				5FDCFCDD248D8C2F00568208 /* ExtensionDelegate.swift in Sources */,
 				5FDCFCF0248D8F4B00568208 /* Group.swift in Sources */,
+				5F56541E248E6ACF00F2EB6E /* UIColor+Extensions.swift in Sources */,
 				5FDCFCF2248D8F7A00568208 /* String+Extensions.swift in Sources */,
 				5FDCFCF1248D8F6F00568208 /* ManagingLessons.swift in Sources */,
 				5FDCFCDB248D8C2F00568208 /* InterfaceController.swift in Sources */,

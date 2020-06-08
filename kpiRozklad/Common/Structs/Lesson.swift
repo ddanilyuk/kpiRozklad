@@ -81,18 +81,37 @@ enum DayName: String, Codable, Comparable {
 
     private var sortOrder: Int {
         switch self {
-            case .mounday:
-                return 1
-            case .tuesday:
-                return 2
-            case .wednesday:
-                return 3
-            case .thursday:
-                return 4
-            case .friday:
-                return 5
-            case .saturday:
-                return 6
+        case .mounday:
+            return 1
+        case .tuesday:
+            return 2
+        case .wednesday:
+            return 3
+        case .thursday:
+            return 4
+        case .friday:
+            return 5
+        case .saturday:
+            return 6
+        }
+    }
+    
+    static func getDayNameFromNumber(_ number: Int) -> DayName? {
+        switch number {
+        case 1:
+            return .mounday
+        case 2:
+            return .tuesday
+        case 3:
+            return .wednesday
+        case 4:
+            return .thursday
+        case 5:
+            return .friday
+        case 6:
+            return .saturday
+        default:
+            return nil
         }
     }
 

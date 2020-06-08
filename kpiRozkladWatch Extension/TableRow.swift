@@ -9,6 +9,8 @@
 import WatchKit
 
 class TableRow: NSObject {
+    @IBOutlet weak var rowGroup: WKInterfaceGroup!
+    
     @IBOutlet weak var lessonNameLabel: WKInterfaceLabel!
     
     @IBOutlet weak var lessonRoomLabel: WKInterfaceLabel!

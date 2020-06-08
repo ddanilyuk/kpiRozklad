@@ -115,27 +115,27 @@ class InterfaceController: WKInterfaceController {
                 
             } else {
                 if let tableRow = tableView.rowController(at: index) as? TableRow {
-                        let lesson = lessonsForToday[index - 1]
-                        tableRow.lesson = lesson
+                    let lesson = lessonsForToday[index - 1]
+                    tableRow.lesson = lesson
+                    
+                    if currentLessonId == lesson.lessonID {
+                        tableRow.rowGroup.setBackgroundColor(cellCurrentColour ?? .red)
                         
-                        if currentLessonId == lesson.lessonID {
-                            tableRow.rowGroup.setBackgroundColor(cellCurrentColour ?? .red)
-                            
-                            let textColour: UIColor = cellCurrentColour?.isWhiteText ?? true ? .white : .black
-                            tableRow.lessonNameLabel.setTextColor(textColour)
-                            tableRow.lessonRoomLabel.setTextColor(textColour)
-                            tableRow.timeStartLabel.setTextColor(textColour)
-                            tableRow.timeEndLabel.setTextColor(textColour)
+                        let textColour: UIColor = cellCurrentColour?.isWhiteText ?? true ? .white : .black
+                        tableRow.lessonNameLabel.setTextColor(textColour)
+                        tableRow.lessonRoomLabel.setTextColor(textColour)
+                        tableRow.timeStartLabel.setTextColor(textColour)
+                        tableRow.timeEndLabel.setTextColor(textColour)
 
-                        } else if nextLessonId == lesson.lessonID {
-                            tableRow.rowGroup.setBackgroundColor(cellNextColour ?? .green)
-                            
-                            let textColour: UIColor = cellNextColour?.isWhiteText ?? true ? .white : .black
-                            tableRow.lessonNameLabel.setTextColor(textColour)
-                            tableRow.lessonRoomLabel.setTextColor(textColour)
-                            tableRow.timeStartLabel.setTextColor(textColour)
-                            tableRow.timeEndLabel.setTextColor(textColour)
-                        }
+                    } else if nextLessonId == lesson.lessonID {
+                        tableRow.rowGroup.setBackgroundColor(cellNextColour ?? .green)
+                        
+                        let textColour: UIColor = cellNextColour?.isWhiteText ?? true ? .white : .black
+                        tableRow.lessonNameLabel.setTextColor(textColour)
+                        tableRow.lessonRoomLabel.setTextColor(textColour)
+                        tableRow.timeStartLabel.setTextColor(textColour)
+                        tableRow.timeEndLabel.setTextColor(textColour)
+                    }
                 }
             }
         }
@@ -232,6 +232,17 @@ class InterfaceController: WKInterfaceController {
     
 
     override func willActivate() {
+        setupDate()
+        
+        var currentLessonsWeek = "1"
+        
+        if weekOfYear % 2 != 0 {
+            currentLessonsWeek = "2"
+        }
+        
+        self.lessons = lessonsGlobal
+        self.setupTableView(week: currentLessonsWeek)
+        self.setTitle("\(currentLessonsWeek) тиждень")
         // This method is called when watch view controller is about to be visible to user
         super.willActivate()
     }

@@ -36,6 +36,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             let formatter = DateFormatter()
             formatter.dateFormat = "dd.MM.yyyy"
             settings.sheduleUpdateTime = formatter.string(from: date)
+            settings.updateRozkladAfterVersion106 = true
         }
         
         
@@ -59,49 +60,59 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     
     func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
-          
-        let needID = url.host?.removingPercentEncoding
         
-        let mainStoryboard = UIStoryboard(name: "Main", bundle: Bundle.main)
-        guard let sheduleVC : SheduleViewController = mainStoryboard.instantiateViewController(withIdentifier: SheduleViewController.identifier) as? SheduleViewController else { return false }
+//        if url.scheme == "kpiRozklad" {
+//            print("here in scheme")
+//            window?.rootViewController = UIViewController()
+//            return true
+//        }
         
-        for i in 1..<3 {
-            sheduleVC.currentWeek = i
-            sheduleVC.isNeedToScroll = false
-            sheduleVC.makeLessonsShedule()
-            let lessonsForTableView = sheduleVC.lessonsForTableView
-            for day in lessonsForTableView {
-                let lessons = day.value
-                for lesson in lessons {
-                    if lesson.lessonID == needID {
-                        
-                        guard let sheduleDetailVC: SheduleDetailViewController = mainStoryboard.instantiateViewController(withIdentifier: SheduleDetailViewController.identifier) as? SheduleDetailViewController else { return false }
-                        
-                        sheduleDetailVC.lesson = lesson
-                        
-                        
-                        guard let sheduleDetailNavigationVC : SheduleDetailNavigationController = mainStoryboard.instantiateViewController(withIdentifier: SheduleDetailNavigationController.identifier) as? SheduleDetailNavigationController else { return false }
-                        
-                        sheduleDetailNavigationVC.lesson = lesson
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+            let needID = url.host?.removingPercentEncoding
+                    
+            let mainStoryboard = UIStoryboard(name: "Main", bundle: Bundle.main)
+            guard let sheduleVC : SheduleViewController = mainStoryboard.instantiateViewController(withIdentifier: SheduleViewController.identifier) as? SheduleViewController else { return }
+            
+            k: for i in 1..<3 {
+                sheduleVC.currentWeek = i
+                sheduleVC.isNeedToScroll = false
+                sheduleVC.makeLessonsShedule()
+                let lessonsForTableView = sheduleVC.lessonsForTableView
+                for day in lessonsForTableView {
+                    let lessons = day.value
+                    for lesson in lessons {
+                        if lesson.lessonID == needID {
+                            
+                            guard let sheduleDetailVC: SheduleDetailViewController = mainStoryboard.instantiateViewController(withIdentifier: SheduleDetailViewController.identifier) as? SheduleDetailViewController else { return }
+                            
+                            sheduleDetailVC.lesson = lesson
+                            
+                            
+                            guard let sheduleDetailNavigationVC : SheduleDetailNavigationController = mainStoryboard.instantiateViewController(withIdentifier: SheduleDetailNavigationController.identifier) as? SheduleDetailNavigationController else { return }
+                            
+                            sheduleDetailNavigationVC.lesson = lesson
 
-                        guard let mainTabBar : UITabBarController = mainStoryboard.instantiateViewController(withIdentifier: "Main") as? UITabBarController else { return false }
-                        
-                        mainTabBar.selectedIndex = 0
-                        DispatchQueue.main.async {
-                            if let vc = mainTabBar.selectedViewController as? UINavigationController {
-//                                vc.pushViewController(sheduleDetailVC, animated: true)
-                                vc.presentPanModal(sheduleDetailNavigationVC, sourceView: nil, sourceRect: .zero)
-//                                presentPanModal(sheduleDetailNavigationVC)
+                            guard let mainTabBar : UITabBarController = mainStoryboard.instantiateViewController(withIdentifier: "Main") as? UITabBarController else { return }
+                            
+                            mainTabBar.selectedIndex = 0
+                            DispatchQueue.main.async {
+                                if let vc = mainTabBar.selectedViewController as? UINavigationController {
+    //                                vc.pushViewController(sheduleDetailVC, animated: true)
+                                    vc.presentPanModal(sheduleDetailNavigationVC, sourceView: nil, sourceRect: .zero)
+    //                                presentPanModal(sheduleDetailNavigationVC)
+                                }
                             }
+                          
+                            self.window?.rootViewController = mainTabBar
+                            break k
+
                         }
-                      
-                        window?.rootViewController = mainTabBar
                     }
                 }
             }
         }
-    
         return true
+        
       }
 
     

@@ -17,6 +17,19 @@ class TodayViewController: UIViewController, NCWidgetProviding {
     /// Main table view
     @IBOutlet weak var tableView: UITableView!
     
+    // MARK: - Core Data functions
+    lazy var persistentContainer: NSPersistentContainer = {
+        let container = NSCustomPersistentContainer(name: "kpiRozklad")
+        
+        container.loadPersistentStores(completionHandler: { (storeDescription, error) in
+            if let error = error as NSError? {
+
+                fatalError("Unresolved error \(error), \(error.userInfo)")
+            }
+        })
+        return container
+    }()
+    
     /// Array with lessons used for CoreData
     var lessons: [Lesson] = []
     
@@ -81,9 +94,9 @@ class TodayViewController: UIViewController, NCWidgetProviding {
     }
     
     private func setupTableView() {
-            tableView.register(UINib(nibName: LessonTableViewCell.identifier, bundle: Bundle.main), forCellReuseIdentifier: LessonTableViewCell.identifier)
-            tableView.delegate = self
-            tableView.dataSource = self
+        tableView.register(UINib(nibName: LessonTableViewCell.identifier, bundle: Bundle.main), forCellReuseIdentifier: LessonTableViewCell.identifier)
+        tableView.delegate = self
+        tableView.dataSource = self
     }
     
     private func setupDate() {
@@ -120,124 +133,6 @@ class TodayViewController: UIViewController, NCWidgetProviding {
             }
         }
     }
-    
-    
-    // MARK: - Core Data functions
-    
-    lazy var persistentContainer: NSPersistentContainer = {
-        let container = NSCustomPersistentContainer(name: "kpiRozklad")
-        
-        container.loadPersistentStores(completionHandler: { (storeDescription, error) in
-            if let error = error as NSError? {
-
-                fatalError("Unresolved error \(error), \(error.userInfo)")
-            }
-        })
-        return container
-    }()
-
-    
-    func saveContext() {
-        let context = persistentContainer.viewContext
-        if context.hasChanges {
-            do {
-                try context.save()
-            } catch {
-                let nserror = error as NSError
-                fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
-            }
-        }
-    }
-    
-    
-//    func fetchingCoreData() -> [Lesson] {
-//
-//        let managedContext = self.persistentContainer.viewContext
-//
-//        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "LessonData")
-//
-//        var lessonsArray: [Lesson] = []
-//
-//        do {
-//            guard let fetchResult = try managedContext.fetch(fetchRequest) as? [LessonData] else { return [] }
-//
-//            for lessonData in fetchResult {
-//
-//                var roomsArray: [Room] = []
-//                let room: Room?
-//
-//                if let roomData = lessonData.roomsRelationship {
-//                    room = Room(roomID: roomData.roomID ?? "",
-//                                roomName: roomData.roomName ?? "",
-//                                roomLatitude: roomData.roomLatitude ?? "",
-//                                roomLongitude: roomData.roomLongitude ?? "")
-//
-//                    if let room = room {
-//                        roomsArray.append(room)
-//                    }
-//                }
-//
-//
-//                var teachersArray: [Teacher] = []
-//                let teacher: Teacher?
-//
-//                if let teacherData = lessonData.teachersRelationship {
-//                    teacher = Teacher(teacherID: teacherData.teacherID ?? "",
-//                                      teacherName: teacherData.teacherName ?? "",
-//                                      teacherFullName: teacherData.teacherFullName ?? "",
-//                                      teacherShortName: teacherData.teacherShortName ?? "",
-//                                      teacherURL: teacherData.teacherURL ?? "",
-//                                      teacherRating: teacherData.teacherRating ?? "")
-//
-//                    if let teacher = teacher {
-//                        teachersArray.append(teacher)
-//                    }
-//                }
-//
-//
-//                var groupsArray: [Group] = []
-//
-//                if let groupsDataArray = lessonData.groupsRelationship?.allObjects as? [GroupData] {
-//                    for groupData in groupsDataArray {
-//                        let group = Group(groupID: Int(groupData.groupID),
-//                                          groupFullName: groupData.groupFullName ?? "",
-//                                          groupPrefix: groupData.groupFullName ?? "",
-//                                          groupOkr: GroupOkr(rawValue: groupData.groupOkr ?? "") ?? GroupOkr.bachelor,
-//                                          groupType: GroupType(rawValue: groupData.groupType ?? "") ?? GroupType.daily,
-//                                          groupURL: groupData.groupURL ?? "")
-//
-//                        groupsArray.append(group)
-//                    }
-//                }
-//
-//
-//                let lesson = Lesson(lessonID: lessonData.lessonID ?? "",
-//                                    dayNumber: lessonData.dayNumber ?? "",
-//                                    groupID: lessonData.groupID ?? "",
-//                                    dayName: DayName(rawValue: lessonData.dayName ?? "") ?? DayName.mounday,
-//                                    lessonName: lessonData.lessonName ?? "",
-//                                    lessonFullName: lessonData.lessonFullName ?? "",
-//                                    lessonNumber: lessonData.lessonNumber ?? "",
-//                                    lessonRoom: lessonData.lessonRoom ?? "",
-//                                    lessonType: LessonType(rawValue: lessonData.lessonType ?? "") ?? LessonType.empty,
-//                                    teacherName: lessonData.teacherName ?? "",
-//                                    lessonWeek: lessonData.lessonWeek ?? "",
-//                                    timeStart: lessonData.timeStart ?? "",
-//                                    timeEnd: lessonData.timeEnd ?? "",
-//                                    rate: lessonData.rate ?? "",
-//                                    teachers: teachersArray,
-//                                    rooms: roomsArray,
-//                                    groups: groupsArray)
-//
-//                lessonsArray.append(lesson)
-//            }
-//        } catch let error as NSError {
-//            print("Could not save. \(error), \(error.userInfo)")
-//        }
-//
-//        return lessonsArray
-//    }
-
     
     func makeLessonsShedule() {
         /// fetching Core Data
@@ -351,23 +246,39 @@ extension TodayViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         var id = ""
+//
+//        if dayNumberFromCurrentDate == 7 {
+//            id = ""
+//        } else if lessonsForTableView[dayNumberFromCurrentDate - 1].value.count == 0 {
+//            id = ""
+//        } else {
+//            id = lessonsForTableView[dayNumberFromCurrentDate - 1].value[indexPath.row].lessonID
+//        }
         
-        if dayNumberFromCurrentDate == 7 {
-            id = ""
-        } else if lessonsForTableView[dayNumberFromCurrentDate - 1].value.count == 0 {
-            id = ""
-        } else {
+        if dayNumberFromCurrentDate != 7 && lessonsForTableView[dayNumberFromCurrentDate - 1].value.count != 0 {
             id = lessonsForTableView[dayNumberFromCurrentDate - 1].value[indexPath.row].lessonID
         }
 
         let url: URL? = URL(string: "kpiRozklad://\(id)")!
         
         if let appurl = url {
-            self.extensionContext!.open(appurl,
-                completionHandler: nil)
+            self.extensionContext!.open(appurl) { (success) in
+                if (!success) {
+                    print("error: failed to open app from Today Extension")
+                }
+            }
         }
         
         tableView.deselectRow(at: indexPath, animated: true)
+    }
+    
+    func makeEmptyCell(_ cell: LessonTableViewCell) {
+        cell.lessonLabel.text = "Пари закінчилися."
+        cell.teacherLabel.text = ""
+        cell.timeLeftLabel.text = ""
+        cell.endLabel.text = ""
+        cell.startLabel.text = ""
+        cell.roomLabel.text = ""
     }
     
     
@@ -376,31 +287,52 @@ extension TodayViewController: UITableViewDataSource, UITableViewDelegate {
         
         var lessonsForSomeDay: [Lesson] = []
         
-        if dayNumberFromCurrentDate != 7 {
+        if dayNumberFromCurrentDate == 7 || isLessonsEnd {
+            isLessonsEnd = true
+            makeEmptyCell(cell)
+            return cell
+        } else {
             lessonsForSomeDay = lessonsForTableView[dayNumberFromCurrentDate - 1].value
         }
+
+        let lesson = lessonsForSomeDay[indexPath.row]
         
-        if lessonsForSomeDay.count == 0 {
-            isLessonsEnd = true
+        let timeStart = String(lesson.timeStart[..<5])
+        let timeEnd = String(lesson.timeEnd[..<5])
+        
+        let dateNow = Date()
+
+        let formatterFull = DateFormatter()
+        formatterFull.dateFormat = "YYYY:MM:DD:HH:mm"
+
+        let formatterInWhichTimeSaved = DateFormatter()
+        formatterInWhichTimeSaved.dateFormat = "YYYY:MM:DD"
+        let fullYearMonthDay = formatterInWhichTimeSaved.string(from: dateNow)
+
+        
+        let dateStartInit = formatterFull.date(from: "\(fullYearMonthDay):\(timeStart)") ?? Date()
+        let dateEndInit = formatterFull.date(from: "\(fullYearMonthDay):\(timeEnd)") ?? Date()
+
+        let toStartPair = dateStartInit.timeIntervalSince1970 - dateNow.timeIntervalSince1970
+        let toEndPair = dateEndInit.timeIntervalSince1970 - dateNow.timeIntervalSince1970
+        
+        var dateToPrint: String = ""
+        if toStartPair > 60 {
+            dateToPrint = "через \(intTimeToString(Int(toStartPair)))"
+        } else if toStartPair > 0 {
+            dateToPrint = "менше 1хв"
+        } else if toEndPair > 60 {
+            dateToPrint = "залишилось \(intTimeToString(Int(toEndPair)))"
+        } else if toEndPair > 0 {
+            dateToPrint = "залишилось менше 1хв"
         }
         
-        if isLessonsEnd {
-            cell.lessonLabel.text = "Пари закінчилися."
-            cell.teacherLabel.text = ""
-            cell.timeLeftLabel.text = ""
-            cell.endLabel.text = ""
-            cell.startLabel.text = ""
-            cell.roomLabel.text = ""
+        if toEndPair < 0 {
+            lessonsForTableView[dayNumberFromCurrentDate - 1].value.removeFirst()
+            tableView.reloadData()
+            setupHeight()
             return cell
         }
-        
-        cell.lessonLabel.text = lessonsForSomeDay[indexPath.row].lessonName
-        cell.teacherLabel.text = lessonsForSomeDay[indexPath.row].teacherName
-        
-        if lessonsForSomeDay[indexPath.row].teacherName == "" {
-            cell.teacherLabel.text = " "
-        }
-
         
         if currentLessonId == lessonsForSomeDay[indexPath.row].lessonID {
             setupCurrentOrNextLessonCell(cell: cell, cellType: .currentCell)
@@ -410,101 +342,164 @@ extension TodayViewController: UITableViewDataSource, UITableViewDelegate {
             setupCurrentOrNextLessonCell(cell: cell, cellType: .nextCell)
         }
         
-        let timeStart = String(lessonsForSomeDay[indexPath.row].timeStart[..<5])
-        
-        let timeEnd = String(lessonsForSomeDay[indexPath.row].timeEnd[..<5])
-        
-        
-        let formatter = DateFormatter()
-        formatter.dateFormat = "HH:mm"
-        
-        let formatter1 = DateFormatter()
-        formatter1.dateFormat = "HH"
-        
-        let formatter2 = DateFormatter()
-        formatter2.dateFormat = "mm"
-        
-        let currentDate = Date()
-        let dateStart = formatter.date(from: timeStart) ?? Date()
-        let dateEnd = formatter.date(from: timeEnd) ?? Date()
-
-        let nowH = formatter1.string(from: currentDate)
-        let nowM = formatter2.string(from: currentDate)
-        
-        let startH = formatter1.string(from: dateStart)
-        let startM = formatter2.string(from: dateStart)
-        
-        var leftH = (Int(startH) ?? 0) - (Int(nowH) ?? 0)
-        var leftM = (Int(startM) ?? 0) - (Int(nowM) ?? 0)
-        
-        if leftM < 0 && leftH >= 1 {
-            leftH -= 1
-            leftM = 60 + leftM
-        }
-        
-        if leftH < 0 || leftM < 0 {
-            leftH = 0
-            leftM = 0
-        }
-
-        var dateString = ""
-        
-        if leftH == 0 && leftM == 0 {
-            let endH = formatter1.string(from: dateEnd)
-            let endM = formatter2.string(from: dateEnd)
-            
-            leftH = (Int(endH) ?? 0) - (Int(nowH) ?? 0)
-            leftM = (Int(endM) ?? 0) - (Int(nowM) ?? 0)
-            
-            if leftM < 0 && leftH >= 1 {
-                leftH -= 1
-                leftM = 60 + leftM
-            }
-            if leftH < 0 || leftM < 0 {
-                dateString = " "
-                lessonsForTableView[dayNumberFromCurrentDate - 1].value.removeFirst()
-                if lessonsForTableView[dayNumberFromCurrentDate - 1].value.count == 0 {
-                    isLessonsEnd = true
-                    cell.lessonLabel.text = "На сьогодні все"
-                    cell.timeLeftLabel.text = ""
-                    cell.endLabel.text = ""
-                    cell.startLabel.text = ""
-                    cell.roomLabel.text = ""
-                }
-                setupHeight()
-                tableView.reloadData()
-                return cell
-            } else {
-                
-                if leftH == 0 {
-                    dateString = "залишилось \(leftM) хв"
-                } else if leftM == 0 {
-                    dateString = "залишилось \(leftH) год"
-                } else {
-                    dateString = "залишилось \(leftH) год, \(leftM) хв"
-                }
-                
-            }
-        } else {
-            if leftH == 0 {
-                dateString = "через \(leftM) хв"
-            } else if leftM == 0 {
-                dateString = "через \(leftH) год"
-            } else {
-                dateString = "через \(leftH) год, \(leftM) хв"
-            }
-            
-        }
-        
+        cell.lessonLabel.text = lesson.lessonName
+        cell.teacherLabel.text = lesson.teacherName
         cell.startLabel.text = timeStart
         cell.endLabel.text = timeEnd
-        cell.roomLabel.text = lessonsForSomeDay[indexPath.row].lessonType.rawValue + " " + lessonsForSomeDay[indexPath.row].lessonRoom
+        cell.roomLabel.text = lesson.lessonType.rawValue + " " + lessonsForSomeDay[indexPath.row].lessonRoom
         
-        cell.timeLeftLabel.text = dateString
+        cell.timeLeftLabel.text = dateToPrint
         
         return cell
     }
     
+    
+//    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+//        guard let cell = tableView.dequeueReusableCell(withIdentifier: LessonTableViewCell.identifier, for: indexPath) as? LessonTableViewCell else { return UITableViewCell() }
+//
+//        var lessonsForSomeDay: [Lesson] = []
+//
+//        if dayNumberFromCurrentDate != 7 {
+//            lessonsForSomeDay = lessonsForTableView[dayNumberFromCurrentDate - 1].value
+//        }
+//
+//        if lessonsForSomeDay.count == 0 {
+//            isLessonsEnd = true
+//        }
+//
+//        if isLessonsEnd {
+//            cell.lessonLabel.text = "Пари закінчилися."
+//            cell.teacherLabel.text = ""
+//            cell.timeLeftLabel.text = ""
+//            cell.endLabel.text = ""
+//            cell.startLabel.text = ""
+//            cell.roomLabel.text = ""
+//            return cell
+//        }
+//
+//        cell.lessonLabel.text = lessonsForSomeDay[indexPath.row].lessonName
+//        cell.teacherLabel.text = lessonsForSomeDay[indexPath.row].teacherName
+
+//        if lessonsForSomeDay[indexPath.row].teacherName == "" {
+//            cell.teacherLabel.text = " "
+//        }
+//
+//
+//        if currentLessonId == lessonsForSomeDay[indexPath.row].lessonID {
+//            setupCurrentOrNextLessonCell(cell: cell, cellType: .currentCell)
+//        }
+//
+//        if nextLessonId == lessonsForSomeDay[indexPath.row].lessonID {
+//            setupCurrentOrNextLessonCell(cell: cell, cellType: .nextCell)
+//        }
+//
+//        let timeStart = String(lessonsForSomeDay[indexPath.row].timeStart[..<5])
+//
+//        let timeEnd = String(lessonsForSomeDay[indexPath.row].timeEnd[..<5])
+//
+//
+//        let formatter = DateFormatter()
+//        formatter.dateFormat = "HH:mm"
+//
+//        let formatter1 = DateFormatter()
+//        formatter1.dateFormat = "HH"
+//
+//        let formatter2 = DateFormatter()
+//        formatter2.dateFormat = "mm"
+//
+//        let currentDate = Date()
+//        let dateStart = formatter.date(from: timeStart) ?? Date()
+//        let dateEnd = formatter.date(from: timeEnd) ?? Date()
+//
+//        let nowH = formatter1.string(from: currentDate)
+//        let nowM = formatter2.string(from: currentDate)
+//
+//        let startH = formatter1.string(from: dateStart)
+//        let startM = formatter2.string(from: dateStart)
+//
+//        var leftH = (Int(startH) ?? 0) - (Int(nowH) ?? 0)
+//        var leftM = (Int(startM) ?? 0) - (Int(nowM) ?? 0)
+//
+//        if leftM < 0 && leftH >= 1 {
+//            leftH -= 1
+//            leftM = 60 + leftM
+//        }
+//
+//        if leftH < 0 || leftM < 0 {
+//            leftH = 0
+//            leftM = 0
+//        }
+//
+//        var dateString = ""
+//
+//        if leftH == 0 && leftM == 0 {
+//            let endH = formatter1.string(from: dateEnd)
+//            let endM = formatter2.string(from: dateEnd)
+//
+//            leftH = (Int(endH) ?? 0) - (Int(nowH) ?? 0)
+//            leftM = (Int(endM) ?? 0) - (Int(nowM) ?? 0)
+//
+//            if leftM < 0 && leftH >= 1 {
+//                leftH -= 1
+//                leftM = 60 + leftM
+//            }
+//            if leftH < 0 || leftM < 0 {
+//                dateString = " "
+//                lessonsForTableView[dayNumberFromCurrentDate - 1].value.removeFirst()
+//                if lessonsForTableView[dayNumberFromCurrentDate - 1].value.count == 0 {
+//                    isLessonsEnd = true
+//                    cell.lessonLabel.text = "На сьогодні все"
+//                    cell.timeLeftLabel.text = ""
+//                    cell.endLabel.text = ""
+//                    cell.startLabel.text = ""
+//                    cell.roomLabel.text = ""
+//                }
+//                setupHeight()
+//                tableView.reloadData()
+//                return cell
+//            } else {
+//
+//                if leftH == 0 {
+//                    dateString = "залишилось \(leftM) хв"
+//                } else if leftM == 0 {
+//                    dateString = "залишилось \(leftH) год"
+//                } else {
+//                    dateString = "залишилось \(leftH) год, \(leftM) хв"
+//                }
+//
+//            }
+//        } else {
+//            if leftH == 0 {
+//                dateString = "через \(leftM) хв"
+//            } else if leftM == 0 {
+//                dateString = "через \(leftH) год"
+//            } else {
+//                dateString = "через \(leftH) год, \(leftM) хв"
+//            }
+//
+//        }
+//
+//        cell.startLabel.text = timeStart
+//        cell.endLabel.text = timeEnd
+//        cell.roomLabel.text = lessonsForSomeDay[indexPath.row].lessonType.rawValue + " " + lessonsForSomeDay[indexPath.row].lessonRoom
+//
+//        cell.timeLeftLabel.text = dateString
+//
+//        return cell
+//    }
+    func intTimeToString(_ intTime: Int) -> String {
+        let interval = intTime
+        var calendar = Calendar.current
+        calendar.locale = Locale(identifier: "uk")
+        
+        let formatter = DateComponentsFormatter()
+        formatter.calendar = calendar
+        formatter.allowedUnits = [.hour, .minute]
+        formatter.unitsStyle = .abbreviated
+        
+        guard let formattedString = formatter.string(from: TimeInterval(interval)) else { return "" }
+        return formattedString
+    }
     
     public func setupCurrentOrNextLessonCell(cell: LessonTableViewCell, cellType: SheduleCellType) {
         

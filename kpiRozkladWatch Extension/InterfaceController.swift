@@ -24,6 +24,13 @@ class InterfaceController: WKInterfaceController {
     var notificationObserver: NSObjectProtocol?
     
     var lessons: [Lesson] = []
+    
+    var daysArray: [String] = [DayName.mounday.rawValue,
+                               DayName.tuesday.rawValue,
+                               DayName.wednesday.rawValue,
+                               DayName.thursday.rawValue,
+                               DayName.friday.rawValue,
+                               DayName.saturday.rawValue]
 
     override func awake(withContext context: Any?) {
         super.awake(withContext: context)
@@ -34,33 +41,73 @@ class InterfaceController: WKInterfaceController {
         
         notificationObserver = notificationCenter.addObserver(forName: NSNotification.Name("activityNotification"), object: nil, queue: nil, using: { (notification) in
             self.label.setText("updated!!!!!")
-//            let applicationContext = WCSession.default.applicationContext
-//            guard let data = applicationContext["lessons5"] as? Data else { fatalError("no data") }
-//
-//            let decoder = JSONDecoder.init()
-//            do {
-//                self.lessons = try decoder.decode([Lesson].self, from: data)
-//            } catch {
-//                print(error.localizedDescription)
-//            }
+
             self.lessons = lessonsGlobal
-            
-            print(self.lessons.count)
-            
             self.setupTableView()
         })
     }
     
     
     private func setupTableView() {
-        tableView.setNumberOfRows(lessons.count, withRowType: "TableRow")
         
-        for index in 0..<lessons.count {
-            guard let row = tableView.rowController(at: index) as? TableRow else {
-                return
-            }
-            row.lesson = lessons[index]
+        let lessonsWeekFirst = lessons.filter { lesson -> Bool in
+            return lesson.lessonWeek == "1"
         }
+        
+        var lessonMounday: [Lesson] = []
+        var lessonTuesday: [Lesson] = []
+        var lessonWednesday: [Lesson] = []
+        var lessonThursday: [Lesson] = []
+        var lessonFriday: [Lesson] = []
+        var lessonSaturday: [Lesson] = []
+        
+        for datu in lessonsWeekFirst {
+            switch datu.dayName {
+            case .mounday:
+                lessonMounday.append(datu)
+            case .tuesday:
+                lessonTuesday.append(datu)
+            case .wednesday:
+                lessonWednesday.append(datu)
+            case .thursday:
+                lessonThursday.append(datu)
+            case .friday:
+                lessonFriday.append(datu)
+            case .saturday:
+                lessonSaturday.append(datu)
+            }
+        }
+        
+        let lessonsDictionary = [DayName.mounday: lessonMounday,
+                                 DayName.tuesday: lessonTuesday,
+                                 DayName.wednesday: lessonWednesday,
+                                 DayName.thursday: lessonThursday,
+                                 DayName.friday: lessonFriday,
+                                 DayName.saturday: lessonSaturday].sorted{$0.key < $1.key}
+        var rowTypes: [String] = []
+        
+        for lessonsForSomeDay in lessonsDictionary {
+            rowTypes.append("TitleRow")
+            for _ in lessonsForSomeDay.value {
+                rowTypes.append("TableRow")
+            }
+        }
+        
+        tableView.setRowTypes(rowTypes)
+        var dayCounter: Int = 0
+        var lessonCounter: Int = 0
+            
+        for index in 0..<rowTypes.count {
+            if let titleRow = tableView.rowController(at: index) as? TitleRow {
+                titleRow.titleLabel.setText(lessonsDictionary[dayCounter].key.rawValue)
+                dayCounter += 1
+                lessonCounter = 0
+            } else if let tableRow = tableView.rowController(at: index) as? TableRow {
+                tableRow.lesson = lessonsDictionary[dayCounter - 1].value[lessonCounter]
+                lessonCounter += 1
+            }
+        }
+        
     }
     
 

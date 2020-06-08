@@ -6,14 +6,27 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBWatchKitPlugin" version="16012"/>
     </dependencies>
     <scenes>
-        <!--Interface Controller-->
+        <!--123-->
         <scene sceneID="aou-V4-d1y">
             <objects>
-                <controller id="AgC-eL-Hgc" customClass="InterfaceController" customModule="kpiRozkladWatch" customModuleProvider="target">
+                <controller title="123" id="AgC-eL-Hgc" customClass="InterfaceController" customModule="kpiRozkladWatch" customModuleProvider="target">
                     <items>
                         <label alignment="left" text="Label" id="Ku5-nt-KT3"/>
                         <table alignment="left" id="bBF-ct-9HQ">
                             <items>
+                                <tableRow identifier="TitleRow" id="rJo-kN-N4E" customClass="TitleRow" customModule="kpiRozkladWatch_Extension">
+                                    <group key="rootItem" width="1" height="0.0" alignment="left" layout="vertical" id="35W-Yb-gz0">
+                                        <items>
+                                            <label alignment="left" verticalAlignment="center" text="Четверг" numberOfLines="2" id="4LK-gn-0ur">
+                                                <fontDescription key="font" style="UICTFontTextStyleHeadline"/>
+                                            </label>
+                                        </items>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </group>
+                                    <connections>
+                                        <outlet property="titleLabel" destination="4LK-gn-0ur" id="Mx7-uA-Ssh"/>
+                                    </connections>
+                                </tableRow>
                                 <tableRow identifier="TableRow" id="YdW-BH-G9a" customClass="TableRow" customModule="kpiRozkladWatch" customModuleProvider="target">
                                     <group key="rootItem" width="1" height="0.0" alignment="left" layout="vertical" id="9iF-ch-pJu">
                                         <items>
@@ -37,7 +50,7 @@
                     </connections>
                 </controller>
             </objects>
-            <point key="canvasLocation" x="220" y="345"/>
+            <point key="canvasLocation" x="220" y="343"/>
         </scene>
         <!--Static Notification Interface Controller-->
         <scene sceneID="AEw-b0-oYE">

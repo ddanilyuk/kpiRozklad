@@ -123,6 +123,7 @@
 		5FDCFCF1248D8F6F00568208 /* ManagingLessons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FE048662392D4FA00092422 /* ManagingLessons.swift */; };
 		5FDCFCF2248D8F7A00568208 /* String+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FCBB9FC241C404F00E7654F /* String+Extensions.swift */; };
 		5FDCFCF4248D911900568208 /* TableRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FDCFCF3248D911900568208 /* TableRow.swift */; };
+		5FDCFCF6248E561C00568208 /* TitleRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FDCFCF5248E561C00568208 /* TitleRow.swift */; };
 		5FE048652392D16A00092422 /* EditingLessons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FE048642392D16A00092422 /* EditingLessons.swift */; };
 		5FE048672392D4FA00092422 /* ManagingLessons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FE048662392D4FA00092422 /* ManagingLessons.swift */; };
 		5FE048692393027900092422 /* TimeAndDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FE048682393027900092422 /* TimeAndDate.swift */; };
@@ -294,6 +295,7 @@
 		5FDCFCE2248D8C3000568208 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5FDCFCE3248D8C3000568208 /* PushNotificationPayload.apns */ = {isa = PBXFileReference; lastKnownFileType = text; path = PushNotificationPayload.apns; sourceTree = "<group>"; };
 		5FDCFCF3248D911900568208 /* TableRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableRow.swift; sourceTree = "<group>"; };
+		5FDCFCF5248E561C00568208 /* TitleRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleRow.swift; sourceTree = "<group>"; };
 		5FE048642392D16A00092422 /* EditingLessons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditingLessons.swift; sourceTree = "<group>"; };
 		5FE048662392D4FA00092422 /* ManagingLessons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManagingLessons.swift; sourceTree = "<group>"; };
 		5FE048682393027900092422 /* TimeAndDate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeAndDate.swift; sourceTree = "<group>"; };
@@ -573,6 +575,7 @@
 				5FDCFCDA248D8C2F00568208 /* InterfaceController.swift */,
 				5FDCFCDC248D8C2F00568208 /* ExtensionDelegate.swift */,
 				5FDCFCF3248D911900568208 /* TableRow.swift */,
+				5FDCFCF5248E561C00568208 /* TitleRow.swift */,
 				5FDCFCDE248D8C2F00568208 /* NotificationController.swift */,
 				5FDCFCE0248D8C3000568208 /* Assets.xcassets */,
 				5FDCFCE2248D8C3000568208 /* Info.plist */,
@@ -1185,6 +1188,7 @@
 				5FDCFCDF248D8C2F00568208 /* NotificationController.swift in Sources */,
 				5FDCFCEF248D8F4B00568208 /* Teacher.swift in Sources */,
 				5FDCFCF4248D911900568208 /* TableRow.swift in Sources */,
+				5FDCFCF6248E561C00568208 /* TitleRow.swift in Sources */,
 				5FDCFCDD248D8C2F00568208 /* ExtensionDelegate.swift in Sources */,
 				5FDCFCF0248D8F4B00568208 /* Group.swift in Sources */,
 				5FDCFCF2248D8F7A00568208 /* String+Extensions.swift in Sources */,

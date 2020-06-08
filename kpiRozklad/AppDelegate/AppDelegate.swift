@@ -12,9 +12,7 @@ import CoreData
 import WatchConnectivity
 //import PanModal
 
-struct global {
-    static var sheduleType: SheduleType = .groups
-}
+
 
 var API = NetworkingApiFacade(apiService: NetworkingApi())
 
@@ -30,66 +28,32 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         setupWatchConnectivity()
 
-        
-//        settings.isShowGreetings = false
-        let managedContext = self.persistentContainer.viewContext
-
-        if settings.isGroupsShedule == false && settings.isTeacherShedule == true {
-            global.sheduleType = .teachers
-        } else {
-            global.sheduleType = .groups
-        }
-//        settings.teacherName = ""
-                
-        if settings.sheduleUpdateTime == "" {
+        if !settings.updateRozkladAfterVersion106 {
+            deleteAllFromCoreData(managedContext: self.persistentContainer.viewContext)
             settings.isTryToRefreshShedule = true
-            deleteAllFromCoreData(managedContext: managedContext)
-            settings.updateAtOnce = "updated"
-            settings.updateAtOnceSecond = "updated"
-
+            
             let date = Date()
             let formatter = DateFormatter()
             formatter.dateFormat = "dd.MM.yyyy"
-
-            Settings.shared.sheduleUpdateTime = formatter.string(from: date)
-        } else if settings.updateAtOnce == "" {
-            settings.isTryToRefreshShedule = true
-            settings.updateAtOnce = "updated"
-            settings.updateAtOnceSecond = "updated"
-
-            global.sheduleType = .groups
-            deleteAllFromCoreData(managedContext: managedContext)
-            
-        } else if settings.updateAtOnceSecond == "" {
-            settings.updateAtOnceSecond = "updated"
-            global.sheduleType = .groups
+            settings.sheduleUpdateTime = formatter.string(from: date)
         }
         
         
         let mainStoryboard = UIStoryboard(name: "Main", bundle: Bundle.main)
-        let mainVC = mainStoryboard.instantiateInitialViewController()
         
+        let mainVC = mainStoryboard.instantiateInitialViewController()
         guard let greetingVC = mainStoryboard.instantiateViewController(withIdentifier: "FirstViewController") as? FirstViewController else { return false }
         
         window?.rootViewController = settings.isShowGreetings ? greetingVC : mainVC
-        
-        
         return true
     }
+    
     
     func setupWatchConnectivity() {
         if WCSession.isSupported() {
             let session = WCSession.default
             session.delegate = self
             session.activate()
-            
-            
-            
-//            let userInfo: [String: [Lesson]] = ["lessons": fetchingCoreData(managedContext: self.persistentContainer.viewContext)]
-//            
-//            print("userInfo", userInfo["lessons"]?.count)
-////            session.transferCurrentComplicationUserInfo(userInfo)
-//            session.transferUserInfo(userInfo)
         }
     }
     

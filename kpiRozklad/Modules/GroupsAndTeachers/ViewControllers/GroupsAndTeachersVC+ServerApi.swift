@@ -82,7 +82,7 @@ extension GroupsAndTeachersViewController {
             case .isTeachersChooser:
                 this.teachers = teachers
             case .isTeacherViewController:
-                if global.sheduleType == .teachers {
+                if this.settings.sheduleType == .teachers {
                     this.teachers = teachers
                 }
             default:

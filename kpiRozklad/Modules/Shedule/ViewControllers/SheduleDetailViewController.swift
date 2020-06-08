@@ -36,6 +36,8 @@ class SheduleDetailViewController: UIViewController {
     /// StackView it which all labels and button are located
     @IBOutlet weak var stackView: UIStackView!
     
+    var settings = Settings.shared
+    
     // MARK: - viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -105,7 +107,7 @@ class SheduleDetailViewController: UIViewController {
             
         } else {
             groupsLabel.text = "Групи: \(getGroupsOfLessonString(lesson: lesson))"
-            checkTeacherShedule.isHidden = (global.sheduleType == .teachers && teacher.teacherID == "") ? true : false
+            checkTeacherShedule.isHidden = (settings.sheduleType == .teachers && teacher.teacherID == "") ? true : false
             viewWithActivityIndicator.isHidden = true
         }
     }
@@ -153,7 +155,7 @@ class SheduleDetailViewController: UIViewController {
         
         sheduleVC.isTeachersShedule = true
         sheduleVC.teacherFromSegue = teacher
-        Settings.shared.isTryToRefreshShedule = true
+        settings.isTryToRefreshShedule = true
         
         navigationController?.pushViewController(sheduleVC, animated: true)
     }

@@ -89,18 +89,16 @@ class BoardViewController: UIViewController, PanModalPresentable {
     
     @IBAction func didPressChoose(_ sender: UIButton) {
         if isTouchedStudent {
-            global.sheduleType = .groups
+            settings.sheduleType = .groups
             settings.teacherName = ""
             settings.teacherID = 0
-            settings.isGroupsShedule = true
-            settings.isTeacherShedule = false
+            settings.sheduleType = .groups
             presentGroupOrTeacherChooser(requestType: .groups)
         } else {
-            global.sheduleType = .teachers
+            settings.sheduleType = .teachers
             settings.groupName = ""
             settings.groupID = 0
-            settings.isGroupsShedule = false
-            settings.isTeacherShedule = true
+            settings.sheduleType = .teachers
             presentGroupOrTeacherChooser(requestType: .teachers)
         }
     }
@@ -134,14 +132,14 @@ class BoardViewController: UIViewController, PanModalPresentable {
             if settings.groupName == "" {
                 groupsChooserNavigationController.groupAndTeacherControllerType = .isGroupChooser
 
-                global.sheduleType = .groups
+                settings.sheduleType = .groups
                 self.present(groupsChooserNavigationController, animated: true, completion: nil)
             }
         } else {
             if settings.teacherName == "" {
                 groupsChooserNavigationController.groupAndTeacherControllerType = .isTeachersChooser
 
-                global.sheduleType = .teachers
+                settings.sheduleType = .teachers
                 self.present(groupsChooserNavigationController, animated: true, completion: nil)
             }
         }

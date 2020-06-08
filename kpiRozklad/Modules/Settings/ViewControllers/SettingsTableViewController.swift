@@ -128,7 +128,7 @@ class SettingsTableViewController: UITableViewController {
                 cell.textLabel?.text = "Оновити розклад"
                 cell.imageView?.image = UIImage(named: "icons8-refresh-80-orange")
             } else if indexPath.row == 1 {
-                let name = global.sheduleType == .groups ? "групу" : "викладача"
+                let name = settings.sheduleType == .groups ? "групу" : "викладача"
                 cell.textLabel?.text = "Змінити \(name)"
                 cell.imageView?.image = UIImage(named: "icons8-refresh-80-red")
                 cell.detailTextLabel?.text = settings.groupName.uppercased()
@@ -334,7 +334,7 @@ class SettingsTableViewController: UITableViewController {
         
         cell.startLoadingCellIndicator()
         
-        let serverLessons = global.sheduleType == .groups ? API.getStudentLessons(forGroupWithId: settings.groupID) : API.getTeacherLessons(forTeacherWithId: settings.teacherID)
+        let serverLessons = settings.sheduleType == .groups ? API.getStudentLessons(forGroupWithId: settings.groupID) : API.getTeacherLessons(forTeacherWithId: settings.teacherID)
 
         serverLessons.done({ [weak self] (lessons) in
             guard let this = self else { return }

@@ -162,7 +162,7 @@ class SheduleViewController: UIViewController{
         self.window = UIWindow(frame: UIScreen.main.bounds)
         
         /// Presenting `GroupChooserViewController` if `settings.groupName == ""`
-        presentGroupOrTeacherChooser(requestType: global.sheduleType)
+        presentGroupOrTeacherChooser(requestType: settings.sheduleType)
         
         /// Setup navigationVC  and title
         setupNavigation()
@@ -389,9 +389,9 @@ class SheduleViewController: UIViewController{
         } else if !isFromSettingsGetFreshShedule && !isFromGroupsAndTeacherOrFavourite && !isTeachersShedule {
             setLargeTitleDisplayMode(.always)
             
-            if global.sheduleType == .groups {
+            if settings.sheduleType == .groups {
                 self.navigationItem.title = settings.groupName.uppercased()
-            } else if global.sheduleType == .teachers {
+            } else if settings.sheduleType == .teachers {
                 if UIScreen.main.nativeBounds.height < 1140 {
                     self.navigationItem.title = "Розклад"
                 } else {
@@ -629,7 +629,7 @@ class SheduleViewController: UIViewController{
         let serverLessonsOptional: Promise<[Lesson]>?
         
         if isMainShedule {
-            serverLessonsOptional = global.sheduleType == .groups ? API.getStudentLessons(forGroupWithId: settings.groupID) : API.getTeacherLessons(forTeacherWithId: settings.teacherID)
+            serverLessonsOptional = settings.sheduleType == .groups ? API.getStudentLessons(forGroupWithId: settings.groupID) : API.getTeacherLessons(forTeacherWithId: settings.teacherID)
         } else {
             serverLessonsOptional = API.getTeacherLessons(forTeacherWithId: Int(teacherFromSegue?.teacherID ?? "") ?? 0)
         }
@@ -655,14 +655,14 @@ class SheduleViewController: UIViewController{
             guard let this = self else { return }
 
             if error.localizedDescription == NetworkingApiError.lessonsNotFound.localizedDescription {
-                let messageAlert = (global.sheduleType == .groups || !isMainShedule) ? "Розкладу для цієї групи не існує" : "Розкладу для цього викладача не існує"
-                let actionTitle = (global.sheduleType == .groups || !isMainShedule) ? "Змінити групу" : "Змінити викладача"
+                let messageAlert = (this.settings.sheduleType == .groups || !isMainShedule) ? "Розкладу для цієї групи не існує" : "Розкладу для цього викладача не існує"
+                let actionTitle = (this.settings.sheduleType == .groups || !isMainShedule) ? "Змінити групу" : "Змінити викладача"
                 
                 let alert = UIAlertController(title: nil, message: messageAlert, preferredStyle: .alert)
                 alert.addAction(UIAlertAction(title: actionTitle, style: .default, handler: { (_) in
                     this.settings.groupName = ""
                     this.settings.teacherName = ""
-                    this.presentGroupOrTeacherChooser(requestType: global.sheduleType)
+                    this.presentGroupOrTeacherChooser(requestType: this.settings.sheduleType)
                 }))
                 
                 this.present(alert, animated: true, completion: {

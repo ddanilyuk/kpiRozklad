@@ -108,10 +108,10 @@ class GroupsAndTeachersViewController: UIViewController {
             case .isTeacherViewController:
                 showWithoutStartWriteLabel()
 
-                if global.sheduleType == .teachers {
+                if settings.sheduleType == .teachers {
                     disableSegmentControl()
                     getAllTeachers()
-                } else if global.sheduleType == .groups {
+                } else if settings.sheduleType == .groups {
                     getTeachersOfGroup()
                     getAllTeachers()
                 }

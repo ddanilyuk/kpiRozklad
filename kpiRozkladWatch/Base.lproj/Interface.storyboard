@@ -6,36 +6,38 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBWatchKitPlugin" version="16012"/>
     </dependencies>
     <scenes>
-        <!--Main Interface Controller-->
+        <!--Interface Controller-->
         <scene sceneID="aou-V4-d1y">
             <objects>
-                <controller id="AgC-eL-Hgc" customClass="MainInterfaceController" customModule="kpiRozkladWatch" customModuleProvider="target">
+                <controller id="AgC-eL-Hgc" customClass="InterfaceController" customModule="kpiRozkladWatch" customModuleProvider="target">
                     <items>
-                        <table alignment="left" id="G9K-7O-P17">
+                        <label alignment="left" text="Label" id="Ku5-nt-KT3"/>
+                        <table alignment="left" id="bBF-ct-9HQ">
                             <items>
-                                <tableRow id="M5D-l8-YwP" customClass="TableRow" customModule="kpiRozkladWatch" customModuleProvider="target">
-                                    <group key="rootItem" width="1" height="0.0" alignment="left" layout="vertical" id="hFs-j0-i3I">
+                                <tableRow identifier="TableRow" id="YdW-BH-G9a" customClass="TableRow" customModule="kpiRozkladWatch" customModuleProvider="target">
+                                    <group key="rootItem" width="1" height="0.0" alignment="left" layout="vertical" id="9iF-ch-pJu">
                                         <items>
-                                            <label alignment="left" verticalAlignment="center" text="Label" id="Pmx-2K-GzH">
+                                            <label alignment="left" verticalAlignment="center" text="Label" numberOfLines="2" id="857-x0-Whp">
                                                 <fontDescription key="font" style="UICTFontTextStyleTitle3"/>
                                             </label>
-                                            <label alignment="left" verticalAlignment="center" text="Label" id="1fl-Pj-ELG"/>
+                                            <label alignment="left" verticalAlignment="center" text="Label" id="ZFb-nn-4RF"/>
                                         </items>
                                     </group>
                                     <connections>
-                                        <outlet property="lessonNameLabel" destination="Pmx-2K-GzH" id="mMv-iQ-CMi"/>
-                                        <outlet property="roomNameLabel" destination="1fl-Pj-ELG" id="UbW-NA-C8f"/>
+                                        <outlet property="lessonNameLabel" destination="857-x0-Whp" id="IrC-7G-OBt"/>
+                                        <outlet property="lessonRoomLabel" destination="ZFb-nn-4RF" id="aN8-pz-vHy"/>
                                     </connections>
                                 </tableRow>
                             </items>
                         </table>
                     </items>
                     <connections>
-                        <outlet property="tableView" destination="G9K-7O-P17" id="4g2-5K-gev"/>
+                        <outlet property="label" destination="Ku5-nt-KT3" id="Y9S-Ce-0jI"/>
+                        <outlet property="tableView" destination="bBF-ct-9HQ" id="D0m-w6-KcN"/>
                     </connections>
                 </controller>
             </objects>
-            <point key="canvasLocation" x="-58" y="291"/>
+            <point key="canvasLocation" x="220" y="345"/>
         </scene>
         <!--Static Notification Interface Controller-->
         <scene sceneID="AEw-b0-oYE">
@@ -52,21 +54,21 @@
                     </connections>
                 </notificationController>
             </objects>
-            <point key="canvasLocation" x="-58" y="589"/>
+            <point key="canvasLocation" x="220" y="643"/>
         </scene>
         <!--Notification Controller-->
         <scene sceneID="ZPc-GJ-vnh">
             <objects>
                 <controller id="4sK-HA-Art" customClass="NotificationController" customModule="kpiRozkladWatch" customModuleProvider="target"/>
             </objects>
-            <point key="canvasLocation" x="190" y="589"/>
+            <point key="canvasLocation" x="468" y="643"/>
         </scene>
         <!--Notification Controller-->
         <scene sceneID="Niz-AI-uX2">
             <objects>
                 <controller id="eXb-UN-Cd0" customClass="NotificationController" customModule="kpiRozkladWatch" customModuleProvider="target"/>
             </objects>
-            <point key="canvasLocation" x="445" y="589"/>
+            <point key="canvasLocation" x="220" y="1029"/>
         </scene>
     </scenes>
 </document>

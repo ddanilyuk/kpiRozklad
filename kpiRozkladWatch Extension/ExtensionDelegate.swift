@@ -7,11 +7,22 @@
 //
 
 import WatchKit
+import WatchConnectivity
+
+var lessonsGlobal: [Lesson] = []
 
 class ExtensionDelegate: NSObject, WKExtensionDelegate {
 
     func applicationDidFinishLaunching() {
-        // Perform any final initialization of your application.
+        setupWatchConnectivity()
+    }
+    
+    func setupWatchConnectivity() {
+        if WCSession.isSupported() {
+            let session = WCSession.default
+            session.delegate = self
+            session.activate()
+        }
     }
 
     func applicationDidBecomeActive() {
@@ -53,4 +64,38 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate {
         }
     }
 
+}
+
+
+extension ExtensionDelegate: WCSessionDelegate {
+    func session(_ session: WCSession, activationDidCompleteWith activationState: WCSessionActivationState, error: Error?) {
+        if let error = error {
+            fatalError("Can't activate session with error: \(error.localizedDescription)")
+        }
+        print("WC Session activated with state: \(activationState.rawValue)")
+    }
+    
+    func session(_ session: WCSession, didReceiveApplicationContext applicationContext: [String : Any]) {
+        
+//        print(WCSession.default.applicationContext)
+        
+        
+        guard let data = applicationContext["lessons7"] as? Data else { return }
+        
+        let decoder = JSONDecoder.init()
+        do {
+            lessonsGlobal = try decoder.decode([Lesson].self, from: data)
+        } catch {
+            print(error.localizedDescription)
+        }
+//        WCSession.updateApplicationContext(session)
+        
+        print("didReceiveApplicationContext")
+        
+        DispatchQueue.main.async {
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "activityNotification"), object: nil)
+        }
+    }
+
+    
 }

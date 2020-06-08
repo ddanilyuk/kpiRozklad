@@ -9,6 +9,7 @@
 import UIKit
 import CoreData
 import PromiseKit
+import WatchConnectivity
 
 
 /**
@@ -19,7 +20,7 @@ import PromiseKit
  3. `fetchingCoreData(vc: SheduleViewController) -> [Lesson]` return `[Lesson]` from Core Data
  4. `makeLessonsShedule()` remake `[Lesson]` to `[(key: DayName, value: [Lesson])]`
  */
-class SheduleViewController: UIViewController {
+class SheduleViewController: UIViewController{
 
     // MARK: - Variables
     /// Window
@@ -228,6 +229,43 @@ class SheduleViewController: UIViewController {
         
         /// Set `isEditInserts` for `tableView.contentInset`
         isEditInserts = true
+        
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
+        let managedContext = appDelegate.persistentContainer.viewContext
+        
+        
+//        let session = WCSession.default
+
+        if WCSession.isSupported() {
+            let session = WCSession.default
+            do {
+                let lessons = fetchingCoreData(managedContext: managedContext)
+                
+                let encoder = JSONEncoder.init()
+                
+                let dataLessons = try encoder.encode(lessons)
+                
+                let dictionary: [String: Any] = ["lessons7": dataLessons, "time": Date().timeIntervalSince1970]
+                print(dictionary)
+                try session.updateApplicationContext(dictionary)
+                
+            } catch {
+                print("Error: \(error)")
+            }
+        }
+        
+        
+//        if WCSession.isSupported() {
+//            do {
+//                let userInfo: [String: String] = ["lessons": "\(fetchingCoreData(managedContext: managedContext).count)"]
+//                print(userInfo)
+//                try session.updateApplicationContext(userInfo)
+//            } catch {
+//                print("Error: \(error)")
+//            }
+//        }
+        
+        
     }
     
     
@@ -736,3 +774,19 @@ class SheduleViewController: UIViewController {
         makeLessonsShedule()
     }
 }
+
+//extension SheduleViewController: WCSessionDelegate {
+//    func session(_ session: WCSession, activationDidCompleteWith activationState: WCSessionActivationState, error: Error?) {
+//        
+//    }
+//    
+//    func sessionDidBecomeInactive(_ session: WCSession) {
+//        
+//    }
+//    
+//    func sessionDidDeactivate(_ session: WCSession) {
+//        
+//    }
+//    
+//    
+//}

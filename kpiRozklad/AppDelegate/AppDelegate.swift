@@ -9,6 +9,7 @@
 import UIKit
 import UserNotifications
 import CoreData
+import WatchConnectivity
 //import PanModal
 
 struct global {
@@ -27,7 +28,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        
+        setupWatchConnectivity()
+
         
 //        settings.isShowGreetings = false
         let managedContext = self.persistentContainer.viewContext
@@ -71,7 +73,24 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         window?.rootViewController = settings.isShowGreetings ? greetingVC : mainVC
         
+        
         return true
+    }
+    
+    func setupWatchConnectivity() {
+        if WCSession.isSupported() {
+            let session = WCSession.default
+            session.delegate = self
+            session.activate()
+            
+            
+            
+//            let userInfo: [String: [Lesson]] = ["lessons": fetchingCoreData(managedContext: self.persistentContainer.viewContext)]
+//            
+//            print("userInfo", userInfo["lessons"]?.count)
+////            session.transferCurrentComplicationUserInfo(userInfo)
+//            session.transferUserInfo(userInfo)
+        }
     }
     
     
@@ -189,5 +208,31 @@ extension AppDelegate {
     func applicationWillTerminate(_ application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
+    
+}
+
+
+extension AppDelegate: WCSessionDelegate {
+    
+    func session(_ session: WCSession, activationDidCompleteWith activationState: WCSessionActivationState, error: Error?) {
+        if let error = error {
+            fatalError("Can't activate session with error: \(error.localizedDescription)")
+        }
+        print("WC Session activated with state: \(activationState.rawValue)")
+    }
+    
+
+    func sessionDidBecomeInactive(_ session: WCSession) {
+        print("sessionDidBecomeInactive")
+        print(#function)
+    }
+    
+    func sessionDidDeactivate(_ session: WCSession) {
+        print("sessionDidDeactivate")
+        print(#function)
+        WCSession.default.activate()
+    }
+    
+    
     
 }

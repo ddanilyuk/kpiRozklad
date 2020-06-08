@@ -20,6 +20,20 @@
                ReferencedContainer = "container:kpiRozklad.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "5FDCFC04248D601F00568208"
+               BuildableName = "kpiRozkladWatchApp.app"
+               BlueprintName = "kpiRozkladWatchApp"
+               ReferencedContainer = "container:kpiRozklad.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
       </BuildActionEntries>
    </BuildAction>
    <TestAction

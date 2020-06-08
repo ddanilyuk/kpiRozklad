@@ -124,14 +124,17 @@ class InterfaceController: WKInterfaceController {
                             let textColour: UIColor = cellCurrentColour?.isWhiteText ?? true ? .white : .black
                             tableRow.lessonNameLabel.setTextColor(textColour)
                             tableRow.lessonRoomLabel.setTextColor(textColour)
+                            tableRow.timeStartLabel.setTextColor(textColour)
+                            tableRow.timeEndLabel.setTextColor(textColour)
 
-                            
                         } else if nextLessonId == lesson.lessonID {
                             tableRow.rowGroup.setBackgroundColor(cellNextColour ?? .green)
                             
                             let textColour: UIColor = cellNextColour?.isWhiteText ?? true ? .white : .black
                             tableRow.lessonNameLabel.setTextColor(textColour)
                             tableRow.lessonRoomLabel.setTextColor(textColour)
+                            tableRow.timeStartLabel.setTextColor(textColour)
+                            tableRow.timeEndLabel.setTextColor(textColour)
                         }
                 }
             }
@@ -208,6 +211,8 @@ class InterfaceController: WKInterfaceController {
                     let textColour: UIColor = cellCurrentColour?.isWhiteText ?? true ? .white : .black
                     tableRow.lessonNameLabel.setTextColor(textColour)
                     tableRow.lessonRoomLabel.setTextColor(textColour)
+                    tableRow.timeStartLabel.setTextColor(textColour)
+                    tableRow.timeEndLabel.setTextColor(textColour)
 
                     
                 } else if nextLessonId == lesson.lessonID {
@@ -216,6 +221,8 @@ class InterfaceController: WKInterfaceController {
                     let textColour: UIColor = cellNextColour?.isWhiteText ?? true ? .white : .black
                     tableRow.lessonNameLabel.setTextColor(textColour)
                     tableRow.lessonRoomLabel.setTextColor(textColour)
+                    tableRow.timeStartLabel.setTextColor(textColour)
+                    tableRow.timeEndLabel.setTextColor(textColour)
                 }
                 lessonCounter += 1
             }

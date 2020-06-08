@@ -116,7 +116,6 @@ class BoardViewController: UIViewController, PanModalPresentable {
             studentButton.borderColor = .black
             teacherButton.borderColor = .gray
         }
-        
     }
             
         
@@ -126,23 +125,23 @@ class BoardViewController: UIViewController, PanModalPresentable {
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
         let managedContext = appDelegate.persistentContainer.viewContext
         
+        guard let groupsChooserNavigationController = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: TeachersNavigationController.identifier) as? TeachersNavigationController else { return }
+        
+        deleteAllFromCoreData(managedContext: managedContext)
+
+        
         if requestType == .groups {
             if settings.groupName == "" {
-                deleteAllFromCoreData(managedContext: managedContext)
-                guard let groupsChooserNavigationController = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: TeachersNavigationController.identifier) as? TeachersNavigationController else { return }
-                
-                groupsChooserNavigationController.isSheduleGroupChooser = true
-                
+                groupsChooserNavigationController.groupAndTeacherControllerType = .isGroupChooser
+
+                global.sheduleType = .groups
                 self.present(groupsChooserNavigationController, animated: true, completion: nil)
             }
         } else {
             if settings.teacherName == "" {
-                deleteAllFromCoreData(managedContext: managedContext)
-                guard let groupsChooserNavigationController = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: TeachersNavigationController.identifier) as? TeachersNavigationController else { return }
-                
-                groupsChooserNavigationController.isSheduleTeachersChooser = true
+                groupsChooserNavigationController.groupAndTeacherControllerType = .isTeachersChooser
+
                 global.sheduleType = .teachers
-                
                 self.present(groupsChooserNavigationController, animated: true, completion: nil)
             }
         }

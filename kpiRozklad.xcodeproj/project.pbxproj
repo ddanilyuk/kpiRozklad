@@ -629,7 +629,7 @@
 			children = (
 				5FACFF8E23ED63E90022DF88 /* KPI Rozklad.entitlements */,
 				D3FFAAD5234F793B0065E9CE /* AppDelegate */,
-				D3FFAAD6234F79630065E9CE /* Models */,
+				D3FFAAD6234F79630065E9CE /* Modules */,
 				D3FFAAE123521BA40065E9CE /* Common */,
 				D3FFAADD23521B310065E9CE /* Resoursces */,
 				D313F4A3233AAB6D0076CFF8 /* Info.plist */,
@@ -662,7 +662,7 @@
 			path = AppDelegate;
 			sourceTree = "<group>";
 		};
-		D3FFAAD6234F79630065E9CE /* Models */ = {
+		D3FFAAD6234F79630065E9CE /* Modules */ = {
 			isa = PBXGroup;
 			children = (
 				D3FFAAD7234F79760065E9CE /* Shedule */,
@@ -672,7 +672,7 @@
 				5F305C7C242264400035B509 /* Other */,
 				5F034A342389B16D00D90DB7 /* Main.storyboard */,
 			);
-			path = Models;
+			path = Modules;
 			sourceTree = "<group>";
 		};
 		D3FFAAD7234F79760065E9CE /* Shedule */ = {

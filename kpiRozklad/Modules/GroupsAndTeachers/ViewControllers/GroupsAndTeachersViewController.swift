@@ -8,6 +8,13 @@
 
 import UIKit
 
+enum GroupAndTeacherControllerType {
+    case isGroupChooser
+    case isTeachersChooser
+    case isGroupViewController
+    case isTeacherViewController
+}
+
 
 class GroupsAndTeachersViewController: UIViewController {
     
@@ -51,18 +58,20 @@ class GroupsAndTeachersViewController: UIViewController {
     
     /// Settings singleton
     let settings = Settings.shared
+    
+    var groupAndTeacherControllerType: GroupAndTeacherControllerType = .isTeacherViewController
 
-    /// If choosing group for shedule (to Shedule VC) if global.sheduleType == .group
-    var isSheduleGroupChooser: Bool = false
-    
-    /// If choosing teachers for shedule (to Shedule VC) if global.sheduleType == .teachers
-    var isSheduleTeachersChooser: Bool = false
-    
-    /// Show groups (`allTeachers` and `groupTeachers`)
-    var isGroupViewController: Bool = false
-    
-    /// Show teachers `teachers`
-    var isTeacherViewController: Bool = false
+//    /// If choosing group for shedule (to Shedule VC) if global.sheduleType == .group
+//    var isSheduleGroupChooser: Bool = false
+//
+//    /// If choosing teachers for shedule (to Shedule VC) if global.sheduleType == .teachers
+//    var isSheduleTeachersChooser: Bool = false
+//
+//    /// Show groups (`allTeachers` and `groupTeachers`)
+//    var isGroupViewController: Bool = false
+//
+//    /// Show teachers `teachers`
+//    var isTeacherViewController: Bool = false
     
     
     override func viewDidLoad() {
@@ -83,29 +92,58 @@ class GroupsAndTeachersViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         /// If groups or teachers is empty, make request again
-        if (groups.count == 0 && (isSheduleGroupChooser || isGroupViewController)) ||
-           (teachers.count == 0 && (isSheduleTeachersChooser || isTeacherViewController)) {
-            
-            if isSheduleTeachersChooser {
+        if (groups.count == 0 && (groupAndTeacherControllerType == .isGroupChooser || groupAndTeacherControllerType == .isGroupViewController)) ||
+            (teachers.count == 0 && (groupAndTeacherControllerType == .isTeachersChooser || groupAndTeacherControllerType == .isTeacherViewController)) {
+            switch groupAndTeacherControllerType {
+            case .isTeachersChooser:
                 disableSegmentControl()
                 getAllTeachers()
-            } else if isSheduleGroupChooser {
+            case .isGroupChooser:
                 disableSegmentControl()
                 getAllGroups()
-            } else if isGroupViewController {
+            case .isGroupViewController:
                 showWithoutStartWriteLabel()
                 disableSegmentControl()
                 getAllGroups()
-            } else if isTeacherViewController && global.sheduleType == .teachers {
+            case .isTeacherViewController:
                 showWithoutStartWriteLabel()
-                disableSegmentControl()
-                getAllTeachers()
-            } else if isTeacherViewController && global.sheduleType == .groups {
-                showWithoutStartWriteLabel()
-                getTeachersOfGroup()
-                getAllTeachers()
+
+                if global.sheduleType == .teachers {
+                    disableSegmentControl()
+                    getAllTeachers()
+                } else if global.sheduleType == .groups {
+                    getTeachersOfGroup()
+                    getAllTeachers()
+                }
             }
+                
+            
         }
+        
+//        
+//        if (groups.count == 0 && (isSheduleGroupChooser || isGroupViewController)) ||
+//           (teachers.count == 0 && (isSheduleTeachersChooser || isTeacherViewController)) {
+//            
+//            if isSheduleTeachersChooser {
+//                disableSegmentControl()
+//                getAllTeachers()
+//            } else if isSheduleGroupChooser {
+//                disableSegmentControl()
+//                getAllGroups()
+//            } else if isGroupViewController {
+//                showWithoutStartWriteLabel()
+//                disableSegmentControl()
+//                getAllGroups()
+//            } else if isTeacherViewController && global.sheduleType == .teachers {
+//                showWithoutStartWriteLabel()
+//                disableSegmentControl()
+//                getAllTeachers()
+//            } else if isTeacherViewController && global.sheduleType == .groups {
+//                showWithoutStartWriteLabel()
+//                getTeachersOfGroup()
+//                getAllTeachers()
+//            }
+//        }
     }
     
     /// When need to show  `tableView` now
@@ -128,7 +166,6 @@ class GroupsAndTeachersViewController: UIViewController {
         activityIndicator.isHidden = true
     }
     
-    
     /// Start Loading
     func startLoading() {
         activityIndicator.startAnimating()
@@ -141,13 +178,16 @@ class GroupsAndTeachersViewController: UIViewController {
     private func getVariablesFromNavigationController() {
         guard let groupNavigationController = self.navigationController as? TeachersNavigationController else { return }
         
-        isSheduleGroupChooser = groupNavigationController.isSheduleGroupChooser
-        isSheduleTeachersChooser = groupNavigationController.isSheduleTeachersChooser
-        isTeacherViewController = groupNavigationController.isTeacherViewController
-        
-        if isSheduleTeachersChooser == false && isSheduleGroupChooser == false && isGroupViewController == false {
-            isTeacherViewController = true
-        }
+        self.groupAndTeacherControllerType = groupNavigationController.groupAndTeacherControllerType
+//
+//
+//        isSheduleGroupChooser = groupNavigationController.isSheduleGroupChooser
+//        isSheduleTeachersChooser = groupNavigationController.isSheduleTeachersChooser
+//        isTeacherViewController = groupNavigationController.isTeacherViewController
+//
+//        if isSheduleTeachersChooser == false && isSheduleGroupChooser == false && isGroupViewController == false {
+//            isTeacherViewController = true
+//        }
     }
     
     
@@ -167,16 +207,27 @@ class GroupsAndTeachersViewController: UIViewController {
         search.obscuresBackgroundDuringPresentation = false
         
         setLargeTitleDisplayMode(.never)
-        if isSheduleTeachersChooser || isTeacherViewController {
-            // If choosing teachers show this titles
+        switch groupAndTeacherControllerType {
+        case .isTeachersChooser, .isTeacherViewController:
             search.searchBar.placeholder = "Пошук викладача"
             self.title = "Викладачі"
             startWriteLabel.text = " Почніть вводити ініціали"
-        } else {
+        case .isGroupViewController, .isGroupChooser:
             search.searchBar.placeholder = "Пошук групи"
             self.title = "Групи"
             startWriteLabel.text = " Почніть вводити назву групи"
         }
+        
+//        if isSheduleTeachersChooser || isTeacherViewController {
+//            // If choosing teachers show this titles
+//            search.searchBar.placeholder = "Пошук викладача"
+//            self.title = "Викладачі"
+//            startWriteLabel.text = " Почніть вводити ініціали"
+//        } else {
+//            search.searchBar.placeholder = "Пошук групи"
+//            self.title = "Групи"
+//            startWriteLabel.text = " Почніть вводити назву групи"
+//        }
         
         self.navigationItem.searchController = search
         self.navigationItem.hidesSearchBarWhenScrolling = false

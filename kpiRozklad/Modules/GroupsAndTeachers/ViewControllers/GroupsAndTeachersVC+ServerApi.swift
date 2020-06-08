@@ -77,27 +77,42 @@ extension GroupsAndTeachersViewController {
     func getAllTeachers(isNeedToUpdate: Bool = false) {
         API.getAllTeachers().done({ [weak self] (teachers) in
             guard let this = self else { return }
-            if this.isSheduleTeachersChooser || (this.isTeacherViewController && global.sheduleType == .teachers) {
+            
+            switch this.groupAndTeacherControllerType {
+            case .isTeachersChooser:
                 this.teachers = teachers
-            } else {
+            case .isTeacherViewController:
+                if global.sheduleType == .teachers {
+                    this.teachers = teachers
+                }
+            default:
                 this.allTeachers = teachers
             }
+//
+//            if this.isSheduleTeachersChooser || (this.isTeacherViewController && global.sheduleType == .teachers) {
+//                this.teachers = teachers
+//            } else {
+//                this.allTeachers = teachers
+//            }
             this.stopLoading()
             
-            if this.isSheduleGroupChooser || this.isSheduleTeachersChooser {
+            
+            switch this.groupAndTeacherControllerType {
+            case .isGroupChooser, .isTeachersChooser:
                 if this.startWriteLabel.isHidden {
                     this.tableView.isHidden = false
                     this.updateSearchResults(for: this.search)
-//                    this.tableView.reloadData()
                 } else {
                     this.tableView.isHidden = true
                 }
-            } else {
+            default:
                 if isNeedToUpdate && this.segmentControl.selectedSegmentIndex == 1 {
                     this.teachers = teachers
                 }
                 this.tableView.isHidden = false
+                
             }
+
             this.tableView.reloadData()
         }).catch({ [weak self] (error) in
             if self?.segmentControl.selectedSegmentIndex == 1 {
@@ -115,17 +130,19 @@ extension GroupsAndTeachersViewController {
             this.stopLoading()
             
 //            this.tableView.isHidden = (this.isSheduleGroupChooser || this.isSheduleTeachersChooser) ? true : false
-            if this.isSheduleGroupChooser || this.isSheduleTeachersChooser {
+            switch this.groupAndTeacherControllerType {
+            case .isGroupChooser, .isTeachersChooser:
                 if this.startWriteLabel.isHidden {
                     this.tableView.isHidden = false
                     this.updateSearchResults(for: this.search)
-//                    this.tableView.reloadData()
                 } else {
                     this.tableView.isHidden = true
                 }
-            } else {
+            default:
                 this.tableView.isHidden = false
+
             }
+            
             
             this.tableView.reloadData()
         }).catch({ [weak self] (error) in

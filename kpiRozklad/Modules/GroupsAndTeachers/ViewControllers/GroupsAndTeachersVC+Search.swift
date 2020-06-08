@@ -26,16 +26,24 @@ extension GroupsAndTeachersViewController: UISearchResultsUpdating {
             activityIndicator.isHidden = true
             activityIndicator.stopAnimating()
             
-            if isSheduleGroupChooser || isSheduleTeachersChooser {
+            switch groupAndTeacherControllerType {
+            case .isGroupChooser, .isTeachersChooser:
                 startWriteLabel.isHidden = false
                 tableView.isHidden = true
+            default:
+                break
             }
+//            if isSheduleGroupChooser || isSheduleTeachersChooser {
+//                startWriteLabel.isHidden = false
+//                tableView.isHidden = true
+//            }
             
             tableView.reloadData()
             return
         }
         
-        if isSheduleTeachersChooser || isTeacherViewController {
+        switch groupAndTeacherControllerType {
+        case .isTeachersChooser, .isTeacherViewController:
             isSearching = true
             teachersInSearch = []
             
@@ -53,8 +61,7 @@ extension GroupsAndTeachersViewController: UISearchResultsUpdating {
                     teachersInSearch.append(teacher)
                 }
             }
-            
-        } else {
+        case .isGroupChooser, .isGroupViewController:
             isSearching = true
             groupsInSearch = []
             
@@ -72,7 +79,46 @@ extension GroupsAndTeachersViewController: UISearchResultsUpdating {
                     groupsInSearch.append(group)
                 }
             }
+            
         }
+//        if isSheduleTeachersChooser || isTeacherViewController {
+//            isSearching = true
+//            teachersInSearch = []
+//
+//            startWriteLabel.isHidden = true
+//            tableView.isHidden = false
+//
+//            if teachers.count == 0 {
+//                tableView.isHidden = true
+//                activityIndicator.isHidden = false
+//                activityIndicator.startAnimating()
+//            }
+//
+//            for teacher in teachers {
+//                if teacher.teacherFullName.lowercased().contains(lowerCaseSearchText){
+//                    teachersInSearch.append(teacher)
+//                }
+//            }
+//
+//        } else {
+//            isSearching = true
+//            groupsInSearch = []
+//
+//            startWriteLabel.isHidden = true
+//            tableView.isHidden = false
+//
+//            if groups.count == 0 {
+//                tableView.isHidden = true
+//                activityIndicator.isHidden = false
+//                activityIndicator.startAnimating()
+//            }
+//
+//            for group in groups {
+//                if group.groupFullName.lowercased().contains(lowerCaseSearchText){
+//                    groupsInSearch.append(group)
+//                }
+//            }
+//        }
         
         tableView.reloadData()
     }

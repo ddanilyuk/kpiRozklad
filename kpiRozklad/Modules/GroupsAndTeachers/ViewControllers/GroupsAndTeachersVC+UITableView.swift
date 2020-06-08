@@ -12,19 +12,25 @@ import UIKit
 extension GroupsAndTeachersViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if isSheduleTeachersChooser || isTeacherViewController {
-            if isSearching {
-                return teachersInSearch.count
-            } else {
-                return teachers.count
-            }
-        } else {
-            if isSearching {
-                return groupsInSearch.count
-            } else {
-                return groups.count
-            }
+        switch groupAndTeacherControllerType {
+        case .isTeachersChooser, .isTeacherViewController:
+            return isSearching ? teachersInSearch.count : teachers.count
+        case .isGroupChooser, .isGroupViewController:
+            return isSearching ? groupsInSearch.count : groups.count
         }
+//        if isSheduleTeachersChooser || isTeacherViewController {
+//            if isSearching {
+//                return teachersInSearch.count
+//            } else {
+//                return teachers.count
+//            }
+//        } else {
+//            if isSearching {
+//                return groupsInSearch.count
+//            } else {
+//                return groups.count
+//            }
+//        }
     }
     
 
@@ -33,11 +39,18 @@ extension GroupsAndTeachersViewController: UITableViewDelegate, UITableViewDataS
         
         cell.activityIndicator.isHidden = true
         
-        if isSheduleTeachersChooser || isTeacherViewController {
+        switch groupAndTeacherControllerType {
+        case .isTeachersChooser, .isTeacherViewController:
             cell.mainLabel.text = isSearching ? teachersInSearch[indexPath.row].teacherName : teachers[indexPath.row].teacherName
-        } else {
+        case .isGroupChooser, .isGroupViewController:
             cell.mainLabel.text = isSearching ? groupsInSearch[indexPath.row].groupFullName : groups[indexPath.row].groupFullName
         }
+        
+//        if isSheduleTeachersChooser || isTeacherViewController {
+//            cell.mainLabel.text = isSearching ? teachersInSearch[indexPath.row].teacherName : teachers[indexPath.row].teacherName
+//        } else {
+//            cell.mainLabel.text = isSearching ? groupsInSearch[indexPath.row].groupFullName : groups[indexPath.row].groupFullName
+//        }
 
         return cell
     }
@@ -49,7 +62,8 @@ extension GroupsAndTeachersViewController: UITableViewDelegate, UITableViewDataS
         guard let window = appDelegate?.window else { return }
         guard let mainTabBar: UITabBarController = mainStoryboard.instantiateViewController(withIdentifier: "Main") as? UITabBarController else { return }
         
-        if isSheduleTeachersChooser {
+        switch groupAndTeacherControllerType {
+        case .isTeachersChooser :
             let teacher = isSearching ? teachersInSearch[indexPath.row] : teachers[indexPath.row]
             
             settings.teacherName = teacher.teacherName
@@ -66,7 +80,7 @@ extension GroupsAndTeachersViewController: UITableViewDelegate, UITableViewDataS
                 window.makeKeyAndVisible()
             }
             
-        } else if isSheduleGroupChooser {
+        case .isGroupChooser:
             let group = isSearching ? groupsInSearch[indexPath.row] : groups[indexPath.row]
 
             settings.groupName = group.groupFullName
@@ -83,14 +97,14 @@ extension GroupsAndTeachersViewController: UITableViewDelegate, UITableViewDataS
                 window.makeKeyAndVisible()
             }
 
-        } else if isGroupViewController {
+        case .isGroupViewController:
             let group = isSearching ? groupsInSearch[indexPath.row] : groups[indexPath.row]
             getGroupLessons(group: group, indexPath: indexPath)
-        } else if isTeacherViewController {
+        case .isTeacherViewController:
             let teacher = isSearching ? teachersInSearch[indexPath.row] : teachers[indexPath.row]
             getTeacherLessons(teacher: teacher, indexPath: indexPath)
         }
-        
+
         tableView.deselectRow(at: indexPath, animated: true)
     }
     

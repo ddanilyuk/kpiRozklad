@@ -89,11 +89,9 @@ extension ExtensionDelegate: WCSessionDelegate {
         do {
             lessonsGlobal = try decoder.decode([Lesson].self, from: data)
             name = applicationContext["name"] as? String ?? ""
-            print("before colours")
             
             guard let currentColourData = applicationContext["currentColourData"] as? Data else { return }
             guard let nextColourData = applicationContext["nextColourData"] as? Data else { return }
-            print("after colours")
 
             cellCurrentColour = UIColor.color(withData: currentColourData)
             cellNextColour = UIColor.color(withData: nextColourData)

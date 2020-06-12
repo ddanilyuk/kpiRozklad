@@ -25,6 +25,9 @@ class InterfaceController: WKInterfaceController {
     
     var lessons: [Lesson] = []
     
+    @IBOutlet weak var startGroup: WKInterfaceGroup!
+    
+    @IBOutlet weak var mainGroup: WKInterfaceGroup!
     /**
      Сurrent week which is obtained from the date on the device
      - Remark:
@@ -54,31 +57,46 @@ class InterfaceController: WKInterfaceController {
         Updated in `makeLessonShedule()` but makes in `getCurrentAndNextLesson(lessons: [Lesson])`
      */
     var nextLessonId = String()
+    
+    var isGreetingOnScreen: Bool = false
 
     
     override func awake(withContext context: Any?) {
         super.awake(withContext: context)
-        
+        hideGreeting()
         setupDate()
         
-        var currentLessonsWeek = "1"
         
-        if weekOfYear % 2 != 0 {
-            currentLessonsWeek = "2"
+        
+        if #available(watchOSApplicationExtension 5.1, *) {
+            tableView.curvesAtBottom = true
         }
         
         self.lessons = lessonsGlobal
-        self.setupTableView(week: currentLessonsWeek)
-        self.setTitle("\(currentLessonsWeek) тиждень")
+        self.setToday()
 
+        if lessons.count == 0 {
+            self.setTitle("")
+            showGreeting()
+        }
+        
         notificationObserver = notificationCenter.addObserver(forName: NSNotification.Name("activityNotification"), object: nil, queue: nil, using: { (notification) in
-            self.label.setText(name.uppercased())
-
+            self.hideGreeting()
             self.lessons = lessonsGlobal
-            
-            self.setTitle("\(currentLessonsWeek) тиждень")
-            self.setupTableView(week: currentLessonsWeek)
+            self.setToday()
         })
+    }
+    
+    private func showGreeting() {
+        isGreetingOnScreen = true
+        startGroup.setHidden(false)
+        mainGroup.setHidden(true)
+    }
+    
+    private func hideGreeting() {
+        isGreetingOnScreen = false
+        startGroup.setHidden(true)
+        mainGroup.setHidden(false)
     }
     
     private func setupDate() {
@@ -90,16 +108,23 @@ class InterfaceController: WKInterfaceController {
     
     @IBAction func setFirstWeek() {
         setupTableView(week: "1")
-        self.setTitle("1 тиждень")
-
+        if !isGreetingOnScreen {
+            self.setTitle("1 тиждень")
+        }
     }
+    
     @IBAction func setSecondWeek() {
         setupTableView(week: "2")
-        self.setTitle("2 тиждень")
+        if !isGreetingOnScreen {
+            self.setTitle("2 тиждень")
+        }
     }
     
     @IBAction func setToday() {
-        self.setTitle("Сьогодні")
+        if !isGreetingOnScreen {
+            self.setTitle("Сьогодні")
+        }
+//        self.label.setText(nil)
         let lessonsForToday = lessons.filter { return $0.lessonWeek == String(currentWeekFromTodayDate) && $0.dayNumber == String(dayNumberFromCurrentDate) }
         
         var rowTypes: [String] = Array.init(repeating: "TableRow", count: lessonsForToday.count)
@@ -110,7 +135,8 @@ class InterfaceController: WKInterfaceController {
         for index in 0..<rowTypes.count {
             if index == 0 {
                 if let titleRow = tableView.rowController(at: index) as? TitleRow {
-                    titleRow.titleLabel.setText(DayName.getDayNameFromNumber(dayNumberFromCurrentDate).map { $0.rawValue })
+                    let title = "\(DayName.getDayNameFromNumber(dayNumberFromCurrentDate).map { $0.rawValue } ?? ""), \(currentWeekFromTodayDate) тиж."
+                    titleRow.titleLabel.setText(title)
                 }
                 
             } else {
@@ -119,22 +145,9 @@ class InterfaceController: WKInterfaceController {
                     tableRow.lesson = lesson
                     
                     if currentLessonId == lesson.lessonID {
-                        tableRow.rowGroup.setBackgroundColor(cellCurrentColour ?? .red)
-                        
-                        let textColour: UIColor = cellCurrentColour?.isWhiteText ?? true ? .white : .black
-                        tableRow.lessonNameLabel.setTextColor(textColour)
-                        tableRow.lessonRoomLabel.setTextColor(textColour)
-                        tableRow.timeStartLabel.setTextColor(textColour)
-                        tableRow.timeEndLabel.setTextColor(textColour)
-
+                        setupCurrentOrNextLessonRow(row: tableRow, cellType: .currentCell)
                     } else if nextLessonId == lesson.lessonID {
-                        tableRow.rowGroup.setBackgroundColor(cellNextColour ?? .green)
-                        
-                        let textColour: UIColor = cellNextColour?.isWhiteText ?? true ? .white : .black
-                        tableRow.lessonNameLabel.setTextColor(textColour)
-                        tableRow.lessonRoomLabel.setTextColor(textColour)
-                        tableRow.timeStartLabel.setTextColor(textColour)
-                        tableRow.timeEndLabel.setTextColor(textColour)
+                        setupCurrentOrNextLessonRow(row: tableRow, cellType: .nextCell)
                     }
                 }
             }
@@ -144,7 +157,8 @@ class InterfaceController: WKInterfaceController {
     }
     
     private func setupTableView(week: String) {
-        
+//        self.label.setText(name.uppercased())
+//        tableView.remo
         setupDate()
         (nextLessonId, currentLessonId) = getCurrentAndNextLesson(lessons: lessons, timeIsNowString: timeIsNowString, dayNumberFromCurrentDate: dayNumberFromCurrentDate, currentWeekFromTodayDate: currentWeekFromTodayDate)
         
@@ -183,6 +197,7 @@ class InterfaceController: WKInterfaceController {
                                  DayName.thursday: lessonThursday,
                                  DayName.friday: lessonFriday,
                                  DayName.saturday: lessonSaturday].sorted{$0.key < $1.key}
+        
         var rowTypes: [String] = []
         
         for lessonsForSomeDay in lessonsDictionary {
@@ -206,23 +221,9 @@ class InterfaceController: WKInterfaceController {
                 tableRow.lesson = lesson
                 
                 if currentLessonId == lesson.lessonID {
-                    tableRow.rowGroup.setBackgroundColor(cellCurrentColour ?? .red)
-                    
-                    let textColour: UIColor = cellCurrentColour?.isWhiteText ?? true ? .white : .black
-                    tableRow.lessonNameLabel.setTextColor(textColour)
-                    tableRow.lessonRoomLabel.setTextColor(textColour)
-                    tableRow.timeStartLabel.setTextColor(textColour)
-                    tableRow.timeEndLabel.setTextColor(textColour)
-
-                    
+                    setupCurrentOrNextLessonRow(row: tableRow, cellType: .currentCell)
                 } else if nextLessonId == lesson.lessonID {
-                    tableRow.rowGroup.setBackgroundColor(cellNextColour ?? .green)
-                    
-                    let textColour: UIColor = cellNextColour?.isWhiteText ?? true ? .white : .black
-                    tableRow.lessonNameLabel.setTextColor(textColour)
-                    tableRow.lessonRoomLabel.setTextColor(textColour)
-                    tableRow.timeStartLabel.setTextColor(textColour)
-                    tableRow.timeEndLabel.setTextColor(textColour)
+                    setupCurrentOrNextLessonRow(row: tableRow, cellType: .nextCell)
                 }
                 lessonCounter += 1
             }
@@ -230,26 +231,25 @@ class InterfaceController: WKInterfaceController {
         
     }
     
-
-    override func willActivate() {
-        setupDate()
+    public func setupCurrentOrNextLessonRow(row: TableRow, cellType: SheduleCellType) {
         
-        var currentLessonsWeek = "1"
-        
-        if weekOfYear % 2 != 0 {
-            currentLessonsWeek = "2"
+        if cellType == .currentCell {
+            row.rowGroup.setBackgroundColor(cellCurrentColour ?? .black)
+        } else if cellType == .nextCell {
+            row.rowGroup.setBackgroundColor(cellNextColour ?? .black)
         }
         
-        self.lessons = lessonsGlobal
-        self.setupTableView(week: currentLessonsWeek)
-        self.setTitle("\(currentLessonsWeek) тиждень")
-        // This method is called when watch view controller is about to be visible to user
-        super.willActivate()
+        let textColour: UIColor = cellNextColour?.isWhiteText ?? true ? .white : .black
+
+        row.lessonNameLabel.setTextColor(textColour)
+        row.lessonRoomLabel.setTextColor(textColour)
+        row.timeStartLabel.setTextColor(textColour)
+        row.timeEndLabel.setTextColor(textColour)
     }
     
-    override func didDeactivate() {
-        // This method is called when watch view controller is no longer visible
-        super.didDeactivate()
+    override func willActivate() {
+        super.willActivate()
+//        tableView.
     }
 
 }

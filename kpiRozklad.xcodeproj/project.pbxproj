@@ -51,6 +51,7 @@
 		5F305C792422639D0035B509 /* UIColor+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FCBBA21241C501E00E7654F /* UIColor+Extensions.swift */; };
 		5F305C7A242263A70035B509 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F4457E32376FB05008F9E21 /* Settings.swift */; };
 		5F305C7B242263BC0035B509 /* Colours.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F2F313E2395C62100FC28CB /* Colours.swift */; };
+		5F3D8C132493FD5300308AC9 /* Enums.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FD5B7142422171900B86FB7 /* Enums.swift */; };
 		5F4457E42376FB05008F9E21 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F4457E32376FB05008F9E21 /* Settings.swift */; };
 		5F46AD5E23FEC43500B145D5 /* FavouriteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F46AD5D23FEC43500B145D5 /* FavouriteViewController.swift */; };
 		5F46AD6523FFD66E00B145D5 /* GroupsNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F46AD6423FFD66E00B145D5 /* GroupsNavigationController.swift */; };
@@ -1199,6 +1200,7 @@
 				5FDCFCF6248E561C00568208 /* TitleRow.swift in Sources */,
 				5FDCFCDD248D8C2F00568208 /* ExtensionDelegate.swift in Sources */,
 				5FDCFCF0248D8F4B00568208 /* Group.swift in Sources */,
+				5F3D8C132493FD5300308AC9 /* Enums.swift in Sources */,
 				5F56541E248E6ACF00F2EB6E /* UIColor+Extensions.swift in Sources */,
 				5FDCFCF2248D8F7A00568208 /* String+Extensions.swift in Sources */,
 				5FDCFCF1248D8F6F00568208 /* ManagingLessons.swift in Sources */,
@@ -1454,7 +1456,7 @@
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 4;
-				WATCHOS_DEPLOYMENT_TARGET = 6.2;
+				WATCHOS_DEPLOYMENT_TARGET = 4.2;
 			};
 			name = Debug;
 		};
@@ -1478,7 +1480,7 @@
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 4;
-				WATCHOS_DEPLOYMENT_TARGET = 6.2;
+				WATCHOS_DEPLOYMENT_TARGET = 4.2;
 			};
 			name = Release;
 		};
@@ -1499,7 +1501,7 @@
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 4;
-				WATCHOS_DEPLOYMENT_TARGET = 6.2;
+				WATCHOS_DEPLOYMENT_TARGET = 4.2;
 			};
 			name = Debug;
 		};
@@ -1520,7 +1522,7 @@
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 4;
-				WATCHOS_DEPLOYMENT_TARGET = 6.2;
+				WATCHOS_DEPLOYMENT_TARGET = 4.2;
 			};
 			name = Release;
 		};

@@ -35,7 +35,7 @@ class TodayViewController: UIViewController, NCWidgetProviding {
     
     /**
      The **main** variable by which the table view is updated
-    */    
+    */
     var lessonsForTableView: [(day: DayName, lessons: [Lesson])] = [(day: DayName.mounday, lessons: []),
                                                                     (day: DayName.tuesday, lessons: []),
                                                                     (day: DayName.wednesday, lessons: []),
@@ -73,7 +73,6 @@ class TodayViewController: UIViewController, NCWidgetProviding {
      */
     var nextLessonId = String()
     
-    var countDeleteLessons = 0
     
     var isLessonsEnd: Bool = false
 
@@ -110,11 +109,7 @@ class TodayViewController: UIViewController, NCWidgetProviding {
         dayNumberFromCurrentDate = result.dayNumberFromCurrentDate
         weekOfYear = result.weekOfYear
         
-        if self.weekOfYear % 2 == 0 {
-            self.currentWeekFromTodayDate = 1
-        } else {
-            self.currentWeekFromTodayDate = 2
-        }
+        self.currentWeekFromTodayDate = self.weekOfYear % 2 == 0 ? 1 : 2
     }
     
     

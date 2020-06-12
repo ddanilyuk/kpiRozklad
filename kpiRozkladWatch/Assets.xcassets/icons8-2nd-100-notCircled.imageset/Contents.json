@@ -1,0 +1,13 @@
+{
+  "images" : [
+    {
+      "filename" : "icons8-2nd-100-notCircled.png",
+      "idiom" : "watch",
+      "scale" : "2x"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}

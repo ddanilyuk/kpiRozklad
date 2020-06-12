@@ -17,14 +17,14 @@ func editLessonNumber(vc: SheduleViewController, indexPath: IndexPath) {
     
     lessonsForCoreData.removeAll { lesson -> Bool in
         var array: [String] = []
-        for lesson in vc.lessonsForTableView[indexPath.section].value {
+        for lesson in vc.lessonsForTableView[indexPath.section].lessons {
             array.append(lesson.lessonID)
         }
         return array.contains(lesson.lessonID)
     }
     
     /// Lesson which we want to edit
-    let lesson = vc.lessonsForTableView[indexPath.section].value[indexPath.row]
+    let lesson = vc.lessonsForTableView[indexPath.section].lessons[indexPath.row]
     
     /// timeStart && timeEnd
     let (timeStart, timeEnd) = getTimeFromLessonNumber(lessonNumber: String(vc.lessonNumberFromPicker))
@@ -45,9 +45,9 @@ func editLessonNumber(vc: SheduleViewController, indexPath: IndexPath) {
                             teachers: lesson.teachers,
                             rooms: lesson.rooms, groups: lesson.groups)
     
-    vc.lessonsForTableView[indexPath.section].value.remove(at: indexPath.row)
+    vc.lessonsForTableView[indexPath.section].lessons.remove(at: indexPath.row)
     
-    let dayLessons = vc.lessonsForTableView[indexPath.section].value
+    let dayLessons = vc.lessonsForTableView[indexPath.section].lessons
     
     var fullDayLessons: [Lesson?] = []
     
@@ -122,14 +122,14 @@ func moveRow3(vc: SheduleViewController, sourceIndexPath: IndexPath, destination
     
     lessonsForCoreData.removeAll { lesson -> Bool in
         var array: [String] = []
-        array.append(vc.lessonsForTableView[sourceIndexPath.section].value[sourceIndexPath.row].lessonID)
-        for lesson in vc.lessonsForTableView[destinationIndexPath.section].value {
+        array.append(vc.lessonsForTableView[sourceIndexPath.section].lessons[sourceIndexPath.row].lessonID)
+        for lesson in vc.lessonsForTableView[destinationIndexPath.section].lessons {
             array.append(lesson.lessonID)
         }
         return array.contains(lesson.lessonID)
     }
 
-    let dayLessons = vc.lessonsForTableView[destinationIndexPath.section].value
+    let dayLessons = vc.lessonsForTableView[destinationIndexPath.section].lessons
     
     var fullDayLessons: [Lesson?] = []
     for number in 1...6 {
@@ -157,7 +157,7 @@ func moveRow3(vc: SheduleViewController, sourceIndexPath: IndexPath, destination
     }
 
     if destinationIndexPath.row != 0 {
-        lessonNumber = Int(vc.lessonsForTableView[destinationIndexPath.section].value[destinationIndexPath.row - 1].lessonNumber) ?? 0
+        lessonNumber = Int(vc.lessonsForTableView[destinationIndexPath.section].lessons[destinationIndexPath.row - 1].lessonNumber) ?? 0
         lessonNumber += 1
         lessonNumber = lessonNumber > 6 ? 6 : lessonNumber
     }
@@ -165,7 +165,7 @@ func moveRow3(vc: SheduleViewController, sourceIndexPath: IndexPath, destination
     
     var dayNumber = 0
 
-    switch vc.lessonsForTableView[destinationIndexPath.section].key {
+    switch vc.lessonsForTableView[destinationIndexPath.section].day {
     case .mounday:
         dayNumber = 1
     case .tuesday:
@@ -180,13 +180,13 @@ func moveRow3(vc: SheduleViewController, sourceIndexPath: IndexPath, destination
         dayNumber = 6
     }
     
-    let oldLesson = vc.lessonsForTableView[sourceIndexPath.section].value[sourceIndexPath.row]
+    let oldLesson = vc.lessonsForTableView[sourceIndexPath.section].lessons[sourceIndexPath.row]
     
     let (timeStart, timeEnd) = getTimeFromLessonNumber(lessonNumber: String(lessonNumber))
     let newLesson = Lesson( lessonID: oldLesson.lessonID,
                             dayNumber: String(dayNumber),
                             groupID: oldLesson.groupID,
-                            dayName: vc.lessonsForTableView[destinationIndexPath.section].key,
+                            dayName: vc.lessonsForTableView[destinationIndexPath.section].day,
                             lessonName: oldLesson.lessonName,
                             lessonFullName: oldLesson.lessonFullName,
                             lessonNumber: String(lessonNumber),

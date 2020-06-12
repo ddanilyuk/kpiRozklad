@@ -65,9 +65,9 @@ extension SheduleViewController: UITableViewDelegate, UITableViewDataSource {
         if self.isEditing == true && section == 0 {
             return 1
         } else if self.isEditing == true {
-            return self.lessonsForTableView[section - 1].value.count
+            return self.lessonsForTableView[section - 1].lessons.count
         } else {
-            return self.lessonsForTableView[section].value.count
+            return self.lessonsForTableView[section].lessons.count
         }
     }
     
@@ -108,7 +108,7 @@ extension SheduleViewController: UITableViewDelegate, UITableViewDataSource {
             if indexPath.section != lessonsForTableView.count {
                 
                 if isTeachersShedule {
-                    let lesson = lessonsForTableView[indexPath.section].value[indexPath.row]
+                    let lesson = lessonsForTableView[indexPath.section].lessons[indexPath.row]
                     
                     let groupsNames = getGroupsOfLessonString(lesson: lesson)
                     
@@ -124,7 +124,7 @@ extension SheduleViewController: UITableViewDelegate, UITableViewDataSource {
                 } else {
                     guard let sheduleDetailNC = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: SheduleDetailNavigationController.identifier) as? SheduleDetailNavigationController else { return }
                     
-                    sheduleDetailNC.lesson = lessonsForTableView[indexPath.section].value[indexPath.row]
+                    sheduleDetailNC.lesson = lessonsForTableView[indexPath.section].lessons[indexPath.row]
                     
                     presentPanModal(sheduleDetailNC)
                 }
@@ -149,7 +149,7 @@ extension SheduleViewController: UITableViewDelegate, UITableViewDataSource {
         /// Creating main cell
         guard let cell = tableView.dequeueReusableCell(withIdentifier: LessonTableViewCell.identifier, for: indexPath) as? LessonTableViewCell else { return UITableViewCell() }
         cell.backgroundColor = cellBackgroundColor
-        let lesson = isEditing ? lessonsForTableView[indexPath.section - 1].value[indexPath.row] : lessonsForTableView[indexPath.section].value[indexPath.row]
+        let lesson = isEditing ? lessonsForTableView[indexPath.section - 1].lessons[indexPath.row] : lessonsForTableView[indexPath.section].lessons[indexPath.row]
         
         cell.lessonLabel.text = lesson.lessonName
         cell.teacherLabel.text = lesson.teacherName != "" ? lesson.teacherName : " "
@@ -168,8 +168,8 @@ extension SheduleViewController: UITableViewDelegate, UITableViewDataSource {
             setupCurrentOrNextLessonCell(cell: cell, cellType: .nextCell)
         }
         
-        cell.startLabel.text = String(lesson.timeStart[..<5])
-        cell.endLabel.text = String(lesson.timeEnd[..<5])
+        cell.startLabel.text = lesson.timeStart.stringTime
+        cell.endLabel.text = lesson.timeEnd.stringTime
         cell.roomLabel.text = lesson.lessonType.rawValue + " " + lesson.lessonRoom
         cell.timeLeftLabel.text = ""
     
@@ -182,7 +182,7 @@ extension SheduleViewController: UITableViewDelegate, UITableViewDataSource {
         if editingStyle == .delete {
             let newIndexPath = IndexPath(row: indexPath.row, section: indexPath.section - 1)
             /// Lesson to delete
-            let lesson = self.lessonsForTableView[newIndexPath.section].value[newIndexPath.row]
+            let lesson = self.lessonsForTableView[newIndexPath.section].lessons[newIndexPath.row]
             
             guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
             let managedContext = appDelegate.persistentContainer.viewContext
@@ -199,7 +199,7 @@ extension SheduleViewController: UITableViewDelegate, UITableViewDataSource {
                 }
             }
             
-            self.lessonsForTableView[newIndexPath.section].value.remove(at: newIndexPath.row)
+            self.lessonsForTableView[newIndexPath.section].lessons.remove(at: newIndexPath.row)
             self.tableView.deleteRows(at: [indexPath], with: .automatic)
 
             // If delete DispatchQueue animation broken
@@ -251,7 +251,7 @@ extension SheduleViewController: UITableViewDelegate, UITableViewDataSource {
     // MARK: - targetIndexPathForMoveFromRowAt sourceIndexPath toProposedIndexPath
     func tableView(_ tableView: UITableView, targetIndexPathForMoveFromRowAt sourceIndexPath: IndexPath, toProposedIndexPath proposedDestinationIndexPath: IndexPath) -> IndexPath {
         if proposedDestinationIndexPath.section > 0 {
-            let dayLessonCount = lessonsForTableView[proposedDestinationIndexPath.section - 1].value.count
+            let dayLessonCount = lessonsForTableView[proposedDestinationIndexPath.section - 1].lessons.count
             
             /// If try to add 7 pair return `sourceIndexPath`
             return (dayLessonCount >= 6 && proposedDestinationIndexPath.section != sourceIndexPath.section) ? sourceIndexPath : proposedDestinationIndexPath

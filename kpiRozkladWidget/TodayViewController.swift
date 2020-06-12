@@ -35,8 +35,13 @@ class TodayViewController: UIViewController, NCWidgetProviding {
     
     /**
      The **main** variable by which the table view is updated
-    */
-    var lessonsForTableView: [(key: DayName, value: [Lesson])] = []
+    */    
+    var lessonsForTableView: [(day: DayName, lessons: [Lesson])] = [(day: DayName.mounday, lessons: []),
+                                                                    (day: DayName.tuesday, lessons: []),
+                                                                    (day: DayName.wednesday, lessons: []),
+                                                                    (day: DayName.thursday, lessons: []),
+                                                                    (day: DayName.friday, lessons: []),
+                                                                    (day: DayName.saturday, lessons: [])]
     
     /**
      Сurrent week which is obtained from the date on the device
@@ -88,7 +93,7 @@ class TodayViewController: UIViewController, NCWidgetProviding {
 
     func setupHeight() {
         if dayNumberFromCurrentDate != 7 {
-            let height = lessonsForTableView[dayNumberFromCurrentDate - 1].value.count * 68
+            let height = lessonsForTableView[dayNumberFromCurrentDate - 1].lessons.count * 68
             self.preferredContentSize = CGSize(width: self.view.frame.size.width, height: CGFloat(height))
         }
     }
@@ -125,7 +130,7 @@ class TodayViewController: UIViewController, NCWidgetProviding {
             self.preferredContentSize = CGSize(width: maxSize.width, height: maxSize.height)
         } else if activeDisplayMode == .expanded {
             if dayNumberFromCurrentDate != 7 {
-                var height = lessonsForTableView[dayNumberFromCurrentDate - 1].value.count * 68
+                var height = lessonsForTableView[dayNumberFromCurrentDate - 1].lessons.count * 68
                 if height == 0 {
                     height = 110
                 }
@@ -206,19 +211,12 @@ class TodayViewController: UIViewController, NCWidgetProviding {
             return lesson1.lessonNumber < lesson2.lessonNumber
         }
         
-        /// .sorting is soting from mounday to saturday (must be in normal order)
-        self.lessonsForTableView = [DayName.mounday: lessonMounday,
-                                    .tuesday: lessonTuesday,
-                                    .wednesday: lessonWednesday,
-                                    .thursday: lessonThursday,
-                                    .friday: lessonFriday,
-                                    .saturday: lessonSaturday].sorted{$0.key < $1.key}
-        
-        /// (self.tableView != nil)  because if when we push information from another VC tableView can be not exist
-        if self.tableView != nil {
-            self.tableView.isHidden = false
-            self.tableView.reloadData()
-        }
+        self.lessonsForTableView = [(day: DayName.mounday, lessons: lessonMounday),
+                                    (day: DayName.tuesday, lessons: lessonTuesday),
+                                    (day: DayName.wednesday, lessons: lessonWednesday),
+                                    (day: DayName.thursday, lessons: lessonThursday),
+                                    (day: DayName.friday, lessons: lessonFriday),
+                                    (day: DayName.saturday, lessons: lessonSaturday)].sorted{$0.day < $1.day}
     }
 
 }
@@ -236,9 +234,11 @@ extension TodayViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if isLessonsEnd || dayNumberFromCurrentDate == 7 {
+            print("here 1")
             return 1
-        } else if self.lessonsForTableView[dayNumberFromCurrentDate - 1].value.count != 0 {
-            return self.lessonsForTableView[dayNumberFromCurrentDate - 1].value.count
+        } else if self.lessonsForTableView[dayNumberFromCurrentDate - 1].lessons.count != 0 {
+            print(self.lessonsForTableView[dayNumberFromCurrentDate - 1].lessons.count)
+            return self.lessonsForTableView[dayNumberFromCurrentDate - 1].lessons.count
         } else {
             return 1
         }
@@ -246,17 +246,9 @@ extension TodayViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         var id = ""
-//
-//        if dayNumberFromCurrentDate == 7 {
-//            id = ""
-//        } else if lessonsForTableView[dayNumberFromCurrentDate - 1].value.count == 0 {
-//            id = ""
-//        } else {
-//            id = lessonsForTableView[dayNumberFromCurrentDate - 1].value[indexPath.row].lessonID
-//        }
-        
-        if dayNumberFromCurrentDate != 7 && lessonsForTableView[dayNumberFromCurrentDate - 1].value.count != 0 {
-            id = lessonsForTableView[dayNumberFromCurrentDate - 1].value[indexPath.row].lessonID
+
+        if dayNumberFromCurrentDate != 7 && lessonsForTableView[dayNumberFromCurrentDate - 1].lessons.count != 0 {
+            id = lessonsForTableView[dayNumberFromCurrentDate - 1].lessons[indexPath.row].lessonID
         }
 
         let url: URL? = URL(string: "kpiRozklad://\(id)")!
@@ -283,22 +275,23 @@ extension TodayViewController: UITableViewDataSource, UITableViewDelegate {
     
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
         guard let cell = tableView.dequeueReusableCell(withIdentifier: LessonTableViewCell.identifier, for: indexPath) as? LessonTableViewCell else { return UITableViewCell() }
         
         var lessonsForSomeDay: [Lesson] = []
-        
+
         if dayNumberFromCurrentDate == 7 || isLessonsEnd {
             isLessonsEnd = true
             makeEmptyCell(cell)
             return cell
         } else {
-            lessonsForSomeDay = lessonsForTableView[dayNumberFromCurrentDate - 1].value
+            lessonsForSomeDay = lessonsForTableView[dayNumberFromCurrentDate - 1].lessons
         }
 
         let lesson = lessonsForSomeDay[indexPath.row]
         
-        let timeStart = String(lesson.timeStart[..<5])
-        let timeEnd = String(lesson.timeEnd[..<5])
+        let timeStart = lesson.timeStart.stringTime
+        let timeEnd = lesson.timeEnd.stringTime
         
         let dateNow = Date()
 
@@ -309,7 +302,6 @@ extension TodayViewController: UITableViewDataSource, UITableViewDelegate {
         formatterInWhichTimeSaved.dateFormat = "YYYY:MM:DD"
         let fullYearMonthDay = formatterInWhichTimeSaved.string(from: dateNow)
 
-        
         let dateStartInit = formatterFull.date(from: "\(fullYearMonthDay):\(timeStart)") ?? Date()
         let dateEndInit = formatterFull.date(from: "\(fullYearMonthDay):\(timeEnd)") ?? Date()
 
@@ -318,27 +310,29 @@ extension TodayViewController: UITableViewDataSource, UITableViewDelegate {
         
         var dateToPrint: String = ""
         if toStartPair > 60 {
-            dateToPrint = "через \(intTimeToString(Int(toStartPair)))"
+            dateToPrint = "через \(timeIntervalToString(toStartPair))"
         } else if toStartPair > 0 {
             dateToPrint = "менше 1хв"
         } else if toEndPair > 60 {
-            dateToPrint = "залишилось \(intTimeToString(Int(toEndPair)))"
+            dateToPrint = "залишилось \(timeIntervalToString(toEndPair))"
         } else if toEndPair > 0 {
             dateToPrint = "залишилось менше 1хв"
         }
         
         if toEndPair < 0 {
-            lessonsForTableView[dayNumberFromCurrentDate - 1].value.removeFirst()
-            tableView.reloadData()
+            lessonsForTableView[dayNumberFromCurrentDate - 1].lessons.removeFirst()
+            if lessonsForTableView[dayNumberFromCurrentDate - 1].lessons.count == 0 {
+                isLessonsEnd = true
+            }
             setupHeight()
+            tableView.reloadData()
+
             return cell
         }
         
         if currentLessonId == lessonsForSomeDay[indexPath.row].lessonID {
             setupCurrentOrNextLessonCell(cell: cell, cellType: .currentCell)
-        }
-
-        if nextLessonId == lessonsForSomeDay[indexPath.row].lessonID {
+        } else if nextLessonId == lessonsForSomeDay[indexPath.row].lessonID {
             setupCurrentOrNextLessonCell(cell: cell, cellType: .nextCell)
         }
         
@@ -347,148 +341,12 @@ extension TodayViewController: UITableViewDataSource, UITableViewDelegate {
         cell.startLabel.text = timeStart
         cell.endLabel.text = timeEnd
         cell.roomLabel.text = lesson.lessonType.rawValue + " " + lessonsForSomeDay[indexPath.row].lessonRoom
-        
         cell.timeLeftLabel.text = dateToPrint
         
         return cell
     }
     
-    
-//    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-//        guard let cell = tableView.dequeueReusableCell(withIdentifier: LessonTableViewCell.identifier, for: indexPath) as? LessonTableViewCell else { return UITableViewCell() }
-//
-//        var lessonsForSomeDay: [Lesson] = []
-//
-//        if dayNumberFromCurrentDate != 7 {
-//            lessonsForSomeDay = lessonsForTableView[dayNumberFromCurrentDate - 1].value
-//        }
-//
-//        if lessonsForSomeDay.count == 0 {
-//            isLessonsEnd = true
-//        }
-//
-//        if isLessonsEnd {
-//            cell.lessonLabel.text = "Пари закінчилися."
-//            cell.teacherLabel.text = ""
-//            cell.timeLeftLabel.text = ""
-//            cell.endLabel.text = ""
-//            cell.startLabel.text = ""
-//            cell.roomLabel.text = ""
-//            return cell
-//        }
-//
-//        cell.lessonLabel.text = lessonsForSomeDay[indexPath.row].lessonName
-//        cell.teacherLabel.text = lessonsForSomeDay[indexPath.row].teacherName
-
-//        if lessonsForSomeDay[indexPath.row].teacherName == "" {
-//            cell.teacherLabel.text = " "
-//        }
-//
-//
-//        if currentLessonId == lessonsForSomeDay[indexPath.row].lessonID {
-//            setupCurrentOrNextLessonCell(cell: cell, cellType: .currentCell)
-//        }
-//
-//        if nextLessonId == lessonsForSomeDay[indexPath.row].lessonID {
-//            setupCurrentOrNextLessonCell(cell: cell, cellType: .nextCell)
-//        }
-//
-//        let timeStart = String(lessonsForSomeDay[indexPath.row].timeStart[..<5])
-//
-//        let timeEnd = String(lessonsForSomeDay[indexPath.row].timeEnd[..<5])
-//
-//
-//        let formatter = DateFormatter()
-//        formatter.dateFormat = "HH:mm"
-//
-//        let formatter1 = DateFormatter()
-//        formatter1.dateFormat = "HH"
-//
-//        let formatter2 = DateFormatter()
-//        formatter2.dateFormat = "mm"
-//
-//        let currentDate = Date()
-//        let dateStart = formatter.date(from: timeStart) ?? Date()
-//        let dateEnd = formatter.date(from: timeEnd) ?? Date()
-//
-//        let nowH = formatter1.string(from: currentDate)
-//        let nowM = formatter2.string(from: currentDate)
-//
-//        let startH = formatter1.string(from: dateStart)
-//        let startM = formatter2.string(from: dateStart)
-//
-//        var leftH = (Int(startH) ?? 0) - (Int(nowH) ?? 0)
-//        var leftM = (Int(startM) ?? 0) - (Int(nowM) ?? 0)
-//
-//        if leftM < 0 && leftH >= 1 {
-//            leftH -= 1
-//            leftM = 60 + leftM
-//        }
-//
-//        if leftH < 0 || leftM < 0 {
-//            leftH = 0
-//            leftM = 0
-//        }
-//
-//        var dateString = ""
-//
-//        if leftH == 0 && leftM == 0 {
-//            let endH = formatter1.string(from: dateEnd)
-//            let endM = formatter2.string(from: dateEnd)
-//
-//            leftH = (Int(endH) ?? 0) - (Int(nowH) ?? 0)
-//            leftM = (Int(endM) ?? 0) - (Int(nowM) ?? 0)
-//
-//            if leftM < 0 && leftH >= 1 {
-//                leftH -= 1
-//                leftM = 60 + leftM
-//            }
-//            if leftH < 0 || leftM < 0 {
-//                dateString = " "
-//                lessonsForTableView[dayNumberFromCurrentDate - 1].value.removeFirst()
-//                if lessonsForTableView[dayNumberFromCurrentDate - 1].value.count == 0 {
-//                    isLessonsEnd = true
-//                    cell.lessonLabel.text = "На сьогодні все"
-//                    cell.timeLeftLabel.text = ""
-//                    cell.endLabel.text = ""
-//                    cell.startLabel.text = ""
-//                    cell.roomLabel.text = ""
-//                }
-//                setupHeight()
-//                tableView.reloadData()
-//                return cell
-//            } else {
-//
-//                if leftH == 0 {
-//                    dateString = "залишилось \(leftM) хв"
-//                } else if leftM == 0 {
-//                    dateString = "залишилось \(leftH) год"
-//                } else {
-//                    dateString = "залишилось \(leftH) год, \(leftM) хв"
-//                }
-//
-//            }
-//        } else {
-//            if leftH == 0 {
-//                dateString = "через \(leftM) хв"
-//            } else if leftM == 0 {
-//                dateString = "через \(leftH) год"
-//            } else {
-//                dateString = "через \(leftH) год, \(leftM) хв"
-//            }
-//
-//        }
-//
-//        cell.startLabel.text = timeStart
-//        cell.endLabel.text = timeEnd
-//        cell.roomLabel.text = lessonsForSomeDay[indexPath.row].lessonType.rawValue + " " + lessonsForSomeDay[indexPath.row].lessonRoom
-//
-//        cell.timeLeftLabel.text = dateString
-//
-//        return cell
-//    }
-    func intTimeToString(_ intTime: Int) -> String {
-        let interval = intTime
+    func timeIntervalToString(_ timeInterval: TimeInterval) -> String {
         var calendar = Calendar.current
         calendar.locale = Locale(identifier: "uk")
         
@@ -497,7 +355,7 @@ extension TodayViewController: UITableViewDataSource, UITableViewDelegate {
         formatter.allowedUnits = [.hour, .minute]
         formatter.unitsStyle = .abbreviated
         
-        guard let formattedString = formatter.string(from: TimeInterval(interval)) else { return "" }
+        guard let formattedString = formatter.string(from: timeInterval) else { return "" }
         return formattedString
     }
     

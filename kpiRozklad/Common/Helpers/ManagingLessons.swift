@@ -31,8 +31,8 @@ func getCurrentAndNextLesson(lessons: [Lesson],
     
     for lesson in lessons {
         
-        let timeStart = String(lesson.timeStart[..<5])
-        let timeEnd = String(lesson.timeEnd[..<5])
+        let timeStart = lesson.timeStart.stringTime
+        let timeEnd = lesson.timeEnd.stringTime
                     
         if  (timeStart <= timeIsNowString) && (timeIsNowString < timeEnd) &&
             (dayNumberFromCurrentDate == Int(lesson.dayNumber)) && (currentWeekFromTodayDate == Int(lesson.lessonWeek) ?? 0) {

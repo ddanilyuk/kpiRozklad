@@ -18,7 +18,7 @@ import WatchConnectivity
  1.  All in tableView works with `lessonsForTableView` variable, but Core Data saving `[Lesson]`
  2. `getLessonsFromServer()` receives data from the server and call `updateCoreData(vc: SheduleViewController, datum:  [Lesson])` where datum is `[Lesson]` from API
  3. `fetchingCoreData(vc: SheduleViewController) -> [Lesson]` return `[Lesson]` from Core Data
- 4. `makeLessonsShedule()` remake `[Lesson]` to `[(key: DayName, value: [Lesson])]`
+ 4. `makeLessonsShedule()` remake `[Lesson]` to `[(day: DayName, lessons: [Lesson])]`
  */
 class SheduleViewController: UIViewController{
 
@@ -48,12 +48,13 @@ class SheduleViewController: UIViewController{
      The **main** variable by which the table view is updated
         - Remark: for default is empty
      */
-    var lessonsForTableView: [(key: DayName, value: [Lesson])] = [DayName.mounday: [],
-                                                                  .tuesday: [],
-                                                                  .wednesday: [],
-                                                                  .thursday: [],
-                                                                  .friday: [],
-                                                                  .saturday: []].sorted{$0.key < $1.key}
+    var lessonsForTableView: [(day: DayName, lessons: [Lesson])] = [(day: DayName.mounday, lessons: []),
+                                                                    (day: DayName.tuesday, lessons: []),
+                                                                    (day: DayName.wednesday, lessons: []),
+                                                                    (day: DayName.thursday, lessons: []),
+                                                                    (day: DayName.friday, lessons: []),
+                                                                    (day: DayName.saturday, lessons: [])]
+                                                                  
         
     /**
      Сurrent week which is obtained from the date on the device
@@ -336,7 +337,7 @@ class SheduleViewController: UIViewController{
                  The part of code in `#available(iOS 13.0, *)` is need for update `tableView.contentInset`
                  if `current` or `next` lesson is not at top `lessonsForTableView`
                  */
-                let firstLessonValue = lessonsForTableView[0].value.count != 0 ?  Int(lessonsForTableView[0].value[0].lessonID) ?? 0 : -1
+                let firstLessonValue = lessonsForTableView[0].lessons.count != 0 ?  Int(lessonsForTableView[0].lessons[0].lessonID) ?? 0 : -1
                 let next = Int(nextLessonId) ?? 0
                 let current = Int(currentLessonId) ?? 0
 
@@ -473,8 +474,8 @@ class SheduleViewController: UIViewController{
 
         k: for section in 0..<self.lessonsForTableView.count {
             let day = lessonsForTableView[section]
-            for row in 0..<day.value.count {
-                let lesson = day.value[row]
+            for row in 0..<day.lessons.count {
+                let lesson = day.lessons[row]
                 if lesson.lessonID == currentLessonId {
                     indexPathToScroll = IndexPath(row: row, section: section)
                     break k
@@ -491,7 +492,7 @@ class SheduleViewController: UIViewController{
             
             self.isEditInserts = false
             DispatchQueue.main.async {
-                if self.lessonsForTableView[indexPathToScroll.section].value.count > indexPathToScroll.row {
+                if self.lessonsForTableView[indexPathToScroll.section].lessons.count > indexPathToScroll.row {
                     let window = UIApplication.shared.keyWindow
                     
                     
@@ -535,7 +536,7 @@ class SheduleViewController: UIViewController{
     
     // MARK: - makeLessonsShedule
     /**
-     Function which fetch lessons from CoreData and remake `[Lesson]` to `[(key: DayName, value: [Lesson])]`
+     Function which fetch lessons from CoreData and remake `[Lesson]` to `[(day: DayName, lessons: [Lesson])]`
      - Note: call in `weekChanged()` and after getting data from `getLessonsFromServer()`
      - Remark: make shedule only for one week.
      */
@@ -594,12 +595,12 @@ class SheduleViewController: UIViewController{
         }
         
         /// .sorted is sorting from mounday to saturday (must be in normal order)
-        self.lessonsForTableView = [DayName.mounday: lessonMounday,
-                                    DayName.tuesday: lessonTuesday,
-                                    DayName.wednesday: lessonWednesday,
-                                    DayName.thursday: lessonThursday,
-                                    DayName.friday: lessonFriday,
-                                    DayName.saturday: lessonSaturday].sorted{$0.key < $1.key}
+        self.lessonsForTableView = [(day: DayName.mounday, lessons: lessonMounday),
+                                    (day: DayName.tuesday, lessons: lessonTuesday),
+                                    (day: DayName.wednesday, lessons: lessonWednesday),
+                                    (day: DayName.thursday, lessons: lessonThursday),
+                                    (day: DayName.friday, lessons: lessonFriday),
+                                    (day: DayName.saturday, lessons: lessonSaturday)].sorted{$0.day < $1.day}
         
         /// (self.activityIndicator != nil)  because if when we push information from another VC tableView can be not exist
         if self.activityIndicator != nil {
@@ -792,18 +793,3 @@ class SheduleViewController: UIViewController{
     }
 }
 
-//extension SheduleViewController: WCSessionDelegate {
-//    func session(_ session: WCSession, activationDidCompleteWith activationState: WCSessionActivationState, error: Error?) {
-//        
-//    }
-//    
-//    func sessionDidBecomeInactive(_ session: WCSession) {
-//        
-//    }
-//    
-//    func sessionDidDeactivate(_ session: WCSession) {
-//        
-//    }
-//    
-//    
-//}

@@ -48,6 +48,10 @@ extension String {
     func index(at offset: Int) -> String.Index {
         return index(startIndex, offsetBy: offset)
     }
+    
+    var stringTime: String {
+        return String(self[0..<5])
+    }
 }
 
 

@@ -79,7 +79,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 sheduleVC.makeLessonsShedule()
                 let lessonsForTableView = sheduleVC.lessonsForTableView
                 for day in lessonsForTableView {
-                    let lessons = day.value
+                    let lessons = day.lessons
                     for lesson in lessons {
                         if lesson.lessonID == needID {
                             

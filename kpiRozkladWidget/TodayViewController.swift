@@ -275,7 +275,7 @@ extension TodayViewController: UITableViewDataSource, UITableViewDelegate {
         
         var lessonsForSomeDay: [Lesson] = []
 
-        if dayNumberFromCurrentDate == 7 || isLessonsEnd {
+        if dayNumberFromCurrentDate == 7 || isLessonsEnd || lessonsForTableView[dayNumberFromCurrentDate - 1].lessons.count == 0 {
             isLessonsEnd = true
             makeEmptyCell(cell)
             return cell

@@ -12,8 +12,6 @@ import WatchConnectivity
 
 
 class InterfaceController: WKInterfaceController {
-
-    @IBOutlet weak var label: WKInterfaceLabel!
     
     @IBOutlet weak var tableView: WKInterfaceTable!
     
@@ -25,9 +23,9 @@ class InterfaceController: WKInterfaceController {
     
     var lessons: [Lesson] = []
     
-    @IBOutlet weak var startGroup: WKInterfaceGroup!
+//    @IBOutlet weak var startGroup: WKInterfaceGroup!
     
-    @IBOutlet weak var mainGroup: WKInterfaceGroup!
+//    @IBOutlet weak var mainGroup: WKInterfaceGroup!
     /**
      Сurrent week which is obtained from the date on the device
      - Remark:
@@ -68,10 +66,7 @@ class InterfaceController: WKInterfaceController {
         
         
         
-        if #available(watchOSApplicationExtension 5.1, *) {
-            tableView.curvesAtBottom = true
-        }
-        
+
         self.lessons = lessonsGlobal
         self.setToday()
 
@@ -88,15 +83,17 @@ class InterfaceController: WKInterfaceController {
     }
     
     private func showGreeting() {
+//        tableView.scrollToRow(at: 0)
         isGreetingOnScreen = true
-        startGroup.setHidden(false)
-        mainGroup.setHidden(true)
+//        startGroup.setHidden(false)
+//        mainGroup.setHidden(true)
     }
     
     private func hideGreeting() {
+//        tableView.scrollToRow(at: 0)
         isGreetingOnScreen = false
-        startGroup.setHidden(true)
-        mainGroup.setHidden(false)
+//        startGroup.setHidden(true)
+//        mainGroup.setHidden(false)
     }
     
     private func setupDate() {
@@ -107,6 +104,15 @@ class InterfaceController: WKInterfaceController {
     }
     
     @IBAction func setFirstWeek() {
+        if #available(watchOSApplicationExtension 5.1, *) {
+            tableView.curvesAtBottom = false
+        } else {
+            // Fallback on earlier versions
+        }
+
+//        tableView.scrollToRow(at: 0)
+        tableView.scrollToRow(at: 0)
+
         setupTableView(week: "1")
         if !isGreetingOnScreen {
             self.setTitle("1 тиждень")
@@ -114,6 +120,12 @@ class InterfaceController: WKInterfaceController {
     }
     
     @IBAction func setSecondWeek() {
+        tableView.scrollToRow(at: 0)
+        if #available(watchOSApplicationExtension 5.1, *) {
+            tableView.curvesAtBottom = false
+        } else {
+            // Fallback on earlier versions
+        }
         setupTableView(week: "2")
         if !isGreetingOnScreen {
             self.setTitle("2 тиждень")
@@ -121,6 +133,12 @@ class InterfaceController: WKInterfaceController {
     }
     
     @IBAction func setToday() {
+        tableView.scrollToRow(at: 0)
+        if #available(watchOSApplicationExtension 5.1, *) {
+            tableView.curvesAtBottom = false
+        } else {
+            // Fallback on earlier versions
+        }
         if !isGreetingOnScreen {
             self.setTitle("Сьогодні")
         }
@@ -150,6 +168,11 @@ class InterfaceController: WKInterfaceController {
                         setupCurrentOrNextLessonRow(row: tableRow, cellType: .nextCell)
                     }
                 }
+            }
+            if #available(watchOSApplicationExtension 5.1, *) {
+                tableView.curvesAtBottom = true
+            } else {
+                // Fallback on earlier versions
             }
         }
         
@@ -228,6 +251,12 @@ class InterfaceController: WKInterfaceController {
                 lessonCounter += 1
             }
         }
+        if #available(watchOSApplicationExtension 5.1, *) {
+            tableView.curvesAtBottom = true
+        } else {
+            // Fallback on earlier versions
+        }
+
         
     }
     
@@ -249,6 +278,11 @@ class InterfaceController: WKInterfaceController {
     
     override func willActivate() {
         super.willActivate()
+        if #available(watchOSApplicationExtension 5.1, *) {
+            tableView.curvesAtBottom = true
+//            tableView.curvesAtTop = true
+        }
+        
 //        tableView.
     }
 

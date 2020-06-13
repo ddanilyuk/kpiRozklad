@@ -11,79 +11,68 @@
             <objects>
                 <controller id="AgC-eL-Hgc" customClass="InterfaceController" customModule="kpiRozkladWatch" customModuleProvider="target">
                     <items>
+                        <table alignment="left" id="bBF-ct-9HQ">
+                            <items>
+                                <tableRow identifier="TitleRow" selectable="NO" id="rJo-kN-N4E" customClass="TitleRow" customModule="kpiRozkladWatch_Extension">
+                                    <group key="rootItem" width="1" height="0.0" alignment="left" layout="vertical" id="35W-Yb-gz0">
+                                        <items>
+                                            <label alignment="left" verticalAlignment="center" text="Четверг" numberOfLines="2" id="4LK-gn-0ur">
+                                                <fontDescription key="font" style="UICTFontTextStyleHeadline"/>
+                                            </label>
+                                        </items>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </group>
+                                    <connections>
+                                        <outlet property="titleLabel" destination="4LK-gn-0ur" id="Mx7-uA-Ssh"/>
+                                    </connections>
+                                </tableRow>
+                                <tableRow identifier="TableRow" id="YdW-BH-G9a" customClass="TableRow" customModule="kpiRozkladWatch" customModuleProvider="target">
+                                    <group key="rootItem" width="1" height="0.0" alignment="left" layout="vertical" id="9iF-ch-pJu">
+                                        <items>
+                                            <group height="1" alignment="left" id="uR8-e4-h2O">
+                                                <items>
+                                                    <group width="1" alignment="left" id="H3N-nA-kYW">
+                                                        <items>
+                                                            <label width="35" alignment="left" verticalAlignment="center" text="08:30" textAlignment="left" id="gHv-gC-qvo">
+                                                                <fontDescription key="font" type="system" pointSize="11"/>
+                                                            </label>
+                                                        </items>
+                                                        <edgeInsets key="margins" left="0.0" right="0.0" top="4" bottom="0.0"/>
+                                                    </group>
+                                                    <label alignment="left" text="Label" numberOfLines="2" id="857-x0-Whp">
+                                                        <fontDescription key="font" style="UICTFontTextStyleTitle3"/>
+                                                    </label>
+                                                </items>
+                                            </group>
+                                            <group alignment="left" id="6rX-RA-IeW">
+                                                <items>
+                                                    <label width="35" alignment="left" verticalAlignment="center" text="10:25" textAlignment="left" id="xaG-C9-KFY">
+                                                        <fontDescription key="font" type="system" pointSize="11"/>
+                                                    </label>
+                                                    <label alignment="left" verticalAlignment="center" text="Label" id="ZFb-nn-4RF"/>
+                                                </items>
+                                            </group>
+                                        </items>
+                                        <edgeInsets key="margins" left="4" right="6" top="1" bottom="1"/>
+                                    </group>
+                                    <connections>
+                                        <outlet property="lessonNameLabel" destination="857-x0-Whp" id="IrC-7G-OBt"/>
+                                        <outlet property="lessonRoomLabel" destination="ZFb-nn-4RF" id="aN8-pz-vHy"/>
+                                        <outlet property="rowGroup" destination="9iF-ch-pJu" id="lex-06-H6n"/>
+                                        <outlet property="timeEndLabel" destination="xaG-C9-KFY" id="hyW-yn-DMj"/>
+                                        <outlet property="timeStartLabel" destination="gHv-gC-qvo" id="984-Ba-wxT"/>
+                                    </connections>
+                                </tableRow>
+                            </items>
+                        </table>
+                        <group width="1" alignment="left" id="8va-dP-VLq"/>
                         <group width="1" height="1" alignment="left" id="ktI-OM-003">
                             <items>
-                                <label alignment="center" verticalAlignment="center" text="Будь-ласка, відкрийте додаток kpiRozklad на iPhone" textAlignment="center" numberOfLines="0" id="DfL-Ml-ywK">
+                                <label width="136" alignment="center" verticalAlignment="center" text="Будь-ласка, відкрийте додаток kpiRozklad на iPhone" textAlignment="center" numberOfLines="0" id="DfL-Ml-ywK">
                                     <accessibilityTraits key="accessibilityTraits" staticText="YES" notEnabled="YES"/>
                                     <fontDescription key="font" style="UICTFontTextStyleCaption2"/>
                                 </label>
                             </items>
-                        </group>
-                        <group width="1" alignment="left" hidden="YES" id="8va-dP-VLq">
-                            <items>
-                                <label alignment="left" hidden="YES" text="-" id="Ku5-nt-KT3">
-                                    <fontDescription key="font" style="UICTFontTextStyleTitle1"/>
-                                </label>
-                                <table alignment="left" id="bBF-ct-9HQ">
-                                    <items>
-                                        <tableRow identifier="TitleRow" id="rJo-kN-N4E" customClass="TitleRow" customModule="kpiRozkladWatch_Extension">
-                                            <group key="rootItem" width="1" height="0.0" alignment="left" layout="vertical" id="35W-Yb-gz0">
-                                                <items>
-                                                    <label alignment="left" verticalAlignment="center" text="Четверг" numberOfLines="2" id="4LK-gn-0ur">
-                                                        <fontDescription key="font" style="UICTFontTextStyleHeadline"/>
-                                                    </label>
-                                                </items>
-                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                            </group>
-                                            <connections>
-                                                <outlet property="titleLabel" destination="4LK-gn-0ur" id="Mx7-uA-Ssh"/>
-                                            </connections>
-                                        </tableRow>
-                                        <tableRow identifier="TableRow" id="YdW-BH-G9a" customClass="TableRow" customModule="kpiRozkladWatch" customModuleProvider="target">
-                                            <group key="rootItem" width="1" height="0.0" alignment="left" layout="vertical" id="9iF-ch-pJu">
-                                                <items>
-                                                    <group height="1" alignment="left" id="uR8-e4-h2O">
-                                                        <items>
-                                                            <group width="1" alignment="left" id="H3N-nA-kYW">
-                                                                <items>
-                                                                    <label width="35" alignment="left" verticalAlignment="center" text="08:30" textAlignment="left" id="gHv-gC-qvo">
-                                                                        <fontDescription key="font" type="system" pointSize="11"/>
-                                                                    </label>
-                                                                </items>
-                                                                <edgeInsets key="margins" left="0.0" right="0.0" top="4" bottom="0.0"/>
-                                                            </group>
-                                                            <label alignment="left" text="Label" numberOfLines="2" id="857-x0-Whp">
-                                                                <fontDescription key="font" style="UICTFontTextStyleTitle3"/>
-                                                            </label>
-                                                        </items>
-                                                    </group>
-                                                    <group alignment="left" id="6rX-RA-IeW">
-                                                        <items>
-                                                            <label width="35" alignment="left" verticalAlignment="center" text="10:25" textAlignment="left" id="xaG-C9-KFY">
-                                                                <fontDescription key="font" type="system" pointSize="11"/>
-                                                            </label>
-                                                            <label alignment="left" verticalAlignment="center" text="Label" id="ZFb-nn-4RF"/>
-                                                        </items>
-                                                    </group>
-                                                </items>
-                                                <edgeInsets key="margins" left="4" right="6" top="1" bottom="1"/>
-                                            </group>
-                                            <connections>
-                                                <outlet property="lessonNameLabel" destination="857-x0-Whp" id="IrC-7G-OBt"/>
-                                                <outlet property="lessonRoomLabel" destination="ZFb-nn-4RF" id="aN8-pz-vHy"/>
-                                                <outlet property="rowGroup" destination="9iF-ch-pJu" id="lex-06-H6n"/>
-                                                <outlet property="timeEndLabel" destination="xaG-C9-KFY" id="hyW-yn-DMj"/>
-                                                <outlet property="timeStartLabel" destination="gHv-gC-qvo" id="984-Ba-wxT"/>
-                                            </connections>
-                                        </tableRow>
-                                    </items>
-                                </table>
-                            </items>
-                            <variation key="default">
-                                <mask key="items">
-                                    <exclude reference="Ku5-nt-KT3"/>
-                                </mask>
-                            </variation>
                         </group>
                     </items>
                     <menu key="menu" id="HPZ-ne-S1v">
@@ -105,15 +94,20 @@
                             </menuItem>
                         </items>
                     </menu>
+                    <variation key="default">
+                        <mask key="items">
+                            <exclude reference="8va-dP-VLq"/>
+                            <exclude reference="ktI-OM-003"/>
+                        </mask>
+                    </variation>
                     <connections>
-                        <outlet property="label" destination="Ku5-nt-KT3" id="Y9S-Ce-0jI"/>
                         <outlet property="mainGroup" destination="8va-dP-VLq" id="9Sb-jY-O3L"/>
                         <outlet property="startGroup" destination="ktI-OM-003" id="gEx-RS-lQt"/>
                         <outlet property="tableView" destination="bBF-ct-9HQ" id="D0m-w6-KcN"/>
                     </connections>
                 </controller>
             </objects>
-            <point key="canvasLocation" x="220" y="299"/>
+            <point key="canvasLocation" x="219.52173913043478" y="341.51785714285717"/>
         </scene>
         <!--Static Notification Interface Controller-->
         <scene sceneID="AEw-b0-oYE">
@@ -144,7 +138,7 @@
             <objects>
                 <controller id="eXb-UN-Cd0" customClass="NotificationController" customModule="kpiRozkladWatch" customModuleProvider="target"/>
             </objects>
-            <point key="canvasLocation" x="220" y="1029"/>
+            <point key="canvasLocation" x="220" y="977"/>
         </scene>
     </scenes>
     <resources>

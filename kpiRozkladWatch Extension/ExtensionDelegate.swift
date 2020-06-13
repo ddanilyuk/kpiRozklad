@@ -84,8 +84,6 @@ extension ExtensionDelegate: WCSessionDelegate {
     
     func session(_ session: WCSession, didReceiveApplicationContext applicationContext: [String : Any]) {
         
-//        print(WCSession.default.applicationContext)
-        
         
         guard let data = applicationContext["lessons"] as? Data else { return }
         

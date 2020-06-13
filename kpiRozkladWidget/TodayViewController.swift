@@ -143,75 +143,28 @@ class TodayViewController: UIViewController, NCWidgetProviding {
 
 
         /// Getting lesson for first week and second
-        var lessonsFirst: [Lesson] = []
-        var lessonsSecond: [Lesson] = []
-        
-        for lesson in lessons {
-            if Int(lesson.lessonWeek) == 1 {
-                lessonsFirst.append(lesson)
-            } else {
-                lessonsSecond.append(lesson)
-            }
-        }
-        
-        /// Choosing lesson from currnetWeek
+        let lessonsFirst: [Lesson] = lessons.filter { Int($0.lessonWeek) == 1 }
+        let lessonsSecond: [Lesson] = lessons.filter { Int($0.lessonWeek) == 2 }
         let currentLessonWeek = currentWeekFromTodayDate == 1 ? lessonsFirst : lessonsSecond
         
-        var lessonMounday: [Lesson] = []
-        var lessonTuesday: [Lesson] = []
-        var lessonWednesday: [Lesson] = []
-        var lessonThursday: [Lesson] = []
-        var lessonFriday: [Lesson] = []
-        var lessonSaturday: [Lesson] = []
-        
-        for datu in currentLessonWeek {
-            switch datu.dayName {
-            case .mounday:
-                lessonMounday.append(datu)
-            case .tuesday:
-                lessonTuesday.append(datu)
-            case .wednesday:
-                lessonWednesday.append(datu)
-            case .thursday:
-                lessonThursday.append(datu)
-            case .friday:
-                lessonFriday.append(datu)
-            case .saturday:
-                lessonSaturday.append(datu)
+        var sortedDictionary = Dictionary(grouping: currentLessonWeek) { $0.dayName }
+        for day in DayName.allCases {
+            if sortedDictionary[day] == nil {
+                sortedDictionary[day] = []
             }
         }
         
-        /// Sorting all
-        lessonMounday.sort { (lesson1, lesson2) -> Bool in
-            return lesson1.lessonNumber < lesson2.lessonNumber
-        }
+        var result: [(day: DayName, lessons: [Lesson])] = []
         
-        lessonTuesday.sort { (lesson1, lesson2) -> Bool in
-            return lesson1.lessonNumber < lesson2.lessonNumber
+        let keys = sortedDictionary.keys.sorted()
+        keys.forEach { dayName in
+            if let lessons: [Lesson] = sortedDictionary[dayName] {
+                result.append((day: dayName, lessons: lessons))
+            } else {
+                result.append((day: dayName, lessons: []))
+            }
         }
-        
-        lessonWednesday.sort { (lesson1, lesson2) -> Bool in
-            return lesson1.lessonNumber < lesson2.lessonNumber
-        }
-        
-        lessonThursday.sort { (lesson1, lesson2) -> Bool in
-            return lesson1.lessonNumber < lesson2.lessonNumber
-        }
-        
-        lessonFriday.sort { (lesson1, lesson2) -> Bool in
-            return lesson1.lessonNumber < lesson2.lessonNumber
-        }
-        
-        lessonSaturday.sort { (lesson1, lesson2) -> Bool in
-            return lesson1.lessonNumber < lesson2.lessonNumber
-        }
-        
-        self.lessonsForTableView = [(day: DayName.mounday, lessons: lessonMounday),
-                                    (day: DayName.tuesday, lessons: lessonTuesday),
-                                    (day: DayName.wednesday, lessons: lessonWednesday),
-                                    (day: DayName.thursday, lessons: lessonThursday),
-                                    (day: DayName.friday, lessons: lessonFriday),
-                                    (day: DayName.saturday, lessons: lessonSaturday)].sorted{$0.day < $1.day}
+        self.lessonsForTableView = result
     }
 
 }

@@ -69,33 +69,6 @@ public class Settings {
         }
     }
     
-    
-//    var updateAtOnceFirst: String {
-//        get {
-//            return userDefaults.string(forKey: "updateAtOnceFirst") ?? ""
-//        }
-//        set {
-//            userDefaults.set(newValue, forKey: "updateAtOnceFirst")
-//        }
-//    }
-//
-//    var updateAtOnce: String {
-//        get {
-//            return userDefaults.string(forKey: "updateAtOnce") ?? ""
-//        }
-//        set {
-//            userDefaults.set(newValue, forKey: "updateAtOnce")
-//        }
-//    }
-//
-//    var updateAtOnceSecond: String {
-//        get {
-//            return userDefaults.string(forKey: "updateAtOnceSecond") ?? ""
-//        }
-//        set {
-//            userDefaults.set(newValue, forKey: "updateAtOnceSecond")
-//        }
-//    }
     var updateRozkladAfterVersion106: Bool {
         get {
             return userDefaults.bool(forKey: "updateRozkladAfterVersion106")
@@ -127,24 +100,6 @@ public class Settings {
         }
     }
     
-//    var isGroupsShedule: Bool {
-//        get {
-//            return userDefaults.bool(forKey: "isGroupsShedule")
-//        }
-//        set {
-//            userDefaults.set(newValue, forKey: "isGroupsShedule")
-//        }
-//    }
-//    
-//    var isTeacherShedule: Bool {
-//        get {
-//            return userDefaults.bool(forKey: "isTeacherShedule")
-//        }
-//        set {
-//            userDefaults.set(newValue, forKey: "isTeacherShedule")
-//        }
-//    }
-    
     var cellNextColour: UIColor {
         get {
             var color = try? NSKeyedUnarchiver.unarchivedObject(ofClass: UIColor.self, from: userDefaults.data(forKey: "cellNextColour") ?? Data())
@@ -165,7 +120,6 @@ public class Settings {
 
             userDefaults.set(colorData, forKey: "cellNextColour")
             userDefaultsWidget.set(colorData, forKey: "cellNextColour")
-            
         }
     }
     

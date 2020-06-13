@@ -141,13 +141,10 @@ class SheduleViewController: UIViewController{
     let favourites = Favourites.shared
     
     /// Array with day names
-    var daysArray: [String] = [DayName.mounday.rawValue,
-                               DayName.tuesday.rawValue,
-                               DayName.wednesday.rawValue,
-                               DayName.thursday.rawValue,
-                               DayName.friday.rawValue,
-                               DayName.saturday.rawValue]
-
+    var daysArray: [String] = DayName.allCases.map { (dayName: DayName) -> String in
+        return dayName.rawValue
+    }
+    
     ///`isEditInserts` responsible for ensuring that after loading from `viewDidLoad` not to update `tableView.contentInset` to -20
     var isEditInserts: Bool = false
     
@@ -556,51 +553,28 @@ class SheduleViewController: UIViewController{
         (nextLessonId, currentLessonId) = getCurrentAndNextLesson(lessons: lessons, timeIsNowString: timeIsNowString, dayNumberFromCurrentDate: dayNumberFromCurrentDate, currentWeekFromTodayDate: currentWeekFromTodayDate)
         
         /// Getting lesson for first week and second
-        var lessonsFirst: [Lesson] = []
-        var lessonsSecond: [Lesson] = []
-        
-        for lesson in lessons {
-            if Int(lesson.lessonWeek) == 1 {
-                lessonsFirst.append(lesson)
-            } else {
-                lessonsSecond.append(lesson)
-            }
-        }
-        
-        /// Choosing lesson from currnetWeek
+        let lessonsFirst: [Lesson] = lessons.filter { Int($0.lessonWeek) == 1 }
+        let lessonsSecond: [Lesson] = lessons.filter { Int($0.lessonWeek) == 2 }
         let currentLessonWeek = currentWeek == 1 ? lessonsFirst : lessonsSecond
         
-        var lessonMounday: [Lesson] = []
-        var lessonTuesday: [Lesson] = []
-        var lessonWednesday: [Lesson] = []
-        var lessonThursday: [Lesson] = []
-        var lessonFriday: [Lesson] = []
-        var lessonSaturday: [Lesson] = []
-        
-        for datu in currentLessonWeek {
-            switch datu.dayName {
-            case .mounday:
-                lessonMounday.append(datu)
-            case .tuesday:
-                lessonTuesday.append(datu)
-            case .wednesday:
-                lessonWednesday.append(datu)
-            case .thursday:
-                lessonThursday.append(datu)
-            case .friday:
-                lessonFriday.append(datu)
-            case .saturday:
-                lessonSaturday.append(datu)
+        var sortedDictionary = Dictionary(grouping: currentLessonWeek) { $0.dayName }
+        for day in DayName.allCases {
+            if sortedDictionary[day] == nil {
+                sortedDictionary[day] = []
             }
         }
         
-        /// .sorted is sorting from mounday to saturday (must be in normal order)
-        self.lessonsForTableView = [(day: DayName.mounday, lessons: lessonMounday),
-                                    (day: DayName.tuesday, lessons: lessonTuesday),
-                                    (day: DayName.wednesday, lessons: lessonWednesday),
-                                    (day: DayName.thursday, lessons: lessonThursday),
-                                    (day: DayName.friday, lessons: lessonFriday),
-                                    (day: DayName.saturday, lessons: lessonSaturday)].sorted{$0.day < $1.day}
+        var result: [(day: DayName, lessons: [Lesson])] = []
+        
+        let keys = sortedDictionary.keys.sorted()
+        keys.forEach { dayName in
+            if let lessons: [Lesson] = sortedDictionary[dayName] {
+                result.append((day: dayName, lessons: lessons))
+            } else {
+                result.append((day: dayName, lessons: []))
+            }
+        }
+        self.lessonsForTableView = result
         
         /// (self.activityIndicator != nil)  because if when we push information from another VC tableView can be not exist
         if self.activityIndicator != nil {

@@ -240,45 +240,33 @@ class InterfaceController: WKInterfaceController {
             return lesson.lessonWeek == week
         }
         
-        var lessonMounday: [Lesson] = []
-        var lessonTuesday: [Lesson] = []
-        var lessonWednesday: [Lesson] = []
-        var lessonThursday: [Lesson] = []
-        var lessonFriday: [Lesson] = []
-        var lessonSaturday: [Lesson] = []
-        
-        for datu in lessonsWeek {
-            switch datu.dayName {
-            case .mounday:
-                lessonMounday.append(datu)
-            case .tuesday:
-                lessonTuesday.append(datu)
-            case .wednesday:
-                lessonWednesday.append(datu)
-            case .thursday:
-                lessonThursday.append(datu)
-            case .friday:
-                lessonFriday.append(datu)
-            case .saturday:
-                lessonSaturday.append(datu)
+        var sortedDictionary = Dictionary(grouping: lessonsWeek) { $0.dayName }
+        for day in DayName.allCases {
+            if sortedDictionary[day] == nil {
+                sortedDictionary[day] = []
             }
         }
         
-        let lessonsDictionary = [DayName.mounday: lessonMounday,
-                                 DayName.tuesday: lessonTuesday,
-                                 DayName.wednesday: lessonWednesday,
-                                 DayName.thursday: lessonThursday,
-                                 DayName.friday: lessonFriday,
-                                 DayName.saturday: lessonSaturday].sorted{$0.key < $1.key}
+        var lessonsDictionary: [(day: DayName, lessons: [Lesson])] = []
         
+        let keys = sortedDictionary.keys.sorted()
+        keys.forEach { dayName in
+            if let lessons: [Lesson] = sortedDictionary[dayName] {
+                lessonsDictionary.append((day: dayName, lessons: lessons))
+            } else {
+                lessonsDictionary.append((day: dayName, lessons: []))
+            }
+        }
+
         var rowTypes: [String] = []
         
         for lessonsForSomeDay in lessonsDictionary {
             rowTypes.append("TitleRow")
-            for _ in lessonsForSomeDay.value {
+            for _ in lessonsForSomeDay.lessons {
                 rowTypes.append("TableRow")
             }
         }
+        
         selectedLessons = []
         
         tableView.setRowTypes(rowTypes)
@@ -287,12 +275,12 @@ class InterfaceController: WKInterfaceController {
             
         for index in 0..<rowTypes.count {
             if let titleRow = tableView.rowController(at: index) as? TitleRow {
-                titleRow.titleLabel.setText(lessonsDictionary[dayCounter].key.rawValue)
+                titleRow.titleLabel.setText(lessonsDictionary[dayCounter].day.rawValue)
                 dayCounter += 1
                 lessonCounter = 0
                 selectedLessons.append(nil)
             } else if let tableRow = tableView.rowController(at: index) as? TableRow {
-                let lesson = lessonsDictionary[dayCounter - 1].value[lessonCounter]
+                let lesson = lessonsDictionary[dayCounter - 1].lessons[lessonCounter]
                 tableRow.lesson = lesson
                 selectedLessons.append(lesson)
 
@@ -307,13 +295,8 @@ class InterfaceController: WKInterfaceController {
         if #available(watchOSApplicationExtension 5.1, *) {
             tableView.curvesAtBottom = true
         }
-
-        
     }
-    
-    
-    
-    
+
     override func table(_ table: WKInterfaceTable, didSelectRowAt rowIndex: Int) {
         if selectedLessons.count > 1 {
             self.pushController(withName: "DetailedInterfaceController", context: selectedLessons[rowIndex])

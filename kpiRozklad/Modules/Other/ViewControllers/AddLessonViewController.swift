@@ -354,7 +354,7 @@ extension AddLessonViewController: UIPickerViewDelegate, UIPickerViewDataSource 
                 return arrayTypePairs[row].rawValue
            }
         } else if pickerView == dayPickerView {
-            return getArrayOfDayNames()[row].rawValue
+            return DayName.allCases[row].rawValue
         } else {
             return arrayPairs[row]
         }
@@ -389,7 +389,7 @@ extension AddLessonViewController: UIPickerViewDelegate, UIPickerViewDataSource 
         }
         
         if pickerView == dayPickerView {
-            lessonDay = getArrayOfDayNames()[row]
+            lessonDay = DayName.allCases[row]
             dayNumber = row + 1
             freeTimeInDay(dayNumber: dayNumber)
             numberLessonPickerView.reloadAllComponents()

@@ -23,9 +23,9 @@ class InterfaceController: WKInterfaceController {
     
     var lessons: [Lesson] = []
     
-//    @IBOutlet weak var startGroup: WKInterfaceGroup!
+    @IBOutlet weak var startGroup: WKInterfaceGroup!
     
-//    @IBOutlet weak var mainGroup: WKInterfaceGroup!
+    @IBOutlet weak var mainGroup: WKInterfaceGroup!
     /**
      Сurrent week which is obtained from the date on the device
      - Remark:
@@ -57,14 +57,14 @@ class InterfaceController: WKInterfaceController {
     var nextLessonId = String()
     
     var isGreetingOnScreen: Bool = false
+    
+    var selectedLessons: [Lesson?] = []
 
     
     override func awake(withContext context: Any?) {
         super.awake(withContext: context)
         hideGreeting()
         setupDate()
-        
-        
         
 
         self.lessons = lessonsGlobal
@@ -85,15 +85,15 @@ class InterfaceController: WKInterfaceController {
     private func showGreeting() {
 //        tableView.scrollToRow(at: 0)
         isGreetingOnScreen = true
-//        startGroup.setHidden(false)
-//        mainGroup.setHidden(true)
+        startGroup.setHidden(false)
+        mainGroup.setHidden(true)
     }
     
     private func hideGreeting() {
 //        tableView.scrollToRow(at: 0)
         isGreetingOnScreen = false
-//        startGroup.setHidden(true)
-//        mainGroup.setHidden(false)
+        startGroup.setHidden(true)
+        mainGroup.setHidden(false)
     }
     
     private func setupDate() {
@@ -106,11 +106,8 @@ class InterfaceController: WKInterfaceController {
     @IBAction func setFirstWeek() {
         if #available(watchOSApplicationExtension 5.1, *) {
             tableView.curvesAtBottom = false
-        } else {
-            // Fallback on earlier versions
         }
 
-//        tableView.scrollToRow(at: 0)
         tableView.scrollToRow(at: 0)
 
         setupTableView(week: "1")
@@ -120,12 +117,12 @@ class InterfaceController: WKInterfaceController {
     }
     
     @IBAction func setSecondWeek() {
-        tableView.scrollToRow(at: 0)
         if #available(watchOSApplicationExtension 5.1, *) {
             tableView.curvesAtBottom = false
-        } else {
-            // Fallback on earlier versions
         }
+        
+        tableView.scrollToRow(at: 0)
+
         setupTableView(week: "2")
         if !isGreetingOnScreen {
             self.setTitle("2 тиждень")
@@ -136,16 +133,20 @@ class InterfaceController: WKInterfaceController {
         tableView.scrollToRow(at: 0)
         if #available(watchOSApplicationExtension 5.1, *) {
             tableView.curvesAtBottom = false
-        } else {
-            // Fallback on earlier versions
         }
+        
         if !isGreetingOnScreen {
             self.setTitle("Сьогодні")
         }
-//        self.label.setText(nil)
+
         let lessonsForToday = lessons.filter { return $0.lessonWeek == String(currentWeekFromTodayDate) && $0.dayNumber == String(dayNumberFromCurrentDate) }
         
-        var rowTypes: [String] = Array.init(repeating: "TableRow", count: lessonsForToday.count)
+        selectedLessons = lessonsForToday
+        
+        let isEmptyLessons: Bool = lessonsForToday.count == 0 ? true : false
+        
+        var rowTypes: [String] = isEmptyLessons ? ["TableRow"] : Array.init(repeating: "TableRow", count: lessonsForToday.count)
+        
         rowTypes.insert("TitleRow", at: 0)
         
         tableView.setRowTypes(rowTypes)
@@ -159,29 +160,40 @@ class InterfaceController: WKInterfaceController {
                 
             } else {
                 if let tableRow = tableView.rowController(at: index) as? TableRow {
-                    let lesson = lessonsForToday[index - 1]
-                    tableRow.lesson = lesson
-                    
-                    if currentLessonId == lesson.lessonID {
-                        setupCurrentOrNextLessonRow(row: tableRow, cellType: .currentCell)
-                    } else if nextLessonId == lesson.lessonID {
-                        setupCurrentOrNextLessonRow(row: tableRow, cellType: .nextCell)
+                    if isEmptyLessons {
+                        tableRow.lessonNameLabel.setText("Пар немає.")
+                        tableRow.lessonNameLabel.setHorizontalAlignment(.center)
+                        tableRow.lessonNameLabel.setVerticalAlignment(.center)
+
+                        
+                        tableRow.lessonRoomLabel.setHidden(true)
+                        tableRow.timeStartLabel.setHidden(true)
+                        tableRow.timeEndLabel.setHidden(true)
+
+                    } else {
+                        let lesson = lessonsForToday[index - 1]
+                        tableRow.lesson = lesson
+                        
+                        if currentLessonId == lesson.lessonID {
+                            setupCurrentOrNextLessonRow(row: tableRow, cellType: .currentCell)
+                        } else if nextLessonId == lesson.lessonID {
+                            setupCurrentOrNextLessonRow(row: tableRow, cellType: .nextCell)
+                        }
                     }
+                    
                 }
             }
             if #available(watchOSApplicationExtension 5.1, *) {
                 tableView.curvesAtBottom = true
-            } else {
-                // Fallback on earlier versions
             }
+            
         }
         
         
     }
     
     private func setupTableView(week: String) {
-//        self.label.setText(name.uppercased())
-//        tableView.remo
+
         setupDate()
         (nextLessonId, currentLessonId) = getCurrentAndNextLesson(lessons: lessons, timeIsNowString: timeIsNowString, dayNumberFromCurrentDate: dayNumberFromCurrentDate, currentWeekFromTodayDate: currentWeekFromTodayDate)
         
@@ -229,6 +241,7 @@ class InterfaceController: WKInterfaceController {
                 rowTypes.append("TableRow")
             }
         }
+        selectedLessons = []
         
         tableView.setRowTypes(rowTypes)
         var dayCounter: Int = 0
@@ -239,10 +252,12 @@ class InterfaceController: WKInterfaceController {
                 titleRow.titleLabel.setText(lessonsDictionary[dayCounter].key.rawValue)
                 dayCounter += 1
                 lessonCounter = 0
+                selectedLessons.append(nil)
             } else if let tableRow = tableView.rowController(at: index) as? TableRow {
                 let lesson = lessonsDictionary[dayCounter - 1].value[lessonCounter]
                 tableRow.lesson = lesson
-                
+                selectedLessons.append(lesson)
+
                 if currentLessonId == lesson.lessonID {
                     setupCurrentOrNextLessonRow(row: tableRow, cellType: .currentCell)
                 } else if nextLessonId == lesson.lessonID {
@@ -253,8 +268,6 @@ class InterfaceController: WKInterfaceController {
         }
         if #available(watchOSApplicationExtension 5.1, *) {
             tableView.curvesAtBottom = true
-        } else {
-            // Fallback on earlier versions
         }
 
         
@@ -276,14 +289,19 @@ class InterfaceController: WKInterfaceController {
         row.timeEndLabel.setTextColor(textColour)
     }
     
+    
+    override func table(_ table: WKInterfaceTable, didSelectRowAt rowIndex: Int) {
+        if selectedLessons.count != 0 {
+            self.pushController(withName: "DetailedInterfaceController", context: selectedLessons[rowIndex])
+        }
+    }
+    
+    
     override func willActivate() {
         super.willActivate()
         if #available(watchOSApplicationExtension 5.1, *) {
             tableView.curvesAtBottom = true
-//            tableView.curvesAtTop = true
         }
-        
-//        tableView.
     }
 
 }

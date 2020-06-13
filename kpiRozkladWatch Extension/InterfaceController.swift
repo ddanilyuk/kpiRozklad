@@ -11,7 +11,16 @@ import Foundation
 import WatchConnectivity
 
 
+enum SelectedControllerType {
+    case firstWeek
+    case secondWeek
+    case today
+}
+
+
 class InterfaceController: WKInterfaceController {
+    
+    // MARK: - variables
     
     @IBOutlet weak var tableView: WKInterfaceTable!
     
@@ -56,20 +65,29 @@ class InterfaceController: WKInterfaceController {
      */
     var nextLessonId = String()
     
+    
     var isGreetingOnScreen: Bool = false
+    
+    var selectedControllerType: SelectedControllerType = .today
     
     var selectedLessons: [Lesson?] = []
 
     
+    // MARK: - --------
     override func awake(withContext context: Any?) {
         super.awake(withContext: context)
         hideGreeting()
         setupDate()
         
+        lessons = lessonsGlobal
+        setToday()
+//        self.setTitle
+        
 
-        self.lessons = lessonsGlobal
-        self.setToday()
-
+        if #available(watchOSApplicationExtension 5.1, *) {
+            tableView.curvesAtBottom = true
+        }
+        
         if lessons.count == 0 {
             self.setTitle("")
             showGreeting()
@@ -78,70 +96,97 @@ class InterfaceController: WKInterfaceController {
         notificationObserver = notificationCenter.addObserver(forName: NSNotification.Name("activityNotification"), object: nil, queue: nil, using: { (notification) in
             self.hideGreeting()
             self.lessons = lessonsGlobal
-            self.setToday()
+            switch self.selectedControllerType {
+            case .firstWeek:
+                self.setFirstWeek()
+            case .secondWeek:
+                self.setSecondWeek()
+            case .today:
+                self.setToday()
+            }
+//            self.setToday()
         })
     }
     
-    private func showGreeting() {
-//        tableView.scrollToRow(at: 0)
-        isGreetingOnScreen = true
-        startGroup.setHidden(false)
-        mainGroup.setHidden(true)
-    }
+//    override func willActivate() {
+//        super.willActivate()
+//        if #available(watchOSApplicationExtension 5.1, *) {
+//            tableView.curvesAtBottom = true
+//        }
+//    }
     
-    private func hideGreeting() {
-//        tableView.scrollToRow(at: 0)
-        isGreetingOnScreen = false
-        startGroup.setHidden(true)
-        mainGroup.setHidden(false)
-    }
     
-    private func setupDate() {
-        let result = getTimeAndDayNumAndWeekOfYear()
-        timeIsNowString = result.timeIsNowString
-        dayNumberFromCurrentDate = result.dayNumberFromCurrentDate
-        weekOfYear = result.weekOfYear
-    }
+    // MARK: - Menu functions
     
     @IBAction func setFirstWeek() {
+        selectedControllerType = .firstWeek
         if #available(watchOSApplicationExtension 5.1, *) {
             tableView.curvesAtBottom = false
         }
 
-        tableView.scrollToRow(at: 0)
-
         setupTableView(week: "1")
-        if !isGreetingOnScreen {
-            self.setTitle("1 тиждень")
-        }
+        setInterfaceTitle("1 тиждень")
+        tableView.scrollToRow(at: 0)
     }
     
     @IBAction func setSecondWeek() {
+        selectedControllerType = .secondWeek
+
         if #available(watchOSApplicationExtension 5.1, *) {
             tableView.curvesAtBottom = false
         }
         
-        tableView.scrollToRow(at: 0)
-
         setupTableView(week: "2")
-        if !isGreetingOnScreen {
-            self.setTitle("2 тиждень")
-        }
+        setInterfaceTitle("2 тиждень")
+        tableView.scrollToRow(at: 0)
     }
     
     @IBAction func setToday() {
-        tableView.scrollToRow(at: 0)
+        selectedControllerType = .today
+
+        DispatchQueue.main.async {
+            if #available(watchOSApplicationExtension 5.1, *) {
+                self.tableView.scrollToRow(at: 0)
+                self.tableView.curvesAtBottom = false
+            }
+        }
         if #available(watchOSApplicationExtension 5.1, *) {
             tableView.curvesAtBottom = false
         }
-        
-        if !isGreetingOnScreen {
-            self.setTitle("Сьогодні")
-        }
 
+        setupTableViewForToday()
+        setInterfaceTitle("Сьогодні")
+    }
+
+    
+    // MARK: - Table functions
+    
+    private func setupTableViewForToday() {
         let lessonsForToday = lessons.filter { return $0.lessonWeek == String(currentWeekFromTodayDate) && $0.dayNumber == String(dayNumberFromCurrentDate) }
         
         selectedLessons = lessonsForToday
+        selectedLessons.insert(nil, at: 0)
+        
+//        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+//            if lessonsForToday.count >= 2 {
+//                if #available(watchOSApplicationExtension 5.1, *) {
+//                    self.tableView.curvesAtBottom = true
+//                    self.tableView.scrollToRow(at: 0)
+//                }
+//            }
+//        }
+        
+        self.tableView.scrollToRow(at: 0)
+
+        
+        DispatchQueue.main.async {
+            if #available(watchOSApplicationExtension 5.1, *) {
+//                self.tableView.scrollToRow(at: 0)
+//                self.tableView.
+                self.tableView.curvesAtBottom = true
+            }
+        }
+        
         
         let isEmptyLessons: Bool = lessonsForToday.count == 0 ? true : false
         
@@ -165,7 +210,6 @@ class InterfaceController: WKInterfaceController {
                         tableRow.lessonNameLabel.setHorizontalAlignment(.center)
                         tableRow.lessonNameLabel.setVerticalAlignment(.center)
 
-                        
                         tableRow.lessonRoomLabel.setHidden(true)
                         tableRow.timeStartLabel.setHidden(true)
                         tableRow.timeEndLabel.setHidden(true)
@@ -183,13 +227,7 @@ class InterfaceController: WKInterfaceController {
                     
                 }
             }
-            if #available(watchOSApplicationExtension 5.1, *) {
-                tableView.curvesAtBottom = true
-            }
-            
         }
-        
-        
     }
     
     private func setupTableView(week: String) {
@@ -273,6 +311,43 @@ class InterfaceController: WKInterfaceController {
         
     }
     
+    
+    
+    
+    override func table(_ table: WKInterfaceTable, didSelectRowAt rowIndex: Int) {
+        if selectedLessons.count > 1 {
+            self.pushController(withName: "DetailedInterfaceController", context: selectedLessons[rowIndex])
+        }
+    }
+    
+    
+    // MARK: - Helpers
+    
+    private func setInterfaceTitle(_ title: String) {
+        if !isGreetingOnScreen {
+            self.setTitle(title)
+        }
+    }
+    
+    private func showGreeting() {
+        isGreetingOnScreen = true
+        startGroup.setHidden(false)
+        mainGroup.setHidden(true)
+    }
+    
+    private func hideGreeting() {
+        isGreetingOnScreen = false
+        startGroup.setHidden(true)
+        mainGroup.setHidden(false)
+    }
+    
+    private func setupDate() {
+        let result = getTimeAndDayNumAndWeekOfYear()
+        timeIsNowString = result.timeIsNowString
+        dayNumberFromCurrentDate = result.dayNumberFromCurrentDate
+        weekOfYear = result.weekOfYear
+    }
+    
     public func setupCurrentOrNextLessonRow(row: TableRow, cellType: SheduleCellType) {
         
         if cellType == .currentCell {
@@ -289,19 +364,4 @@ class InterfaceController: WKInterfaceController {
         row.timeEndLabel.setTextColor(textColour)
     }
     
-    
-    override func table(_ table: WKInterfaceTable, didSelectRowAt rowIndex: Int) {
-        if selectedLessons.count != 0 {
-            self.pushController(withName: "DetailedInterfaceController", context: selectedLessons[rowIndex])
-        }
-    }
-    
-    
-    override func willActivate() {
-        super.willActivate()
-        if #available(watchOSApplicationExtension 5.1, *) {
-            tableView.curvesAtBottom = true
-        }
-    }
-
 }

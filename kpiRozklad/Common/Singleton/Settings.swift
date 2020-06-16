@@ -69,31 +69,12 @@ public class Settings {
         }
     }
     
-    
-    var updateAtOnceFirst: String {
+    var updateRozkladAfterVersion106: Bool {
         get {
-            return userDefaults.string(forKey: "updateAtOnceFirst") ?? ""
+            return userDefaults.bool(forKey: "updateRozkladAfterVersion106")
         }
         set {
-            userDefaults.set(newValue, forKey: "updateAtOnceFirst")
-        }
-    }
-    
-    var updateAtOnce: String {
-        get {
-            return userDefaults.string(forKey: "updateAtOnce") ?? ""
-        }
-        set {
-            userDefaults.set(newValue, forKey: "updateAtOnce")
-        }
-    }
-    
-    var updateAtOnceSecond: String {
-        get {
-            return userDefaults.string(forKey: "updateAtOnceSecond") ?? ""
-        }
-        set {
-            userDefaults.set(newValue, forKey: "updateAtOnceSecond")
+            userDefaults.set(newValue, forKey: "updateRozkladAfterVersion106")
         }
     }
     
@@ -106,21 +87,16 @@ public class Settings {
         }
     }
     
-    var isGroupsShedule: Bool {
+    var sheduleType: SheduleType {
         get {
-            return userDefaults.bool(forKey: "isGroupsShedule")
+            return userDefaults.bool(forKey: "isGroupsShedule") ? .groups : .teachers
         }
         set {
-            userDefaults.set(newValue, forKey: "isGroupsShedule")
-        }
-    }
-    
-    var isTeacherShedule: Bool {
-        get {
-            return userDefaults.bool(forKey: "isTeacherShedule")
-        }
-        set {
-            userDefaults.set(newValue, forKey: "isTeacherShedule")
+            if newValue == .groups {
+                userDefaults.set(true, forKey: "isGroupsShedule")
+            } else {
+                userDefaults.set(false, forKey: "isGroupsShedule")
+            }
         }
     }
     
@@ -144,7 +120,6 @@ public class Settings {
 
             userDefaults.set(colorData, forKey: "cellNextColour")
             userDefaultsWidget.set(colorData, forKey: "cellNextColour")
-            
         }
     }
     

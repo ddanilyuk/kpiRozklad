@@ -33,14 +33,3 @@ struct Teacher: Codable {
         case teacherRating = "teacher_rating"
     }
 }
-
-// MARK: - Meta
-struct Meta: Codable {
-    let totalCount: String?
-    let offset, limit: Int?
-
-    enum CodingKeys: String, CodingKey {
-        case totalCount = "total_count"
-        case offset, limit
-    }
-}

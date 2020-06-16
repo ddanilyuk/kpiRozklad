@@ -9,13 +9,13 @@
 import UIKit
 import UserNotifications
 import CoreData
+import WatchConnectivity
 //import PanModal
 
-struct global {
-    static var sheduleType: SheduleType = .groups
-}
+
 
 var API = NetworkingApiFacade(apiService: NetworkingApi())
+
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -26,99 +26,93 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        
-        
-//        settings.isShowGreetings = false
+        setupWatchConnectivity()
 
-
-        if settings.isGroupsShedule == false && settings.isTeacherShedule == true {
-            global.sheduleType = .teachers
-        } else {
-            global.sheduleType = .groups
-        }
-//        settings.teacherName = ""
-                
-        if settings.sheduleUpdateTime == "" {
+        if !settings.updateRozkladAfterVersion106 {
+            deleteAllFromCoreData(managedContext: self.persistentContainer.viewContext)
             settings.isTryToRefreshShedule = true
-            deleteAllFromCoreData()
-            settings.updateAtOnce = "updated"
-            settings.updateAtOnceSecond = "updated"
-
+            
             let date = Date()
             let formatter = DateFormatter()
             formatter.dateFormat = "dd.MM.yyyy"
-
-            Settings.shared.sheduleUpdateTime = formatter.string(from: date)
-        } else if settings.updateAtOnce == "" {
-            settings.isTryToRefreshShedule = true
-            settings.updateAtOnce = "updated"
-            settings.updateAtOnceSecond = "updated"
-
-            global.sheduleType = .groups
-            deleteAllFromCoreData()
-            
-        } else if settings.updateAtOnceSecond == "" {
-            settings.updateAtOnceSecond = "updated"
-            global.sheduleType = .groups
+            settings.sheduleUpdateTime = formatter.string(from: date)
+            settings.updateRozkladAfterVersion106 = true
         }
         
         
         let mainStoryboard = UIStoryboard(name: "Main", bundle: Bundle.main)
-        let mainVC = mainStoryboard.instantiateInitialViewController()
-//        guard let greetingVC = mainStoryboard.instantiateViewController(withIdentifier: GreetingViewController.identifier) as? GreetingViewController else { return false }
         
-         guard let greetingVC = mainStoryboard.instantiateViewController(withIdentifier: "FirstViewController") as? FirstViewController else { return false }
+        let mainVC = mainStoryboard.instantiateInitialViewController()
+        guard let greetingVC = mainStoryboard.instantiateViewController(withIdentifier: "FirstViewController") as? FirstViewController else { return false }
         
         window?.rootViewController = settings.isShowGreetings ? greetingVC : mainVC
-        
         return true
     }
     
     
+    func setupWatchConnectivity() {
+        if WCSession.isSupported() {
+            let session = WCSession.default
+            session.delegate = self
+            session.activate()
+        }
+    }
+    
+    
     func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
-          
-        let needID = url.host?.removingPercentEncoding
         
-        let mainStoryboard = UIStoryboard(name: "Main", bundle: Bundle.main)
-        guard let sheduleVC : SheduleViewController = mainStoryboard.instantiateViewController(withIdentifier: SheduleViewController.identifier) as? SheduleViewController else { return false }
+//        if url.scheme == "kpiRozklad" {
+//            print("here in scheme")
+//            window?.rootViewController = UIViewController()
+//            return true
+//        }
         
-        for i in 1..<3 {
-            sheduleVC.currentWeek = i
-            sheduleVC.isNeedToScroll = false
-            sheduleVC.makeLessonsShedule()
-            let lessonsForTableView = sheduleVC.lessonsForTableView
-            for day in lessonsForTableView {
-                let lessons = day.value
-                for lesson in lessons {
-                    if lesson.lessonID == needID {
-                        
-                        guard let sheduleDetailVC : SheduleDetailViewController = mainStoryboard.instantiateViewController(withIdentifier: SheduleDetailViewController.identifier) as? SheduleDetailViewController else { return false }
-                        
-                        sheduleDetailVC.lesson = lesson
-                        
-                        
-                        guard let sheduleDetailNavigationVC : SheduleDetailNavigationController = mainStoryboard.instantiateViewController(withIdentifier: SheduleDetailNavigationController.identifier) as? SheduleDetailNavigationController else { return false }
-                        
-                        sheduleDetailNavigationVC.lesson = lesson
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+            let needID = url.host?.removingPercentEncoding
+                    
+            let mainStoryboard = UIStoryboard(name: "Main", bundle: Bundle.main)
+            guard let sheduleVC : SheduleViewController = mainStoryboard.instantiateViewController(withIdentifier: SheduleViewController.identifier) as? SheduleViewController else { return }
+            
+            k: for i in 1..<3 {
+                sheduleVC.currentWeek = i
+                sheduleVC.isNeedToScroll = false
+                sheduleVC.makeLessonsShedule()
+                let lessonsForTableView = sheduleVC.lessonsForTableView
+                for day in lessonsForTableView {
+                    let lessons = day.lessons
+                    for lesson in lessons {
+                        if lesson.lessonID == needID {
+                            
+                            guard let sheduleDetailVC: SheduleDetailViewController = mainStoryboard.instantiateViewController(withIdentifier: SheduleDetailViewController.identifier) as? SheduleDetailViewController else { return }
+                            
+                            sheduleDetailVC.lesson = lesson
+                            
+                            
+                            guard let sheduleDetailNavigationVC : SheduleDetailNavigationController = mainStoryboard.instantiateViewController(withIdentifier: SheduleDetailNavigationController.identifier) as? SheduleDetailNavigationController else { return }
+                            
+                            sheduleDetailNavigationVC.lesson = lesson
 
-                        guard let mainTabBar : UITabBarController = mainStoryboard.instantiateViewController(withIdentifier: "Main") as? UITabBarController else { return false }
-                        
-                        mainTabBar.selectedIndex = 0
-                        DispatchQueue.main.async {
-                            if let vc = mainTabBar.selectedViewController as? UINavigationController {
-//                                vc.pushViewController(sheduleDetailVC, animated: true)
-                                vc.presentPanModal(sheduleDetailNavigationVC, sourceView: nil, sourceRect: .zero)
-//                                presentPanModal(sheduleDetailNavigationVC)
+                            guard let mainTabBar : UITabBarController = mainStoryboard.instantiateViewController(withIdentifier: "Main") as? UITabBarController else { return }
+                            
+                            mainTabBar.selectedIndex = 0
+                            DispatchQueue.main.async {
+                                if let vc = mainTabBar.selectedViewController as? UINavigationController {
+    //                                vc.pushViewController(sheduleDetailVC, animated: true)
+                                    vc.presentPanModal(sheduleDetailNavigationVC, sourceView: nil, sourceRect: .zero)
+    //                                presentPanModal(sheduleDetailNavigationVC)
+                                }
                             }
+                          
+                            self.window?.rootViewController = mainTabBar
+                            break k
+
                         }
-                      
-                        window?.rootViewController = mainTabBar
                     }
                 }
             }
         }
-    
         return true
+        
       }
 
     
@@ -189,5 +183,31 @@ extension AppDelegate {
     func applicationWillTerminate(_ application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
+    
+}
+
+
+extension AppDelegate: WCSessionDelegate {
+    
+    func session(_ session: WCSession, activationDidCompleteWith activationState: WCSessionActivationState, error: Error?) {
+        if let error = error {
+            fatalError("Can't activate session with error: \(error.localizedDescription)")
+        }
+        print("WC Session activated with state: \(activationState.rawValue)")
+    }
+    
+
+    func sessionDidBecomeInactive(_ session: WCSession) {
+        print("sessionDidBecomeInactive")
+        print(#function)
+    }
+    
+    func sessionDidDeactivate(_ session: WCSession) {
+        print("sessionDidDeactivate")
+        print(#function)
+        WCSession.default.activate()
+    }
+    
+    
     
 }

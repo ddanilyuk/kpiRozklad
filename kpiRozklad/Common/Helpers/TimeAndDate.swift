@@ -6,7 +6,7 @@
 //  Copyright © 2019 Denis Danilyuk. All rights reserved.
 //
 
-import UIKit
+import Foundation
 
 
 /**

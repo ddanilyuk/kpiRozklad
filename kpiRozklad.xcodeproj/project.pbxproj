@@ -46,7 +46,6 @@
 		5F305C7B242263BC0035B509 /* Colours.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F2F313E2395C62100FC28CB /* Colours.swift */; };
 		5F3D8C132493FD5300308AC9 /* Enums.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FD5B7142422171900B86FB7 /* Enums.swift */; };
 		5F3D8C152493FD5300308AC9 /* DetailedInterfaceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F3D8C142493FD5300308AC9 /* DetailedInterfaceController.swift */; };
-		5F3D8C172495421B00308AC9 /* WKInterfaceController+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F3D8C162495421A00308AC9 /* WKInterfaceController+Extensions.swift */; };
 		5F4457E42376FB05008F9E21 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F4457E32376FB05008F9E21 /* Settings.swift */; };
 		5F46AD5E23FEC43500B145D5 /* FavouriteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F46AD5D23FEC43500B145D5 /* FavouriteViewController.swift */; };
 		5F46AD6523FFD66E00B145D5 /* GroupsNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F46AD6423FFD66E00B145D5 /* GroupsNavigationController.swift */; };
@@ -258,7 +257,6 @@
 		5F2F313E2395C62100FC28CB /* Colours.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colours.swift; sourceTree = "<group>"; };
 		5F305C76242260560035B509 /* SheduleVC+UITableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SheduleVC+UITableView.swift"; sourceTree = "<group>"; };
 		5F3D8C142493FD5300308AC9 /* DetailedInterfaceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailedInterfaceController.swift; sourceTree = "<group>"; };
-		5F3D8C162495421A00308AC9 /* WKInterfaceController+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WKInterfaceController+Extensions.swift"; sourceTree = "<group>"; };
 		5F4457E32376FB05008F9E21 /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		5F46AD5D23FEC43500B145D5 /* FavouriteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouriteViewController.swift; sourceTree = "<group>"; };
 		5F46AD6423FFD66E00B145D5 /* GroupsNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupsNavigationController.swift; sourceTree = "<group>"; };
@@ -616,9 +614,8 @@
 				5FDCFCF5248E561C00568208 /* TitleRow.swift */,
 				5FDCFCDE248D8C2F00568208 /* NotificationController.swift */,
 				5FDCFCE0248D8C3000568208 /* Assets.xcassets */,
-				5FDCFCE2248D8C3000568208 /* Info.plist */,
 				5FDCFCE3248D8C3000568208 /* PushNotificationPayload.apns */,
-				5F3D8C162495421A00308AC9 /* WKInterfaceController+Extensions.swift */,
+				5FDCFCE2248D8C3000568208 /* Info.plist */,
 			);
 			path = "kpiRozkladWatch Extension";
 			sourceTree = "<group>";
@@ -1245,7 +1242,6 @@
 				5FDCFCDF248D8C2F00568208 /* NotificationController.swift in Sources */,
 				5F56541D248E675700F2EB6E /* TimeAndDate.swift in Sources */,
 				5FA57FC8249565A5002DCD4A /* Room.swift in Sources */,
-				5F3D8C172495421B00308AC9 /* WKInterfaceController+Extensions.swift in Sources */,
 				5FA57FC7249565A5002DCD4A /* Group.swift in Sources */,
 				5FA57FCA249565A5002DCD4A /* LessonType.swift in Sources */,
 				5FDCFCF4248D911900568208 /* TableRow.swift in Sources */,

@@ -94,6 +94,8 @@ class TodayViewController: UIViewController, NCWidgetProviding {
         if dayNumberFromCurrentDate != 7 {
             let height = lessonsForTableView[dayNumberFromCurrentDate - 1].lessons.count * 68
             self.preferredContentSize = CGSize(width: self.view.frame.size.width, height: CGFloat(height))
+        } else {
+            self.preferredContentSize = CGSize(width: self.view.frame.size.width, height: 110)
         }
     }
     

@@ -53,8 +53,6 @@ struct Lesson: Codable {
         case timeEnd = "time_end"
         case rate, teachers, rooms, groups
     }
-
-
 }
 
 

@@ -176,6 +176,9 @@ class SheduleViewController: UIViewController {
         
         /// Setting current week
         setupCurrentWeek()
+        
+        /// Setup weekSwitch color
+        setupSwitch()
 
         if isFromSettingsGetFreshShedule {
             /**
@@ -375,9 +378,9 @@ class SheduleViewController: UIViewController {
 
         if isTeachersShedule {
             if UIScreen.main.nativeBounds.height < 1140 {
-                self.navigationItem.title = "Зараз \(self.currentWeekFromTodayDate) тиж."
+                self.navigationItem.title = "Зараз \(self.currentWeekFromTodayDate.rawValue) тиж."
             } else {
-                self.navigationItem.title = "Зараз \(self.currentWeekFromTodayDate) тиждень"
+                self.navigationItem.title = "Зараз \(self.currentWeekFromTodayDate.rawValue) тиждень"
             }
             setLargeTitleDisplayMode(.never)
         } else if !isFromSettingsGetFreshShedule && !isFromGroupsAndTeacherOrFavourite && !isTeachersShedule {
@@ -412,6 +415,19 @@ class SheduleViewController: UIViewController {
             self.weekSegmentControl.selectedSegmentIndex = 1
             self.currentWeek = .second
         }
+    }
+    
+    private func setupSwitch() {
+        
+        var titleTextAttributesNormal = [NSAttributedString.Key.foregroundColor: UIColor.blue]
+        let titleTextAttributesSelected = [NSAttributedString.Key.foregroundColor: UIColor.white]
+        
+        if #available(iOS 13.0, *) {
+            titleTextAttributesNormal = [NSAttributedString.Key.foregroundColor: UIColor.link]
+        }
+
+        weekSegmentControl.setTitleTextAttributes(titleTextAttributesNormal, for: .normal)
+        weekSegmentControl.setTitleTextAttributes(titleTextAttributesSelected, for: .selected)
     }
     
     

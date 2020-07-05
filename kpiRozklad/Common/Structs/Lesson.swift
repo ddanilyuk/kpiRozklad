@@ -100,7 +100,7 @@ extension Lesson {
             lessonNumber = 1
         }
         
-        if let groupIDCasted = try Int(values.decode(String.self, forKey: .groupID)) {
+        if let groupIDCasted = try? Int(values.decode(String.self, forKey: .groupID)) {
             groupID = groupIDCasted
         } else {
             groupID = 0

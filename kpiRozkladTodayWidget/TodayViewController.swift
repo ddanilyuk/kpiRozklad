@@ -19,7 +19,7 @@ class TodayViewController: UIViewController, NCWidgetProviding {
     
     // MARK: - Core Data functions
     lazy var persistentContainer: NSPersistentContainer = {
-        let container = NSCustomPersistentContainer(name: "kpiRozklad")
+        let container = NSCustomPersistentContainer(name: "kpiRozkladModel")
         
         container.loadPersistentStores(completionHandler: { (storeDescription, error) in
             if let error = error as NSError? {

@@ -23,27 +23,27 @@ Find current and next lesson ID
 func getCurrentAndNextLesson(lessons: [Lesson],
                              timeIsNowString: String,
                              dayNumberFromCurrentDate: Int,
-                             currentWeekFromTodayDate: Int) ->
-                             (nextLessonID: String, currentLessonID: String) {
+                             currentWeekFromTodayDate: WeekType) ->
+                             (nextLessonID: Int, currentLessonID: Int) {
     
-    var nextLessonId = String()
-    var currentLessonId = String()
+    var nextLessonId: Int = 0
+    var currentLessonId: Int = 0
     
     for lesson in lessons {
         
         let timeStart = lesson.timeStart.stringTime
         let timeEnd = lesson.timeEnd.stringTime
                     
-        if  (timeStart <= timeIsNowString) && (timeIsNowString < timeEnd) &&
-            (dayNumberFromCurrentDate == Int(lesson.dayNumber)) && (currentWeekFromTodayDate == Int(lesson.lessonWeek) ?? 0) {
-            currentLessonId = lesson.lessonID
+        if (timeStart <= timeIsNowString) && (timeIsNowString < timeEnd) &&
+            (dayNumberFromCurrentDate == lesson.dayNumber) && (currentWeekFromTodayDate == lesson.lessonWeek) {
+            currentLessonId = lesson.id
         }
         
-        if (timeStart > timeIsNowString) && (dayNumberFromCurrentDate == Int(lesson.dayNumber) ?? 0) && (currentWeekFromTodayDate == Int(lesson.lessonWeek) ?? 0) {
-            nextLessonId = lesson.lessonID
+        if (timeStart > timeIsNowString) && (dayNumberFromCurrentDate == lesson.dayNumber) && (currentWeekFromTodayDate == lesson.lessonWeek) {
+            nextLessonId = lesson.id
             return (nextLessonID: nextLessonId, currentLessonID: currentLessonId)
-        } else if (dayNumberFromCurrentDate < Int(lesson.dayNumber) ?? 0) && (currentWeekFromTodayDate == Int(lesson.lessonWeek) ?? 0){
-            nextLessonId = lesson.lessonID
+        } else if (dayNumberFromCurrentDate < Int(lesson.dayNumber) ?? 0) && (currentWeekFromTodayDate == lesson.lessonWeek){
+            nextLessonId = lesson.id
             return (nextLessonID: nextLessonId, currentLessonID: currentLessonId)
         }
     }
@@ -52,7 +52,7 @@ func getCurrentAndNextLesson(lessons: [Lesson],
     var lessonsSecond: [Lesson] = []
 
     for lesson in lessons {
-        if Int(lesson.lessonWeek) == 1 {
+        if lesson.lessonWeek == .first {
             lessonsFirst.append(lesson)
         } else {
             lessonsSecond.append(lesson)
@@ -60,20 +60,20 @@ func getCurrentAndNextLesson(lessons: [Lesson],
     }
     
     if lessonsFirst.count != 0 && lessonsSecond.count != 0 {
-        if nextLessonId == "" && currentWeekFromTodayDate == 2 {
-            nextLessonId = lessonsFirst[0].lessonID
+        if nextLessonId == 0 && currentWeekFromTodayDate == .second {
+            nextLessonId = lessonsFirst[0].id
             return (nextLessonID: nextLessonId, currentLessonID: currentLessonId)
-        } else if nextLessonId == "" && currentWeekFromTodayDate == 1 {
-            nextLessonId = lessonsSecond[0].lessonID
+        } else if nextLessonId == 0 && currentWeekFromTodayDate == .first {
+            nextLessonId = lessonsSecond[0].id
             return (nextLessonID: nextLessonId, currentLessonID: currentLessonId)
         }
     }
     
     if lessonsFirst.count == 0 && lessonsSecond.count != 0 {
-        nextLessonId = lessonsSecond[0].lessonID
+        nextLessonId = lessonsSecond[0].id
         return (nextLessonID: nextLessonId, currentLessonID: currentLessonId)
     } else if lessonsFirst.count != 0 && lessonsSecond.count == 0 {
-        nextLessonId = lessonsFirst[0].lessonID
+        nextLessonId = lessonsFirst[0].id
         return (nextLessonID: nextLessonId, currentLessonID: currentLessonId)
     }
     
@@ -137,7 +137,7 @@ func sortLessons(lessons: [Lesson]) -> [Lesson] {
         } else if lesson1.lessonWeek == lesson2.lessonWeek {
             return lesson1.dayNumber < lesson2.dayNumber
         } else {
-            return lesson1.lessonWeek < lesson2.lessonWeek
+            return lesson1.lessonWeek.rawValue < lesson2.lessonWeek.rawValue
         }
     }
     
@@ -153,19 +153,21 @@ func sortLessons(lessons: [Lesson]) -> [Lesson] {
  - Returns: String with groups  like `"ІВ-81, ІВ-82, IВ-83"`
 */
 func getGroupsOfLessonString(lesson: Lesson) -> String {
-    var groupsNames: String  = ""
+    var groupsNames: String = ""
 
     if let groups = lesson.groups {
-        var groupsSorted: [Group] = []
+        var groupsSorted: [Group?] = []
         groupsSorted = groups.sorted { (group1, group2) -> Bool in
-            return group1.groupFullName < group2.groupFullName
+            return group1?.groupFullName ?? "1" < group2?.groupFullName ?? "2"
         }
+        
         for i in 0..<groupsSorted.count {
-            let group = groupsSorted[i]
-            if i == groups.count - 1 {
-                groupsNames += group.groupFullName.uppercased()
-            } else {
-                groupsNames += group.groupFullName.uppercased() + ", "
+            if let group = groupsSorted[i] {
+                if i == groups.count - 1 {
+                    groupsNames += group.groupFullName.uppercased()
+                } else {
+                    groupsNames += group.groupFullName.uppercased() + ", "
+                }
             }
         }
     }

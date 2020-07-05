@@ -48,7 +48,7 @@ class TodayViewController: UIViewController, NCWidgetProviding {
      - Remark:
         Set  up in `setupDate()`
      */
-    var currentWeekFromTodayDate = 1
+    var currentWeekFromTodayDate: WeekType = .first
     
     /// Week of year from date on the device
     var weekOfYear = 0
@@ -64,14 +64,14 @@ class TodayViewController: UIViewController, NCWidgetProviding {
      - Remark:
         Updated in `makeLessonShedule()` but makes in `getCurrentAndNextLesson(lessons: [Lesson])`
      */
-    var currentLessonId = String()
+    var currentLessonId: Int = 0
     
     /**
      Lesson ID of **next** Lesson
      - Remark:
         Updated in `makeLessonShedule()` but makes in `getCurrentAndNextLesson(lessons: [Lesson])`
      */
-    var nextLessonId = String()
+    var nextLessonId: Int = 0
     
     
     var isLessonsEnd: Bool = false
@@ -111,7 +111,7 @@ class TodayViewController: UIViewController, NCWidgetProviding {
         dayNumberFromCurrentDate = result.dayNumberFromCurrentDate
         weekOfYear = result.weekOfYear
         
-        self.currentWeekFromTodayDate = self.weekOfYear % 2 == 0 ? 1 : 2
+        self.currentWeekFromTodayDate = self.weekOfYear % 2 == 0 ? .first : .second
     }
     
     
@@ -145,9 +145,9 @@ class TodayViewController: UIViewController, NCWidgetProviding {
 
 
         /// Getting lesson for first week and second
-        let lessonsFirst: [Lesson] = lessons.filter { Int($0.lessonWeek) == 1 }
-        let lessonsSecond: [Lesson] = lessons.filter { Int($0.lessonWeek) == 2 }
-        let currentLessonWeek = currentWeekFromTodayDate == 1 ? lessonsFirst : lessonsSecond
+        let lessonsFirst: [Lesson] = lessons.filter { $0.lessonWeek == .first }
+        let lessonsSecond: [Lesson] = lessons.filter { $0.lessonWeek == .second }
+        let currentLessonWeek = currentWeekFromTodayDate == .first ? lessonsFirst : lessonsSecond
         
         var sortedDictionary = Dictionary(grouping: currentLessonWeek) { $0.dayName }
         for day in DayName.allCases {
@@ -195,10 +195,10 @@ extension TodayViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        var id = ""
+        var id: Int = 0
 
         if dayNumberFromCurrentDate != 7 && lessonsForTableView[dayNumberFromCurrentDate - 1].lessons.count != 0 {
-            id = lessonsForTableView[dayNumberFromCurrentDate - 1].lessons[indexPath.row].lessonID
+            id = lessonsForTableView[dayNumberFromCurrentDate - 1].lessons[indexPath.row].id
         }
 
         let url: URL? = URL(string: "kpiRozklad://\(id)")!
@@ -280,9 +280,9 @@ extension TodayViewController: UITableViewDataSource, UITableViewDelegate {
             return cell
         }
         
-        if currentLessonId == lessonsForSomeDay[indexPath.row].lessonID {
+        if currentLessonId == lessonsForSomeDay[indexPath.row].id {
             setupCurrentOrNextLessonCell(cell: cell, cellType: .currentCell)
-        } else if nextLessonId == lessonsForSomeDay[indexPath.row].lessonID {
+        } else if nextLessonId == lessonsForSomeDay[indexPath.row].id {
             setupCurrentOrNextLessonCell(cell: cell, cellType: .nextCell)
         }
         

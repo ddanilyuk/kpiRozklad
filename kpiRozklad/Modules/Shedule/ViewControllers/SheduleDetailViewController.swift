@@ -62,7 +62,7 @@ class SheduleDetailViewController: UIViewController {
         guard let lesson = lesson else { return }
         
         lessonNameLabel.text = lesson.lessonName
-        dayLabel.text = lesson.dayName.rawValue + ", " + lesson.lessonWeek + " тиждень"
+        dayLabel.text = lesson.dayName.rawValue + ", " + lesson.lessonWeek.rawValue + " тиждень"
         timeStartLabel.text = "Початок: " + lesson.timeStart
         timeEndLabel.text = "Кінець: " + lesson.timeEnd
         
@@ -73,7 +73,7 @@ class SheduleDetailViewController: UIViewController {
         }
         
         /// TEACHER
-        guard let teacher = lesson.teachers?.count != 0 ? lesson.teachers?[0] : nil else {
+        guard let teacher = lesson.teacher else {
             checkTeacherShedule.isHidden = true
             groupsLabel.isHidden = true
             viewWithActivityIndicator.isHidden = true
@@ -82,7 +82,7 @@ class SheduleDetailViewController: UIViewController {
         }
         self.teacher = teacher
         
-        if teacher.teacherID == "" {
+        if teacher.teacherID == 0 {
             deleteFromStackView([teacherLabel])
             checkTeacherShedule.isHidden = true
         }
@@ -103,11 +103,11 @@ class SheduleDetailViewController: UIViewController {
         
         /// GROUPS
         if lesson.groups?.count == 0 || lesson.groups == nil {
-            getTeacherLessons(dayNumber: lesson.dayNumber, lessonNumber: lesson.lessonNumber, teacherID: teacher.teacherID, lessonWeek: lesson.lessonWeek, lessonId: Int(lesson.lessonID) ?? 0)
+            getTeacherLessons(dayNumber: lesson.dayNumber, lessonNumber: lesson.lessonNumber, teacherID: teacher.teacherID, lessonWeek: lesson.lessonWeek, lessonId: lesson.id)
             
         } else {
             groupsLabel.text = "Групи: \(getGroupsOfLessonString(lesson: lesson))"
-            checkTeacherShedule.isHidden = (settings.sheduleType == .teachers && teacher.teacherID == "") ? true : false
+            checkTeacherShedule.isHidden = (settings.sheduleType == .teachers && teacher.teacherID == 0) ? true : false
             viewWithActivityIndicator.isHidden = true
         }
     }
@@ -172,7 +172,7 @@ class SheduleDetailViewController: UIViewController {
      - Parameter lessonId: used when lesson were edited
     
     */
-    func getGroups(dayNumber: String, lessonNumber: String, teacherID: String, lessonWeek: String, lessons: [Lesson], lessonId: Int) {
+    func getGroups(dayNumber: Int, lessonNumber: Int, teacherID: Int, lessonWeek: WeekType, lessons: [Lesson], lessonId: Int) {
         for lesson in lessons {
             if lesson.dayNumber == dayNumber &&
                lesson.lessonNumber == lessonNumber &&
@@ -185,9 +185,9 @@ class SheduleDetailViewController: UIViewController {
 
             }
         }
-        /// If lesson were edited, try to finf lesson by `lessonID`
+        /// If lesson were edited, try to finf lesson by `id`
         for lesson in lessons {
-            if Int(lesson.lessonID) == lessonId {
+            if lesson.id == lessonId {
                 DispatchQueue.main.async {
                     self.viewWithActivityIndicator.isHidden = true
                     self.groupsLabel.text = "Групи: \(getGroupsOfLessonString(lesson: lesson))"
@@ -200,8 +200,8 @@ class SheduleDetailViewController: UIViewController {
     /**
      Server Request to get lessons and then `getGroups()`
      */
-    private func getTeacherLessons(dayNumber: String, lessonNumber: String, teacherID: String, lessonWeek: String, lessonId: Int) {
-        API.getTeacherLessons(forTeacherWithId: Int(teacherID) ?? 0).done({ [weak self] (lessons) in
+    private func getTeacherLessons(dayNumber: Int, lessonNumber: Int, teacherID: Int, lessonWeek: WeekType, lessonId: Int) {
+        API.getTeacherLessons(forTeacherWithId: teacherID).done({ [weak self] (lessons) in
             self?.getGroups(dayNumber: dayNumber, lessonNumber: lessonNumber, teacherID: teacherID, lessonWeek: lessonWeek, lessons: lessons, lessonId: lessonId)
         }).catch({ [weak self] (error) in
             guard let this = self else { return }

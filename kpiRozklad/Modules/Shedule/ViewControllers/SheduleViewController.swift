@@ -20,7 +20,7 @@ import WatchConnectivity
  3. `fetchingCoreData(vc: SheduleViewController) -> [Lesson]` return `[Lesson]` from Core Data
  4. `makeLessonsShedule()` remake `[Lesson]` to `[(day: DayName, lessons: [Lesson])]`
  */
-class SheduleViewController: UIViewController{
+class SheduleViewController: UIViewController {
 
     // MARK: - Variables
     /// Window
@@ -61,7 +61,7 @@ class SheduleViewController: UIViewController{
      - Remark:
         Set  up in `setUpCurrentWeek()`
      */
-    var currentWeekFromTodayDate = 1
+    var currentWeekFromTodayDate: WeekType = .first
     
     /**
      Current  week which user chosed
@@ -70,7 +70,7 @@ class SheduleViewController: UIViewController{
      - Note:
         Changed in `weekChanged()`
      */
-    var currentWeek = 1
+    var currentWeek: WeekType = .first
     
     /// Week of year from date on the device
     var weekOfYear = 0
@@ -86,14 +86,14 @@ class SheduleViewController: UIViewController{
      - Remark:
         Updated in `makeLessonShedule()` but makes in `getCurrentAndNextLesson(lessons: [Lesson])`
      */
-    var currentLessonId = String()
+    var currentLessonId: Int = 0
     
     /**
      Lesson ID of **next** Lesson
      - Remark:
         Updated in `makeLessonShedule()` but makes in `getCurrentAndNextLesson(lessons: [Lesson])`
      */
-    var nextLessonId = String()
+    var nextLessonId: Int = 0
     
     /// Picker from popup which edit number of lesson (tap on lesson while editing)
     var lessonNumberFromPicker: Int = 1
@@ -260,12 +260,10 @@ class SheduleViewController: UIViewController{
          And  variable `isEditInserts`,  code in `viewWillAppear` and `viewWillDisappear` fix this problem.
          */
         if !isFromSettingsGetFreshShedule && !isFromGroupsAndTeacherOrFavourite && !isTeachersShedule && !isTeachersShedule {
-            print("MAIN")
             setLargeTitleDisplayMode(.always)
             
             if #available(iOS 13.0, *) {
                 if self.navigationController?.navigationBar.frame.size.height ?? 44 > CGFloat(50) {
-                    print("LARGE")
                     if isEditInserts {
                         self.tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: -20, right: 0)
                     } else {
@@ -308,7 +306,7 @@ class SheduleViewController: UIViewController{
                 let dictionary: [String: Any] = ["lessons": dataLessons, "time": Date().timeIntervalSince1970, "name": name, "currentColourData": currentColourData, "nextColourData": nextColourData]
 //                let dictionary: [String: Any] = ["lessons": dataLessons, "name": name, "currentColourData": currentColourData, "nextColourData": nextColourData]
 
-                print(dictionary)
+//                print(dictionary)
                 try session.updateApplicationContext(dictionary)
                 
             } catch {
@@ -334,13 +332,11 @@ class SheduleViewController: UIViewController{
                  The part of code in `#available(iOS 13.0, *)` is need for update `tableView.contentInset`
                  if `current` or `next` lesson is not at top `lessonsForTableView`
                  */
-                let firstLessonValue = lessonsForTableView[0].lessons.count != 0 ?  Int(lessonsForTableView[0].lessons[0].lessonID) ?? 0 : -1
-                let next = Int(nextLessonId) ?? 0
-                let current = Int(currentLessonId) ?? 0
+                let firstLessonValue = lessonsForTableView[0].lessons.count != 0 ? lessonsForTableView[0].lessons[0].id : -1
 
                 if self.isTeachersShedule || self.isFromGroupsAndTeacherOrFavourite {
                     tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
-                } else if ((next != firstLessonValue) && (current != firstLessonValue)) {
+                } else if ((nextLessonId != firstLessonValue) && (currentLessonId != firstLessonValue)) {
                     tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: -20, right: 0)
                 }
             }
@@ -408,13 +404,13 @@ class SheduleViewController: UIViewController{
     /// Function to set up currnet week in viewDidLoad
     func setupCurrentWeek() {
         if self.weekOfYear % 2 == 0 {
-            self.currentWeekFromTodayDate = 1
+            self.currentWeekFromTodayDate = .first
             self.weekSegmentControl.selectedSegmentIndex = 0
-            self.currentWeek = 1
+            self.currentWeek = .first
         } else {
-            self.currentWeekFromTodayDate = 2
+            self.currentWeekFromTodayDate = .second
             self.weekSegmentControl.selectedSegmentIndex = 1
-            self.currentWeek = 2
+            self.currentWeek = .second
         }
     }
     
@@ -473,10 +469,10 @@ class SheduleViewController: UIViewController{
             let day = lessonsForTableView[section]
             for row in 0..<day.lessons.count {
                 let lesson = day.lessons[row]
-                if lesson.lessonID == currentLessonId {
+                if lesson.id == currentLessonId {
                     indexPathToScroll = IndexPath(row: row, section: section)
                     break k
-                } else if lesson.lessonID == nextLessonId {
+                } else if lesson.id == nextLessonId {
                     indexPathToScroll = IndexPath(row: row, section: section)
                     break k
                 }
@@ -553,9 +549,9 @@ class SheduleViewController: UIViewController{
         (nextLessonId, currentLessonId) = getCurrentAndNextLesson(lessons: lessons, timeIsNowString: timeIsNowString, dayNumberFromCurrentDate: dayNumberFromCurrentDate, currentWeekFromTodayDate: currentWeekFromTodayDate)
         
         /// Getting lesson for first week and second
-        let lessonsFirst: [Lesson] = lessons.filter { Int($0.lessonWeek) == 1 }
-        let lessonsSecond: [Lesson] = lessons.filter { Int($0.lessonWeek) == 2 }
-        let currentLessonWeek = currentWeek == 1 ? lessonsFirst : lessonsSecond
+        let lessonsFirst: [Lesson] = lessons.filter { $0.lessonWeek == .first }
+        let lessonsSecond: [Lesson] = lessons.filter { $0.lessonWeek == .second }
+        let currentLessonWeek = currentWeek == .first ? lessonsFirst : lessonsSecond
         
         var sortedDictionary = Dictionary(grouping: currentLessonWeek) { $0.dayName }
         for day in DayName.allCases {
@@ -606,7 +602,7 @@ class SheduleViewController: UIViewController{
         if isMainShedule {
             serverLessonsOptional = settings.sheduleType == .groups ? API.getStudentLessons(forGroupWithId: settings.groupID) : API.getTeacherLessons(forTeacherWithId: settings.teacherID)
         } else {
-            serverLessonsOptional = API.getTeacherLessons(forTeacherWithId: Int(teacherFromSegue?.teacherID ?? "") ?? 0)
+            serverLessonsOptional = API.getTeacherLessons(forTeacherWithId: teacherFromSegue?.teacherID ?? 0)
         }
         
         guard let serverLessons = serverLessonsOptional else { return }
@@ -663,11 +659,11 @@ class SheduleViewController: UIViewController{
     @IBAction func weekChanged(_ sender: UISegmentedControl) {
         switch weekSegmentControl.selectedSegmentIndex {
             case 0:
-                currentWeek = 1
+                currentWeek = .first
                 makeLessonsShedule()
                 tableView.reloadData()
             case 1:
-                currentWeek = 2
+                currentWeek = .second
                 makeLessonsShedule()
                 tableView.reloadData()
             default:

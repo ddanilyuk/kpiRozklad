@@ -24,21 +24,22 @@ struct WelcomeLessons: Codable {
 
 
 // MARK: - Lesson
-struct Lesson: Codable {
-    let lessonID, dayNumber: String
-    let groupID: String?
+public struct Lesson: Codable, Hashable, Identifiable {
+    public let id: Int
+    let dayNumber, lessonNumber: Int
+    let lessonWeek: WeekType
+    let groupID: Int?
     let dayName: DayName
-    let lessonName, lessonFullName, lessonNumber, lessonRoom: String
     let lessonType: LessonType
-    let teacherName, lessonWeek, timeStart, timeEnd: String
+    let lessonName, lessonFullName, lessonRoom: String
+    let teacherName, timeStart, timeEnd: String
     let rate: String
-    let teachers: [Teacher]?
-    let rooms: [Room]
-    let groups: [Group]?
-
-    
+    let teacher: Teacher?
+    let room: Room?
+    let groups: [Group?]?
+        
     enum CodingKeys: String, CodingKey {
-        case lessonID = "lesson_id"
+        case id = "lesson_id"
         case groupID = "group_id"
         case dayNumber = "day_number"
         case dayName = "day_name"
@@ -51,18 +52,76 @@ struct Lesson: Codable {
         case lessonWeek = "lesson_week"
         case timeStart = "time_start"
         case timeEnd = "time_end"
-        case rate, teachers, rooms, groups
+        case room = "rooms"
+        case teacher = "teachers"
+
+        case rate, groups
     }
+    
+    static let defaultLesson = Lesson(id: 1, dayNumber: 1, lessonNumber: 12, lessonWeek: WeekType.first, groupID: 123, dayName: DayName.mounday, lessonType: LessonType.лек1, lessonName: "Name", lessonFullName: "Full Name", lessonRoom: "Room", teacherName: "Teacher Name", timeStart: "08:30", timeEnd: "10:25", rate: "rate", teacher: nil, room: nil, groups: nil)
+    
+    static var defaultArratOfLesson: [Lesson] = Array(repeating: defaultLesson, count: 3)
 }
 
 
+extension Lesson {
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: CodingKeys.self)
+        
+        // Strings
+        lessonName = try values.decode(String.self, forKey: .lessonName)
+        lessonFullName = try values.decode(String.self, forKey: .lessonFullName)
+        lessonRoom = try values.decode(String.self, forKey: .lessonRoom)
+        teacherName = try values.decode(String.self, forKey: .teacherName)
+        timeStart = try values.decode(String.self, forKey: .timeStart)
+        timeEnd = try values.decode(String.self, forKey: .timeEnd)
+        rate = try values.decode(String.self, forKey: .rate)
+        
+        // Enums
+        dayName = try values.decode(DayName.self, forKey: .dayName)
+        lessonType = try values.decode(LessonType.self, forKey: .lessonType)
+        lessonWeek = try values.decode(WeekType.self, forKey: .lessonWeek)
+
+        // Strings To Int
+        guard let idCasted = try Int(values.decode(String.self, forKey: .id)) else {
+            throw DecodingError.dataCorrupted(.init(codingPath: [CodingKeys.id], debugDescription: "Expecting string representation of Int"))
+        }
+        id = idCasted
+        
+        if let dayNumberCasted = try Int(values.decode(String.self, forKey: .dayNumber)) {
+            dayNumber = dayNumberCasted
+        } else {
+            dayNumber = 1
+        }
+        
+        if let lessonNumberCasted = try Int(values.decode(String.self, forKey: .lessonNumber)) {
+            lessonNumber = lessonNumberCasted
+        } else {
+            lessonNumber = 1
+        }
+        
+        if let groupIDCasted = try Int(values.decode(String.self, forKey: .groupID)) {
+            groupID = groupIDCasted
+        } else {
+            groupID = 0
+        }
+        
+        // Other types
+        
+        teacher = try values.decode([Teacher?].self, forKey: .teacher).first as? Teacher ?? nil
+        room = try values.decode([Room?].self, forKey: .room).first as? Room ?? nil
+        groups = try? values.decode([Group?]?.self, forKey: .groups) ?? []
+
+    }
+}
+
 extension Lesson: Comparable {
-    static func < (lhs: Lesson, rhs: Lesson) -> Bool {
+    public static func < (lhs: Lesson, rhs: Lesson) -> Bool {
         return lhs.dayName.rawValue == rhs.dayName.rawValue
 
     }
     
-    static func == (lhs: Lesson, rhs: Lesson) -> Bool {
+    public static func == (lhs: Lesson, rhs: Lesson) -> Bool {
         return lhs.dayName.rawValue < rhs.dayName.rawValue
     }
 }

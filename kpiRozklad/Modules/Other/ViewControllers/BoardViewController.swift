@@ -22,7 +22,7 @@ class BoardViewController: UIViewController, PanModalPresentable {
     @IBOutlet weak var studentButton: UIButton!
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
-        return .default
+        return .lightContent
     }
 
     var panScrollable: UIScrollView? {
@@ -56,7 +56,7 @@ class BoardViewController: UIViewController, PanModalPresentable {
     var anchorModalToLongForm: Bool {
         return false
     }
-        
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.window = UIWindow(frame: UIScreen.main.bounds)

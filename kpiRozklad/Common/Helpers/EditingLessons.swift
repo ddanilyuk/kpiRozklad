@@ -16,11 +16,11 @@ func editLessonNumber(vc: SheduleViewController, indexPath: IndexPath) {
     var lessonsForCoreData = fetchingCoreData(managedContext: managedContext)
     
     lessonsForCoreData.removeAll { lesson -> Bool in
-        var array: [String] = []
+        var array: [Int] = []
         for lesson in vc.lessonsForTableView[indexPath.section].lessons {
-            array.append(lesson.lessonID)
+            array.append(lesson.id)
         }
-        return array.contains(lesson.lessonID)
+        return array.contains(lesson.id)
     }
     
     /// Lesson which we want to edit
@@ -28,22 +28,24 @@ func editLessonNumber(vc: SheduleViewController, indexPath: IndexPath) {
     
     /// timeStart && timeEnd
     let (timeStart, timeEnd) = getTimeFromLessonNumber(lessonNumber: String(vc.lessonNumberFromPicker))
-    let newLesson = Lesson( lessonID: lesson.lessonID,
-                            dayNumber: lesson.dayNumber,
-                            groupID: lesson.groupID,
-                            dayName: lesson.dayName,
-                            lessonName: lesson.lessonName,
-                            lessonFullName: lesson.lessonFullName,
-                            lessonNumber: String(vc.lessonNumberFromPicker),
-                            lessonRoom: lesson.lessonRoom,
-                            lessonType: lesson.lessonType,
-                            teacherName: lesson.teacherName,
-                            lessonWeek: lesson.lessonWeek,
-                            timeStart: timeStart,
-                            timeEnd: timeEnd,
-                            rate: lesson.rate,
-                            teachers: lesson.teachers,
-                            rooms: lesson.rooms, groups: lesson.groups)
+    
+    let newLesson = Lesson(id: lesson.id,
+                           dayNumber: lesson.dayNumber,
+                           lessonNumber: vc.lessonNumberFromPicker,
+                           lessonWeek: lesson.lessonWeek,
+                           groupID: lesson.groupID,
+                           dayName: lesson.dayName,
+                           lessonType: lesson.lessonType,
+                           lessonName: lesson.lessonName,
+                           lessonFullName: lesson.lessonFullName,
+                           lessonRoom: lesson.lessonRoom,
+                           teacherName: lesson.teacherName,
+                           timeStart: timeStart,
+                           timeEnd: timeEnd,
+                           rate: lesson.rate,
+                           teacher: lesson.teacher,
+                           room: lesson.room,
+                           groups: lesson.groups)
     
     vc.lessonsForTableView[indexPath.section].lessons.remove(at: indexPath.row)
     
@@ -54,7 +56,7 @@ func editLessonNumber(vc: SheduleViewController, indexPath: IndexPath) {
     for number in 1...6 {
         var lessonToAdd: Lesson?
         for lesson in dayLessons {
-            if Int(lesson.lessonNumber) ?? 0 == number {
+            if lesson.lessonNumber == number {
                 lessonToAdd = lesson
             }
         }
@@ -66,9 +68,9 @@ func editLessonNumber(vc: SheduleViewController, indexPath: IndexPath) {
 
     lessonTemp2 = newLesson
 
-    if Int(lesson.lessonNumber) ?? 0 < vc.lessonNumberFromPicker {
+    if lesson.lessonNumber < vc.lessonNumberFromPicker {
         /// Other pairs to left
-        for i in stride(from: (vc.lessonNumberFromPicker - 1), to: (Int(lesson.lessonNumber) ?? 0) - 2, by: -1) {
+        for i in stride(from: (vc.lessonNumberFromPicker - 1), to: (lesson.lessonNumber - 2), by: -1) {
             NASTYA_LYBIAMAYA(i: i, fullDayLessons: &fullDayLessons, lessonTemp1: &lessonTemp1, lessonTemp2: &lessonTemp2)
             if lessonTemp2 == nil {
                 break
@@ -76,7 +78,7 @@ func editLessonNumber(vc: SheduleViewController, indexPath: IndexPath) {
         }
     } else {
         /// Other pairs to right
-        for i in (vc.lessonNumberFromPicker - 1)...((Int(lesson.lessonNumber) ?? 0) - 1) {
+        for i in (vc.lessonNumberFromPicker - 1)...((lesson.lessonNumber) - 1) {
             NASTYA_LYBIAMAYA(i: i, fullDayLessons: &fullDayLessons, lessonTemp1: &lessonTemp1, lessonTemp2: &lessonTemp2)
 
             lessonTemp2 = lessonTemp1
@@ -121,12 +123,12 @@ func moveRow3(vc: SheduleViewController, sourceIndexPath: IndexPath, destination
     var lessonsForCoreData = fetchingCoreData(managedContext: managedContext)
     
     lessonsForCoreData.removeAll { lesson -> Bool in
-        var array: [String] = []
-        array.append(vc.lessonsForTableView[sourceIndexPath.section].lessons[sourceIndexPath.row].lessonID)
+        var array: [Int] = []
+        array.append(vc.lessonsForTableView[sourceIndexPath.section].lessons[sourceIndexPath.row].id)
         for lesson in vc.lessonsForTableView[destinationIndexPath.section].lessons {
-            array.append(lesson.lessonID)
+            array.append(lesson.id)
         }
-        return array.contains(lesson.lessonID)
+        return array.contains(lesson.id)
     }
 
     let dayLessons = vc.lessonsForTableView[destinationIndexPath.section].lessons
@@ -135,7 +137,7 @@ func moveRow3(vc: SheduleViewController, sourceIndexPath: IndexPath, destination
     for number in 1...6 {
         var lessonToAdd: Lesson?
         for lesson in dayLessons {
-            if Int(lesson.lessonNumber) ?? 0 == number {
+            if lesson.lessonNumber == number {
                 lessonToAdd = lesson
             }
         }
@@ -157,7 +159,7 @@ func moveRow3(vc: SheduleViewController, sourceIndexPath: IndexPath, destination
     }
 
     if destinationIndexPath.row != 0 {
-        lessonNumber = Int(vc.lessonsForTableView[destinationIndexPath.section].lessons[destinationIndexPath.row - 1].lessonNumber) ?? 0
+        lessonNumber = vc.lessonsForTableView[destinationIndexPath.section].lessons[destinationIndexPath.row - 1].lessonNumber
         lessonNumber += 1
         lessonNumber = lessonNumber > 6 ? 6 : lessonNumber
     }
@@ -183,23 +185,41 @@ func moveRow3(vc: SheduleViewController, sourceIndexPath: IndexPath, destination
     let oldLesson = vc.lessonsForTableView[sourceIndexPath.section].lessons[sourceIndexPath.row]
     
     let (timeStart, timeEnd) = getTimeFromLessonNumber(lessonNumber: String(lessonNumber))
-    let newLesson = Lesson( lessonID: oldLesson.lessonID,
-                            dayNumber: String(dayNumber),
-                            groupID: oldLesson.groupID,
-                            dayName: vc.lessonsForTableView[destinationIndexPath.section].day,
-                            lessonName: oldLesson.lessonName,
-                            lessonFullName: oldLesson.lessonFullName,
-                            lessonNumber: String(lessonNumber),
-                            lessonRoom: oldLesson.lessonRoom,
-                            lessonType: oldLesson.lessonType,
-                            teacherName: oldLesson.teacherName,
-                            lessonWeek: oldLesson.lessonWeek,
-                            timeStart: timeStart,
-                            timeEnd: timeEnd,
-                            rate: oldLesson.rate,
-                            teachers: oldLesson.teachers,
-                            rooms: oldLesson.rooms,
-                            groups: oldLesson.groups)
+//    let newLesson = Lesson( id: oldLesson.lessonID,
+//                            dayNumber: dayNumber,
+//                            groupID: oldLesson.groupID,
+//                            dayName: vc.lessonsForTableView[destinationIndexPath.section].day,
+//                            lessonName: oldLesson.lessonName,
+//                            lessonFullName: oldLesson.lessonFullName,
+//                            lessonNumber: lessonNumber,
+//                            lessonRoom: oldLesson.lessonRoom,
+//                            lessonType: oldLesson.lessonType,
+//                            teacherName: oldLesson.teacherName,
+//                            lessonWeek: oldLesson.lessonWeek,
+//                            timeStart: timeStart,
+//                            timeEnd: timeEnd,
+//                            rate: oldLesson.rate,
+//                            teachers: oldLesson.teacher,
+//                            rooms: oldLesson.room,
+//                            groups: oldLesson.groups)
+    
+    let newLesson = Lesson(id: oldLesson.id,
+                      dayNumber: dayNumber,
+                      lessonNumber: lessonNumber,
+                      lessonWeek: oldLesson.lessonWeek,
+                      groupID: oldLesson.groupID,
+                      dayName: vc.lessonsForTableView[destinationIndexPath.section].day,
+                      lessonType: oldLesson.lessonType,
+                      lessonName: oldLesson.lessonName,
+                      lessonFullName: oldLesson.lessonFullName,
+                      lessonRoom: oldLesson.lessonRoom,
+                      teacherName: oldLesson.teacherName,
+                      timeStart: timeStart,
+                      timeEnd: timeEnd,
+                      rate: oldLesson.rate,
+                      teacher: oldLesson.teacher,
+                      room: oldLesson.room,
+                      groups: oldLesson.groups)
     
     lessonTemp2 = newLesson
     
@@ -249,23 +269,41 @@ func NASTYA_LYBIAMAYA(i: Int, fullDayLessons: inout [Lesson?],  lessonTemp1: ino
         fullDayLessons.insert(nil, at: i)
         return
     }
-    let editedLesson = Lesson( lessonID: editedLessonTemp.lessonID,
-                               dayNumber: editedLessonTemp.dayNumber,
-                               groupID: editedLessonTemp.groupID,
-                               dayName: editedLessonTemp.dayName,
-                               lessonName: editedLessonTemp.lessonName,
-                               lessonFullName: editedLessonTemp.lessonFullName,
-                               lessonNumber: String(i + 1),
-                               lessonRoom: editedLessonTemp.lessonRoom,
-                               lessonType: editedLessonTemp.lessonType,
-                               teacherName: editedLessonTemp.teacherName,
-                               lessonWeek: editedLessonTemp.lessonWeek,
-                               timeStart: timeStartEdited,
-                               timeEnd: timeEndEdited,
-                               rate: editedLessonTemp.rate,
-                               teachers: editedLessonTemp.teachers,
-                               rooms: editedLessonTemp.rooms,
-                               groups: editedLessonTemp.groups)
+//    let editedLesson = Lesson( id: editedLessonTemp.id,
+//                               dayNumber: editedLessonTemp.dayNumber,
+//                               groupID: editedLessonTemp.groupID,
+//                               dayName: editedLessonTemp.dayName,
+//                               lessonName: editedLessonTemp.lessonName,
+//                               lessonFullName: editedLessonTemp.lessonFullName,
+//                               lessonNumber: String(i + 1),
+//                               lessonRoom: editedLessonTemp.lessonRoom,
+//                               lessonType: editedLessonTemp.lessonType,
+//                               teacherName: editedLessonTemp.teacherName,
+//                               lessonWeek: editedLessonTemp.lessonWeek,
+//                               timeStart: timeStartEdited,
+//                               timeEnd: timeEndEdited,
+//                               rate: editedLessonTemp.rate,
+//                               teachers: editedLessonTemp.teachers,
+//                               rooms: editedLessonTemp.rooms,
+//                               groups: editedLessonTemp.groups)
+    
+    let editedLesson = Lesson(id: editedLessonTemp.id,
+                              dayNumber: editedLessonTemp.dayNumber,
+                              lessonNumber: i + 1,
+                              lessonWeek: editedLessonTemp.lessonWeek,
+                              groupID: editedLessonTemp.groupID,
+                              dayName: editedLessonTemp.dayName,
+                              lessonType: editedLessonTemp.lessonType,
+                              lessonName: editedLessonTemp.lessonName,
+                              lessonFullName: editedLessonTemp.lessonFullName,
+                              lessonRoom: editedLessonTemp.lessonRoom,
+                              teacherName: editedLessonTemp.teacherName,
+                              timeStart: timeStartEdited,
+                              timeEnd: timeEndEdited,
+                              rate: editedLessonTemp.rate,
+                              teacher: editedLessonTemp.teacher,
+                              room: editedLessonTemp.room,
+                              groups: editedLessonTemp.groups)
     
     fullDayLessons.insert(editedLesson, at: i)
 

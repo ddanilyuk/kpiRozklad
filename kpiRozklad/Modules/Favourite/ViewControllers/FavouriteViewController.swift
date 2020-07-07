@@ -73,7 +73,7 @@ class FavouriteViewController: UIViewController {
         cell.startLoadingCellIndicator()
         
         let isGroup = group != nil ? true : false
-        let serverLessons: Promise<[Lesson]> = isGroup ? API.getStudentLessons(forGroupWithId: group?.groupID ?? 0) : API.getTeacherLessons(forTeacherWithId: Int(teacher?.teacherID ?? "") ?? 0)
+        let serverLessons: Promise<[Lesson]> = isGroup ? API.getStudentLessons(forGroupWithId: group?.groupID ?? 0) : API.getTeacherLessons(forTeacherWithId: teacher?.teacherID ?? 0)
         
         serverLessons.done({ [weak self] (lessons) in
             guard let this = self else { return }
@@ -158,7 +158,7 @@ extension FavouriteViewController: UITableViewDelegate, UITableViewDataSource {
             
             getGroupOrTeacherLesson(group: group, teacher: nil, indexPath: indexPath)
         } else {
-            let teacher = Teacher(teacherID: String(favourites.favouriteTeachersID[indexPath.row]), teacherName: favourites.favouriteTeachersNames[indexPath.row], teacherFullName: favourites.favouriteTeachersNames[indexPath.row], teacherShortName: "", teacherURL: "", teacherRating: "")
+            let teacher = Teacher(teacherID: favourites.favouriteTeachersID[indexPath.row], teacherURL: "", teacherName: favourites.favouriteTeachersNames[indexPath.row], teacherFullName: favourites.favouriteTeachersNames[indexPath.row], teacherShortName: "", teacherRating: "")
             getGroupOrTeacherLesson(group: nil, teacher: teacher, indexPath: indexPath)
         }
         

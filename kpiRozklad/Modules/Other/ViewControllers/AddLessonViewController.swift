@@ -17,14 +17,14 @@ class AddLessonViewController: UIViewController {
     var serverLessons: [Lesson] = []
     
     /// Current week from seque
-    var currentWeek: Int = 0
+    var currentWeek: WeekType = .first
     
     /// Unical lessons without repeating
     var unicalLessons: [Lesson] = []
     
     /// IDs from unical lessons
     /// - Note: used for creating new unical lesson ID
-    var unicalIDs: [String] = []
+    var unicalIDs: [Int] = []
     
     /// Unical `lesson.lessonName` from `unicalLessons`
     /// - Note: calls in `getUnicalLessons()`
@@ -135,7 +135,7 @@ class AddLessonViewController: UIViewController {
         var array = ["1 пара", "2 пара", "3 пара", "4 пара", "5 пара", "6 пара"]
 
         for lesson in lessons {
-            if Int(lesson.dayNumber) ?? 0 == dayNumber && Int(lesson.lessonWeek) == currentWeek {
+            if lesson.dayNumber == dayNumber && lesson.lessonWeek == currentWeek {
                 if let index = array.firstIndex(of: "\(lesson.lessonNumber) пара") {
                     array.remove(at: index)
                 }
@@ -180,7 +180,7 @@ class AddLessonViewController: UIViewController {
     func getUnicalIDs(lessons: [Lesson]) {
         unicalIDs = []
         for lesson in unicalLessons {
-            unicalIDs.append(lesson.lessonID)
+            unicalIDs.append(lesson.id)
         }
     }
     
@@ -221,28 +221,30 @@ class AddLessonViewController: UIViewController {
         let timeEnd = time.timeEnd
         
         /// Randoming ID which is not already exist
-        var ID = Int.random(in: 0 ..< 9999)
-        while unicalIDs.contains(String(ID)) {
-            ID = Int.random(in: 0 ..< 9999)
+        var newID = Int.random(in: 0 ..< 9999)
+        while unicalIDs.contains(newID) {
+            newID = Int.random(in: 0 ..< 9999)
         }
         
         /// Creating new Lesson
-        let newLesson = Lesson(lessonID: String(ID),
-                               dayNumber: String(dayNumber),
+        let newLesson = Lesson(id: sameLessonButInDifferentTime.id,
+                               dayNumber: dayNumber,
+                               lessonNumber: lessonNumber,
+                               lessonWeek: currentWeek,
                                groupID: sameLessonButInDifferentTime.groupID,
                                dayName: lessonDay,
+                               lessonType: lessonType,
                                lessonName: sameLessonButInDifferentTime.lessonName,
                                lessonFullName: sameLessonButInDifferentTime.lessonFullName,
-                               lessonNumber: String(lessonNumber),
                                lessonRoom: sameLessonButInDifferentTime.lessonRoom,
-                               lessonType: lessonType,
                                teacherName: sameLessonButInDifferentTime.teacherName,
-                               lessonWeek: String(currentWeek),
                                timeStart: timeStart,
                                timeEnd: timeEnd,
                                rate: sameLessonButInDifferentTime.rate,
-                               teachers: sameLessonButInDifferentTime.teachers,
-                               rooms: sameLessonButInDifferentTime.rooms, groups: [])
+                               teacher: sameLessonButInDifferentTime.teacher,
+                               room: sameLessonButInDifferentTime.room,
+                               groups: sameLessonButInDifferentTime.groups)
+        
         
         /// Appending to `lessons` which will used in updateCoreData(datum: lessons)
         lessons.append(newLesson)

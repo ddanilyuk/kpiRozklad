@@ -35,34 +35,31 @@ struct Provider: TimelineProvider {
 
         let arrayWithLessonsToShow = getArrayWithNextTwoLessons(dayNumberFromCurrentDate: dayNumberFromCurrentDate, currentWeekFromTodayDate: currentWeekFromTodayDate)
         
-        // Entries with array.count == 2
-        let entries = [LessonsEntry(date: Date(), lessons: arrayWithLessonsToShow)]
+        
         
         // Update timeline options
-        var dateToUpdate = Date()
-        if arrayWithLessonsToShow[0].dayNumber == dayNumberFromCurrentDate {
-            let lessonDateStartAndEnd = getDate(lesson: arrayWithLessonsToShow[0])
+        var entries = [LessonsEntry(date: Date(), lessons: arrayWithLessonsToShow)]
             
-            if dateToUpdate < lessonDateStartAndEnd.dateStart {
-                dateToUpdate = lessonDateStartAndEnd.dateStart
-            } else {
-                dateToUpdate = lessonDateStartAndEnd.dateEnd
-            }
-        } else {
-            dateToUpdate = Date.tomorrow
+        var dateToUpdate = Date.tomorrow
+        
+        if arrayWithLessonsToShow[0].dayNumber == dayNumberFromCurrentDate {
+            entries.append(LessonsEntry(date: getDate(lesson: arrayWithLessonsToShow[0]).dateStart, lessons: arrayWithLessonsToShow))
+            entries.append(LessonsEntry(date: getDate(lesson: arrayWithLessonsToShow[0]).dateEnd, lessons: arrayWithLessonsToShow))
+            dateToUpdate = getDate(lesson: arrayWithLessonsToShow[0]).dateEnd
         }
-
-        
-        print("updated TIMELINE", Date())
-        print("need to update:", dateToUpdate)
-        
+                
         let timeline = Timeline(entries: entries, policy: .after(dateToUpdate))
+        
         completion(timeline)
     }
     
     
     func getArrayWithNextTwoLessons(dayNumberFromCurrentDate: Int, currentWeekFromTodayDate: WeekType) -> [Lesson] {
         guard let lessonsCoreData = try? managedObjectContext.fetch(NSFetchRequest<NSFetchRequestResult>(entityName: "LessonData")) as? [LessonData] else { return Lesson.defaultArratOfLesson }
+        
+        if lessonsCoreData.count < 3 {
+            return Lesson.defaultArratOfLesson
+        }
         
         var lessonsFromCoreData: [Lesson] = []
         

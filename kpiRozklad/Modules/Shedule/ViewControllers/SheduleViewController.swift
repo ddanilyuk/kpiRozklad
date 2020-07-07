@@ -162,7 +162,7 @@ class SheduleViewController: UIViewController {
         /// Presenting `GroupChooserViewController` if `settings.groupName == ""`
         presentGroupOrTeacherChooser(requestType: settings.sheduleType)
         
-        /// Setup navigationVC  and title
+        /// Setup navigationVC and title
         setupNavigation()
         
         /// TableView delegate, dataSource, registration cell
@@ -232,7 +232,9 @@ class SheduleViewController: UIViewController {
         isEditInserts = true
         
         
-        
+        print("updated TIMELINE", Date())
+        print("updated TIMELINE noon", Date().noon)
+        print("Date.tomorrow", Date.tomorrow)
         
 //        let session = WCSession.default
 

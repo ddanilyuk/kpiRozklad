@@ -224,6 +224,7 @@
 		5FE40E55248CF1DA000D2899 /* CoreDataHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FE0486A2393087900092422 /* CoreDataHelpers.swift */; };
 		5FE9678324091880000AD157 /* TeachersNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FE9678224091880000AD157 /* TeachersNavigationController.swift */; };
 		5FE96785240F0C22000AD157 /* SheduleDetailNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FE96784240F0C22000AD157 /* SheduleDetailNavigationController.swift */; };
+		5FF204D424B4F76F00B52FCB /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F4457E32376FB05008F9E21 /* Settings.swift */; };
 		90A353C4EB2D15AEC0D9F8D1 /* Pods_kpiRozklad.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 25B70702B56A794A30F2DB1A /* Pods_kpiRozklad.framework */; };
 		D300F1D62364CEA30098CA83 /* GroupsAndTeachersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D300F1D52364CEA30098CA83 /* GroupsAndTeachersViewController.swift */; };
 		D300F1DA2364CF490098CA83 /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D300F1D92364CF490098CA83 /* SettingsTableViewController.swift */; };
@@ -1408,6 +1409,7 @@
 				5F76321324B252480022C952 /* GroupData+CoreDataProperties.swift in Sources */,
 				5F76322824B252700022C952 /* Meta.swift in Sources */,
 				5F76321B24B252480022C952 /* GroupData+CoreDataClass.swift in Sources */,
+				5FF204D424B4F76F00B52FCB /* Settings.swift in Sources */,
 				5F76323124B253090022C952 /* kpiRozkladModel.xcdatamodeld in Sources */,
 				5F76321224B252480022C952 /* CoreDataStack.swift in Sources */,
 				5F76323424B253CA0022C952 /* String+Extensions.swift in Sources */,

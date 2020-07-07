@@ -13,13 +13,17 @@ struct WidgetView: View {
     
     var lessons: [Lesson]
     
+    var settings = Settings.shared
+    
     init(lessons: [Lesson]) {
         self.lessons = lessons
     }
     
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
-            Text("ІВ-82")
+            let name = settings.sheduleType == .groups ? settings.groupName.uppercased() : settings.teacherName.uppercased()
+            
+            Text("\(name != "" ? name : "Розклад")")
                 .font(.headline)
                 .padding(.leading, 30)
                 .padding(.top, 8)

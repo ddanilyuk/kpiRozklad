@@ -160,11 +160,11 @@ extension SheduleViewController: UITableViewDelegate, UITableViewDataSource {
         cell.roomLabel.textColor = colourTextLabel
         cell.lessonLabel.textColor = colourTextLabel
         
-        if currentLessonId == lesson.lessonID {
+        if currentLessonId == lesson.id {
             setupCurrentOrNextLessonCell(cell: cell, cellType: .currentCell)
         }
         
-        if nextLessonId == lesson.lessonID {
+        if nextLessonId == lesson.id {
             setupCurrentOrNextLessonCell(cell: cell, cellType: .nextCell)
         }
         
@@ -193,7 +193,7 @@ extension SheduleViewController: UITableViewDelegate, UITableViewDataSource {
             /// deleting from `lessons`  which will be used for further updates in `updateCoreData(datum: lessons)`
             for i in 0..<lessons.count {
                 let lessonAll = lessons[i]
-                if lessonAll.lessonID == lesson.lessonID {
+                if lessonAll.id == lesson.id {
                     lessons.remove(at: i)
                     break
                 }

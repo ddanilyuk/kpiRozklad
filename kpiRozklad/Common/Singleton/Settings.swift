@@ -9,7 +9,7 @@
 import UIKit
 
 public class Settings {
-    private var userDefaults = UserDefaults.standard
+//    private var userDefaults = UserDefaults.standard
     private var userDefaultsWidget = UserDefaults(suiteName: "group.kpiRozkladWidget") ?? UserDefaults()
 
      
@@ -17,108 +17,104 @@ public class Settings {
      
     var isTryToRefreshShedule: Bool {
         get {
-            return userDefaults.bool(forKey: "isTryToRefreshShedule")
+            return userDefaultsWidget.bool(forKey: "isTryToRefreshShedule")
         }
         set {
-            userDefaults.set(newValue, forKey: "isTryToRefreshShedule")
+            userDefaultsWidget.set(newValue, forKey: "isTryToRefreshShedule")
         }
     }
     
     var groupName: String {
         get {
-            return userDefaults.string(forKey: "groupName") ?? ""
+            return userDefaultsWidget.string(forKey: "groupName") ?? ""
         }
         set {
-            userDefaults.set(newValue, forKey: "groupName")
+            userDefaultsWidget.set(newValue, forKey: "groupName")
         }
     }
     
     var groupID: Int {
         get {
-            return userDefaults.integer(forKey: "groupID")
+            return userDefaultsWidget.integer(forKey: "groupID")
         }
         set {
-            userDefaults.set(newValue, forKey: "groupID")
+            userDefaultsWidget.set(newValue, forKey: "groupID")
         }
     }
     
     var teacherName: String {
         get {
-            return userDefaults.string(forKey: "teacherName") ?? ""
+            return userDefaultsWidget.string(forKey: "teacherName") ?? ""
         }
         set {
-            userDefaults.set(newValue, forKey: "teacherName")
+            userDefaultsWidget.set(newValue, forKey: "teacherName")
         }
     }
     
     var teacherID: Int {
         get {
-            return userDefaults.integer(forKey: "teacherID")
+            return userDefaultsWidget.integer(forKey: "teacherID")
         }
         set {
-            userDefaults.set(newValue, forKey: "teacherID")
+            userDefaultsWidget.set(newValue, forKey: "teacherID")
         }
     }
     
     var sheduleUpdateTime: String {
         get {
-            return userDefaults.string(forKey: "sheduleUpdateTime") ?? ""
+            return userDefaultsWidget.string(forKey: "sheduleUpdateTime") ?? ""
         }
         set {
-            userDefaults.set(newValue, forKey: "sheduleUpdateTime")
+            userDefaultsWidget.set(newValue, forKey: "sheduleUpdateTime")
         }
     }
     
     var updateRozkladAfterVersion106: Bool {
         get {
-            return userDefaults.bool(forKey: "updateRozkladAfterVersion106")
+            return userDefaultsWidget.bool(forKey: "updateRozkladAfterVersion106")
         }
         set {
-            userDefaults.set(newValue, forKey: "updateRozkladAfterVersion106")
+            userDefaultsWidget.set(newValue, forKey: "updateRozkladAfterVersion106")
         }
     }
     
     var isShowGreetings: Bool {
         get {
-            return userDefaults.bool(forKey: "isShowGreetings")
+            return userDefaultsWidget.bool(forKey: "isShowGreetings")
         }
         set {
-            userDefaults.set(newValue, forKey: "isShowGreetings")
+            userDefaultsWidget.set(newValue, forKey: "isShowGreetings")
         }
     }
     
     var sheduleType: SheduleType {
         get {
-            return userDefaults.bool(forKey: "isGroupsShedule") ? .groups : .teachers
+            return userDefaultsWidget.bool(forKey: "isGroupsShedule") ? .groups : .teachers
         }
         set {
             if newValue == .groups {
-                userDefaults.set(true, forKey: "isGroupsShedule")
+                userDefaultsWidget.set(true, forKey: "isGroupsShedule")
             } else {
-                userDefaults.set(false, forKey: "isGroupsShedule")
+                userDefaultsWidget.set(false, forKey: "isGroupsShedule")
             }
         }
     }
     
     var cellNextColour: UIColor {
         get {
-            var color = try? NSKeyedUnarchiver.unarchivedObject(ofClass: UIColor.self, from: userDefaults.data(forKey: "cellNextColour") ?? Data())
-            
-            if color == nil {
-                color = try? NSKeyedUnarchiver.unarchivedObject(ofClass: UIColor.self, from: userDefaultsWidget.data(forKey: "cellNextColour") ?? Data())
+            let color = try? NSKeyedUnarchiver.unarchivedObject(ofClass: UIColor.self, from: userDefaultsWidget.data(forKey: "cellNextColour") ?? Data())
                 
-            }
             return color ?? #colorLiteral(red: 0, green: 0.568627451, blue: 0.9176470588, alpha: 1)
         }
         
         set {
             var colorData: NSData?
+            
             do {
                 colorData = try NSKeyedArchiver.archivedData(withRootObject: newValue, requiringSecureCoding: false) as NSData?
-            } catch {
+            } catch let error {
+                print(error.localizedDescription)
             }
-
-            userDefaults.set(colorData, forKey: "cellNextColour")
             userDefaultsWidget.set(colorData, forKey: "cellNextColour")
         }
     }
@@ -126,11 +122,8 @@ public class Settings {
     
     var cellCurrentColour: UIColor {
         get {
-            var color = try? NSKeyedUnarchiver.unarchivedObject(ofClass: UIColor.self, from: userDefaults.data(forKey: "cellNowColour") ?? Data())
-            if color == nil {
-                color = try? NSKeyedUnarchiver.unarchivedObject(ofClass: UIColor.self, from: userDefaultsWidget.data(forKey: "cellNowColour") ?? Data())
-                
-            }
+            let color = try? NSKeyedUnarchiver.unarchivedObject(ofClass: UIColor.self, from: userDefaultsWidget.data(forKey: "cellNowColour") ?? Data())
+
             return color ?? UIColor.orange
         }
         
@@ -138,10 +131,11 @@ public class Settings {
             var colorData: NSData?
             do {
                 colorData = try NSKeyedArchiver.archivedData(withRootObject: newValue, requiringSecureCoding: false) as NSData?
-            } catch {
+            } catch let error {
+                print(error.localizedDescription)
             }
 
-            userDefaults.set(colorData, forKey: "cellNowColour")
+//            userDefaults.set(colorData, forKey: "cellNowColour")
             userDefaultsWidget.set(colorData, forKey: "cellNowColour")
         }
     }

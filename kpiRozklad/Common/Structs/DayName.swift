@@ -9,7 +9,8 @@
 import UIKit
 
 
-enum DayName: String, Codable, Comparable, CaseIterable {
+public enum DayName: String, Codable, Comparable, CaseIterable, Hashable {
+    
     case mounday = "Понеділок"
     case tuesday = "Вівторок"
     case wednesday = "Середа"
@@ -17,7 +18,7 @@ enum DayName: String, Codable, Comparable, CaseIterable {
     case friday = "П’ятниця"
     case saturday = "Субота"
     
-
+    
     private var sortOrder: Int {
         switch self {
         case .mounday:
@@ -54,11 +55,11 @@ enum DayName: String, Codable, Comparable, CaseIterable {
         }
     }
 
-    static func ==(lhs: DayName, rhs: DayName) -> Bool {
+    public static func ==(lhs: DayName, rhs: DayName) -> Bool {
         return lhs.sortOrder == rhs.sortOrder
     }
 
-    static func <(lhs: DayName, rhs: DayName) -> Bool {
+    public static func <(lhs: DayName, rhs: DayName) -> Bool {
        return lhs.sortOrder < rhs.sortOrder
     }
     

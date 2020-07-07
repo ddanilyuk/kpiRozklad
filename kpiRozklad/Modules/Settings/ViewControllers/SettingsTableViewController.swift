@@ -344,7 +344,7 @@ class SettingsTableViewController: UITableViewController {
             cell.stopLoadingCellIndicator()
             
             sheduleVC.isFromSettingsGetFreshShedule = true
-            sheduleVC.currentWeek = 1
+            sheduleVC.currentWeek = .first
             sheduleVC.lessonsFromSegue = lessons
             sheduleVC.navigationItem.title = Settings.shared.groupName.uppercased()
 

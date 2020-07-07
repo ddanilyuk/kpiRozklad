@@ -40,7 +40,7 @@ class InterfaceController: WKInterfaceController {
      - Remark:
         Set  up in `setupDate()`
      */
-    var currentWeekFromTodayDate = 1
+    var currentWeekFromTodayDate: WeekType = .first
     
     /// Week of year from date on the device
     var weekOfYear = 0
@@ -56,14 +56,14 @@ class InterfaceController: WKInterfaceController {
      - Remark:
         Updated in `makeLessonShedule()` but makes in `getCurrentAndNextLesson(lessons: [Lesson])`
      */
-    var currentLessonId = String()
+    var currentLessonId: Int = 0
     
     /**
      Lesson ID of **next** Lesson
      - Remark:
         Updated in `makeLessonShedule()` but makes in `getCurrentAndNextLesson(lessons: [Lesson])`
      */
-    var nextLessonId = String()
+    var nextLessonId: Int = 0
     
     
     var isGreetingOnScreen: Bool = false
@@ -124,7 +124,7 @@ class InterfaceController: WKInterfaceController {
             tableView.curvesAtBottom = false
         }
 
-        setupTableView(week: "1")
+        setupTableView(week: .first)
         setInterfaceTitle("1 тиждень")
         tableView.scrollToRow(at: 0)
     }
@@ -136,7 +136,7 @@ class InterfaceController: WKInterfaceController {
             tableView.curvesAtBottom = false
         }
         
-        setupTableView(week: "2")
+        setupTableView(week: .second)
         setInterfaceTitle("2 тиждень")
         tableView.scrollToRow(at: 0)
     }
@@ -162,7 +162,7 @@ class InterfaceController: WKInterfaceController {
     // MARK: - Table functions
     
     private func setupTableViewForToday() {
-        let lessonsForToday = lessons.filter { return $0.lessonWeek == String(currentWeekFromTodayDate) && $0.dayNumber == String(dayNumberFromCurrentDate) }
+        let lessonsForToday = lessons.filter { return $0.lessonWeek == currentWeekFromTodayDate && $0.dayNumber == dayNumberFromCurrentDate }
         
         selectedLessons = lessonsForToday
         selectedLessons.insert(nil, at: 0)
@@ -218,9 +218,9 @@ class InterfaceController: WKInterfaceController {
                         let lesson = lessonsForToday[index - 1]
                         tableRow.lesson = lesson
                         
-                        if currentLessonId == lesson.lessonID {
+                        if currentLessonId == lesson.id {
                             setupCurrentOrNextLessonRow(row: tableRow, cellType: .currentCell)
-                        } else if nextLessonId == lesson.lessonID {
+                        } else if nextLessonId == lesson.id {
                             setupCurrentOrNextLessonRow(row: tableRow, cellType: .nextCell)
                         }
                     }
@@ -230,7 +230,7 @@ class InterfaceController: WKInterfaceController {
         }
     }
     
-    private func setupTableView(week: String) {
+    private func setupTableView(week: WeekType) {
 
         setupDate()
         (nextLessonId, currentLessonId) = getCurrentAndNextLesson(lessons: lessons, timeIsNowString: timeIsNowString, dayNumberFromCurrentDate: dayNumberFromCurrentDate, currentWeekFromTodayDate: currentWeekFromTodayDate)
@@ -284,9 +284,9 @@ class InterfaceController: WKInterfaceController {
                 tableRow.lesson = lesson
                 selectedLessons.append(lesson)
 
-                if currentLessonId == lesson.lessonID {
+                if currentLessonId == lesson.id {
                     setupCurrentOrNextLessonRow(row: tableRow, cellType: .currentCell)
-                } else if nextLessonId == lesson.lessonID {
+                } else if nextLessonId == lesson.id {
                     setupCurrentOrNextLessonRow(row: tableRow, cellType: .nextCell)
                 }
                 lessonCounter += 1

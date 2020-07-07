@@ -74,14 +74,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             guard let sheduleVC : SheduleViewController = mainStoryboard.instantiateViewController(withIdentifier: SheduleViewController.identifier) as? SheduleViewController else { return }
             
             k: for i in 1..<3 {
-                sheduleVC.currentWeek = i
+                sheduleVC.currentWeek = WeekType(rawValue: String(i)) ?? .first
                 sheduleVC.isNeedToScroll = false
                 sheduleVC.makeLessonsShedule()
                 let lessonsForTableView = sheduleVC.lessonsForTableView
                 for day in lessonsForTableView {
                     let lessons = day.lessons
                     for lesson in lessons {
-                        if lesson.lessonID == needID {
+                        if lesson.id == Int(needID ?? "0") ?? 0 {
                             
                             guard let sheduleDetailVC: SheduleDetailViewController = mainStoryboard.instantiateViewController(withIdentifier: SheduleDetailViewController.identifier) as? SheduleDetailViewController else { return }
                             
@@ -124,7 +124,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
          application to it. This property is optional since there are legitimate
          error conditions that could cause the creation of the store to fail.
         */
-        let container = NSCustomPersistentContainer(name: "kpiRozklad")
+        let container = NSCustomPersistentContainer(name: "kpiRozkladModel")
         container.loadPersistentStores(completionHandler: { (storeDescription, error) in
             if let error = error as NSError? {
                 // Replace this implementation with code to handle the error appropriately.

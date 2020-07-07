@@ -19,9 +19,9 @@ struct WelcomeTeachers: Codable {
 }
 
 // MARK: - Datum
-struct Teacher: Codable {
-    let teacherID, teacherName, teacherFullName, teacherShortName: String
-    let teacherURL: String
+public struct Teacher: Codable, Hashable {
+    let teacherID: Int
+    let teacherURL, teacherName, teacherFullName, teacherShortName: String
     let teacherRating: String
 
     enum CodingKeys: String, CodingKey {
@@ -31,5 +31,23 @@ struct Teacher: Codable {
         case teacherShortName = "teacher_short_name"
         case teacherURL = "teacher_url"
         case teacherRating = "teacher_rating"
+    }
+}
+
+extension Teacher {
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: CodingKeys.self)
+        
+        // Strings
+        teacherURL = try values.decode(String.self, forKey: .teacherURL)
+        teacherName = try values.decode(String.self, forKey: .teacherName)
+        teacherFullName = try values.decode(String.self, forKey: .teacherFullName)
+        teacherShortName = try values.decode(String.self, forKey: .teacherShortName)
+        teacherRating = try values.decode(String.self, forKey: .teacherRating)
+        
+        guard let idCasted = try Int(values.decode(String.self, forKey: .teacherID)) else {
+            throw DecodingError.dataCorrupted(.init(codingPath: [CodingKeys.teacherID], debugDescription: "Expecting string representation of Int"))
+        }
+        teacherID = idCasted
     }
 }

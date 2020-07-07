@@ -55,6 +55,7 @@ struct LessonRow: View {
                 Spacer(minLength: 0)
                 
                 TimeView(lesson: lesson)
+                    .frame(width: 150)
 
             }
 
@@ -76,10 +77,8 @@ struct TimeView: View {
             textWithTime.text
                 .foregroundColor(textWithTime.color)
                 .padding(.trailing, 10)
-//                        .frame(width: 80)
             
         }
-        .frame(width: 150)
         .font(.system(.footnote, design: .monospaced))
     }
     

@@ -67,6 +67,7 @@
 		5F3D8C132493FD5300308AC9 /* Enums.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FD5B7142422171900B86FB7 /* Enums.swift */; };
 		5F3D8C152493FD5300308AC9 /* DetailedInterfaceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F3D8C142493FD5300308AC9 /* DetailedInterfaceController.swift */; };
 		5F4457E42376FB05008F9E21 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F4457E32376FB05008F9E21 /* Settings.swift */; };
+		5F4489A024B52EA000EF86D4 /* WidgetViewSmall.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F44899F24B52E0C00EF86D4 /* WidgetViewSmall.swift */; };
 		5F46AD5E23FEC43500B145D5 /* FavouriteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F46AD5D23FEC43500B145D5 /* FavouriteViewController.swift */; };
 		5F46AD6523FFD66E00B145D5 /* GroupsNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F46AD6423FFD66E00B145D5 /* GroupsNavigationController.swift */; };
 		5F46AD682401A0F700B145D5 /* Favourites.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F46AD672401A0F700B145D5 /* Favourites.swift */; };
@@ -120,7 +121,7 @@
 		5F76322B24B252990022C952 /* LessonRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F76322A24B252990022C952 /* LessonRow.swift */; };
 		5F76322D24B252B10022C952 /* WidgetHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F76322C24B252B10022C952 /* WidgetHelpers.swift */; };
 		5F76322E24B252D90022C952 /* Date+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F506EE3248ED0CC00B6F544 /* Date+Extensions.swift */; };
-		5F76323024B252F40022C952 /* WidgetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F76322F24B252F30022C952 /* WidgetView.swift */; };
+		5F76323024B252F40022C952 /* WidgetViewMedium.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F76322F24B252F30022C952 /* WidgetViewMedium.swift */; };
 		5F76323124B253090022C952 /* kpiRozkladModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 5F6A08042370A175000A9C79 /* kpiRozkladModel.xcdatamodeld */; };
 		5F76323424B253CA0022C952 /* String+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FCBB9FC241C404F00E7654F /* String+Extensions.swift */; };
 		5F7BABBF23A163C8009E3CA6 /* ErrorMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F7BABBE23A163C8009E3CA6 /* ErrorMessage.swift */; };
@@ -340,6 +341,7 @@
 		5F305C76242260560035B509 /* SheduleVC+UITableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SheduleVC+UITableView.swift"; sourceTree = "<group>"; };
 		5F3D8C142493FD5300308AC9 /* DetailedInterfaceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailedInterfaceController.swift; sourceTree = "<group>"; };
 		5F4457E32376FB05008F9E21 /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
+		5F44899F24B52E0C00EF86D4 /* WidgetViewSmall.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetViewSmall.swift; sourceTree = "<group>"; };
 		5F46AD5D23FEC43500B145D5 /* FavouriteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouriteViewController.swift; sourceTree = "<group>"; };
 		5F46AD6423FFD66E00B145D5 /* GroupsNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupsNavigationController.swift; sourceTree = "<group>"; };
 		5F46AD672401A0F700B145D5 /* Favourites.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Favourites.swift; sourceTree = "<group>"; };
@@ -359,7 +361,7 @@
 		5F76320224B251F90022C952 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5F76322A24B252990022C952 /* LessonRow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LessonRow.swift; sourceTree = "<group>"; };
 		5F76322C24B252B10022C952 /* WidgetHelpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WidgetHelpers.swift; sourceTree = "<group>"; };
-		5F76322F24B252F30022C952 /* WidgetView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WidgetView.swift; sourceTree = "<group>"; };
+		5F76322F24B252F30022C952 /* WidgetViewMedium.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WidgetViewMedium.swift; sourceTree = "<group>"; };
 		5F76323224B2534C0022C952 /* kpiRozkladWidget.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = kpiRozkladWidget.entitlements; sourceTree = "<group>"; };
 		5F76323324B253730022C952 /* kpiRozkladWidgetExtensionDebug.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = kpiRozkladWidgetExtensionDebug.entitlements; sourceTree = "<group>"; };
 		5F7BABBE23A163C8009E3CA6 /* ErrorMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorMessage.swift; sourceTree = "<group>"; };
@@ -614,7 +616,8 @@
 		5F7631FD24B251F90022C952 /* kpiRozkladWidget */ = {
 			isa = PBXGroup;
 			children = (
-				5F76322F24B252F30022C952 /* WidgetView.swift */,
+				5F44899F24B52E0C00EF86D4 /* WidgetViewSmall.swift */,
+				5F76322F24B252F30022C952 /* WidgetViewMedium.swift */,
 				5F76322A24B252990022C952 /* LessonRow.swift */,
 				5F76322C24B252B10022C952 /* WidgetHelpers.swift */,
 				5F7631FE24B251F90022C952 /* kpiRozkladWidget.swift */,
@@ -1392,10 +1395,11 @@
 				5F76322B24B252990022C952 /* LessonRow.swift in Sources */,
 				5F76322D24B252B10022C952 /* WidgetHelpers.swift in Sources */,
 				5F76321524B252480022C952 /* CoreDataHelpers.swift in Sources */,
+				5F4489A024B52EA000EF86D4 /* WidgetViewSmall.swift in Sources */,
 				5F76322E24B252D90022C952 /* Date+Extensions.swift in Sources */,
 				5F76322224B252700022C952 /* LessonType.swift in Sources */,
 				5F76322324B252700022C952 /* Teacher.swift in Sources */,
-				5F76323024B252F40022C952 /* WidgetView.swift in Sources */,
+				5F76323024B252F40022C952 /* WidgetViewMedium.swift in Sources */,
 				5F76321424B252480022C952 /* TeachersData+CoreDataProperties.swift in Sources */,
 				5F76322124B252700022C952 /* JSONNull.swift in Sources */,
 				5F76321624B252480022C952 /* RoomsData+CoreDataClass.swift in Sources */,

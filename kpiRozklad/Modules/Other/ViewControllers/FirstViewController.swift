@@ -10,9 +10,12 @@ import UIKit
 
 class FirstViewController: UIViewController {
 
+    var statusBarStyle = UIStatusBarStyle.lightContent { didSet { setNeedsStatusBarAppearanceUpdate() } }
+    override var preferredStatusBarStyle: UIStatusBarStyle { statusBarStyle }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .milliseconds(200)) {
             guard let vc = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "BoardViewController") as? BoardViewController else { return }
             

@@ -1,5 +1,5 @@
 //
-//  WidgetView.swift
+//  WidgetViewMedium.swift
 //  kpiRozkladSwiftUI
 //
 //  Created by Денис Данилюк on 27.06.2020.
@@ -9,7 +9,7 @@ import SwiftUI
 import WidgetKit
 
 
-struct WidgetView: View {
+struct WidgetViewMedium: View {
     
     var lessons: [Lesson]
     
@@ -21,9 +21,9 @@ struct WidgetView: View {
     
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
-            let name = settings.sheduleType == .groups ? settings.groupName.uppercased() : settings.teacherName.uppercased()
+            let name = settings.groupName.uppercased()
             
-            Text("\(name != "" ? name : "Розклад")")
+            Text("\(name != "" ? name : "Мій розклад")")
                 .font(.headline)
                 .padding(.leading, 30)
                 .padding(.top, 8)
@@ -60,11 +60,11 @@ struct WidgetView: View {
 
 struct WidgetView_Previews: PreviewProvider {
     static var previews: some View {
-//        WidgetView(lessons: Lesson.defaultArratOfLesson)
+//        WidgetViewMedium(lessons: Lesson.defaultArratOfLesson)
 //            .frame(width: 329, height: 155)
 //            .previewLayout(.fixed(width: 329, height: 155))
         
-        WidgetView(lessons: Lesson.defaultArratOfLesson)
+        WidgetViewMedium(lessons: Lesson.defaultArratOfLesson)
             .previewContext(WidgetPreviewContext(family: .systemMedium))
     }
 }

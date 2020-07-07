@@ -137,16 +137,23 @@ struct LessonsEntry: TimelineEntry {
 
 struct PlaceholderView : View {
     var body: some View {
-        WidgetView(lessons: Lesson.defaultArratOfLesson)
+        WidgetViewMedium(lessons: Lesson.defaultArratOfLesson)
     }
 }
 
 
 struct KpiRozkladWidgetEntryView : View {
+    @Environment(\.widgetFamily) var family: WidgetFamily
     var entry: Provider.Entry
 
+    @ViewBuilder
     var body: some View {
-        WidgetView(lessons: entry.lessons)
+        switch family {
+        case .systemSmall: WidgetViewSmall(lessons: entry.lessons)
+        case .systemMedium: WidgetViewMedium(lessons: entry.lessons)
+        default: WidgetViewMedium(lessons: entry.lessons)
+        }
+        
     }
 }
 
@@ -163,7 +170,7 @@ struct kpiRozkladWidget: Widget {
         }
         .configurationDisplayName("Kpi Rozklad Widget")
         .description("Widget with your shedule")
-        .supportedFamilies([.systemMedium])
+        .supportedFamilies([.systemSmall, .systemMedium])
     }
     
     
@@ -197,7 +204,7 @@ struct kpiRozkladWidget: Widget {
 
 struct kpiRozkladWidget_Previews: PreviewProvider {
     static var previews: some View {
-        WidgetView(lessons: Lesson.defaultArratOfLesson)
+        WidgetViewMedium(lessons: Lesson.defaultArratOfLesson)
             .previewContext(WidgetPreviewContext(family: .systemMedium))
     }
 }

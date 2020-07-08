@@ -1,6 +1,6 @@
 //
-//  kpiRozkladWidget.swift
-//  kpiRozkladWidget
+//  KPIRozkladWidget.swift
+//  KPIRozkladWidget
 //
 //  Created by Денис Данилюк on 27.06.2020.
 //
@@ -136,8 +136,15 @@ struct LessonsEntry: TimelineEntry {
 }
 
 struct PlaceholderView : View {
+    @Environment(\.widgetFamily) var family: WidgetFamily
+
+    @ViewBuilder
     var body: some View {
-        WidgetViewMedium(lessons: Lesson.defaultArratOfLesson)
+        switch family {
+        case .systemSmall: WidgetViewSmall(lessons: Lesson.defaultArratOfLesson)
+        case .systemMedium: WidgetViewMedium(lessons: Lesson.defaultArratOfLesson)
+        default: WidgetViewMedium(lessons: Lesson.defaultArratOfLesson)
+        }
     }
 }
 
@@ -153,13 +160,12 @@ struct KpiRozkladWidgetEntryView : View {
         case .systemMedium: WidgetViewMedium(lessons: entry.lessons)
         default: WidgetViewMedium(lessons: entry.lessons)
         }
-        
     }
 }
 
 @main
-struct kpiRozkladWidget: Widget {
-    private let kind: String = "kpiRozkladWidget"
+struct KPIRozkladWidget: Widget {
+    private let kind: String = "KPIRozkladWidget"
 
     public var body: some WidgetConfiguration {
         StaticConfiguration(kind: kind,
@@ -176,11 +182,6 @@ struct kpiRozkladWidget: Widget {
     
     var persistentContainer: NSPersistentContainer = {
         let container = NSCustomPersistentContainer(name: "kpiRozkladModel")
-//        let container = NSPersistentContainer(name: "kpiRozkladData")
-//        let storeURL = URL.storeURL(for: "group.ddanilyuk.kpiRozkladSwiftUI", databaseName: "LessonsData")
-//        let storeDescription = NSPersistentStoreDescription(url: storeURL)
-//        container.persistentStoreDescriptions = [storeDescription]
-
         container.loadPersistentStores(completionHandler: { (storeDescription, error) in
             if let error = error as NSError? {
                 fatalError("Unresolved error \(error), \(error.userInfo)")

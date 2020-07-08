@@ -13,43 +13,44 @@ struct LessonRow: View {
     
     var body: some View {
         VStack {
-            HStack(alignment: .center) {
+            HStack(alignment: .center, spacing: 2.0) {
                 
                 Text(lesson.timeStart.stringTime)
-                    .padding(.leading, 3)
-                    .frame(minWidth: 45, idealWidth: 45, maxWidth: 50, alignment: .center)
-                    .font(.footnote)
+//                    .padding(.leading, 3)
+                    .frame(width: 40, alignment: .center)
+                    .font(.caption)
 
                 Text(lesson.lessonName)
                     .lineLimit(1)
-                    .font(.title2)
-                
+                    .font(.body)
                 
                 Spacer()
             }
                 .padding(.bottom, 0)
             
             
-            HStack(alignment: .center) {
+            HStack(alignment: .center, spacing: 2.0) {
                 Text("")
-                    .padding(.leading, 3)
-                    .frame(minWidth: 45, idealWidth: 45, maxWidth: 50, alignment: .center)
+//                    .padding(.leading, 3)
+                    .frame(width: 40, alignment: .center)
 
                 Text(lesson.teacherName)
-                    .font(.subheadline)
+                    .font(.footnote)
                 
                 Spacer()
             }
             
-            HStack(alignment: .center) {
+            
+            
+            HStack(alignment: .center, spacing: 2.0) {
                 Text(lesson.timeEnd.stringTime)
-                    .padding(.leading, 3)
-                    .frame(minWidth: 45, idealWidth: 45, maxWidth: 50, alignment: .center)
-                    .font(.footnote)
+//                    .padding(.leading, 3)
+                    .frame(width: 40, alignment: .center)
+                    .font(.caption)
 
 
                 Text(lesson.lessonRoom + " " + lesson.lessonType.rawValue)
-                    .font(.subheadline)
+                    .font(.footnote)
 
                 
                 Spacer(minLength: 0)
@@ -76,7 +77,7 @@ struct TimeView: View {
             let textWithTime = getDateToStart(lesson: lesson)
             textWithTime.text
                 .foregroundColor(textWithTime.color)
-                .padding(.trailing, 10)
+                .padding(.trailing, 0)
             
         }
         .font(.system(.footnote, design: .monospaced))

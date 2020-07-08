@@ -58,7 +58,30 @@ public struct Lesson: Codable, Hashable, Identifiable {
         case rate, groups
     }
     
-    static let defaultLesson = Lesson(id: 1, dayNumber: 1, lessonNumber: 12, lessonWeek: WeekType.first, groupID: 123, dayName: DayName.mounday, lessonType: LessonType.лек1, lessonName: "Name", lessonFullName: "Full Name", lessonRoom: "Room", teacherName: "Teacher Name", timeStart: "08:30", timeEnd: "10:25", rate: "rate", teacher: nil, room: nil, groups: nil)
+    static let defaultLesson = Lesson(id: 1,
+                                      dayNumber: 1,
+                                      lessonNumber: 12,
+                                      lessonWeek: WeekType.first,
+                                      groupID: 123,
+                                      dayName: DayName.mounday,
+                                      lessonType: LessonType.лек1,
+                                      lessonName: "Назва предмету",
+                                      lessonFullName: "Повна назва предмету",
+                                      lessonRoom: "301-18",
+                                      teacherName: "ст. вик. Викладач",
+                                      timeStart: "08:30", timeEnd: "10:25",
+                                      rate: "1.123",
+                                      teacher: Teacher(teacherID: 1,
+                                                       teacherURL: "url",
+                                                       teacherName: "Викладач Петро Петрович",
+                                                       teacherFullName: "старший викладач Викладач Петро Петрович",
+                                                       teacherShortName: "Викладач Петро Петрович",
+                                                       teacherRating: "1.123"),
+                                      room: Room(roomID: 1,
+                                                 roomName: "301-18",
+                                                 roomLatitude: "1.123",
+                                                 roomLongitude: "1.123"),
+                                      groups: nil)
     
     static var defaultArratOfLesson: [Lesson] = Array(repeating: defaultLesson, count: 3)
 }

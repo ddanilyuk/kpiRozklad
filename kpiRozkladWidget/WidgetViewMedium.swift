@@ -26,11 +26,12 @@ struct WidgetViewMedium: View {
             Text("\(name != "" ? name : "Мій розклад")")
                 .font(.headline)
                 .padding(.leading, 30)
-                .padding(.top, 8)
-                .padding(.bottom, 2)
+                .padding(.top, -8)
+//                .padding(.bottom, 2)
                 .foregroundColor(.blue)
-                .frame(width: 250, alignment: .leading)
+//                .frame(width: 250, alignment: .leading)
 
+            
             ZStack {
                 Color.clear
 //                Color.purple
@@ -39,20 +40,26 @@ struct WidgetViewMedium: View {
                     .foregroundColor(.init(UIColor.label))
 //                    .foregroundColor(.white)
                     
-                    .padding([.leading, .trailing], 4)
-                    .frame(height: 60)
+//                    .padding([.leading, .trailing], 4)
+//                    .frame(height: 55)
             }
+            
+            Color(UIColor.secondarySystemBackground)
+                .frame(height: 1, alignment: .center)
+            
             ZStack {
                 Color.clear
                 LessonRow(lesson: lessons[1])
                     .foregroundColor(.init(UIColor.label))
-                    .padding([.leading, .trailing], 4)
-                    .frame(height: 60)
+//                    .padding([.leading, .trailing], 4)
+//                    .frame(height: 55)
             }
 
-            Spacer()
+//            Spacer()
         }
-        .padding(.vertical, 8)
+//        .padding(.vertical, 8)
+        .padding(.all, 16)
+
     }
     
     

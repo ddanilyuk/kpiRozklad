@@ -22,39 +22,58 @@ struct WidgetViewSmall: View {
     }
     
     var body: some View {
-        VStack(alignment: .center) {
-            Text("Наступна пара")
+        VStack(alignment: .center, spacing: 0.0) {
+            
+            let dateLesson = getDate(lesson: lesson)
+            let date = Date()
+            let text = dateLesson.dateStart < date && dateLesson.dateEnd > date ? "Зараз" : "Наступна пара"
+            
+            Text(text)
                 .font(.headline)
+
 //                .padding(.bottom, 8)
                 .foregroundColor(.blue)
-                .frame(alignment: .center)
+//                .frame(alignment: .center)
+//            Spacer()
             
-            Spacer()
+            
             VStack(alignment: .leading) {
-                Text(lesson.lessonFullName)
-                    .font(.title2)
-                    .lineLimit(2)
-    //            Spacer()
+//                Spacer(minLength: 0.0)
+                
+                Spacer(minLength: 0.0)
 
-                Text(lesson.teacher?.teacherShortName ?? lesson.teacherName)
-                    .font(.subheadline)
+                Text(lesson.lessonFullName)
+                    .font(.body)
+                    .lineLimit(2)
+                    .lineSpacing(0.0)
+
+                Spacer(minLength: 0.0)
+
+                Text((lesson.teacher?.teacherShortName == "" ? lesson.teacherName : lesson.teacher?.teacherShortName) ?? lesson.teacherName)
+                    .font(.footnote)
                     .lineLimit(1)
+
+                Spacer(minLength: 0.0)
 
 
                 Text(lesson.lessonRoom + " " + lesson.lessonType.rawValue)
-                    .font(.subheadline)
-                
-                Spacer()
+                    .font(.footnote)
+
+                Spacer(minLength: 0.0)
 
                 TimeView(lesson: lesson)
                     .frame(minWidth: 0, maxWidth: .infinity, alignment: .center)
-                
-                
-                    
             }
+//            .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity, alignment: .leading)
+//            .background(Color.red)
 
         }
-        .padding(.all, 8)
+//        .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity, alignment: .topLeading)
+//        .background(Color.green)
+
+//        .padding(.all, 10)
+        .padding(.all, 16)
+
     }
 }
 

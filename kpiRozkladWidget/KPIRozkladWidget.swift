@@ -23,7 +23,7 @@ struct Provider: TimelineProvider {
     func snapshot(with context: Context, completion: @escaping (Entry) -> ()) {
         let entry = LessonsEntry(date: Date(), lessons: Lesson.defaultArratOfLesson)
 //        let (dayNumberFromCurrentDate, currentWeekFromTodayDate) = getTimeAndDayNumAndWeekOfYear()
-//        let arrayWithLessonsToShow = getArrayWithNextTwoLessons(dayNumberFromCurrentDate: dayNumberFromCurrentDate, currentWeekFromTodayDate: currentWeekFromTodayDate)
+//        let arrayWithLessonsToShow = getArrayWithNextTwoLessons(dayNumberFromCurrentDate: dayNumberFromCurrentDate, currentWeekFromTodayDate: currentWeekFromTodayDate, managedObjectContext: managedObjectContext)
 //        let entry = LessonsEntry(date: Date(), lessons: arrayWithLessonsToShow)
         
         completion(entry)
@@ -33,10 +33,9 @@ struct Provider: TimelineProvider {
         
         let (dayNumberFromCurrentDate, currentWeekFromTodayDate) = getTimeAndDayNumAndWeekOfYear()
 
-        let arrayWithLessonsToShow = getArrayWithNextTwoLessons(dayNumberFromCurrentDate: dayNumberFromCurrentDate, currentWeekFromTodayDate: currentWeekFromTodayDate)
+        let arrayWithLessonsToShow = getArrayWithNextTwoLessons(dayNumberFromCurrentDate: dayNumberFromCurrentDate, currentWeekFromTodayDate: currentWeekFromTodayDate, managedObjectContext: managedObjectContext)
         
-        
-        
+    
         // Update timeline options
         var entries = [LessonsEntry(date: Date(), lessons: arrayWithLessonsToShow)]
             
@@ -51,81 +50,7 @@ struct Provider: TimelineProvider {
         let timeline = Timeline(entries: entries, policy: .after(dateToUpdate))
         
         completion(timeline)
-    }
-    
-    
-    func getArrayWithNextTwoLessons(dayNumberFromCurrentDate: Int, currentWeekFromTodayDate: WeekType) -> [Lesson] {
-        guard let lessonsCoreData = try? managedObjectContext.fetch(NSFetchRequest<NSFetchRequestResult>(entityName: "LessonData")) as? [LessonData] else { return Lesson.defaultArratOfLesson }
-        
-        if lessonsCoreData.count < 3 {
-            return Lesson.defaultArratOfLesson
-        }
-        
-        var lessonsFromCoreData: [Lesson] = []
-        
-        lessonsFromCoreData.append(contentsOf: lessonsCoreData.map({
-            $0.wrappedLesson
-        }))
-        
-        let (dayNumberFromCurrentDate, currentWeekFromTodayDate) = getTimeAndDayNumAndWeekOfYear()
-        let (firstNextLessonID, secondNextLessonID) = getNextTwoLessonsID(lessons: lessonsFromCoreData, dayNumberFromCurrentDate: dayNumberFromCurrentDate, currentWeekFromTodayDate: currentWeekFromTodayDate)
-        
-        var arrayWithLessonsToShow: [Lesson] = []
-        if let firstLesson = lessonsFromCoreData.first(where: { return $0.id == firstNextLessonID }),
-           let secondLesson = lessonsFromCoreData.first(where: { return $0.id == secondNextLessonID }) {
-            arrayWithLessonsToShow = [firstLesson, secondLesson]
-        }
-        return arrayWithLessonsToShow
-    }
-    
-    
-    func getNextTwoLessonsID(lessons: [Lesson], dayNumberFromCurrentDate: Int, currentWeekFromTodayDate: WeekType) -> (firstNextLessonID: Int, secondNextLessonID: Int) {
-        
-        // Init values
-        var firstNextLessonID: Int = 0
-        var secondNextLessonID: Int = 0
-
-        // Current date
-        let date = Date()
-        
-        for lessonIndex in 0..<lessons.count {
-            let lesson = lessons[lessonIndex]
-            let (currentLessonsDateStart, currentLessonsDateEnd) = getDate(lesson: lesson)
-            if (currentLessonsDateStart > date || (currentLessonsDateStart < date && currentLessonsDateEnd > date)) && lesson.lessonWeek == currentWeekFromTodayDate && lesson.dayNumber == dayNumberFromCurrentDate {
-                firstNextLessonID = lesson.id
-                
-                if lessonIndex != lessons.count + 1 {
-                    secondNextLessonID = lessons[lessonIndex + 1].id
-                } else {
-                    secondNextLessonID = lessons[0].id
-                }
-                
-                return (firstNextLessonID: firstNextLessonID, secondNextLessonID: secondNextLessonID)
-            }
-            
-        }
-        if firstNextLessonID == 0 && secondNextLessonID == 0 {
-            if currentWeekFromTodayDate == .first {
-                let firstNextLesson = lessons.first { lesson -> Bool in
-                    return lesson.lessonWeek == .second
-                }
-                if let lesson = firstNextLesson {
-                    let index = lessons.firstIndex(of: lesson) ?? 0
-                    if index != lessons.count + 1 {
-                        return (firstNextLessonID: lessons[index].id, secondNextLessonID: lessons[index + 1].id)
-                    }
-                    
-                }
-            } else if currentWeekFromTodayDate == .second {
-                if lessons.count > 1 {
-                    return (firstNextLessonID: lessons[0].id, secondNextLessonID: lessons[1].id)
-                }
-            }
-        }
-        
-        return (firstNextLessonID: firstNextLessonID, secondNextLessonID: secondNextLessonID)
-            
-    }
+    }    
 }
 
 

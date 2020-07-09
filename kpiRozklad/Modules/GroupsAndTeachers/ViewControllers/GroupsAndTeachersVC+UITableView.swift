@@ -37,7 +37,7 @@ extension GroupsAndTeachersViewController: UITableViewDelegate, UITableViewDataS
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: TeacherOrGroupLoadingTableViewCell.identifier, for: indexPath) as? TeacherOrGroupLoadingTableViewCell else { return UITableViewCell() }
         
-        cell.activityIndicator.isHidden = true
+        cell.activityIndicator.stopAndHide()
         
         switch groupAndTeacherControllerType {
         case .isTeachersChooser, .isTeacherViewController:
@@ -67,7 +67,7 @@ extension GroupsAndTeachersViewController: UITableViewDelegate, UITableViewDataS
             let teacher = isSearching ? teachersInSearch[indexPath.row] : teachers[indexPath.row]
             
             settings.teacherName = teacher.teacherName
-            settings.teacherID = Int(teacher.teacherID) ?? 0
+            settings.teacherID = teacher.teacherID
             
             settings.isTryToRefreshShedule = true
             

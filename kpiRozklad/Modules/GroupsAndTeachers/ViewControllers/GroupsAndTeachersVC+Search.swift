@@ -23,8 +23,7 @@ extension GroupsAndTeachersViewController: UISearchResultsUpdating {
             groupsInSearch = []
             teachersInSearch = []
 
-            activityIndicator.isHidden = true
-            activityIndicator.stopAnimating()
+            activityIndicator.stopAndHide()
             
             switch groupAndTeacherControllerType {
             case .isGroupChooser, .isTeachersChooser:
@@ -52,8 +51,7 @@ extension GroupsAndTeachersViewController: UISearchResultsUpdating {
 
             if teachers.count == 0 {
                 tableView.isHidden = true
-                activityIndicator.isHidden = false
-                activityIndicator.startAnimating()
+                activityIndicator.startAndShow()
             }
             
             for teacher in teachers {
@@ -70,8 +68,7 @@ extension GroupsAndTeachersViewController: UISearchResultsUpdating {
 
             if groups.count == 0 {
                 tableView.isHidden = true
-                activityIndicator.isHidden = false
-                activityIndicator.startAnimating()
+                activityIndicator.startAndShow()
             }
             
             for group in groups {

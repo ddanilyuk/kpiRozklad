@@ -15,50 +15,61 @@ struct WidgetViewMedium: View {
     
     var settings = Settings.shared
     
+    let color1: Color = Color(red: 57 / 255, green: 117 / 255, blue: 243 / 255)
+    
+    let color2: Color = Color(red: 117 / 255, green: 210 / 255, blue: 174 / 255)
+    
+//    let color2: Color = Color(red: 89 / 255, green: 166 / 255, blue: 216 / 255)
+
+
+    
     init(lessons: [Lesson]) {
         self.lessons = lessons
     }
     
     var body: some View {
-        VStack(alignment: .leading, spacing: 0) {
-            let name = settings.groupName.uppercased()
+        ZStack {
+            LinearGradient(gradient:
+                                Gradient(colors: [color1, color2]),
+                           startPoint: .leading, endPoint: .trailing)
+                .edgesIgnoringSafeArea(.all)
             
-            Text("\(name != "" ? name : "Мій розклад")")
-                .font(.headline)
-                .padding(.leading, 30)
-                .padding(.top, -8)
-//                .padding(.bottom, 2)
-                .foregroundColor(.blue)
-//                .frame(width: 250, alignment: .leading)
+            Color.black.opacity(0.25)
+                .edgesIgnoringSafeArea(.all)
 
             
-            ZStack {
-                Color.clear
-//                Color.purple
-
+            VStack(alignment: .leading, spacing: 0) {
+                let name = settings.groupName.uppercased()
+                
+                Text("\(name != "" ? name : "Мій розклад")")
+                    .font(.headline)
+                    .padding(.leading, 30)
+                    .padding(.top, -8)
+    //                .padding(.bottom, 2)
+                    .foregroundColor(Color(#colorLiteral(red: 0.9712373614, green: 0.6793045998, blue: 0, alpha: 1)))
+    //                .frame(width: 250, alignment: .leading)
+                
+                Spacer(minLength: 0.0)
+                
                 LessonRow(lesson: lessons[0])
-                    .foregroundColor(.init(UIColor.label))
-//                    .foregroundColor(.white)
-                    
-//                    .padding([.leading, .trailing], 4)
-//                    .frame(height: 55)
-            }
-            
-            Color(UIColor.secondarySystemBackground)
-                .frame(height: 1, alignment: .center)
-            
-            ZStack {
-                Color.clear
-                LessonRow(lesson: lessons[1])
-                    .foregroundColor(.init(UIColor.label))
-//                    .padding([.leading, .trailing], 4)
-//                    .frame(height: 55)
-            }
+//                        .foregroundColor(.init(UIColor.label))
+                    .foregroundColor(.white)
+                
+                Spacer(minLength: 0.0)
+                
+                Color(UIColor.secondarySystemBackground)
+                    .frame(height: 1, alignment: .center)
+                
+                Spacer(minLength: 0.0)
 
-//            Spacer()
+                LessonRow(lesson: lessons[1])
+//                        .foregroundColor(.init(UIColor.label))
+                    .foregroundColor(.white)
+
+
+            }
+            .padding()
         }
-//        .padding(.vertical, 8)
-        .padding(.all, 16)
 
     }
     

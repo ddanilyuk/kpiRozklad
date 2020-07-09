@@ -42,7 +42,7 @@ func getCurrentAndNextLesson(lessons: [Lesson],
         if (timeStart > timeIsNowString) && (dayNumberFromCurrentDate == lesson.dayNumber) && (currentWeekFromTodayDate == lesson.lessonWeek) {
             nextLessonId = lesson.id
             return (nextLessonID: nextLessonId, currentLessonID: currentLessonId)
-        } else if (dayNumberFromCurrentDate < Int(lesson.dayNumber) ?? 0) && (currentWeekFromTodayDate == lesson.lessonWeek){
+        } else if (dayNumberFromCurrentDate < lesson.dayNumber) && (currentWeekFromTodayDate == lesson.lessonWeek) {
             nextLessonId = lesson.id
             return (nextLessonID: nextLessonId, currentLessonID: currentLessonId)
         }

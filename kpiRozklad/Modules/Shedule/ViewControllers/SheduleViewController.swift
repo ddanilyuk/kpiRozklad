@@ -230,17 +230,9 @@ class SheduleViewController: UIViewController {
         
         /// Set `isEditInserts` for `tableView.contentInset`
         isEditInserts = true
-        
-        
-        print("updated TIMELINE", Date())
-        print("updated TIMELINE noon", Date().noon)
-        print("Date.tomorrow", Date.tomorrow)
-        
+                
 //        let session = WCSession.default
-
-        
-        
-        
+//
 //        if WCSession.isSupported() {
 //            do {
 //                let userInfo: [String: String] = ["lessons": "\(fetchingCoreData(managedContext: managedContext).count)"]
@@ -250,8 +242,6 @@ class SheduleViewController: UIViewController {
 //                print("Error: \(error)")
 //            }
 //        }
-        
-        
     }
     
     
@@ -303,11 +293,6 @@ class SheduleViewController: UIViewController {
                 let currentColourData = settings.cellCurrentColour.encode()
                 let nextColourData = settings.cellNextColour.encode()
 
-                
-//                let some = UIColor(\)
-                
-                
-                
                 let dictionary: [String: Any] = ["lessons": dataLessons, "time": Date().timeIntervalSince1970, "name": name, "currentColourData": currentColourData, "nextColourData": nextColourData]
 //                let dictionary: [String: Any] = ["lessons": dataLessons, "name": name, "currentColourData": currentColourData, "nextColourData": nextColourData]
 
@@ -368,8 +353,7 @@ class SheduleViewController: UIViewController {
     
     
     private func setupAtivityIndicator() {
-        activityIndicator.startAnimating()
-        activityIndicator.isHidden = false
+        activityIndicator.startAndShow()
         tableView.isHidden = true
         self.view.bringSubviewToFront(activityIndicator)
     }
@@ -404,7 +388,6 @@ class SheduleViewController: UIViewController {
         self.navigationController?.navigationBar.isTranslucent = true
         self.tabBarController?.tabBar.isTranslucent = true
     }
-    
     
     /// Function to set up currnet week in viewDidLoad
     func setupCurrentWeek() {
@@ -592,8 +575,7 @@ class SheduleViewController: UIViewController {
         
         /// (self.activityIndicator != nil)  because if when we push information from another VC tableView can be not exist
         if self.activityIndicator != nil {
-            self.activityIndicator.stopAnimating()
-            self.activityIndicator.isHidden = true
+            self.activityIndicator.stopAndHide()
         }
         
         /// (self.tableView != nil)  because if when we push information from another VC tableView can be not exist
@@ -706,7 +688,7 @@ class SheduleViewController: UIViewController {
     
     func checkIfTeacherInFavourites() {
         if let strongTeacher = teacherFromSegue {
-            if favourites.favouriteTeachersID.contains(Int(strongTeacher.teacherID) ?? 0) {
+            if favourites.favouriteTeachersID.contains(strongTeacher.teacherID) {
                 if let image = UIImage(named: "icons8-favourite-filled") {
                     favouriteButton.setImage(image, for: .normal)
                     isFavourite = true
@@ -722,7 +704,7 @@ class SheduleViewController: UIViewController {
         
         if isTeachersShedule {
             guard let strongTeacher = teacherFromSegue else { return }
-            idToFindOrAdd = Int(strongTeacher.teacherID) ?? 0
+            idToFindOrAdd = strongTeacher.teacherID
             nameToFindOrAdd = strongTeacher.teacherName == "" ? strongTeacher.teacherFullName : strongTeacher.teacherName
         } else {
             guard let strongGroup = groupFromSegue else { return }
@@ -780,4 +762,3 @@ class SheduleViewController: UIViewController {
         makeLessonsShedule()
     }
 }
-

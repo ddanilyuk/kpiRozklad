@@ -18,9 +18,7 @@ struct TimeView: View {
             Spacer()
             let textWithTime = getDateToStart(lesson: lesson)
             textWithTime.text
-//                .foregroundColor(textWithTime.color)
                 .foregroundColor(Color.white)
-
                 .padding(.trailing, 0)
             
         }
@@ -37,11 +35,7 @@ struct TimeView: View {
             if lesson.lessonWeek != currentWeekFromTodayDate {
                 dayNumberFromCurrentDate = dayNumberFromCurrentDate - 7
             }
-            
-            // dayNumber = 1
-            // curreent = 5 next week = 5 - 7 = -2
-            
-            // 1 - -2 = 3
+
             if lesson.dayNumber - dayNumberFromCurrentDate == 1 {
                 return (text: Text("завтра"), color: Color.red)
             } else if lesson.dayNumber - dayNumberFromCurrentDate == 2 {
@@ -51,7 +45,6 @@ struct TimeView: View {
                 return (text: text, color: Color.red)
             }
         } else {
-            //  && lesson.lessonWeek == currentWeekFromTodayDate && lesson.dayNumber == dayNumberFromCurrentDate
             if dateStart > date {
                 return (text: Text("через ") + Text(dateStart, style: .timer), color: Color(UIColor.label))
             } else if dateStart < date && dateEnd > date {

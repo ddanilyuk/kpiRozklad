@@ -45,28 +45,24 @@ struct WidgetViewMedium: View {
                     .font(.headline)
                     .padding(.leading, 30)
                     .padding(.top, -8)
-    //                .padding(.bottom, 2)
                     .foregroundColor(Color(#colorLiteral(red: 0.9712373614, green: 0.6793045998, blue: 0, alpha: 1)))
-    //                .frame(width: 250, alignment: .leading)
                 
                 Spacer(minLength: 0.0)
                 
                 LessonRow(lesson: lessons[0])
-//                        .foregroundColor(.init(UIColor.label))
                     .foregroundColor(.white)
                 
                 Spacer(minLength: 0.0)
                 
-                Color(UIColor.secondarySystemBackground)
+                Color(UIColor.white)
+                    .opacity(0.5)
                     .frame(height: 1, alignment: .center)
                 
                 Spacer(minLength: 0.0)
 
                 LessonRow(lesson: lessons[1])
-//                        .foregroundColor(.init(UIColor.label))
                     .foregroundColor(.white)
-
-
+                
             }
             .padding()
         }

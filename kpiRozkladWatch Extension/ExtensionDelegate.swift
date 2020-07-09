@@ -87,28 +87,42 @@ extension ExtensionDelegate: WCSessionDelegate {
         
         guard let data = applicationContext["lessons"] as? Data else { return }
         
+        do {
+            (lessonsGlobal, name, cellCurrentColour, cellNextColour) = try decodeDataAndPostNotification(data, applicationContext: applicationContext)
+        } catch let error {
+            print(error.localizedDescription)
+        }
+    }
+    
+    func decodeDataAndPostNotification(_ data: Data, applicationContext: [String : Any]) throws -> (lessons: [Lesson], name: String, cellCurrentColour: UIColor?, cellNextColour: UIColor?) {
         let decoder = JSONDecoder.init()
         do {
-            lessonsGlobal = try decoder.decode([Lesson].self, from: data)
-            name = applicationContext["name"] as? String ?? ""
+//            decoder.dataDecodingStrategy = .deferredToData
+            let lessons = try decoder.decode([Lesson].self, from: data)
+            let name = applicationContext["name"] as? String ?? ""
             
-            guard let currentColourData = applicationContext["currentColourData"] as? Data else { return }
-            guard let nextColourData = applicationContext["nextColourData"] as? Data else { return }
+            guard let currentColourData = applicationContext["currentColourData"] as? Data else {
+                fatalError()
+            }
+            guard let nextColourData = applicationContext["nextColourData"] as? Data else {                 fatalError()
+            }
 
-            cellCurrentColour = UIColor.color(withData: currentColourData)
-            cellNextColour = UIColor.color(withData: nextColourData)
+            let cellCurrentColour = UIColor.color(withData: currentColourData)
+            let cellNextColour = UIColor.color(withData: nextColourData)
 
-//            print(name)
+            DispatchQueue.main.async {
+                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "activityNotification"), object: nil)
+            }
+            
+            StoreUserDefaults.shared.lessons = lessons
+            print("data saved")
+            
+            return (lessons: lessons, name: name, cellCurrentColour: cellCurrentColour, cellNextColour: cellNextColour)
         } catch {
             print(error.localizedDescription)
         }
-//        WCSession.updateApplicationContext(session)
         
-        print("didReceiveApplicationContext")
-        
-        DispatchQueue.main.async {
-            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "activityNotification"), object: nil)
-        }
+        return (lessons: [], name: "", cellCurrentColour: nil, cellNextColour: nil)
     }
 
     

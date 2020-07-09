@@ -277,6 +277,7 @@ class SheduleViewController: UIViewController {
         
         
         if WCSession.isSupported() {
+            print("Session supported")
             let session = WCSession.default
             do {
                 guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
@@ -296,7 +297,7 @@ class SheduleViewController: UIViewController {
                 let dictionary: [String: Any] = ["lessons": dataLessons, "time": Date().timeIntervalSince1970, "name": name, "currentColourData": currentColourData, "nextColourData": nextColourData]
 //                let dictionary: [String: Any] = ["lessons": dataLessons, "name": name, "currentColourData": currentColourData, "nextColourData": nextColourData]
 
-//                print(dictionary)
+                print(dictionary)
                 try session.updateApplicationContext(dictionary)
                 
             } catch {

@@ -16,7 +16,6 @@ struct LessonRow: View {
             HStack(alignment: .center, spacing: 2.0) {
                 
                 Text(lesson.timeStart.stringTime)
-//                    .padding(.leading, 3)
                     .frame(width: 40, alignment: .center)
                     .font(.caption)
 
@@ -25,13 +24,10 @@ struct LessonRow: View {
                     .font(.body)
                 
                 Spacer()
-            }
-                .padding(.bottom, 0)
-            
+            }.padding(.bottom, 0)
             
             HStack(alignment: .center, spacing: 2.0) {
                 Text("")
-//                    .padding(.leading, 3)
                     .frame(width: 40, alignment: .center)
 
                 Text(lesson.teacherName)
@@ -40,11 +36,8 @@ struct LessonRow: View {
                 Spacer()
             }
             
-            
-            
             HStack(alignment: .center, spacing: 2.0) {
                 Text(lesson.timeEnd.stringTime)
-//                    .padding(.leading, 3)
                     .frame(width: 40, alignment: .center)
                     .font(.caption)
 
@@ -57,7 +50,6 @@ struct LessonRow: View {
                 
                 TimeView(lesson: lesson)
                     .frame(width: 150)
-
             }
 
         }

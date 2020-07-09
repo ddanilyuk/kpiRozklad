@@ -227,6 +227,7 @@
 		5FE9678324091880000AD157 /* TeachersNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FE9678224091880000AD157 /* TeachersNavigationController.swift */; };
 		5FE96785240F0C22000AD157 /* SheduleDetailNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FE96784240F0C22000AD157 /* SheduleDetailNavigationController.swift */; };
 		5FF204D424B4F76F00B52FCB /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F4457E32376FB05008F9E21 /* Settings.swift */; };
+		5FF3323D24B7D72F00DB864F /* StoreUserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FF3323C24B7D72F00DB864F /* StoreUserDefaults.swift */; };
 		90A353C4EB2D15AEC0D9F8D1 /* Pods_kpiRozklad.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 25B70702B56A794A30F2DB1A /* Pods_kpiRozklad.framework */; };
 		D300F1D62364CEA30098CA83 /* GroupsAndTeachersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D300F1D52364CEA30098CA83 /* GroupsAndTeachersViewController.swift */; };
 		D300F1DA2364CF490098CA83 /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D300F1D92364CF490098CA83 /* SettingsTableViewController.swift */; };
@@ -436,6 +437,7 @@
 		5FE0486C23930C3000092422 /* SheduleVC+UIPickerVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SheduleVC+UIPickerVC.swift"; sourceTree = "<group>"; };
 		5FE9678224091880000AD157 /* TeachersNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeachersNavigationController.swift; sourceTree = "<group>"; };
 		5FE96784240F0C22000AD157 /* SheduleDetailNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheduleDetailNavigationController.swift; sourceTree = "<group>"; };
+		5FF3323C24B7D72F00DB864F /* StoreUserDefaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreUserDefaults.swift; sourceTree = "<group>"; };
 		724A13763CC9AF6CBB93A09C /* Pods-KPIRozkladTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KPIRozkladTests.release.xcconfig"; path = "Target Support Files/Pods-KPIRozkladTests/Pods-KPIRozkladTests.release.xcconfig"; sourceTree = "<group>"; };
 		BE7B08BAF6D98CFFD7B1FF4B /* Pods_kpiRozkladTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_kpiRozkladTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C33203580DD02E686E10BAEC /* Pods-kpiRozklad.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-kpiRozklad.release.xcconfig"; path = "Target Support Files/Pods-kpiRozklad/Pods-kpiRozklad.release.xcconfig"; sourceTree = "<group>"; };
@@ -760,6 +762,7 @@
 				5FDCFCE0248D8C3000568208 /* Assets.xcassets */,
 				5FDCFCE3248D8C3000568208 /* PushNotificationPayload.apns */,
 				5FDCFCE2248D8C3000568208 /* Info.plist */,
+				5FF3323C24B7D72F00DB864F /* StoreUserDefaults.swift */,
 			);
 			path = "kpiRozkladWatch Extension";
 			sourceTree = "<group>";
@@ -787,11 +790,11 @@
 				5F76323324B253730022C952 /* kpiRozkladWidgetExtensionDebug.entitlements */,
 				D38DEB43233A250F00BB0075 /* README.md */,
 				D313F494233AAB6C0076CFF8 /* kpiRozklad */,
+				5F7631FD24B251F90022C952 /* kpiRozkladWidget */,
 				5FACFF7F23ED63D40022DF88 /* kpiRozkladTodayWidget */,
-				5F75DAD52457915900B1E4C9 /* kpiRozkladTests */,
 				5FDCFCCA248D8C2D00568208 /* kpiRozkladWatch */,
 				5FDCFCD9248D8C2F00568208 /* kpiRozkladWatch Extension */,
-				5F7631FD24B251F90022C952 /* kpiRozkladWidget */,
+				5F75DAD52457915900B1E4C9 /* kpiRozkladTests */,
 				5FACFF7C23ED63D40022DF88 /* Frameworks */,
 				D313F493233AAB6C0076CFF8 /* Products */,
 				27FE3C497895B2A14E7B0A78 /* Pods */,
@@ -1457,6 +1460,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5FF3323D24B7D72F00DB864F /* StoreUserDefaults.swift in Sources */,
 				5FDCFCDF248D8C2F00568208 /* NotificationController.swift in Sources */,
 				5F56541D248E675700F2EB6E /* TimeAndDate.swift in Sources */,
 				5FA57FC8249565A5002DCD4A /* Room.swift in Sources */,

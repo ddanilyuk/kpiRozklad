@@ -76,10 +76,13 @@ class InterfaceController: WKInterfaceController {
     // MARK: - --------
     override func awake(withContext context: Any?) {
         super.awake(withContext: context)
+        
+        
         hideGreeting()
         setupDate()
         
-        lessons = lessonsGlobal
+        lessons = StoreUserDefaults.shared.lessons
+
         setToday()
 //        self.setTitle
         
@@ -199,7 +202,7 @@ class InterfaceController: WKInterfaceController {
         for index in 0..<rowTypes.count {
             if index == 0 {
                 if let titleRow = tableView.rowController(at: index) as? TitleRow {
-                    let title = "\(DayName.getDayNameFromNumber(dayNumberFromCurrentDate).map { $0.rawValue } ?? ""), \(currentWeekFromTodayDate) тиж."
+                    let title = "\(DayName.getDayNameFromNumber(dayNumberFromCurrentDate).map { $0.rawValue } ?? ""), \(currentWeekFromTodayDate.rawValue) тиж."
                     titleRow.titleLabel.setText(title)
                 }
                 

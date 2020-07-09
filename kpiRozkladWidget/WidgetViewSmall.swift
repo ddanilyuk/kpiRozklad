@@ -48,7 +48,6 @@ struct WidgetViewSmall: View {
 //                    .foregroundColor(.white)
                     .foregroundColor(Color(#colorLiteral(red: 0.9712373614, green: 0.6793045998, blue: 0, alpha: 1)))
 
-
                 VStack(alignment: .leading) {
                     
                     Spacer(minLength: 0.0)

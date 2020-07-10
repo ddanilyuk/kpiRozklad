@@ -230,18 +230,7 @@ class SheduleViewController: UIViewController {
         
         /// Set `isEditInserts` for `tableView.contentInset`
         isEditInserts = true
-                
-//        let session = WCSession.default
-//
-//        if WCSession.isSupported() {
-//            do {
-//                let userInfo: [String: String] = ["lessons": "\(fetchingCoreData(managedContext: managedContext).count)"]
-//                print(userInfo)
-//                try session.updateApplicationContext(userInfo)
-//            } catch {
-//                print("Error: \(error)")
-//            }
-//        }
+        
     }
     
     
@@ -275,35 +264,7 @@ class SheduleViewController: UIViewController {
             tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         }
         
-        
-        if WCSession.isSupported() {
-            print("Session supported")
-            let session = WCSession.default
-            do {
-                guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
-                let managedContext = appDelegate.persistentContainer.viewContext
-                
-                let lessons = fetchingCoreData(managedContext: managedContext)
-                
-                let encoder = JSONEncoder.init()
-                
-                let dataLessons = try encoder.encode(lessons)
-                
-                let name = isTeachersShedule ? settings.teacherName : settings.groupName
-                
-                let currentColourData = settings.cellCurrentColour.encode()
-                let nextColourData = settings.cellNextColour.encode()
-
-                let dictionary: [String: Any] = ["lessons": dataLessons, "time": Date().timeIntervalSince1970, "name": name, "currentColourData": currentColourData, "nextColourData": nextColourData]
-//                let dictionary: [String: Any] = ["lessons": dataLessons, "name": name, "currentColourData": currentColourData, "nextColourData": nextColourData]
-
-                print(dictionary)
-                try session.updateApplicationContext(dictionary)
-                
-            } catch {
-                print("Error: \(error)")
-            }
-        }
+        reloadDataOnAppleWatch()
     }
     
     
@@ -334,6 +295,38 @@ class SheduleViewController: UIViewController {
         }
     }
     
+    
+    func reloadDataOnAppleWatch() {
+        if WCSession.isSupported() {
+            print("Session supported")
+            let session = WCSession.default
+            do {
+                guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
+                let managedContext = appDelegate.persistentContainer.viewContext
+                
+                let lessons = fetchingCoreData(managedContext: managedContext)
+                
+                let encoder = JSONEncoder.init()
+                let dataLessons = try encoder.encode(lessons)
+                let groupOrTeacherName = isTeachersShedule ? settings.teacherName : settings.groupName
+                
+                let currentColourData = settings.cellCurrentColour.encode()
+                let nextColourData = settings.cellNextColour.encode()
+
+                let dictionary: [String: Any] = ["lessons": dataLessons,
+                                                 // "time": Date().timeIntervalSince1970,
+                                                 "groupOrTeacherName": groupOrTeacherName,
+                                                 "currentColourData": currentColourData,
+                                                 "nextColourData": nextColourData]
+//                let dictionary: [String: Any] = ["lessons": dataLessons, "name": name, "currentColourData": currentColourData, "nextColourData": nextColourData]
+
+                try session.updateApplicationContext(dictionary)
+                print("Session data updated")
+            } catch {
+                print("Error: \(error)")
+            }
+        }
+    }
     
     // MARK: - SETUP functions
     

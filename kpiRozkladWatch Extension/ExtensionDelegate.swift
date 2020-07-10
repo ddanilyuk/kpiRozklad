@@ -9,10 +9,7 @@
 import WatchKit
 import WatchConnectivity
 
-var lessonsGlobal: [Lesson] = []
-var name: String = ""
-var cellNextColour: UIColor?
-var cellCurrentColour: UIColor?
+
 
 class ExtensionDelegate: NSObject, WKExtensionDelegate {
 
@@ -88,41 +85,39 @@ extension ExtensionDelegate: WCSessionDelegate {
         guard let data = applicationContext["lessons"] as? Data else { return }
         
         do {
-            (lessonsGlobal, name, cellCurrentColour, cellNextColour) = try decodeDataAndPostNotification(data, applicationContext: applicationContext)
+            try saveDataAndPostNotification(data, applicationContext: applicationContext)
         } catch let error {
             print(error.localizedDescription)
         }
     }
     
-    func decodeDataAndPostNotification(_ data: Data, applicationContext: [String : Any]) throws -> (lessons: [Lesson], name: String, cellCurrentColour: UIColor?, cellNextColour: UIColor?) {
-        let decoder = JSONDecoder.init()
+    func saveDataAndPostNotification(_ data: Data, applicationContext: [String : Any]) throws {
         do {
-//            decoder.dataDecodingStrategy = .deferredToData
+            let decoder = JSONDecoder.init()
+            
             let lessons = try decoder.decode([Lesson].self, from: data)
-            let name = applicationContext["name"] as? String ?? ""
+            
+            let groupOrTeacherName = applicationContext["groupOrTeacherName"] as? String ?? ""
             
             guard let currentColourData = applicationContext["currentColourData"] as? Data else {
-                fatalError()
+                fatalError("Can't cast currentColour as Data")
             }
-            guard let nextColourData = applicationContext["nextColourData"] as? Data else {                 fatalError()
+            guard let nextColourData = applicationContext["nextColourData"] as? Data else {                        fatalError("Can't cast nextColourData as Data")
             }
 
-            let cellCurrentColour = UIColor.color(withData: currentColourData)
-            let cellNextColour = UIColor.color(withData: nextColourData)
-
+            StoreUserDefaults.shared.lessons = lessons
+            StoreUserDefaults.shared.groupOrTeacherName = groupOrTeacherName
+            StoreUserDefaults.shared.cellNextColour = UIColor.color(withData: nextColourData)
+            StoreUserDefaults.shared.cellCurrentColour = UIColor.color(withData: currentColourData)
+            
             DispatchQueue.main.async {
                 NotificationCenter.default.post(name: NSNotification.Name(rawValue: "activityNotification"), object: nil)
             }
-            
-            StoreUserDefaults.shared.lessons = lessons
+
             print("data saved")
-            
-            return (lessons: lessons, name: name, cellCurrentColour: cellCurrentColour, cellNextColour: cellNextColour)
         } catch {
             print(error.localizedDescription)
         }
-        
-        return (lessons: [], name: "", cellCurrentColour: nil, cellNextColour: nil)
     }
 
     

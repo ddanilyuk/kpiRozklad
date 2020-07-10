@@ -208,6 +208,7 @@ extension SheduleViewController: UITableViewDelegate, UITableViewDataSource {
                 updateCoreData(lessons: lessons, managedContext: managedContext) {
                     self.makeLessonsShedule()
                 }
+                self.reloadDataOnAppleWatch()
                 self.tableView.isUserInteractionEnabled = true
             }
             

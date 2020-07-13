@@ -321,7 +321,7 @@ class SheduleViewController: UIViewController {
 //                let dictionary: [String: Any] = ["lessons": dataLessons, "name": name, "currentColourData": currentColourData, "nextColourData": nextColourData]
 
                 try session.updateApplicationContext(dictionary)
-                print("Session data updated")
+                print("Session data sended")
             } catch {
                 print("Error: \(error)")
             }

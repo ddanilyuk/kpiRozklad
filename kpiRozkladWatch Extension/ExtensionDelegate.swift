@@ -10,7 +10,6 @@ import WatchKit
 import WatchConnectivity
 
 
-
 class ExtensionDelegate: NSObject, WKExtensionDelegate {
 
     func applicationDidFinishLaunching() {
@@ -80,22 +79,22 @@ extension ExtensionDelegate: WCSessionDelegate {
     }
     
     func session(_ session: WCSession, didReceiveApplicationContext applicationContext: [String : Any]) {
-        
-        
-        guard let data = applicationContext["lessons"] as? Data else { return }
-        
         do {
-            try saveDataAndPostNotification(data, applicationContext: applicationContext)
+            try saveDataAndPostNotification(applicationContext: applicationContext)
         } catch let error {
             print(error.localizedDescription)
         }
     }
     
-    func saveDataAndPostNotification(_ data: Data, applicationContext: [String : Any]) throws {
+    func saveDataAndPostNotification(applicationContext: [String : Any]) throws {
         do {
+            print("Data start saving")
+
+            guard let lessonsData = applicationContext["lessons"] as? Data else { return }
+
             let decoder = JSONDecoder.init()
             
-            let lessons = try decoder.decode([Lesson].self, from: data)
+            let lessons = try decoder.decode([Lesson].self, from: lessonsData)
             
             let groupOrTeacherName = applicationContext["groupOrTeacherName"] as? String ?? ""
             
@@ -114,7 +113,7 @@ extension ExtensionDelegate: WCSessionDelegate {
                 NotificationCenter.default.post(name: NSNotification.Name(rawValue: "activityNotification"), object: nil)
             }
 
-            print("data saved")
+            print("Data saved")
         } catch {
             print(error.localizedDescription)
         }

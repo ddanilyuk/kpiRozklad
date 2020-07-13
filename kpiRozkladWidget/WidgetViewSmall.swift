@@ -40,6 +40,8 @@ struct WidgetViewSmall: View {
                 
                 let dateLesson = getDate(lesson: lesson)
                 let date = Date()
+                
+                // TODO: - Must check if today
                 let text = dateLesson.dateStart < date && dateLesson.dateEnd > date ? "Зараз" : "Далі"
                 
                 Text(text)

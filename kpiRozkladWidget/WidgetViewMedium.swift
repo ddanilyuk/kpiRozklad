@@ -15,10 +15,27 @@ struct WidgetViewMedium: View {
     
     var settings = Settings.shared
     
-    let color1: Color = Color(red: 57 / 255, green: 117 / 255, blue: 243 / 255)
+    // first
+//    let color1: Color = Color(red: 57 / 255, green: 117 / 255, blue: 243 / 255)
+    let color1: Color = Color(red: 44 / 255, green: 90 / 255, blue: 180 / 255)
     
-    let color2: Color = Color(red: 117 / 255, green: 210 / 255, blue: 174 / 255)
+//    let colorTest1: Color = Color(UIColor(red: 57 / 255, green: 117 / 255, blue: 243 / 255, alpha: 1))
+
+    let colorTest1: Color = Color(#colorLiteral(red: 0.1411764771, green: 0.3960784376, blue: 0.5647059083, alpha: 1))
+
     
+    
+
+    // second
+//    let color2: Color = Color(red: 117 / 255, green: 210 / 255, blue: 174 / 255)
+    let color2: Color = Color(red: 87 / 255, green: 157 / 255, blue: 130 / 255)
+    
+//    let colorTest2: Color = Color(UIColor(red: 117 / 255, green: 210 / 255, blue: 174 / 255, alpha: 1))
+    
+    let colorTest2: Color = Color(#colorLiteral(red: 0.5725490451, green: 0, blue: 0.2313725501, alpha: 1))
+
+
+
 //    let color2: Color = Color(red: 89 / 255, green: 166 / 255, blue: 216 / 255)
 
 
@@ -30,11 +47,14 @@ struct WidgetViewMedium: View {
     var body: some View {
         ZStack {
             LinearGradient(gradient:
-                                Gradient(colors: [color1, color2]),
-                           startPoint: .leading, endPoint: .trailing)
+                            Gradient(colors: [color1, color2]),
+                           startPoint: .leading,
+                           endPoint: .trailing)
+                
                 .edgesIgnoringSafeArea(.all)
+//                .accentColor(Color.clear)
             
-            Color.black.opacity(0.25)
+            Color.black.opacity(0.0)
                 .edgesIgnoringSafeArea(.all)
 
             

@@ -11,6 +11,8 @@ struct LessonRow: View {
     
     var lesson: Lesson
     
+    var date: Date
+    
     var body: some View {
         VStack {
             HStack(alignment: .center, spacing: 2.0) {
@@ -48,8 +50,8 @@ struct LessonRow: View {
                 
                 Spacer(minLength: 0)
                 
-                TimeView(lesson: lesson)
-                    .frame(width: 150)
+                TimeView(lesson: lesson, date: date)
+//                    .frame(width: 150)
             }
 
         }
@@ -63,7 +65,7 @@ struct LessonRow_Previews: PreviewProvider {
 //        ForEach(["iPhone X", "iPhone 8"], id: \.self) { deviceName in
 //            LessonRow(lesson: lessonToTestRow)            .environment(\.colorScheme, .light)
 //        }
-        LessonRow(lesson: Lesson.defaultLesson)
-            .previewLayout(.sizeThatFits)
+        LessonRow(lesson: Lesson.defaultLesson, date: Date())
+//            .previewLayout(.sizeThatFits)
     }
 }

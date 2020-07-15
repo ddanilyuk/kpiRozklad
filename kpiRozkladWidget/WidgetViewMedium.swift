@@ -39,9 +39,11 @@ struct WidgetViewMedium: View {
 //    let color2: Color = Color(red: 89 / 255, green: 166 / 255, blue: 216 / 255)
 
 
+    var date: Date
     
-    init(lessons: [Lesson]) {
+    init(lessons: [Lesson], date: Date) {
         self.lessons = lessons
+        self.date = date
     }
     
     var body: some View {
@@ -69,7 +71,7 @@ struct WidgetViewMedium: View {
                 
                 Spacer(minLength: 0.0)
                 
-                LessonRow(lesson: lessons[0])
+                LessonRow(lesson: lessons[0], date: date)
                     .foregroundColor(.white)
                 
                 Spacer(minLength: 0.0)
@@ -80,7 +82,7 @@ struct WidgetViewMedium: View {
                 
                 Spacer(minLength: 0.0)
 
-                LessonRow(lesson: lessons[1])
+                LessonRow(lesson: lessons[1], date: date)
                     .foregroundColor(.white)
                 
             }
@@ -98,7 +100,7 @@ struct WidgetView_Previews: PreviewProvider {
 //            .frame(width: 329, height: 155)
 //            .previewLayout(.fixed(width: 329, height: 155))
         
-        WidgetViewMedium(lessons: Lesson.defaultArratOfLesson)
+        WidgetViewMedium(lessons: Lesson.defaultArratOfLesson, date: Date())
             .previewContext(WidgetPreviewContext(family: .systemMedium))
     }
 }

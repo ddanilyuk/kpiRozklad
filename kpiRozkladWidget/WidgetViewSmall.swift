@@ -75,7 +75,8 @@ struct WidgetViewSmall: View {
 
                     Spacer(minLength: 0.0)
 
-                    TimeView(lesson: lesson)
+                    // change date
+                    TimeView(lesson: lesson, date: Date())
                         .frame(minWidth: 0, maxWidth: .infinity, alignment: .center)
                         .foregroundColor(.white)
 

@@ -83,7 +83,7 @@ public struct Lesson: Codable, Hashable, Identifiable {
                                                  roomLongitude: "1.123"),
                                       groups: nil)
     
-    static var defaultArratOfLesson: [Lesson] = Array(repeating: defaultLesson, count: 3)
+    static var defaultArratOfLesson: [Lesson] = Array(repeating: defaultLesson, count: 4)
 }
 
 #if os(iOS)

@@ -31,7 +31,7 @@ struct Provider: TimelineProvider {
     
     func timeline(with context: Context, completion: @escaping (Timeline<Entry>) -> ()) {
         
-        let (dayNumberFromCurrentDate, currentWeekFromTodayDate) = getTimeAndDayNumAndWeekOfYear()
+        let (dayNumberFromCurrentDate, currentWeekFromTodayDate) = getCurrentWeekAndDayNumber()
 
         var arrayWithLessonsToShow = getArrayWithNextThreeLessons(dayNumberFromCurrentDate: dayNumberFromCurrentDate, currentWeekFromTodayDate: currentWeekFromTodayDate, managedObjectContext: managedObjectContext)
         
@@ -53,36 +53,32 @@ struct Provider: TimelineProvider {
         
         // Only for debug
         if arrayWithLessonsToShow[0].dayNumber == dayNumberFromCurrentDate {
-            dateToUpdate = getDate(lesson: arrayWithLessonsToShow[0]).dateStart
+            dateToUpdate = getDateStartAndEnd(of: arrayWithLessonsToShow[0]).dateStart
         }
         
         // Only for debug
         var lessonsUpdatedAtTime = dateFormatter.string(from: Date())
         var lessonsMustUpdateAtTime = dateFormatter.string(from: dateToUpdate)
         
-        // Update timeline options
+        /// Update timeline options
         var entries = [LessonsEntry(date: Date(), lessons: arrayWithLessonsToShow, lessonsUpdatedAtTime: lessonsUpdatedAtTime, lessonsMustUpdateAtTime: lessonsMustUpdateAtTime, entryNumber: 1)]
         
         
         if arrayWithLessonsToShow[0].dayNumber == dayNumberFromCurrentDate {
             
-            lessonsUpdatedAtTime = dateFormatter.string(from: getDate(lesson: arrayWithLessonsToShow[0]).dateStart)
-            lessonsMustUpdateAtTime = dateFormatter.string(from: getDate(lesson: arrayWithLessonsToShow[0]).dateEnd)
+            lessonsUpdatedAtTime = dateFormatter.string(from: getDateStartAndEnd(of: arrayWithLessonsToShow[0]).dateStart)
+            lessonsMustUpdateAtTime = dateFormatter.string(from: getDateStartAndEnd(of: arrayWithLessonsToShow[0]).dateEnd)
             
-            entries.append(LessonsEntry(date: getDate(lesson: arrayWithLessonsToShow[0]).dateStart, lessons: arrayWithLessonsToShow, lessonsUpdatedAtTime: lessonsUpdatedAtTime, lessonsMustUpdateAtTime: lessonsMustUpdateAtTime, entryNumber: 2))
+            entries.append(LessonsEntry(date: getDateStartAndEnd(of: arrayWithLessonsToShow[0]).dateStart, lessons: arrayWithLessonsToShow, lessonsUpdatedAtTime: lessonsUpdatedAtTime, lessonsMustUpdateAtTime: lessonsMustUpdateAtTime, entryNumber: 2))
             
+            lessonsUpdatedAtTime = dateFormatter.string(from: getDateStartAndEnd(of: arrayWithLessonsToShow[0]).dateEnd)
             
-            //
-//            entries.append(LessonsEntry(date: getDate(lesson: arrayWithLessonsToShow[0]).dateStart.addingTimeInterval(35 * 60 + 1), lessons: arrayWithLessonsToShow, lessonsUpdatedAtTime: lessonsUpdatedAtTime, lessonsMustUpdateAtTime: lessonsMustUpdateAtTime, entryNumber: 3))
-            //
-            
-            lessonsUpdatedAtTime = dateFormatter.string(from: getDate(lesson: arrayWithLessonsToShow[0]).dateEnd)
-            
-            dateToUpdate = getDate(lesson: arrayWithLessonsToShow[0]).dateEnd
+            dateToUpdate = getDateStartAndEnd(of: arrayWithLessonsToShow[0]).dateEnd
 
-            // Remove lesson which end
+            /// Remove lesson which end
             arrayWithLessonsToShow.remove(at: 0)
             
+            /// New entry without lesson which end. This entry presented when widget if waiting for reloading timeline.
             entries.append(LessonsEntry(date: dateToUpdate, lessons: arrayWithLessonsToShow, lessonsUpdatedAtTime: lessonsUpdatedAtTime, lessonsMustUpdateAtTime: "as soon as", entryNumber: 3))
             
         }
@@ -90,47 +86,6 @@ struct Provider: TimelineProvider {
         
         return (entries: entries, dateToUpdate: dateToUpdate)
     }
-    
-    
-    func makeTimeLine2(arrayWithLessonsToShow: [Lesson], dayNumberFromCurrentDate: Int, currentWeekFromTodayDate: WeekType) -> (entries: [LessonsEntry], dateToUpdate: Date) {
-        
-        var dateToUpdate = Date.tomorrow
-        
-        let date = Date()
-        
-        let nextLesson = arrayWithLessonsToShow[0]
-        
-        if nextLesson.dayNumber == dayNumberFromCurrentDate {
-            let dateLesson = getDate(lesson: nextLesson)
-            
-            if date < dateLesson.dateStart {
-                dateToUpdate = dateLesson.dateStart
-            } else if date > dateLesson.dateStart && date < dateLesson.dateEnd {
-                dateToUpdate = dateLesson.dateEnd
-            }
-            
-        }
-
-        // Only for debug
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "HH:mm dd-MM"
-        let lessonsUpdatedAtTime = dateFormatter.string(from: date)
-        let lessonsMustUpdateAtTime = dateFormatter.string(from: dateToUpdate)
-        
-        
-        let entries = [LessonsEntry(date: Date(),
-                                    lessons: arrayWithLessonsToShow,
-                                    lessonsUpdatedAtTime: lessonsUpdatedAtTime,
-                                    lessonsMustUpdateAtTime: lessonsMustUpdateAtTime,
-                                    entryNumber: 00)
-        ]
-        
-        
-        return (entries: entries, dateToUpdate: dateToUpdate)
-
-    }
-        
-    
 }
 
 
@@ -149,10 +104,11 @@ struct PlaceholderView : View {
     var body: some View {
         switch family {
         case .systemSmall:
-            WidgetViewSmall(lessons: Lesson.defaultArratOfLesson)
+            WidgetViewSmall(lessons: Lesson.defaultArratOfLesson, date: Date())
         case .systemMedium:
             WidgetViewMedium(lessons: Lesson.defaultArratOfLesson, date: Date())
-        default: WidgetViewMedium(lessons: Lesson.defaultArratOfLesson, date: Date())
+        default:
+            WidgetViewMedium(lessons: Lesson.defaultArratOfLesson, date: Date())
         }
     }
 }
@@ -162,11 +118,13 @@ struct KpiRozkladWidgetEntryView : View {
     @Environment(\.widgetFamily) var family: WidgetFamily
     var entry: Provider.Entry
 
+    // DEBUG
     var dateFormatter = DateFormatter()
     
     init (entry: Provider.Entry) {
         self.entry = entry
         
+        // DEBUG
         dateFormatter.dateFormat = "HH:mm:ss dd"
     }
     
@@ -176,8 +134,9 @@ struct KpiRozkladWidgetEntryView : View {
         
         switch family {
         case .systemSmall:
-            WidgetViewSmall(lessons: entry.lessons)
+            WidgetViewSmall(lessons: entry.lessons, date: entry.date)
         case .systemMedium:
+            // DEBUG
             VStack(alignment: .center) {
                 Spacer()
                 HStack {
@@ -194,12 +153,16 @@ struct KpiRozkladWidgetEntryView : View {
                         .foregroundColor(.green)
                         .font(.caption)
 
-
                 }
                 WidgetViewMedium(lessons: entry.lessons, date: entry.date)
                     .padding(.top, -10)
             }
-        default: WidgetViewMedium(lessons: entry.lessons, date: entry.date)
+            
+            // Default
+            // WidgetViewMedium(lessons: entry.lessons, date: entry.date)
+
+        default:
+            WidgetViewMedium(lessons: entry.lessons, date: entry.date)
         }
     }
 }

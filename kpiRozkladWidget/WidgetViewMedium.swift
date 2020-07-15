@@ -52,9 +52,7 @@ struct WidgetViewMedium: View {
                             Gradient(colors: [color1, color2]),
                            startPoint: .leading,
                            endPoint: .trailing)
-                
                 .edgesIgnoringSafeArea(.all)
-//                .accentColor(Color.clear)
             
             Color.black.opacity(0.0)
                 .edgesIgnoringSafeArea(.all)

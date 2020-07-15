@@ -51,11 +51,8 @@ struct LessonRow: View {
                 Spacer(minLength: 0)
                 
                 TimeView(lesson: lesson, date: date)
-//                    .frame(width: 150)
             }
-
         }
-
     }
 }
 
@@ -66,6 +63,6 @@ struct LessonRow_Previews: PreviewProvider {
 //            LessonRow(lesson: lessonToTestRow)            .environment(\.colorScheme, .light)
 //        }
         LessonRow(lesson: Lesson.defaultLesson, date: Date())
-//            .previewLayout(.sizeThatFits)
+            .previewLayout(.sizeThatFits)
     }
 }

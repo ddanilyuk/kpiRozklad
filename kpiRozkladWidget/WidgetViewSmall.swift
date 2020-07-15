@@ -13,13 +13,15 @@ struct WidgetViewSmall: View {
     
     var lesson: Lesson = Lesson.defaultLesson
     
+    var date: Date
+    
     var settings = Settings.shared
     
     let color1: Color = Color(red: 57 / 255, green: 117 / 255, blue: 243 / 255)
-    
     let color2: Color = Color(red: 117 / 255, green: 210 / 255, blue: 174 / 255)
     
-    init(lessons: [Lesson]) {
+    init(lessons: [Lesson], date: Date) {
+        self.date = date
         if lessons.count > 0 {
             self.lesson = lessons[0]
         }
@@ -38,16 +40,16 @@ struct WidgetViewSmall: View {
             
             VStack(alignment: .center, spacing: 0.0) {
                 
-                let dateLesson = getDate(lesson: lesson)
-                let date = Date()
+                let dateLesson = getDateStartAndEnd(of: lesson)
+                                
+                let (dayNumberFromCurrentDate, currentWeekFromTodayDate) = getCurrentWeekAndDayNumber()
+                let isLessonToday = lesson.dayNumber == dayNumberFromCurrentDate && currentWeekFromTodayDate == lesson.lessonWeek
                 
-                // TODO: - Must check if today
-                let text = dateLesson.dateStart < date && dateLesson.dateEnd > date ? "Зараз" : "Далі"
+                let text = dateLesson.dateStart < date && dateLesson.dateEnd > date && isLessonToday ? "Зараз" : "Далі"
                 
                 Text(text)
                     .font(.headline)
                     .lineLimit(1)
-//                    .foregroundColor(.white)
                     .foregroundColor(Color(#colorLiteral(red: 0.9712373614, green: 0.6793045998, blue: 0, alpha: 1)))
 
                 VStack(alignment: .leading) {
@@ -75,11 +77,9 @@ struct WidgetViewSmall: View {
 
                     Spacer(minLength: 0.0)
 
-                    // change date
-                    TimeView(lesson: lesson, date: Date())
+                    TimeView(lesson: lesson, date: date)
                         .frame(minWidth: 0, maxWidth: .infinity, alignment: .center)
                         .foregroundColor(.white)
-
                 }
             }
             .padding()
@@ -90,7 +90,7 @@ struct WidgetViewSmall: View {
 
 struct WidgetViewSmall_Previews: PreviewProvider {
     static var previews: some View {
-        WidgetViewSmall(lessons: Lesson.defaultArratOfLesson)
+        WidgetViewSmall(lessons: Lesson.defaultArratOfLesson, date: Date())
             .previewContext(WidgetPreviewContext(family: .systemSmall))
     }
 }

@@ -80,9 +80,12 @@ struct WidgetViewSmall: View {
                     TimeView(lesson: lesson, date: date)
                         .frame(minWidth: 0, maxWidth: .infinity, alignment: .center)
                         .foregroundColor(.white)
+
                 }
             }
             .padding()
+            .widgetURL(URL(string: "kpiRozklad://\(lesson.id)"))
+
         }
 
     }

@@ -69,8 +69,10 @@ struct WidgetViewMedium: View {
                 
                 Spacer(minLength: 0.0)
                 
-                LessonRow(lesson: lessons[0], date: date)
-                    .foregroundColor(.white)
+                Link(destination: URL(string: "kpiRozklad://\(lessons[0].id)")!) {
+                    LessonRow(lesson: lessons[0], date: date)
+                        .foregroundColor(.white)
+                }
                 
                 Spacer(minLength: 0.0)
                 
@@ -79,10 +81,11 @@ struct WidgetViewMedium: View {
                     .frame(height: 1, alignment: .center)
                 
                 Spacer(minLength: 0.0)
-
-                LessonRow(lesson: lessons[1], date: date)
-                    .foregroundColor(.white)
                 
+                Link(destination: URL(string: "kpiRozklad://\(lessons[1].id)")!) {
+                    LessonRow(lesson: lessons[1], date: date)
+                        .foregroundColor(.white)
+                }
             }
             .padding()
         }

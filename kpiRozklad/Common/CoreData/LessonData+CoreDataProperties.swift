@@ -43,7 +43,7 @@ extension LessonData {
     }
     
     public var wrappedLesson: Lesson {
-        Lesson(id: Int(id), dayNumber: Int(dayNumber), lessonNumber: Int(lessonNumber), lessonWeek: WeekType(rawValue: String(lessonWeek) ?? "1") ?? .first, groupID: Int(groupID), dayName: DayName(rawValue: dayName ?? "Понеділок") ?? .mounday, lessonType: LessonType(rawValue: lessonType ?? "") ?? .empty, lessonName: lessonName ?? "", lessonFullName: lessonFullName ?? "", lessonRoom: lessonRoom ?? "", teacherName: teacherName ?? "", timeStart: timeStart ?? "", timeEnd: timeEnd ?? "", rate: rate ?? "", teacher: teachersRelationship?.wrappedTeacher, room: roomsRelationship?.wrappedRoom, groups: wrappedGroups)
+        Lesson(id: Int(id), dayNumber: Int(dayNumber), lessonNumber: Int(lessonNumber), lessonWeek: WeekType(rawValue: String(lessonWeek)) ?? .first, groupID: Int(groupID), dayName: DayName(rawValue: dayName ?? "Понеділок") ?? .mounday, lessonType: LessonType(rawValue: lessonType ?? "") ?? .empty, lessonName: lessonName ?? "", lessonFullName: lessonFullName ?? "", lessonRoom: lessonRoom ?? "", teacherName: teacherName ?? "", timeStart: timeStart ?? "", timeEnd: timeEnd ?? "", rate: rate ?? "", teacher: teachersRelationship?.wrappedTeacher, room: roomsRelationship?.wrappedRoom, groups: wrappedGroups)
     }
 
 }

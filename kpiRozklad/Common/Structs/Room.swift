@@ -21,6 +21,7 @@ public struct Room: Codable, Hashable {
     }
 }
 
+#if os(iOS)
 extension Room {
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
@@ -37,3 +38,4 @@ extension Room {
         roomID = idCasted
     }
 }
+#endif

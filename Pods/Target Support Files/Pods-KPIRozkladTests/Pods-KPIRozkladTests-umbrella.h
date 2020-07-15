@@ -11,6 +11,6 @@
 #endif
 
 
-FOUNDATION_EXPORT double Pods_KPIRozkladTestsVersionNumber;
-FOUNDATION_EXPORT const unsigned char Pods_KPIRozkladTestsVersionString[];
+FOUNDATION_EXPORT double Pods_kpiRozkladTestsVersionNumber;
+FOUNDATION_EXPORT const unsigned char Pods_kpiRozkladTestsVersionString[];
 

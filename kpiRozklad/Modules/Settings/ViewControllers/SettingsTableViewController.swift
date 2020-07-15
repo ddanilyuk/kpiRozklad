@@ -146,7 +146,7 @@ class SettingsTableViewController: UITableViewController {
                 cell.accessoryType = .disclosureIndicator
                 cell.imageDetailView.image = UIImage(named: "icons8-index-80")
                 cell.mainLabel.text = "Розклад без змін"
-                cell.activityIndicator.isHidden = true
+                cell.activityIndicator.stopAndHide()
                 cell.separator(shouldBeHidden: true)
                 
                 return cell
@@ -310,8 +310,8 @@ class SettingsTableViewController: UITableViewController {
                     let some = string.split(separator: ":")
                     
                     let indexPath = IndexPath(row: 1, section: 1)
+                    
                     DispatchQueue.main.async {
-                        
                         if let cell = self.tableView.cellForRow(at: indexPath) as? ServerUpdateTableViewCell {
                             cell.serverUpdateLabel.text = String(some[1])
                         }
@@ -332,7 +332,7 @@ class SettingsTableViewController: UITableViewController {
     private func getLessonsFromServer() {
         guard let cell = self.tableView.cellForRow(at: IndexPath(row: 0, section: 1)) as? SettingsTableViewCell else { return }
         
-        cell.startLoadingCellIndicator()
+        cell.activityIndicator.startAndShow()
         
         let serverLessons = settings.sheduleType == .groups ? API.getStudentLessons(forGroupWithId: settings.groupID) : API.getTeacherLessons(forTeacherWithId: settings.teacherID)
 
@@ -341,8 +341,8 @@ class SettingsTableViewController: UITableViewController {
             
             guard let sheduleVC: SheduleViewController = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: SheduleViewController.identifier) as? SheduleViewController else { return }
             
-            cell.stopLoadingCellIndicator()
-            
+            cell.activityIndicator.stopAndHide()
+
             sheduleVC.isFromSettingsGetFreshShedule = true
             sheduleVC.currentWeek = .first
             sheduleVC.lessonsFromSegue = lessons
@@ -352,16 +352,16 @@ class SettingsTableViewController: UITableViewController {
             
         }).catch({ [weak self] (error) in
             guard let this = self else { return }
-            cell.stopLoadingCellIndicator()
+            cell.activityIndicator.stopAndHide()
 
             let alert = UIAlertController(title: "Помилка", message: error.localizedDescription, preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "Ок", style: .default, handler: nil))
             alert.addAction(UIAlertAction(title: "Оновити", style: .default, handler: { (_) in
                 this.getLessonsFromServer()
-                cell.startLoadingCellIndicator()
+                cell.activityIndicator.startAndShow()
             }))
 
-            this.present(alert, animated: true, completion: { cell.stopLoadingCellIndicator() })
+            this.present(alert, animated: true, completion: { cell.activityIndicator.stopAndHide() })
         })
     }
 }

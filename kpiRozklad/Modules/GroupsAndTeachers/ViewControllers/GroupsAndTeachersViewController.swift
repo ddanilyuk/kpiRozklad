@@ -81,10 +81,12 @@ class GroupsAndTeachersViewController: UIViewController {
         
         getVariablesFromNavigationController()
         
-        stopLoading()
+        activityIndicator.stopAndHide()
         tableView.isHidden = true
 
         setupTableView()
+        
+        setupSwitch()
 
         setupNavigationAndSearch()
     }
@@ -150,7 +152,8 @@ class GroupsAndTeachersViewController: UIViewController {
     private func showWithoutStartWriteLabel() {
         tableView.isHidden = true
         startWriteLabel.isHidden = true
-        startLoading()
+        activityIndicator.startAndShow()
+        self.view.addSubview(activityIndicator)
     }
     
     /// Disable  `segmentControl` which change fom "Мої" and "Всі"
@@ -161,17 +164,15 @@ class GroupsAndTeachersViewController: UIViewController {
     }
     
     /// Stop Loading
-    func stopLoading() {
-        activityIndicator.stopAnimating()
-        activityIndicator.isHidden = true
-    }
+//    func stopLoading() {
+//        activityIndicator.stopAnimating()
+//        activityIndicator.isHidden = true
+//    }
     
     /// Start Loading
-    func startLoading() {
-        activityIndicator.startAnimating()
-        activityIndicator.isHidden = false
-        self.view.bringSubviewToFront(activityIndicator)
-    }
+//    func startLoading() {
+//
+//    }
     
     
     /// Get All vaiables from `navigationController`
@@ -200,6 +201,18 @@ class GroupsAndTeachersViewController: UIViewController {
         tableView.backgroundColor = tint
     }
     
+    private func setupSwitch() {
+        
+        var titleTextAttributesNormal = [NSAttributedString.Key.foregroundColor: UIColor.blue]
+        let titleTextAttributesSelected = [NSAttributedString.Key.foregroundColor: UIColor.white]
+        
+        if #available(iOS 13.0, *) {
+            titleTextAttributesNormal = [NSAttributedString.Key.foregroundColor: UIColor.link]
+        }
+
+        segmentControl.setTitleTextAttributes(titleTextAttributesNormal, for: .normal)
+        segmentControl.setTitleTextAttributes(titleTextAttributesSelected, for: .selected)
+    }
     
     private func setupNavigationAndSearch() {
         /// Search bar settings
@@ -245,7 +258,7 @@ class GroupsAndTeachersViewController: UIViewController {
                 self.teachers = []
                 
                 if groupTeachers.count == 0 {
-                    activityIndicator.startAnimating()
+                    activityIndicator.startAndShow()
                     getTeachersOfGroup(isNeedToUpdate: true)
                 }
                 
@@ -255,7 +268,7 @@ class GroupsAndTeachersViewController: UIViewController {
                 self.teachers = []
                 
                 if allTeachers.count == 0 {
-                    activityIndicator.startAnimating()
+                    activityIndicator.startAndShow()
                     getAllTeachers(isNeedToUpdate: true)
                 }
 

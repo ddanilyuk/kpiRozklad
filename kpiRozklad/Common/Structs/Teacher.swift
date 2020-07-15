@@ -34,6 +34,7 @@ public struct Teacher: Codable, Hashable {
     }
 }
 
+#if os(iOS)
 extension Teacher {
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
@@ -51,3 +52,4 @@ extension Teacher {
         teacherID = idCasted
     }
 }
+#endif

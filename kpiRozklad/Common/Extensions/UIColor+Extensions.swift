@@ -48,11 +48,13 @@ extension UIColor {
 
 
 extension UIColor {
-    class func color(withData data:Data) -> UIColor {
-         return NSKeyedUnarchiver.unarchiveObject(with: data) as! UIColor
+    class func color(withData data: Data) -> UIColor {
+        let color = try? NSKeyedUnarchiver.unarchivedObject(ofClasses: [UIColor.self], from: data) as? UIColor
+        return color ?? .clear
     }
 
     func encode() -> Data {
-         return NSKeyedArchiver.archivedData(withRootObject: self)
+        let data = try? NSKeyedArchiver.archivedData(withRootObject: self, requiringSecureCoding: false)
+        return data ?? Data()
     }
 }

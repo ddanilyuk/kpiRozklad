@@ -71,15 +71,20 @@ class InterfaceController: WKInterfaceController {
     var selectedControllerType: SelectedControllerType = .today
     
     var selectedLessons: [Lesson?] = []
-
     
+    
+    let storeUserDefaults = StoreUserDefaults.shared
+
     // MARK: - --------
     override func awake(withContext context: Any?) {
         super.awake(withContext: context)
+        
+        
         hideGreeting()
         setupDate()
         
-        lessons = lessonsGlobal
+        lessons = StoreUserDefaults.shared.lessons
+
         setToday()
 //        self.setTitle
         
@@ -95,7 +100,7 @@ class InterfaceController: WKInterfaceController {
         
         notificationObserver = notificationCenter.addObserver(forName: NSNotification.Name("activityNotification"), object: nil, queue: nil, using: { (notification) in
             self.hideGreeting()
-            self.lessons = lessonsGlobal
+            self.lessons = self.storeUserDefaults.lessons
             switch self.selectedControllerType {
             case .firstWeek:
                 self.setFirstWeek()
@@ -199,7 +204,7 @@ class InterfaceController: WKInterfaceController {
         for index in 0..<rowTypes.count {
             if index == 0 {
                 if let titleRow = tableView.rowController(at: index) as? TitleRow {
-                    let title = "\(DayName.getDayNameFromNumber(dayNumberFromCurrentDate).map { $0.rawValue } ?? ""), \(currentWeekFromTodayDate) тиж."
+                    let title = "\(DayName.getDayNameFromNumber(dayNumberFromCurrentDate).map { $0.rawValue } ?? ""), \(currentWeekFromTodayDate.rawValue) тиж."
                     titleRow.titleLabel.setText(title)
                 }
                 
@@ -334,12 +339,12 @@ class InterfaceController: WKInterfaceController {
     public func setupCurrentOrNextLessonRow(row: TableRow, cellType: SheduleCellType) {
         
         if cellType == .currentCell {
-            row.rowGroup.setBackgroundColor(cellCurrentColour ?? .black)
+            row.rowGroup.setBackgroundColor(storeUserDefaults.cellCurrentColour)
         } else if cellType == .nextCell {
-            row.rowGroup.setBackgroundColor(cellNextColour ?? .black)
+            row.rowGroup.setBackgroundColor(storeUserDefaults.cellNextColour)
         }
         
-        let textColour: UIColor = cellNextColour?.isWhiteText ?? true ? .white : .black
+        let textColour: UIColor = storeUserDefaults.cellNextColour.isWhiteText ? .white : .black
 
         row.lessonNameLabel.setTextColor(textColour)
         row.lessonRoomLabel.setTextColor(textColour)

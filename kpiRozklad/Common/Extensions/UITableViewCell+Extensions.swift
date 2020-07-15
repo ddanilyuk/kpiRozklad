@@ -10,34 +10,33 @@ import UIKit
 
 extension UITableViewCell {
     
-    /// - TODO: Minimize function
-    func startLoadingCellIndicator() {
-        if let cell = self as? TeacherOrGroupLoadingTableViewCell {
-            DispatchQueue.main.async {
-                cell.activityIndicator.isHidden = false
-                cell.activityIndicator.startAnimating()
-            }
-        }
-        if let cell = self as? SettingsTableViewCell {
-            DispatchQueue.main.async {
-                cell.activityIndicator.isHidden = false
-                cell.activityIndicator.startAnimating()
-            }
-        }
-    }
-    
-    func stopLoadingCellIndicator() {
-        if let cell = self as? TeacherOrGroupLoadingTableViewCell {
-            DispatchQueue.main.async {
-                cell.activityIndicator.isHidden = true
-                cell.activityIndicator.stopAnimating()
-            }
-        }
-        if let cell = self as? SettingsTableViewCell {
-            DispatchQueue.main.async {
-                cell.activityIndicator.isHidden = true
-                cell.activityIndicator.stopAnimating()
-            }
-        }
-    }
+//    /// - TODO: Minimize function
+//    func startLoadingCellIndicator() {
+//        if let cell = self as? TeacherOrGroupLoadingTableViewCell {
+//            DispatchQueue.main.async {
+//                cell.activityIndicator.startAndShow()
+//            }
+//        }
+//        if let cell = self as? SettingsTableViewCell {
+//            DispatchQueue.main.async {
+//                cell.activityIndicator.isHidden = false
+//                cell.activityIndicator.startAnimating()
+//            }
+//        }
+//    }
+//    
+//    func stopLoadingCellIndicator() {
+//        if let cell = self as? TeacherOrGroupLoadingTableViewCell {
+//            DispatchQueue.main.async {
+//                cell.activityIndicator.isHidden = true
+//                cell.activityIndicator.stopAnimating()
+//            }
+//        }
+//        if let cell = self as? SettingsTableViewCell {
+//            DispatchQueue.main.async {
+//                cell.activityIndicator.isHidden = true
+//                cell.activityIndicator.stopAnimating()
+//            }
+//        }
+//    }
 }

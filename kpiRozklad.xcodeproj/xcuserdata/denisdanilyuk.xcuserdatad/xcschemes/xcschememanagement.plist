@@ -9,6 +9,16 @@
 			<key>orderHint</key>
 			<integer>8</integer>
 		</dict>
+		<key>kpiRozkladTest.xcscheme_^#shared#^_</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>11</integer>
+		</dict>
+		<key>kpiRozkladTodayWidget.xcscheme_^#shared#^_</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>9</integer>
+		</dict>
 		<key>kpiRozkladWatch (Notification).xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
@@ -22,12 +32,17 @@
 		<key>kpiRozkladWidgetExtension.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>9</integer>
+			<integer>10</integer>
 		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
 		<key>5F75DAD32457915900B1E4C9</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>5F7631F724B251F90022C952</key>
 		<dict>
 			<key>primary</key>
 			<true/>

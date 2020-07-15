@@ -70,7 +70,7 @@ class FavouriteViewController: UIViewController {
     func getGroupOrTeacherLesson(group: Group?, teacher: Teacher?, indexPath: IndexPath) {
         guard let cell = self.tableView.cellForRow(at: indexPath) as? TeacherOrGroupLoadingTableViewCell else { return }
         
-        cell.startLoadingCellIndicator()
+        cell.activityIndicator.startAndShow()
         
         let isGroup = group != nil ? true : false
         let serverLessons: Promise<[Lesson]> = isGroup ? API.getStudentLessons(forGroupWithId: group?.groupID ?? 0) : API.getTeacherLessons(forTeacherWithId: teacher?.teacherID ?? 0)
@@ -78,7 +78,7 @@ class FavouriteViewController: UIViewController {
         serverLessons.done({ [weak self] (lessons) in
             guard let this = self else { return }
             
-            cell.stopLoadingCellIndicator()
+            cell.activityIndicator.stopAndHide()
 
             guard let sheduleVC: SheduleViewController = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: SheduleViewController.identifier) as? SheduleViewController else { return }
             if isGroup {
@@ -103,7 +103,7 @@ class FavouriteViewController: UIViewController {
                     this.navigationController?.popViewController(animated: true)
                 }))
                 this.present(alert, animated: true, completion: {
-                    cell.stopLoadingCellIndicator()
+                    cell.activityIndicator.stopAndHide()
                 })
             } else {
                 let alert = UIAlertController(title: "Помилка", message: error.localizedDescription, preferredStyle: .alert)
@@ -144,7 +144,7 @@ extension FavouriteViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: TeacherOrGroupLoadingTableViewCell.identifier, for: indexPath) as? TeacherOrGroupLoadingTableViewCell else { return UITableViewCell() }
         
-        cell.stopLoadingCellIndicator()
+        cell.activityIndicator.stopAndHide()
         
         cell.mainLabel.text = indexPath.section == 0 ? favourites.favouriteGroupsNames[indexPath.row] : favourites.favouriteTeachersNames[indexPath.row]
     

@@ -28,6 +28,8 @@ public struct Group: Codable, Hashable {
     }
 }
 
+#if os(iOS)
+
 extension Group {
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
@@ -47,6 +49,7 @@ extension Group {
         groupID = try values.decode(Int.self, forKey: .groupID)
     }
 }
+#endif
 
 
 public enum GroupOkr: String, Codable, Hashable {

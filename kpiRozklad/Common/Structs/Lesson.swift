@@ -58,12 +58,35 @@ public struct Lesson: Codable, Hashable, Identifiable {
         case rate, groups
     }
     
-    static let defaultLesson = Lesson(id: 1, dayNumber: 1, lessonNumber: 12, lessonWeek: WeekType.first, groupID: 123, dayName: DayName.mounday, lessonType: LessonType.лек1, lessonName: "Name", lessonFullName: "Full Name", lessonRoom: "Room", teacherName: "Teacher Name", timeStart: "08:30", timeEnd: "10:25", rate: "rate", teacher: nil, room: nil, groups: nil)
+    static let defaultLesson = Lesson(id: 1,
+                                      dayNumber: 1,
+                                      lessonNumber: 12,
+                                      lessonWeek: WeekType.first,
+                                      groupID: 123,
+                                      dayName: DayName.mounday,
+                                      lessonType: LessonType.лек1,
+                                      lessonName: "Назва предмету",
+                                      lessonFullName: "Повна назва предмету",
+                                      lessonRoom: "301-18",
+                                      teacherName: "ст. вик. Викладач",
+                                      timeStart: "08:30", timeEnd: "10:25",
+                                      rate: "1.123",
+                                      teacher: Teacher(teacherID: 1,
+                                                       teacherURL: "url",
+                                                       teacherName: "Викладач Петро Петрович",
+                                                       teacherFullName: "старший викладач Викладач Петро Петрович",
+                                                       teacherShortName: "Викладач Петро Петрович",
+                                                       teacherRating: "1.123"),
+                                      room: Room(roomID: 1,
+                                                 roomName: "301-18",
+                                                 roomLatitude: "1.123",
+                                                 roomLongitude: "1.123"),
+                                      groups: nil)
     
-    static var defaultArratOfLesson: [Lesson] = Array(repeating: defaultLesson, count: 3)
+    static var defaultArratOfLesson: [Lesson] = Array(repeating: defaultLesson, count: 4)
 }
 
-
+#if os(iOS)
 extension Lesson {
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
@@ -111,9 +134,61 @@ extension Lesson {
         teacher = try values.decode([Teacher?].self, forKey: .teacher).first as? Teacher ?? nil
         room = try values.decode([Room?].self, forKey: .room).first as? Room ?? nil
         groups = try? values.decode([Group?]?.self, forKey: .groups) ?? []
-
     }
+    
+    public init(from2 decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: CodingKeys.self)
+        
+        // Strings
+        lessonName = try values.decode(String.self, forKey: .lessonName)
+        lessonFullName = try values.decode(String.self, forKey: .lessonFullName)
+        lessonRoom = try values.decode(String.self, forKey: .lessonRoom)
+        teacherName = try values.decode(String.self, forKey: .teacherName)
+        timeStart = try values.decode(String.self, forKey: .timeStart)
+        timeEnd = try values.decode(String.self, forKey: .timeEnd)
+        rate = try values.decode(String.self, forKey: .rate)
+        
+        // Enums
+        dayName = try values.decode(DayName.self, forKey: .dayName)
+        lessonType = try values.decode(LessonType.self, forKey: .lessonType)
+        lessonWeek = try values.decode(WeekType.self, forKey: .lessonWeek)
+
+        // Strings To Int
+//        guard let idCasted = try Int(values.decode(String.self, forKey: .id)) else {
+//            throw DecodingError.dataCorrupted(.init(codingPath: [CodingKeys.id], debugDescription: "Expecting string representation of Int"))
+//        }
+        id = try values.decode(Int.self, forKey: .id)
+
+        
+        if let dayNumberCasted = try Int(values.decode(String.self, forKey: .dayNumber)) {
+            dayNumber = dayNumberCasted
+        } else {
+            dayNumber = 1
+        }
+        
+        if let lessonNumberCasted = try Int(values.decode(String.self, forKey: .lessonNumber)) {
+            lessonNumber = lessonNumberCasted
+        } else {
+            lessonNumber = 1
+        }
+        
+        if let groupIDCasted = try? Int(values.decode(String.self, forKey: .groupID)) {
+            groupID = groupIDCasted
+        } else {
+            groupID = 0
+        }
+        
+        // Other types
+        
+        teacher = try values.decode([Teacher?].self, forKey: .teacher).first as? Teacher ?? nil
+        room = try values.decode([Room?].self, forKey: .room).first as? Room ?? nil
+        groups = try? values.decode([Group?]?.self, forKey: .groups) ?? []
+    }
+
+    
 }
+#endif
+
 
 extension Lesson: Comparable {
     public static func < (lhs: Lesson, rhs: Lesson) -> Bool {

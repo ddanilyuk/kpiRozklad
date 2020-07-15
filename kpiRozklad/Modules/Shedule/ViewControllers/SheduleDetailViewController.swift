@@ -114,7 +114,7 @@ class SheduleDetailViewController: UIViewController {
     
     /// setupActivityIndicator
     private func setupActivityIndicator() {
-        activityIndicator.startAnimating()
+        activityIndicator.startAndShow()
     }
     
     

@@ -7,8 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		3D8EB20D3559AC4A2F30497B /* Pods_KPIRozkladTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A02D8092F844116DFB4BC466 /* Pods_KPIRozkladTests.framework */; };
-		41D0ADD6C368C60E200A9E11 /* Pods_Widget.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 64742B8F505E8689AB85A1F6 /* Pods_Widget.framework */; };
+		5DEC5928706442B5D2832AD5 /* Pods_kpiRozkladTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE7B08BAF6D98CFFD7B1FF4B /* Pods_kpiRozkladTests.framework */; };
 		5F0275B223F3472300743637 /* kpiRozkladModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 5F6A08042370A175000A9C79 /* kpiRozkladModel.xcdatamodeld */; };
 		5F0275B423F3476B00743637 /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F0275B323F3476B00743637 /* CoreDataStack.swift */; };
 		5F0275B823F3493B00743637 /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F0275B323F3476B00743637 /* CoreDataStack.swift */; };
@@ -82,7 +81,7 @@
 		5F75DAD72457915900B1E4C9 /* NetworkingApiTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F75DAD62457915900B1E4C9 /* NetworkingApiTests.swift */; };
 		5F7631FA24B251F90022C952 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F7631F924B251F90022C952 /* WidgetKit.framework */; };
 		5F7631FC24B251F90022C952 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F7631FB24B251F90022C952 /* SwiftUI.framework */; };
-		5F7631FF24B251F90022C952 /* kpiRozkladWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F7631FE24B251F90022C952 /* kpiRozkladWidget.swift */; };
+		5F7631FF24B251F90022C952 /* KPIRozkladWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F7631FE24B251F90022C952 /* KPIRozkladWidget.swift */; };
 		5F76320124B251F90022C952 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5F76320024B251F90022C952 /* Assets.xcassets */; };
 		5F76320524B251F90022C952 /* kpiRozkladWidgetExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 5F7631F824B251F90022C952 /* kpiRozkladWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		5F76320924B252470022C952 /* GroupData+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F0E7DC824B23C0A002E1C6D /* GroupData+CoreDataProperties.swift */; };
@@ -124,6 +123,8 @@
 		5F76323024B252F40022C952 /* WidgetViewMedium.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F76322F24B252F30022C952 /* WidgetViewMedium.swift */; };
 		5F76323124B253090022C952 /* kpiRozkladModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 5F6A08042370A175000A9C79 /* kpiRozkladModel.xcdatamodeld */; };
 		5F76323424B253CA0022C952 /* String+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FCBB9FC241C404F00E7654F /* String+Extensions.swift */; };
+		5F7A000124B779B900E33B81 /* TimeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F7A000024B7797C00E33B81 /* TimeView.swift */; };
+		5F7A000324B78D2C00E33B81 /* UIActivityIndicator+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F7A000224B78D2C00E33B81 /* UIActivityIndicator+Extensions.swift */; };
 		5F7BABBF23A163C8009E3CA6 /* ErrorMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F7BABBE23A163C8009E3CA6 /* ErrorMessage.swift */; };
 		5F8EF0E7242D170400E74220 /* FirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F8EF0E6242D170400E74220 /* FirstViewController.swift */; };
 		5F8EF0E9242D171000E74220 /* BoardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F8EF0E8242D171000E74220 /* BoardViewController.swift */; };
@@ -226,6 +227,7 @@
 		5FE9678324091880000AD157 /* TeachersNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FE9678224091880000AD157 /* TeachersNavigationController.swift */; };
 		5FE96785240F0C22000AD157 /* SheduleDetailNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FE96784240F0C22000AD157 /* SheduleDetailNavigationController.swift */; };
 		5FF204D424B4F76F00B52FCB /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F4457E32376FB05008F9E21 /* Settings.swift */; };
+		5FF3323D24B7D72F00DB864F /* StoreUserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FF3323C24B7D72F00DB864F /* StoreUserDefaults.swift */; };
 		90A353C4EB2D15AEC0D9F8D1 /* Pods_kpiRozklad.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 25B70702B56A794A30F2DB1A /* Pods_kpiRozklad.framework */; };
 		D300F1D62364CEA30098CA83 /* GroupsAndTeachersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D300F1D52364CEA30098CA83 /* GroupsAndTeachersViewController.swift */; };
 		D300F1DA2364CF490098CA83 /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D300F1D92364CF490098CA83 /* SettingsTableViewController.swift */; };
@@ -317,8 +319,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		256E1CD69A284FC72A0964B8 /* Pods-kpiRozkladTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-kpiRozkladTests.release.xcconfig"; path = "Target Support Files/Pods-kpiRozkladTests/Pods-kpiRozkladTests.release.xcconfig"; sourceTree = "<group>"; };
 		25B70702B56A794A30F2DB1A /* Pods_kpiRozklad.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_kpiRozklad.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		2960C0C9F6C4061BFC696188 /* Pods-Widget.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Widget.release.xcconfig"; path = "Target Support Files/Pods-Widget/Pods-Widget.release.xcconfig"; sourceTree = "<group>"; };
 		5F0275B323F3476B00743637 /* CoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
 		5F034A352389B1F500D90DB7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		5F034A3E2389B2E600D90DB7 /* uk */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = uk; path = uk.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -356,7 +358,7 @@
 		5F7631F824B251F90022C952 /* kpiRozkladWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = kpiRozkladWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		5F7631F924B251F90022C952 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
 		5F7631FB24B251F90022C952 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
-		5F7631FE24B251F90022C952 /* kpiRozkladWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = kpiRozkladWidget.swift; sourceTree = "<group>"; };
+		5F7631FE24B251F90022C952 /* KPIRozkladWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KPIRozkladWidget.swift; sourceTree = "<group>"; };
 		5F76320024B251F90022C952 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		5F76320224B251F90022C952 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5F76322A24B252990022C952 /* LessonRow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LessonRow.swift; sourceTree = "<group>"; };
@@ -364,6 +366,8 @@
 		5F76322F24B252F30022C952 /* WidgetViewMedium.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WidgetViewMedium.swift; sourceTree = "<group>"; };
 		5F76323224B2534C0022C952 /* kpiRozkladWidget.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = kpiRozkladWidget.entitlements; sourceTree = "<group>"; };
 		5F76323324B253730022C952 /* kpiRozkladWidgetExtensionDebug.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = kpiRozkladWidgetExtensionDebug.entitlements; sourceTree = "<group>"; };
+		5F7A000024B7797C00E33B81 /* TimeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeView.swift; sourceTree = "<group>"; };
+		5F7A000224B78D2C00E33B81 /* UIActivityIndicator+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIActivityIndicator+Extensions.swift"; sourceTree = "<group>"; };
 		5F7BABBE23A163C8009E3CA6 /* ErrorMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorMessage.swift; sourceTree = "<group>"; };
 		5F8EF0E6242D170400E74220 /* FirstViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstViewController.swift; sourceTree = "<group>"; };
 		5F8EF0E8242D171000E74220 /* BoardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardViewController.swift; sourceTree = "<group>"; };
@@ -433,9 +437,9 @@
 		5FE0486C23930C3000092422 /* SheduleVC+UIPickerVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SheduleVC+UIPickerVC.swift"; sourceTree = "<group>"; };
 		5FE9678224091880000AD157 /* TeachersNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeachersNavigationController.swift; sourceTree = "<group>"; };
 		5FE96784240F0C22000AD157 /* SheduleDetailNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheduleDetailNavigationController.swift; sourceTree = "<group>"; };
-		64742B8F505E8689AB85A1F6 /* Pods_Widget.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Widget.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		5FF3323C24B7D72F00DB864F /* StoreUserDefaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreUserDefaults.swift; sourceTree = "<group>"; };
 		724A13763CC9AF6CBB93A09C /* Pods-KPIRozkladTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KPIRozkladTests.release.xcconfig"; path = "Target Support Files/Pods-KPIRozkladTests/Pods-KPIRozkladTests.release.xcconfig"; sourceTree = "<group>"; };
-		A02D8092F844116DFB4BC466 /* Pods_KPIRozkladTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_KPIRozkladTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		BE7B08BAF6D98CFFD7B1FF4B /* Pods_kpiRozkladTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_kpiRozkladTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C33203580DD02E686E10BAEC /* Pods-kpiRozklad.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-kpiRozklad.release.xcconfig"; path = "Target Support Files/Pods-kpiRozklad/Pods-kpiRozklad.release.xcconfig"; sourceTree = "<group>"; };
 		D300F1D52364CEA30098CA83 /* GroupsAndTeachersViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupsAndTeachersViewController.swift; sourceTree = "<group>"; };
 		D300F1D92364CF490098CA83 /* SettingsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
@@ -451,17 +455,24 @@
 		D34BEBC4233CCFC10035F7B4 /* OtherExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtherExtensions.swift; sourceTree = "<group>"; };
 		D363E7A9233BB74B00573EB2 /* SheduleDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheduleDetailViewController.swift; sourceTree = "<group>"; };
 		D38DEB43233A250F00BB0075 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		E0ACDE09DBC5E69897CFF86B /* Pods-kpiRozkladTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-kpiRozkladTests.debug.xcconfig"; path = "Target Support Files/Pods-kpiRozkladTests/Pods-kpiRozkladTests.debug.xcconfig"; sourceTree = "<group>"; };
 		E11184356743B4008D987065 /* Pods-KPIRozkladTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KPIRozkladTests.debug.xcconfig"; path = "Target Support Files/Pods-KPIRozkladTests/Pods-KPIRozkladTests.debug.xcconfig"; sourceTree = "<group>"; };
-		EDD61A393E606C9EDEAF6451 /* Pods-Widget.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Widget.debug.xcconfig"; path = "Target Support Files/Pods-Widget/Pods-Widget.debug.xcconfig"; sourceTree = "<group>"; };
 		FDF92BF3AE056AD077FE3AD8 /* Pods-kpiRozklad.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-kpiRozklad.debug.xcconfig"; path = "Target Support Files/Pods-kpiRozklad/Pods-kpiRozklad.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		59AF58B01AF4E6BAF9EF75C8 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		5F75DAD12457915900B1E4C9 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3D8EB20D3559AC4A2F30497B /* Pods_KPIRozkladTests.framework in Frameworks */,
+				5DEC5928706442B5D2832AD5 /* Pods_kpiRozkladTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -479,7 +490,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				5FACFF7E23ED63D40022DF88 /* NotificationCenter.framework in Frameworks */,
-				41D0ADD6C368C60E200A9E11 /* Pods_Widget.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -504,12 +514,12 @@
 		27FE3C497895B2A14E7B0A78 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				EDD61A393E606C9EDEAF6451 /* Pods-Widget.debug.xcconfig */,
-				2960C0C9F6C4061BFC696188 /* Pods-Widget.release.xcconfig */,
 				FDF92BF3AE056AD077FE3AD8 /* Pods-kpiRozklad.debug.xcconfig */,
 				C33203580DD02E686E10BAEC /* Pods-kpiRozklad.release.xcconfig */,
 				E11184356743B4008D987065 /* Pods-KPIRozkladTests.debug.xcconfig */,
 				724A13763CC9AF6CBB93A09C /* Pods-KPIRozkladTests.release.xcconfig */,
+				E0ACDE09DBC5E69897CFF86B /* Pods-kpiRozkladTests.debug.xcconfig */,
+				256E1CD69A284FC72A0964B8 /* Pods-kpiRozkladTests.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -619,8 +629,9 @@
 				5F44899F24B52E0C00EF86D4 /* WidgetViewSmall.swift */,
 				5F76322F24B252F30022C952 /* WidgetViewMedium.swift */,
 				5F76322A24B252990022C952 /* LessonRow.swift */,
+				5F7A000024B7797C00E33B81 /* TimeView.swift */,
 				5F76322C24B252B10022C952 /* WidgetHelpers.swift */,
-				5F7631FE24B251F90022C952 /* kpiRozkladWidget.swift */,
+				5F7631FE24B251F90022C952 /* KPIRozkladWidget.swift */,
 				5F76320024B251F90022C952 /* Assets.xcassets */,
 				5F76320224B251F90022C952 /* Info.plist */,
 				5F76323224B2534C0022C952 /* kpiRozkladWidget.entitlements */,
@@ -688,11 +699,10 @@
 			isa = PBXGroup;
 			children = (
 				5FACFF7D23ED63D40022DF88 /* NotificationCenter.framework */,
-				64742B8F505E8689AB85A1F6 /* Pods_Widget.framework */,
 				25B70702B56A794A30F2DB1A /* Pods_kpiRozklad.framework */,
-				A02D8092F844116DFB4BC466 /* Pods_KPIRozkladTests.framework */,
 				5F7631F924B251F90022C952 /* WidgetKit.framework */,
 				5F7631FB24B251F90022C952 /* SwiftUI.framework */,
+				BE7B08BAF6D98CFFD7B1FF4B /* Pods_kpiRozkladTests.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -752,6 +762,7 @@
 				5FDCFCE0248D8C3000568208 /* Assets.xcassets */,
 				5FDCFCE3248D8C3000568208 /* PushNotificationPayload.apns */,
 				5FDCFCE2248D8C3000568208 /* Info.plist */,
+				5FF3323C24B7D72F00DB864F /* StoreUserDefaults.swift */,
 			);
 			path = "kpiRozkladWatch Extension";
 			sourceTree = "<group>";
@@ -779,11 +790,11 @@
 				5F76323324B253730022C952 /* kpiRozkladWidgetExtensionDebug.entitlements */,
 				D38DEB43233A250F00BB0075 /* README.md */,
 				D313F494233AAB6C0076CFF8 /* kpiRozklad */,
+				5F7631FD24B251F90022C952 /* kpiRozkladWidget */,
 				5FACFF7F23ED63D40022DF88 /* kpiRozkladTodayWidget */,
-				5F75DAD52457915900B1E4C9 /* kpiRozkladTests */,
 				5FDCFCCA248D8C2D00568208 /* kpiRozkladWatch */,
 				5FDCFCD9248D8C2F00568208 /* kpiRozkladWatch Extension */,
-				5F7631FD24B251F90022C952 /* kpiRozkladWidget */,
+				5F75DAD52457915900B1E4C9 /* kpiRozkladTests */,
 				5FACFF7C23ED63D40022DF88 /* Frameworks */,
 				D313F493233AAB6C0076CFF8 /* Products */,
 				27FE3C497895B2A14E7B0A78 /* Pods */,
@@ -970,6 +981,7 @@
 				5FCBBA21241C501E00E7654F /* UIColor+Extensions.swift */,
 				5F96B89824339DE50035DA86 /* UITableViewCell+Extensions.swift */,
 				5F506EE3248ED0CC00B6F544 /* Date+Extensions.swift */,
+				5F7A000224B78D2C00E33B81 /* UIActivityIndicator+Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -1048,7 +1060,6 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 5FACFF8C23ED63D40022DF88 /* Build configuration list for PBXNativeTarget "kpiRozkladTodayWidget" */;
 			buildPhases = (
-				1A25F8C57CDB337E2A8CA8BC /* [CP] Check Pods Manifest.lock */,
 				5FACFF7723ED63D40022DF88 /* Sources */,
 				5FACFF7823ED63D40022DF88 /* Frameworks */,
 				5FACFF7923ED63D40022DF88 /* Resources */,
@@ -1068,6 +1079,7 @@
 			buildPhases = (
 				5FDCFCC7248D8C2C00568208 /* Resources */,
 				5FDCFCEA248D8C3000568208 /* Embed App Extensions */,
+				59AF58B01AF4E6BAF9EF75C8 /* Frameworks */,
 			);
 			buildRules = (
 			);
@@ -1252,43 +1264,21 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-kpiRozklad/Pods-kpiRozklad-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		1A25F8C57CDB337E2A8CA8BC /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-Widget-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
 		34087D166B06DBF47D78AC5E /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-KPIRozkladTests/Pods-KPIRozkladTests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-kpiRozkladTests/Pods-kpiRozkladTests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-KPIRozkladTests/Pods-KPIRozkladTests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-kpiRozkladTests/Pods-kpiRozkladTests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-KPIRozkladTests/Pods-KPIRozkladTests-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-kpiRozkladTests/Pods-kpiRozkladTests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		3F6840CDF772DCC380CFA899 /* [CP] Check Pods Manifest.lock */ = {
@@ -1328,7 +1318,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-KPIRozkladTests-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-kpiRozkladTests-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -1399,12 +1389,13 @@
 				5F76322E24B252D90022C952 /* Date+Extensions.swift in Sources */,
 				5F76322224B252700022C952 /* LessonType.swift in Sources */,
 				5F76322324B252700022C952 /* Teacher.swift in Sources */,
+				5F7A000124B779B900E33B81 /* TimeView.swift in Sources */,
 				5F76323024B252F40022C952 /* WidgetViewMedium.swift in Sources */,
 				5F76321424B252480022C952 /* TeachersData+CoreDataProperties.swift in Sources */,
 				5F76322124B252700022C952 /* JSONNull.swift in Sources */,
 				5F76321624B252480022C952 /* RoomsData+CoreDataClass.swift in Sources */,
 				5F76321F24B252630022C952 /* Enums.swift in Sources */,
-				5F7631FF24B251F90022C952 /* kpiRozkladWidget.swift in Sources */,
+				5F7631FF24B251F90022C952 /* KPIRozkladWidget.swift in Sources */,
 				5F76321924B252480022C952 /* LessonData+CoreDataClass.swift in Sources */,
 				5F76322724B252700022C952 /* DayName.swift in Sources */,
 				5F76321D24B2525B0022C952 /* TimeAndDate.swift in Sources */,
@@ -1469,6 +1460,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5FF3323D24B7D72F00DB864F /* StoreUserDefaults.swift in Sources */,
 				5FDCFCDF248D8C2F00568208 /* NotificationController.swift in Sources */,
 				5F56541D248E675700F2EB6E /* TimeAndDate.swift in Sources */,
 				5FA57FC8249565A5002DCD4A /* Room.swift in Sources */,
@@ -1497,6 +1489,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5F7A000324B78D2C00E33B81 /* UIActivityIndicator+Extensions.swift in Sources */,
 				D313F496233AAB6C0076CFF8 /* AppDelegate.swift in Sources */,
 				5F305C77242260560035B509 /* SheduleVC+UITableView.swift in Sources */,
 				5F686F3A23800CFB008B0915 /* AddLessonViewController.swift in Sources */,
@@ -1649,7 +1642,7 @@
 /* Begin XCBuildConfiguration section */
 		5F75DADC2457915900B1E4C9 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = E11184356743B4008D987065 /* Pods-KPIRozkladTests.debug.xcconfig */;
+			baseConfigurationReference = E0ACDE09DBC5E69897CFF86B /* Pods-kpiRozkladTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
@@ -1671,7 +1664,7 @@
 		};
 		5F75DADD2457915900B1E4C9 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 724A13763CC9AF6CBB93A09C /* Pods-KPIRozkladTests.release.xcconfig */;
+			baseConfigurationReference = 256E1CD69A284FC72A0964B8 /* Pods-kpiRozkladTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
@@ -1740,7 +1733,6 @@
 		};
 		5FACFF8A23ED63D40022DF88 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = EDD61A393E606C9EDEAF6451 /* Pods-Widget.debug.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = kpiRozkladTodayWidget/kpiRozkladTodayWidget.entitlements;
 				CODE_SIGN_STYLE = Automatic;
@@ -1764,7 +1756,6 @@
 		};
 		5FACFF8B23ED63D40022DF88 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 2960C0C9F6C4061BFC696188 /* Pods-Widget.release.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = kpiRozkladTodayWidget/kpiRozkladTodayWidget.entitlements;
 				CODE_SIGN_STYLE = Automatic;
@@ -1927,7 +1918,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -1982,7 +1973,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;

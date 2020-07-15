@@ -108,35 +108,30 @@ public class Settings {
         }
         
         set {
-            var colorData: NSData?
-            
             do {
-                colorData = try NSKeyedArchiver.archivedData(withRootObject: newValue, requiringSecureCoding: false) as NSData?
+                let colorData = try NSKeyedArchiver.archivedData(withRootObject: newValue, requiringSecureCoding: false) as NSData?
+                userDefaultsWidget.set(colorData, forKey: "cellNextColour")
             } catch let error {
                 print(error.localizedDescription)
             }
-            userDefaultsWidget.set(colorData, forKey: "cellNextColour")
         }
     }
     
     
     var cellCurrentColour: UIColor {
         get {
-            let color = try? NSKeyedUnarchiver.unarchivedObject(ofClass: UIColor.self, from: userDefaultsWidget.data(forKey: "cellNowColour") ?? Data())
+            let color = try? NSKeyedUnarchiver.unarchivedObject(ofClass: UIColor.self, from: userDefaultsWidget.data(forKey: "cellCurrentColour") ?? Data())
 
             return color ?? UIColor.orange
         }
         
         set {
-            var colorData: NSData?
             do {
-                colorData = try NSKeyedArchiver.archivedData(withRootObject: newValue, requiringSecureCoding: false) as NSData?
+                let colorData = try NSKeyedArchiver.archivedData(withRootObject: newValue, requiringSecureCoding: false) as NSData?
+                userDefaultsWidget.set(colorData, forKey: "cellCurrentColour")
             } catch let error {
                 print(error.localizedDescription)
             }
-
-//            userDefaults.set(colorData, forKey: "cellNowColour")
-            userDefaultsWidget.set(colorData, forKey: "cellNowColour")
         }
     }
  }

@@ -13,54 +13,87 @@ struct WidgetViewSmall: View {
     
     var lesson: Lesson = Lesson.defaultLesson
     
+    var date: Date
+    
     var settings = Settings.shared
     
-    init(lessons: [Lesson]) {
+    let color1: Color = Color(red: 57 / 255, green: 117 / 255, blue: 243 / 255)
+    let color2: Color = Color(red: 117 / 255, green: 210 / 255, blue: 174 / 255)
+    
+    init(lessons: [Lesson], date: Date) {
+        self.date = date
         if lessons.count > 0 {
             self.lesson = lessons[0]
         }
     }
     
     var body: some View {
-        VStack(alignment: .center) {
-            Text("Наступна пара")
-                .font(.headline)
-//                .padding(.bottom, 8)
-                .foregroundColor(.blue)
-                .frame(alignment: .center)
+        
+        ZStack {
+            LinearGradient(gradient:
+                                Gradient(colors: [color1, color2]),
+                           startPoint: .leading, endPoint: .trailing)
+                .edgesIgnoringSafeArea(.all)
             
-            Spacer()
-            VStack(alignment: .leading) {
-                Text(lesson.lessonFullName)
-                    .font(.title2)
-                    .lineLimit(2)
-    //            Spacer()
-
-                Text(lesson.teacher?.teacherShortName ?? lesson.teacherName)
-                    .font(.subheadline)
+            Color.black.opacity(0.25)
+                .edgesIgnoringSafeArea(.all)
+            
+            VStack(alignment: .center, spacing: 0.0) {
+                
+                let dateLesson = getDateStartAndEnd(of: lesson)
+                                
+                let (dayNumberFromCurrentDate, currentWeekFromTodayDate) = getCurrentWeekAndDayNumber()
+                let isLessonToday = lesson.dayNumber == dayNumberFromCurrentDate && currentWeekFromTodayDate == lesson.lessonWeek
+                
+                let text = dateLesson.dateStart < date && dateLesson.dateEnd > date && isLessonToday ? "Зараз" : "Далі"
+                
+                Text(text)
+                    .font(.headline)
                     .lineLimit(1)
+                    .foregroundColor(Color(#colorLiteral(red: 0.9712373614, green: 0.6793045998, blue: 0, alpha: 1)))
 
-
-                Text(lesson.lessonRoom + " " + lesson.lessonType.rawValue)
-                    .font(.subheadline)
-                
-                Spacer()
-
-                TimeView(lesson: lesson)
-                    .frame(minWidth: 0, maxWidth: .infinity, alignment: .center)
-                
-                
+                VStack(alignment: .leading) {
                     
+                    Spacer(minLength: 0.0)
+                    
+                    Text(lesson.lessonFullName)
+                        .font(.body)
+                        .foregroundColor(.white)
+                        .lineLimit(2)
+                        .lineSpacing(0.0)
+                    
+                    Spacer(minLength: 0.0)
+
+                    Text((lesson.teacher?.teacherShortName == "" ? lesson.teacherName : lesson.teacher?.teacherShortName) ?? lesson.teacherName)
+                        .font(.footnote)
+                        .foregroundColor(.white)
+                        .lineLimit(1)
+
+                    Spacer(minLength: 0.0)
+
+                    Text(lesson.lessonRoom + " " + lesson.lessonType.rawValue)
+                        .font(.footnote)
+                        .foregroundColor(.white)
+
+                    Spacer(minLength: 0.0)
+
+                    TimeView(lesson: lesson, date: date)
+                        .frame(minWidth: 0, maxWidth: .infinity, alignment: .center)
+                        .foregroundColor(.white)
+
+                }
             }
+            .padding()
+            .widgetURL(URL(string: "kpiRozklad://\(lesson.id)"))
 
         }
-        .padding(.all, 8)
+
     }
 }
 
 struct WidgetViewSmall_Previews: PreviewProvider {
     static var previews: some View {
-        WidgetViewSmall(lessons: Lesson.defaultArratOfLesson)
+        WidgetViewSmall(lessons: Lesson.defaultArratOfLesson, date: Date())
             .previewContext(WidgetPreviewContext(family: .systemSmall))
     }
 }

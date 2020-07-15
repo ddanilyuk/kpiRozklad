@@ -231,27 +231,6 @@ class SheduleViewController: UIViewController {
         /// Set `isEditInserts` for `tableView.contentInset`
         isEditInserts = true
         
-        
-        print("updated TIMELINE", Date())
-        print("updated TIMELINE noon", Date().noon)
-        print("Date.tomorrow", Date.tomorrow)
-        
-//        let session = WCSession.default
-
-        
-        
-        
-//        if WCSession.isSupported() {
-//            do {
-//                let userInfo: [String: String] = ["lessons": "\(fetchingCoreData(managedContext: managedContext).count)"]
-//                print(userInfo)
-//                try session.updateApplicationContext(userInfo)
-//            } catch {
-//                print("Error: \(error)")
-//            }
-//        }
-        
-        
     }
     
     
@@ -285,39 +264,7 @@ class SheduleViewController: UIViewController {
             tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         }
         
-        
-        if WCSession.isSupported() {
-            let session = WCSession.default
-            do {
-                guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
-                let managedContext = appDelegate.persistentContainer.viewContext
-                
-                let lessons = fetchingCoreData(managedContext: managedContext)
-                
-                let encoder = JSONEncoder.init()
-                
-                let dataLessons = try encoder.encode(lessons)
-                
-                let name = isTeachersShedule ? settings.teacherName : settings.groupName
-                
-                let currentColourData = settings.cellCurrentColour.encode()
-                let nextColourData = settings.cellNextColour.encode()
-
-                
-//                let some = UIColor(\)
-                
-                
-                
-                let dictionary: [String: Any] = ["lessons": dataLessons, "time": Date().timeIntervalSince1970, "name": name, "currentColourData": currentColourData, "nextColourData": nextColourData]
-//                let dictionary: [String: Any] = ["lessons": dataLessons, "name": name, "currentColourData": currentColourData, "nextColourData": nextColourData]
-
-//                print(dictionary)
-                try session.updateApplicationContext(dictionary)
-                
-            } catch {
-                print("Error: \(error)")
-            }
-        }
+        reloadDataOnAppleWatch()
     }
     
     
@@ -349,6 +296,38 @@ class SheduleViewController: UIViewController {
     }
     
     
+    func reloadDataOnAppleWatch() {
+        if WCSession.isSupported() {
+            print("Session supported")
+            let session = WCSession.default
+            do {
+                guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
+                let managedContext = appDelegate.persistentContainer.viewContext
+                
+                let lessons = fetchingCoreData(managedContext: managedContext)
+                
+                let encoder = JSONEncoder.init()
+                let dataLessons = try encoder.encode(lessons)
+                let groupOrTeacherName = isTeachersShedule ? settings.teacherName : settings.groupName
+                
+                let currentColourData = settings.cellCurrentColour.encode()
+                let nextColourData = settings.cellNextColour.encode()
+
+                let dictionary: [String: Any] = ["lessons": dataLessons,
+                                                 // "time": Date().timeIntervalSince1970,
+                                                 "groupOrTeacherName": groupOrTeacherName,
+                                                 "currentColourData": currentColourData,
+                                                 "nextColourData": nextColourData]
+//                let dictionary: [String: Any] = ["lessons": dataLessons, "name": name, "currentColourData": currentColourData, "nextColourData": nextColourData]
+
+                try session.updateApplicationContext(dictionary)
+                print("Session data sended")
+            } catch {
+                print("Error: \(error)")
+            }
+        }
+    }
+    
     // MARK: - SETUP functions
     
     private func setupTableView() {
@@ -368,8 +347,7 @@ class SheduleViewController: UIViewController {
     
     
     private func setupAtivityIndicator() {
-        activityIndicator.startAnimating()
-        activityIndicator.isHidden = false
+        activityIndicator.startAndShow()
         tableView.isHidden = true
         self.view.bringSubviewToFront(activityIndicator)
     }
@@ -404,7 +382,6 @@ class SheduleViewController: UIViewController {
         self.navigationController?.navigationBar.isTranslucent = true
         self.tabBarController?.tabBar.isTranslucent = true
     }
-    
     
     /// Function to set up currnet week in viewDidLoad
     func setupCurrentWeek() {
@@ -592,8 +569,7 @@ class SheduleViewController: UIViewController {
         
         /// (self.activityIndicator != nil)  because if when we push information from another VC tableView can be not exist
         if self.activityIndicator != nil {
-            self.activityIndicator.stopAnimating()
-            self.activityIndicator.isHidden = true
+            self.activityIndicator.stopAndHide()
         }
         
         /// (self.tableView != nil)  because if when we push information from another VC tableView can be not exist
@@ -706,7 +682,7 @@ class SheduleViewController: UIViewController {
     
     func checkIfTeacherInFavourites() {
         if let strongTeacher = teacherFromSegue {
-            if favourites.favouriteTeachersID.contains(Int(strongTeacher.teacherID) ?? 0) {
+            if favourites.favouriteTeachersID.contains(strongTeacher.teacherID) {
                 if let image = UIImage(named: "icons8-favourite-filled") {
                     favouriteButton.setImage(image, for: .normal)
                     isFavourite = true
@@ -722,7 +698,7 @@ class SheduleViewController: UIViewController {
         
         if isTeachersShedule {
             guard let strongTeacher = teacherFromSegue else { return }
-            idToFindOrAdd = Int(strongTeacher.teacherID) ?? 0
+            idToFindOrAdd = strongTeacher.teacherID
             nameToFindOrAdd = strongTeacher.teacherName == "" ? strongTeacher.teacherFullName : strongTeacher.teacherName
         } else {
             guard let strongGroup = groupFromSegue else { return }
@@ -780,4 +756,3 @@ class SheduleViewController: UIViewController {
         makeLessonsShedule()
     }
 }
-

@@ -9,6 +9,7 @@
 import UIKit
 import CoreData
 import PromiseKit
+import WidgetKit
 
 
 class SettingsTableViewController: UITableViewController {
@@ -215,9 +216,9 @@ class SettingsTableViewController: UITableViewController {
 
             guard let window = appDelegate.window else { return }
             
-
-
             guard let mainTabBar: UITabBarController = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "Main") as? UITabBarController else { return }
+            
+//            WidgetCenter.shared.reloadAllTimelines()
 
             window.rootViewController = mainTabBar
         }))

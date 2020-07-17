@@ -209,17 +209,7 @@ struct KPIRozkladWidget: Widget {
 
 struct kpiRozkladWidget_Previews: PreviewProvider {
     static var previews: some View {
-        VStack(alignment: .center) {
-            Spacer()
-            HStack {
-                Text("07-13-2020 11:22")
-                    .foregroundColor(.blue)
-                Text("07-13-2020 12:23")
-                    .foregroundColor(.blue)
-            }
-            WidgetViewMedium(lessons: Lesson.defaultArratOfLesson, date: Date())
-                .padding(.top, -10)
-        }
-        .previewContext(WidgetPreviewContext(family: .systemMedium))
+        WidgetViewMedium(lessons: Lesson.defaultArratOfLesson, date: Date())
+            .previewContext(WidgetPreviewContext(family: .systemMedium))
     }
 }

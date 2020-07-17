@@ -10,6 +10,7 @@ import UIKit
 import CoreData
 import PromiseKit
 import WatchConnectivity
+import WidgetKit
 
 
 /**
@@ -611,6 +612,7 @@ class SheduleViewController: UIViewController {
                 this.isNeedToScroll = true
                 updateCoreData(lessons: lessons, managedContext: managedContext) {
                     this.makeLessonsShedule()
+                    WidgetCenter.shared.reloadAllTimelines()
                 }
             } else {
                 this.lessonsFromSegue = lessons

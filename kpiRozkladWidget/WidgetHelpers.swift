@@ -10,11 +10,11 @@ import CoreData
 
 
 /// Get start and end date if `lesson` today
-func getDateStartAndEnd(of lesson: Lesson) -> (dateStart: Date, dateEnd: Date) {
+func getDateStartAndEnd(of lesson: Lesson, dateNow: Date = Date()) -> (dateStart: Date, dateEnd: Date) {
     let timeStart = lesson.timeStart.stringTime
     let timeEnd = lesson.timeEnd.stringTime
     
-    let dateNow = Date()
+//    let dateNow = Date()
 
     let formatterFull = DateFormatter()
     formatterFull.dateFormat = "YYYY:MM:DD:HH:mm"
@@ -30,9 +30,8 @@ func getDateStartAndEnd(of lesson: Lesson) -> (dateStart: Date, dateEnd: Date) {
 }
 
 
-func getCurrentWeekAndDayNumber() -> (dayNumberFromCurrentDate: Int, currentWeekFromTodayDate: WeekType) {
+func getCurrentWeekAndDayNumber(date: Date = Date()) -> (dayNumberFromCurrentDate: Int, currentWeekFromTodayDate: WeekType) {
     /// Current date from device
-    let date = Date()
     
     /// Calendar
     let calendar = Calendar(identifier: .gregorian)

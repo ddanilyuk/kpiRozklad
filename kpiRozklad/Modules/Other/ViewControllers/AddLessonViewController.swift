@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import WidgetKit
 
 class AddLessonViewController: UIViewController {
     
@@ -263,9 +264,11 @@ class AddLessonViewController: UIViewController {
         /// Updating Core Data
         updateCoreData(lessons: lessons, managedContext: managedContext) {
             sheduleViewController.makeLessonsShedule()
+            WidgetCenter.shared.reloadAllTimelines()
         }
         /// SHOW NEW sheduleViewController
         let mainTabBar : UITabBarController = mainStoryboard.instantiateViewController(withIdentifier: "Main") as! UITabBarController
+        
         
         if #available(iOS 13, *) {
             self.dismiss(animated: true, completion: {

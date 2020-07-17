@@ -57,7 +57,6 @@ struct WidgetViewMedium: View {
             Color.black.opacity(0.0)
                 .edgesIgnoringSafeArea(.all)
 
-            
             VStack(alignment: .leading, spacing: 0) {
                 let name = settings.groupName.uppercased()
                 

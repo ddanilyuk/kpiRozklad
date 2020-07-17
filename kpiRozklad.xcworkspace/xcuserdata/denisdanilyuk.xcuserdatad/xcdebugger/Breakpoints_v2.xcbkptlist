@@ -244,34 +244,34 @@
             landmarkType = "21">
             <Locations>
                <Location
-                  uuid = "DC345E9A-E486-4233-891E-D3D690F184A6 - edd72abbbdc961f9"
+                  uuid = "DC345E9A-E486-4233-891E-D3D690F184A6 - f4f40842123ddb36"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "kpiRozkladWidgetExtension.Group.init(from: Swift.Decoder) throws -&gt; kpiRozkladWidgetExtension.Group"
-                  moduleName = "kpiRozkladWidgetExtension"
+                  symbolName = "KPI_ROZKLAD.Group.init(from: Swift.Decoder) throws -&gt; KPI_ROZKLAD.Group"
+                  moduleName = "KPI ROZKLAD"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/denisdanilyuk/Documents/_myOwnProjects/kpiRozklad/kpiRozklad/Common/Structs/Group.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "35"
                   endingLineNumber = "35"
-                  offsetFromSymbolStart = "131">
+                  offsetFromSymbolStart = "136">
                </Location>
                <Location
-                  uuid = "DC345E9A-E486-4233-891E-D3D690F184A6 - edd72abbbdc96118"
+                  uuid = "DC345E9A-E486-4233-891E-D3D690F184A6 - f4f40842123ddbd7"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "kpiRozkladWidgetExtension.Group.init(from: Swift.Decoder) throws -&gt; kpiRozkladWidgetExtension.Group"
-                  moduleName = "kpiRozkladWidgetExtension"
+                  symbolName = "KPI_ROZKLAD.Group.init(from: Swift.Decoder) throws -&gt; KPI_ROZKLAD.Group"
+                  moduleName = "KPI ROZKLAD"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/denisdanilyuk/Documents/_myOwnProjects/kpiRozklad/kpiRozklad/Common/Structs/Group.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "34"
                   endingLineNumber = "34"
-                  offsetFromSymbolStart = "2301">
+                  offsetFromSymbolStart = "2352">
                </Location>
             </Locations>
          </BreakpointContent>
@@ -497,22 +497,6 @@
             startingLineNumber = "143"
             endingLineNumber = "143"
             landmarkName = "init(from2:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "B9D0F317-6431-4F7A-99D5-C4F0C35A6C2B"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "kpiRozklad/Modules/Shedule/ViewControllers/SheduleViewController.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "324"
-            endingLineNumber = "324"
-            landmarkName = "reloadDataOnAppleWatch()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

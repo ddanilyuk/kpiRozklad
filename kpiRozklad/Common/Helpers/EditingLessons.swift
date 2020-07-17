@@ -7,7 +7,7 @@
 //
 
 import UIKit
-
+import WidgetKit
 
 func editLessonNumber(vc: SheduleViewController, indexPath: IndexPath) {
     guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
@@ -100,6 +100,7 @@ func editLessonNumber(vc: SheduleViewController, indexPath: IndexPath) {
     /// updateCoreData with edited variable `lessons`
     updateCoreData(lessons: lessonsForCoreData, managedContext: managedContext) {
         vc.makeLessonsShedule()
+        WidgetCenter.shared.reloadAllTimelines()
     }
     vc.lessonNumberFromPicker = 1
 }
@@ -185,23 +186,6 @@ func moveRow3(vc: SheduleViewController, sourceIndexPath: IndexPath, destination
     let oldLesson = vc.lessonsForTableView[sourceIndexPath.section].lessons[sourceIndexPath.row]
     
     let (timeStart, timeEnd) = getTimeFromLessonNumber(lessonNumber: String(lessonNumber))
-//    let newLesson = Lesson( id: oldLesson.lessonID,
-//                            dayNumber: dayNumber,
-//                            groupID: oldLesson.groupID,
-//                            dayName: vc.lessonsForTableView[destinationIndexPath.section].day,
-//                            lessonName: oldLesson.lessonName,
-//                            lessonFullName: oldLesson.lessonFullName,
-//                            lessonNumber: lessonNumber,
-//                            lessonRoom: oldLesson.lessonRoom,
-//                            lessonType: oldLesson.lessonType,
-//                            teacherName: oldLesson.teacherName,
-//                            lessonWeek: oldLesson.lessonWeek,
-//                            timeStart: timeStart,
-//                            timeEnd: timeEnd,
-//                            rate: oldLesson.rate,
-//                            teachers: oldLesson.teacher,
-//                            rooms: oldLesson.room,
-//                            groups: oldLesson.groups)
     
     let newLesson = Lesson(id: oldLesson.id,
                       dayNumber: dayNumber,
@@ -254,6 +238,7 @@ func moveRow3(vc: SheduleViewController, sourceIndexPath: IndexPath, destination
     /// updateCoreData with edited variable `lessons`
     updateCoreData(lessons: lessonsForCoreData, managedContext: managedContext) {
         vc.makeLessonsShedule()
+        WidgetCenter.shared.reloadAllTimelines()
     }
     
 }
@@ -269,24 +254,7 @@ func NASTYA_LYBIAMAYA(i: Int, fullDayLessons: inout [Lesson?],  lessonTemp1: ino
         fullDayLessons.insert(nil, at: i)
         return
     }
-//    let editedLesson = Lesson( id: editedLessonTemp.id,
-//                               dayNumber: editedLessonTemp.dayNumber,
-//                               groupID: editedLessonTemp.groupID,
-//                               dayName: editedLessonTemp.dayName,
-//                               lessonName: editedLessonTemp.lessonName,
-//                               lessonFullName: editedLessonTemp.lessonFullName,
-//                               lessonNumber: String(i + 1),
-//                               lessonRoom: editedLessonTemp.lessonRoom,
-//                               lessonType: editedLessonTemp.lessonType,
-//                               teacherName: editedLessonTemp.teacherName,
-//                               lessonWeek: editedLessonTemp.lessonWeek,
-//                               timeStart: timeStartEdited,
-//                               timeEnd: timeEndEdited,
-//                               rate: editedLessonTemp.rate,
-//                               teachers: editedLessonTemp.teachers,
-//                               rooms: editedLessonTemp.rooms,
-//                               groups: editedLessonTemp.groups)
-    
+
     let editedLesson = Lesson(id: editedLessonTemp.id,
                               dayNumber: editedLessonTemp.dayNumber,
                               lessonNumber: i + 1,

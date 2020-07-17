@@ -17,10 +17,7 @@ struct TimeView: View {
     var body: some View {
         HStack(spacing: 4.0) {
             Spacer()
-            
-            let textWithTime = getTextFromLessonTime(lesson: lesson)
-            
-            textWithTime.text1 + textWithTime.text2
+            getTextFromLessonTime(lesson: lesson)
         }
         .foregroundColor(Color.white)
         .padding(.trailing, 0)
@@ -30,33 +27,30 @@ struct TimeView: View {
     }
     
     
-    func getTextFromLessonTime(lesson: Lesson) -> (text1: Text, text2: Text) {
+    func getTextFromLessonTime(lesson: Lesson) -> Text {
         let (dateStart, dateEnd) = getDateStartAndEnd(of: lesson)
-        var (dayNumberFromCurrentDate, currentWeekFromTodayDate) = getCurrentWeekAndDayNumber()
+        var (dayNumberFromCurrentDate, currentWeekFromTodayDate) = getCurrentWeekAndDayNumber(date: date)
         
         if lesson.dayNumber != dayNumberFromCurrentDate {
-            
             if lesson.lessonWeek != currentWeekFromTodayDate {
                 dayNumberFromCurrentDate = dayNumberFromCurrentDate - 7
             }
-
             if lesson.dayNumber - dayNumberFromCurrentDate == 1 {
-                return (text1: Text("завтра"), text2: Text(""))
+                return Text("завтра")
             } else if lesson.dayNumber - dayNumberFromCurrentDate == 2 {
-                return (text1: Text("післязавтра"), text2: Text(""))
+                return Text("післязавтра")
             } else {
-                let text = Text("через \(lesson.dayNumber - dayNumberFromCurrentDate) дні")
-                return (text1: text, text2: Text(""))
+                return Text("через \(lesson.dayNumber - dayNumberFromCurrentDate) дні")
             }
         } else {
             if dateStart > date {
-                return (text1: Text("через "), text2: Text(dateStart, style: .timer))
+                return Text("через ") + Text(dateStart, style: .timer)
             } else if dateStart <= date && dateEnd > date {
-                return (text1: Text("ще "), text2: Text(dateEnd, style: .timer))
+                return Text("ще ") + Text(dateEnd, style: .timer)
             }
         }
         
-        return (text1: Text("закінчилося"), text2: Text(""))
+        return Text("закінчилося")
     }
 }
 

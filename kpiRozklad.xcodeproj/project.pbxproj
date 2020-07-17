@@ -181,6 +181,8 @@
 		5FA57FCF249565A6002DCD4A /* Meta.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FA57FC224956578002DCD4A /* Meta.swift */; };
 		5FA5CE5A2413E32D00D2796A /* SettingsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FA5CE582413E32D00D2796A /* SettingsTableViewCell.swift */; };
 		5FA5CE5B2413E32D00D2796A /* SettingsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5FA5CE592413E32D00D2796A /* SettingsTableViewCell.xib */; };
+		5FA65EF724C20EC5009F6316 /* LessonDayAndNumberTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FA65EF524C20EC5009F6316 /* LessonDayAndNumberTableViewCell.swift */; };
+		5FA65EF824C20EC5009F6316 /* LessonDayAndNumberTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5FA65EF624C20EC5009F6316 /* LessonDayAndNumberTableViewCell.xib */; };
 		5FACFF5323EC70A70022DF88 /* TeacherOrGroupLoadingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FACFF5123EC70A70022DF88 /* TeacherOrGroupLoadingTableViewCell.swift */; };
 		5FACFF5423EC70A70022DF88 /* TeacherOrGroupLoadingTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5FACFF5223EC70A70022DF88 /* TeacherOrGroupLoadingTableViewCell.xib */; };
 		5FACFF7E23ED63D40022DF88 /* NotificationCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FACFF7D23ED63D40022DF88 /* NotificationCenter.framework */; };
@@ -404,6 +406,8 @@
 		5FA57FC224956578002DCD4A /* Meta.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Meta.swift; sourceTree = "<group>"; };
 		5FA5CE582413E32D00D2796A /* SettingsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTableViewCell.swift; sourceTree = "<group>"; };
 		5FA5CE592413E32D00D2796A /* SettingsTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SettingsTableViewCell.xib; sourceTree = "<group>"; };
+		5FA65EF524C20EC5009F6316 /* LessonDayAndNumberTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LessonDayAndNumberTableViewCell.swift; sourceTree = "<group>"; };
+		5FA65EF624C20EC5009F6316 /* LessonDayAndNumberTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LessonDayAndNumberTableViewCell.xib; sourceTree = "<group>"; };
 		5FACFF5123EC70A70022DF88 /* TeacherOrGroupLoadingTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeacherOrGroupLoadingTableViewCell.swift; sourceTree = "<group>"; };
 		5FACFF5223EC70A70022DF88 /* TeacherOrGroupLoadingTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TeacherOrGroupLoadingTableViewCell.xib; sourceTree = "<group>"; };
 		5FACFF7B23ED63D40022DF88 /* KPI ROZKLAD.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "KPI ROZKLAD.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -547,6 +551,8 @@
 				5F019D6A24C1BD95009D86FC /* LessonTypeAndWeekTableViewCell.xib */,
 				5F019D6D24C1C55A009D86FC /* CellWithOneSectionPickerTableViewCell.swift */,
 				5F019D6E24C1C55A009D86FC /* CellWithOneSectionPickerTableViewCell.xib */,
+				5FA65EF524C20EC5009F6316 /* LessonDayAndNumberTableViewCell.swift */,
+				5FA65EF624C20EC5009F6316 /* LessonDayAndNumberTableViewCell.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1263,6 +1269,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D313F4A2233AAB6D0076CFF8 /* LaunchScreen.storyboard in Resources */,
+				5FA65EF824C20EC5009F6316 /* LessonDayAndNumberTableViewCell.xib in Resources */,
 				D313F49F233AAB6D0076CFF8 /* Preview Assets.xcassets in Resources */,
 				5F2F313D2395972900FC28CB /* Assets.xcassets in Resources */,
 				5F019D7024C1C55A009D86FC /* CellWithOneSectionPickerTableViewCell.xib in Resources */,
@@ -1560,6 +1567,7 @@
 				5FCBBA1C241C4F7A00E7654F /* ColorPickerViewDelegateFlowLayoutMy.swift in Sources */,
 				5FE0486B2393087900092422 /* CoreDataHelpers.swift in Sources */,
 				5F0E7DD124B23C0A002E1C6D /* LessonData+CoreDataClass.swift in Sources */,
+				5FA65EF724C20EC5009F6316 /* LessonDayAndNumberTableViewCell.swift in Sources */,
 				D313F4B2233C773B0076CFF8 /* Lesson.swift in Sources */,
 				5F019D6724C1A854009D86FC /* TextFieldNewLessonTableViewCell.swift in Sources */,
 				5FA5CE5A2413E32D00D2796A /* SettingsTableViewCell.swift in Sources */,

@@ -103,13 +103,13 @@ func getNextThreeLessonsID(lessons: [Lesson],
         counter += 1
     }
     
-    iterator = currentWeekFromTodayDate == .first ? lessons.makeIterator() : secondWeekLessons.makeIterator()
+    iterator = currentWeekFromTodayDate == .second ? lessons.makeIterator() : secondWeekLessons.makeIterator()
     
     firstNextLessonID = iterator.next()?.id ?? 0
     secondNextLessonID = iterator.next()?.id ?? 0
     thirdNextLessonID = iterator.next()?.id ?? 0
     
-    return (firstNextLessonID: firstNextLessonID, secondNextLessonID: firstNextLessonID, thirdNextLessonID: firstNextLessonID)
+    return (firstNextLessonID: firstNextLessonID, secondNextLessonID: secondNextLessonID, thirdNextLessonID: thirdNextLessonID)
 }
 
 
@@ -128,6 +128,7 @@ func getArrayWithNextThreeLessons(dayNumberFromCurrentDate: Int, currentWeekFrom
     }))
     
     let (dayNumberFromCurrentDate, currentWeekFromTodayDate) = getCurrentWeekAndDayNumber()
+    
     let (firstNextLessonID, secondNextLessonID, thirdNextLessonID) = getNextThreeLessonsID(lessons: lessonsFromCoreData, dayNumberFromCurrentDate: dayNumberFromCurrentDate, currentWeekFromTodayDate: currentWeekFromTodayDate)
     
     var arrayWithLessonsToShow: [Lesson] = []

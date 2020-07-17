@@ -8,18 +8,54 @@
 
 import UIKit
 
+
 enum LessonTypeAndWeekTableViewCellType {
     case lessonType
     case week
+}
+
+
+protocol LessonTypeAndWeekTableViewCellDelegate {
+    func weekSelected(week: WeekType)
+    func typeSelected(type: LessonType)
 }
 
 class LessonTypeAndWeekTableViewCell: UITableViewCell {
 
     @IBOutlet weak var segmentControl: UISegmentedControl!
     
+    var delegate: LessonTypeAndWeekTableViewCellDelegate?
+    
     var cellType: LessonTypeAndWeekTableViewCellType = .lessonType {
         didSet {
             setupSegmentControl()
+        }
+    }
+    
+    var selectedWeek: WeekType = .first {
+        didSet {
+            if cellType == .week {
+                segmentControl.selectedSegmentIndex = selectedWeek == .first ? 0 : 1
+                print(selectedWeek)
+                delegate?.weekSelected(week: selectedWeek)
+            }
+        }
+    }
+    
+    var selectedType: LessonType = .empty {
+        didSet {
+            if cellType == .lessonType {
+                if selectedType == .лек1 {
+                    segmentControl.selectedSegmentIndex = 0
+                } else if selectedType == .лаб {
+                    segmentControl.selectedSegmentIndex = 1
+                } else if selectedType == .прак {
+                    segmentControl.selectedSegmentIndex = 2
+                } else {
+                    segmentControl.selectedSegmentIndex = 3
+                }
+                delegate?.typeSelected(type: selectedType)
+            }
         }
     }
         
@@ -27,6 +63,30 @@ class LessonTypeAndWeekTableViewCell: UITableViewCell {
         super.awakeFromNib()
         setupSegmentControl()
     }
+    
+    @IBAction func segmentControlValueChanged(_ sender: UISegmentedControl) {
+        switch segmentControl.selectedSegmentIndex {
+        case 0:
+            if cellType == .lessonType {
+                selectedType = .лек1
+            } else if cellType == .week {
+                selectedWeek = .first
+            }
+        case 1:
+            if cellType == .lessonType {
+                selectedType = .лаб
+            } else if cellType == .week {
+                selectedWeek = .second
+            }
+        case 2:
+            selectedType = .прак
+        case 3:
+            selectedType = .empty
+        default:
+            break
+        }
+    }
+    
 
     private func setupSegmentControl() {
         // Appearance
@@ -62,17 +122,10 @@ class LessonTypeAndWeekTableViewCell: UITableViewCell {
             segmentControl.insertSegment(withTitle: "Прак", at: 2, animated: false)
             segmentControl.insertSegment(withTitle: "Інше", at: 3, animated: false)
             segmentControl.selectedSegmentIndex = 0
-//            segmentControl.setTitle("Лек", forSegmentAt: 0)
-//            segmentControl.setTitle("Лаб", forSegmentAt: 1)
-//            segmentControl.setTitle("Прак", forSegmentAt: 2)
-//            segmentControl.setTitle("Інше", forSegmentAt: 3)
         case .week:
             segmentControl.insertSegment(withTitle: "1 тиждень", at: 0, animated: false)
             segmentControl.insertSegment(withTitle: "2 тиждень", at: 1, animated: false)
             segmentControl.selectedSegmentIndex = 0
-            
-//            segmentControl.setTitle("1 тиждень", forSegmentAt: 0)
-//            segmentControl.setTitle("2 тиждень", forSegmentAt: 1)
         }
         
     }

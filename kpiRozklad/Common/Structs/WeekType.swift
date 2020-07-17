@@ -11,4 +11,8 @@ import UIKit
 public enum WeekType: String, Codable, CaseIterable, Hashable {
     case first = "1"
     case second = "2"
+    
+    mutating func toogle() {
+        self = self == .first ? .second : .first
+    }
 }

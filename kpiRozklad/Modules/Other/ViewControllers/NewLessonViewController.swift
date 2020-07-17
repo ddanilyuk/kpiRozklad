@@ -34,12 +34,22 @@ class NewLessonViewController: UIViewController {
 
     var roomName = String()
     
+    var dayName: DayName?
+    
+    var lessonNumber: Int = 0
+    
+    var lessonType: LessonType = .лек1
+    
+    var selectedWeek: WeekType = .first
+    
     
     var isUnicalLessonsOpen: Bool = false
     
     var isUnicalTeachersOpen: Bool = false
 
     var isUnicalRoomsOpen: Bool = false
+    
+    var isDayNameAndPairOpen: Bool = false
 
     
     var unicalLessonNames: [String] = []
@@ -47,30 +57,48 @@ class NewLessonViewController: UIViewController {
     var unicalTeacherNames: [String] = []
     
     var unicalRoomNames: [String] = []
+    
+    var unicalDataDayAndLessonNumber: [DayName: [Int]] = [:]
 
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.hideKeyboard()
         setupTableView()
-        getUnicalLessons()
-        getUnicalTeachers()
-        getUnicalRooms()
+        unicalLessonNames = getUnicalLessons()
+        unicalTeacherNames = getUnicalTeachers()
+        unicalRoomNames = getUnicalRooms()
+        unicalDataDayAndLessonNumber = getDataForDayAndLessonNumberCell()
     }
     
-    func getUnicalLessons() {
+    func getUnicalLessons() -> [String] {
         let lessonsSet = Set(lessons.map { $0.lessonFullName })
-        unicalLessonNames = Array<String>(lessonsSet).sorted().filter { $0 != "" }
+        return Array<String>(lessonsSet).sorted().filter { $0 != "" }
     }
     
-    func getUnicalTeachers() {
+    func getUnicalTeachers() -> [String] {
         let teachersSet = Set(lessons.map { $0.teacherName })
-        unicalTeacherNames = Array<String>(teachersSet).sorted().filter { $0 != "" }
+        return Array<String>(teachersSet).sorted().filter { $0 != "" }
     }
     
-    func getUnicalRooms() {
+    func getUnicalRooms() -> [String] {
         let roomsSet = Set(lessons.map { $0.room?.roomName ?? "" })
-        unicalRoomNames = Array<String>(roomsSet).sorted().filter { $0 != "" }
+        return Array<String>(roomsSet).sorted().filter { $0 != "" }
+    }
+    
+    func getDataForDayAndLessonNumberCell() -> [DayName: [Int]] {
+        var result: [DayName: [Int]] = [:]
+        for day in DayName.allCases {
+            var possiblePairs = [1, 2, 3, 4, 5, 6]
+            
+            lessons.forEach { lesson in
+                if lesson.dayName == day && lesson.lessonWeek == selectedWeek {
+                    possiblePairs.removeAll{ $0 == lesson.lessonNumber }
+                }
+            }
+            result[day] = possiblePairs
+        }
+        return result
     }
     
     private func setupTableView() {
@@ -84,6 +112,7 @@ class NewLessonViewController: UIViewController {
         tableView.register(UINib(nibName: TextFieldNewLessonTableViewCell.identifier, bundle: Bundle.main), forCellReuseIdentifier: TextFieldNewLessonTableViewCell.identifier)
         tableView.register(UINib(nibName: LessonTypeAndWeekTableViewCell.identifier, bundle: Bundle.main), forCellReuseIdentifier: LessonTypeAndWeekTableViewCell.identifier)
         tableView.register(UINib(nibName: CellWithOneSectionPickerTableViewCell.identifier, bundle: Bundle.main), forCellReuseIdentifier: CellWithOneSectionPickerTableViewCell.identifier)
+        tableView.register(UINib(nibName: LessonDayAndNumberTableViewCell.identifier, bundle: Bundle.main), forCellReuseIdentifier: LessonDayAndNumberTableViewCell.identifier)
     }
 }
 
@@ -99,6 +128,8 @@ extension NewLessonViewController: UITableViewDelegate, UITableViewDataSource {
             return isUnicalTeachersOpen ? 2 : 1
         } else if section == 2 {
             return isUnicalRoomsOpen ? 2 : 1
+        } else if section == 5 {
+            return isDayNameAndPairOpen ? 2 : 1
         }
         return 1
     }
@@ -117,7 +148,6 @@ extension NewLessonViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         return headersOfSections[section]
     }
-    
     
     func makeCellsForSection(at section: Int, with unicalData: [String], textCell: String, isNeedToShowDetails: Bool) -> [UITableViewCell] {
         var arrayWithCells: [UITableViewCell] = []
@@ -150,45 +180,50 @@ extension NewLessonViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        switch indexPath.section {
-        case 0:
-            let cells = makeCellsForSection(at: 0, with: unicalLessonNames, textCell: lessonName, isNeedToShowDetails: isUnicalLessonsOpen)
-            if indexPath.row == 0 {
-                return cells[0]
-            } else {
-                return cells[1]
+        if (0...2).contains(indexPath.section) {
+            var cells: [UITableViewCell] = []
+            if indexPath.section == 0 {
+                cells = makeCellsForSection(at: 0, with: unicalLessonNames, textCell: lessonName, isNeedToShowDetails: isUnicalLessonsOpen)
+            } else if indexPath.section == 1 {
+                cells = makeCellsForSection(at: 1, with: unicalTeacherNames, textCell: teacherName, isNeedToShowDetails: isUnicalTeachersOpen)
+            } else if indexPath.section == 2 {
+                cells = makeCellsForSection(at: 2, with: unicalRoomNames, textCell: roomName, isNeedToShowDetails: isUnicalRoomsOpen)
             }
-        case 1:
-            let cells = makeCellsForSection(at: 1, with: unicalTeacherNames, textCell: teacherName, isNeedToShowDetails: isUnicalTeachersOpen)
-            if indexPath.row == 0 {
-                return cells[0]
-            } else {
-                return cells[1]
-            }
-        case 2:
-            let cells = makeCellsForSection(at: 2, with: unicalRoomNames, textCell: roomName, isNeedToShowDetails: isUnicalRoomsOpen)
-            if indexPath.row == 0 {
-                return cells[0]
-            } else {
-                return cells[1]
-            }
-        case 3, 4:
+            return indexPath.row == 0 ? cells[0] : cells[1]
+        } else if (3...4).contains(indexPath.section) {
             guard let lessonTypeCell = tableView.dequeueReusableCell(withIdentifier: LessonTypeAndWeekTableViewCell.identifier, for: indexPath) as? LessonTypeAndWeekTableViewCell else { return UITableViewCell() }
-            if indexPath.section == 3 {
-                lessonTypeCell.cellType = .lessonType
-            } else if indexPath.section == 4 {
-                lessonTypeCell.cellType = .week
-            }
+             
+            lessonTypeCell.cellType = indexPath.section == 3 ? .lessonType : .week
+            lessonTypeCell.selectedType = lessonType
+            lessonTypeCell.selectedWeek = selectedWeek
+            lessonTypeCell.delegate = self
             lessonTypeCell.selectionStyle = .none
+            
             return lessonTypeCell
-        
-        case 5:
-            // TODO: - new cell
-            let cell = UITableViewCell(style: .default, reuseIdentifier: "")
-            return cell
-        
-        default:
-            let cell = UITableViewCell(style: .default, reuseIdentifier: "")
+        } else if indexPath.section == 5 {
+            if indexPath.row == 0 {
+                guard let newLessonCell = tableView.dequeueReusableCell(withIdentifier: TextFieldNewLessonTableViewCell.identifier, for: indexPath) as? TextFieldNewLessonTableViewCell else { return UITableViewCell() }
+                if let dayName = dayName {
+                    newLessonCell.configureCell(text: "\(dayName.rawValue), \(lessonNumber) пара", placeholder: nil)
+                } else {
+                    newLessonCell.configureCell(placeholder: placeholdersOfSections[indexPath.section])
+                }
+                
+                newLessonCell.indexPath = indexPath
+                newLessonCell.delegate = self
+                newLessonCell.selectionStyle = .none
+                return newLessonCell
+            } else {
+                // TODO: add cell
+                guard let lessonDayAndNumberCell = tableView.dequeueReusableCell(withIdentifier: LessonDayAndNumberTableViewCell.identifier, for: indexPath) as? LessonDayAndNumberTableViewCell else { return UITableViewCell() }
+                lessonDayAndNumberCell.delegate = self
+                lessonDayAndNumberCell.data = unicalDataDayAndLessonNumber
+                
+                return lessonDayAndNumberCell
+            }
+            
+        } else {
+            let cell = UITableViewCell(style: .default, reuseIdentifier: "id")
             return cell
         }
     }
@@ -199,11 +234,7 @@ extension NewLessonViewController: UITableViewDelegate, UITableViewDataSource {
 extension NewLessonViewController: TextFieldNewLessonTableViewCellDelegate {
     func userTappedShowDetails(on cell: TextFieldNewLessonTableViewCell, at indexPath: IndexPath) {
         
-        
-//        if (0...2).contains(indexPath.section) {
-//            if 
-//        }
-        
+        // TODO: - re write if else
         if indexPath.section == 0 {
             if !isUnicalLessonsOpen {
                 isUnicalLessonsOpen.toggle()
@@ -228,6 +259,14 @@ extension NewLessonViewController: TextFieldNewLessonTableViewCellDelegate {
                 isUnicalRoomsOpen.toggle()
                 tableView.deleteRows(at: [IndexPath(row: 1, section: indexPath.section)], with: .fade)
             }
+        } else if indexPath.section == 5 {
+            if !isDayNameAndPairOpen {
+                isDayNameAndPairOpen.toggle()
+                tableView.insertRows(at: [IndexPath(row: 1, section: indexPath.section)], with: .fade)
+            } else {
+                isDayNameAndPairOpen.toggle()
+                tableView.deleteRows(at: [IndexPath(row: 1, section: indexPath.section)], with: .fade)
+            }
         }
     }
 }
@@ -250,5 +289,30 @@ extension NewLessonViewController: CellWithOneSectionPickerTableViewCellDelegate
         cell.configureCell(text: text, placeholder: nil)
     }
     
+}
+
+
+extension NewLessonViewController: LessonDayAndNumberTableViewCellDelegate {
+    func pickerSelectDayAndNumber(picker: UIPickerView, lessonDay: DayName, lessonNumber: Int) {
+        guard let cell = tableView.cellForRow(at: IndexPath(row: 0, section: 5)) as? TextFieldNewLessonTableViewCell else {
+            assertionFailure("Invalid indexPath")
+            return
+        }
+        self.dayName = lessonDay
+        self.lessonNumber = lessonNumber
+        cell.configureCell(text: "\(lessonDay.rawValue), \(lessonNumber) пара", placeholder: nil)
+    }
+}
+
+
+extension NewLessonViewController: LessonTypeAndWeekTableViewCellDelegate {
+    func weekSelected(week: WeekType) {
+        self.selectedWeek = week
+        guard let lessonDayAndNumberCell = tableView.cellForRow(at: IndexPath(row: 1, section: 5)) as? LessonDayAndNumberTableViewCell else { return }
+        lessonDayAndNumberCell.data = getDataForDayAndLessonNumberCell()
+    }
     
+    func typeSelected(type: LessonType) {
+        self.lessonType = type
+    }
 }

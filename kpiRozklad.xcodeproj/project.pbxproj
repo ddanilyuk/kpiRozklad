@@ -8,6 +8,13 @@
 
 /* Begin PBXBuildFile section */
 		5DEC5928706442B5D2832AD5 /* Pods_kpiRozkladTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE7B08BAF6D98CFFD7B1FF4B /* Pods_kpiRozkladTests.framework */; };
+		5F019D6324C1A3DC009D86FC /* NewLessonViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F019D6224C1A3DC009D86FC /* NewLessonViewController.swift */; };
+		5F019D6724C1A854009D86FC /* TextFieldNewLessonTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F019D6524C1A854009D86FC /* TextFieldNewLessonTableViewCell.swift */; };
+		5F019D6824C1A854009D86FC /* TextFieldNewLessonTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5F019D6624C1A854009D86FC /* TextFieldNewLessonTableViewCell.xib */; };
+		5F019D6B24C1BD95009D86FC /* LessonTypeAndWeekTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F019D6924C1BD95009D86FC /* LessonTypeAndWeekTableViewCell.swift */; };
+		5F019D6C24C1BD95009D86FC /* LessonTypeAndWeekTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5F019D6A24C1BD95009D86FC /* LessonTypeAndWeekTableViewCell.xib */; };
+		5F019D6F24C1C55A009D86FC /* CellWithOneSectionPickerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F019D6D24C1C55A009D86FC /* CellWithOneSectionPickerTableViewCell.swift */; };
+		5F019D7024C1C55A009D86FC /* CellWithOneSectionPickerTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5F019D6E24C1C55A009D86FC /* CellWithOneSectionPickerTableViewCell.xib */; };
 		5F0275B223F3472300743637 /* kpiRozkladModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 5F6A08042370A175000A9C79 /* kpiRozkladModel.xcdatamodeld */; };
 		5F0275B423F3476B00743637 /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F0275B323F3476B00743637 /* CoreDataStack.swift */; };
 		5F0275B823F3493B00743637 /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F0275B323F3476B00743637 /* CoreDataStack.swift */; };
@@ -321,6 +328,13 @@
 /* Begin PBXFileReference section */
 		256E1CD69A284FC72A0964B8 /* Pods-kpiRozkladTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-kpiRozkladTests.release.xcconfig"; path = "Target Support Files/Pods-kpiRozkladTests/Pods-kpiRozkladTests.release.xcconfig"; sourceTree = "<group>"; };
 		25B70702B56A794A30F2DB1A /* Pods_kpiRozklad.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_kpiRozklad.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		5F019D6224C1A3DC009D86FC /* NewLessonViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewLessonViewController.swift; sourceTree = "<group>"; };
+		5F019D6524C1A854009D86FC /* TextFieldNewLessonTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldNewLessonTableViewCell.swift; sourceTree = "<group>"; };
+		5F019D6624C1A854009D86FC /* TextFieldNewLessonTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TextFieldNewLessonTableViewCell.xib; sourceTree = "<group>"; };
+		5F019D6924C1BD95009D86FC /* LessonTypeAndWeekTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LessonTypeAndWeekTableViewCell.swift; sourceTree = "<group>"; };
+		5F019D6A24C1BD95009D86FC /* LessonTypeAndWeekTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LessonTypeAndWeekTableViewCell.xib; sourceTree = "<group>"; };
+		5F019D6D24C1C55A009D86FC /* CellWithOneSectionPickerTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellWithOneSectionPickerTableViewCell.swift; sourceTree = "<group>"; };
+		5F019D6E24C1C55A009D86FC /* CellWithOneSectionPickerTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CellWithOneSectionPickerTableViewCell.xib; sourceTree = "<group>"; };
 		5F0275B323F3476B00743637 /* CoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
 		5F034A352389B1F500D90DB7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		5F034A3E2389B2E600D90DB7 /* uk */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = uk; path = uk.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -524,6 +538,19 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
+		5F019D6424C1A815009D86FC /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				5F019D6524C1A854009D86FC /* TextFieldNewLessonTableViewCell.swift */,
+				5F019D6624C1A854009D86FC /* TextFieldNewLessonTableViewCell.xib */,
+				5F019D6924C1BD95009D86FC /* LessonTypeAndWeekTableViewCell.swift */,
+				5F019D6A24C1BD95009D86FC /* LessonTypeAndWeekTableViewCell.xib */,
+				5F019D6D24C1C55A009D86FC /* CellWithOneSectionPickerTableViewCell.swift */,
+				5F019D6E24C1C55A009D86FC /* CellWithOneSectionPickerTableViewCell.xib */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
 		5F0E7DC024B23BC3002E1C6D /* CoreData */ = {
 			isa = PBXGroup;
 			children = (
@@ -555,6 +582,7 @@
 		5F305C7C242264400035B509 /* Other */ = {
 			isa = PBXGroup;
 			children = (
+				5F019D6424C1A815009D86FC /* Views */,
 				5F8EF0E5242D15D200E74220 /* Frameworks */,
 				5FD5B71724226F1C00B86FB7 /* ViewControllers */,
 			);
@@ -736,6 +764,7 @@
 				5F686F3923800CFB008B0915 /* AddLessonViewController.swift */,
 				5F8EF0E6242D170400E74220 /* FirstViewController.swift */,
 				5F8EF0E8242D171000E74220 /* BoardViewController.swift */,
+				5F019D6224C1A3DC009D86FC /* NewLessonViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -1236,11 +1265,14 @@
 				D313F4A2233AAB6D0076CFF8 /* LaunchScreen.storyboard in Resources */,
 				D313F49F233AAB6D0076CFF8 /* Preview Assets.xcassets in Resources */,
 				5F2F313D2395972900FC28CB /* Assets.xcassets in Resources */,
+				5F019D7024C1C55A009D86FC /* CellWithOneSectionPickerTableViewCell.xib in Resources */,
 				5FACFF5423EC70A70022DF88 /* TeacherOrGroupLoadingTableViewCell.xib in Resources */,
 				5F034A322389B16D00D90DB7 /* Main.storyboard in Resources */,
 				D313F4B6233D1F090076CFF8 /* LessonTableViewCell.xib in Resources */,
 				5FA5CE5B2413E32D00D2796A /* SettingsTableViewCell.xib in Resources */,
 				5FC991EF23DF10BB00612266 /* ServerUpdateTableViewCell.xib in Resources */,
+				5F019D6824C1A854009D86FC /* TextFieldNewLessonTableViewCell.xib in Resources */,
+				5F019D6C24C1BD95009D86FC /* LessonTypeAndWeekTableViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1493,6 +1525,7 @@
 				D313F496233AAB6C0076CFF8 /* AppDelegate.swift in Sources */,
 				5F305C77242260560035B509 /* SheduleVC+UITableView.swift in Sources */,
 				5F686F3A23800CFB008B0915 /* AddLessonViewController.swift in Sources */,
+				5F019D6324C1A3DC009D86FC /* NewLessonViewController.swift in Sources */,
 				5F0E7DCD24B23C0A002E1C6D /* TeachersData+CoreDataClass.swift in Sources */,
 				5F7BABBF23A163C8009E3CA6 /* ErrorMessage.swift in Sources */,
 				5F46AD5E23FEC43500B145D5 /* FavouriteViewController.swift in Sources */,
@@ -1508,6 +1541,7 @@
 				5F2E61812428252000B362A2 /* NetworkingApi.swift in Sources */,
 				5FE0486D23930C3000092422 /* SheduleVC+UIPickerVC.swift in Sources */,
 				5FCBB9FF241C40B900E7654F /* UIButton+Extensions.swift in Sources */,
+				5F019D6F24C1C55A009D86FC /* CellWithOneSectionPickerTableViewCell.swift in Sources */,
 				5FE048672392D4FA00092422 /* ManagingLessons.swift in Sources */,
 				5F0E7DD524B23C0A002E1C6D /* GroupData+CoreDataClass.swift in Sources */,
 				5F0E7DCB24B23C0A002E1C6D /* RoomsData+CoreDataProperties.swift in Sources */,
@@ -1527,6 +1561,7 @@
 				5FE0486B2393087900092422 /* CoreDataHelpers.swift in Sources */,
 				5F0E7DD124B23C0A002E1C6D /* LessonData+CoreDataClass.swift in Sources */,
 				D313F4B2233C773B0076CFF8 /* Lesson.swift in Sources */,
+				5F019D6724C1A854009D86FC /* TextFieldNewLessonTableViewCell.swift in Sources */,
 				5FA5CE5A2413E32D00D2796A /* SettingsTableViewCell.swift in Sources */,
 				5FCBBA1A241C4F5F00E7654F /* ColorPickerViewDelegateMy.swift in Sources */,
 				5F2F313F2395C62100FC28CB /* Colours.swift in Sources */,
@@ -1570,6 +1605,7 @@
 				5FACFF5323EC70A70022DF88 /* TeacherOrGroupLoadingTableViewCell.swift in Sources */,
 				5F8EF101242D30AE00E74220 /* PanModalPresentationAnimator.swift in Sources */,
 				5F0E7DC924B23C0A002E1C6D /* RoomsData+CoreDataClass.swift in Sources */,
+				5F019D6B24C1BD95009D86FC /* LessonTypeAndWeekTableViewCell.swift in Sources */,
 				5FC991EE23DF10BB00612266 /* ServerUpdateTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1704,7 +1740,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -1727,7 +1763,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

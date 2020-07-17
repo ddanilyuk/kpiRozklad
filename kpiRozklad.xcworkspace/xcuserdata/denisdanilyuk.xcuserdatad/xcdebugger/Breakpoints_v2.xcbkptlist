@@ -244,34 +244,34 @@
             landmarkType = "21">
             <Locations>
                <Location
-                  uuid = "DC345E9A-E486-4233-891E-D3D690F184A6 - f4f40842123ddb36"
+                  uuid = "DC345E9A-E486-4233-891E-D3D690F184A6 - f0701d8dee1ff976"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "KPI_ROZKLAD.Group.init(from: Swift.Decoder) throws -&gt; KPI_ROZKLAD.Group"
-                  moduleName = "KPI ROZKLAD"
+                  symbolName = "KPI_Rozklad.Group.init(from: Swift.Decoder) throws -&gt; KPI_Rozklad.Group"
+                  moduleName = "KPI Rozklad"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/denisdanilyuk/Documents/_myOwnProjects/kpiRozklad/kpiRozklad/Common/Structs/Group.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "35"
                   endingLineNumber = "35"
-                  offsetFromSymbolStart = "136">
+                  offsetFromSymbolStart = "131">
                </Location>
                <Location
-                  uuid = "DC345E9A-E486-4233-891E-D3D690F184A6 - f4f40842123ddbd7"
+                  uuid = "DC345E9A-E486-4233-891E-D3D690F184A6 - f0701d8dee1ff997"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "KPI_ROZKLAD.Group.init(from: Swift.Decoder) throws -&gt; KPI_ROZKLAD.Group"
-                  moduleName = "KPI ROZKLAD"
+                  symbolName = "KPI_Rozklad.Group.init(from: Swift.Decoder) throws -&gt; KPI_Rozklad.Group"
+                  moduleName = "KPI Rozklad"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/denisdanilyuk/Documents/_myOwnProjects/kpiRozklad/kpiRozklad/Common/Structs/Group.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "34"
                   endingLineNumber = "34"
-                  offsetFromSymbolStart = "2352">
+                  offsetFromSymbolStart = "2301">
                </Location>
             </Locations>
          </BreakpointContent>
@@ -625,6 +625,22 @@
             startingLineNumber = "82"
             endingLineNumber = "82"
             landmarkName = "session(_:didReceiveApplicationContext:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "F9BF1377-717E-4452-8777-76B888158FFD"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "kpiRozklad/Modules/Shedule/ViewControllers/SheduleViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "470"
+            endingLineNumber = "470"
+            landmarkName = "presentAddLesson()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

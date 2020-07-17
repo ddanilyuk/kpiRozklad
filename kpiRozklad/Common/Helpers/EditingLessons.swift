@@ -7,7 +7,10 @@
 //
 
 import UIKit
+
+#if canImport(WidgetKit)
 import WidgetKit
+#endif
 
 func editLessonNumber(vc: SheduleViewController, indexPath: IndexPath) {
     guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }

@@ -9,6 +9,40 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
+        <!--Нова пара-->
+        <scene sceneID="fnp-nf-iNb">
+            <objects>
+                <viewController storyboardIdentifier="NewLessonViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Nzg-oc-aq3" customClass="NewLessonViewController" customModule="KPI_Rozklad" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="b5j-gE-vS3">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="702"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="insetGrouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="glF-KG-7yT">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="702"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            </tableView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="0dz-FP-ahV"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="0dz-FP-ahV" firstAttribute="trailing" secondItem="glF-KG-7yT" secondAttribute="trailing" id="2XG-TU-lb9"/>
+                            <constraint firstItem="0dz-FP-ahV" firstAttribute="bottom" secondItem="glF-KG-7yT" secondAttribute="bottom" id="JyF-RW-ZyD"/>
+                            <constraint firstItem="glF-KG-7yT" firstAttribute="leading" secondItem="0dz-FP-ahV" secondAttribute="leading" id="a3O-8r-3hK"/>
+                            <constraint firstItem="glF-KG-7yT" firstAttribute="top" secondItem="0dz-FP-ahV" secondAttribute="top" id="ytj-ov-6ae"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="Нова пара" id="lv9-3V-BT1">
+                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="d4G-bf-0nN"/>
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="4Hr-Hb-Kgy"/>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="tableView" destination="glF-KG-7yT" id="gA4-Fb-HCr"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="KXg-Gr-Qbt" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-4053.5999999999999" y="-440.39408866995075"/>
+        </scene>
         <!--Add Lesson View Controller-->
         <scene sceneID="o9L-Nr-gZV">
             <objects>
@@ -40,7 +74,7 @@
                                                 </constraints>
                                                 <fontDescription key="fontDescription" type="system" pointSize="19"/>
                                                 <state key="normal" title="Додати">
-                                                    <color key="titleColor" systemColor="labelColor"/>
+                                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </state>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
@@ -119,7 +153,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hUq-vG-52O" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-4110" y="-440"/>
+            <point key="canvasLocation" x="-3168.8000000000002" y="-440.39408866995075"/>
         </scene>
         <!--First View Controller-->
         <scene sceneID="Vbu-Vc-dKh">
@@ -149,7 +183,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Lk9-Lc-cns" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-3316" y="-440"/>
+            <point key="canvasLocation" x="-2373.5999999999999" y="-440.39408866995075"/>
         </scene>
         <!--Board View Controller-->
         <scene sceneID="lRi-hw-Tgk">
@@ -265,7 +299,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wHr-3B-Ife" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2496" y="-281"/>
+            <point key="canvasLocation" x="-1553.5999999999999" y="-281.5270935960591"/>
         </scene>
         <!--Розклад-->
         <scene sceneID="R5c-ao-yeO">
@@ -459,7 +493,7 @@
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="A4q-jw-86w" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1588" y="-440"/>
+            <point key="canvasLocation" x="-645.60000000000002" y="-440.39408866995075"/>
         </scene>
         <!--Налаштування-->
         <scene sceneID="BEv-i4-Jna">
@@ -848,7 +882,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Efv-9v-qmo" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="486" y="-440"/>
+            <point key="canvasLocation" x="1428" y="-440.39408866995075"/>
         </scene>
         <!--Shedule Detail Navigation Controller-->
         <scene sceneID="IUh-1N-zF0">
@@ -865,6 +899,43 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qqc-yb-oqh" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2106" y="1938"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="uWy-sU-fPj">
+            <objects>
+                <viewController id="DKm-Af-Yui" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="90t-mJ-kJe">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="tTg-AJ-3qb"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <connections>
+                        <segue destination="NJY-IF-BVe" kind="showDetail" id="uDh-Ee-1iL"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="a4e-QM-aBk" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-5806" y="-440"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="K71-ja-t63">
+            <objects>
+                <navigationController storyboardIdentifier="NewLessonNavigationController" automaticallyAdjustsScrollViewInsets="NO" id="NJY-IF-BVe" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translucent="NO" id="Efb-FW-5nB">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="56"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="Nzg-oc-aq3" kind="relationship" relationship="rootViewController" id="Acl-Zr-GRe"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="lM9-dY-exa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-4903" y="-440"/>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>

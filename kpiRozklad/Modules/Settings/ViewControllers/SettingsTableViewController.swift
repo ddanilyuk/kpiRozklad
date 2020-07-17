@@ -9,7 +9,6 @@
 import UIKit
 import CoreData
 import PromiseKit
-import WidgetKit
 
 
 class SettingsTableViewController: UITableViewController {

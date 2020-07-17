@@ -7,8 +7,10 @@
 //
 
 import UIKit
-import WidgetKit
 
+#if canImport(WidgetKit)
+import WidgetKit
+#endif
 
 extension SheduleViewController: UITableViewDelegate, UITableViewDataSource {
     

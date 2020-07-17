@@ -10,7 +10,12 @@ import UIKit
 import CoreData
 import PromiseKit
 import WatchConnectivity
+
+//if #available(iOS 14.0, *) {
+//}
+#if canImport(WidgetKit)
 import WidgetKit
+#endif
 
 
 /**
@@ -179,7 +184,7 @@ class SheduleViewController: UIViewController {
         setupCurrentWeek()
         
         /// Setup weekSwitch color
-        setupSwitch()
+        setupWeekSegmentControl()
 
         if isFromSettingsGetFreshShedule {
             /**
@@ -397,7 +402,7 @@ class SheduleViewController: UIViewController {
         }
     }
     
-    private func setupSwitch() {
+    private func setupWeekSegmentControl() {
         
         var titleTextAttributesNormal = [NSAttributedString.Key.foregroundColor: UIColor.blue]
         let titleTextAttributesSelected = [NSAttributedString.Key.foregroundColor: UIColor.white]
@@ -438,18 +443,48 @@ class SheduleViewController: UIViewController {
      Funcion which present `AddLessonViewController`
      */
     func presentAddLesson() {
-        guard let addLesson: AddLessonViewController = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: AddLessonViewController.identifier) as? AddLessonViewController else { return }
+//        guard let addLesson: AddLessonViewController = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: AddLessonViewController.identifier) as? AddLessonViewController else { return }
+        
+        guard let newLessonViewController = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: NewLessonViewController.identifier) as? NewLessonViewController  else { return }
         
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
         let managedContext = appDelegate.persistentContainer.viewContext
         
-        addLesson.lessons = fetchingCoreData(managedContext: managedContext)
-        addLesson.currentWeek = self.currentWeek
+//        addLesson.lessons = fetchingCoreData(managedContext: managedContext)
+//        addLesson.currentWeek = self.currentWeek
+        let navigationController = UINavigationController()
         
+        navigationController.viewControllers = [newLessonViewController]
+        
+        // Works, but bad in scroll
+        // navigationController.navigationBar.setValue(true, forKey: "hidesShadow")
+        navigationController.navigationBar.shadowImage = UIImage()
+
+//        navigationController.navigationBar.sh
+//        if #available(iOS 13.0, *) {
+//            let navigationBarAppearence = UINavigationBarAppearance()
+//            navigationBarAppearence.shadowColor = .clear
+////            navigationBarAppearence.backgroundColor = .green
+////            navigationBarAppearence.color
+//
+//            navigationController.navigationBar.scrollEdgeAppearance = navigationBarAppearence
+//        } else {
+//            // Fallback on earlier versions
+//        }
+        
+//        navigationController.navigationBar.backgroundColor = tint
+//        navigationController.view.backgroundColor = tint
+//        navigationController.navigationBar.isTranslucent = true
+        
+        navigationController.navigationBar.barTintColor = tint
+        
+
+        
+//
         if #available(iOS 13, *) {
-            self.present(addLesson, animated: true, completion: nil)
+            self.present(navigationController, animated: true, completion: nil)
         } else {
-            self.navigationController?.pushViewController(addLesson, animated: true)
+            self.navigationController?.pushViewController(newLessonViewController, animated: true)
         }
     }
     

@@ -7,8 +7,9 @@
 //
 
 import UIKit
+#if canImport(WidgetKit)
 import WidgetKit
-
+#endif
 class AddLessonViewController: UIViewController {
     
     /// Lessons from seque

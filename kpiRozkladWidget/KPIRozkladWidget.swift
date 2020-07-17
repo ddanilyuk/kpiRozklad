@@ -5,6 +5,7 @@
 //  Created by Денис Данилюк on 27.06.2020.
 //
 
+#if canImport(WidgetKit)
 import WidgetKit
 import SwiftUI
 import CoreData
@@ -79,7 +80,9 @@ struct Provider: TimelineProvider {
             arrayWithLessonsToShow.remove(at: 0)
             
             /// New entry without lesson which end. This entry presented when widget if waiting for reloading timeline.
-            entries.append(LessonsEntry(date: dateToUpdate, lessons: arrayWithLessonsToShow, lessonsUpdatedAtTime: lessonsUpdatedAtTime, lessonsMustUpdateAtTime: "as soon as", entryNumber: 3))
+            entries.append(LessonsEntry(date: dateToUpdate, lessons: arrayWithLessonsToShow, lessonsUpdatedAtTime: lessonsUpdatedAtTime, lessonsMustUpdateAtTime: "as soon as 1", entryNumber: 3))
+            
+            entries.append(LessonsEntry(date: getDateStartAndEnd(of: arrayWithLessonsToShow[0]).dateStart, lessons: arrayWithLessonsToShow, lessonsUpdatedAtTime: lessonsUpdatedAtTime, lessonsMustUpdateAtTime: "as soon as 2", entryNumber: 4))
             
         }
         
@@ -213,3 +216,4 @@ struct kpiRozkladWidget_Previews: PreviewProvider {
             .previewContext(WidgetPreviewContext(family: .systemMedium))
     }
 }
+#endif

@@ -18,6 +18,7 @@ struct TimeView: View {
         HStack(spacing: 4.0) {
             Spacer()
             getTextFromLessonTime(lesson: lesson)
+                .lineLimit(1)
         }
         .foregroundColor(Color.white)
         .padding(.trailing, 0)

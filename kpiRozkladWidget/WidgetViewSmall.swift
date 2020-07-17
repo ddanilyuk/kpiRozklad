@@ -6,6 +6,8 @@
 //  Copyright © 2020 Denis Danilyuk. All rights reserved.
 //
 
+#if canImport(WidgetKit)
+//import WidgetKit
 import SwiftUI
 import WidgetKit
 
@@ -98,3 +100,4 @@ struct WidgetViewSmall_Previews: PreviewProvider {
             .previewContext(WidgetPreviewContext(family: .systemSmall))
     }
 }
+#endif

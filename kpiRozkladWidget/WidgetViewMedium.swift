@@ -5,6 +5,7 @@
 //  Created by Денис Данилюк on 27.06.2020.
 //
 
+#if canImport(WidgetKit)
 import SwiftUI
 import WidgetKit
 
@@ -104,3 +105,4 @@ struct WidgetView_Previews: PreviewProvider {
             .previewContext(WidgetPreviewContext(family: .systemMedium))
     }
 }
+#endif

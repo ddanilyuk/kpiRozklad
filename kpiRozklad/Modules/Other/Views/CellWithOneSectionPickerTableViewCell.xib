@@ -18,14 +18,14 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dOq-Qz-85i">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="150"/>
+                        <rect key="frame" x="16" y="-10" width="288" height="170"/>
                     </pickerView>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="dOq-Qz-85i" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="lRK-cT-ckU"/>
-                    <constraint firstAttribute="bottom" secondItem="dOq-Qz-85i" secondAttribute="bottom" id="nod-xG-FmL"/>
-                    <constraint firstAttribute="trailing" secondItem="dOq-Qz-85i" secondAttribute="trailing" id="qzp-6P-yl3"/>
-                    <constraint firstItem="dOq-Qz-85i" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="yKl-Pa-cHV"/>
+                    <constraint firstItem="dOq-Qz-85i" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="lRK-cT-ckU"/>
+                    <constraint firstAttribute="bottom" secondItem="dOq-Qz-85i" secondAttribute="bottom" constant="-10" id="nod-xG-FmL"/>
+                    <constraint firstAttribute="trailing" secondItem="dOq-Qz-85i" secondAttribute="trailing" constant="16" id="qzp-6P-yl3"/>
+                    <constraint firstItem="dOq-Qz-85i" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="-10" id="yKl-Pa-cHV"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>

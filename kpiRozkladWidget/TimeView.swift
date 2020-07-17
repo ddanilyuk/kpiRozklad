@@ -41,7 +41,7 @@ struct TimeView: View {
             } else if lesson.dayNumber - dayNumberFromCurrentDate == 2 {
                 return Text("післязавтра")
             } else {
-                return Text("через \(lesson.dayNumber - dayNumberFromCurrentDate) дні")
+                return Text("через \(abs(lesson.dayNumber - dayNumberFromCurrentDate)) дні")
             }
         } else {
             if dateStart > date {

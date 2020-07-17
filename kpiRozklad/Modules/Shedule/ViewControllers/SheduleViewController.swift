@@ -450,7 +450,7 @@ class SheduleViewController: UIViewController {
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
         let managedContext = appDelegate.persistentContainer.viewContext
         
-//        addLesson.lessons = fetchingCoreData(managedContext: managedContext)
+        newLessonViewController.lessons = fetchingCoreData(managedContext: managedContext)
 //        addLesson.currentWeek = self.currentWeek
         let navigationController = UINavigationController()
         
@@ -460,22 +460,6 @@ class SheduleViewController: UIViewController {
         // navigationController.navigationBar.setValue(true, forKey: "hidesShadow")
         navigationController.navigationBar.shadowImage = UIImage()
 
-//        navigationController.navigationBar.sh
-//        if #available(iOS 13.0, *) {
-//            let navigationBarAppearence = UINavigationBarAppearance()
-//            navigationBarAppearence.shadowColor = .clear
-////            navigationBarAppearence.backgroundColor = .green
-////            navigationBarAppearence.color
-//
-//            navigationController.navigationBar.scrollEdgeAppearance = navigationBarAppearence
-//        } else {
-//            // Fallback on earlier versions
-//        }
-        
-//        navigationController.navigationBar.backgroundColor = tint
-//        navigationController.view.backgroundColor = tint
-//        navigationController.navigationBar.isTranslucent = true
-        
         navigationController.navigationBar.barTintColor = tint
         
 

@@ -9,51 +9,43 @@
 import UIKit
 
 protocol TextFieldNewLessonTableViewCellDelegate {
-    func userTappedShowDetails(on cell: TextFieldNewLessonTableViewCell)
+    func userTappedShowDetails(on cell: TextFieldNewLessonTableViewCell, at indexPath: IndexPath)
 }
 
-class TextFieldNewLessonTableViewCell: UITableViewCell, TextFieldNewLessonTableViewCellDelegate {
+class TextFieldNewLessonTableViewCell: UITableViewCell {
     
     @IBOutlet weak var mainTextField: UITextField!
     
     @IBOutlet weak var detailsButton: UIButton!
+        
+    var delegate: TextFieldNewLessonTableViewCellDelegate?
     
     var isDetailsOpen: Bool = false
     
+    var indexPath: IndexPath?
+    
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
     }
     
     func configureCell(text: String? = "", placeholder: String?) {
         mainTextField.placeholder = placeholder
         mainTextField.text = text
     }
-
+    
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
     }
     
     @IBAction func didPressDetails(_ sender: UIButton) {
-        print("complition called")
-        userTapOnButton {  }
-        UIView.animate(withDuration: 0.5) {
+        guard let indexPath = indexPath else {
+            assertionFailure("IndexPath not implemented")
+            return
+        }
+        delegate?.userTappedShowDetails(on: self, at: indexPath)
+        UIView.animate(withDuration: 0.3) {
             self.detailsButton.transform = CGAffineTransform(rotationAngle: self.isDetailsOpen ? 0 : .pi / -2)
         }
         isDetailsOpen.toggle()
     }
-    
-    
-    
-    func userTappedShowDetails(on cell: TextFieldNewLessonTableViewCell) {
-        print("tapped")
-    }
-    
-//    func userTapOnButton(with complition: @escaping () -> ()) {
-//        print("before complition")
-//        complition()
-//    }
-    
 }

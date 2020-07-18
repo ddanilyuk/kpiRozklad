@@ -51,118 +51,6 @@
             </objects>
             <point key="canvasLocation" x="-4053.5999999999999" y="-440.39408866995075"/>
         </scene>
-        <!--Add Lesson View Controller-->
-        <scene sceneID="o9L-Nr-gZV">
-            <objects>
-                <viewController storyboardIdentifier="AddLessonViewController" id="9L8-wk-vdr" customClass="AddLessonViewController" customModule="KPI_Rozklad" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="1Dt-a0-7KL">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="-25" translatesAutoresizingMaskIntoConstraints="NO" id="KU3-9L-IEd">
-                                <rect key="frame" x="0.0" y="74" width="375" height="704"/>
-                                <subviews>
-                                    <pickerView contentMode="scaleAspectFit" verticalHuggingPriority="249" translatesAutoresizingMaskIntoConstraints="NO" id="qAa-zj-FAq">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="194.66666666666666"/>
-                                    </pickerView>
-                                    <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Cfg-uJ-NYL">
-                                        <rect key="frame" x="0.0" y="169.66666666666663" width="375" height="195"/>
-                                    </pickerView>
-                                    <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lUU-dI-Ity">
-                                        <rect key="frame" x="0.0" y="339.66666666666669" width="375" height="194.66666666666669"/>
-                                    </pickerView>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BfK-Lh-bTB">
-                                        <rect key="frame" x="0.0" y="509.33333333333343" width="375" height="194.66666666666669"/>
-                                        <subviews>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LRj-yV-DA1">
-                                                <rect key="frame" x="56.333333333333343" y="72.333333333333258" width="262.33333333333326" height="50"/>
-                                                <color key="backgroundColor" systemColor="linkColor"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="height" constant="50" id="rWO-0i-KFY"/>
-                                                </constraints>
-                                                <fontDescription key="fontDescription" type="system" pointSize="19"/>
-                                                <state key="normal" title="Додати">
-                                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                </state>
-                                                <userDefinedRuntimeAttributes>
-                                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
-                                                        <color key="value" systemColor="linkColor"/>
-                                                    </userDefinedRuntimeAttribute>
-                                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                                        <real key="value" value="25"/>
-                                                    </userDefinedRuntimeAttribute>
-                                                </userDefinedRuntimeAttributes>
-                                                <connections>
-                                                    <action selector="didPressAddLesson:" destination="9L8-wk-vdr" eventType="touchUpInside" id="s48-NQ-mJ1"/>
-                                                </connections>
-                                            </button>
-                                        </subviews>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                        <constraints>
-                                            <constraint firstItem="LRj-yV-DA1" firstAttribute="centerY" secondItem="BfK-Lh-bTB" secondAttribute="centerY" id="1XH-Q9-kLy"/>
-                                            <constraint firstItem="LRj-yV-DA1" firstAttribute="centerX" secondItem="BfK-Lh-bTB" secondAttribute="centerX" id="dhZ-Qb-DWr"/>
-                                            <constraint firstItem="LRj-yV-DA1" firstAttribute="width" secondItem="BfK-Lh-bTB" secondAttribute="width" multiplier="0.7" id="xeQ-1D-KJj"/>
-                                        </constraints>
-                                    </view>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ioj-Et-szQ">
-                                        <rect key="frame" x="0.0" y="521.66666666666663" width="375" height="182.33333333333337"/>
-                                        <subviews>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="p6g-fE-maM">
-                                                <rect key="frame" x="32.666666666666657" y="66" width="310" height="50"/>
-                                                <color key="backgroundColor" systemColor="systemRedColor"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="height" constant="50" id="PiR-uu-s5n"/>
-                                                    <constraint firstAttribute="width" constant="310" id="x2f-Bc-QuT"/>
-                                                </constraints>
-                                                <fontDescription key="fontDescription" type="system" pointSize="19"/>
-                                                <state key="normal" title="Назад">
-                                                    <color key="titleColor" systemColor="darkTextColor"/>
-                                                </state>
-                                                <userDefinedRuntimeAttributes>
-                                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
-                                                        <color key="value" systemColor="linkColor"/>
-                                                    </userDefinedRuntimeAttribute>
-                                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                                        <real key="value" value="25"/>
-                                                    </userDefinedRuntimeAttribute>
-                                                </userDefinedRuntimeAttributes>
-                                            </button>
-                                        </subviews>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                        <constraints>
-                                            <constraint firstItem="p6g-fE-maM" firstAttribute="centerX" secondItem="ioj-Et-szQ" secondAttribute="centerX" id="ZvV-Ae-YtC"/>
-                                            <constraint firstItem="p6g-fE-maM" firstAttribute="centerY" secondItem="ioj-Et-szQ" secondAttribute="centerY" id="rMe-nB-3t9"/>
-                                        </constraints>
-                                    </view>
-                                </subviews>
-                                <variation key="default">
-                                    <mask key="subviews">
-                                        <exclude reference="ioj-Et-szQ"/>
-                                    </mask>
-                                </variation>
-                            </stackView>
-                        </subviews>
-                        <viewLayoutGuide key="safeArea" id="txE-bT-mJD"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                        <constraints>
-                            <constraint firstItem="txE-bT-mJD" firstAttribute="trailing" secondItem="KU3-9L-IEd" secondAttribute="trailing" id="aPl-HI-AOX"/>
-                            <constraint firstItem="txE-bT-mJD" firstAttribute="bottom" secondItem="KU3-9L-IEd" secondAttribute="bottom" id="cQP-iG-dOd"/>
-                            <constraint firstItem="KU3-9L-IEd" firstAttribute="leading" secondItem="txE-bT-mJD" secondAttribute="leading" id="ea9-Xh-4bX"/>
-                            <constraint firstItem="KU3-9L-IEd" firstAttribute="top" secondItem="txE-bT-mJD" secondAttribute="top" constant="30" id="zir-2Y-tru"/>
-                        </constraints>
-                    </view>
-                    <navigationItem key="navigationItem" id="uXF-Rg-qns"/>
-                    <connections>
-                        <outlet property="addButton" destination="LRj-yV-DA1" id="11I-yq-gBB"/>
-                        <outlet property="dayPickerView" destination="Cfg-uJ-NYL" id="lWT-Zt-nrK"/>
-                        <outlet property="lessonPickerView" destination="qAa-zj-FAq" id="3rr-S5-hzl"/>
-                        <outlet property="numberLessonPickerView" destination="lUU-dI-Ity" id="Cga-of-tmO"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="hUq-vG-52O" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-3168.8000000000002" y="-440.39408866995075"/>
-        </scene>
         <!--First View Controller-->
         <scene sceneID="Vbu-Vc-dKh">
             <objects>
@@ -957,9 +845,6 @@
         <image name="icons8-teacher-90" width="30" height="30"/>
         <image name="icons8-user-group-90" width="30" height="30"/>
         <image name="loadingV1" width="1242" height="2208"/>
-        <systemColor name="darkTextColor">
-            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
         <systemColor name="groupTableViewBackgroundColor">
             <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
@@ -980,9 +865,6 @@
         </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
-        <systemColor name="systemRedColor">
-            <color red="1" green="0.23137254901960785" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="tertiaryLabelColor">
             <color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.29999999999999999" colorSpace="custom" customColorSpace="sRGB"/>

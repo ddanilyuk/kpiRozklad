@@ -82,7 +82,6 @@
 		5F506EE6248ED21500B6F544 /* Date+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F506EE3248ED0CC00B6F544 /* Date+Extensions.swift */; };
 		5F56541D248E675700F2EB6E /* TimeAndDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FE048682393027900092422 /* TimeAndDate.swift */; };
 		5F56541E248E6ACF00F2EB6E /* UIColor+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FCBBA21241C501E00E7654F /* UIColor+Extensions.swift */; };
-		5F686F3A23800CFB008B0915 /* AddLessonViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F686F3923800CFB008B0915 /* AddLessonViewController.swift */; };
 		5F6A08062370A175000A9C79 /* kpiRozkladModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 5F6A08042370A175000A9C79 /* kpiRozkladModel.xcdatamodeld */; };
 		5F6FF30A24334DB700FADBD6 /* GroupsAndTeachersVC+UITableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F6FF30924334DB700FADBD6 /* GroupsAndTeachersVC+UITableView.swift */; };
 		5F75DAD72457915900B1E4C9 /* NetworkingApiTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F75DAD62457915900B1E4C9 /* NetworkingApiTests.swift */; };
@@ -365,7 +364,6 @@
 		5F46AD672401A0F700B145D5 /* Favourites.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Favourites.swift; sourceTree = "<group>"; };
 		5F5000AE238D704A0003E13B /* UIView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
 		5F506EE3248ED0CC00B6F544 /* Date+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extensions.swift"; sourceTree = "<group>"; };
-		5F686F3923800CFB008B0915 /* AddLessonViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddLessonViewController.swift; sourceTree = "<group>"; };
 		5F6A08052370A175000A9C79 /* Lesson.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Lesson.xcdatamodel; sourceTree = "<group>"; };
 		5F6FF30924334DB700FADBD6 /* GroupsAndTeachersVC+UITableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GroupsAndTeachersVC+UITableView.swift"; sourceTree = "<group>"; };
 		5F75DAD42457915900B1E4C9 /* kpiRozkladTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = kpiRozkladTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -783,7 +781,6 @@
 		5FD5B71724226F1C00B86FB7 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
-				5F686F3923800CFB008B0915 /* AddLessonViewController.swift */,
 				5F8EF0E6242D170400E74220 /* FirstViewController.swift */,
 				5F8EF0E8242D171000E74220 /* BoardViewController.swift */,
 			);
@@ -1547,7 +1544,6 @@
 				5F7A000324B78D2C00E33B81 /* UIActivityIndicator+Extensions.swift in Sources */,
 				D313F496233AAB6C0076CFF8 /* AppDelegate.swift in Sources */,
 				5F305C77242260560035B509 /* SheduleVC+UITableView.swift in Sources */,
-				5F686F3A23800CFB008B0915 /* AddLessonViewController.swift in Sources */,
 				5F019D6324C1A3DC009D86FC /* NewLessonViewController.swift in Sources */,
 				5F0E7DCD24B23C0A002E1C6D /* TeachersData+CoreDataClass.swift in Sources */,
 				5F7BABBF23A163C8009E3CA6 /* ErrorMessage.swift in Sources */,

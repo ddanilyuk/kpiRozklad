@@ -22,12 +22,12 @@ class LessonDayAndNumberTableViewCell: UITableViewCell {
     var data: [DayName: [Int]] = [:] {
         didSet {
             print("data reloaded")
-            pickerView.reloadComponent(1)
-            pickerView.selectRow(0, inComponent: 1, animated: true)
-            if data[.mounday]?.count ?? 0 != 0 {
-                selectedNumber = data[selectedDay]?[0] ?? 0
+            if selectedNumber == 0 {
+                if data[.mounday]?.count ?? 0 != 0 {
+                    selectedNumber = data[selectedDay]?[0] ?? 0
+                }
             }
-            delegate?.pickerSelectDayAndNumber(picker: pickerView, lessonDay: selectedDay, lessonNumber: selectedNumber)
+            configureCell(day: selectedDay, lessonNumber: selectedNumber)
         }
     }
     
@@ -43,7 +43,15 @@ class LessonDayAndNumberTableViewCell: UITableViewCell {
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
+    }
+    
+    func configureCell(day: DayName, lessonNumber: Int) {
+        let possibleLessonNumbers = data[day] ?? []
+        let index = Int(possibleLessonNumbers.sorted().firstIndex(of: lessonNumber) ?? 0)
+        pickerView.reloadComponent(1)
+        pickerView.selectRow(day.sortOrder - 1, inComponent: 0, animated: true)
+        pickerView.selectRow(index, inComponent: 1, animated: true)
+        delegate?.pickerSelectDayAndNumber(picker: pickerView, lessonDay: selectedDay, lessonNumber: selectedNumber)
     }
     
 }

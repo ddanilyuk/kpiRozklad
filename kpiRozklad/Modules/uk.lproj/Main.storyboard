@@ -32,8 +32,16 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Нова пара" id="lv9-3V-BT1">
-                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="d4G-bf-0nN"/>
-                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="4Hr-Hb-Kgy"/>
+                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="d4G-bf-0nN">
+                            <connections>
+                                <action selector="didPressCancel:" destination="Nzg-oc-aq3" id="o1o-PA-SnU"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="4Hr-Hb-Kgy">
+                            <connections>
+                                <action selector="didPressAddLesson:" destination="Nzg-oc-aq3" id="SLN-CU-kGW"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="tableView" destination="glF-KG-7yT" id="gA4-Fb-HCr"/>

@@ -30,7 +30,7 @@ func editLessonNumber(vc: SheduleViewController, indexPath: IndexPath) {
     let lesson = vc.lessonsForTableView[indexPath.section].lessons[indexPath.row]
     
     /// timeStart && timeEnd
-    let (timeStart, timeEnd) = getTimeFromLessonNumber(lessonNumber: String(vc.lessonNumberFromPicker))
+    let (timeStart, timeEnd) = getTimeFromLessonNumber(lessonNumber: vc.lessonNumberFromPicker)
     
     let newLesson = Lesson(id: lesson.id,
                            dayNumber: lesson.dayNumber,
@@ -188,7 +188,7 @@ func moveRow3(vc: SheduleViewController, sourceIndexPath: IndexPath, destination
     
     let oldLesson = vc.lessonsForTableView[sourceIndexPath.section].lessons[sourceIndexPath.row]
     
-    let (timeStart, timeEnd) = getTimeFromLessonNumber(lessonNumber: String(lessonNumber))
+    let (timeStart, timeEnd) = getTimeFromLessonNumber(lessonNumber: lessonNumber)
     
     let newLesson = Lesson(id: oldLesson.id,
                       dayNumber: dayNumber,
@@ -252,7 +252,7 @@ func NASTYA_LYBIAMAYA(i: Int, fullDayLessons: inout [Lesson?],  lessonTemp1: ino
 
     fullDayLessons.remove(at: i)
 
-    let (timeStartEdited, timeEndEdited) = getTimeFromLessonNumber(lessonNumber: String(i + 1))
+    let (timeStartEdited, timeEndEdited) = getTimeFromLessonNumber(lessonNumber: i + 1)
     guard let editedLessonTemp = lessonTemp2 else {
         fullDayLessons.insert(nil, at: i)
         return

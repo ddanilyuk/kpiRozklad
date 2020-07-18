@@ -88,15 +88,9 @@ extension GroupsAndTeachersViewController {
             default:
                 this.allTeachers = teachers
             }
-//
-//            if this.isSheduleTeachersChooser || (this.isTeacherViewController && global.sheduleType == .teachers) {
-//                this.teachers = teachers
-//            } else {
-//                this.allTeachers = teachers
-//            }
+
             this.activityIndicator.stopAndHide()
-            
-            
+
             switch this.groupAndTeacherControllerType {
             case .isGroupChooser, .isTeachersChooser:
                 if this.startWriteLabel.isHidden {
@@ -128,8 +122,6 @@ extension GroupsAndTeachersViewController {
             this.groups = groups
 
             this.activityIndicator.stopAndHide()
-            
-//            this.tableView.isHidden = (this.isSheduleGroupChooser || this.isSheduleTeachersChooser) ? true : false
             switch this.groupAndTeacherControllerType {
             case .isGroupChooser, .isTeachersChooser:
                 if this.startWriteLabel.isHidden {
@@ -142,7 +134,6 @@ extension GroupsAndTeachersViewController {
                 this.tableView.isHidden = false
 
             }
-            
             
             this.tableView.reloadData()
         }).catch({ [weak self] (error) in
@@ -195,9 +186,7 @@ extension GroupsAndTeachersViewController {
     
     func getTeacherLessons(teacher: Teacher, indexPath: IndexPath) {
         guard let cell = self.tableView.cellForRow(at: indexPath) as? TeacherOrGroupLoadingTableViewCell else { return }
-        
         cell.activityIndicator.startAndShow()
-
         
         API.getTeacherLessons(forTeacherWithId: teacher.teacherID).done({ [weak self] (lessons) in
             guard let this = self else { return }
@@ -229,5 +218,4 @@ extension GroupsAndTeachersViewController {
             }
         })
     }
-
 }

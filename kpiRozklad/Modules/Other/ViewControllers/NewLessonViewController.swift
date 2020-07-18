@@ -7,12 +7,20 @@
 //
 
 import UIKit
+#if canImport(WidgetKit)
+import WidgetKit
+#endif
+
+protocol NewLessonViewControllerDelegate {
+    func newLessonAdded()
+}
 
 class NewLessonViewController: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
     
     let headersOfSections: [Int: String] = [
+//        0: "Напишіть назву або оберіть з існуючих",
         3: "Оберіть тип пари",
         4: "Оберіть тиждень",
         5: "Оберіть день та пару"
@@ -26,6 +34,10 @@ class NewLessonViewController: UIViewController {
     ]
     
     var lessons: [Lesson] = []
+    
+    var settings = Settings.shared
+    
+    var delegate: NewLessonViewControllerDelegate?
     
     
     var lessonName = String()
@@ -101,6 +113,66 @@ class NewLessonViewController: UIViewController {
         return result
     }
     
+    @IBAction func didPressAddLesson(_ sender: UIBarButtonItem) {
+        var newUnicalLessonID = Int.random(in: 1..<9999)
+        while lessons.contains(where: { $0.id == newUnicalLessonID }) {
+            newUnicalLessonID = Int.random(in: 1..<9999)
+        }
+        
+        var newUnicalRoomID = Int.random(in: 1..<9999)
+        while lessons.contains(where: { $0.room?.roomID == newUnicalRoomID }) {
+            newUnicalRoomID = Int.random(in: 1..<9999)
+        }
+        
+        var newUnicalTeacherID = Int.random(in: 1..<9999)
+        while lessons.contains(where: { $0.teacher?.teacherID == newUnicalTeacherID }) {
+            newUnicalTeacherID = Int.random(in: 1..<9999)
+        }
+        
+        if let dayName = dayName {
+            let time = getTimeFromLessonNumber(lessonNumber: lessonNumber)
+            
+            let newLesson = Lesson(id: newUnicalLessonID,
+                                   dayNumber: dayName.sortOrder,
+                                   lessonNumber: lessonNumber,
+                                   lessonWeek: selectedWeek,
+                                   groupID: settings.groupID,
+                                   dayName: dayName,
+                                   lessonType: lessonType,
+                                   lessonName: lessonName,
+                                   lessonFullName: lessonName,
+                                   lessonRoom: roomName,
+                                   teacherName: teacherName,
+                                   timeStart: time.timeStart.stringTime,
+                                   timeEnd: time.timeEnd.stringTime,
+                                   rate: "",
+                                   teacher: Teacher(teacherID: newUnicalTeacherID, teacherURL: "", teacherName: teacherName, teacherFullName: teacherName, teacherShortName: teacherName, teacherRating: "0.0"),
+                                   room: Room(roomID: newUnicalRoomID, roomName: roomName, roomLatitude: "", roomLongitude: ""),
+                                   groups: nil)
+            print(newLesson)
+            lessons.append(newLesson)
+            
+            lessons = lessons.sorted()
+            
+            let appDelegate = UIApplication.shared.delegate as? AppDelegate
+            guard let managedContext = appDelegate?.persistentContainer.viewContext else { return }
+
+            updateCoreData(lessons: lessons, managedContext: managedContext) {
+                WidgetCenter.shared.reloadAllTimelines()
+                self.delegate?.newLessonAdded()
+                self.navigationController?.dismiss(animated: true, completion: nil)
+            }
+        }
+        
+        
+    }
+    
+    
+    @IBAction func didPressCancel(_ sender: UIBarButtonItem) {
+        self.navigationController?.dismiss(animated: true, completion: nil)
+    }
+    
+    
     private func setupTableView() {
         tableView.delegate = self
         tableView.dataSource = self
@@ -140,7 +212,7 @@ extension NewLessonViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         if section == 0 {
-            return 4
+            return 30
         }
         return headersOfSections[section] == nil ? 20 : 30
     }
@@ -214,11 +286,15 @@ extension NewLessonViewController: UITableViewDelegate, UITableViewDataSource {
                 newLessonCell.selectionStyle = .none
                 return newLessonCell
             } else {
-                // TODO: add cell
                 guard let lessonDayAndNumberCell = tableView.dequeueReusableCell(withIdentifier: LessonDayAndNumberTableViewCell.identifier, for: indexPath) as? LessonDayAndNumberTableViewCell else { return UITableViewCell() }
                 lessonDayAndNumberCell.delegate = self
-                lessonDayAndNumberCell.data = unicalDataDayAndLessonNumber
                 
+                if let dayName = dayName {
+                    lessonDayAndNumberCell.selectedDay = dayName
+                    lessonDayAndNumberCell.selectedNumber = lessonNumber
+                }
+                
+                lessonDayAndNumberCell.data = unicalDataDayAndLessonNumber
                 return lessonDayAndNumberCell
             }
             
@@ -295,7 +371,6 @@ extension NewLessonViewController: CellWithOneSectionPickerTableViewCellDelegate
 extension NewLessonViewController: LessonDayAndNumberTableViewCellDelegate {
     func pickerSelectDayAndNumber(picker: UIPickerView, lessonDay: DayName, lessonNumber: Int) {
         guard let cell = tableView.cellForRow(at: IndexPath(row: 0, section: 5)) as? TextFieldNewLessonTableViewCell else {
-            assertionFailure("Invalid indexPath")
             return
         }
         self.dayName = lessonDay

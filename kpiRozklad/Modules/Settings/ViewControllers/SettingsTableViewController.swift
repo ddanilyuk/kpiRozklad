@@ -261,7 +261,6 @@ class SettingsTableViewController: UITableViewController {
             guard let greetingVC = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: FirstViewController.identifier) as? FirstViewController else { return }
             greetingVC.modalTransitionStyle = .crossDissolve
 
-            
             guard let window = self.window else { return }
             window.rootViewController = greetingVC
             window.makeKeyAndVisible()
@@ -317,7 +316,6 @@ class SettingsTableViewController: UITableViewController {
                         }
                     }
                 }
-                
             } catch let error {
                 print("Error: \(error)")
             }

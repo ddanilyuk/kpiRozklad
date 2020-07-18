@@ -131,14 +131,12 @@ class BoardViewController: UIViewController, PanModalPresentable {
         if requestType == .groups {
             if settings.groupName == "" {
                 groupsChooserNavigationController.groupAndTeacherControllerType = .isGroupChooser
-
                 settings.sheduleType = .groups
                 self.present(groupsChooserNavigationController, animated: true, completion: nil)
             }
         } else {
             if settings.teacherName == "" {
                 groupsChooserNavigationController.groupAndTeacherControllerType = .isTeachersChooser
-
                 settings.sheduleType = .teachers
                 self.present(groupsChooserNavigationController, animated: true, completion: nil)
             }

@@ -192,11 +192,16 @@ extension Lesson {
 
 extension Lesson: Comparable {
     public static func < (lhs: Lesson, rhs: Lesson) -> Bool {
-        return lhs.dayName.rawValue == rhs.dayName.rawValue
-
+        if lhs.lessonWeek != rhs.lessonWeek {
+            return lhs.lessonWeek < rhs.lessonWeek
+        } else if lhs.dayNumber != rhs.dayNumber {
+            return lhs.dayNumber < rhs.dayNumber
+        } else {
+            return lhs.lessonNumber < rhs.lessonNumber
+        }
     }
     
     public static func == (lhs: Lesson, rhs: Lesson) -> Bool {
-        return lhs.dayName.rawValue < rhs.dayName.rawValue
+        return lhs.id == rhs.id
     }
 }

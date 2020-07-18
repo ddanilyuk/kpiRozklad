@@ -218,7 +218,7 @@ class AddLessonViewController: UIViewController {
         guard let sameLessonButInDifferentTime = similarLesson else { return }
         
         /// Getting timeStart & timeEnd
-        let time = getTimeFromLessonNumber(lessonNumber: String(lessonNumber))
+        let time = getTimeFromLessonNumber(lessonNumber: lessonNumber)
         let timeStart = time.timeStart
         let timeEnd = time.timeEnd
         

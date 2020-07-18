@@ -8,16 +8,16 @@
 
 import UIKit
 
-
+/// Enum of `LessonTypeAndWeekTableViewCell`
 enum LessonTypeAndWeekTableViewCellType {
     case lessonType
     case week
 }
 
-
+/// Delegate of `LessonTypeAndWeekTableViewCell`
 protocol LessonTypeAndWeekTableViewCellDelegate {
-    func weekSelected(week: WeekType)
-    func typeSelected(type: LessonType)
+    func userSelectweek(week: WeekType)
+    func userSelectType(type: LessonType)
 }
 
 class LessonTypeAndWeekTableViewCell: UITableViewCell {
@@ -26,6 +26,7 @@ class LessonTypeAndWeekTableViewCell: UITableViewCell {
     
     var delegate: LessonTypeAndWeekTableViewCellDelegate?
     
+    /// If `cellType` established, need to setup `segmentControl`
     var cellType: LessonTypeAndWeekTableViewCellType = .lessonType {
         didSet {
             setupSegmentControl()
@@ -37,7 +38,7 @@ class LessonTypeAndWeekTableViewCell: UITableViewCell {
             if cellType == .week {
                 segmentControl.selectedSegmentIndex = selectedWeek == .first ? 0 : 1
                 print(selectedWeek)
-                delegate?.weekSelected(week: selectedWeek)
+                delegate?.userSelectweek(week: selectedWeek)
             }
         }
     }
@@ -54,7 +55,7 @@ class LessonTypeAndWeekTableViewCell: UITableViewCell {
                 } else {
                     segmentControl.selectedSegmentIndex = 3
                 }
-                delegate?.typeSelected(type: selectedType)
+                delegate?.userSelectType(type: selectedType)
             }
         }
     }
@@ -87,7 +88,6 @@ class LessonTypeAndWeekTableViewCell: UITableViewCell {
         }
     }
     
-
     private func setupSegmentControl() {
         // Appearance
         var titleTextAttributesNormal = [
@@ -109,7 +109,7 @@ class LessonTypeAndWeekTableViewCell: UITableViewCell {
         if #available(iOS 13.0, *) {
             segmentControl.selectedSegmentTintColor = .link
         } else {
-//            segmentControl.selectedSegmentTintColor = .blue
+            // segmentControl.selectedSegmentTintColor = .blue
         }
         
         // Content
@@ -135,5 +135,3 @@ class LessonTypeAndWeekTableViewCell: UITableViewCell {
     }
     
 }
-
-

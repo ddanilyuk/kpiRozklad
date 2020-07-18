@@ -8,29 +8,43 @@
 
 import UIKit
 
-protocol TextFieldNewLessonTableViewCellDelegate {
-    func userTappedShowDetails(on cell: TextFieldNewLessonTableViewCell, at indexPath: IndexPath)
+
+protocol TextFieldAndButtonTableViewCellDelegate {
+    func userDidPressShowDetails(at indexPath: IndexPath)
+    func userChangeTextInTextField(at indexPath: IndexPath, text: String)
 }
 
-class TextFieldNewLessonTableViewCell: UITableViewCell {
+
+class TextFieldAndButtonTableViewCell: UITableViewCell {
     
     @IBOutlet weak var mainTextField: UITextField!
     
     @IBOutlet weak var detailsButton: UIButton!
-        
-    var delegate: TextFieldNewLessonTableViewCellDelegate?
     
+    var delegate: TextFieldAndButtonTableViewCellDelegate?
+
     var isDetailsOpen: Bool = false
     
+    /// Index path of cell. Must be changed when table vie create new cell.
     var indexPath: IndexPath?
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        mainTextField.addTarget(self, action: #selector(textFieldDidChange), for:.editingChanged)
     }
     
-    func configureCell(text: String? = "", placeholder: String?) {
+    /// Configure text field with text or placeholder
+    func configureCell(text: String? = nil, placeholder: String? = nil) {
         mainTextField.placeholder = placeholder
         mainTextField.text = text
+    }
+    
+    @objc func textFieldDidChange() {
+        guard let indexPath = indexPath else {
+            assertionFailure("IndexPath not implemented")
+            return
+        }
+        delegate?.userChangeTextInTextField(at: indexPath, text: String(mainTextField.text ?? ""))
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -42,7 +56,7 @@ class TextFieldNewLessonTableViewCell: UITableViewCell {
             assertionFailure("IndexPath not implemented")
             return
         }
-        delegate?.userTappedShowDetails(on: self, at: indexPath)
+        delegate?.userDidPressShowDetails(at: indexPath)
         UIView.animate(withDuration: 0.3) {
             self.detailsButton.transform = CGAffineTransform(rotationAngle: self.isDetailsOpen ? 0 : .pi / -2)
         }

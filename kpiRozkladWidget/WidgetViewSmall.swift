@@ -6,6 +6,8 @@
 //  Copyright © 2020 Denis Danilyuk. All rights reserved.
 //
 
+#if canImport(WidgetKit)
+//import WidgetKit
 import SwiftUI
 import WidgetKit
 
@@ -40,12 +42,13 @@ struct WidgetViewSmall: View {
             
             VStack(alignment: .center, spacing: 0.0) {
                 
-                let dateLesson = getDateStartAndEnd(of: lesson)
+                let dateLesson = getDateStartAndEnd(of: lesson, dateNow: date)
                                 
-                let (dayNumberFromCurrentDate, currentWeekFromTodayDate) = getCurrentWeekAndDayNumber()
+                let (dayNumberFromCurrentDate, currentWeekFromTodayDate) = getCurrentWeekAndDayNumber(date: date)
+                
                 let isLessonToday = lesson.dayNumber == dayNumberFromCurrentDate && currentWeekFromTodayDate == lesson.lessonWeek
                 
-                let text = dateLesson.dateStart < date && dateLesson.dateEnd > date && isLessonToday ? "Зараз" : "Далі"
+                let text = dateLesson.dateStart <= date && dateLesson.dateEnd > date && isLessonToday ? "Зараз" : "Далі"
                 
                 Text(text)
                     .font(.headline)
@@ -97,3 +100,4 @@ struct WidgetViewSmall_Previews: PreviewProvider {
             .previewContext(WidgetPreviewContext(family: .systemSmall))
     }
 }
+#endif

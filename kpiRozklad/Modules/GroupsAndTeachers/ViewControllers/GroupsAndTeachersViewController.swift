@@ -60,19 +60,6 @@ class GroupsAndTeachersViewController: UIViewController {
     let settings = Settings.shared
     
     var groupAndTeacherControllerType: GroupAndTeacherControllerType = .isTeacherViewController
-
-//    /// If choosing group for shedule (to Shedule VC) if global.sheduleType == .group
-//    var isSheduleGroupChooser: Bool = false
-//
-//    /// If choosing teachers for shedule (to Shedule VC) if global.sheduleType == .teachers
-//    var isSheduleTeachersChooser: Bool = false
-//
-//    /// Show groups (`allTeachers` and `groupTeachers`)
-//    var isGroupViewController: Bool = false
-//
-//    /// Show teachers `teachers`
-//    var isTeacherViewController: Bool = false
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -121,31 +108,6 @@ class GroupsAndTeachersViewController: UIViewController {
                 
             
         }
-        
-//        
-//        if (groups.count == 0 && (isSheduleGroupChooser || isGroupViewController)) ||
-//           (teachers.count == 0 && (isSheduleTeachersChooser || isTeacherViewController)) {
-//            
-//            if isSheduleTeachersChooser {
-//                disableSegmentControl()
-//                getAllTeachers()
-//            } else if isSheduleGroupChooser {
-//                disableSegmentControl()
-//                getAllGroups()
-//            } else if isGroupViewController {
-//                showWithoutStartWriteLabel()
-//                disableSegmentControl()
-//                getAllGroups()
-//            } else if isTeacherViewController && global.sheduleType == .teachers {
-//                showWithoutStartWriteLabel()
-//                disableSegmentControl()
-//                getAllTeachers()
-//            } else if isTeacherViewController && global.sheduleType == .groups {
-//                showWithoutStartWriteLabel()
-//                getTeachersOfGroup()
-//                getAllTeachers()
-//            }
-//        }
     }
     
     /// When need to show  `tableView` now
@@ -162,33 +124,12 @@ class GroupsAndTeachersViewController: UIViewController {
         didSegmentControlChangeState(segmentControl)
         segmentControl.isHidden = true
     }
-    
-    /// Stop Loading
-//    func stopLoading() {
-//        activityIndicator.stopAnimating()
-//        activityIndicator.isHidden = true
-//    }
-    
-    /// Start Loading
-//    func startLoading() {
-//
-//    }
-    
+
     
     /// Get All vaiables from `navigationController`
     private func getVariablesFromNavigationController() {
         guard let groupNavigationController = self.navigationController as? TeachersNavigationController else { return }
-        
         self.groupAndTeacherControllerType = groupNavigationController.groupAndTeacherControllerType
-//
-//
-//        isSheduleGroupChooser = groupNavigationController.isSheduleGroupChooser
-//        isSheduleTeachersChooser = groupNavigationController.isSheduleTeachersChooser
-//        isTeacherViewController = groupNavigationController.isTeacherViewController
-//
-//        if isSheduleTeachersChooser == false && isSheduleGroupChooser == false && isGroupViewController == false {
-//            isTeacherViewController = true
-//        }
     }
     
     
@@ -202,7 +143,6 @@ class GroupsAndTeachersViewController: UIViewController {
     }
     
     private func setupSwitch() {
-        
         var titleTextAttributesNormal = [NSAttributedString.Key.foregroundColor: UIColor.blue]
         let titleTextAttributesSelected = [NSAttributedString.Key.foregroundColor: UIColor.white]
         
@@ -231,21 +171,9 @@ class GroupsAndTeachersViewController: UIViewController {
             startWriteLabel.text = " Почніть вводити назву групи"
         }
         
-//        if isSheduleTeachersChooser || isTeacherViewController {
-//            // If choosing teachers show this titles
-//            search.searchBar.placeholder = "Пошук викладача"
-//            self.title = "Викладачі"
-//            startWriteLabel.text = " Почніть вводити ініціали"
-//        } else {
-//            search.searchBar.placeholder = "Пошук групи"
-//            self.title = "Групи"
-//            startWriteLabel.text = " Почніть вводити назву групи"
-//        }
-        
         self.navigationItem.searchController = search
         self.navigationItem.hidesSearchBarWhenScrolling = false
         definesPresentationContext = true
-
         self.navigationController?.navigationBar.isTranslucent = true
         self.tabBarController?.tabBar.isTranslucent = true
     }
@@ -256,7 +184,7 @@ class GroupsAndTeachersViewController: UIViewController {
         switch segmentControl.selectedSegmentIndex {
             case 0:
                 self.teachers = []
-                
+
                 if groupTeachers.count == 0 {
                     activityIndicator.startAndShow()
                     getTeachersOfGroup(isNeedToUpdate: true)

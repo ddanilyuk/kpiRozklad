@@ -8,6 +8,9 @@
 
 import UIKit
 
+#if canImport(WidgetKit)
+import WidgetKit
+#endif
 
 extension SheduleViewController: UITableViewDelegate, UITableViewDataSource {
     
@@ -207,8 +210,9 @@ extension SheduleViewController: UITableViewDelegate, UITableViewDataSource {
             DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .milliseconds(500)) {
                 updateCoreData(lessons: lessons, managedContext: managedContext) {
                     self.makeLessonsShedule()
+                    self.reloadDataOnAppleWatch()
+                    WidgetCenter.shared.reloadAllTimelines()
                 }
-                self.reloadDataOnAppleWatch()
                 self.tableView.isUserInteractionEnabled = true
             }
             

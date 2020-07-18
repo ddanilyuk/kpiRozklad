@@ -43,10 +43,8 @@ struct LessonRow: View {
                     .frame(width: 40, alignment: .center)
                     .font(.caption)
 
-
                 Text(lesson.lessonRoom + " " + lesson.lessonType.rawValue)
                     .font(.footnote)
-
                 
                 Spacer(minLength: 0)
                 

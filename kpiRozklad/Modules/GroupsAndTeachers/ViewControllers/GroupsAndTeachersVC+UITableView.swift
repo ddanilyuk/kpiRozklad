@@ -18,19 +18,6 @@ extension GroupsAndTeachersViewController: UITableViewDelegate, UITableViewDataS
         case .isGroupChooser, .isGroupViewController:
             return isSearching ? groupsInSearch.count : groups.count
         }
-//        if isSheduleTeachersChooser || isTeacherViewController {
-//            if isSearching {
-//                return teachersInSearch.count
-//            } else {
-//                return teachers.count
-//            }
-//        } else {
-//            if isSearching {
-//                return groupsInSearch.count
-//            } else {
-//                return groups.count
-//            }
-//        }
     }
     
 
@@ -45,25 +32,18 @@ extension GroupsAndTeachersViewController: UITableViewDelegate, UITableViewDataS
         case .isGroupChooser, .isGroupViewController:
             cell.mainLabel.text = isSearching ? groupsInSearch[indexPath.row].groupFullName : groups[indexPath.row].groupFullName
         }
-        
-//        if isSheduleTeachersChooser || isTeacherViewController {
-//            cell.mainLabel.text = isSearching ? teachersInSearch[indexPath.row].teacherName : teachers[indexPath.row].teacherName
-//        } else {
-//            cell.mainLabel.text = isSearching ? groupsInSearch[indexPath.row].groupFullName : groups[indexPath.row].groupFullName
-//        }
 
         return cell
     }
         
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let mainStoryboard = UIStoryboard(name: "Main", bundle: Bundle.main)
-        let appDelegate = UIApplication.shared.delegate as? AppDelegate
-        guard let window = appDelegate?.window else { return }
-        guard let mainTabBar: UITabBarController = mainStoryboard.instantiateViewController(withIdentifier: "Main") as? UITabBarController else { return }
-        
         switch groupAndTeacherControllerType {
         case .isTeachersChooser :
+            let appDelegate = UIApplication.shared.delegate as? AppDelegate
+            guard let window = appDelegate?.window else { return }
+            guard let mainTabBar: UITabBarController = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "Main") as? UITabBarController else { return }
+            
             let teacher = isSearching ? teachersInSearch[indexPath.row] : teachers[indexPath.row]
             
             settings.teacherName = teacher.teacherName
@@ -81,6 +61,10 @@ extension GroupsAndTeachersViewController: UITableViewDelegate, UITableViewDataS
             }
             
         case .isGroupChooser:
+            let appDelegate = UIApplication.shared.delegate as? AppDelegate
+            guard let window = appDelegate?.window else { return }
+            guard let mainTabBar: UITabBarController = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "Main") as? UITabBarController else { return }
+            
             let group = isSearching ? groupsInSearch[indexPath.row] : groups[indexPath.row]
 
             settings.groupName = group.groupFullName

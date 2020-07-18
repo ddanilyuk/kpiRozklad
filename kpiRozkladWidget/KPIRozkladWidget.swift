@@ -5,6 +5,7 @@
 //  Created by Денис Данилюк on 27.06.2020.
 //
 
+#if canImport(WidgetKit)
 import WidgetKit
 import SwiftUI
 import CoreData
@@ -79,7 +80,9 @@ struct Provider: TimelineProvider {
             arrayWithLessonsToShow.remove(at: 0)
             
             /// New entry without lesson which end. This entry presented when widget if waiting for reloading timeline.
-            entries.append(LessonsEntry(date: dateToUpdate, lessons: arrayWithLessonsToShow, lessonsUpdatedAtTime: lessonsUpdatedAtTime, lessonsMustUpdateAtTime: "as soon as", entryNumber: 3))
+            entries.append(LessonsEntry(date: dateToUpdate, lessons: arrayWithLessonsToShow, lessonsUpdatedAtTime: lessonsUpdatedAtTime, lessonsMustUpdateAtTime: "as soon as 1", entryNumber: 3))
+            
+            entries.append(LessonsEntry(date: getDateStartAndEnd(of: arrayWithLessonsToShow[0]).dateStart, lessons: arrayWithLessonsToShow, lessonsUpdatedAtTime: lessonsUpdatedAtTime, lessonsMustUpdateAtTime: "as soon as 2", entryNumber: 4))
             
         }
         
@@ -209,17 +212,8 @@ struct KPIRozkladWidget: Widget {
 
 struct kpiRozkladWidget_Previews: PreviewProvider {
     static var previews: some View {
-        VStack(alignment: .center) {
-            Spacer()
-            HStack {
-                Text("07-13-2020 11:22")
-                    .foregroundColor(.blue)
-                Text("07-13-2020 12:23")
-                    .foregroundColor(.blue)
-            }
-            WidgetViewMedium(lessons: Lesson.defaultArratOfLesson, date: Date())
-                .padding(.top, -10)
-        }
-        .previewContext(WidgetPreviewContext(family: .systemMedium))
+        WidgetViewMedium(lessons: Lesson.defaultArratOfLesson, date: Date())
+            .previewContext(WidgetPreviewContext(family: .systemMedium))
     }
 }
+#endif

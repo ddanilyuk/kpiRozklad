@@ -8,23 +8,19 @@
 
 import UIKit
 
-//Mark: - extencions for search
+//MARK: - extencions for search
 extension GroupsAndTeachersViewController: UISearchResultsUpdating {
 
-        // MARK: - updateSearchResults
     func updateSearchResults(for searchController: UISearchController) {
-        
         guard let searchText = searchController.searchBar.text else { return }
-        
         let lowerCaseSearchText = searchText.lowercased()
+        
+        groupsInSearch = []
+        teachersInSearch = []
         
         if searchText == "" {
             isSearching = false
-            groupsInSearch = []
-            teachersInSearch = []
-
             activityIndicator.stopAndHide()
-            
             switch groupAndTeacherControllerType {
             case .isGroupChooser, .isTeachersChooser:
                 startWriteLabel.isHidden = false
@@ -32,92 +28,28 @@ extension GroupsAndTeachersViewController: UISearchResultsUpdating {
             default:
                 break
             }
-//            if isSheduleGroupChooser || isSheduleTeachersChooser {
-//                startWriteLabel.isHidden = false
-//                tableView.isHidden = true
-//            }
             
-            tableView.reloadData()
-            return
-        }
-        
-        switch groupAndTeacherControllerType {
-        case .isTeachersChooser, .isTeacherViewController:
+        } else {
             isSearching = true
-            teachersInSearch = []
-            
             startWriteLabel.isHidden = true
             tableView.isHidden = false
-
-            if teachers.count == 0 {
-                tableView.isHidden = true
-                activityIndicator.startAndShow()
-            }
             
-            for teacher in teachers {
-                if teacher.teacherFullName.lowercased().contains(lowerCaseSearchText){
-                    teachersInSearch.append(teacher)
+            switch groupAndTeacherControllerType {
+            case .isTeachersChooser, .isTeacherViewController:
+                if teachers.isEmpty {
+                    tableView.isHidden = true
+                    activityIndicator.startAndShow()
                 }
-            }
-        case .isGroupChooser, .isGroupViewController:
-            isSearching = true
-            groupsInSearch = []
-            
-            startWriteLabel.isHidden = true
-            tableView.isHidden = false
-
-            if groups.count == 0 {
-                tableView.isHidden = true
-                activityIndicator.startAndShow()
-            }
-            
-            for group in groups {
-                if group.groupFullName.lowercased().contains(lowerCaseSearchText){
-                    groupsInSearch.append(group)
+                teachersInSearch = teachers.filter{ $0.teacherName.lowercased().contains(lowerCaseSearchText) }
+                
+            case .isGroupChooser, .isGroupViewController:
+                if groups.isEmpty {
+                    tableView.isHidden = true
+                    activityIndicator.startAndShow()
                 }
+                groupsInSearch = groups.filter { $0.groupFullName.lowercased().contains(lowerCaseSearchText) }
             }
-            
         }
-//        if isSheduleTeachersChooser || isTeacherViewController {
-//            isSearching = true
-//            teachersInSearch = []
-//
-//            startWriteLabel.isHidden = true
-//            tableView.isHidden = false
-//
-//            if teachers.count == 0 {
-//                tableView.isHidden = true
-//                activityIndicator.isHidden = false
-//                activityIndicator.startAnimating()
-//            }
-//
-//            for teacher in teachers {
-//                if teacher.teacherFullName.lowercased().contains(lowerCaseSearchText){
-//                    teachersInSearch.append(teacher)
-//                }
-//            }
-//
-//        } else {
-//            isSearching = true
-//            groupsInSearch = []
-//
-//            startWriteLabel.isHidden = true
-//            tableView.isHidden = false
-//
-//            if groups.count == 0 {
-//                tableView.isHidden = true
-//                activityIndicator.isHidden = false
-//                activityIndicator.startAnimating()
-//            }
-//
-//            for group in groups {
-//                if group.groupFullName.lowercased().contains(lowerCaseSearchText){
-//                    groupsInSearch.append(group)
-//                }
-//            }
-//        }
-        
         tableView.reloadData()
     }
-    
 }

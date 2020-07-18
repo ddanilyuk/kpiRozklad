@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17132" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17105.1"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="KGk-i7-Jjw" customClass="LessonTypeAndWeekTableViewCell" customModule="KPI_Rozklad" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="yOh-ey-Nrr">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="45"/>
+                        <segments>
+                            <segment title="First"/>
+                            <segment title="Second"/>
+                            <segment title=""/>
+                            <segment title=""/>
+                        </segments>
+                        <connections>
+                            <action selector="segmentControlValueChanged:" destination="KGk-i7-Jjw" eventType="valueChanged" id="4bx-ud-mgf"/>
+                        </connections>
+                    </segmentedControl>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="yOh-ey-Nrr" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="Nza-Jb-7G6"/>
+                    <constraint firstAttribute="bottom" secondItem="yOh-ey-Nrr" secondAttribute="bottom" id="f5A-ve-YDF"/>
+                    <constraint firstAttribute="trailing" secondItem="yOh-ey-Nrr" secondAttribute="trailing" id="lOA-4g-prS"/>
+                    <constraint firstItem="yOh-ey-Nrr" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="lt2-KF-4KL"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="segmentControl" destination="yOh-ey-Nrr" id="EDW-Iw-cXm"/>
+            </connections>
+            <point key="canvasLocation" x="16" y="96"/>
+        </tableViewCell>
+    </objects>
+</document>

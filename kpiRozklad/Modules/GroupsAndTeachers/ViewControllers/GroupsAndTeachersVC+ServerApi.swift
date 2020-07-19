@@ -117,6 +117,7 @@ extension GroupsAndTeachersViewController {
     
     
     func getAllGroups() {
+//        self.activityIndicator.startAndShow()
         API.getAllGroups().done({ [weak self] (groups) in
             guard let this = self else { return }
             this.groups = groups

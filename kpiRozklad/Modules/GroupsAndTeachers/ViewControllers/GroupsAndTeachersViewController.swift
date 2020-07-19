@@ -85,14 +85,14 @@ class GroupsAndTeachersViewController: UIViewController {
             (teachers.count == 0 && (groupAndTeacherControllerType == .isTeachersChooser || groupAndTeacherControllerType == .isTeacherViewController)) {
             switch groupAndTeacherControllerType {
             case .isTeachersChooser:
-                disableSegmentControl()
+                segmentControl.isHidden = true
                 getAllTeachers()
             case .isGroupChooser:
-                disableSegmentControl()
+                segmentControl.isHidden = true
                 getAllGroups()
             case .isGroupViewController:
                 showWithoutStartWriteLabel()
-                disableSegmentControl()
+                segmentControl.isHidden = true
                 getAllGroups()
             case .isTeacherViewController:
                 showWithoutStartWriteLabel()

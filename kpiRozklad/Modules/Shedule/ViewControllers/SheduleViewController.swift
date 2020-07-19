@@ -132,6 +132,8 @@ class SheduleViewController: UIViewController {
     /// Array with day names
     var daysArray: [String] = DayName.allCases.map { $0.rawValue }
     
+    var isEditInsets: Bool = true
+    
     
     // MARK: - override viewController funcs
     override func viewDidLoad() {
@@ -164,7 +166,6 @@ class SheduleViewController: UIViewController {
         /// Make server request or call `makeLessonsShedule()`
         if settings.isTryToRefreshShedule {
             getLessonsFromServer(isMainShedule: !isTeachersShedule)
-            settings.isTryToRefreshShedule = false
         } else {
             makeLessonsShedule()
         }
@@ -176,20 +177,26 @@ class SheduleViewController: UIViewController {
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        if isLargeTitleAvailable() {
+        if isLargeTitleAvailable() && !settings.isTryToRefreshShedule && isEditInsets {
             self.tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: -20, right: 0)
+        } else {
+            isEditInsets = false
+            self.tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         }
     }
     
     override func viewWillAppear(_ animated: Bool) {
         tableView.reloadData()
+        isEditInsets = true
         if !isFromSettingsGetFreshShedule && !isFromGroupsAndTeacherOrFavourite && !isTeachersShedule && !isTeachersShedule {
             setLargeTitleDisplayMode(.always)
-            view.layoutSubviews()
         } else {
             setLargeTitleDisplayMode(.never)
-            view.layoutSubviews()
         }
+        self.viewDidLayoutSubviews()
+        
+
+        
         reloadDataOnAppleWatch()
     }
 
@@ -203,6 +210,14 @@ class SheduleViewController: UIViewController {
         } else {
             setLargeTitleDisplayMode(.never)
         }
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1)) {
+            guard let whatsNewVC = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: WhatsNewViewController.identifier) as? WhatsNewViewController else { return }
+            self.present(whatsNewVC, animated: true, completion: nil)
+        }
+        
     }
     
     
@@ -373,8 +388,7 @@ class SheduleViewController: UIViewController {
         /// (self.tableView != nil)  because if when we push information from another VC tableView can be not exist
         if self.tableView != nil {
             self.isNeedToScroll = false
-            
-            if (self.lessonsForTableView[indexPathToScroll.section].lessons.count > indexPathToScroll.row) && (indexPathToScroll.row != 0 && indexPathToScroll.section != 0) {
+            if (self.lessonsForTableView[indexPathToScroll.section].lessons.count > indexPathToScroll.row) && !(indexPathToScroll.row == 0 && indexPathToScroll.section == 0) {
                 self.tableView.contentOffset.y = self.heightDifferenceBetweenTopRowAndNavBar()
                 self.tableView.scrollToRow(at: indexPathToScroll, at: .top, animated: true)
             }
@@ -480,11 +494,16 @@ class SheduleViewController: UIViewController {
             let managedContext = appDelegate.persistentContainer.viewContext
                 
             if isMainShedule {
-                this.isNeedToScroll = true
                 updateCoreData(lessons: lessons, managedContext: managedContext) {
                     /// Make new lessons
                     this.makeLessonsShedule()
+                    this.settings.isTryToRefreshShedule = false
                     
+                    this.isNeedToScroll = true
+                    DispatchQueue.main.async {
+                    _ = this.isNeedToScroll ? this.scrollToCurrentOrNext() : nil
+                    }
+
                     /// Edit updated time
                     let formatter = DateFormatter()
                     formatter.dateFormat = "dd.MM.yyyy"
@@ -494,6 +513,7 @@ class SheduleViewController: UIViewController {
                     if #available(iOS 14.0, *) {
                         WidgetCenter.shared.reloadAllTimelines()
                     }
+                    this.view.layoutSubviews()
                 }
             } else {
                 this.lessonsFromSegue = lessons

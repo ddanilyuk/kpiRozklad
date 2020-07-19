@@ -140,29 +140,29 @@ struct KpiRozkladWidgetEntryView : View {
             WidgetViewSmall(lessons: entry.lessons, date: entry.date)
         case .systemMedium:
             // DEBUG
-            VStack(alignment: .center) {
-                Spacer()
-                HStack {
-                    Text(entry.lessonsUpdatedAtTime)
-                        .foregroundColor(.blue)
-                        .font(.caption)
-                    Divider()
-                    Text(entry.lessonsMustUpdateAtTime)
-                        .foregroundColor(.red)
-                        .font(.caption)
-
-                    Divider()
-                    Text("\(entry.entryNumber) | \(dateFormatter.string(from: Date()))")
-                        .foregroundColor(.green)
-                        .font(.caption)
-
-                }
-                WidgetViewMedium(lessons: entry.lessons, date: entry.date)
-                    .padding(.top, -10)
-            }
+//            VStack(alignment: .center) {
+//                Spacer()
+//                HStack {
+//                    Text(entry.lessonsUpdatedAtTime)
+//                        .foregroundColor(.blue)
+//                        .font(.caption)
+//                    Divider()
+//                    Text(entry.lessonsMustUpdateAtTime)
+//                        .foregroundColor(.red)
+//                        .font(.caption)
+//
+//                    Divider()
+//                    Text("\(entry.entryNumber) | \(dateFormatter.string(from: Date()))")
+//                        .foregroundColor(.green)
+//                        .font(.caption)
+//
+//                }
+//                WidgetViewMedium(lessons: entry.lessons, date: entry.date)
+//                    .padding(.top, -10)
+//            }
             
             // Default
-            // WidgetViewMedium(lessons: entry.lessons, date: entry.date)
+             WidgetViewMedium(lessons: entry.lessons, date: entry.date)
 
         default:
             WidgetViewMedium(lessons: entry.lessons, date: entry.date)

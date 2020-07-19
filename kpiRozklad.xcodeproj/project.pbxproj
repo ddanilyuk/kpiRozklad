@@ -575,8 +575,8 @@
 			isa = PBXGroup;
 			children = (
 				5FE31F0624C4427A00E9C7BC /* TextFieldAndButtonTableViewCell */,
-				5FE31F0724C4428700E9C7BC /* LessonTypeAndWeekTableViewCell */,
 				5FE31F0824C442A100E9C7BC /* DropDownPickerTableViewCell */,
+				5FE31F0724C4428700E9C7BC /* LessonTypeAndWeekTableViewCell */,
 				5FE31F0924C442AD00E9C7BC /* LessonDayAndNumberTableViewCell */,
 			);
 			path = Cells;
@@ -1762,6 +1762,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
+				MARKETING_VERSION = 2.0;
 				PRODUCT_BUNDLE_IDENTIFIER = ddanilyuk.kpiRozklad.kpiRozkladWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -1785,6 +1786,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
+				MARKETING_VERSION = 2.0;
 				PRODUCT_BUNDLE_IDENTIFIER = ddanilyuk.kpiRozklad.kpiRozkladWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -1798,7 +1800,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = kpiRozkladTodayWidget/kpiRozkladTodayWidget.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 9;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = M92VXVU7J9;
 				"INFOPLIST_FILE[sdk=*]" = kpiRozkladTodayWidget/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
@@ -1807,7 +1809,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.05;
+				MARKETING_VERSION = 2.0;
 				PRODUCT_BUNDLE_IDENTIFIER = ddanilyuk.kpiRozklad.kpiRozkladTodayWidget;
 				PRODUCT_NAME = "KPI ROZKLAD";
 				SKIP_INSTALL = YES;
@@ -1821,7 +1823,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = kpiRozkladTodayWidget/kpiRozkladTodayWidget.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 9;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = M92VXVU7J9;
 				"INFOPLIST_FILE[sdk=*]" = kpiRozkladTodayWidget/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
@@ -1830,7 +1832,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.05;
+				MARKETING_VERSION = 2.0;
 				PRODUCT_BUNDLE_IDENTIFIER = ddanilyuk.kpiRozklad.kpiRozkladTodayWidget;
 				PRODUCT_NAME = "KPI ROZKLAD";
 				SKIP_INSTALL = YES;
@@ -1844,7 +1846,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 9;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = M92VXVU7J9;
 				INFOPLIST_FILE = "kpiRozkladWatch Extension/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1852,7 +1854,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.05;
+				MARKETING_VERSION = 2.0;
 				PRODUCT_BUNDLE_IDENTIFIER = ddanilyuk.kpiRozklad.watchkitapp.watchkitextension;
 				PRODUCT_NAME = "${TARGET_NAME}";
 				SDKROOT = watchos;
@@ -1868,7 +1870,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 9;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = M92VXVU7J9;
 				INFOPLIST_FILE = "kpiRozkladWatch Extension/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1876,7 +1878,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.05;
+				MARKETING_VERSION = 2.0;
 				PRODUCT_BUNDLE_IDENTIFIER = ddanilyuk.kpiRozklad.watchkitapp.watchkitextension;
 				PRODUCT_NAME = "${TARGET_NAME}";
 				SDKROOT = watchos;
@@ -1893,11 +1895,11 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 9;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = M92VXVU7J9;
 				IBSC_MODULE = kpiRozkladWatch_Extension;
 				INFOPLIST_FILE = kpiRozkladWatch/Info.plist;
-				MARKETING_VERSION = 1.05;
+				MARKETING_VERSION = 2.0;
 				PRODUCT_BUNDLE_IDENTIFIER = ddanilyuk.kpiRozklad.watchkitapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = watchos;
@@ -1914,11 +1916,11 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 9;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = M92VXVU7J9;
 				IBSC_MODULE = kpiRozkladWatch_Extension;
 				INFOPLIST_FILE = kpiRozkladWatch/Info.plist;
-				MARKETING_VERSION = 1.05;
+				MARKETING_VERSION = 2.0;
 				PRODUCT_BUNDLE_IDENTIFIER = ddanilyuk.kpiRozklad.watchkitapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = watchos;
@@ -2053,7 +2055,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "kpiRozklad/KPI Rozklad.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 9;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"kpiRozklad/Resoursces/Preview Content\"";
 				DEVELOPMENT_TEAM = M92VXVU7J9;
 				ENABLE_PREVIEWS = YES;
@@ -2063,7 +2065,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.05;
+				MARKETING_VERSION = 2.0;
 				PRODUCT_BUNDLE_IDENTIFIER = ddanilyuk.kpiRozklad;
 				PRODUCT_NAME = "KPI Rozklad";
 				SWIFT_VERSION = 5.0;
@@ -2079,7 +2081,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "kpiRozklad/KPI Rozklad.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 9;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"kpiRozklad/Resoursces/Preview Content\"";
 				DEVELOPMENT_TEAM = M92VXVU7J9;
 				ENABLE_PREVIEWS = YES;
@@ -2089,7 +2091,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.05;
+				MARKETING_VERSION = 2.0;
 				PRODUCT_BUNDLE_IDENTIFIER = ddanilyuk.kpiRozklad;
 				PRODUCT_NAME = "KPI Rozklad";
 				SWIFT_VERSION = 5.0;

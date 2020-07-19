@@ -240,7 +240,7 @@
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "35"
                   endingLineNumber = "35"
-                  offsetFromSymbolStart = "131">
+                  offsetFromSymbolStart = "136">
                </Location>
                <Location
                   uuid = "DC345E9A-E486-4233-891E-D3D690F184A6 - f0701d8dee1ff997"
@@ -255,7 +255,7 @@
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "34"
                   endingLineNumber = "34"
-                  offsetFromSymbolStart = "2301">
+                  offsetFromSymbolStart = "2352">
                </Location>
             </Locations>
          </BreakpointContent>
@@ -767,22 +767,6 @@
             endingLineNumber = "30"
             landmarkName = "previousSelectedIndex"
             landmarkType = "24">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "CFE72B3F-5F22-4122-A231-A76219107D23"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "kpiRozklad/Modules/NewLesson/NewLessonViewController.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "386"
-            endingLineNumber = "386"
-            landmarkName = "userChangedDropDownCellAt(fatherIndexPath:text:inPickerRow:)"
-            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

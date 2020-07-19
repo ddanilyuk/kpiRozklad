@@ -49,7 +49,7 @@ extension UIViewController {
         }
     }
     
-    private func isLargeTitleAvailable() -> Bool {
+    func isLargeTitleAvailable() -> Bool {
         switch traitCollection.preferredContentSizeCategory {
         case .accessibilityExtraExtraExtraLarge,
              .accessibilityExtraExtraLarge,

@@ -191,13 +191,21 @@ class NewLessonViewController: UIViewController {
                     WidgetCenter.shared.reloadAllTimelines()
                 }
                 self.delegate?.newLessonAdded()
-                self.navigationController?.dismiss(animated: true, completion: nil)
+                self.closeViewController()
             }
         }
     }
     
     @IBAction func didPressCancel(_ sender: UIBarButtonItem) {
-        self.navigationController?.dismiss(animated: true, completion: nil)
+        closeViewController()
+    }
+    
+    func closeViewController() {
+        if #available(iOS 13.0, *) {
+            self.navigationController?.dismiss(animated: true, completion: nil)
+        } else {
+            self.navigationController?.popViewController(animated: true)
+        }
     }
     
     private func setupTableView() {
@@ -255,7 +263,6 @@ extension NewLessonViewController: UITableViewDelegate, UITableViewDataSource {
      - Returns:
         Array of cell for section. In array must be only one or two cells
      */
-    
     func makeCellsForSection(at section: Int, with unicalData: [String], textCell: String, isNeedToShowDetails: Bool) -> [UITableViewCell] {
         var arrayWithCells: [UITableViewCell] = []
         

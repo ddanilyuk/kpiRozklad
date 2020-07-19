@@ -193,32 +193,15 @@ class SettingsTableViewController: UITableViewController {
     func didPressUpdateShedule() {
         let alert = UIAlertController(title: nil, message: "Чи бажаєте ви оновити розклад?\n Всі ваші редагування розкладу пропадуть!", preferredStyle: .actionSheet)
         alert.addAction(UIAlertAction(title: "Оновити", style: .destructive, handler: { (_) in
-            
-            
             self.settings.isTryToRefreshShedule = true
             
             guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
             let managedContext = appDelegate.persistentContainer.viewContext
             deleteAllFromCoreData(managedContext: managedContext)
             
-            let indexPath = IndexPath(row: 0, section: 1)
-            let formatter = DateFormatter()
-            
-            formatter.dateFormat = "dd.MM.yyyy"
-
-            let time = formatter.string(from: Date())
-            self.settings.sheduleUpdateTime = time
-            
-            if let cell = self.tableView.cellForRow(at: indexPath) as? ServerUpdateTableViewCell {
-                cell.deviceSaveLabel.text = time
-            }
 
             guard let window = appDelegate.window else { return }
-            
             guard let mainTabBar: UITabBarController = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "Main") as? UITabBarController else { return }
-            
-//            WidgetCenter.shared.reloadAllTimelines()
-
             window.rootViewController = mainTabBar
         }))
         
@@ -247,17 +230,6 @@ class SettingsTableViewController: UITableViewController {
             let managedContext = appDelegate.persistentContainer.viewContext
             deleteAllFromCoreData(managedContext: managedContext)
             
-            let indexPath = IndexPath(row: 1, section: 1)
-            let formatter = DateFormatter()
-            formatter.dateFormat = "dd.MM.yyyy"
-
-            let time = formatter.string(from: Date())
-            self.settings.sheduleUpdateTime = time
-            
-            if let cell = self.tableView.cellForRow(at: indexPath) as? ServerUpdateTableViewCell {
-                cell.deviceSaveLabel.text = time
-            }
-            
             guard let greetingVC = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: FirstViewController.identifier) as? FirstViewController else { return }
             greetingVC.modalTransitionStyle = .crossDissolve
 
@@ -265,8 +237,7 @@ class SettingsTableViewController: UITableViewController {
             window.rootViewController = greetingVC
             window.makeKeyAndVisible()
             
-            UIView.transition(with: window, duration: 0.4, options: .transitionCrossDissolve, animations: {}, completion:
-                { completed in })
+            UIView.transition(with: window, duration: 0.4, options: .transitionCrossDissolve, animations: {}, completion: nil)
         }))
         
         alert.addAction(UIAlertAction(title: "Скасувати", style: .cancel, handler: nil))
@@ -298,21 +269,15 @@ class SettingsTableViewController: UITableViewController {
         guard let url = URL(string: "https://rozklad.org.ua/?noredirect") else { return }
         
         let task = URLSession.shared.dataTask(with: url) {(data, response, error) in
-        
             do {
                 let myHTMLString = try String(contentsOf: url)
-                
                 if let index = myHTMLString.index(of: "Останнє оновлення: "), let index2 = myHTMLString.index(of: "<!--Всього") {
-                    let substring = myHTMLString[index..<index2]   // ab
+                    let substring = myHTMLString[index..<index2]
                     let string = String(substring)
-
-                    let some = string.split(separator: ":")
-                    
-                    let indexPath = IndexPath(row: 1, section: 1)
                     
                     DispatchQueue.main.async {
-                        if let cell = self.tableView.cellForRow(at: indexPath) as? ServerUpdateTableViewCell {
-                            cell.serverUpdateLabel.text = String(some[1])
+                        if let cell = self.tableView.cellForRow(at: IndexPath(row: 1, section: 1)) as? ServerUpdateTableViewCell {
+                            cell.serverUpdateLabel.text = String(string.split(separator: ":")[1])
                         }
                     }
                 }

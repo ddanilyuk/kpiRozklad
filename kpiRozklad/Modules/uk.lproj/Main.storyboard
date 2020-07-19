@@ -225,12 +225,14 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" allowsSelectionDuringEditing="YES" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="Bv9-u6-c2Z">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" contentInsetAdjustmentBehavior="scrollableAxes" dataMode="prototypes" style="grouped" separatorStyle="default" allowsSelectionDuringEditing="YES" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="35" sectionFooterHeight="1" contentViewInsetsToSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bv9-u6-c2Z">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                                 <color key="backgroundColor" red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <viewLayoutGuide key="contentLayoutGuide" id="A1h-IS-bwA"/>
+                                <viewLayoutGuide key="frameLayoutGuide" id="yOI-2a-lhY"/>
                             </tableView>
                             <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="q0l-yL-hSA">
-                                <rect key="frame" x="169" y="390" width="37" height="37"/>
+                                <rect key="frame" x="169" y="416" width="37" height="37"/>
                             </activityIndicatorView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="2xZ-kD-GrF"/>
@@ -244,7 +246,7 @@
                             <constraint firstItem="Bv9-u6-c2Z" firstAttribute="bottom" secondItem="P20-9K-3S9" secondAttribute="bottom" id="yae-U3-fFU"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="ІВ-82" largeTitleDisplayMode="never" id="HCW-ay-CZY">
+                    <navigationItem key="navigationItem" title="ІВ-82" largeTitleDisplayMode="always" id="HCW-ay-CZY">
                         <rightBarButtonItems>
                             <barButtonItem id="5M2-o9-kLT">
                                 <segmentedControl key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" id="kCf-Y9-PTf">
@@ -794,7 +796,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qqc-yb-oqh" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2106" y="1938"/>
+            <point key="canvasLocation" x="1761" y="1943"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="uWy-sU-fPj">

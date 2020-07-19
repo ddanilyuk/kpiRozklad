@@ -22,20 +22,20 @@ extension SheduleViewController: UITableViewDelegate, UITableViewDataSource {
 
     // MARK: - heightForFooterInSection
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        return 0.001
+        return CGFloat.leastNormalMagnitude
     }
     
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-        let view = UIView()
-        view.backgroundColor = .clear
+        let returnedView = UIView(frame: CGRect(x: 0, y: 0, width: view.frame.size.width, height: 5))
+        returnedView.backgroundColor = .green
         
-        return view
+        return returnedView
     }
     
     
     // MARK: - heightForHeaderInSection
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 30
+        return 35
     }
 
     
@@ -84,7 +84,7 @@ extension SheduleViewController: UITableViewDelegate, UITableViewDataSource {
     // MARK: - didSelectRowAt
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.section == 0 && isEditing {
-            presentAddLesson()
+            presentNewLesson()
         } else if isEditing {
             /// Presenting alert (popup) with pickerView
             let alertView = UIAlertController(
@@ -219,7 +219,7 @@ extension SheduleViewController: UITableViewDelegate, UITableViewDataSource {
             }
             
         } else if editingStyle == .insert {
-            presentAddLesson()
+            presentNewLesson()
         }
     }
      
@@ -275,15 +275,15 @@ extension SheduleViewController: UITableViewDelegate, UITableViewDataSource {
         if editing {
             self.tableView.setEditing(true, animated: true)
             self.tableView.insertSections(IndexSet(integer: 0), with: .automatic)
-            defaultContentInsets = self.tableView.contentInset
-            self.tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+//            defaultContentInsets = self.tableView.contentInset
+//            self.tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         } else {
             self.tableView.setEditing(false, animated: true)
             if daysArray[0] == "Нова пара" {
                 self.daysArray.remove(at: 0)
             }
             self.tableView.deleteSections(IndexSet(integer: 0), with: .automatic)
-            self.tableView.contentInset = defaultContentInsets ?? UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+//            self.tableView.contentInset = defaultContentInsets ?? UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         }
     }
 }

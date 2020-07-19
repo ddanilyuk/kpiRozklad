@@ -211,7 +211,9 @@ extension SheduleViewController: UITableViewDelegate, UITableViewDataSource {
                 updateCoreData(lessons: lessons, managedContext: managedContext) {
                     self.makeLessonsShedule()
                     self.reloadDataOnAppleWatch()
-                    WidgetCenter.shared.reloadAllTimelines()
+                    if #available(iOS 14.0, *) {
+                        WidgetCenter.shared.reloadAllTimelines()
+                    }
                 }
                 self.tableView.isUserInteractionEnabled = true
             }

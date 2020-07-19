@@ -634,7 +634,9 @@ class SheduleViewController: UIViewController {
                 this.isNeedToScroll = true
                 updateCoreData(lessons: lessons, managedContext: managedContext) {
                     this.makeLessonsShedule()
-                    WidgetCenter.shared.reloadAllTimelines()
+                    if #available(iOS 14.0, *) {
+                        WidgetCenter.shared.reloadAllTimelines()
+                    }
                 }
             } else {
                 this.lessonsFromSegue = lessons

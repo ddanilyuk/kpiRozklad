@@ -231,6 +231,7 @@
 		5FE048692393027900092422 /* TimeAndDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FE048682393027900092422 /* TimeAndDate.swift */; };
 		5FE0486B2393087900092422 /* CoreDataHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FE0486A2393087900092422 /* CoreDataHelpers.swift */; };
 		5FE0486D23930C3000092422 /* SheduleVC+UIPickerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FE0486C23930C3000092422 /* SheduleVC+UIPickerVC.swift */; };
+		5FE31F0524C3B23100E9C7BC /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F7631F924B251F90022C952 /* WidgetKit.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		5FE40E55248CF1DA000D2899 /* CoreDataHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FE0486A2393087900092422 /* CoreDataHelpers.swift */; };
 		5FE9678324091880000AD157 /* TeachersNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FE9678224091880000AD157 /* TeachersNavigationController.swift */; };
 		5FE96785240F0C22000AD157 /* SheduleDetailNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FE96784240F0C22000AD157 /* SheduleDetailNavigationController.swift */; };
@@ -520,6 +521,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5FE31F0524C3B23100E9C7BC /* WidgetKit.framework in Frameworks */,
 				90A353C4EB2D15AEC0D9F8D1 /* Pods_kpiRozklad.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -540,13 +542,6 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
-		5F019D6424C1A815009D86FC /* Views */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Views;
-			sourceTree = "<group>";
-		};
 		5F0E7DC024B23BC3002E1C6D /* CoreData */ = {
 			isa = PBXGroup;
 			children = (
@@ -560,6 +555,7 @@
 				5F0E7DC824B23C0A002E1C6D /* GroupData+CoreDataProperties.swift */,
 				5F0275B323F3476B00743637 /* CoreDataStack.swift */,
 				5FE0486A2393087900092422 /* CoreDataHelpers.swift */,
+				5F6A08042370A175000A9C79 /* kpiRozkladModel.xcdatamodeld */,
 			);
 			path = CoreData;
 			sourceTree = "<group>";
@@ -576,14 +572,10 @@
 		5F1DA16F24C38D34007660A9 /* Cells */ = {
 			isa = PBXGroup;
 			children = (
-				5F019D6524C1A854009D86FC /* TextFieldAndButtonTableViewCell.swift */,
-				5F019D6624C1A854009D86FC /* TextFieldAndButtonTableViewCell.xib */,
-				5F019D6924C1BD95009D86FC /* LessonTypeAndWeekTableViewCell.swift */,
-				5F019D6A24C1BD95009D86FC /* LessonTypeAndWeekTableViewCell.xib */,
-				5F019D6D24C1C55A009D86FC /* DropDownPickerTableViewCell.swift */,
-				5F019D6E24C1C55A009D86FC /* DropDownPickerTableViewCell.xib */,
-				5FA65EF524C20EC5009F6316 /* LessonDayAndNumberTableViewCell.swift */,
-				5FA65EF624C20EC5009F6316 /* LessonDayAndNumberTableViewCell.xib */,
+				5FE31F0624C4427A00E9C7BC /* TextFieldAndButtonTableViewCell */,
+				5FE31F0724C4428700E9C7BC /* LessonTypeAndWeekTableViewCell */,
+				5FE31F0824C442A100E9C7BC /* DropDownPickerTableViewCell */,
+				5FE31F0924C442AD00E9C7BC /* LessonDayAndNumberTableViewCell */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -599,21 +591,10 @@
 			path = Networking;
 			sourceTree = "<group>";
 		};
-		5F305C7C242264400035B509 /* Other */ = {
-			isa = PBXGroup;
-			children = (
-				5F019D6424C1A815009D86FC /* Views */,
-				5F8EF0E5242D15D200E74220 /* Frameworks */,
-				5FD5B71724226F1C00B86FB7 /* ViewControllers */,
-			);
-			path = Other;
-			sourceTree = "<group>";
-		};
 		5F46AD5823FEC35E00B145D5 /* Favourite */ = {
 			isa = PBXGroup;
 			children = (
 				5F46AD5923FEC3D400B145D5 /* ViewControllers */,
-				5F46AD5A23FEC3DF00B145D5 /* Views */,
 			);
 			path = Favourite;
 			sourceTree = "<group>";
@@ -624,13 +605,6 @@
 				5F46AD5D23FEC43500B145D5 /* FavouriteViewController.swift */,
 			);
 			path = ViewControllers;
-			sourceTree = "<group>";
-		};
-		5F46AD5A23FEC3DF00B145D5 /* Views */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Views;
 			sourceTree = "<group>";
 		};
 		5F46AD662401A0D800B145D5 /* Singleton */ = {
@@ -687,13 +661,13 @@
 			path = kpiRozkladWidget;
 			sourceTree = "<group>";
 		};
-		5F8EF0E5242D15D200E74220 /* Frameworks */ = {
+		5F8EF0E5242D15D200E74220 /* CopiedFrameworks */ = {
 			isa = PBXGroup;
 			children = (
 				5F8EF0EA242D30A000E74220 /* PanModal */,
 				5FCBBA0A241C4B3800E7654F /* ColourPicker */,
 			);
-			path = Frameworks;
+			path = CopiedFrameworks;
 			sourceTree = "<group>";
 		};
 		5F8EF0EA242D30A000E74220 /* PanModal */ = {
@@ -831,6 +805,50 @@
 			path = Structs;
 			sourceTree = "<group>";
 		};
+		5FE31F0624C4427A00E9C7BC /* TextFieldAndButtonTableViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				5F019D6524C1A854009D86FC /* TextFieldAndButtonTableViewCell.swift */,
+				5F019D6624C1A854009D86FC /* TextFieldAndButtonTableViewCell.xib */,
+			);
+			path = TextFieldAndButtonTableViewCell;
+			sourceTree = "<group>";
+		};
+		5FE31F0724C4428700E9C7BC /* LessonTypeAndWeekTableViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				5F019D6924C1BD95009D86FC /* LessonTypeAndWeekTableViewCell.swift */,
+				5F019D6A24C1BD95009D86FC /* LessonTypeAndWeekTableViewCell.xib */,
+			);
+			path = LessonTypeAndWeekTableViewCell;
+			sourceTree = "<group>";
+		};
+		5FE31F0824C442A100E9C7BC /* DropDownPickerTableViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				5F019D6D24C1C55A009D86FC /* DropDownPickerTableViewCell.swift */,
+				5F019D6E24C1C55A009D86FC /* DropDownPickerTableViewCell.xib */,
+			);
+			path = DropDownPickerTableViewCell;
+			sourceTree = "<group>";
+		};
+		5FE31F0924C442AD00E9C7BC /* LessonDayAndNumberTableViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				5FA65EF524C20EC5009F6316 /* LessonDayAndNumberTableViewCell.swift */,
+				5FA65EF624C20EC5009F6316 /* LessonDayAndNumberTableViewCell.xib */,
+			);
+			path = LessonDayAndNumberTableViewCell;
+			sourceTree = "<group>";
+		};
+		5FE31F0A24C442D900E9C7BC /* Boarding */ = {
+			isa = PBXGroup;
+			children = (
+				5FD5B71724226F1C00B86FB7 /* ViewControllers */,
+			);
+			path = Boarding;
+			sourceTree = "<group>";
+		};
 		D313F489233AAB6C0076CFF8 = {
 			isa = PBXGroup;
 			children = (
@@ -865,7 +883,7 @@
 			isa = PBXGroup;
 			children = (
 				5FACFF8E23ED63E90022DF88 /* KPI Rozklad.entitlements */,
-				D3FFAAD5234F793B0065E9CE /* AppDelegate */,
+				D313F495233AAB6C0076CFF8 /* AppDelegate.swift */,
 				D3FFAAD6234F79630065E9CE /* Modules */,
 				D3FFAAE123521BA40065E9CE /* Common */,
 				D3FFAADD23521B310065E9CE /* Resoursces */,
@@ -891,14 +909,6 @@
 			path = LessonTableViewCell;
 			sourceTree = "<group>";
 		};
-		D3FFAAD5234F793B0065E9CE /* AppDelegate */ = {
-			isa = PBXGroup;
-			children = (
-				D313F495233AAB6C0076CFF8 /* AppDelegate.swift */,
-			);
-			path = AppDelegate;
-			sourceTree = "<group>";
-		};
 		D3FFAAD6234F79630065E9CE /* Modules */ = {
 			isa = PBXGroup;
 			children = (
@@ -907,7 +917,7 @@
 				5F46AD5823FEC35E00B145D5 /* Favourite */,
 				D3FFAADA234F7A2C0065E9CE /* Settings */,
 				5F1DA16D24C38D17007660A9 /* NewLesson */,
-				5F305C7C242264400035B509 /* Other */,
+				5FE31F0A24C442D900E9C7BC /* Boarding */,
 				5F034A342389B16D00D90DB7 /* Main.storyboard */,
 			);
 			path = Modules;
@@ -972,8 +982,8 @@
 		D3FFAADD23521B310065E9CE /* Resoursces */ = {
 			isa = PBXGroup;
 			children = (
-				5F6A08042370A175000A9C79 /* kpiRozkladModel.xcdatamodeld */,
-				D3FFAADF23521B660065E9CE /* Images */,
+				5F2F313C2395972900FC28CB /* Assets.xcassets */,
+				5F8EF0E5242D15D200E74220 /* CopiedFrameworks */,
 				D3FFAADE23521B510065E9CE /* LaunchScreen */,
 				D313F49D233AAB6D0076CFF8 /* Preview Content */,
 				D3FFAAE023521B870065E9CE /* Localization */,
@@ -987,14 +997,6 @@
 				D313F4A0233AAB6D0076CFF8 /* LaunchScreen.storyboard */,
 			);
 			path = LaunchScreen;
-			sourceTree = "<group>";
-		};
-		D3FFAADF23521B660065E9CE /* Images */ = {
-			isa = PBXGroup;
-			children = (
-				5F2F313C2395972900FC28CB /* Assets.xcassets */,
-			);
-			path = Images;
 			sourceTree = "<group>";
 		};
 		D3FFAAE023521B870065E9CE /* Localization */ = {

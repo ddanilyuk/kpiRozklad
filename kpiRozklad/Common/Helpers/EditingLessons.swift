@@ -103,7 +103,9 @@ func editLessonNumber(vc: SheduleViewController, indexPath: IndexPath) {
     /// updateCoreData with edited variable `lessons`
     updateCoreData(lessons: lessonsForCoreData, managedContext: managedContext) {
         vc.makeLessonsShedule()
-        WidgetCenter.shared.reloadAllTimelines()
+        if #available(iOS 14.0, *) {
+            WidgetCenter.shared.reloadAllTimelines()
+        }
     }
     vc.lessonNumberFromPicker = 1
 }
@@ -241,7 +243,9 @@ func moveRow3(vc: SheduleViewController, sourceIndexPath: IndexPath, destination
     /// updateCoreData with edited variable `lessons`
     updateCoreData(lessons: lessonsForCoreData, managedContext: managedContext) {
         vc.makeLessonsShedule()
-        WidgetCenter.shared.reloadAllTimelines()
+        if #available(iOS 14.0, *) {
+            WidgetCenter.shared.reloadAllTimelines()
+        }
     }
     
 }

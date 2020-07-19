@@ -187,7 +187,9 @@ class NewLessonViewController: UIViewController {
             guard let managedContext = appDelegate?.persistentContainer.viewContext else { return }
 
             updateCoreData(lessons: lessons, managedContext: managedContext) {
-                WidgetCenter.shared.reloadAllTimelines()
+                if #available(iOS 14.0, *) {
+                    WidgetCenter.shared.reloadAllTimelines()
+                }
                 self.delegate?.newLessonAdded()
                 self.navigationController?.dismiss(animated: true, completion: nil)
             }

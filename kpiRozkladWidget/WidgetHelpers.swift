@@ -14,8 +14,6 @@ func getDateStartAndEnd(of lesson: Lesson, dateNow: Date = Date()) -> (dateStart
     let timeStart = lesson.timeStart.stringTime
     let timeEnd = lesson.timeEnd.stringTime
     
-//    let dateNow = Date()
-
     let formatterFull = DateFormatter()
     formatterFull.dateFormat = "YYYY:MM:DD:HH:mm"
 
@@ -31,8 +29,6 @@ func getDateStartAndEnd(of lesson: Lesson, dateNow: Date = Date()) -> (dateStart
 
 
 func getCurrentWeekAndDayNumber(date: Date = Date()) -> (dayNumberFromCurrentDate: Int, currentWeekFromTodayDate: WeekType) {
-    /// Current date from device
-    
     /// Calendar
     let calendar = Calendar(identifier: .gregorian)
     

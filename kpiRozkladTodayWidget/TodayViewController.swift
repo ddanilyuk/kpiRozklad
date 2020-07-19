@@ -11,7 +11,7 @@ import CoreData
 import NotificationCenter
 
 
-
+/// THIS CODE WANT BE SUPPORTED
 class TodayViewController: UIViewController, NCWidgetProviding {
     
     /// Main table view
@@ -114,13 +114,11 @@ class TodayViewController: UIViewController, NCWidgetProviding {
         self.currentWeekFromTodayDate = self.weekOfYear % 2 == 0 ? .first : .second
     }
     
-    
     // MARK: - widget functions
     
     func widgetPerformUpdate(completionHandler: (@escaping (NCUpdateResult) -> Void)) {
         completionHandler(NCUpdateResult.newData)
     }
-    
     
     func widgetActiveDisplayModeDidChange(_ activeDisplayMode: NCWidgetDisplayMode, withMaximumSize maxSize: CGSize) {
         if activeDisplayMode == .compact {
@@ -174,6 +172,7 @@ class TodayViewController: UIViewController, NCWidgetProviding {
 
 // MARK: - UITableViewDelegate + DataSource
 extension TodayViewController: UITableViewDataSource, UITableViewDelegate {
+    
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if isLessonsEnd {
             return 110

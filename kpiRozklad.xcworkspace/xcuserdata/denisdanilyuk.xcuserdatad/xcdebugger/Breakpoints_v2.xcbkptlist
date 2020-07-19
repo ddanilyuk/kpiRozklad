@@ -827,10 +827,10 @@
             filePath = "kpiRozklad/Modules/Shedule/ViewControllers/SheduleViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "393"
-            endingLineNumber = "393"
-            landmarkName = "unknown"
-            landmarkType = "0">
+            startingLineNumber = "400"
+            endingLineNumber = "400"
+            landmarkName = "scrollToCurrentOrNext()"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -843,10 +843,10 @@
             filePath = "kpiRozklad/Modules/Shedule/ViewControllers/SheduleViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "391"
-            endingLineNumber = "391"
-            landmarkName = "unknown"
-            landmarkType = "0">
+            startingLineNumber = "398"
+            endingLineNumber = "398"
+            landmarkName = "scrollToCurrentOrNext()"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

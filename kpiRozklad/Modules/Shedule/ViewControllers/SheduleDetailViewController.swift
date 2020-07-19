@@ -49,9 +49,6 @@ class SheduleDetailViewController: UIViewController {
         /// Setup all views in stack view
         setupViews()
         
-        /// Setup `showTeacherShedulleButton`
-        setupButton()
-        
         ///Setup groups loading activity indicator
         setupActivityIndicator()
     }
@@ -116,13 +113,6 @@ class SheduleDetailViewController: UIViewController {
     private func setupActivityIndicator() {
         activityIndicator.startAndShow()
     }
-    
-    
-    /// setupButton
-    private func setupButton() {
-        checkTeacherShedule.layer.cornerRadius = 25
-    }
-    
     
     /**
      Delete array of views from `stackView`

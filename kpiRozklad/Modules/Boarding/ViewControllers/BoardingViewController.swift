@@ -8,7 +8,7 @@
 
 import UIKit
 
-class FirstViewController: UIViewController {
+class BoardingViewController: UIViewController {
 
     var statusBarStyle = UIStatusBarStyle.lightContent { didSet { setNeedsStatusBarAppearanceUpdate() } }
     override var preferredStatusBarStyle: UIStatusBarStyle { statusBarStyle }
@@ -16,9 +16,8 @@ class FirstViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
         DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .milliseconds(200)) {
-            guard let vc = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "BoardViewController") as? BoardViewController else { return }
+            guard let vc = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: PopUpPanModalViewController.identifier) as? PopUpPanModalViewController else { return }
             
             self.dismiss(animated: true, completion: nil)
             self.presentPanModal(vc)

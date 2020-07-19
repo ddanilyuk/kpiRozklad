@@ -69,12 +69,21 @@ public class Settings {
         }
     }
     
-    var updateRozkladAfterVersion106: Bool {
+    var updateRozkladWithVersion2Point0: Bool {
         get {
-            return userDefaultsWidget.bool(forKey: "updateRozkladAfterVersion106")
+            return userDefaultsWidget.bool(forKey: "updateRozkladWithVersion2Point0")
         }
         set {
-            userDefaultsWidget.set(newValue, forKey: "updateRozkladAfterVersion106")
+            userDefaultsWidget.set(newValue, forKey: "updateRozkladWithVersion2Point0")
+        }
+    }
+    
+    var isShowWhatsNewInVersion2Point0: Bool {
+        get {
+            return userDefaultsWidget.bool(forKey: "isShowWhatsNewInVersion2Point0")
+        }
+        set {
+            userDefaultsWidget.set(newValue, forKey: "isShowWhatsNewInVersion2Point0")
         }
     }
     

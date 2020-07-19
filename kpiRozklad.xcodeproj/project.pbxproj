@@ -70,6 +70,8 @@
 		5F305C792422639D0035B509 /* UIColor+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FCBBA21241C501E00E7654F /* UIColor+Extensions.swift */; };
 		5F305C7A242263A70035B509 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F4457E32376FB05008F9E21 /* Settings.swift */; };
 		5F305C7B242263BC0035B509 /* Colours.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F2F313E2395C62100FC28CB /* Colours.swift */; };
+		5F35C77B24C4E84800F96C62 /* VersionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F35C77924C4E84700F96C62 /* VersionTableViewCell.swift */; };
+		5F35C77C24C4E84800F96C62 /* VersionTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5F35C77A24C4E84700F96C62 /* VersionTableViewCell.xib */; };
 		5F3D8C132493FD5300308AC9 /* Enums.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FD5B7142422171900B86FB7 /* Enums.swift */; };
 		5F3D8C152493FD5300308AC9 /* DetailedInterfaceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F3D8C142493FD5300308AC9 /* DetailedInterfaceController.swift */; };
 		5F4457E42376FB05008F9E21 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F4457E32376FB05008F9E21 /* Settings.swift */; };
@@ -133,8 +135,8 @@
 		5F7A000124B779B900E33B81 /* TimeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F7A000024B7797C00E33B81 /* TimeView.swift */; };
 		5F7A000324B78D2C00E33B81 /* UIActivityIndicator+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F7A000224B78D2C00E33B81 /* UIActivityIndicator+Extensions.swift */; };
 		5F7BABBF23A163C8009E3CA6 /* ErrorMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F7BABBE23A163C8009E3CA6 /* ErrorMessage.swift */; };
-		5F8EF0E7242D170400E74220 /* FirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F8EF0E6242D170400E74220 /* FirstViewController.swift */; };
-		5F8EF0E9242D171000E74220 /* BoardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F8EF0E8242D171000E74220 /* BoardViewController.swift */; };
+		5F8EF0E7242D170400E74220 /* BoardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F8EF0E6242D170400E74220 /* BoardingViewController.swift */; };
+		5F8EF0E9242D171000E74220 /* PopUpPanModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F8EF0E8242D171000E74220 /* PopUpPanModalViewController.swift */; };
 		5F8EF0F8242D30AE00E74220 /* PanModalPresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F8EF0EB242D30AD00E74220 /* PanModalPresentable.swift */; };
 		5F8EF0F9242D30AE00E74220 /* PanModalPresentationDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F8EF0EC242D30AD00E74220 /* PanModalPresentationDelegate.swift */; };
 		5F8EF0FA242D30AE00E74220 /* DimmedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F8EF0ED242D30AD00E74220 /* DimmedView.swift */; };
@@ -358,6 +360,8 @@
 		5F2F313C2395972900FC28CB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		5F2F313E2395C62100FC28CB /* Colours.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colours.swift; sourceTree = "<group>"; };
 		5F305C76242260560035B509 /* SheduleVC+UITableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SheduleVC+UITableView.swift"; sourceTree = "<group>"; };
+		5F35C77924C4E84700F96C62 /* VersionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VersionTableViewCell.swift; sourceTree = "<group>"; };
+		5F35C77A24C4E84700F96C62 /* VersionTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = VersionTableViewCell.xib; sourceTree = "<group>"; };
 		5F3D8C142493FD5300308AC9 /* DetailedInterfaceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailedInterfaceController.swift; sourceTree = "<group>"; };
 		5F4457E32376FB05008F9E21 /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		5F44899F24B52E0C00EF86D4 /* WidgetViewSmall.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetViewSmall.swift; sourceTree = "<group>"; };
@@ -386,8 +390,8 @@
 		5F7A000024B7797C00E33B81 /* TimeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeView.swift; sourceTree = "<group>"; };
 		5F7A000224B78D2C00E33B81 /* UIActivityIndicator+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIActivityIndicator+Extensions.swift"; sourceTree = "<group>"; };
 		5F7BABBE23A163C8009E3CA6 /* ErrorMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorMessage.swift; sourceTree = "<group>"; };
-		5F8EF0E6242D170400E74220 /* FirstViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstViewController.swift; sourceTree = "<group>"; };
-		5F8EF0E8242D171000E74220 /* BoardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardViewController.swift; sourceTree = "<group>"; };
+		5F8EF0E6242D170400E74220 /* BoardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardingViewController.swift; sourceTree = "<group>"; };
+		5F8EF0E8242D171000E74220 /* PopUpPanModalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopUpPanModalViewController.swift; sourceTree = "<group>"; };
 		5F8EF0EB242D30AD00E74220 /* PanModalPresentable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PanModalPresentable.swift; sourceTree = "<group>"; };
 		5F8EF0EC242D30AD00E74220 /* PanModalPresentationDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PanModalPresentationDelegate.swift; sourceTree = "<group>"; };
 		5F8EF0ED242D30AD00E74220 /* DimmedView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DimmedView.swift; sourceTree = "<group>"; };
@@ -593,6 +597,15 @@
 			path = Networking;
 			sourceTree = "<group>";
 		};
+		5F35C77824C4E81500F96C62 /* VersionTableViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				5F35C77924C4E84700F96C62 /* VersionTableViewCell.swift */,
+				5F35C77A24C4E84700F96C62 /* VersionTableViewCell.xib */,
+			);
+			path = VersionTableViewCell;
+			sourceTree = "<group>";
+		};
 		5F46AD5823FEC35E00B145D5 /* Favourite */ = {
 			isa = PBXGroup;
 			children = (
@@ -757,8 +770,8 @@
 		5FD5B71724226F1C00B86FB7 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
-				5F8EF0E6242D170400E74220 /* FirstViewController.swift */,
-				5F8EF0E8242D171000E74220 /* BoardViewController.swift */,
+				5F8EF0E6242D170400E74220 /* BoardingViewController.swift */,
+				5F8EF0E8242D171000E74220 /* PopUpPanModalViewController.swift */,
 				5F47115B24C49EEA00BF4197 /* WhatsNewViewController.swift */,
 			);
 			path = ViewControllers;
@@ -967,6 +980,7 @@
 		D3FFAADB234F7A3D0065E9CE /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				5F35C77824C4E81500F96C62 /* VersionTableViewCell */,
 				5FA5CE572413E30800D2796A /* SettingsTableViewCell */,
 				5FACFF4F23EC70420022DF88 /* ServerUpdateTableViewCell */,
 			);
@@ -1287,6 +1301,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D313F4A2233AAB6D0076CFF8 /* LaunchScreen.storyboard in Resources */,
+				5F35C77C24C4E84800F96C62 /* VersionTableViewCell.xib in Resources */,
 				5FA65EF824C20EC5009F6316 /* LessonDayAndNumberTableViewCell.xib in Resources */,
 				D313F49F233AAB6D0076CFF8 /* Preview Assets.xcassets in Resources */,
 				5F2F313D2395972900FC28CB /* Assets.xcassets in Resources */,
@@ -1557,7 +1572,7 @@
 				5FD5B7152422171900B86FB7 /* Enums.swift in Sources */,
 				5FCBB9FD241C404F00E7654F /* String+Extensions.swift in Sources */,
 				5F8EF104242D30AE00E74220 /* PanModalHeight.swift in Sources */,
-				5F8EF0E7242D170400E74220 /* FirstViewController.swift in Sources */,
+				5F8EF0E7242D170400E74220 /* BoardingViewController.swift in Sources */,
 				5F8EF0FC242D30AE00E74220 /* PanModalPresenter.swift in Sources */,
 				5FD4D6C2249563AF00A5347B /* DayName.swift in Sources */,
 				5FA2B79D2379F5A7006C466B /* Group.swift in Sources */,
@@ -1578,12 +1593,13 @@
 				5F0E7DD724B23C0A002E1C6D /* GroupData+CoreDataProperties.swift in Sources */,
 				5F2E61832428252000B362A2 /* ErrorMessageResponse.swift in Sources */,
 				5F5000AF238D704A0003E13B /* UIView+Extension.swift in Sources */,
-				5F8EF0E9242D171000E74220 /* BoardViewController.swift in Sources */,
+				5F8EF0E9242D171000E74220 /* PopUpPanModalViewController.swift in Sources */,
 				5F2E61822428252000B362A2 /* NetworkingApiError.swift in Sources */,
 				5FCBBA18241C4F1F00E7654F /* DefaultValuesMy.swift in Sources */,
 				5FCBBA1C241C4F7A00E7654F /* ColorPickerViewDelegateFlowLayoutMy.swift in Sources */,
 				5FE0486B2393087900092422 /* CoreDataHelpers.swift in Sources */,
 				5F0E7DD124B23C0A002E1C6D /* LessonData+CoreDataClass.swift in Sources */,
+				5F35C77B24C4E84800F96C62 /* VersionTableViewCell.swift in Sources */,
 				5FA65EF724C20EC5009F6316 /* LessonDayAndNumberTableViewCell.swift in Sources */,
 				D313F4B2233C773B0076CFF8 /* Lesson.swift in Sources */,
 				5F019D6724C1A854009D86FC /* TextFieldAndButtonTableViewCell.swift in Sources */,

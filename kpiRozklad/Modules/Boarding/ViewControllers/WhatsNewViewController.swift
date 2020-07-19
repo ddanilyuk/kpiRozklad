@@ -12,25 +12,28 @@ class WhatsNewViewController: UIViewController {
 
     @IBOutlet weak var contentView: UIView!
     
+    let settings = Settings.shared
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         view.backgroundColor = tint
         contentView.backgroundColor = tint
-        // Do any additional setup after loading the view.
-    }
-    @IBAction func didPressDone(_ sender: UIButton) {
-        self.dismiss(animated: true, completion: nil)
+        
+        self.navigationController?.navigationItem.backBarButtonItem = nil
+        setLargeTitleDisplayMode(.never)
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    @IBAction func didPressDone(_ sender: UIButton) {
+        if #available(iOS 13.0, *) {
+            self.dismiss(animated: true, completion: nil)
+        } else {
+            self.navigationController?.popViewController(animated: true)
+        }
     }
-    */
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        settings.isShowWhatsNewInVersion2Point0 = true
+    }
 
 }

@@ -42,6 +42,7 @@ class SettingsTableViewController: UITableViewController {
         tableView.register(UINib(nibName: ServerUpdateTableViewCell.identifier, bundle: Bundle.main), forCellReuseIdentifier: ServerUpdateTableViewCell.identifier)
         tableView.register(UINib(nibName: SettingsTableViewCell.identifier, bundle: Bundle.main), forCellReuseIdentifier: SettingsTableViewCell.identifier)
         tableView.register(UINib(nibName: TeacherOrGroupLoadingTableViewCell.identifier, bundle: Bundle.main), forCellReuseIdentifier: TeacherOrGroupLoadingTableViewCell.identifier)
+        tableView.register(UINib(nibName: VersionTableViewCell.identifier, bundle: Bundle.main), forCellReuseIdentifier: VersionTableViewCell.identifier)
 
         tableView.delegate = self
         tableView.dataSource = self
@@ -54,42 +55,21 @@ class SettingsTableViewController: UITableViewController {
         return 2
     }
 
-    
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         return ""
     }
     
-    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if section == 0 {
-            return 3
-        } else if section == 1 {
-            return 2
-        } else {
-            return 0
-        }
+        return 3
     }
-    
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        if indexPath.section == 0 {
-            return 45
-        } else if indexPath.section == 1 {
-            if indexPath.row == 1 {
-                return 100
-            } else {
-                return 45
-            }
-        } else {
-            return 45
-        }
+        return indexPath.section == 1 && indexPath.row == 1 ? 100 : 45
     }
-    
     
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 0
     }
-
     
     override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         if section == 0 {
@@ -98,7 +78,6 @@ class SettingsTableViewController: UITableViewController {
             return 0.0001
         }
     }
-
     
     override func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
         let view = UIView()
@@ -107,13 +86,11 @@ class SettingsTableViewController: UITableViewController {
         return view
     }
 
-
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let view = UIView()
         view.backgroundColor = tint
         return view
     }
-
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = UITableViewCell(style: .value1, reuseIdentifier: "settings")
@@ -160,11 +137,19 @@ class SettingsTableViewController: UITableViewController {
                 cell.deviceSaveLabel.text = settings.sheduleUpdateTime
 
                 return cell
+            } else if indexPath.row == 2 {
+                guard let cell = tableView.dequeueReusableCell(withIdentifier: VersionTableViewCell.identifier, for: indexPath) as? VersionTableViewCell else { return UITableViewCell() }
+                
+                cell.backgroundColor = tint
+                cell.selectionStyle = .none
+                cell.separator(shouldBeHidden: true)
+                cell.delegate = self
+
+                return cell
             }
         }
         return cell
     }
-    
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.section == 0 {
@@ -212,7 +197,6 @@ class SettingsTableViewController: UITableViewController {
         })
     }
     
-    
     /**
      Function which change type of shedule
      */
@@ -230,7 +214,7 @@ class SettingsTableViewController: UITableViewController {
             let managedContext = appDelegate.persistentContainer.viewContext
             deleteAllFromCoreData(managedContext: managedContext)
             
-            guard let greetingVC = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: FirstViewController.identifier) as? FirstViewController else { return }
+            guard let greetingVC = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: BoardingViewController.identifier) as? BoardingViewController else { return }
             greetingVC.modalTransitionStyle = .crossDissolve
 
             guard let window = self.window else { return }
@@ -244,7 +228,6 @@ class SettingsTableViewController: UITableViewController {
         
         self.present(alert, animated: true, completion: nil)
     }
-    
     
     /**
      Function which show `ColourPickerViewController`
@@ -260,7 +243,6 @@ class SettingsTableViewController: UITableViewController {
         }
         self.navigationController?.pushViewController(colourVC, animated: true)
     }
-    
     
     /**
      Function which get time when server was updated
@@ -288,7 +270,6 @@ class SettingsTableViewController: UITableViewController {
         task.resume()
     }
 
-    
     /**
      Function which take lesson fom server and swow it in `SheduleViewController`
      */
@@ -326,5 +307,14 @@ class SettingsTableViewController: UITableViewController {
 
             this.present(alert, animated: true, completion: { cell.activityIndicator.stopAndHide() })
         })
+    }
+}
+
+
+extension SettingsTableViewController: VersionTableViewCellDelegate {
+    
+    func userPressVersionButton() {
+        guard let whatsNewVC = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: WhatsNewViewController.identifier) as? WhatsNewViewController else { return }
+        self.present(whatsNewVC, animated: true, completion: nil)
     }
 }

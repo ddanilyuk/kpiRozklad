@@ -128,14 +128,19 @@ class NewLessonViewController: UIViewController {
             newUnicalLessonID = Int.random(in: 1..<9999)
         }
         
+        
         var newUnicalRoomID = Int.random(in: 1..<9999)
         while lessons.contains(where: { $0.room?.roomID == newUnicalRoomID }) {
             newUnicalRoomID = Int.random(in: 1..<9999)
         }
         
         var newUnicalTeacherID = Int.random(in: 1..<9999)
-        while lessons.contains(where: { $0.teacher?.teacherID == newUnicalTeacherID }) {
-            newUnicalTeacherID = Int.random(in: 1..<9999)
+        if unicalTeacherNames.contains(teacherName) {
+            newUnicalTeacherID = lessons.first {$0.teacherName == teacherName }?.teacher?.teacherID ?? 0
+        } else {
+            while lessons.contains(where: { $0.teacher?.teacherID == newUnicalTeacherID }) {
+                newUnicalTeacherID = Int.random(in: 1..<9999)
+            }
         }
         
         var alertMessage = String()

@@ -177,11 +177,13 @@ class SheduleViewController: UIViewController {
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        if isLargeTitleAvailable() && !settings.isTryToRefreshShedule && isEditInsets {
-            self.tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: -20, right: 0)
-        } else {
-            isEditInsets = false
-            self.tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+        if #available(iOS 13.0, *) {
+            if isLargeTitleAvailable() && !settings.isTryToRefreshShedule && isEditInsets {
+                self.tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: -20, right: 0)
+            } else {
+                isEditInsets = false
+                self.tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+            }
         }
     }
     
@@ -213,11 +215,16 @@ class SheduleViewController: UIViewController {
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1)) {
-            guard let whatsNewVC = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: WhatsNewViewController.identifier) as? WhatsNewViewController else { return }
-            self.present(whatsNewVC, animated: true, completion: nil)
+        if !settings.isShowWhatsNewInVersion2Point0 {
+            DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1)) {
+                guard let whatsNewVC = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: WhatsNewViewController.identifier) as? WhatsNewViewController else { return }
+                if #available(iOS 13.0, *) {
+                    self.present(whatsNewVC, animated: true, completion: nil)
+                } else {
+                    self.navigationController?.pushViewController(whatsNewVC, animated: true)
+                }
+            }
         }
-        
     }
     
     
@@ -326,7 +333,7 @@ class SheduleViewController: UIViewController {
     */
     func presentGroupOrTeacherChooser(requestType: SheduleType) {
         if settings.groupName == "" && settings.teacherName == "" {
-            guard let greetingVC = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: FirstViewController.identifier) as? FirstViewController else { return }
+            guard let greetingVC = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: BoardingViewController.identifier) as? BoardingViewController else { return }
             
             guard let window = window else { return }
 

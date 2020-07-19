@@ -28,7 +28,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         setupWatchConnectivity()
 
-        if !settings.updateRozkladAfterVersion106 {
+        if !settings.updateRozkladWithVersion2Point0 {
             deleteAllFromCoreData(managedContext: self.persistentContainer.viewContext)
             settings.isTryToRefreshShedule = true
             
@@ -36,14 +36,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             let formatter = DateFormatter()
             formatter.dateFormat = "dd.MM.yyyy"
             settings.sheduleUpdateTime = formatter.string(from: date)
-            settings.updateRozkladAfterVersion106 = true
+            settings.updateRozkladWithVersion2Point0 = true
         }
         
         
         let mainStoryboard = UIStoryboard(name: "Main", bundle: Bundle.main)
         
         let mainVC = mainStoryboard.instantiateInitialViewController()
-        guard let greetingVC = mainStoryboard.instantiateViewController(withIdentifier: "FirstViewController") as? FirstViewController else { return false }
+        guard let greetingVC = mainStoryboard.instantiateViewController(withIdentifier: BoardingViewController.identifier) as? BoardingViewController else { return false }
         
         window?.rootViewController = settings.isShowGreetings ? greetingVC : mainVC
         return true

@@ -9,7 +9,7 @@
 import UIKit
 
 
-class BoardViewController: UIViewController, PanModalPresentable {
+class PopUpPanModalViewController: UIViewController, PanModalPresentable {
     
     var window: UIWindow?
 
@@ -127,7 +127,6 @@ class BoardViewController: UIViewController, PanModalPresentable {
         
         deleteAllFromCoreData(managedContext: managedContext)
 
-        
         if requestType == .groups {
             if settings.groupName == "" {
                 groupsChooserNavigationController.groupAndTeacherControllerType = .isGroupChooser

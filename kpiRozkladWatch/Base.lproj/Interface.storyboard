@@ -1,105 +1,124 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder.WatchKit.Storyboard" version="3.0" toolsVersion="16097" targetRuntime="watchKit" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="AgC-eL-Hgc">
+<document type="com.apple.InterfaceBuilder.WatchKit.Storyboard" version="3.0" toolsVersion="17140" targetRuntime="watchKit" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="AgC-eL-Hgc">
     <device id="watch44"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBWatchKitPlugin" version="16012"/>
+        <deployment identifier="watchOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17115"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBWatchKitPlugin" version="17031"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
     </dependencies>
     <scenes>
+        <!--GreetingInterfaceController-->
+        <scene sceneID="5OH-4b-jxv">
+            <objects>
+                <controller identifier="GreetingInterfaceController" hidesWhenLoading="NO" fullScreen="YES" id="O0r-fU-m69" customClass="GreetingInterfaceController" customModule="kpiRozkladWatch" customModuleProvider="target">
+                    <items>
+                        <label width="1" height="1" alignment="center" verticalAlignment="center" text="Будь-ласка, відкрийте додаток kpiRozklad на iPhone" textAlignment="center" numberOfLines="0" id="N3O-6h-SlI">
+                            <accessibilityTraits key="accessibilityTraits" staticText="YES" notEnabled="YES"/>
+                            <fontDescription key="font" style="UICTFontTextStyleCaption2"/>
+                        </label>
+                    </items>
+                </controller>
+            </objects>
+            <point key="canvasLocation" x="220" y="67"/>
+        </scene>
         <!--Interface Controller-->
         <scene sceneID="aou-V4-d1y">
             <objects>
                 <controller id="AgC-eL-Hgc" customClass="InterfaceController" customModule="kpiRozkladWatch" customModuleProvider="target">
                     <items>
-                        <group width="1" alignment="left" id="8va-dP-VLq">
+                        <table alignment="left" id="bBF-ct-9HQ">
                             <items>
-                                <table alignment="left" id="bBF-ct-9HQ">
-                                    <items>
-                                        <tableRow identifier="TitleRow" selectable="NO" id="rJo-kN-N4E" customClass="TitleRow" customModule="kpiRozkladWatch_Extension">
-                                            <group key="rootItem" width="1" height="0.0" alignment="left" layout="vertical" id="35W-Yb-gz0">
+                                <tableRow identifier="MenuRow" id="Ldt-g8-9Wq" userLabel="MenuRow" customClass="MenuRow" customModule="kpiRozkladWatch" customModuleProvider="target">
+                                    <group key="rootItem" width="1" alignment="left" id="D1D-pM-wfG">
+                                        <items>
+                                            <group width="0.29999999999999999" alignment="left" id="PEG-DI-Sjm">
                                                 <items>
-                                                    <label alignment="left" verticalAlignment="center" text="Четверг" numberOfLines="2" id="4LK-gn-0ur">
-                                                        <fontDescription key="font" style="UICTFontTextStyleHeadline"/>
-                                                    </label>
+                                                    <button width="1" height="1" alignment="left" title="1" id="QST-nr-84L">
+                                                        <fontDescription key="font" type="system" pointSize="26"/>
+                                                    </button>
                                                 </items>
-                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <color key="backgroundColor" red="1" green="0.0" blue="0.046772837529804434" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                             </group>
-                                            <connections>
-                                                <outlet property="titleLabel" destination="4LK-gn-0ur" id="Mx7-uA-Ssh"/>
-                                            </connections>
-                                        </tableRow>
-                                        <tableRow identifier="TableRow" id="YdW-BH-G9a" customClass="TableRow" customModule="kpiRozkladWatch" customModuleProvider="target">
-                                            <group key="rootItem" width="1" height="0.0" alignment="left" layout="vertical" id="9iF-ch-pJu">
+                                            <group width="0.29999999999999999" alignment="center" id="oUv-nT-oeY">
                                                 <items>
-                                                    <group height="1" alignment="left" id="uR8-e4-h2O">
+                                                    <button width="1" height="1" alignment="left" title="2" id="6HQ-aw-uTt">
+                                                        <fontDescription key="font" type="system" pointSize="29"/>
+                                                    </button>
+                                                </items>
+                                                <color key="backgroundColor" red="0.1254390494736628" green="1" blue="0.0030900133484711434" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                            </group>
+                                            <group width="0.29999999999999999" alignment="right" id="OLu-BB-Si7">
+                                                <items>
+                                                    <button alignment="left" id="JcO-1H-xUC">
+                                                        <group key="contentGroup" width="1" height="1" alignment="left" id="x7j-GD-fZv">
+                                                            <items>
+                                                                <imageView width="1" height="1" alignment="left" image="icons8-now-100" contentMode="scaleAspectFit" id="YIx-do-DnY"/>
+                                                            </items>
+                                                        </group>
+                                                    </button>
+                                                </items>
+                                                <color key="backgroundColor" red="0.018315804410000001" green="0.1360966388" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                            </group>
+                                        </items>
+                                        <color key="backgroundColor" red="1" green="0.49327188729999999" blue="0.47399842739999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <edgeInsets key="margins" left="5" right="5" top="1" bottom="1"/>
+                                    </group>
+                                </tableRow>
+                                <tableRow identifier="TitleRow" selectable="NO" id="rJo-kN-N4E" customClass="TitleRow" customModule="kpiRozkladWatch" customModuleProvider="target">
+                                    <group key="rootItem" width="1" height="0.0" alignment="left" layout="vertical" id="35W-Yb-gz0">
+                                        <items>
+                                            <label alignment="left" verticalAlignment="center" text="Четверг" numberOfLines="2" id="4LK-gn-0ur">
+                                                <fontDescription key="font" style="UICTFontTextStyleHeadline"/>
+                                            </label>
+                                        </items>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </group>
+                                    <connections>
+                                        <outlet property="titleLabel" destination="4LK-gn-0ur" id="Mx7-uA-Ssh"/>
+                                    </connections>
+                                </tableRow>
+                                <tableRow identifier="TableRow" id="YdW-BH-G9a" customClass="TableRow" customModule="kpiRozkladWatch" customModuleProvider="target">
+                                    <group key="rootItem" width="1" height="0.0" alignment="left" layout="vertical" id="9iF-ch-pJu">
+                                        <items>
+                                            <group height="1" alignment="left" id="uR8-e4-h2O">
+                                                <items>
+                                                    <group width="1" alignment="left" id="H3N-nA-kYW">
                                                         <items>
-                                                            <group width="1" alignment="left" id="H3N-nA-kYW">
-                                                                <items>
-                                                                    <label width="35" alignment="left" verticalAlignment="center" text="08:30" textAlignment="left" id="gHv-gC-qvo">
-                                                                        <fontDescription key="font" type="system" pointSize="11"/>
-                                                                    </label>
-                                                                </items>
-                                                                <edgeInsets key="margins" left="0.0" right="0.0" top="4" bottom="0.0"/>
-                                                            </group>
-                                                            <label alignment="left" text="Label" numberOfLines="2" id="857-x0-Whp">
-                                                                <fontDescription key="font" style="UICTFontTextStyleTitle3"/>
-                                                            </label>
-                                                        </items>
-                                                    </group>
-                                                    <group alignment="left" id="6rX-RA-IeW">
-                                                        <items>
-                                                            <label width="35" alignment="left" verticalAlignment="center" text="10:25" textAlignment="left" id="xaG-C9-KFY">
+                                                            <label width="35" alignment="left" verticalAlignment="center" text="08:30" textAlignment="left" id="gHv-gC-qvo">
                                                                 <fontDescription key="font" type="system" pointSize="11"/>
                                                             </label>
-                                                            <label alignment="left" verticalAlignment="center" text="Label" id="ZFb-nn-4RF"/>
                                                         </items>
+                                                        <edgeInsets key="margins" left="0.0" right="0.0" top="4" bottom="0.0"/>
                                                     </group>
+                                                    <label alignment="left" text="Label" numberOfLines="2" id="857-x0-Whp">
+                                                        <fontDescription key="font" style="UICTFontTextStyleTitle3"/>
+                                                    </label>
                                                 </items>
-                                                <edgeInsets key="margins" left="4" right="6" top="1" bottom="1"/>
                                             </group>
-                                            <connections>
-                                                <outlet property="lessonNameLabel" destination="857-x0-Whp" id="IrC-7G-OBt"/>
-                                                <outlet property="lessonRoomLabel" destination="ZFb-nn-4RF" id="aN8-pz-vHy"/>
-                                                <outlet property="rowGroup" destination="9iF-ch-pJu" id="lex-06-H6n"/>
-                                                <outlet property="timeEndLabel" destination="xaG-C9-KFY" id="hyW-yn-DMj"/>
-                                                <outlet property="timeStartLabel" destination="gHv-gC-qvo" id="984-Ba-wxT"/>
-                                            </connections>
-                                        </tableRow>
-                                    </items>
-                                </table>
+                                            <group alignment="left" id="6rX-RA-IeW">
+                                                <items>
+                                                    <label width="35" alignment="left" verticalAlignment="center" text="10:25" textAlignment="left" id="xaG-C9-KFY">
+                                                        <fontDescription key="font" type="system" pointSize="11"/>
+                                                    </label>
+                                                    <label alignment="left" verticalAlignment="center" text="Label" id="ZFb-nn-4RF"/>
+                                                </items>
+                                            </group>
+                                        </items>
+                                        <edgeInsets key="margins" left="4" right="6" top="1" bottom="1"/>
+                                    </group>
+                                    <connections>
+                                        <outlet property="lessonNameLabel" destination="857-x0-Whp" id="IrC-7G-OBt"/>
+                                        <outlet property="lessonRoomLabel" destination="ZFb-nn-4RF" id="aN8-pz-vHy"/>
+                                        <outlet property="rowGroup" destination="9iF-ch-pJu" id="lex-06-H6n"/>
+                                        <outlet property="timeEndLabel" destination="xaG-C9-KFY" id="hyW-yn-DMj"/>
+                                        <outlet property="timeStartLabel" destination="gHv-gC-qvo" id="984-Ba-wxT"/>
+                                    </connections>
+                                </tableRow>
                             </items>
-                        </group>
-                        <group width="1" height="1" alignment="left" hidden="YES" id="ktI-OM-003">
-                            <items>
-                                <label width="136" alignment="center" verticalAlignment="center" text="Будь-ласка, відкрийте додаток kpiRozklad на iPhone" textAlignment="center" numberOfLines="0" id="DfL-Ml-ywK">
-                                    <accessibilityTraits key="accessibilityTraits" staticText="YES" notEnabled="YES"/>
-                                    <fontDescription key="font" style="UICTFontTextStyleCaption2"/>
-                                </label>
-                            </items>
-                        </group>
+                        </table>
                     </items>
-                    <menu key="menu" id="HPZ-ne-S1v">
-                        <items>
-                            <menuItem title="1 тиждень" image="icons8-1st-100-notCirculed" id="uls-nQ-Bcq">
-                                <connections>
-                                    <action selector="setFirstWeek" destination="AgC-eL-Hgc" id="qJx-st-k3H"/>
-                                </connections>
-                            </menuItem>
-                            <menuItem title="2 тиждень" image="icons8-2nd-100-notCircled" id="iTj-DK-GXQ">
-                                <connections>
-                                    <action selector="setSecondWeek" destination="AgC-eL-Hgc" id="Eq0-5u-Qwk"/>
-                                </connections>
-                            </menuItem>
-                            <menuItem title="Cьогодні" image="icons8-now-100" id="iQ5-5b-8na">
-                                <connections>
-                                    <action selector="setToday" destination="AgC-eL-Hgc" id="OqU-zf-G2S"/>
-                                </connections>
-                            </menuItem>
-                        </items>
-                    </menu>
                     <connections>
-                        <outlet property="mainGroup" destination="8va-dP-VLq" id="9Sb-jY-O3L"/>
-                        <outlet property="startGroup" destination="ktI-OM-003" id="gEx-RS-lQt"/>
                         <outlet property="tableView" destination="bBF-ct-9HQ" id="D0m-w6-KcN"/>
                     </connections>
                 </controller>
@@ -109,26 +128,26 @@
         <!--Деталі-->
         <scene sceneID="OtW-nU-xpj">
             <objects>
-                <controller identifier="DetailedInterfaceController" title="Деталі" id="Y02-JO-CUk" customClass="DetailedInterfaceController" customModule="kpiRozkladWatch_Extension">
+                <controller identifier="DetailedInterfaceController" title="Деталі" id="Y02-JO-CUk" customClass="DetailedInterfaceController" customModule="kpiRozkladWatch" customModuleProvider="target">
                     <items>
                         <label width="1" alignment="left" text="Інженерія програмного забезпечення 3. Проектуваання програмного забезпечення." textAlignment="center" numberOfLines="3" id="DDE-uc-0b4">
                             <fontDescription key="font" type="system" weight="medium" pointSize="21"/>
                         </label>
                         <group width="1" height="2" alignment="center" alpha="0.59999999999999998" radius="1" spacing="0.0" id="Vgr-Kc-B5K">
-                            <color key="backgroundColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
+                            <color key="backgroundColor" systemColor="scrollViewTexturedBackgroundColor"/>
                             <edgeInsets key="margins" left="0.0" right="0.0" top="0.0" bottom="0.0"/>
                         </group>
                         <label alignment="left" text="301-18 Лек" id="zir-ui-wLL"/>
                         <group width="1" height="2" alignment="left" alpha="0.59999999999999998" radius="1" spacing="0.0" id="tau-RL-Bz9">
-                            <color key="backgroundColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
+                            <color key="backgroundColor" systemColor="scrollViewTexturedBackgroundColor"/>
                         </group>
                         <label alignment="left" text="Болдак Андрій Олександрович" numberOfLines="3" id="4Ie-CV-w1o"/>
                         <group width="1" height="2" alignment="left" alpha="0.59999999999999998" radius="1" id="VuA-Li-EDF">
-                            <color key="backgroundColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
+                            <color key="backgroundColor" systemColor="scrollViewTexturedBackgroundColor"/>
                         </group>
                         <label alignment="left" text="Понеділок, 2 тиждень" id="x1v-eT-MSB"/>
                         <group width="1" height="2" alignment="left" alpha="0.59999999999999998" radius="1" id="gal-HX-bzA">
-                            <color key="backgroundColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
+                            <color key="backgroundColor" systemColor="scrollViewTexturedBackgroundColor"/>
                         </group>
                         <label alignment="left" text="Групи: ІВ-82" id="g73-0e-aZ1"/>
                     </items>
@@ -142,6 +161,115 @@
                 </controller>
             </objects>
             <point key="canvasLocation" x="468" y="349"/>
+        </scene>
+        <!--ІВ-82-->
+        <scene sceneID="55Y-zi-vWy">
+            <objects>
+                <controller title="ІВ-82" fullBounds="YES" id="5TE-N8-jhG">
+                    <items>
+                        <group width="1" height="0.5" alignment="center" layout="vertical" spacing="0.0" id="WXt-LB-3VY" userLabel="section1">
+                            <items>
+                                <group width="1" height="0.80000000000000004" alignment="left" layout="vertical" id="4Op-Di-NXC">
+                                    <items>
+                                        <group width="1" alignment="left" id="osG-OD-OXV">
+                                            <items>
+                                                <group alignment="left" verticalAlignment="center" id="wWF-2V-k8d">
+                                                    <items>
+                                                        <label alignment="center" verticalAlignment="center" text="08:30" textAlignment="left" id="oIk-eZ-B0t">
+                                                            <fontDescription key="font" type="system" pointSize="11"/>
+                                                        </label>
+                                                    </items>
+                                                </group>
+                                                <label alignment="left" text="Інженерія програмного забезпечення - 3." textAlignment="left" numberOfLines="2" id="uSj-X7-rtp">
+                                                    <fontDescription key="font" style="UICTFontTextStyleTitle3"/>
+                                                </label>
+                                            </items>
+                                            <edgeInsets key="margins" left="3" right="0.0" top="0.0" bottom="0.0"/>
+                                        </group>
+                                        <group width="1" alignment="left" id="uC1-6E-yNz">
+                                            <items>
+                                                <label alignment="left" verticalAlignment="center" text="10:25" textAlignment="left" id="KrT-Vc-NlZ">
+                                                    <fontDescription key="font" type="system" pointSize="11"/>
+                                                </label>
+                                                <label alignment="left" verticalAlignment="center" text="302-18 Лек" textAlignment="left" id="Wet-yw-Pzb"/>
+                                            </items>
+                                            <edgeInsets key="margins" left="3" right="0.0" top="0.0" bottom="0.0"/>
+                                        </group>
+                                    </items>
+                                </group>
+                                <group width="1" height="0.02" alignment="left" id="kwH-cM-GSM" userLabel="separator">
+                                    <color key="backgroundColor" red="0.47684186699999997" green="0.50480759139999998" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </group>
+                                <group height="0.17999999999999999" alignment="left" verticalAlignment="bottom" id="U5j-jk-OoM">
+                                    <items>
+                                        <label width="1" alignment="left" text="через 23:23 хв" textAlignment="center" id="If1-k3-W8b">
+                                            <fontDescription key="font" style="UICTFontTextStyleCaption2"/>
+                                        </label>
+                                    </items>
+                                </group>
+                            </items>
+                            <color key="backgroundColor" name="AccentColor"/>
+                        </group>
+                        <group width="1" height="0.5" alignment="center" layout="vertical" spacing="0.0" id="uog-pC-iMS" userLabel="section2">
+                            <items>
+                                <group width="1" height="0.80000000000000004" alignment="left" layout="vertical" id="1j3-9P-HDY">
+                                    <items>
+                                        <group width="1" alignment="left" id="l4I-An-9Ld">
+                                            <items>
+                                                <label height="1" alignment="left" verticalAlignment="center" text="08:30" textAlignment="left" id="ap3-AQ-Cgm">
+                                                    <fontDescription key="font" type="system" pointSize="11"/>
+                                                </label>
+                                                <label width="0.80000000000000004" alignment="left" text="Інженерія програмного забезпечення - 3." textAlignment="left" numberOfLines="2" id="jXR-dp-Wkm">
+                                                    <fontDescription key="font" style="UICTFontTextStyleTitle3"/>
+                                                </label>
+                                            </items>
+                                            <edgeInsets key="margins" left="3" right="0.0" top="0.0" bottom="0.0"/>
+                                        </group>
+                                        <group width="1" alignment="left" id="A2K-zc-eg8">
+                                            <items>
+                                                <label alignment="left" verticalAlignment="center" text="10:25" textAlignment="left" id="0ZA-LV-QYY">
+                                                    <fontDescription key="font" type="system" pointSize="11"/>
+                                                </label>
+                                                <label alignment="left" verticalAlignment="center" text="302-18 Лек" textAlignment="left" id="SQz-Oj-jtL"/>
+                                            </items>
+                                            <edgeInsets key="margins" left="3" right="0.0" top="0.0" bottom="0.0"/>
+                                        </group>
+                                    </items>
+                                </group>
+                                <group width="1" height="0.02" alignment="left" id="Qg5-7r-a7y" userLabel="separator">
+                                    <color key="backgroundColor" red="0.47684186699999997" green="0.50480759139999998" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </group>
+                                <group height="0.17999999999999999" alignment="left" verticalAlignment="bottom" id="Azw-Dj-ZIV">
+                                    <items>
+                                        <label width="1" alignment="left" text="через 23:23 хв" textAlignment="center" id="7N4-Rg-ZBP">
+                                            <fontDescription key="font" style="UICTFontTextStyleCaption2"/>
+                                        </label>
+                                    </items>
+                                </group>
+                            </items>
+                            <color key="backgroundColor" red="1" green="0.49327188729999999" blue="0.47399842739999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        </group>
+                    </items>
+                </controller>
+            </objects>
+            <point key="canvasLocation" x="708" y="341"/>
+        </scene>
+        <!--Interface Controller-->
+        <scene sceneID="iPK-dk-qaT">
+            <objects>
+                <controller id="b6I-Z9-vMs">
+                    <items>
+                        <table alignment="left" id="YPL-fr-QVO">
+                            <items>
+                                <tableRow id="0sX-08-Hrc">
+                                    <group key="rootItem" width="1" alignment="left" id="Zcs-Sp-d6l"/>
+                                </tableRow>
+                            </items>
+                        </table>
+                    </items>
+                </controller>
+            </objects>
+            <point key="canvasLocation" x="949" y="341"/>
         </scene>
         <!--Static Notification Interface Controller-->
         <scene sceneID="AEw-b0-oYE">
@@ -177,8 +305,21 @@
     </scenes>
     <color key="tintColor" red="0.32969367970000002" green="0.58432860860000002" blue="0.96851998569999997" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
     <resources>
-        <image name="icons8-1st-100-notCirculed" width="50" height="50"/>
-        <image name="icons8-2nd-100-notCircled" width="50" height="50"/>
         <image name="icons8-now-100" width="50" height="50"/>
+        <namedColor name="AccentColor">
+            <color red="0.0" green="0.46000000000000002" blue="0.89000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <systemColor name="scrollViewTexturedBackgroundColor">
+            <color red="0.43529411764705878" green="0.44313725490196082" blue="0.47450980392156861" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="scrollViewTexturedBackgroundColor">
+            <color red="0.43529411764705878" green="0.44313725490196082" blue="0.47450980392156861" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="scrollViewTexturedBackgroundColor">
+            <color red="0.43529411764705878" green="0.44313725490196082" blue="0.47450980392156861" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="scrollViewTexturedBackgroundColor">
+            <color red="0.43529411764705878" green="0.44313725490196082" blue="0.47450980392156861" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
     </resources>
 </document>

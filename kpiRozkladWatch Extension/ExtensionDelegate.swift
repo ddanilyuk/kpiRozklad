@@ -86,6 +86,16 @@ extension ExtensionDelegate: WCSessionDelegate {
         }
     }
     
+    /// Debug
+    /// Because didReceiveApplicationContext is not working with watch os 7.0
+    func session(_ session: WCSession, didReceiveMessage message: [String : Any]) {
+        do {
+            try saveDataAndPostNotification(applicationContext: message)
+        } catch let error {
+            print(error.localizedDescription)
+        }
+    }
+    
     func saveDataAndPostNotification(applicationContext: [String : Any]) throws {
         do {
             print("Data start saving")
@@ -101,7 +111,8 @@ extension ExtensionDelegate: WCSessionDelegate {
             guard let currentColourData = applicationContext["currentColourData"] as? Data else {
                 fatalError("Can't cast currentColour as Data")
             }
-            guard let nextColourData = applicationContext["nextColourData"] as? Data else {                        fatalError("Can't cast nextColourData as Data")
+            guard let nextColourData = applicationContext["nextColourData"] as? Data else {
+                fatalError("Can't cast nextColourData as Data")
             }
 
             StoreUserDefaults.shared.lessons = lessons
@@ -110,7 +121,7 @@ extension ExtensionDelegate: WCSessionDelegate {
             StoreUserDefaults.shared.cellCurrentColour = UIColor.color(withData: currentColourData)
             
             DispatchQueue.main.async {
-                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "activityNotification"), object: nil)
+                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "lessonsData"), object: nil)
             }
 
             print("Data saved")

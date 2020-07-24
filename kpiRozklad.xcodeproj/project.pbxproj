@@ -85,7 +85,9 @@
 		5F506EE6248ED21500B6F544 /* Date+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F506EE3248ED0CC00B6F544 /* Date+Extensions.swift */; };
 		5F56541D248E675700F2EB6E /* TimeAndDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FE048682393027900092422 /* TimeAndDate.swift */; };
 		5F56541E248E6ACF00F2EB6E /* UIColor+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FCBBA21241C501E00E7654F /* UIColor+Extensions.swift */; };
+		5F644FB124CB65BD002008B7 /* MenuRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F644FB024CB65BD002008B7 /* MenuRow.swift */; };
 		5F6A08062370A175000A9C79 /* kpiRozkladModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 5F6A08042370A175000A9C79 /* kpiRozkladModel.xcdatamodeld */; };
+		5F6A437A24CB77D500891915 /* GreetingInterfaceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F6A437924CB77D500891915 /* GreetingInterfaceController.swift */; };
 		5F6FF30A24334DB700FADBD6 /* GroupsAndTeachersVC+UITableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F6FF30924334DB700FADBD6 /* GroupsAndTeachersVC+UITableView.swift */; };
 		5F75DAD72457915900B1E4C9 /* NetworkingApiTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F75DAD62457915900B1E4C9 /* NetworkingApiTests.swift */; };
 		5F7631FA24B251F90022C952 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F7631F924B251F90022C952 /* WidgetKit.framework */; };
@@ -371,7 +373,9 @@
 		5F47115B24C49EEA00BF4197 /* WhatsNewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhatsNewViewController.swift; sourceTree = "<group>"; };
 		5F5000AE238D704A0003E13B /* UIView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
 		5F506EE3248ED0CC00B6F544 /* Date+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extensions.swift"; sourceTree = "<group>"; };
+		5F644FB024CB65BD002008B7 /* MenuRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuRow.swift; sourceTree = "<group>"; };
 		5F6A08052370A175000A9C79 /* Lesson.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Lesson.xcdatamodel; sourceTree = "<group>"; };
+		5F6A437924CB77D500891915 /* GreetingInterfaceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GreetingInterfaceController.swift; sourceTree = "<group>"; };
 		5F6FF30924334DB700FADBD6 /* GroupsAndTeachersVC+UITableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GroupsAndTeachersVC+UITableView.swift"; sourceTree = "<group>"; };
 		5F75DAD42457915900B1E4C9 /* kpiRozkladTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = kpiRozkladTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		5F75DAD62457915900B1E4C9 /* NetworkingApiTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkingApiTests.swift; sourceTree = "<group>"; };
@@ -792,14 +796,14 @@
 			children = (
 				5FDCFCDA248D8C2F00568208 /* InterfaceController.swift */,
 				5F3D8C142493FD5300308AC9 /* DetailedInterfaceController.swift */,
+				5F6A437924CB77D500891915 /* GreetingInterfaceController.swift */,
 				5FDCFCDC248D8C2F00568208 /* ExtensionDelegate.swift */,
-				5FDCFCF3248D911900568208 /* TableRow.swift */,
-				5FDCFCF5248E561C00568208 /* TitleRow.swift */,
-				5FDCFCDE248D8C2F00568208 /* NotificationController.swift */,
-				5FDCFCE0248D8C3000568208 /* Assets.xcassets */,
-				5FDCFCE3248D8C3000568208 /* PushNotificationPayload.apns */,
-				5FDCFCE2248D8C3000568208 /* Info.plist */,
 				5FF3323C24B7D72F00DB864F /* StoreUserDefaults.swift */,
+				5FEBEA9B24C5A1BE00151307 /* Rows */,
+				5FDCFCE0248D8C3000568208 /* Assets.xcassets */,
+				5FDCFCDE248D8C2F00568208 /* NotificationController.swift */,
+				5FDCFCE2248D8C3000568208 /* Info.plist */,
+				5FDCFCE3248D8C3000568208 /* PushNotificationPayload.apns */,
 			);
 			path = "kpiRozkladWatch Extension";
 			sourceTree = "<group>";
@@ -863,6 +867,16 @@
 				5FD5B71724226F1C00B86FB7 /* ViewControllers */,
 			);
 			path = Boarding;
+			sourceTree = "<group>";
+		};
+		5FEBEA9B24C5A1BE00151307 /* Rows */ = {
+			isa = PBXGroup;
+			children = (
+				5FDCFCF3248D911900568208 /* TableRow.swift */,
+				5FDCFCF5248E561C00568208 /* TitleRow.swift */,
+				5F644FB024CB65BD002008B7 /* MenuRow.swift */,
+			);
+			path = Rows;
 			sourceTree = "<group>";
 		};
 		D313F489233AAB6C0076CFF8 = {
@@ -1534,6 +1548,7 @@
 			files = (
 				5FF3323D24B7D72F00DB864F /* StoreUserDefaults.swift in Sources */,
 				5FDCFCDF248D8C2F00568208 /* NotificationController.swift in Sources */,
+				5F6A437A24CB77D500891915 /* GreetingInterfaceController.swift in Sources */,
 				5F56541D248E675700F2EB6E /* TimeAndDate.swift in Sources */,
 				5FA57FC8249565A5002DCD4A /* Room.swift in Sources */,
 				5FA57FC7249565A5002DCD4A /* Group.swift in Sources */,
@@ -1542,6 +1557,7 @@
 				5FDCFCF6248E561C00568208 /* TitleRow.swift in Sources */,
 				5F3D8C152493FD5300308AC9 /* DetailedInterfaceController.swift in Sources */,
 				5FA57FCD249565A5002DCD4A /* JSONNull.swift in Sources */,
+				5F644FB124CB65BD002008B7 /* MenuRow.swift in Sources */,
 				5FDCFCDD248D8C2F00568208 /* ExtensionDelegate.swift in Sources */,
 				5FA57FC5249565A5002DCD4A /* Lesson.swift in Sources */,
 				5F3D8C132493FD5300308AC9 /* Enums.swift in Sources */,

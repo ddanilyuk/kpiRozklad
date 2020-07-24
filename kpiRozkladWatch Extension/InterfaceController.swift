@@ -34,7 +34,7 @@ class InterfaceController: WKInterfaceController {
     
     @IBOutlet weak var startGroup: WKInterfaceGroup!
     
-    @IBOutlet weak var mainGroup: WKInterfaceGroup!
+//    @IBOutlet weak var mainGroup: WKInterfaceGroup!
     /**
      Сurrent week which is obtained from the date on the device
      - Remark:
@@ -65,13 +65,11 @@ class InterfaceController: WKInterfaceController {
      */
     var nextLessonId: Int = 0
     
-    
-    var isGreetingOnScreen: Bool = false
-    
     var selectedControllerType: SelectedControllerType = .today
     
     var selectedLessons: [Lesson?] = []
     
+    var isMenuShown: Bool = false
     
     let storeUserDefaults = StoreUserDefaults.shared
 
@@ -79,51 +77,70 @@ class InterfaceController: WKInterfaceController {
     override func awake(withContext context: Any?) {
         super.awake(withContext: context)
         
+        if let id = self.value(forKey: "_viewControllerID") as? NSString {
+            let strClassDescription = String(describing: self)
+            print("1")
+            print("\(strClassDescription) has the Interface Controller ID \(id)")
+        }
         
-        hideGreeting()
         setupDate()
         
+        
+//        StoreUserDefaults.shared.lessons = []
         lessons = StoreUserDefaults.shared.lessons
 
-        setToday()
-//        self.setTitle
-        
-
-        if #available(watchOSApplicationExtension 5.1, *) {
-            tableView.curvesAtBottom = true
-        }
-        
         if lessons.count == 0 {
             self.setTitle("")
-            showGreeting()
+            self.pushController(withName: "GreetingInterfaceController", context: nil)
+        } else {
+            setToday()
         }
+
+//        let action = WKAlertAction(title: "Cancel", style: .cancel) {
+//            print("handle")
+//        }
+//        self.presentAlert(withTitle: "withTitle", message: "Message", preferredStyle: .sideBySideButtonsAlert, actions: [action])
+
         
-        notificationObserver = notificationCenter.addObserver(forName: NSNotification.Name("activityNotification"), object: nil, queue: nil, using: { (notification) in
-            self.hideGreeting()
-            self.lessons = self.storeUserDefaults.lessons
-            switch self.selectedControllerType {
-            case .firstWeek:
-                self.setFirstWeek()
-            case .secondWeek:
-                self.setSecondWeek()
-            case .today:
-                self.setToday()
-            }
-//            self.setToday()
-        })
-    }
-    
-//    override func willActivate() {
-//        super.willActivate()
+//        interfaceDidScrollToTop()
+//        let menuRow = tableView.rowController(at: 0) as! MenuRow
+//        scroll(to: menuRow, at: .top, animated: true)
+        
 //        if #available(watchOSApplicationExtension 5.1, *) {
 //            tableView.curvesAtBottom = true
 //        }
-//    }
-    
+        
+//        tableView.scrollToRow(at: 1)
+        
+        notificationObserver = notificationCenter.addObserver(forName: NSNotification.Name("lessonsData"), object: nil, queue: nil, using: { (notification) in
+//            self.hideGreeting()
+            DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(500)) { [weak self] in
+                self?.lessons = self?.storeUserDefaults.lessons ?? []
+                switch self?.selectedControllerType {
+                case .firstWeek:
+                    self?.setFirstWeek()
+                case .secondWeek:
+                    self?.setSecondWeek()
+                case .today:
+                    self?.setToday()
+                default:
+                    break
+                }
+                self?.tableView.scrollToRow(at: 0)
+            }
+        })
+//        let some = Numeric
+                
+//        DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(2)) {
+//            self.tableView.scrollToRow(at: 2)
+//        }
+
+
+    }
     
     // MARK: - Menu functions
     
-    @IBAction func setFirstWeek() {
+    func setFirstWeek() {
         selectedControllerType = .firstWeek
         if #available(watchOSApplicationExtension 5.1, *) {
             tableView.curvesAtBottom = false
@@ -131,10 +148,10 @@ class InterfaceController: WKInterfaceController {
 
         setupTableView(week: .first)
         setInterfaceTitle("1 тиждень")
-        tableView.scrollToRow(at: 0)
+//        tableView.scrollToRow(at: 0)
     }
     
-    @IBAction func setSecondWeek() {
+    func setSecondWeek() {
         selectedControllerType = .secondWeek
 
         if #available(watchOSApplicationExtension 5.1, *) {
@@ -143,97 +160,88 @@ class InterfaceController: WKInterfaceController {
         
         setupTableView(week: .second)
         setInterfaceTitle("2 тиждень")
-        tableView.scrollToRow(at: 0)
+//        tableView.scrollToRow(at: 0)
     }
     
-    @IBAction func setToday() {
+    func setToday() {
         selectedControllerType = .today
 
-        DispatchQueue.main.async {
-            if #available(watchOSApplicationExtension 5.1, *) {
-                self.tableView.scrollToRow(at: 0)
-                self.tableView.curvesAtBottom = false
-            }
-        }
-        if #available(watchOSApplicationExtension 5.1, *) {
-            tableView.curvesAtBottom = false
-        }
-
+//        DispatchQueue.main.async {
+//            if #available(watchOSApplicationExtension 5.1, *) {
+////                self.tableView.scrollToRow(at: 0)
+//                self.tableView.curvesAtBottom = false
+//            }
+//        }
+//        if #available(watchOSApplicationExtension 5.1, *) {
+//            tableView.curvesAtBottom = false
+//        }
+//        setInterfaceTitle("Сьогодні")
+        self.setTitle("Сьогодні")
         setupTableViewForToday()
-        setInterfaceTitle("Сьогодні")
     }
 
-    
     // MARK: - Table functions
     
     private func setupTableViewForToday() {
-        let lessonsForToday = lessons.filter { return $0.lessonWeek == currentWeekFromTodayDate && $0.dayNumber == dayNumberFromCurrentDate }
-        
+//        let lessonsForToday = lessons.filter { return $0.lessonWeek == currentWeekFromTodayDate && $0.dayNumber == dayNumberFromCurrentDate }
+        let lessonsForToday = lessons.filter { return $0.lessonWeek == currentWeekFromTodayDate }
+
+
         selectedLessons = lessonsForToday
         selectedLessons.insert(nil, at: 0)
-        
-//        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-//            if lessonsForToday.count >= 2 {
-//                if #available(watchOSApplicationExtension 5.1, *) {
-//                    self.tableView.curvesAtBottom = true
-//                    self.tableView.scrollToRow(at: 0)
-//                }
-//            }
-//        }
-        
-        self.tableView.scrollToRow(at: 0)
 
-        
-        DispatchQueue.main.async {
-            if #available(watchOSApplicationExtension 5.1, *) {
-//                self.tableView.scrollToRow(at: 0)
-//                self.tableView.
-                self.tableView.curvesAtBottom = true
-            }
-        }
-        
         
         let isEmptyLessons: Bool = lessonsForToday.count == 0 ? true : false
         
         var rowTypes: [String] = isEmptyLessons ? ["TableRow"] : Array.init(repeating: "TableRow", count: lessonsForToday.count)
         
         rowTypes.insert("TitleRow", at: 0)
-        
+        rowTypes.insert("MenuRow", at: 0)
+
         tableView.setRowTypes(rowTypes)
-        
+
+
         for index in 0..<rowTypes.count {
-            if index == 0 {
-                if let titleRow = tableView.rowController(at: index) as? TitleRow {
-                    let title = "\(DayName.getDayNameFromNumber(dayNumberFromCurrentDate).map { $0.rawValue } ?? ""), \(currentWeekFromTodayDate.rawValue) тиж."
-                    titleRow.titleLabel.setText(title)
+            
+            if let titleRow = tableView.rowController(at: index) as? TitleRow {
+                let title = "\(DayName.getDayNameFromNumber(dayNumberFromCurrentDate)?.rawValue ?? ""), \(currentWeekFromTodayDate.rawValue) тиж."
+                titleRow.titleLabel.setText(title)
+            }
+            
+            if let tableRow = tableView.rowController(at: index) as? TableRow {
+                if isEmptyLessons {
+                    tableRow.lessonNameLabel.setText("Пар немає.")
+                    tableRow.lessonNameLabel.setHorizontalAlignment(.center)
+                    tableRow.lessonNameLabel.setVerticalAlignment(.center)
+                    
+                    tableRow.lessonRoomLabel.setHidden(true)
+                    tableRow.timeStartLabel.setHidden(true)
+                    tableRow.timeEndLabel.setHidden(true)
+                    
+                } else {
+//                    let minusIndex = isMenuShown ? 2 : 1
+                    let lesson = lessonsForToday[index - 2]
+                    tableRow.lesson = lesson
+                    
+                    if currentLessonId == lesson.id {
+                        setupCurrentOrNextLessonRow(row: tableRow, cellType: .currentCell)
+                    } else if nextLessonId == lesson.id {
+                        setupCurrentOrNextLessonRow(row: tableRow, cellType: .nextCell)
+                    }
                 }
                 
-            } else {
-                if let tableRow = tableView.rowController(at: index) as? TableRow {
-                    if isEmptyLessons {
-                        tableRow.lessonNameLabel.setText("Пар немає.")
-                        tableRow.lessonNameLabel.setHorizontalAlignment(.center)
-                        tableRow.lessonNameLabel.setVerticalAlignment(.center)
-
-                        tableRow.lessonRoomLabel.setHidden(true)
-                        tableRow.timeStartLabel.setHidden(true)
-                        tableRow.timeEndLabel.setHidden(true)
-
-                    } else {
-                        let lesson = lessonsForToday[index - 1]
-                        tableRow.lesson = lesson
-                        
-                        if currentLessonId == lesson.id {
-                            setupCurrentOrNextLessonRow(row: tableRow, cellType: .currentCell)
-                        } else if nextLessonId == lesson.id {
-                            setupCurrentOrNextLessonRow(row: tableRow, cellType: .nextCell)
-                        }
-                    }
-                    
-                }
             }
         }
+        print("start")
+
+        DispatchQueue.main.async { [weak self] in
+            self?.tableView.scrollToRow(at: 1)
+            print("scrolled")
+        }
+        
+
     }
+
     
     private func setupTableView(week: WeekType) {
 
@@ -309,24 +317,11 @@ class InterfaceController: WKInterfaceController {
     }
     
     
+    
+    
     // MARK: - Helpers
     
     private func setInterfaceTitle(_ title: String) {
-        if !isGreetingOnScreen {
-            self.setTitle(title)
-        }
-    }
-    
-    private func showGreeting() {
-        isGreetingOnScreen = true
-        startGroup.setHidden(false)
-        mainGroup.setHidden(true)
-    }
-    
-    private func hideGreeting() {
-        isGreetingOnScreen = false
-        startGroup.setHidden(true)
-        mainGroup.setHidden(false)
     }
     
     private func setupDate() {

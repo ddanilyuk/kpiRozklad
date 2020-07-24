@@ -430,16 +430,20 @@ class SheduleViewController: UIViewController {
         
         /// If lessonsForTableView is empty, we need to setup which weekToShow
         if lessonsForTableView.allSatisfy({ $1.count == 0 }) {
-            if nextLessonId == lessonsFirst[0].id {
-                self.weekSegmentControl.selectedSegmentIndex = 0
-                self.currentWeek = .first
-            } else if nextLessonId == lessonsSecond[0].id {
-                self.weekSegmentControl.selectedSegmentIndex = 1
-                self.currentWeek = .second
-            } else {
-                self.currentWeek = currentWeekFromTodayDate
-                self.weekSegmentControl.selectedSegmentIndex = currentWeek == .first ? 0 : 1
+            if lessonsFirst.count != 0 {
+                if nextLessonId == lessonsFirst[0].id {
+                    self.weekSegmentControl.selectedSegmentIndex = 0
+                    self.currentWeek = .first
+                }
             }
+            if lessonsSecond.count != 0 {
+                if nextLessonId == lessonsSecond[0].id {
+                    self.weekSegmentControl.selectedSegmentIndex = 1
+                    self.currentWeek = .second
+                }
+            }
+            self.currentWeek = currentWeekFromTodayDate
+            self.weekSegmentControl.selectedSegmentIndex = currentWeek == .first ? 0 : 1
         }
         
         let currentLessonWeek = currentWeek == .first ? lessonsFirst : lessonsSecond
@@ -689,7 +693,11 @@ class SheduleViewController: UIViewController {
                                                  "groupOrTeacherName": groupOrTeacherName,
                                                  "currentColourData": currentColourData,
                                                  "nextColourData": nextColourData]
-                try session.updateApplicationContext(dictionary)
+//                try session.updateApplicationContext(dictionary)
+                session.sendMessage(dictionary, replyHandler: nil) { error in
+                    print(error.localizedDescription)
+                }
+                
                 print("Session data sended")
             } catch {
                 print("Error: \(error)")

@@ -12,6 +12,9 @@ import WidgetKit
 
 struct WidgetViewMedium: View {
     
+    @Environment(\.redactionReasons) var redactionReasons
+
+    
     var lessons: [Lesson]
     
     var settings = Settings.shared
@@ -66,6 +69,8 @@ struct WidgetViewMedium: View {
                     .padding(.leading, 30)
                     .padding(.top, -8)
                     .foregroundColor(Color(#colorLiteral(red: 0.9712373614, green: 0.6793045998, blue: 0, alpha: 1)))
+//                    .isPlaceholder(true)
+                    .redacted(reason: redactionReasons)
                 
                 Spacer(minLength: 0.0)
                 
@@ -73,6 +78,7 @@ struct WidgetViewMedium: View {
                     LessonRow(lesson: lessons[0], date: date)
                         .foregroundColor(.white)
                 }
+
                 
                 Spacer(minLength: 0.0)
                 
@@ -90,6 +96,7 @@ struct WidgetViewMedium: View {
             .padding()
         }
 
+
     }
     
     
@@ -97,12 +104,17 @@ struct WidgetViewMedium: View {
 
 struct WidgetView_Previews: PreviewProvider {
     static var previews: some View {
-//        WidgetViewMedium(lessons: Lesson.defaultArratOfLesson)
+        WidgetViewMedium(lessons: Lesson.defaultArratOfLesson, date: Date())
 //            .frame(width: 329, height: 155)
 //            .previewLayout(.fixed(width: 329, height: 155))
-        
-        WidgetViewMedium(lessons: Lesson.defaultArratOfLesson, date: Date())
+
             .previewContext(WidgetPreviewContext(family: .systemMedium))
+
+        
+
+        
+//        WidgetViewMedium(lessons: Lesson.defaultArratOfLesson, date: Date())
+//            .previewContext(WidgetPreviewContext(family: .systemMedium))
     }
 }
 #endif

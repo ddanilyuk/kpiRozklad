@@ -43,6 +43,34 @@ struct Provider: TimelineProvider {
         completion(timeline)
     }
     
+    /// Fetching core data and getting lessons from `getNextThreeLessonsID()`
+    func getArrayWithNextThreeLessons(dayNumberFromCurrentDate: Int, currentWeekFromTodayDate: WeekType, managedObjectContext: NSManagedObjectContext) -> [Lesson] {
+        guard let lessonsCoreData = try? managedObjectContext.fetch(NSFetchRequest<NSFetchRequestResult>(entityName: "LessonData")) as? [LessonData] else { return Lesson.defaultArratOfLesson }
+        
+        if lessonsCoreData.count < 4 {
+            return Lesson.defaultArratOfLesson
+        }
+        
+        var lessonsFromCoreData: [Lesson] = []
+        
+        lessonsFromCoreData.append(contentsOf: lessonsCoreData.map({
+            $0.wrappedLesson
+        }))
+        
+        let (dayNumberFromCurrentDate, currentWeekFromTodayDate) = getCurrentWeekAndDayNumber()
+        
+        let (firstNextLessonID, secondNextLessonID, thirdNextLessonID) = getNextThreeLessonsID(lessons: lessonsFromCoreData, dayNumberFromCurrentDate: dayNumberFromCurrentDate, currentWeekFromTodayDate: currentWeekFromTodayDate)
+        
+        var arrayWithLessonsToShow: [Lesson] = []
+        if let firstLesson = lessonsFromCoreData.first(where: { return $0.id == firstNextLessonID }),
+           let secondLesson = lessonsFromCoreData.first(where: { return $0.id == secondNextLessonID }),
+           let thirdLesson = lessonsFromCoreData.first(where: { return $0.id == thirdNextLessonID }){
+            arrayWithLessonsToShow = [firstLesson, secondLesson, thirdLesson]
+        }
+        return arrayWithLessonsToShow
+    }
+
+    
     
     
     func makeTimeLine1(arrayWithLessonsToShow: inout [Lesson], dayNumberFromCurrentDate: Int, currentWeekFromTodayDate: WeekType) -> (entries: [LessonsEntry], dateToUpdate: Date) {
@@ -119,6 +147,8 @@ struct PlaceholderView : View {
 
 struct KpiRozkladWidgetEntryView : View {
     @Environment(\.widgetFamily) var family: WidgetFamily
+    @Environment(\.redactionReasons) var redactionReasons
+    
     var entry: Provider.Entry
 
     // DEBUG
@@ -138,6 +168,8 @@ struct KpiRozkladWidgetEntryView : View {
         switch family {
         case .systemSmall:
             WidgetViewSmall(lessons: entry.lessons, date: entry.date)
+                .redacted(reason: redactionReasons)
+
         case .systemMedium:
             // DEBUG
 //            VStack(alignment: .center) {
@@ -163,6 +195,7 @@ struct KpiRozkladWidgetEntryView : View {
             
             // Default
              WidgetViewMedium(lessons: entry.lessons, date: entry.date)
+                .redacted(reason: redactionReasons)
 
         default:
             WidgetViewMedium(lessons: entry.lessons, date: entry.date)
@@ -175,14 +208,20 @@ struct KPIRozkladWidget: Widget {
     private let kind: String = "KPIRozkladWidget"
 
     public var body: some WidgetConfiguration {
+//        StaticConfiguration(kind: kind,
+//                            provider: Provider(context: persistentContainer.viewContext),
+//                            placeholder: PlaceholderView()
+//        ) { entry in
+//            KpiRozkladWidgetEntryView(entry: entry)
+//        }
+        
         StaticConfiguration(kind: kind,
-                            provider: Provider(context: persistentContainer.viewContext),
-                            placeholder: PlaceholderView()
-        ) { entry in
+                            provider: Provider(context: persistentContainer.viewContext))
+        { entry in
             KpiRozkladWidgetEntryView(entry: entry)
         }
-        .configurationDisplayName("Kpi Rozklad Widget")
-        .description("Widget with your shedule")
+        .configurationDisplayName("Віджет Kpi Rozklad")
+        .description("Актуальний розклад для вас")
         .supportedFamilies([.systemSmall, .systemMedium])
     }
     

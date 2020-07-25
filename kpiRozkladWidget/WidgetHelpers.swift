@@ -109,29 +109,3 @@ func getNextThreeLessonsID(lessons: [Lesson],
 }
 
 
-/// Fetching core data and getting lessons from `getNextThreeLessonsID()`
-func getArrayWithNextThreeLessons(dayNumberFromCurrentDate: Int, currentWeekFromTodayDate: WeekType, managedObjectContext: NSManagedObjectContext) -> [Lesson] {
-    guard let lessonsCoreData = try? managedObjectContext.fetch(NSFetchRequest<NSFetchRequestResult>(entityName: "LessonData")) as? [LessonData] else { return Lesson.defaultArratOfLesson }
-    
-    if lessonsCoreData.count < 4 {
-        return Lesson.defaultArratOfLesson
-    }
-    
-    var lessonsFromCoreData: [Lesson] = []
-    
-    lessonsFromCoreData.append(contentsOf: lessonsCoreData.map({
-        $0.wrappedLesson
-    }))
-    
-    let (dayNumberFromCurrentDate, currentWeekFromTodayDate) = getCurrentWeekAndDayNumber()
-    
-    let (firstNextLessonID, secondNextLessonID, thirdNextLessonID) = getNextThreeLessonsID(lessons: lessonsFromCoreData, dayNumberFromCurrentDate: dayNumberFromCurrentDate, currentWeekFromTodayDate: currentWeekFromTodayDate)
-    
-    var arrayWithLessonsToShow: [Lesson] = []
-    if let firstLesson = lessonsFromCoreData.first(where: { return $0.id == firstNextLessonID }),
-       let secondLesson = lessonsFromCoreData.first(where: { return $0.id == secondNextLessonID }),
-       let thirdLesson = lessonsFromCoreData.first(where: { return $0.id == thirdNextLessonID }){
-        arrayWithLessonsToShow = [firstLesson, secondLesson, thirdLesson]
-    }
-    return arrayWithLessonsToShow
-}

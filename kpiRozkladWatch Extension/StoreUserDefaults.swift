@@ -41,7 +41,7 @@ public class StoreUserDefaults {
         }
         
         set {
-            userDefaults.string(forKey: "groupOrTeacherName")
+            userDefaults.setValue(newValue, forKey: "groupOrTeacherName")
         }
     }
     
@@ -78,5 +78,14 @@ public class StoreUserDefaults {
         }
     }
     
+    
+    var isShowGreetings: Bool {
+        get {
+            return userDefaults.bool(forKey: "isShowGreetings")
+        }
+        set {
+            userDefaults.set(newValue, forKey: "isShowGreetings")
+        }
+    }
 }
      

@@ -430,20 +430,17 @@ class SheduleViewController: UIViewController {
         
         /// If lessonsForTableView is empty, we need to setup which weekToShow
         if lessonsForTableView.allSatisfy({ $1.count == 0 }) {
-            if lessonsFirst.count != 0 {
-                if nextLessonId == lessonsFirst[0].id {
-                    self.weekSegmentControl.selectedSegmentIndex = 0
-                    self.currentWeek = .first
-                }
+            if lessonsFirst.count != 0 && nextLessonId == lessonsFirst[0].id {
+                self.weekSegmentControl.selectedSegmentIndex = 0
+                self.currentWeek = .first
+            } else if lessonsSecond.count != 0 && nextLessonId == lessonsSecond[0].id {
+                self.weekSegmentControl.selectedSegmentIndex = 1
+                self.currentWeek = .second
+            } else {
+                self.currentWeek = currentWeekFromTodayDate
+                self.weekSegmentControl.selectedSegmentIndex = currentWeek == .first ? 0 : 1
             }
-            if lessonsSecond.count != 0 {
-                if nextLessonId == lessonsSecond[0].id {
-                    self.weekSegmentControl.selectedSegmentIndex = 1
-                    self.currentWeek = .second
-                }
-            }
-            self.currentWeek = currentWeekFromTodayDate
-            self.weekSegmentControl.selectedSegmentIndex = currentWeek == .first ? 0 : 1
+            
         }
         
         let currentLessonWeek = currentWeek == .first ? lessonsFirst : lessonsSecond
@@ -683,7 +680,7 @@ class SheduleViewController: UIViewController {
                 
                 let encoder = JSONEncoder.init()
                 let dataLessons = try encoder.encode(lessons)
-                let groupOrTeacherName = isTeachersShedule ? settings.teacherName : settings.groupName
+                let groupOrTeacherName = settings.sheduleType == .teachers ? settings.teacherName : settings.groupName
                 
                 let currentColourData = settings.cellCurrentColour.encode()
                 let nextColourData = settings.cellNextColour.encode()

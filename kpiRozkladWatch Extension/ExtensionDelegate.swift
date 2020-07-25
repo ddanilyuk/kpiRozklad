@@ -116,7 +116,7 @@ extension ExtensionDelegate: WCSessionDelegate {
             }
 
             StoreUserDefaults.shared.lessons = lessons
-            StoreUserDefaults.shared.groupOrTeacherName = groupOrTeacherName
+            StoreUserDefaults.shared.groupOrTeacherName = groupOrTeacherName.uppercased()
             StoreUserDefaults.shared.cellNextColour = UIColor.color(withData: nextColourData)
             StoreUserDefaults.shared.cellCurrentColour = UIColor.color(withData: currentColourData)
             

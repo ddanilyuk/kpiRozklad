@@ -54,6 +54,7 @@ extension GroupsAndTeachersViewController: UITableViewDelegate, UITableViewDataS
             if #available(iOS 13, *) {
                 self.dismiss(animated: true, completion: {
                     window.rootViewController = mainTabBar
+                    window.makeKeyAndVisible()
                 })
             } else {
                 window.rootViewController = mainTabBar
@@ -75,6 +76,7 @@ extension GroupsAndTeachersViewController: UITableViewDelegate, UITableViewDataS
             if #available(iOS 13, *) {
                 self.dismiss(animated: true, completion: {
                     window.rootViewController = mainTabBar
+                    window.makeKeyAndVisible()
                 })
             } else {
                 window.rootViewController = mainTabBar

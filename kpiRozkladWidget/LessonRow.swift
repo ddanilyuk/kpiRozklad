@@ -11,6 +11,8 @@ struct LessonRow: View {
     
     var lesson: Lesson
     
+    @Environment(\.redactionReasons) var redactionReasons
+    
     var date: Date
     
     var body: some View {
@@ -20,10 +22,14 @@ struct LessonRow: View {
                 Text(lesson.timeStart.stringTime)
                     .frame(width: 41, alignment: .center)
                     .font(.caption)
+                    .redacted(reason: redactionReasons)
+
 
                 Text(lesson.lessonName)
                     .lineLimit(1)
                     .font(.body)
+                    .redacted(reason: redactionReasons)
+
                 
                 Spacer()
             }.padding(.bottom, 0)
@@ -34,6 +40,8 @@ struct LessonRow: View {
 
                 Text(lesson.teacherName)
                     .font(.footnote)
+                    .redacted(reason: redactionReasons)
+
                 
                 Spacer()
             }
@@ -42,9 +50,13 @@ struct LessonRow: View {
                 Text(lesson.timeEnd.stringTime)
                     .frame(width: 41, alignment: .center)
                     .font(.caption)
+                    .redacted(reason: redactionReasons)
+
 
                 Text(lesson.lessonRoom + " " + lesson.lessonType.rawValue)
                     .font(.footnote)
+                    .redacted(reason: redactionReasons)
+
                 
                 Spacer(minLength: 0)
                 

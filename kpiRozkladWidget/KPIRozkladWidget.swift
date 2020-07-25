@@ -147,7 +147,7 @@ struct PlaceholderView : View {
 
 struct KpiRozkladWidgetEntryView : View {
     @Environment(\.widgetFamily) var family: WidgetFamily
-    @Environment(\.redactionReasons) var redactionReasons
+//    @Environment(\.redactionReasons) var redactionReasons
     
     var entry: Provider.Entry
 
@@ -168,7 +168,7 @@ struct KpiRozkladWidgetEntryView : View {
         switch family {
         case .systemSmall:
             WidgetViewSmall(lessons: entry.lessons, date: entry.date)
-                .redacted(reason: redactionReasons)
+//                .redacted(reason: redactionReasons)
 
         case .systemMedium:
             // DEBUG
@@ -195,7 +195,7 @@ struct KpiRozkladWidgetEntryView : View {
             
             // Default
              WidgetViewMedium(lessons: entry.lessons, date: entry.date)
-                .redacted(reason: redactionReasons)
+//                .redacted(reason: redactionReasons)
 
         default:
             WidgetViewMedium(lessons: entry.lessons, date: entry.date)

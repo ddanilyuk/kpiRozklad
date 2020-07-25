@@ -25,11 +25,7 @@ class WhatsNewViewController: UIViewController {
     }
     
     @IBAction func didPressDone(_ sender: UIButton) {
-        if #available(iOS 13.0, *) {
-            self.dismiss(animated: true, completion: nil)
-        } else {
-            self.navigationController?.popViewController(animated: true)
-        }
+        self.dismiss(animated: true, completion: nil)
     }
     
     override func viewWillDisappear(_ animated: Bool) {

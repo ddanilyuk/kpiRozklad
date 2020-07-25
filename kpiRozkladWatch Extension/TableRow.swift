@@ -9,6 +9,7 @@
 import WatchKit
 
 class TableRow: NSObject {
+    
     @IBOutlet weak var rowGroup: WKInterfaceGroup!
     
     @IBOutlet weak var lessonNameLabel: WKInterfaceLabel!
@@ -23,7 +24,6 @@ class TableRow: NSObject {
     
     var timer: Timer?
 
-    
     var lesson: Lesson? {
         didSet {
             guard let lesson = lesson else { return }
@@ -33,8 +33,10 @@ class TableRow: NSObject {
             self.timeEndLabel.setText(String(lesson.timeEnd.stringTime))
             self.whenLabel.setText(self.getTextFromLessonTime(lesson: lesson))
 
-            Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { [weak self] timer in
-                self?.whenLabel.setText(self?.getTextFromLessonTime(lesson: lesson))
+            if lesson.dayNumber == getCurrentWeekAndDayNumber(date: Date()).dayNumberFromCurrentDate {
+                Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { [weak self] timer in
+                    self?.whenLabel.setText(self?.getTextFromLessonTime(lesson: lesson))
+                }
             }
         }
     }
@@ -47,9 +49,7 @@ class TableRow: NSObject {
         let date = Date()
         let (dateStart, dateEnd) = getDateStartAndEnd(of: lesson)
         var (dayNumberFromCurrentDate, currentWeekFromTodayDate) = getCurrentWeekAndDayNumber(date: date)
-//        let formatter = DateFormatter()
-//        formatter.dateFormat = "HH:mm:ss"
-//
+
         if lesson.dayNumber != dayNumberFromCurrentDate {
             if lesson.lessonWeek != currentWeekFromTodayDate {
                 dayNumberFromCurrentDate = dayNumberFromCurrentDate - 7

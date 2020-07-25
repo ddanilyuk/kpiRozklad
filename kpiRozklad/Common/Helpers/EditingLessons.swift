@@ -104,6 +104,7 @@ func editLessonNumber(vc: SheduleViewController, indexPath: IndexPath) {
     updateCoreData(lessons: lessonsForCoreData, managedContext: managedContext) {
         vc.makeLessonsShedule()
         if #available(iOS 14.0, *) {
+            reloadDataOnAppleWatch()
             WidgetCenter.shared.reloadAllTimelines()
         }
     }
@@ -244,6 +245,7 @@ func moveRow3(vc: SheduleViewController, sourceIndexPath: IndexPath, destination
     updateCoreData(lessons: lessonsForCoreData, managedContext: managedContext) {
         vc.makeLessonsShedule()
         if #available(iOS 14.0, *) {
+            reloadDataOnAppleWatch()
             WidgetCenter.shared.reloadAllTimelines()
         }
     }

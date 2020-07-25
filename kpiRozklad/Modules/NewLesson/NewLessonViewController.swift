@@ -193,6 +193,7 @@ class NewLessonViewController: UIViewController {
 
             updateCoreData(lessons: lessons, managedContext: managedContext) {
                 if #available(iOS 14.0, *) {
+                    reloadDataOnAppleWatch()
                     WidgetCenter.shared.reloadAllTimelines()
                 }
                 self.delegate?.newLessonAdded()

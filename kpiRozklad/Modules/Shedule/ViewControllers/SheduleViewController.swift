@@ -169,9 +169,9 @@ class SheduleViewController: UIViewController {
         } else {
             makeLessonsShedule()
         }
-        
+                
         DispatchQueue.main.async {
-            _ = self.isNeedToScroll ? self.scrollToCurrentOrNext() : nil
+            self.isNeedToScroll ? self.scrollToCurrentOrNext() : nil
         }
     }
     
@@ -197,8 +197,6 @@ class SheduleViewController: UIViewController {
         }
         self.viewDidLayoutSubviews()
         
-
-        
         reloadDataOnAppleWatch()
     }
 
@@ -218,11 +216,14 @@ class SheduleViewController: UIViewController {
         if !settings.isShowWhatsNewInVersion2Point0 {
             DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1)) {
                 guard let whatsNewVC = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: WhatsNewViewController.identifier) as? WhatsNewViewController else { return }
-                if #available(iOS 13.0, *) {
-                    self.present(whatsNewVC, animated: true, completion: nil)
-                } else {
-                    self.navigationController?.pushViewController(whatsNewVC, animated: true)
-                }
+                
+                self.present(whatsNewVC, animated: true, completion: nil)
+
+//                if #available(iOS 13.0, *) {
+//                    self.present(whatsNewVC, animated: true, completion: nil)
+//                } else {
+//                    self.navigationController?.pushViewController(whatsNewVC, animated: true)
+//                }
             }
         }
     }
@@ -333,14 +334,14 @@ class SheduleViewController: UIViewController {
     */
     func presentGroupOrTeacherChooser(requestType: SheduleType) {
         if settings.groupName == "" && settings.teacherName == "" {
-            guard let greetingVC = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: BoardingViewController.identifier) as? BoardingViewController else { return }
+            guard let boardingVC = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: BoardingViewController.identifier) as? BoardingViewController else { return }
             
             guard let window = window else { return }
 
-            window.rootViewController = greetingVC
+            window.rootViewController = boardingVC
             window.makeKeyAndVisible()
             
-            greetingVC.modalTransitionStyle = .crossDissolve
+            boardingVC.modalTransitionStyle = .crossDissolve
             UIView.transition(with: window, duration: 0.4, options: .transitionCrossDissolve, animations: {}, completion:
                 { completed in })
         }
@@ -440,7 +441,6 @@ class SheduleViewController: UIViewController {
                 self.currentWeek = currentWeekFromTodayDate
                 self.weekSegmentControl.selectedSegmentIndex = currentWeek == .first ? 0 : 1
             }
-            
         }
         
         let currentLessonWeek = currentWeek == .first ? lessonsFirst : lessonsSecond
@@ -475,7 +475,6 @@ class SheduleViewController: UIViewController {
             self.tableView.reloadData()
         }
         view.layoutSubviews()
-
     }
     
     
@@ -509,7 +508,7 @@ class SheduleViewController: UIViewController {
                     
                     this.isNeedToScroll = true
                     DispatchQueue.main.async {
-                    _ = this.isNeedToScroll ? this.scrollToCurrentOrNext() : nil
+                        this.isNeedToScroll ? this.scrollToCurrentOrNext() : nil
                     }
 
                     /// Edit updated time
@@ -520,6 +519,7 @@ class SheduleViewController: UIViewController {
                     /// Reload widget
                     if #available(iOS 14.0, *) {
                         WidgetCenter.shared.reloadAllTimelines()
+                        reloadDataOnAppleWatch()
                     }
                     this.view.layoutSubviews()
                 }
@@ -666,40 +666,6 @@ class SheduleViewController: UIViewController {
         let whereIsNavBarInTableView = tableView.convert(navBar!.bounds, from: navBar)
         let safeAreaTopInset = window?.safeAreaInsets.top ?? 0
         return safeAreaTopInset + whereIsNavBarInTableView.height + 35.0 * 2
-    }
-    
-    func reloadDataOnAppleWatch() {
-        if WCSession.isSupported() {
-            print("Session supported")
-            let session = WCSession.default
-            do {
-                guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
-                let managedContext = appDelegate.persistentContainer.viewContext
-                
-                let lessons = fetchingCoreData(managedContext: managedContext)
-                
-                let encoder = JSONEncoder.init()
-                let dataLessons = try encoder.encode(lessons)
-                let groupOrTeacherName = settings.sheduleType == .teachers ? settings.teacherName : settings.groupName
-                
-                let currentColourData = settings.cellCurrentColour.encode()
-                let nextColourData = settings.cellNextColour.encode()
-                
-                let dictionary: [String: Any] = ["lessons": dataLessons,
-                                                 // "time": Date().timeIntervalSince1970,
-                                                 "groupOrTeacherName": groupOrTeacherName,
-                                                 "currentColourData": currentColourData,
-                                                 "nextColourData": nextColourData]
-//                try session.updateApplicationContext(dictionary)
-                session.sendMessage(dictionary, replyHandler: nil) { error in
-                    print(error.localizedDescription)
-                }
-                
-                print("Session data sended")
-            } catch {
-                print("Error: \(error)")
-            }
-        }
     }
 }
 

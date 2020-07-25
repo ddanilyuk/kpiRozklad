@@ -10,9 +10,6 @@ import UIKit
 import UserNotifications
 import CoreData
 import WatchConnectivity
-//import PanModal
-
-
 
 var API = NetworkingApiFacade(apiService: NetworkingApi())
 
@@ -23,7 +20,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
     let notificationCenter = UNUserNotificationCenter.current()
     private let settings = Settings.shared
-    
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         setupWatchConnectivity()
@@ -39,7 +35,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             settings.updateRozkladWithVersion2Point0 = true
         }
         
-        
         let mainStoryboard = UIStoryboard(name: "Main", bundle: Bundle.main)
         
         let mainVC = mainStoryboard.instantiateInitialViewController()
@@ -49,7 +44,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return true
     }
     
-    
     func setupWatchConnectivity() {
         if WCSession.isSupported() {
             let session = WCSession.default
@@ -58,62 +52,31 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
     }
     
-    
     func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
-        
-//        if url.scheme == "kpiRozklad" {
-//            print("here in scheme")
-//            window?.rootViewController = UIViewController()
-//            return true
-//        }
-        
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-            let needID = url.host?.removingPercentEncoding
-                    
+        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(700)) {
+            let needID = Int(url.host?.removingPercentEncoding ?? "") ?? 0
             let mainStoryboard = UIStoryboard(name: "Main", bundle: Bundle.main)
-            guard let sheduleVC : SheduleViewController = mainStoryboard.instantiateViewController(withIdentifier: SheduleViewController.identifier) as? SheduleViewController else { return }
+            guard let mainTabBar : UITabBarController = mainStoryboard.instantiateViewController(withIdentifier: "Main") as? UITabBarController else { return }
             
-            k: for i in 1..<3 {
-                sheduleVC.currentWeek = WeekType(rawValue: String(i)) ?? .first
-                sheduleVC.isNeedToScroll = false
-                sheduleVC.makeLessonsShedule()
-                let lessonsForTableView = sheduleVC.lessonsForTableView
-                for day in lessonsForTableView {
-                    let lessons = day.lessons
-                    for lesson in lessons {
-                        if lesson.id == Int(needID ?? "0") ?? 0 {
-                            
-                            guard let sheduleDetailVC: SheduleDetailViewController = mainStoryboard.instantiateViewController(withIdentifier: SheduleDetailViewController.identifier) as? SheduleDetailViewController else { return }
-                            
-                            sheduleDetailVC.lesson = lesson
-                            
-                            
-                            guard let sheduleDetailNavigationVC : SheduleDetailNavigationController = mainStoryboard.instantiateViewController(withIdentifier: SheduleDetailNavigationController.identifier) as? SheduleDetailNavigationController else { return }
-                            
-                            sheduleDetailNavigationVC.lesson = lesson
+            guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
+            let managedContext = appDelegate.persistentContainer.viewContext
+            let lessons = fetchingCoreData(managedContext: managedContext)
+            let lessonOptional = lessons.first { $0.id == needID }
+            
+            guard let lesson = lessonOptional else { return }
+            
+            guard let sheduleDetailNavigationVC: SheduleDetailNavigationController = mainStoryboard.instantiateViewController(withIdentifier: SheduleDetailNavigationController.identifier) as? SheduleDetailNavigationController else { return }
+            sheduleDetailNavigationVC.lesson = lesson
 
-                            guard let mainTabBar : UITabBarController = mainStoryboard.instantiateViewController(withIdentifier: "Main") as? UITabBarController else { return }
-                            
-                            mainTabBar.selectedIndex = 0
-                            DispatchQueue.main.async {
-                                if let vc = mainTabBar.selectedViewController as? UINavigationController {
-    //                                vc.pushViewController(sheduleDetailVC, animated: true)
-                                    vc.presentPanModal(sheduleDetailNavigationVC, sourceView: nil, sourceRect: .zero)
-    //                                presentPanModal(sheduleDetailNavigationVC)
-                                }
-                            }
-                          
-                            self.window?.rootViewController = mainTabBar
-                            break k
-
-                        }
-                    }
+            DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(700)) {
+                if let navigation = mainTabBar.selectedViewController as? UINavigationController {
+                    navigation.presentPanModal(sheduleDetailNavigationVC, sourceView: nil, sourceRect: .zero)
                 }
             }
-        }
-        return true
-        
-      }
+            self.window?.rootViewController = mainTabBar
+    }
+    return true
+  }
 
     
     // MARK: - Core Data stack
@@ -196,7 +159,6 @@ extension AppDelegate: WCSessionDelegate {
         print("WC Session activated with state: \(activationState.rawValue)")
     }
     
-
     func sessionDidBecomeInactive(_ session: WCSession) {
         print("sessionDidBecomeInactive")
         print(#function)
@@ -207,7 +169,4 @@ extension AppDelegate: WCSessionDelegate {
         print(#function)
         WCSession.default.activate()
     }
-    
-    
-    
 }

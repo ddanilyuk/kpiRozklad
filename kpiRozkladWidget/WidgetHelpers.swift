@@ -52,6 +52,7 @@ func getCurrentWeekAndDayNumber(date: Date = Date()) -> (dayNumberFromCurrentDat
 }
 
 
+// TODO:- Make it return isLessonNow or not
 func getNextThreeLessonsID(lessons: [Lesson],
                            dayNumberFromCurrentDate: Int,
                            currentWeekFromTodayDate: WeekType) -> (firstNextLessonID: Int, secondNextLessonID: Int, thirdNextLessonID: Int) {
@@ -107,5 +108,3 @@ func getNextThreeLessonsID(lessons: [Lesson],
     
     return (firstNextLessonID: firstNextLessonID, secondNextLessonID: secondNextLessonID, thirdNextLessonID: thirdNextLessonID)
 }
-
-

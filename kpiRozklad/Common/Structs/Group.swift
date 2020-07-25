@@ -29,7 +29,6 @@ public struct Group: Codable, Hashable {
 }
 
 #if os(iOS)
-
 extension Group {
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
@@ -43,9 +42,6 @@ extension Group {
         groupOkr = try values.decode(GroupOkr.self, forKey: .groupOkr)
         groupType = try values.decode(GroupType.self, forKey: .groupType)
 
-//        guard let idCasted = try Int(values.decode(Int.self, forKey: .groupID)) else {
-//            throw DecodingError.dataCorrupted(.init(codingPath: [CodingKeys.groupID], debugDescription: "Expecting string representation of Int"))
-//        }
         groupID = try values.decode(Int.self, forKey: .groupID)
     }
 }

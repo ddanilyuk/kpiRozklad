@@ -71,6 +71,7 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate {
 
 
 extension ExtensionDelegate: WCSessionDelegate {
+    
     func session(_ session: WCSession, activationDidCompleteWith activationState: WCSessionActivationState, error: Error?) {
         if let error = error {
             fatalError("Can't activate session with error: \(error.localizedDescription)")
@@ -129,6 +130,4 @@ extension ExtensionDelegate: WCSessionDelegate {
             print(error.localizedDescription)
         }
     }
-
-    
 }

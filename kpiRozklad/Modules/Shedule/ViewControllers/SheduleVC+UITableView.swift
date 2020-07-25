@@ -210,7 +210,7 @@ extension SheduleViewController: UITableViewDelegate, UITableViewDataSource {
             DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .milliseconds(500)) {
                 updateCoreData(lessons: lessons, managedContext: managedContext) {
                     self.makeLessonsShedule()
-                    self.reloadDataOnAppleWatch()
+                    reloadDataOnAppleWatch()
                     if #available(iOS 14.0, *) {
                         WidgetCenter.shared.reloadAllTimelines()
                     }
@@ -275,15 +275,12 @@ extension SheduleViewController: UITableViewDelegate, UITableViewDataSource {
         if editing {
             self.tableView.setEditing(true, animated: true)
             self.tableView.insertSections(IndexSet(integer: 0), with: .automatic)
-//            defaultContentInsets = self.tableView.contentInset
-//            self.tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         } else {
             self.tableView.setEditing(false, animated: true)
             if daysArray[0] == "Нова пара" {
                 self.daysArray.remove(at: 0)
             }
             self.tableView.deleteSections(IndexSet(integer: 0), with: .automatic)
-//            self.tableView.contentInset = defaultContentInsets ?? UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         }
     }
 }

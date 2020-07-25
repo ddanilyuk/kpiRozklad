@@ -6,10 +6,6 @@
 //  Copyright © 2019 Denis Danilyuk. All rights reserved.
 //
 
-// This file was generated from JSON Schema using quicktype, do not modify it directly.
-// To parse the JSON, add this file to your project and do:
-//
-//   let welcome = try? newJSONDecoder().decode(Welcome.self, from: jsonData)
 
 import UIKit
 
@@ -60,12 +56,12 @@ public struct Lesson: Codable, Hashable, Identifiable {
     
     static let defaultLesson = Lesson(id: 1,
                                       dayNumber: 1,
-                                      lessonNumber: 12,
+                                      lessonNumber: 1,
                                       lessonWeek: WeekType.first,
                                       groupID: 123,
                                       dayName: DayName.mounday,
                                       lessonType: LessonType.лек1,
-                                      lessonName: "Назва предмету",
+                                      lessonName: "Пара",
                                       lessonFullName: "Повна назва предмету",
                                       lessonRoom: "301-18",
                                       teacherName: "ст. вик. Викладач",

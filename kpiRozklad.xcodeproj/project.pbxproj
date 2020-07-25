@@ -235,11 +235,13 @@
 		5FE0486B2393087900092422 /* CoreDataHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FE0486A2393087900092422 /* CoreDataHelpers.swift */; };
 		5FE0486D23930C3000092422 /* SheduleVC+UIPickerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FE0486C23930C3000092422 /* SheduleVC+UIPickerVC.swift */; };
 		5FE31F0524C3B23100E9C7BC /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F7631F924B251F90022C952 /* WidgetKit.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		5FE3A1A524CCDE8500F34107 /* Date+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F506EE3248ED0CC00B6F544 /* Date+Extensions.swift */; };
 		5FE40E55248CF1DA000D2899 /* CoreDataHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FE0486A2393087900092422 /* CoreDataHelpers.swift */; };
 		5FE9678324091880000AD157 /* TeachersNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FE9678224091880000AD157 /* TeachersNavigationController.swift */; };
 		5FE96785240F0C22000AD157 /* SheduleDetailNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FE96784240F0C22000AD157 /* SheduleDetailNavigationController.swift */; };
 		5FF204D424B4F76F00B52FCB /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F4457E32376FB05008F9E21 /* Settings.swift */; };
 		5FF3323D24B7D72F00DB864F /* StoreUserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FF3323C24B7D72F00DB864F /* StoreUserDefaults.swift */; };
+		5FF43FD924CCC25A005E1A7E /* WatchKitHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FF43FD824CCC25A005E1A7E /* WatchKitHelpers.swift */; };
 		90A353C4EB2D15AEC0D9F8D1 /* Pods_kpiRozklad.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 25B70702B56A794A30F2DB1A /* Pods_kpiRozklad.framework */; };
 		D300F1D62364CEA30098CA83 /* GroupsAndTeachersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D300F1D52364CEA30098CA83 /* GroupsAndTeachersViewController.swift */; };
 		D300F1DA2364CF490098CA83 /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D300F1D92364CF490098CA83 /* SettingsTableViewController.swift */; };
@@ -453,6 +455,7 @@
 		5FE9678224091880000AD157 /* TeachersNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeachersNavigationController.swift; sourceTree = "<group>"; };
 		5FE96784240F0C22000AD157 /* SheduleDetailNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheduleDetailNavigationController.swift; sourceTree = "<group>"; };
 		5FF3323C24B7D72F00DB864F /* StoreUserDefaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreUserDefaults.swift; sourceTree = "<group>"; };
+		5FF43FD824CCC25A005E1A7E /* WatchKitHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchKitHelpers.swift; sourceTree = "<group>"; };
 		724A13763CC9AF6CBB93A09C /* Pods-KPIRozkladTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KPIRozkladTests.release.xcconfig"; path = "Target Support Files/Pods-KPIRozkladTests/Pods-KPIRozkladTests.release.xcconfig"; sourceTree = "<group>"; };
 		BE7B08BAF6D98CFFD7B1FF4B /* Pods_kpiRozkladTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_kpiRozkladTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C33203580DD02E686E10BAEC /* Pods-kpiRozklad.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-kpiRozklad.release.xcconfig"; path = "Target Support Files/Pods-kpiRozklad/Pods-kpiRozklad.release.xcconfig"; sourceTree = "<group>"; };
@@ -635,6 +638,7 @@
 			isa = PBXGroup;
 			children = (
 				5FE048642392D16A00092422 /* EditingLessons.swift */,
+				5FF43FD824CCC25A005E1A7E /* WatchKitHelpers.swift */,
 				5FE048662392D4FA00092422 /* ManagingLessons.swift */,
 				5FE048682393027900092422 /* TimeAndDate.swift */,
 				5F2F313E2395C62100FC28CB /* Colours.swift */,
@@ -666,6 +670,16 @@
 				5F76323224B2534C0022C952 /* kpiRozkladWidget.entitlements */,
 			);
 			path = kpiRozkladWidget;
+			sourceTree = "<group>";
+		};
+		5F8B23B024CCBF4B0028CD7A /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				5FDCFCDA248D8C2F00568208 /* InterfaceController.swift */,
+				5F3D8C142493FD5300308AC9 /* DetailedInterfaceController.swift */,
+				5F6A437924CB77D500891915 /* GreetingInterfaceController.swift */,
+			);
+			path = Controllers;
 			sourceTree = "<group>";
 		};
 		5F8EF0E5242D15D200E74220 /* CopiedFrameworks */ = {
@@ -782,12 +796,10 @@
 		5FDCFCD9248D8C2F00568208 /* kpiRozkladWatch Extension */ = {
 			isa = PBXGroup;
 			children = (
-				5FDCFCDA248D8C2F00568208 /* InterfaceController.swift */,
-				5F3D8C142493FD5300308AC9 /* DetailedInterfaceController.swift */,
-				5F6A437924CB77D500891915 /* GreetingInterfaceController.swift */,
 				5FDCFCDC248D8C2F00568208 /* ExtensionDelegate.swift */,
+				5F8B23B024CCBF4B0028CD7A /* Controllers */,
 				5FF3323C24B7D72F00DB864F /* StoreUserDefaults.swift */,
-				5FEBEA9B24C5A1BE00151307 /* Rows */,
+				5FDCFCF3248D911900568208 /* TableRow.swift */,
 				5FDCFCE0248D8C3000568208 /* Assets.xcassets */,
 				5FDCFCDE248D8C2F00568208 /* NotificationController.swift */,
 				5FDCFCE2248D8C3000568208 /* Info.plist */,
@@ -855,14 +867,6 @@
 				5FD5B71724226F1C00B86FB7 /* ViewControllers */,
 			);
 			path = Boarding;
-			sourceTree = "<group>";
-		};
-		5FEBEA9B24C5A1BE00151307 /* Rows */ = {
-			isa = PBXGroup;
-			children = (
-				5FDCFCF3248D911900568208 /* TableRow.swift */,
-			);
-			path = Rows;
 			sourceTree = "<group>";
 		};
 		D313F489233AAB6C0076CFF8 = {
@@ -1548,6 +1552,7 @@
 				5FA57FCC249565A5002DCD4A /* ErrorMessage.swift in Sources */,
 				5F0E7DDC24B23DA8002E1C6D /* WeekType.swift in Sources */,
 				5FA57FC9249565A5002DCD4A /* DayName.swift in Sources */,
+				5FE3A1A524CCDE8500F34107 /* Date+Extensions.swift in Sources */,
 				5FA57FCB249565A5002DCD4A /* Meta.swift in Sources */,
 				5F56541E248E6ACF00F2EB6E /* UIColor+Extensions.swift in Sources */,
 				5FDCFCF2248D8F7A00568208 /* String+Extensions.swift in Sources */,
@@ -1627,6 +1632,7 @@
 				5F96B89924339DE50035DA86 /* UITableViewCell+Extensions.swift in Sources */,
 				5FE9678324091880000AD157 /* TeachersNavigationController.swift in Sources */,
 				5FCBBA01241C41DE00E7654F /* UIViewController+Extensions.swift in Sources */,
+				5FF43FD924CCC25A005E1A7E /* WatchKitHelpers.swift in Sources */,
 				5F8EF0FE242D30AE00E74220 /* UIViewController+PanModalPresenter.swift in Sources */,
 				5F8EF0FB242D30AE00E74220 /* PanModalPresentable+LayoutHelpers.swift in Sources */,
 				5F8EF0FF242D30AE00E74220 /* PanContainerView.swift in Sources */,

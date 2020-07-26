@@ -178,7 +178,8 @@ class SheduleViewController: UIViewController {
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         if #available(iOS 13.0, *) {
-            if isLargeTitleAvailable() && !settings.isTryToRefreshShedule && isEditInsets {
+            var isLargeNeed = !isFromSettingsGetFreshShedule && !isFromGroupsAndTeacherOrFavourite && !isTeachersShedule && !isTeachersShedule
+            if isLargeTitleAvailable() && !settings.isTryToRefreshShedule && isEditInsets && isLargeNeed {
                 self.tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: -20, right: 0)
             } else {
                 isEditInsets = false

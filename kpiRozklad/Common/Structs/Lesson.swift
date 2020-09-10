@@ -65,7 +65,7 @@ public struct Lesson: Codable, Hashable, Identifiable {
                                       lessonFullName: "Повна назва предмету",
                                       lessonRoom: "301-18",
                                       teacherName: "ст. вик. Викладач",
-                                      timeStart: "08:30", timeEnd: "10:25",
+                                      timeStart: "10:25", timeEnd: "12:00",
                                       rate: "1.123",
                                       teacher: Teacher(teacherID: 1,
                                                        teacherURL: "url",

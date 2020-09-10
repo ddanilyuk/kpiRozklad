@@ -20,8 +20,8 @@ struct LessonRow: View {
             HStack(alignment: .center, spacing: 2.0) {
                 
                 Text(lesson.timeStart.stringTime)
-                    .frame(width: 45, alignment: .center)
                     .font(.caption)
+                    .frame(width: 40, alignment: .leading)
                     .redacted(reason: redactionReasons)
 
 
@@ -36,7 +36,7 @@ struct LessonRow: View {
             
             HStack(alignment: .center, spacing: 2.0) {
                 Text("")
-                    .frame(width: 45, alignment: .center)
+                    .frame(width: 40, alignment: .leading)
 
                 Text(lesson.teacherName)
                     .font(.footnote)
@@ -48,9 +48,10 @@ struct LessonRow: View {
             
             HStack(alignment: .center, spacing: 2.0) {
                 Text(lesson.timeEnd.stringTime)
-                    .frame(width: 45, alignment: .center)
                     .font(.caption)
                     .redacted(reason: redactionReasons)
+                    .frame(width: 40, alignment: .leading)
+
 
 
                 Text(lesson.lessonRoom + " " + lesson.lessonType.rawValue)
@@ -74,5 +75,9 @@ struct LessonRow_Previews: PreviewProvider {
 //        }
         LessonRow(lesson: Lesson.defaultLesson, date: Date())
             .previewLayout(.sizeThatFits)
+            .redacted(reason: .placeholder)
+    
+//            .environmentObject(RedactionReasons().placeholder)
+        //            .previewContext(_)
     }
 }

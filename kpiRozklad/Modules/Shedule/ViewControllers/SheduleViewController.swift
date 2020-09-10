@@ -178,7 +178,7 @@ class SheduleViewController: UIViewController {
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         if #available(iOS 13.0, *) {
-            var isLargeNeed = !isFromSettingsGetFreshShedule && !isFromGroupsAndTeacherOrFavourite && !isTeachersShedule && !isTeachersShedule
+            let isLargeNeed = !isFromSettingsGetFreshShedule && !isFromGroupsAndTeacherOrFavourite && !isTeachersShedule && !isTeachersShedule
             if isLargeTitleAvailable() && !settings.isTryToRefreshShedule && isEditInsets && isLargeNeed {
                 self.tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: -20, right: 0)
             } else {
@@ -191,7 +191,7 @@ class SheduleViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         tableView.reloadData()
         isEditInsets = true
-        if !isFromSettingsGetFreshShedule && !isFromGroupsAndTeacherOrFavourite && !isTeachersShedule && !isTeachersShedule {
+        if !isFromSettingsGetFreshShedule && !isFromGroupsAndTeacherOrFavourite && !isTeachersShedule {
             setLargeTitleDisplayMode(.always)
         } else {
             setLargeTitleDisplayMode(.never)
@@ -219,12 +219,6 @@ class SheduleViewController: UIViewController {
                 guard let whatsNewVC = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: WhatsNewViewController.identifier) as? WhatsNewViewController else { return }
                 
                 self.present(whatsNewVC, animated: true, completion: nil)
-
-//                if #available(iOS 13.0, *) {
-//                    self.present(whatsNewVC, animated: true, completion: nil)
-//                } else {
-//                    self.navigationController?.pushViewController(whatsNewVC, animated: true)
-//                }
             }
         }
     }
@@ -399,7 +393,10 @@ class SheduleViewController: UIViewController {
             self.isNeedToScroll = false
             if (self.lessonsForTableView[indexPathToScroll.section].lessons.count > indexPathToScroll.row) && !(indexPathToScroll.row == 0 && indexPathToScroll.section == 0) {
                 self.tableView.contentOffset.y = self.heightDifferenceBetweenTopRowAndNavBar()
-                self.tableView.scrollToRow(at: indexPathToScroll, at: .top, animated: true)
+                self.tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: false)
+                DispatchQueue.main.async {
+                    self.tableView.scrollToRow(at: indexPathToScroll, at: .top, animated: true)
+                }
             }
         }
     }
@@ -475,7 +472,7 @@ class SheduleViewController: UIViewController {
             self.tableView.isHidden = false
             self.tableView.reloadData()
         }
-        view.layoutSubviews()
+//        view.layoutSubviews()
     }
     
     

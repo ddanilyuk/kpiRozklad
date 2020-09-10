@@ -53,22 +53,24 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
-        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(700)) {
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(600)) {
             let needID = Int(url.host?.removingPercentEncoding ?? "") ?? 0
-            let mainStoryboard = UIStoryboard(name: "Main", bundle: Bundle.main)
-            guard let mainTabBar : UITabBarController = mainStoryboard.instantiateViewController(withIdentifier: "Main") as? UITabBarController else { return }
             
+            let mainStoryboard = UIStoryboard(name: "Main", bundle: Bundle.main)
             guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
             let managedContext = appDelegate.persistentContainer.viewContext
+            
+            guard let mainTabBar: UITabBarController = mainStoryboard.instantiateViewController(withIdentifier: "Main") as? UITabBarController else { return }
+            
             let lessons = fetchingCoreData(managedContext: managedContext)
             let lessonOptional = lessons.first { $0.id == needID }
-            
             guard let lesson = lessonOptional else { return }
             
             guard let sheduleDetailNavigationVC: SheduleDetailNavigationController = mainStoryboard.instantiateViewController(withIdentifier: SheduleDetailNavigationController.identifier) as? SheduleDetailNavigationController else { return }
             sheduleDetailNavigationVC.lesson = lesson
 
-            DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(700)) {
+            DispatchQueue.main.asyncAfter(deadline: .now()) {
                 if let navigation = mainTabBar.selectedViewController as? UINavigationController {
                     navigation.presentPanModal(sheduleDetailNavigationVC, sourceView: nil, sourceRect: .zero)
                 }

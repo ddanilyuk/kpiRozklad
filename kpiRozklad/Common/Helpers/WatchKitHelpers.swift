@@ -34,10 +34,10 @@ func reloadDataOnAppleWatch() {
                                              "nextColourData": nextColourData]
             
             /// updateApplicationContext is not working on watch os 7
-            // try session.updateApplicationContext(dictionary)
-            session.sendMessage(dictionary, replyHandler: nil) { error in
-                print(error.localizedDescription)
-            }
+             try session.updateApplicationContext(dictionary)
+//            session.sendMessage(dictionary, replyHandler: nil) { error in
+//                print(error.localizedDescription)
+//            }
             print("Session data sended")
         } catch {
             print("Error: \(error)")

@@ -481,7 +481,7 @@
                             <outlet property="delegate" destination="kAC-9C-hRl" id="7Oj-Pv-2Jb"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Налаштування" largeTitleDisplayMode="always" id="wBx-Mr-kEo"/>
+                    <navigationItem key="navigationItem" title="Налаштування" id="wBx-Mr-kEo"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WOa-V0-a51" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>

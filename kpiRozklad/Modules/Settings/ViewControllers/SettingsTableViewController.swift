@@ -26,13 +26,15 @@ class SettingsTableViewController: UITableViewController {
         self.window = UIWindow(frame: UIScreen.main.bounds)
         setupTableView()
         getServerTimeUpdate()
+        setLargeTitleDisplayMode(.always)
+
     }
     
     
     // MARK: - viewWillAppear
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        setLargeTitleDisplayMode(.always)
+//        setLargeTitleDisplayMode(.always)
     }
     
     
@@ -180,14 +182,49 @@ class SettingsTableViewController: UITableViewController {
         alert.addAction(UIAlertAction(title: "Оновити", style: .destructive, handler: { (_) in
             self.settings.isTryToRefreshShedule = true
             
-            guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
-            let managedContext = appDelegate.persistentContainer.viewContext
-            deleteAllFromCoreData(managedContext: managedContext)
-            
-
-            guard let window = appDelegate.window else { return }
-            guard let mainTabBar: UITabBarController = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "Main") as? UITabBarController else { return }
-            window.rootViewController = mainTabBar
+            if self.settings.sheduleType == .groups {
+                API.getAllGroups().done({ [weak self] (groups) in
+                    guard let this = self else { return }
+                    if let group = groups.first(where: { $0.groupFullName == this.settings.groupName }) {
+                        print(this.settings.groupID)
+                        this.settings.groupID = group.groupID
+                        print(this.settings.groupID)
+                    } else {
+                        this.settings.groupName = ""
+                        this.settings.groupID = 0
+                    }
+                    
+                    guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
+                    let managedContext = appDelegate.persistentContainer.viewContext
+                    deleteAllFromCoreData(managedContext: managedContext)
+                    
+                    guard let window = appDelegate.window else { return }
+                    guard let mainTabBar: UITabBarController = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "Main") as? UITabBarController else { return }
+                    window.rootViewController = mainTabBar
+                    
+                }).catch({ [weak self] (error) in
+                    
+                })
+            } else if self.settings.sheduleType == .teachers {
+                API.getAllTeachers().done({ [weak self] (teachers) in
+                    guard let this = self else { return }
+                    if let teacher = teachers.first(where: { $0.teacherName == this.settings.teacherName }) {
+                        this.settings.teacherID = teacher.teacherID
+                    } else {
+                        this.settings.teacherName = ""
+                        this.settings.teacherID = 0
+                    }
+                    guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
+                    let managedContext = appDelegate.persistentContainer.viewContext
+                    deleteAllFromCoreData(managedContext: managedContext)
+                    
+                    guard let window = appDelegate.window else { return }
+                    guard let mainTabBar: UITabBarController = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "Main") as? UITabBarController else { return }
+                    window.rootViewController = mainTabBar
+                }).catch({ [weak self] (error) in
+                    
+                })
+            }
         }))
         
         alert.addAction(UIAlertAction(title: "Скасувати", style: .cancel, handler: { (_) in

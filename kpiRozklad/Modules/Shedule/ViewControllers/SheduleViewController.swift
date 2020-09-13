@@ -169,7 +169,7 @@ class SheduleViewController: UIViewController {
         } else {
             makeLessonsShedule()
         }
-                
+        
         DispatchQueue.main.async {
             self.isNeedToScroll ? self.scrollToCurrentOrNext() : nil
         }
@@ -372,7 +372,12 @@ class SheduleViewController: UIViewController {
      Function which scroll to current or next if `isNeedToScroll`
      */
     private func scrollToCurrentOrNext() {
-        var indexPathToScroll = IndexPath(row: 0, section: 0)
+        
+        guard let firstSection = lessonsForTableView.firstIndex(where: { $0.1.count != 0 }) else {
+            isNeedToScroll = false
+            return
+        }
+        var indexPathToScroll = IndexPath(row: 0, section: Int(firstSection))
 
         k: for section in 0..<self.lessonsForTableView.count {
             let day = lessonsForTableView[section]
@@ -387,13 +392,18 @@ class SheduleViewController: UIViewController {
                 }
             }
         }
+         
+        if indexPathToScroll == IndexPath(row: 0, section: Int(firstSection)) {
+            isNeedToScroll = false
+            return
+        }
         
         /// (self.tableView != nil)  because if when we push information from another VC tableView can be not exist
         if self.tableView != nil {
             self.isNeedToScroll = false
             if (self.lessonsForTableView[indexPathToScroll.section].lessons.count > indexPathToScroll.row) && !(indexPathToScroll.row == 0 && indexPathToScroll.section == 0) {
                 self.tableView.contentOffset.y = self.heightDifferenceBetweenTopRowAndNavBar()
-                self.tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: false)
+                self.tableView.scrollToRow(at: IndexPath(row: 0, section: Int(firstSection)), at: .top, animated: false)
                 DispatchQueue.main.async {
                     self.tableView.scrollToRow(at: indexPathToScroll, at: .top, animated: true)
                 }

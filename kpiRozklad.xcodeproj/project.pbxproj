@@ -381,7 +381,7 @@
 		5F76322C24B252B10022C952 /* WidgetHelpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WidgetHelpers.swift; sourceTree = "<group>"; };
 		5F76322F24B252F30022C952 /* WidgetViewMedium.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WidgetViewMedium.swift; sourceTree = "<group>"; };
 		5F76323224B2534C0022C952 /* kpiRozkladWidget.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = kpiRozkladWidget.entitlements; sourceTree = "<group>"; };
-		5F76323324B253730022C952 /* kpiRozkladWidgetExtensionDebug.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = kpiRozkladWidgetExtensionDebug.entitlements; sourceTree = "<group>"; };
+		5F76323324B253730022C952 /* kpiRozkladWidget.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = kpiRozkladWidget.entitlements; sourceTree = "<group>"; };
 		5F7A000024B7797C00E33B81 /* TimeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeView.swift; sourceTree = "<group>"; };
 		5F7A000224B78D2C00E33B81 /* UIActivityIndicator+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIActivityIndicator+Extensions.swift"; sourceTree = "<group>"; };
 		5F7BABBE23A163C8009E3CA6 /* ErrorMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorMessage.swift; sourceTree = "<group>"; };
@@ -872,7 +872,7 @@
 		D313F489233AAB6C0076CFF8 = {
 			isa = PBXGroup;
 			children = (
-				5F76323324B253730022C952 /* kpiRozkladWidgetExtensionDebug.entitlements */,
+				5F76323324B253730022C952 /* kpiRozkladWidget.entitlements */,
 				D38DEB43233A250F00BB0075 /* README.md */,
 				D313F494233AAB6C0076CFF8 /* kpiRozklad */,
 				5F7631FD24B251F90022C952 /* kpiRozkladWidget */,
@@ -1769,9 +1769,9 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
 				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
-				CODE_SIGN_ENTITLEMENTS = kpiRozkladWidgetExtensionDebug.entitlements;
+				CODE_SIGN_ENTITLEMENTS = kpiRozkladWidget.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 10;
 				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_TEAM = M92VXVU7J9;
 				INFOPLIST_FILE = kpiRozkladWidget/Info.plist;
@@ -1797,7 +1797,7 @@
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
 				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 10;
 				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_TEAM = M92VXVU7J9;
 				INFOPLIST_FILE = kpiRozkladWidget/Info.plist;
@@ -1821,7 +1821,8 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = kpiRozkladTodayWidget/kpiRozkladTodayWidget.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 10;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = M92VXVU7J9;
 				"INFOPLIST_FILE[sdk=*]" = kpiRozkladTodayWidget/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
@@ -1844,7 +1845,8 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = kpiRozkladTodayWidget/kpiRozkladTodayWidget.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 10;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = M92VXVU7J9;
 				"INFOPLIST_FILE[sdk=*]" = kpiRozkladTodayWidget/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
@@ -1867,7 +1869,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 10;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = M92VXVU7J9;
 				INFOPLIST_FILE = "kpiRozkladWatch Extension/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1891,7 +1894,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 10;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = M92VXVU7J9;
 				INFOPLIST_FILE = "kpiRozkladWatch Extension/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1916,7 +1920,8 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 10;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = M92VXVU7J9;
 				IBSC_MODULE = kpiRozkladWatch_Extension;
 				INFOPLIST_FILE = kpiRozkladWatch/Info.plist;
@@ -1937,7 +1942,8 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 10;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = M92VXVU7J9;
 				IBSC_MODULE = kpiRozkladWatch_Extension;
 				INFOPLIST_FILE = kpiRozkladWatch/Info.plist;
@@ -2078,7 +2084,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "kpiRozklad/KPI Rozklad.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 10;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"kpiRozklad/Resoursces/Preview Content\"";
 				DEVELOPMENT_TEAM = M92VXVU7J9;
 				ENABLE_PREVIEWS = YES;
@@ -2104,7 +2111,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "kpiRozklad/KPI Rozklad.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 10;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"kpiRozklad/Resoursces/Preview Content\"";
 				DEVELOPMENT_TEAM = M92VXVU7J9;
 				ENABLE_PREVIEWS = YES;

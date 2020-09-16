@@ -11,10 +11,11 @@ import UserNotifications
 import CoreData
 import WatchConnectivity
 
+
 var API = NetworkingApiFacade(apiService: NetworkingApi())
 
 
-@UIApplicationMain
+@main
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?

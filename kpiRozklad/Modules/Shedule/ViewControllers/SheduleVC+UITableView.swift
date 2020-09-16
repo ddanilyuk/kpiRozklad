@@ -41,14 +41,49 @@ extension SheduleViewController: UITableViewDelegate, UITableViewDataSource {
     
     // MARK: - viewForHeaderInSection
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let returnedView = UIView(frame: CGRect(x: 0, y: 0, width: view.frame.size.width, height: 35))
+        let returnedView = UIView(frame: CGRect(x: 0, y: 0, width: view.frame.size.width, height: 123))
         
         if daysArray[0] != "Нова пара" && self.isEditing {
             daysArray.insert("Нова пара", at: 0)
         }
         
-        returnedView.backgroundColor = sectionColour
+        var bounds = CGRect(x: 0,
+            y: returnedView.bounds.minY - (self.navigationController?.navigationBar.frame.size.height)!,
+            width: view.frame.size.width, height: 35 + (self.navigationController?.navigationBar.frame.size.height)!)
+        print(bounds)
+//        bounds.height = bounds.height + (self.navigationController?.navigationBar.frame.size.height)! ?? 0.0
+//        bounds.y = bounds.minY + self.navigationController?.navigationBar.frame.size.height ?? 0.0
 
+        
+//        let visualEffectView = UIVisualEffectView(effect: UIBlurEffect(style: .light))
+//        visualEffectView.frame = CGRect(x: 0, y: 0, width: 375, height: 88 + 35)
+//
+//        visualEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        
+//        visualEffectView.fillS
+        
+//        returnedView.t
+//
+//        returnedView.addSubview(visualEffectView)
+//        visualEffectView.layer.zPosition = -1
+//        returnedView.sendSubviewToBack(visualEffectView)
+        
+//        visualEffectView.al
+        
+//        visualEffectView.clipsToBounds = true
+//        let blurView = UIVisualEffectView()
+//        blurView.frame = returnedView.frame
+//        blurView.effect = UIBlurEffect(style: .light)
+//        returnedView.backgroundColor = sectionColour
+        
+//        returnedView.clipsToBounds = true
+//        returnedView.backgroundColor = .clear
+
+//        returnedView.clipsToBounds = true
+
+//        returnedView.insertSubview(blurView, at: 0)
+        
+        returnedView.backgroundColor = sectionColour
         let label = UILabel(frame: CGRect(x: 16, y: 3, width: view.frame.size.width, height: 25))
         label.text = daysArray[section]
 

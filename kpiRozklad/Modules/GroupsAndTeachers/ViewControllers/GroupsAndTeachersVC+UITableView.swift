@@ -11,6 +11,10 @@ import UIKit
 
 extension GroupsAndTeachersViewController: UITableViewDelegate, UITableViewDataSource {
     
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 44
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch groupAndTeacherControllerType {
         case .isTeachersChooser, .isTeacherViewController:

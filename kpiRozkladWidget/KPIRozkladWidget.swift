@@ -5,7 +5,6 @@
 //  Created by Денис Данилюк on 27.06.2020.
 //
 
-#if canImport(WidgetKit)
 import WidgetKit
 import SwiftUI
 import CoreData
@@ -22,11 +21,11 @@ struct Provider: TimelineProvider {
         self.managedObjectContext = context
     }
     
-    
     func placeholder(in context: Context) -> LessonsEntry {
         return LessonsEntry(date: Date(), lessons: Lesson.defaultArratOfLesson)
     }
     
+
     func getSnapshot(in context: Context, completion: @escaping (LessonsEntry) -> Void) {
         let (dayNumberFromCurrentDate, currentWeekFromTodayDate) = getCurrentWeekAndDayNumber()
         
@@ -106,8 +105,8 @@ struct Provider: TimelineProvider {
 
 
 struct LessonsEntry: TimelineEntry {
-    public let date: Date
-    public let lessons: [Lesson]
+    let date: Date
+    let lessons: [Lesson]
 }
 
 
@@ -117,12 +116,7 @@ struct KpiRozkladWidgetEntryView : View {
     
     var entry: Provider.Entry
 
-    init (entry: Provider.Entry) {
-        self.entry = entry
-    }
-    
-    
-    @ViewBuilder
+//    @ViewBuilder
     var body: some View {
         
         switch family {
@@ -142,9 +136,9 @@ struct KpiRozkladWidgetEntryView : View {
 
 @main
 struct KPIRozkladWidget: Widget {
-    private let kind: String = "KPIRozkladWidget"
+    let kind: String = "KPIRozkladWidget"
 
-    public var body: some WidgetConfiguration {
+    var body: some WidgetConfiguration {
         StaticConfiguration(kind: kind,
                             provider: Provider(context: persistentContainer.viewContext)) { entry in
             KpiRozkladWidgetEntryView(entry: entry)
@@ -184,4 +178,3 @@ struct kpiRozkladWidget_Previews: PreviewProvider {
             .previewContext(WidgetPreviewContext(family: .systemMedium))
     }
 }
-#endif

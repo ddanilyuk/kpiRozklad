@@ -151,6 +151,20 @@ class SheduleViewController: UIViewController {
         /// Setup navigationVC and title
         setupNavigation()
         
+        //
+//        let bounds = self.navigationController?.navigationBar.bounds
+//        let visualEffectView = UIVisualEffectView(effect: UIBlurEffect(style: .light))
+//        visualEffectView.frame = bounds ?? CGRect.zero
+//        visualEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+//        visualEffectView.layer.zPosition = -1
+//        self.navigationController?.navigationBar.addSubview(visualEffectView)
+//        self.navigationController?.navigationBar.sendSubviewToBack(visualEffectView)
+        
+        
+        self.navigationController?.navigationBar.shadowImage = UIImage()
+        
+        //
+        
         /// TableView delegate, dataSource, registration cell
         setupTableView()
 
@@ -175,28 +189,28 @@ class SheduleViewController: UIViewController {
         }
     }
     
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        if #available(iOS 13.0, *) {
-            let isLargeNeed = !isFromSettingsGetFreshShedule && !isFromGroupsAndTeacherOrFavourite && !isTeachersShedule && !isTeachersShedule
-            if isLargeTitleAvailable() && !settings.isTryToRefreshShedule && isEditInsets && isLargeNeed {
-                self.tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: -20, right: 0)
-            } else {
-                isEditInsets = false
-                self.tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
-            }
-        }
-    }
+//    override func viewDidLayoutSubviews() {
+//        super.viewDidLayoutSubviews()
+//        if #available(iOS 13.0, *) {
+//            let isLargeNeed = !isFromSettingsGetFreshShedule && !isFromGroupsAndTeacherOrFavourite && !isTeachersShedule && !isTeachersShedule
+//            if isLargeTitleAvailable() && !settings.isTryToRefreshShedule && isEditInsets && isLargeNeed {
+//                self.tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: -20, right: 0)
+//            } else {
+//                isEditInsets = false
+//                self.tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+//            }
+//        }
+//    }
     
     override func viewWillAppear(_ animated: Bool) {
         tableView.reloadData()
-        isEditInsets = true
+//        isEditInsets = true
         if !isFromSettingsGetFreshShedule && !isFromGroupsAndTeacherOrFavourite && !isTeachersShedule {
             setLargeTitleDisplayMode(.always)
         } else {
             setLargeTitleDisplayMode(.never)
         }
-        self.viewDidLayoutSubviews()
+//        self.viewDidLayoutSubviews()
         
         reloadDataOnAppleWatch()
     }
@@ -215,7 +229,7 @@ class SheduleViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         if !settings.isShowWhatsNewInVersion2Point0 {
-            DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1)) {
+            DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(1000)) {
                 guard let whatsNewVC = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: WhatsNewViewController.identifier) as? WhatsNewViewController else { return }
                 
                 self.present(whatsNewVC, animated: true, completion: nil)
@@ -247,6 +261,11 @@ class SheduleViewController: UIViewController {
     }
     
     private func setupNavigation() {
+//        self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
+//        self.navigationController?.navigationBar.shadowImage = UIImage()
+        self.navigationController?.view.backgroundColor = sectionColour
+
+        
         if isTeachersShedule {
             setLargeTitleDisplayMode(.never)
             if UIScreen.main.nativeBounds.height < 1140 {
@@ -268,7 +287,7 @@ class SheduleViewController: UIViewController {
         } else {
             setLargeTitleDisplayMode(.never)
         }
-        self.navigationController?.navigationBar.isTranslucent = true
+        self.navigationController?.navigationBar.isTranslucent = false
         self.tabBarController?.tabBar.isTranslucent = true
     }
     

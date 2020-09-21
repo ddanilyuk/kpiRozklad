@@ -37,7 +37,7 @@ struct WidgetViewSmall: View {
                            startPoint: .leading, endPoint: .trailing)
                 .edgesIgnoringSafeArea(.all)
             
-            Color.black.opacity(0.25)
+            Color.black.opacity(0.0)
                 .edgesIgnoringSafeArea(.all)
             
             VStack(alignment: .center, spacing: 0.0) {

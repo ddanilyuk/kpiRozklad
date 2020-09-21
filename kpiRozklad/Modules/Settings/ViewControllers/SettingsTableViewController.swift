@@ -33,9 +33,6 @@ class SettingsTableViewController: UITableViewController {
     // MARK: - viewWillAppear
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        view.backgroundColor = tint
-        navigationController?.navigationBar.backgroundColor = tint
-//        setLargeTitleDisplayMode(.always)
     }
     
     
@@ -44,7 +41,6 @@ class SettingsTableViewController: UITableViewController {
     private func setupTableView() {
         tableView.register(UINib(nibName: ServerUpdateTableViewCell.identifier, bundle: Bundle.main), forCellReuseIdentifier: ServerUpdateTableViewCell.identifier)
         tableView.register(UINib(nibName: SettingsTableViewCell.identifier, bundle: Bundle.main), forCellReuseIdentifier: SettingsTableViewCell.identifier)
-        tableView.register(UINib(nibName: TeacherOrGroupLoadingTableViewCell.identifier, bundle: Bundle.main), forCellReuseIdentifier: TeacherOrGroupLoadingTableViewCell.identifier)
         tableView.register(UINib(nibName: VersionTableViewCell.identifier, bundle: Bundle.main), forCellReuseIdentifier: VersionTableViewCell.identifier)
 
         tableView.delegate = self
@@ -105,8 +101,15 @@ class SettingsTableViewController: UITableViewController {
             cell.accessoryType = .disclosureIndicator
 
             if indexPath.row == 0 {
-                cell.textLabel?.text = "Оновити розклад"
-                cell.imageView?.image = UIImage(named: "icons8-refresh-80-orange")
+                
+                guard let cell = tableView.dequeueReusableCell(withIdentifier: SettingsTableViewCell.identifier, for: indexPath) as? SettingsTableViewCell else { return UITableViewCell() }
+                cell.backgroundColor = seettingsTableViewBackgroundColour
+                cell.accessoryType = .disclosureIndicator
+                cell.imageDetailView.image = UIImage(named: "icons8-refresh-80-orange")
+                cell.mainLabel.text = "Оновити розклад"
+                cell.activityIndicator.stopAndHide()
+                cell.separator(shouldBeHidden: false)
+                return cell
             } else if indexPath.row == 1 {
                 let name = settings.sheduleType == .groups ? "групу" : "викладача"
                 cell.textLabel?.text = "Змінити \(name)"
@@ -180,6 +183,10 @@ class SettingsTableViewController: UITableViewController {
      */
     func didPressUpdateShedule() {
         let alert = UIAlertController(title: nil, message: "Чи бажаєте ви оновити розклад?\n Всі ваші редагування розкладу пропадуть!", preferredStyle: .actionSheet)
+        
+        guard let cell = self.tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as? SettingsTableViewCell else {  return }
+        cell.activityIndicator.startAndShow()
+
         alert.addAction(UIAlertAction(title: "Оновити", style: .destructive, handler: { (_) in
             self.settings.isTryToRefreshShedule = true
             
@@ -202,10 +209,15 @@ class SettingsTableViewController: UITableViewController {
                     guard let window = appDelegate.window else { return }
                     guard let mainTabBar: UITabBarController = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "Main") as? UITabBarController else { return }
                     window.rootViewController = mainTabBar
+                    cell.activityIndicator.stopAndHide()
                     
                 }).catch({ [weak self] (error) in
-                    
+                    let alert = UIAlertController(title: "Помилка", message: error.localizedDescription, preferredStyle: .alert)
+                    alert.addAction(UIAlertAction(title: "Ок", style: .default, handler: nil))
+                    self?.present(alert, animated: true, completion: nil)
+                    cell.activityIndicator.stopAndHide()
                 })
+                
             } else if self.settings.sheduleType == .teachers {
                 API.getAllTeachers().done({ [weak self] (teachers) in
                     guard let this = self else { return }
@@ -222,8 +234,13 @@ class SettingsTableViewController: UITableViewController {
                     guard let window = appDelegate.window else { return }
                     guard let mainTabBar: UITabBarController = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "Main") as? UITabBarController else { return }
                     window.rootViewController = mainTabBar
+                    cell.activityIndicator.stopAndHide()
+
                 }).catch({ [weak self] (error) in
-                    
+                    let alert = UIAlertController(title: "Помилка", message: error.localizedDescription, preferredStyle: .alert)
+                    alert.addAction(UIAlertAction(title: "Ок", style: .default, handler: nil))
+                    self?.present(alert, animated: true, completion: nil)
+                    cell.activityIndicator.stopAndHide()
                 })
             }
         }))

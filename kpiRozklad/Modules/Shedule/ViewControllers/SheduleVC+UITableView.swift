@@ -41,16 +41,16 @@ extension SheduleViewController: UITableViewDelegate, UITableViewDataSource {
     
     // MARK: - viewForHeaderInSection
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let returnedView = UIView(frame: CGRect(x: 0, y: 0, width: view.frame.size.width, height: 123))
+        let returnedView = UIView(frame: CGRect(x: 0, y: 0, width: view.frame.size.width, height: 35))
         
         if daysArray[0] != "Нова пара" && self.isEditing {
             daysArray.insert("Нова пара", at: 0)
         }
         
-        var bounds = CGRect(x: 0,
-            y: returnedView.bounds.minY - (self.navigationController?.navigationBar.frame.size.height)!,
-            width: view.frame.size.width, height: 35 + (self.navigationController?.navigationBar.frame.size.height)!)
-        print(bounds)
+//        var bounds = CGRect(x: 0,
+//            y: returnedView.bounds.minY - (self.navigationController?.navigationBar.frame.size.height)!,
+//            width: view.frame.size.width, height: 35 + (self.navigationController?.navigationBar.frame.size.height)!)
+//        print(bounds)
 //        bounds.height = bounds.height + (self.navigationController?.navigationBar.frame.size.height)! ?? 0.0
 //        bounds.y = bounds.minY + self.navigationController?.navigationBar.frame.size.height ?? 0.0
 
@@ -151,12 +151,9 @@ extension SheduleViewController: UITableViewDelegate, UITableViewDataSource {
                     let groupsNames = getGroupsOfLessonString(lesson: lesson)
                     
                     let alert = UIAlertController(title: nil, message: "Групи: \(groupsNames)", preferredStyle: .alert)
-                    alert.addAction(UIAlertAction(title: "Назад", style: .cancel, handler: { (_) in
-                        
-                    }))
+                    alert.addAction(UIAlertAction(title: "Назад", style: .cancel, handler: nil ))
                     
-                    self.present(alert, animated: true, completion: {
-                    })
+                    self.present(alert, animated: true, completion: nil)
                     
                     tableView.deselectRow(at: indexPath, animated: true)
                 } else {

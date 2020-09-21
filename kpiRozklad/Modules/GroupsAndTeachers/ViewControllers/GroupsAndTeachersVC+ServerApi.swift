@@ -22,6 +22,11 @@ extension GroupsAndTeachersViewController {
     }
     
     func getDefaultErrorAlert(localizedDescription: String, alertCase: AlertCase, group: Group?, teacher: Teacher?, indexPath: IndexPath?) {
+        
+        if let cell = tableView.cellForRow(at: indexPath ?? IndexPath(row: 0, section: 0)) as? TeacherOrGroupLoadingTableViewCell {
+            cell.activityIndicator.stopAndHide()
+        }
+        
         let alert = UIAlertController(title: "Помилка", message: localizedDescription, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Ок", style: .default, handler: { (_) in
             

@@ -49,6 +49,9 @@ class SheduleDetailViewController: UIViewController {
         /// Setup all views in stack view
         setupViews()
         
+//        self.view.backgroundColor = tableViewBackground
+//        self.stackView.backgroundColor = tableViewBackground
+        
         ///Setup groups loading activity indicator
         setupActivityIndicator()
     }
@@ -134,7 +137,6 @@ class SheduleDetailViewController: UIViewController {
     private func getVariablesFromNavigationController() {
         guard let navigationVC = self.navigationController as? SheduleDetailNavigationController else { return }
         self.lesson = navigationVC.lesson
-        
     }
     
     /**
@@ -145,6 +147,7 @@ class SheduleDetailViewController: UIViewController {
         
         sheduleVC.isTeachersShedule = true
         sheduleVC.teacherFromSegue = teacher
+//        sheduleVC.view.backgroundColor = tableViewBackground
         settings.isTryToRefreshShedule = true
         
         navigationController?.pushViewController(sheduleVC, animated: true)

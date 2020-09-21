@@ -78,8 +78,8 @@
             filePath = "kpiRozklad/Modules/GroupsAndTeachers/ViewControllers/GroupsAndTeachersVC+ServerApi.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "149"
-            endingLineNumber = "149"
+            startingLineNumber = "154"
+            endingLineNumber = "154"
             landmarkName = "getGroupLessons(group:indexPath:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -574,6 +574,178 @@
             startingLineNumber = "197"
             endingLineNumber = "197"
             landmarkName = "tableView(_:didSelectRowAt:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "98AAE01F-3913-4C3F-8D4E-65637CCA4A15"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "kpiRozklad/Modules/Shedule/ViewControllers/SheduleViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "259"
+            endingLineNumber = "259"
+            landmarkName = "setupNavigation()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "446646F9-A16B-40B0-8253-E4D855C468C0"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "kpiRozklad/Modules/Shedule/ViewControllers/SheduleViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "258"
+            endingLineNumber = "258"
+            landmarkName = "setupNavigation()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "7811213F-3D47-49E2-BA08-86734EED9EF8"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "kpiRozklad/Modules/Shedule/ViewControllers/SheduleDetailViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "151"
+            endingLineNumber = "151"
+            landmarkName = "didPressGetTeacherShedule(_:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "862101B7-F4A3-4685-8224-873CDDCE5837"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "kpiRozklad/Modules/Shedule/ViewControllers/SheduleViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "30"
+            endingLineNumber = "30"
+            landmarkName = "SheduleViewController"
+            landmarkType = "3">
+            <Locations>
+               <Location
+                  uuid = "862101B7-F4A3-4685-8224-873CDDCE5837 - 5edd74e78383f67f"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "KPI_Rozklad.SheduleViewController.window.getter : Swift.Optional&lt;__C.UIWindow&gt;"
+                  moduleName = "KPI Rozklad"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/denisdanilyuk/Documents/_myOwnProjects/kpiRozklad/kpiRozklad/Modules/Shedule/ViewControllers/SheduleViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "30"
+                  endingLineNumber = "30"
+                  offsetFromSymbolStart = "112">
+               </Location>
+               <Location
+                  uuid = "862101B7-F4A3-4685-8224-873CDDCE5837 - 1a807a62c97ea643"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "KPI_Rozklad.SheduleViewController.window.setter : Swift.Optional&lt;__C.UIWindow&gt;"
+                  moduleName = "KPI Rozklad"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/denisdanilyuk/Documents/_myOwnProjects/kpiRozklad/kpiRozklad/Modules/Shedule/ViewControllers/SheduleViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "30"
+                  endingLineNumber = "30"
+                  offsetFromSymbolStart = "144">
+               </Location>
+               <Location
+                  uuid = "862101B7-F4A3-4685-8224-873CDDCE5837 - f31fa69e829bd650"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "KPI_Rozklad.SheduleViewController.window.modify : Swift.Optional&lt;__C.UIWindow&gt;"
+                  moduleName = "KPI Rozklad"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/denisdanilyuk/Documents/_myOwnProjects/kpiRozklad/kpiRozklad/Modules/Shedule/ViewControllers/SheduleViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "0"
+                  endingLineNumber = "0"
+                  offsetFromSymbolStart = "16">
+               </Location>
+               <Location
+                  uuid = "862101B7-F4A3-4685-8224-873CDDCE5837 - 80dc6d852418011"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "KPI_Rozklad.SheduleViewController.window.modify : Swift.Optional&lt;__C.UIWindow&gt; with unmangled suffix &quot;.resume.0&quot;"
+                  moduleName = "KPI Rozklad"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/denisdanilyuk/Documents/_myOwnProjects/kpiRozklad/kpiRozklad/Modules/Shedule/ViewControllers/SheduleViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "30"
+                  endingLineNumber = "30"
+                  offsetFromSymbolStart = "8">
+               </Location>
+               <Location
+                  uuid = "862101B7-F4A3-4685-8224-873CDDCE5837 - 113af3ec593c18f6"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "KPI_Rozklad.SheduleViewController.init(nibName: Swift.Optional&lt;Swift.String&gt;, bundle: Swift.Optional&lt;__C.NSBundle&gt;) -&gt; KPI_Rozklad.SheduleViewController"
+                  moduleName = "KPI Rozklad"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/denisdanilyuk/Documents/_myOwnProjects/kpiRozklad/kpiRozklad/Modules/Shedule/ViewControllers/SheduleViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "30"
+                  endingLineNumber = "30"
+                  offsetFromSymbolStart = "428">
+               </Location>
+               <Location
+                  uuid = "862101B7-F4A3-4685-8224-873CDDCE5837 - 7629f7dc8a857d8f"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "KPI_Rozklad.SheduleViewController.init(coder: __C.NSCoder) -&gt; Swift.Optional&lt;KPI_Rozklad.SheduleViewController&gt;"
+                  moduleName = "KPI Rozklad"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/denisdanilyuk/Documents/_myOwnProjects/kpiRozklad/kpiRozklad/Modules/Shedule/ViewControllers/SheduleViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "30"
+                  endingLineNumber = "30"
+                  offsetFromSymbolStart = "404">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "8E9CF28A-7D96-4BFC-962C-6DCAB60B2580"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "kpiRozklad/Modules/Shedule/ViewControllers/SheduleViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "143"
+            endingLineNumber = "143"
+            landmarkName = "viewDidLoad()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

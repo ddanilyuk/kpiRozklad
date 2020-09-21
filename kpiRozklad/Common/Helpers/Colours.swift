@@ -77,7 +77,13 @@ public var seettingsTableViewBackgroundColour: UIColor = {
 
 public let cellBackgroundColor: UIColor = {
     if #available(iOS 13.0, *) {
-        return .systemBackground
+        return UIColor { (UITraitCollection: UITraitCollection) -> UIColor in
+            if UITraitCollection.userInterfaceStyle == .dark {
+                return .black
+            } else {
+                return .white
+            }
+        }        
     } else {
         return .white
     }

@@ -189,30 +189,16 @@ class SheduleViewController: UIViewController {
         }
     }
     
-//    override func viewDidLayoutSubviews() {
-//        super.viewDidLayoutSubviews()
-//        if #available(iOS 13.0, *) {
-//            let isLargeNeed = !isFromSettingsGetFreshShedule && !isFromGroupsAndTeacherOrFavourite && !isTeachersShedule && !isTeachersShedule
-//            if isLargeTitleAvailable() && !settings.isTryToRefreshShedule && isEditInsets && isLargeNeed {
-//                self.tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: -20, right: 0)
-//            } else {
-//                isEditInsets = false
-//                self.tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
-//            }
-//        }
-//    }
     
     override func viewWillAppear(_ animated: Bool) {
         tableView.reloadData()
-//        isEditInsets = true
+
         if !isFromSettingsGetFreshShedule && !isFromGroupsAndTeacherOrFavourite && !isTeachersShedule {
+            reloadDataOnAppleWatch()
             setLargeTitleDisplayMode(.always)
         } else {
             setLargeTitleDisplayMode(.never)
         }
-//        self.viewDidLayoutSubviews()
-        
-        reloadDataOnAppleWatch()
     }
 
     override func viewWillDisappear(_ animated: Bool) {
@@ -220,10 +206,15 @@ class SheduleViewController: UIViewController {
          If view disappears with small title, set ` setLargeTitleDisplayMode(.never)`
          And if view disappears with llarge title, set ` setLargeTitleDisplayMode(.always)`
          */
-        if self.navigationController?.navigationBar.frame.size.height ?? 44 > CGFloat(50) {
-            setLargeTitleDisplayMode(.always)
+        if !isFromSettingsGetFreshShedule {
+            if self.navigationController?.navigationBar.frame.size.height ?? 44 > CGFloat(50) {
+                setLargeTitleDisplayMode(.always)
+            } else {
+                setLargeTitleDisplayMode(.never)
+            }
         } else {
-            setLargeTitleDisplayMode(.never)
+            setLargeTitleDisplayMode(.always)
+            self.navigationController?.navigationBar.isTranslucent = true
         }
     }
     
@@ -244,7 +235,7 @@ class SheduleViewController: UIViewController {
         tableView.register(UINib(nibName: LessonTableViewCell.identifier, bundle: Bundle.main), forCellReuseIdentifier: LessonTableViewCell.identifier)
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.backgroundColor = tint
+        tableView.backgroundColor = tableViewBackground
     }
 
     private func setupCurrentDate() {
@@ -375,7 +366,7 @@ class SheduleViewController: UIViewController {
         
         navigationController.viewControllers = [newLessonViewController]
         navigationController.navigationBar.shadowImage = UIImage()
-        navigationController.navigationBar.barTintColor = tint
+        navigationController.navigationBar.barTintColor = tableViewBackground
         
         if #available(iOS 13, *) {
             self.present(navigationController, animated: true, completion: nil)
@@ -522,6 +513,9 @@ class SheduleViewController: UIViewController {
                 
         serverLessons.done({ [weak self] (lessons) in
             guard let this = self else { return }
+            
+            this.settings.isTryToRefreshShedule = false
+
 
             guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
             let managedContext = appDelegate.persistentContainer.viewContext
@@ -530,7 +524,6 @@ class SheduleViewController: UIViewController {
                 updateCoreData(lessons: lessons, managedContext: managedContext) {
                     /// Make new lessons
                     this.makeLessonsShedule()
-                    this.settings.isTryToRefreshShedule = false
                     
                     this.isNeedToScroll = true
                     DispatchQueue.main.async {
@@ -547,7 +540,6 @@ class SheduleViewController: UIViewController {
                         WidgetCenter.shared.reloadAllTimelines()
                         reloadDataOnAppleWatch()
                     }
-                    this.view.layoutSubviews()
                 }
             } else {
                 this.lessonsFromSegue = lessons

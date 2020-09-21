@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -25,10 +25,10 @@
                         <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="medium"/>
                     </imageView>
                     <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="ErH-0q-9aX">
-                        <rect key="frame" x="158" y="22.5" width="20" height="20"/>
+                        <rect key="frame" x="287" y="22.5" width="20" height="20"/>
                     </activityIndicatorView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Text here" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mab-3N-TnF">
-                        <rect key="frame" x="77" y="22" width="71" height="21"/>
+                        <rect key="frame" x="77" y="22" width="70.5" height="21"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
@@ -40,7 +40,7 @@
                     <constraint firstItem="ErH-0q-9aX" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="N8S-0N-MUx"/>
                     <constraint firstItem="mab-3N-TnF" firstAttribute="leading" secondItem="Ke3-zn-Ptf" secondAttribute="trailing" constant="14" id="SOh-wK-3AD"/>
                     <constraint firstItem="Ke3-zn-Ptf" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="9" id="TSh-oj-Osi"/>
-                    <constraint firstItem="ErH-0q-9aX" firstAttribute="leading" secondItem="mab-3N-TnF" secondAttribute="trailing" constant="10" id="rrf-ID-awW"/>
+                    <constraint firstAttribute="trailing" secondItem="ErH-0q-9aX" secondAttribute="trailing" constant="16" id="cLh-r8-jys"/>
                     <constraint firstAttribute="bottom" secondItem="Ke3-zn-Ptf" secondAttribute="bottom" constant="9" id="s0V-3v-l2e"/>
                     <constraint firstItem="Ke3-zn-Ptf" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="udw-qv-gGF"/>
                 </constraints>

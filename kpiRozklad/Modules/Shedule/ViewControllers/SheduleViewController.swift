@@ -263,8 +263,7 @@ class SheduleViewController: UIViewController {
     private func setupNavigation() {
 //        self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
 //        self.navigationController?.navigationBar.shadowImage = UIImage()
-        self.navigationController?.view.backgroundColor = sectionColour
-
+//        self.navigationController?.view.backgroundColor = sectionColour
         
         if isTeachersShedule {
             setLargeTitleDisplayMode(.never)

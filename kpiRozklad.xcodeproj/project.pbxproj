@@ -72,6 +72,7 @@
 		5F305C7B242263BC0035B509 /* Colours.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F2F313E2395C62100FC28CB /* Colours.swift */; };
 		5F35C77B24C4E84800F96C62 /* VersionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F35C77924C4E84700F96C62 /* VersionTableViewCell.swift */; };
 		5F35C77C24C4E84800F96C62 /* VersionTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5F35C77A24C4E84700F96C62 /* VersionTableViewCell.xib */; };
+		5F3A3ACB2518CE80001E8490 /* KPI Rozklad Today Widget.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 5FACFF7B23ED63D40022DF88 /* KPI Rozklad Today Widget.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		5F3D8C132493FD5300308AC9 /* Enums.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FD5B7142422171900B86FB7 /* Enums.swift */; };
 		5F3D8C152493FD5300308AC9 /* DetailedInterfaceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F3D8C142493FD5300308AC9 /* DetailedInterfaceController.swift */; };
 		5F4457E42376FB05008F9E21 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F4457E32376FB05008F9E21 /* Settings.swift */; };
@@ -137,6 +138,7 @@
 		5F7A000124B779B900E33B81 /* TimeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F7A000024B7797C00E33B81 /* TimeView.swift */; };
 		5F7A000324B78D2C00E33B81 /* UIActivityIndicator+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F7A000224B78D2C00E33B81 /* UIActivityIndicator+Extensions.swift */; };
 		5F7BABBF23A163C8009E3CA6 /* ErrorMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F7BABBE23A163C8009E3CA6 /* ErrorMessage.swift */; };
+		5F8D844D2518CE5200AE7E86 /* Pods_kpiRozklad.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 25B70702B56A794A30F2DB1A /* Pods_kpiRozklad.framework */; };
 		5F8EF0E7242D170400E74220 /* BoardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F8EF0E6242D170400E74220 /* BoardingViewController.swift */; };
 		5F8EF0E9242D171000E74220 /* PopUpPanModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F8EF0E8242D171000E74220 /* PopUpPanModalViewController.swift */; };
 		5F8EF0F8242D30AE00E74220 /* PanModalPresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F8EF0EB242D30AD00E74220 /* PanModalPresentable.swift */; };
@@ -234,7 +236,6 @@
 		5FE048692393027900092422 /* TimeAndDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FE048682393027900092422 /* TimeAndDate.swift */; };
 		5FE0486B2393087900092422 /* CoreDataHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FE0486A2393087900092422 /* CoreDataHelpers.swift */; };
 		5FE0486D23930C3000092422 /* SheduleVC+UIPickerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FE0486C23930C3000092422 /* SheduleVC+UIPickerVC.swift */; };
-		5FE31F0524C3B23100E9C7BC /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F7631F924B251F90022C952 /* WidgetKit.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		5FE3A1A524CCDE8500F34107 /* Date+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F506EE3248ED0CC00B6F544 /* Date+Extensions.swift */; };
 		5FE40E55248CF1DA000D2899 /* CoreDataHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FE0486A2393087900092422 /* CoreDataHelpers.swift */; };
 		5FE9678324091880000AD157 /* TeachersNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FE9678224091880000AD157 /* TeachersNavigationController.swift */; };
@@ -242,7 +243,6 @@
 		5FF204D424B4F76F00B52FCB /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F4457E32376FB05008F9E21 /* Settings.swift */; };
 		5FF3323D24B7D72F00DB864F /* StoreUserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FF3323C24B7D72F00DB864F /* StoreUserDefaults.swift */; };
 		5FF43FD924CCC25A005E1A7E /* WatchKitHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FF43FD824CCC25A005E1A7E /* WatchKitHelpers.swift */; };
-		90A353C4EB2D15AEC0D9F8D1 /* Pods_kpiRozklad.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 25B70702B56A794A30F2DB1A /* Pods_kpiRozklad.framework */; };
 		D300F1D62364CEA30098CA83 /* GroupsAndTeachersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D300F1D52364CEA30098CA83 /* GroupsAndTeachersViewController.swift */; };
 		D300F1DA2364CF490098CA83 /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D300F1D92364CF490098CA83 /* SettingsTableViewController.swift */; };
 		D300F1DC2365BC270098CA83 /* Teacher.swift in Sources */ = {isa = PBXBuildFile; fileRef = D300F1DB2365BC270098CA83 /* Teacher.swift */; };
@@ -258,6 +258,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		5F3A3ACC2518CE80001E8490 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D313F48A233AAB6C0076CFF8 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 5FACFF7A23ED63D40022DF88;
+			remoteInfo = kpiRozkladTodayWidget;
+		};
 		5F75DAD92457915900B1E4C9 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = D313F48A233AAB6C0076CFF8 /* Project object */;
@@ -295,6 +302,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
+				5F3A3ACB2518CE80001E8490 /* KPI Rozklad Today Widget.appex in Embed App Extensions */,
 				5F76320524B251F90022C952 /* kpiRozkladWidgetExtension.appex in Embed App Extensions */,
 			);
 			name = "Embed App Extensions";
@@ -356,6 +364,9 @@
 		5F305C76242260560035B509 /* SheduleVC+UITableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SheduleVC+UITableView.swift"; sourceTree = "<group>"; };
 		5F35C77924C4E84700F96C62 /* VersionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VersionTableViewCell.swift; sourceTree = "<group>"; };
 		5F35C77A24C4E84700F96C62 /* VersionTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = VersionTableViewCell.xib; sourceTree = "<group>"; };
+		5F3A3AE025193326001E8490 /* KPI Rozklad Today WidgetDebug.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "KPI Rozklad Today WidgetDebug.entitlements"; sourceTree = "<group>"; };
+		5F3A3AE725193348001E8490 /* KPI RozkladDebug.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "KPI RozkladDebug.entitlements"; sourceTree = "<group>"; };
+		5F3A3B1025193717001E8490 /* kpiRozkladWidgetExtensionDebug.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = kpiRozkladWidgetExtensionDebug.entitlements; sourceTree = "<group>"; };
 		5F3D8C142493FD5300308AC9 /* DetailedInterfaceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailedInterfaceController.swift; sourceTree = "<group>"; };
 		5F4457E32376FB05008F9E21 /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		5F44899F24B52E0C00EF86D4 /* WidgetViewSmall.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetViewSmall.swift; sourceTree = "<group>"; };
@@ -409,13 +420,11 @@
 		5FA65EF624C20EC5009F6316 /* LessonDayAndNumberTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LessonDayAndNumberTableViewCell.xib; sourceTree = "<group>"; };
 		5FACFF5123EC70A70022DF88 /* TeacherOrGroupLoadingTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeacherOrGroupLoadingTableViewCell.swift; sourceTree = "<group>"; };
 		5FACFF5223EC70A70022DF88 /* TeacherOrGroupLoadingTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TeacherOrGroupLoadingTableViewCell.xib; sourceTree = "<group>"; };
-		5FACFF7B23ED63D40022DF88 /* KPI ROZKLAD.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "KPI ROZKLAD.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
+		5FACFF7B23ED63D40022DF88 /* KPI Rozklad Today Widget.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "KPI Rozklad Today Widget.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
 		5FACFF7D23ED63D40022DF88 /* NotificationCenter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NotificationCenter.framework; path = System/Library/Frameworks/NotificationCenter.framework; sourceTree = SDKROOT; };
 		5FACFF8023ED63D40022DF88 /* TodayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayViewController.swift; sourceTree = "<group>"; };
 		5FACFF8323ED63D40022DF88 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
 		5FACFF8523ED63D40022DF88 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		5FACFF8D23ED63E20022DF88 /* kpiRozkladTodayWidget.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = kpiRozkladTodayWidget.entitlements; sourceTree = "<group>"; };
-		5FACFF8E23ED63E90022DF88 /* KPI Rozklad.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "KPI Rozklad.entitlements"; sourceTree = "<group>"; };
 		5FC991EC23DF10BB00612266 /* ServerUpdateTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerUpdateTableViewCell.swift; sourceTree = "<group>"; };
 		5FC991ED23DF10BB00612266 /* ServerUpdateTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ServerUpdateTableViewCell.xib; sourceTree = "<group>"; };
 		5FCBB9FC241C404F00E7654F /* String+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extensions.swift"; sourceTree = "<group>"; };
@@ -521,8 +530,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5FE31F0524C3B23100E9C7BC /* WidgetKit.framework in Frameworks */,
-				90A353C4EB2D15AEC0D9F8D1 /* Pods_kpiRozklad.framework in Frameworks */,
+				5F8D844D2518CE5200AE7E86 /* Pods_kpiRozklad.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -752,7 +760,7 @@
 		5FACFF7F23ED63D40022DF88 /* kpiRozkladTodayWidget */ = {
 			isa = PBXGroup;
 			children = (
-				5FACFF8D23ED63E20022DF88 /* kpiRozkladTodayWidget.entitlements */,
+				5F3A3AE025193326001E8490 /* KPI Rozklad Today WidgetDebug.entitlements */,
 				5FACFF8023ED63D40022DF88 /* TodayViewController.swift */,
 				5FACFF8223ED63D40022DF88 /* MainInterface.storyboard */,
 				5FACFF8523ED63D40022DF88 /* Info.plist */,
@@ -871,6 +879,7 @@
 		D313F489233AAB6C0076CFF8 = {
 			isa = PBXGroup;
 			children = (
+				5F3A3B1025193717001E8490 /* kpiRozkladWidgetExtensionDebug.entitlements */,
 				D38DEB43233A250F00BB0075 /* README.md */,
 				D313F494233AAB6C0076CFF8 /* kpiRozklad */,
 				5F7631FD24B251F90022C952 /* kpiRozkladWidget */,
@@ -888,7 +897,7 @@
 			isa = PBXGroup;
 			children = (
 				D313F492233AAB6C0076CFF8 /* KPI Rozklad.app */,
-				5FACFF7B23ED63D40022DF88 /* KPI ROZKLAD.appex */,
+				5FACFF7B23ED63D40022DF88 /* KPI Rozklad Today Widget.appex */,
 				5F75DAD42457915900B1E4C9 /* kpiRozkladTests.xctest */,
 				5FDCFCC9248D8C2C00568208 /* kpiRozkladWatch.app */,
 				5FDCFCD5248D8C2F00568208 /* kpiRozkladWatch Extension.appex */,
@@ -900,7 +909,7 @@
 		D313F494233AAB6C0076CFF8 /* kpiRozklad */ = {
 			isa = PBXGroup;
 			children = (
-				5FACFF8E23ED63E90022DF88 /* KPI Rozklad.entitlements */,
+				5F3A3AE725193348001E8490 /* KPI RozkladDebug.entitlements */,
 				D313F495233AAB6C0076CFF8 /* AppDelegate.swift */,
 				D3FFAAD6234F79630065E9CE /* Modules */,
 				D3FFAAE123521BA40065E9CE /* Common */,
@@ -1139,7 +1148,7 @@
 			);
 			name = kpiRozkladTodayWidget;
 			productName = Widget;
-			productReference = 5FACFF7B23ED63D40022DF88 /* KPI ROZKLAD.appex */;
+			productReference = 5FACFF7B23ED63D40022DF88 /* KPI Rozklad Today Widget.appex */;
 			productType = "com.apple.product-type.app-extension";
 		};
 		5FDCFCC8248D8C2C00568208 /* kpiRozkladWatch */ = {
@@ -1194,6 +1203,7 @@
 			dependencies = (
 				5FDCFCE5248D8C3000568208 /* PBXTargetDependency */,
 				5F76320424B251F90022C952 /* PBXTargetDependency */,
+				5F3A3ACD2518CE80001E8490 /* PBXTargetDependency */,
 			);
 			name = kpiRozklad;
 			productName = kpiRozklad;
@@ -1207,7 +1217,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1200;
-				LastUpgradeCheck = 1100;
+				LastUpgradeCheck = 1200;
 				ORGANIZATIONNAME = "Denis Danilyuk";
 				TargetAttributes = {
 					5F75DAD32457915900B1E4C9 = {
@@ -1659,6 +1669,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		5F3A3ACD2518CE80001E8490 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 5FACFF7A23ED63D40022DF88 /* kpiRozkladTodayWidget */;
+			targetProxy = 5F3A3ACC2518CE80001E8490 /* PBXContainerItemProxy */;
+		};
 		5F75DADA2457915900B1E4C9 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = D313F491233AAB6C0076CFF8 /* kpiRozklad */;
@@ -1767,9 +1782,9 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
 				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
-				CODE_SIGN_ENTITLEMENTS = kpiRozkladWidget.entitlements;
+				CODE_SIGN_ENTITLEMENTS = kpiRozkladWidgetExtensionDebug.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 11;
+				CURRENT_PROJECT_VERSION = 12;
 				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_TEAM = M92VXVU7J9;
 				INFOPLIST_FILE = kpiRozkladWidget/Info.plist;
@@ -1794,9 +1809,9 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
 				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
-				CODE_SIGN_ENTITLEMENTS = kpiRozkladWidget.entitlements;
+				CODE_SIGN_ENTITLEMENTS = kpiRozkladWidget/kpiRozkladWidget.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 11;
+				CURRENT_PROJECT_VERSION = 12;
 				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_TEAM = M92VXVU7J9;
 				INFOPLIST_FILE = kpiRozkladWidget/Info.plist;
@@ -1818,13 +1833,13 @@
 		5FACFF8A23ED63D40022DF88 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_ENTITLEMENTS = kpiRozkladTodayWidget/kpiRozkladTodayWidget.entitlements;
+				CODE_SIGN_ENTITLEMENTS = "kpiRozkladTodayWidget/KPI Rozklad Today WidgetDebug.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 11;
+				CURRENT_PROJECT_VERSION = 12;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = M92VXVU7J9;
 				"INFOPLIST_FILE[sdk=*]" = kpiRozkladTodayWidget/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.3;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1832,7 +1847,7 @@
 				);
 				MARKETING_VERSION = 2.0;
 				PRODUCT_BUNDLE_IDENTIFIER = ddanilyuk.kpiRozklad.kpiRozkladTodayWidget;
-				PRODUCT_NAME = "KPI ROZKLAD";
+				PRODUCT_NAME = "KPI Rozklad Today Widget";
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -1842,13 +1857,13 @@
 		5FACFF8B23ED63D40022DF88 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_ENTITLEMENTS = kpiRozkladTodayWidget/kpiRozkladTodayWidget.entitlements;
+				CODE_SIGN_ENTITLEMENTS = "kpiRozkladTodayWidget/KPI Rozklad Today WidgetDebug.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 11;
+				CURRENT_PROJECT_VERSION = 12;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = M92VXVU7J9;
 				"INFOPLIST_FILE[sdk=*]" = kpiRozkladTodayWidget/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.3;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1856,7 +1871,7 @@
 				);
 				MARKETING_VERSION = 2.0;
 				PRODUCT_BUNDLE_IDENTIFIER = ddanilyuk.kpiRozklad.kpiRozkladTodayWidget;
-				PRODUCT_NAME = "KPI ROZKLAD";
+				PRODUCT_NAME = "KPI Rozklad Today Widget";
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -1868,7 +1883,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 11;
+				CURRENT_PROJECT_VERSION = 12;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = M92VXVU7J9;
 				INFOPLIST_FILE = "kpiRozkladWatch Extension/Info.plist";
@@ -1893,7 +1908,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 11;
+				CURRENT_PROJECT_VERSION = 12;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = M92VXVU7J9;
 				INFOPLIST_FILE = "kpiRozkladWatch Extension/Info.plist";
@@ -1919,7 +1934,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 11;
+				CURRENT_PROJECT_VERSION = 12;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = M92VXVU7J9;
 				IBSC_MODULE = kpiRozkladWatch_Extension;
@@ -1941,7 +1956,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 11;
+				CURRENT_PROJECT_VERSION = 12;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = M92VXVU7J9;
 				IBSC_MODULE = kpiRozkladWatch_Extension;
@@ -1984,6 +1999,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -2012,7 +2028,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
-				ONLY_ACTIVE_ARCH = YES;
+				ONLY_ACTIVE_ARCH = NO;
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -2046,6 +2062,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -2081,9 +2098,9 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = "kpiRozklad/KPI Rozklad.entitlements";
+				CODE_SIGN_ENTITLEMENTS = "kpiRozklad/KPI RozkladDebug.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 11;
+				CURRENT_PROJECT_VERSION = 12;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"kpiRozklad/Resoursces/Preview Content\"";
 				DEVELOPMENT_TEAM = M92VXVU7J9;
@@ -2095,10 +2112,12 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 2.0;
+				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = ddanilyuk.kpiRozklad;
 				PRODUCT_NAME = "KPI Rozklad";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
+				WATCHOS_DEPLOYMENT_TARGET = 4.3;
 			};
 			name = Debug;
 		};
@@ -2108,9 +2127,9 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = "kpiRozklad/KPI Rozklad.entitlements";
+				CODE_SIGN_ENTITLEMENTS = "kpiRozklad/KPI RozkladDebug.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 11;
+				CURRENT_PROJECT_VERSION = 12;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"kpiRozklad/Resoursces/Preview Content\"";
 				DEVELOPMENT_TEAM = M92VXVU7J9;
@@ -2122,10 +2141,12 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 2.0;
+				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = ddanilyuk.kpiRozklad;
 				PRODUCT_NAME = "KPI Rozklad";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
+				WATCHOS_DEPLOYMENT_TARGET = 4.3;
 			};
 			name = Release;
 		};

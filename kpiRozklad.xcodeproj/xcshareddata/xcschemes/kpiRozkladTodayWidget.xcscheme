@@ -16,22 +16,8 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "5FACFF7A23ED63D40022DF88"
-               BuildableName = "KPI ROZKLAD.appex"
+               BuildableName = "KPI Rozklad Today Widget.appex"
                BlueprintName = "kpiRozkladTodayWidget"
-               ReferencedContainer = "container:kpiRozklad.xcodeproj">
-            </BuildableReference>
-         </BuildActionEntry>
-         <BuildActionEntry
-            buildForTesting = "YES"
-            buildForRunning = "YES"
-            buildForProfiling = "YES"
-            buildForArchiving = "YES"
-            buildForAnalyzing = "YES">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "D313F491233AAB6C0076CFF8"
-               BuildableName = "KPI Rozklad.app"
-               BlueprintName = "kpiRozklad"
                ReferencedContainer = "container:kpiRozklad.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -63,20 +49,11 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "5FACFF7A23ED63D40022DF88"
-            BuildableName = "KPI ROZKLAD.appex"
+            BuildableName = "KPI Rozklad Today Widget.appex"
             BlueprintName = "kpiRozkladTodayWidget"
             ReferencedContainer = "container:kpiRozklad.xcodeproj">
          </BuildableReference>
       </RemoteRunnable>
-      <MacroExpansion>
-         <BuildableReference
-            BuildableIdentifier = "primary"
-            BlueprintIdentifier = "D313F491233AAB6C0076CFF8"
-            BuildableName = "KPI Rozklad.app"
-            BlueprintName = "kpiRozklad"
-            ReferencedContainer = "container:kpiRozklad.xcodeproj">
-         </BuildableReference>
-      </MacroExpansion>
    </LaunchAction>
    <ProfileAction
       buildConfiguration = "Release"
@@ -85,16 +62,15 @@
       useCustomWorkingDirectory = "NO"
       debugDocumentVersioning = "YES"
       launchAutomaticallySubstyle = "2">
-      <BuildableProductRunnable
-         runnableDebuggingMode = "0">
+      <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "D313F491233AAB6C0076CFF8"
-            BuildableName = "KPI Rozklad.app"
-            BlueprintName = "kpiRozklad"
+            BlueprintIdentifier = "5FACFF7A23ED63D40022DF88"
+            BuildableName = "KPI Rozklad Today Widget.appex"
+            BlueprintName = "kpiRozkladTodayWidget"
             ReferencedContainer = "container:kpiRozklad.xcodeproj">
          </BuildableReference>
-      </BuildableProductRunnable>
+      </MacroExpansion>
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Debug">

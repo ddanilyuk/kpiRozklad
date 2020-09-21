@@ -27,13 +27,14 @@ class SettingsTableViewController: UITableViewController {
         setupTableView()
         getServerTimeUpdate()
         setLargeTitleDisplayMode(.always)
-
     }
     
     
     // MARK: - viewWillAppear
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        view.backgroundColor = tint
+        navigationController?.navigationBar.backgroundColor = tint
 //        setLargeTitleDisplayMode(.always)
     }
     

@@ -10,7 +10,6 @@
 import UIKit
 
  
-// MARK: - Welcome
 struct WelcomeLessons: Codable {
     let statusCode, timeStamp: Int
     let message, debugInfo: String?
@@ -19,7 +18,6 @@ struct WelcomeLessons: Codable {
 }
 
 
-// MARK: - Lesson
 public struct Lesson: Codable, Hashable, Identifiable {
     public let id: Int
     let dayNumber, lessonNumber: Int
@@ -50,7 +48,6 @@ public struct Lesson: Codable, Hashable, Identifiable {
         case timeEnd = "time_end"
         case room = "rooms"
         case teacher = "teachers"
-
         case rate, groups
     }
     
@@ -106,58 +103,79 @@ public struct Lesson: Codable, Hashable, Identifiable {
                                       groups: nil)
     
     static let previewLesson1 = Lesson(id: 1,
-                                      dayNumber: 1,
-                                      lessonNumber: 1,
-                                      lessonWeek: WeekType.first,
-                                      groupID: 123,
-                                      dayName: DayName.tuesday,
-                                      lessonType: LessonType.лек1,
-                                      lessonName: "Сучасні техн. програмування",
-                                      lessonFullName: "Сучасні технології програмування",
-                                      lessonRoom: "301-18",
-                                      teacherName: "ас. Шевело",
-                                      timeStart: "08:30", timeEnd: "10:25",
-                                      rate: "1.123",
-                                      teacher: Teacher(teacherID: 1,
-                                                       teacherURL: "url",
-                                                       teacherName: "ас. Шевело",
-                                                       teacherFullName: "асистент Шевело   ",
-                                                       teacherShortName: "Шевело",
-                                                       teacherRating: "1.123"),
-                                      room: Room(roomID: 1,
-                                                 roomName: "301-18",
-                                                 roomLatitude: "1.123",
-                                                 roomLongitude: "1.123"),
-                                      groups: nil)
+                                       dayNumber: 1,
+                                       lessonNumber: 1,
+                                       lessonWeek: WeekType.first,
+                                       groupID: 123,
+                                       dayName: DayName.tuesday,
+                                       lessonType: LessonType.лек1,
+                                       lessonName: "Сучасні техн. програмування",
+                                       lessonFullName: "Сучасні технології програмування",
+                                       lessonRoom: "301-18",
+                                       teacherName: "ас. Шевело",
+                                       timeStart: "08:30", timeEnd: "10:25",
+                                       rate: "1.123",
+                                       teacher: Teacher(teacherID: 1,
+                                                        teacherURL: "url",
+                                                        teacherName: "ас. Шевело",
+                                                        teacherFullName: "асистент Шевело   ",
+                                                        teacherShortName: "Шевело",
+                                                        teacherRating: "1.123"),
+                                       room: Room(roomID: 1,
+                                                  roomName: "301-18",
+                                                  roomLatitude: "1.123",
+                                                  roomLongitude: "1.123"),
+                                       groups: nil)
+    
     static let previewLesson2 = Lesson(id: 2,
-                                      dayNumber: 1,
-                                      lessonNumber: 2,
-                                      lessonWeek: WeekType.first,
-                                      groupID: 123,
-                                      dayName: DayName.mounday,
-                                      lessonType: LessonType.лаб,
-                                      lessonName: "Сучасні техн. програмування",
-                                      lessonFullName: "Сучасні технології програмування",
-                                      lessonRoom: "515-18",
-                                      teacherName: "ас. Шевело",
-                                      timeStart: "10:25", timeEnd: "12:00",
-                                      rate: "1.123",
-                                      teacher: Teacher(teacherID: 1,
-                                                       teacherURL: "url",
-                                                       teacherName: "ас. Шевело",
-                                                       teacherFullName: "асистент Шевело   ",
-                                                       teacherShortName: "Шевело",
-                                                       teacherRating: "1.123"),
-                                      room: Room(roomID: 1,
+                                       dayNumber: 1,
+                                       lessonNumber: 2,
+                                       lessonWeek: WeekType.first,
+                                       groupID: 123,
+                                       dayName: DayName.mounday,
+                                       lessonType: LessonType.лаб,
+                                       lessonName: "Сучасні техн. програмування",
+                                       lessonFullName: "Сучасні технології програмування",
+                                       lessonRoom: "515-18",
+                                       teacherName: "ас. Шевело",
+                                       timeStart: "10:25", timeEnd: "12:00",
+                                       rate: "1.123",
+                                       teacher: Teacher(teacherID: 1,
+                                                        teacherURL: "url",
+                                                        teacherName: "ас. Шевело",
+                                                        teacherFullName: "асистент Шевело   ",
+                                                        teacherShortName: "Шевело",
+                                                        teacherRating: "1.123"),
+                                       room: Room(roomID: 1,
                                                   roomName: "515-18",
                                                   roomLatitude: "1.123",
                                                   roomLongitude: "1.123"),
-                                      groups: nil)
+                                       groups: nil)
     
     static var defaultArratOfLesson: [Lesson] = Array(repeating: defaultLesson, count: 3)
     
     static var previewLessons: [Lesson] = [previewLesson1, previewLesson2]
 }
+
+
+extension Lesson: Comparable {
+    
+    public static func < (lhs: Lesson, rhs: Lesson) -> Bool {
+        if lhs.lessonWeek != rhs.lessonWeek {
+            return lhs.lessonWeek < rhs.lessonWeek
+        } else if lhs.dayNumber != rhs.dayNumber {
+            return lhs.dayNumber < rhs.dayNumber
+        } else {
+            return lhs.lessonNumber < rhs.lessonNumber
+        }
+    }
+    
+    public static func == (lhs: Lesson, rhs: Lesson) -> Bool {
+        return lhs.id == rhs.id && lhs.lessonName == rhs.lessonName
+    }
+    
+}
+
 
 #if os(iOS)
 extension Lesson {
@@ -226,13 +244,8 @@ extension Lesson {
         lessonType = try values.decode(LessonType.self, forKey: .lessonType)
         lessonWeek = try values.decode(WeekType.self, forKey: .lessonWeek)
 
-        // Strings To Int
-//        guard let idCasted = try Int(values.decode(String.self, forKey: .id)) else {
-//            throw DecodingError.dataCorrupted(.init(codingPath: [CodingKeys.id], debugDescription: "Expecting string representation of Int"))
-//        }
         id = try values.decode(Int.self, forKey: .id)
 
-        
         if let dayNumberCasted = try Int(values.decode(String.self, forKey: .dayNumber)) {
             dayNumber = dayNumberCasted
         } else {
@@ -252,29 +265,10 @@ extension Lesson {
         }
         
         // Other types
-        
         teacher = try values.decode([Teacher?].self, forKey: .teacher).first as? Teacher ?? nil
         room = try values.decode([Room?].self, forKey: .room).first as? Room ?? nil
         groups = try? values.decode([Group?]?.self, forKey: .groups) ?? []
     }
 
-    
 }
 #endif
-
-
-extension Lesson: Comparable {
-    public static func < (lhs: Lesson, rhs: Lesson) -> Bool {
-        if lhs.lessonWeek != rhs.lessonWeek {
-            return lhs.lessonWeek < rhs.lessonWeek
-        } else if lhs.dayNumber != rhs.dayNumber {
-            return lhs.dayNumber < rhs.dayNumber
-        } else {
-            return lhs.lessonNumber < rhs.lessonNumber
-        }
-    }
-    
-    public static func == (lhs: Lesson, rhs: Lesson) -> Bool {
-        return lhs.id == rhs.id && lhs.lessonName == rhs.lessonName
-    }
-}

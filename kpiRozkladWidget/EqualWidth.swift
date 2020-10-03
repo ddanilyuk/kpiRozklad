@@ -8,6 +8,7 @@
 
 import SwiftUI
 
+
 struct EqualWidthPreferenceKey: PreferenceKey {
     typealias Value = CGFloat
     static var defaultValue: CGFloat = 0
@@ -15,6 +16,7 @@ struct EqualWidthPreferenceKey: PreferenceKey {
         value = nextValue()
     }
 }
+
 
 struct EqualWidth: ViewModifier {
     let width: Binding<CGFloat?>
@@ -27,6 +29,7 @@ struct EqualWidth: ViewModifier {
             }
     }
 }
+
 
 extension View {
     func equalWidth(_ width: Binding<CGFloat?>) -> some View {

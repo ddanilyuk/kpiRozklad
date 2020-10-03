@@ -11,7 +11,6 @@ import PromiseKit
 
 
 // MARK: - API Service protocol
-
 protocol APIService {
     
     func getStudentLessons(groupId: Int) -> Promise<ArrayDataResponse<Lesson>>
@@ -27,7 +26,6 @@ protocol APIService {
 
 
 // MARK: - Common networking logic
-
 class NetworkingApi {
     
     private enum NetworkingApiTarget {
@@ -52,7 +50,6 @@ class NetworkingApi {
                 return URL(string: "https://api.rozklad.org.ua/v2/groups/?filter=%7B'showAll':true%7D")!
             case .getAllTeachers:
                 return URL(string: "https://api.rozklad.org.ua/v2/teachers/?filter=%7B'showAll':true%7D")!
-        
             }
         }
     }

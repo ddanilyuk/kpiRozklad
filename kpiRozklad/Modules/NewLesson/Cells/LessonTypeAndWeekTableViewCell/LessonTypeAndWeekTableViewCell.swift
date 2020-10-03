@@ -8,17 +8,20 @@
 
 import UIKit
 
+
 /// Enum of `LessonTypeAndWeekTableViewCell`
 enum LessonTypeAndWeekTableViewCellType {
     case lessonType
     case week
 }
 
+
 /// Delegate of `LessonTypeAndWeekTableViewCell`
 protocol LessonTypeAndWeekTableViewCellDelegate {
     func userSelectweek(week: WeekType)
     func userSelectType(type: LessonType)
 }
+
 
 class LessonTypeAndWeekTableViewCell: UITableViewCell {
 

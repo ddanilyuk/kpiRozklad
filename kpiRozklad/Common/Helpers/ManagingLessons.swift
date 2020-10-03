@@ -81,7 +81,6 @@ func getCurrentAndNextLesson(lessons: [Lesson],
     return (nextLessonID: nextLessonId, currentLessonID: currentLessonId)
 }
 
-
 /**
  Make lesson timeStart and timeEnd
 
@@ -119,7 +118,6 @@ func getTimeFromLessonNumber(lessonNumber: Int) -> (timeStart: String, timeEnd: 
     
     return (timeStart: timeStart, timeEnd: timeEnd)
 }
-
 
 /**
  Sort lessons in normal order

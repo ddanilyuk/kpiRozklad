@@ -8,6 +8,7 @@
 
 import UIKit
 
+
 class BoardingViewController: UIViewController {
 
     var statusBarStyle = UIStatusBarStyle.lightContent { didSet { setNeedsStatusBarAppearanceUpdate() } }
@@ -32,6 +33,6 @@ class BoardingViewController: UIViewController {
                 self.presentPanModal(vc)
             }
         }
-//        isPopUpPresented = true
     }
+    
 }

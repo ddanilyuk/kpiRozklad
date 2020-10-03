@@ -16,7 +16,6 @@ struct Provider: TimelineProvider {
     
     typealias Entry = LessonsEntry
     
-    
     init(context: NSManagedObjectContext) {
         self.managedObjectContext = context
     }
@@ -174,6 +173,7 @@ struct KPIRozkladWidget: Widget {
         }
     }
 }
+
 
 struct kpiRozkladWidget_Previews: PreviewProvider {
     static var previews: some View {

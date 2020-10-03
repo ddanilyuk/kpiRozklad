@@ -18,7 +18,6 @@ public enum DayName: String, Codable, Comparable, CaseIterable, Hashable {
     case friday = "П’ятниця"
     case saturday = "Субота"
     
-    
     var sortOrder: Int {
         switch self {
         case .mounday:

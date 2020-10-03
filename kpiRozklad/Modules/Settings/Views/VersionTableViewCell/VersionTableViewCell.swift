@@ -29,4 +29,5 @@ class VersionTableViewCell: UITableViewCell {
     @IBAction func didPressVersionButton(_ sender: UIButton) {
         delegate?.userPressVersionButton()
     }
+    
 }

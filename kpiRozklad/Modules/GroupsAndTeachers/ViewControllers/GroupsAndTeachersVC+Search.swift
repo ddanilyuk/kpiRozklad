@@ -8,7 +8,7 @@
 
 import UIKit
 
-//MARK: - extencions for search
+
 extension GroupsAndTeachersViewController: UISearchResultsUpdating {
 
     func updateSearchResults(for searchController: UISearchController) {

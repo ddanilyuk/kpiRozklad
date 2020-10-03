@@ -65,6 +65,7 @@ extension String {
     var stringTime: String {
         return String(self[0..<5])
     }
+    
 }
 
 
@@ -102,4 +103,5 @@ extension StringProtocol {
             }
         return result
     }
+    
 }

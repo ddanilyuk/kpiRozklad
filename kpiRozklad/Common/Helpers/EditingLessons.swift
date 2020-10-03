@@ -12,6 +12,7 @@ import UIKit
 import WidgetKit
 #endif
 
+
 func editLessonNumber(vc: SheduleViewController, indexPath: IndexPath) {
     guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
     let managedContext = appDelegate.persistentContainer.viewContext
@@ -110,7 +111,6 @@ func editLessonNumber(vc: SheduleViewController, indexPath: IndexPath) {
     }
     vc.lessonNumberFromPicker = 1
 }
-
 
 func moveRow(vc: SheduleViewController, sourceIndexPath: IndexPath, destinationIndexPath: IndexPath) {
     if sourceIndexPath == destinationIndexPath {
@@ -251,7 +251,6 @@ func moveRow(vc: SheduleViewController, sourceIndexPath: IndexPath, destinationI
     }
     
 }
-
 
 func NASTYA_LYBIAMAYA(i: Int, fullDayLessons: inout [Lesson?],  lessonTemp1: inout Lesson?, lessonTemp2: inout Lesson?) {
     lessonTemp1 = fullDayLessons[i]

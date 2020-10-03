@@ -73,7 +73,6 @@ class PopUpPanModalViewController: UIViewController, PanModalPresentable {
         }
     }
     
-    
     @IBAction func didPressTeacherButton(_ sender: UIButton) {
         isTouchedStudent = false
         
@@ -85,7 +84,6 @@ class PopUpPanModalViewController: UIViewController, PanModalPresentable {
             studentButton.borderColor = .gray
         }
     }
-    
     
     @IBAction func didPressChoose(_ sender: UIButton) {
         if isTouchedStudent {
@@ -103,7 +101,6 @@ class PopUpPanModalViewController: UIViewController, PanModalPresentable {
         }
     }
     
-    
     @IBAction func didPressStudentButton(_ sender: UIButton) {
         isTouchedStudent = true
         
@@ -115,8 +112,7 @@ class PopUpPanModalViewController: UIViewController, PanModalPresentable {
             teacherButton.borderColor = .gray
         }
     }
-            
-        
+    
     // MARK: - presentGroupChooser
     /// Func which present `GroupChooserViewController` (navigationGroupChooser)
     func presentGroupOrTeacherChooser(requestType: SheduleType) {
@@ -141,4 +137,5 @@ class PopUpPanModalViewController: UIViewController, PanModalPresentable {
             }
         }
     }
+    
 }

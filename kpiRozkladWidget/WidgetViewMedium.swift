@@ -20,9 +20,9 @@ struct WidgetViewMedium: View {
     var settings = Settings.shared
     
 
-    let color1: Color = Color(red: 44 / 255, green: 90 / 255, blue: 180 / 255)
+    let leftGradientColor: Color = Color(red: 44 / 255, green: 90 / 255, blue: 180 / 255)
 
-    let color2: Color = Color(red: 87 / 255, green: 157 / 255, blue: 130 / 255)
+    let rightGradientColor: Color = Color(red: 87 / 255, green: 157 / 255, blue: 130 / 255)
 
 
     var date: Date
@@ -35,7 +35,7 @@ struct WidgetViewMedium: View {
     var body: some View {
         
         ZStack {
-            LinearGradient(gradient: Gradient(colors: [color1, color2]),
+            LinearGradient(gradient: Gradient(colors: [leftGradientColor, rightGradientColor]),
                            startPoint: .leading,
                            endPoint: .trailing)
                 .edgesIgnoringSafeArea(.all)

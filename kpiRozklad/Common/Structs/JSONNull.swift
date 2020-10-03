@@ -28,4 +28,5 @@ class JSONNull: Codable {
         var container = encoder.singleValueContainer()
         try container.encodeNil()
     }
+    
 }

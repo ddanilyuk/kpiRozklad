@@ -9,6 +9,7 @@
 import WatchConnectivity
 import UIKit
 
+
 func reloadDataOnAppleWatch() {
     if WCSession.isSupported() {
         let session = WCSession.default
@@ -17,7 +18,6 @@ func reloadDataOnAppleWatch() {
             let managedContext = appDelegate.persistentContainer.viewContext
             
             let settings = Settings.shared
-            
             let lessons = fetchingCoreData(managedContext: managedContext)
             
             let encoder = JSONEncoder.init()
@@ -28,16 +28,18 @@ func reloadDataOnAppleWatch() {
             let nextColourData = settings.cellNextColour.encode()
             
             let dictionary: [String: Any] = ["lessons": dataLessons,
-                                             // "time": Date().timeIntervalSince1970,
                                              "groupOrTeacherName": groupOrTeacherName,
                                              "currentColourData": currentColourData,
                                              "nextColourData": nextColourData]
             
             /// updateApplicationContext is not working on watch os 7
-             try session.updateApplicationContext(dictionary)
-//            session.sendMessage(dictionary, replyHandler: nil) { error in
-//                print(error.localizedDescription)
-//            }
+            try session.updateApplicationContext(dictionary)
+            
+            /*
+            session.sendMessage(dictionary, replyHandler: nil) { error in
+                print(error.localizedDescription)
+            }
+            */
             print("Session data sended")
         } catch {
             print("Error: \(error)")

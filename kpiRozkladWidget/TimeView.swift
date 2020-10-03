@@ -31,7 +31,6 @@ struct TimeView: View {
         
     }
     
-    
     func getTextFromLessonTime(lesson: Lesson) -> Text {
         let (dateStart, dateEnd) = getDateStartAndEnd(of: lesson)
         var (dayNumberFromCurrentDate, currentWeekFromTodayDate) = getCurrentWeekAndDayNumber(date: date)

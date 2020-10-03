@@ -154,7 +154,6 @@
 		5F8EF102242D30AE00E74220 /* PanModalPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F8EF0F5242D30AE00E74220 /* PanModalPresentationController.swift */; };
 		5F8EF103242D30AE00E74220 /* PanModalAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F8EF0F6242D30AE00E74220 /* PanModalAnimator.swift */; };
 		5F8EF104242D30AE00E74220 /* PanModalHeight.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F8EF0F7242D30AE00E74220 /* PanModalHeight.swift */; };
-		5F96B89924339DE50035DA86 /* UITableViewCell+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F96B89824339DE50035DA86 /* UITableViewCell+Extensions.swift */; };
 		5F96B89B2433A41A0035DA86 /* GroupsAndTeachersVC+Search.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F96B89A2433A41A0035DA86 /* GroupsAndTeachersVC+Search.swift */; };
 		5FA2B79D2379F5A7006C466B /* Group.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FA2B79C2379F5A7006C466B /* Group.swift */; };
 		5FA57FA024956519002DCD4A /* Lesson.swift in Sources */ = {isa = PBXBuildFile; fileRef = D313F4B1233C773B0076CFF8 /* Lesson.swift */; };
@@ -412,7 +411,6 @@
 		5F8EF0F5242D30AE00E74220 /* PanModalPresentationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PanModalPresentationController.swift; sourceTree = "<group>"; };
 		5F8EF0F6242D30AE00E74220 /* PanModalAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PanModalAnimator.swift; sourceTree = "<group>"; };
 		5F8EF0F7242D30AE00E74220 /* PanModalHeight.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PanModalHeight.swift; sourceTree = "<group>"; };
-		5F96B89824339DE50035DA86 /* UITableViewCell+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableViewCell+Extensions.swift"; sourceTree = "<group>"; };
 		5F96B89A2433A41A0035DA86 /* GroupsAndTeachersVC+Search.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GroupsAndTeachersVC+Search.swift"; sourceTree = "<group>"; };
 		5FA2B79C2379F5A7006C466B /* Group.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Group.swift; sourceTree = "<group>"; };
 		5FA57FC224956578002DCD4A /* Meta.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Meta.swift; sourceTree = "<group>"; };
@@ -1063,7 +1061,6 @@
 				5FCBBA00241C41DE00E7654F /* UIViewController+Extensions.swift */,
 				5FCBBA02241C45BD00E7654F /* UITableViewCellExtensions.swift */,
 				5FCBBA21241C501E00E7654F /* UIColor+Extensions.swift */,
-				5F96B89824339DE50035DA86 /* UITableViewCell+Extensions.swift */,
 				5F506EE3248ED0CC00B6F544 /* Date+Extensions.swift */,
 				5F7A000224B78D2C00E33B81 /* UIActivityIndicator+Extensions.swift */,
 			);
@@ -1645,7 +1642,6 @@
 				D300F1DC2365BC270098CA83 /* Teacher.swift in Sources */,
 				5F8EF102242D30AE00E74220 /* PanModalPresentationController.swift in Sources */,
 				5FCBBA1E241C4FCC00E7654F /* ColorPickerCellMy.swift in Sources */,
-				5F96B89924339DE50035DA86 /* UITableViewCell+Extensions.swift in Sources */,
 				5FE9678324091880000AD157 /* TeachersNavigationController.swift in Sources */,
 				5FCBBA01241C41DE00E7654F /* UIViewController+Extensions.swift in Sources */,
 				5FF43FD924CCC25A005E1A7E /* WatchKitHelpers.swift in Sources */,

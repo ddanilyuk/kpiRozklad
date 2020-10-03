@@ -9,10 +9,9 @@
 import UIKit
 
 public class Settings {
-//    private var userDefaults = UserDefaults.standard
+    
     private var userDefaultsWidget = UserDefaults(suiteName: "group.kpiRozkladWidget") ?? UserDefaults()
 
-     
     static let shared = Settings()
      
     var isTryToRefreshShedule: Bool {
@@ -126,7 +125,6 @@ public class Settings {
         }
     }
     
-    
     var cellCurrentColour: UIColor {
         get {
             let color = try? NSKeyedUnarchiver.unarchivedObject(ofClass: UIColor.self, from: userDefaultsWidget.data(forKey: "cellCurrentColour") ?? Data())
@@ -143,4 +141,5 @@ public class Settings {
             }
         }
     }
+    
  }

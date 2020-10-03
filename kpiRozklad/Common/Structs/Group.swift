@@ -9,7 +9,6 @@
 import Foundation
 
 
-// MARK: - Datum
 public struct Group: Codable, Hashable {
     let groupID: Int
     let groupFullName: String
@@ -27,6 +26,7 @@ public struct Group: Codable, Hashable {
         case groupURL = "group_url"
     }
 }
+
 
 #if os(iOS)
 extension Group {
@@ -58,4 +58,3 @@ public enum GroupType: String, Codable, Hashable {
     case daily = "daily"
     case extramural = "extramural"
 }
-

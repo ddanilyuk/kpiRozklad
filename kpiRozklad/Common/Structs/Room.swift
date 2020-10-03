@@ -21,6 +21,7 @@ public struct Room: Codable, Hashable {
     }
 }
 
+
 #if os(iOS)
 extension Room {
     public init(from decoder: Decoder) throws {

@@ -25,8 +25,8 @@ extension UIViewController {
         view.endEditing(true)
     }
     
-    
 }
+
 
 extension UIViewController {
     
@@ -63,4 +63,5 @@ extension UIViewController {
             return UIScreen.main.bounds.height > 568
         }
     }
+    
 }

@@ -183,13 +183,11 @@ extension ColourPickerViewController: ColorPickerViewDelegate {
 }
  
 
-// MARK: - ColorPickerViewDelegateFlowLayout
 extension ColourPickerViewController: ColorPickerViewDelegateFlowLayout {
     
     func colorPickerView(_ colorPickerView: ColorPickerView, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return 20
     }
-    
     
     func colorPickerView(_ colorPickerView: ColorPickerView, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
         return 20
@@ -198,7 +196,6 @@ extension ColourPickerViewController: ColorPickerViewDelegateFlowLayout {
 }
 
 
-// MARK: - UITableViewDelegate + DataSource
 extension ColourPickerViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

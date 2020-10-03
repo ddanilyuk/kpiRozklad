@@ -8,17 +8,13 @@
 import SwiftUI
 
 
-
-
-
 struct LessonRow: View {
     
     var lesson: Lesson
     
-    @Environment(\.redactionReasons) var redactionReasons
-    
     var date: Date
     
+    @Environment(\.redactionReasons) var redactionReasons
     
     @State private var textMinWidth: CGFloat?
 
@@ -28,43 +24,27 @@ struct LessonRow: View {
                 
                 Text(lesson.timeStart.stringTime)
                     .font(.caption)
-                    
                     .equalWidth($textMinWidth)
-//                    .font(.system(.caption, design: .monospaced))
-
-//                    .frame(width: 40, alignment: .leading)
-//                    .frame(minWidth: 40, idealWidth: 45, maxWidth: 50, alignment: .leading)
-
                     .redacted(reason: redactionReasons)
-
 
                 Text(lesson.lessonName)
                     .lineLimit(1)
                     .font(.body)
-                    
                     .redacted(reason: redactionReasons)
-
                 
                 Spacer()
             }.padding(.bottom, 0)
             
             HStack(alignment: .center, spacing: 8.0) {
+                
                 Text("00:00")
                     .foregroundColor(.clear)
                     .font(.caption)
-                    
                     .equalWidth($textMinWidth)
-
-
-//                    .font(.system(.caption, design: .monospaced))
-//                    .frame(width: 40, alignment: .leading)
-//                    .frame(minWidth: 40, idealWidth: 45, maxWidth: 50, alignment: .leading)
-
 
                 Text(lesson.teacherName.deleteLeftWhitespaces())
                     .font(.caption)
                     .redacted(reason: redactionReasons)
-
                 
                 Spacer()
             }
@@ -73,20 +53,12 @@ struct LessonRow: View {
                 Text(lesson.timeEnd.stringTime)
                     .font(.caption)
                     .equalWidth($textMinWidth)
-
-//                    .font(.system(.caption, design: .monospaced))
-
                     .redacted(reason: redactionReasons)
-//                    .frame(minWidth: 40, idealWidth: 45, maxWidth: 50, alignment: .leading)
-
-//                    .frame(width: 40, alignment: .leading)
-
 
                 let lessonRoomAndType = lesson.lessonRoom + " " + lesson.lessonType.rawValue
                 Text(lessonRoomAndType.deleteLeftWhitespaces())
                     .font(.caption)
                     .redacted(reason: redactionReasons)
-
                 
                 Spacer(minLength: 0)
                 

@@ -34,13 +34,11 @@ class NewLessonViewController: UIViewController {
         5: "Оберіть день та пару"
     ]
     
-    
     var lessons: [Lesson] = []
     
     var settings = Settings.shared
     
     var delegate: NewLessonViewControllerDelegate?
-    
     
     var lessonName = String()
     
@@ -226,10 +224,13 @@ class NewLessonViewController: UIViewController {
         tableView.register(UINib(nibName: LessonTypeAndWeekTableViewCell.identifier, bundle: Bundle.main), forCellReuseIdentifier: LessonTypeAndWeekTableViewCell.identifier)
         tableView.register(UINib(nibName: DropDownPickerTableViewCell.identifier, bundle: Bundle.main), forCellReuseIdentifier: DropDownPickerTableViewCell.identifier)
         tableView.register(UINib(nibName: LessonDayAndNumberTableViewCell.identifier, bundle: Bundle.main), forCellReuseIdentifier: LessonDayAndNumberTableViewCell.identifier)
-        }
+    }
+    
 }
 
+
 extension NewLessonViewController: UITableViewDelegate, UITableViewDataSource {
+    
     func numberOfSections(in tableView: UITableView) -> Int {
         return 6
     }
@@ -349,6 +350,7 @@ extension NewLessonViewController: UITableViewDelegate, UITableViewDataSource {
             return cell
         }
     }
+    
 }
 
 
@@ -390,6 +392,7 @@ extension NewLessonViewController: TextFieldAndButtonTableViewCellDelegate {
             tableView.deleteRows(at: [IndexPath(row: 1, section: indexPath.section)], with: .fade)
         }
     }
+    
 }
 
 
@@ -406,6 +409,7 @@ extension NewLessonViewController: DropDownPickerTableViewCellDelegate {
             return
         }
     }
+    
 }
 
 
@@ -417,6 +421,7 @@ extension NewLessonViewController: LessonDayAndNumberTableViewCellDelegate {
         self.lessonNumber = lessonNumber
         cell.configureCell(text: "\(lessonDay.rawValue), \(lessonNumber) пара", placeholder: nil)
     }
+    
 }
 
 
@@ -437,4 +442,5 @@ extension NewLessonViewController: LessonTypeAndWeekTableViewCellDelegate {
     func userSelectType(type: LessonType) {
         self.lessonType = type
     }
+    
 }

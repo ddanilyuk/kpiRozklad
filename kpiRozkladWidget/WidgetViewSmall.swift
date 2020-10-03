@@ -6,8 +6,8 @@
 //  Copyright © 2020 Denis Danilyuk. All rights reserved.
 //
 
+
 #if canImport(WidgetKit)
-//import WidgetKit
 import SwiftUI
 import WidgetKit
 
@@ -19,9 +19,8 @@ struct WidgetViewSmall: View {
     
     var settings = Settings.shared
     
-    let color1: Color = Color(red: 44 / 255, green: 90 / 255, blue: 180 / 255)
-    let color2: Color = Color(red: 87 / 255, green: 157 / 255, blue: 130 / 255)
-    
+    let leftGradientColor: Color = Color(red: 44 / 255, green: 90 / 255, blue: 180 / 255)
+    let rightGradientColor: Color = Color(red: 87 / 255, green: 157 / 255, blue: 130 / 255)
     
     init(lessons: [Lesson], date: Date) {
         self.date = date
@@ -31,12 +30,9 @@ struct WidgetViewSmall: View {
     }
     
     var body: some View {
-        
-        
-        
         ZStack {
             LinearGradient(gradient:
-                                Gradient(colors: [color1, color2]),
+                                Gradient(colors: [leftGradientColor, rightGradientColor]),
                            startPoint: .leading, endPoint: .trailing)
                 .edgesIgnoringSafeArea(.all)
             
@@ -44,19 +40,12 @@ struct WidgetViewSmall: View {
                 VStack(alignment: .center, spacing: 0.0) {
                     
                     let dateLesson = getDateStartAndEnd(of: lesson, dateNow: date)
-                    
                     let (dayNumberFromCurrentDate, currentWeekFromTodayDate) = getCurrentWeekAndDayNumber(date: date)
-                    
                     let isLessonToday = lesson.dayNumber == dayNumberFromCurrentDate && currentWeekFromTodayDate == lesson.lessonWeek
-                    
                     let text = dateLesson.dateStart <= date && dateLesson.dateEnd > date && isLessonToday ? "Зараз" : "Далі"
                     
                     Text(text)
-                        //                    .font(.headline)
                         .font(.body).bold()
-                        //                    .padding(.leading, 20)
-                        //                    .padding(.top, -10)
-                        //                    .padding(.bottom, -3)
                         .lineLimit(1)
                         .foregroundColor(Color(#colorLiteral(red: 0.9712373614, green: 0.6793045998, blue: 0, alpha: 1)))
                     

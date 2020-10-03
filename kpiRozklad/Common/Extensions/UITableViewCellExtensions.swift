@@ -10,7 +10,9 @@ import UIKit
 
 
 extension UITableViewCell {
+    
     func separator(shouldBeHidden: Bool) {
         separatorInset.left += shouldBeHidden ? bounds.size.width : 0
     }
+    
 }

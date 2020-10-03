@@ -65,10 +65,10 @@ class PopUpPanModalViewController: UIViewController, PanModalPresentable {
     
     override func viewDidAppear(_ animated: Bool) {
         if #available(iOS 13.0, *) {
-            studentButton.borderColor = .label
+            studentButton.borderColor = .link
             teacherButton.borderColor = .tertiaryLabel
         } else {
-            studentButton.borderColor = .black
+            studentButton.borderColor = .systemBlue
             teacherButton.borderColor = .lightGray
         }
     }
@@ -78,10 +78,10 @@ class PopUpPanModalViewController: UIViewController, PanModalPresentable {
         isTouchedStudent = false
         
         if #available(iOS 13.0, *) {
-            teacherButton.borderColor = .label
+            teacherButton.borderColor = .link
             studentButton.borderColor = .tertiaryLabel
         } else {
-            teacherButton.borderColor = .black
+            teacherButton.borderColor = .systemBlue
             studentButton.borderColor = .gray
         }
     }
@@ -108,10 +108,10 @@ class PopUpPanModalViewController: UIViewController, PanModalPresentable {
         isTouchedStudent = true
         
         if #available(iOS 13.0, *) {
-            studentButton.borderColor = .label
+            studentButton.borderColor = .link
             teacherButton.borderColor = .tertiaryLabel
         } else {
-            studentButton.borderColor = .black
+            studentButton.borderColor = .systemBlue
             teacherButton.borderColor = .gray
         }
     }

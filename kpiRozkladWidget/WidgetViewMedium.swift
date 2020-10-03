@@ -35,12 +35,10 @@ struct WidgetViewMedium: View {
     var body: some View {
         
         ZStack {
-            LinearGradient(gradient:
-                            Gradient(colors: [color1, color2]),
+            LinearGradient(gradient: Gradient(colors: [color1, color2]),
                            startPoint: .leading,
                            endPoint: .trailing)
                 .edgesIgnoringSafeArea(.all)
-            
             
             if self.lessons != Lesson.defaultArratOfLesson {
                 VStack(alignment: .leading, spacing: 1) {
@@ -50,7 +48,7 @@ struct WidgetViewMedium: View {
                         .font(.body).bold()
                         .padding(.leading, 20)
                         .padding(.top, -6)
-                        .padding(.bottom, -3)
+                        .padding(.bottom, -2)
                         .foregroundColor(Color(#colorLiteral(red: 0.9712373614, green: 0.6793045998, blue: 0, alpha: 1)))
                         .redacted(reason: redactionReasons)
                     
@@ -60,7 +58,6 @@ struct WidgetViewMedium: View {
                         LessonRow(lesson: lessons[0], date: date)
                             .foregroundColor(.white)
                     }
-                    
                     
                     Spacer(minLength: 3.0)
                     
@@ -79,8 +76,6 @@ struct WidgetViewMedium: View {
             } else {
                 SelectSheduleView()
             }
-
-            
         }
     }
 }

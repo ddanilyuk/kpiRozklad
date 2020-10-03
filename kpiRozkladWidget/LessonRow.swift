@@ -7,6 +7,10 @@
 
 import SwiftUI
 
+
+
+
+
 struct LessonRow: View {
     
     var lesson: Lesson
@@ -15,13 +19,22 @@ struct LessonRow: View {
     
     var date: Date
     
+    
+    @State private var textMinWidth: CGFloat?
+
     var body: some View {
         VStack {
-            HStack(alignment: VerticalAlignment.firstTextBaseline, spacing: 0.0) {
+            HStack(alignment: VerticalAlignment.firstTextBaseline, spacing: 8.0) {
                 
                 Text(lesson.timeStart.stringTime)
                     .font(.caption)
-                    .frame(width: 40, alignment: .leading)
+                    
+                    .equalWidth($textMinWidth)
+//                    .font(.system(.caption, design: .monospaced))
+
+//                    .frame(width: 40, alignment: .leading)
+//                    .frame(minWidth: 40, idealWidth: 45, maxWidth: 50, alignment: .leading)
+
                     .redacted(reason: redactionReasons)
 
 
@@ -35,9 +48,18 @@ struct LessonRow: View {
                 Spacer()
             }.padding(.bottom, 0)
             
-            HStack(alignment: .center, spacing: 0.0) {
-                Text("")
-                    .frame(width: 40, alignment: .leading)
+            HStack(alignment: .center, spacing: 8.0) {
+                Text("00:00")
+                    .foregroundColor(.clear)
+                    .font(.caption)
+                    
+                    .equalWidth($textMinWidth)
+
+
+//                    .font(.system(.caption, design: .monospaced))
+//                    .frame(width: 40, alignment: .leading)
+//                    .frame(minWidth: 40, idealWidth: 45, maxWidth: 50, alignment: .leading)
+
 
                 Text(lesson.teacherName.deleteLeftWhitespaces())
                     .font(.caption)
@@ -47,11 +69,17 @@ struct LessonRow: View {
                 Spacer()
             }
             
-            HStack(alignment: VerticalAlignment.firstTextBaseline, spacing: 0.0) {
+            HStack(alignment: VerticalAlignment.firstTextBaseline, spacing: 8.0) {
                 Text(lesson.timeEnd.stringTime)
                     .font(.caption)
+                    .equalWidth($textMinWidth)
+
+//                    .font(.system(.caption, design: .monospaced))
+
                     .redacted(reason: redactionReasons)
-                    .frame(width: 40, alignment: .leading)
+//                    .frame(minWidth: 40, idealWidth: 45, maxWidth: 50, alignment: .leading)
+
+//                    .frame(width: 40, alignment: .leading)
 
 
                 let lessonRoomAndType = lesson.lessonRoom + " " + lesson.lessonType.rawValue

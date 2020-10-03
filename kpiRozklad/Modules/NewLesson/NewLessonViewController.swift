@@ -121,7 +121,7 @@ class NewLessonViewController: UIViewController {
         return result
     }
 
-    @IBAction func didPressAddLesson(_ sender: UIBarButtonItem) {
+    @IBAction func didPressAddLesson(_ sender: UIButton) {
         /// Creating new unical IDs for name, teacher and room
         var newUnicalLessonID = Int.random(in: 1..<9999)
         while lessons.contains(where: { $0.id == newUnicalLessonID }) {
@@ -226,12 +226,7 @@ class NewLessonViewController: UIViewController {
         tableView.register(UINib(nibName: LessonTypeAndWeekTableViewCell.identifier, bundle: Bundle.main), forCellReuseIdentifier: LessonTypeAndWeekTableViewCell.identifier)
         tableView.register(UINib(nibName: DropDownPickerTableViewCell.identifier, bundle: Bundle.main), forCellReuseIdentifier: DropDownPickerTableViewCell.identifier)
         tableView.register(UINib(nibName: LessonDayAndNumberTableViewCell.identifier, bundle: Bundle.main), forCellReuseIdentifier: LessonDayAndNumberTableViewCell.identifier)
-        
-        let footer = UIView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: 50))
-        
-        footer.backgroundColor = .green
-        tableView.tableFooterView = footer
-    }
+        }
 }
 
 extension NewLessonViewController: UITableViewDelegate, UITableViewDataSource {

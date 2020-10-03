@@ -32,5 +32,6 @@ class BoardingViewController: UIViewController {
                 self.presentPanModal(vc)
             }
         }
+//        isPopUpPresented = true
     }
 }

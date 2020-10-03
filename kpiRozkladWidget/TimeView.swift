@@ -14,7 +14,6 @@ struct TimeView: View {
     
     @Environment(\.redactionReasons) var redactionReasons
 
-    
     var date: Date
 
     var body: some View {

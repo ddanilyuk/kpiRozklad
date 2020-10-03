@@ -33,7 +33,7 @@ struct SelectSheduleView: View {
                         .clipped()
 //                        .background(ContainerRelativeShape().fill(Color.orange))
 
-                        .background(Color.orange)
+                        .background(Color(#colorLiteral(red: 0.9712373614, green: 0.6793045998, blue: 0, alpha: 1)))
 
                         .cornerRadius(8)
                 })

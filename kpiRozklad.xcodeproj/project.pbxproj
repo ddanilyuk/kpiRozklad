@@ -198,6 +198,7 @@
 		5FACFF9023ED648D0022DF88 /* LessonTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D313F4B4233D1F090076CFF8 /* LessonTableViewCell.xib */; };
 		5FACFF9123ED65020022DF88 /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F5000AE238D704A0003E13B /* UIView+Extension.swift */; };
 		5FB0F62E2528C1A700365FF5 /* SelectSheduleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FB0F62D2528C1A700365FF5 /* SelectSheduleView.swift */; };
+		5FB0F6362528D68400365FF5 /* EqualWidth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FB0F6352528D68400365FF5 /* EqualWidth.swift */; };
 		5FC991EE23DF10BB00612266 /* ServerUpdateTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FC991EC23DF10BB00612266 /* ServerUpdateTableViewCell.swift */; };
 		5FC991EF23DF10BB00612266 /* ServerUpdateTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5FC991ED23DF10BB00612266 /* ServerUpdateTableViewCell.xib */; };
 		5FCBB9FD241C404F00E7654F /* String+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FCBB9FC241C404F00E7654F /* String+Extensions.swift */; };
@@ -427,6 +428,7 @@
 		5FACFF8323ED63D40022DF88 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
 		5FACFF8523ED63D40022DF88 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5FB0F62D2528C1A700365FF5 /* SelectSheduleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectSheduleView.swift; sourceTree = "<group>"; };
+		5FB0F6352528D68400365FF5 /* EqualWidth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EqualWidth.swift; sourceTree = "<group>"; };
 		5FC991EC23DF10BB00612266 /* ServerUpdateTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerUpdateTableViewCell.swift; sourceTree = "<group>"; };
 		5FC991ED23DF10BB00612266 /* ServerUpdateTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ServerUpdateTableViewCell.xib; sourceTree = "<group>"; };
 		5FCBB9FC241C404F00E7654F /* String+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extensions.swift"; sourceTree = "<group>"; };
@@ -673,6 +675,7 @@
 				5FB0F62D2528C1A700365FF5 /* SelectSheduleView.swift */,
 				5F76322A24B252990022C952 /* LessonRow.swift */,
 				5F7A000024B7797C00E33B81 /* TimeView.swift */,
+				5FB0F6352528D68400365FF5 /* EqualWidth.swift */,
 				5F76322C24B252B10022C952 /* WidgetHelpers.swift */,
 				5F7631FE24B251F90022C952 /* KPIRozkladWidget.swift */,
 				5F76320024B251F90022C952 /* Assets.xcassets */,
@@ -1465,6 +1468,7 @@
 				5F76322524B252700022C952 /* Group.swift in Sources */,
 				5F76321824B252480022C952 /* TeachersData+CoreDataClass.swift in Sources */,
 				5F76322624B252700022C952 /* ErrorMessage.swift in Sources */,
+				5FB0F6362528D68400365FF5 /* EqualWidth.swift in Sources */,
 				5F76321E24B252600022C952 /* Colours.swift in Sources */,
 				5F76321C24B252540022C952 /* ManagingLessons.swift in Sources */,
 				5F76321A24B252480022C952 /* LessonData+CoreDataProperties.swift in Sources */,

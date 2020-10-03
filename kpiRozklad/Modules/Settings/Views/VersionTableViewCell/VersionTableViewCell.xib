@@ -21,7 +21,7 @@
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wWz-Pc-ED4">
                         <rect key="frame" x="102.5" y="5.5" width="115" height="33"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                        <state key="normal" title="Версія 2.0 (13)">
+                        <state key="normal" title="Версія 2.0 (14)">
                             <color key="titleColor" systemColor="labelColor"/>
                         </state>
                         <connections>

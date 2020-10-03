@@ -118,7 +118,9 @@ extension SheduleViewController: UITableViewDelegate, UITableViewDataSource {
     
     // MARK: - didSelectRowAt
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if indexPath.section == 0 && isEditing {
+        print(indexPath)
+        print(isEditing)
+        if isEditing && indexPath.section == 0 {
             presentNewLesson()
         } else if isEditing {
             /// Presenting alert (popup) with pickerView
@@ -178,6 +180,9 @@ extension SheduleViewController: UITableViewDelegate, UITableViewDataSource {
             let cell = UITableViewCell(style: .default, reuseIdentifier: "addCell")
             cell.textLabel?.text = "Додати пару"
             cell.backgroundColor = cellBackgroundColor
+//            cell.isUserInteractionEnabled = true
+//            cell.userInteractionEnabledWhileDragging = true
+
             return cell
         }
         
@@ -261,7 +266,7 @@ extension SheduleViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
         let newSourceIndexPath = IndexPath(row: sourceIndexPath.row, section: sourceIndexPath.section - 1)
         let newdestinationIndexPath = IndexPath(row: destinationIndexPath.row, section: destinationIndexPath.section - 1)
-        moveRow3(vc: self, sourceIndexPath: newSourceIndexPath, destinationIndexPath: newdestinationIndexPath)
+        moveRow(vc: self, sourceIndexPath: newSourceIndexPath, destinationIndexPath: newdestinationIndexPath)
     }
     
     

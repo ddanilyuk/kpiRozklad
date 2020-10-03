@@ -17,7 +17,7 @@ struct LessonRow: View {
     
     var body: some View {
         VStack {
-            HStack(alignment: .center, spacing: 2.0) {
+            HStack(alignment: VerticalAlignment.firstTextBaseline, spacing: 0.0) {
                 
                 Text(lesson.timeStart.stringTime)
                     .font(.caption)
@@ -28,34 +28,35 @@ struct LessonRow: View {
                 Text(lesson.lessonName)
                     .lineLimit(1)
                     .font(.body)
+                    
                     .redacted(reason: redactionReasons)
 
                 
                 Spacer()
             }.padding(.bottom, 0)
             
-            HStack(alignment: .center, spacing: 2.0) {
+            HStack(alignment: .center, spacing: 0.0) {
                 Text("")
                     .frame(width: 40, alignment: .leading)
 
-                Text(lesson.teacherName)
-                    .font(.footnote)
+                Text(lesson.teacherName.deleteLeftWhitespaces())
+                    .font(.caption)
                     .redacted(reason: redactionReasons)
 
                 
                 Spacer()
             }
             
-            HStack(alignment: .center, spacing: 2.0) {
+            HStack(alignment: VerticalAlignment.firstTextBaseline, spacing: 0.0) {
                 Text(lesson.timeEnd.stringTime)
                     .font(.caption)
                     .redacted(reason: redactionReasons)
                     .frame(width: 40, alignment: .leading)
 
 
-
-                Text(lesson.lessonRoom + " " + lesson.lessonType.rawValue)
-                    .font(.footnote)
+                let lessonRoomAndType = lesson.lessonRoom + " " + lesson.lessonType.rawValue
+                Text(lessonRoomAndType.deleteLeftWhitespaces())
+                    .font(.caption)
                     .redacted(reason: redactionReasons)
 
                 
@@ -67,17 +68,18 @@ struct LessonRow: View {
     }
 }
 
-
-struct LessonRow_Previews: PreviewProvider {
-    static var previews: some View {
-//        ForEach(["iPhone X", "iPhone 8"], id: \.self) { deviceName in
-//            LessonRow(lesson: lessonToTestRow)            .environment(\.colorScheme, .light)
-//        }
-        LessonRow(lesson: Lesson.defaultLesson, date: Date())
-            .previewLayout(.sizeThatFits)
-            .redacted(reason: .placeholder)
-    
-//            .environmentObject(RedactionReasons().placeholder)
-        //            .previewContext(_)
-    }
-}
+//
+//struct LessonRow_Previews: PreviewProvider {
+//    static var previews: some View {
+////        ForEach(["iPhone X", "iPhone 8"], id: \.self) { deviceName in
+////            LessonRow(lesson: lessonToTestRow)            .environment(\.colorScheme, .light)
+////        }
+//        LessonRow(lesson: Lesson.defaultLesson, date: Date())
+//            .previewLayout(.sizeThatFits)
+//            .redacted(reason: .placeholder)
+//            .prev
+//
+////            .environmentObject(RedactionReasons().placeholder)
+//        //            .previewContext(_)
+//    }
+//}

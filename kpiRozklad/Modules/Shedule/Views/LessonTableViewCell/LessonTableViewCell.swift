@@ -19,6 +19,7 @@ class LessonTableViewCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        
         // Initialization code
     }
 
@@ -33,6 +34,5 @@ class LessonTableViewCell: UITableViewCell {
         super.prepareForReuse()
         lessonLabel.text = nil
         self.backgroundColor = .none
-        
     }
 }

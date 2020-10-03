@@ -112,7 +112,7 @@ func editLessonNumber(vc: SheduleViewController, indexPath: IndexPath) {
 }
 
 
-func moveRow3(vc: SheduleViewController, sourceIndexPath: IndexPath, destinationIndexPath: IndexPath) {
+func moveRow(vc: SheduleViewController, sourceIndexPath: IndexPath, destinationIndexPath: IndexPath) {
     if sourceIndexPath == destinationIndexPath {
         return
     } else if sourceIndexPath.section == destinationIndexPath.section {

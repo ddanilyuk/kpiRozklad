@@ -19,8 +19,9 @@ struct WidgetViewSmall: View {
     
     var settings = Settings.shared
     
-    let color1: Color = Color(red: 57 / 255, green: 117 / 255, blue: 243 / 255)
-    let color2: Color = Color(red: 117 / 255, green: 210 / 255, blue: 174 / 255)
+    let color1: Color = Color(red: 44 / 255, green: 90 / 255, blue: 180 / 255)
+    let color2: Color = Color(red: 87 / 255, green: 157 / 255, blue: 130 / 255)
+    
     
     init(lessons: [Lesson], date: Date) {
         self.date = date
@@ -31,73 +32,80 @@ struct WidgetViewSmall: View {
     
     var body: some View {
         
+        
+        
         ZStack {
             LinearGradient(gradient:
                                 Gradient(colors: [color1, color2]),
                            startPoint: .leading, endPoint: .trailing)
                 .edgesIgnoringSafeArea(.all)
             
-            Color.black.opacity(0.0)
-                .edgesIgnoringSafeArea(.all)
-            
-            VStack(alignment: .center, spacing: 0.0) {
-                
-                let dateLesson = getDateStartAndEnd(of: lesson, dateNow: date)
-                                
-                let (dayNumberFromCurrentDate, currentWeekFromTodayDate) = getCurrentWeekAndDayNumber(date: date)
-                
-                let isLessonToday = lesson.dayNumber == dayNumberFromCurrentDate && currentWeekFromTodayDate == lesson.lessonWeek
-                
-                let text = dateLesson.dateStart <= date && dateLesson.dateEnd > date && isLessonToday ? "Зараз" : "Далі"
-                
-                Text(text)
-                    .font(.headline)
-                    .lineLimit(1)
-                    .foregroundColor(Color(#colorLiteral(red: 0.9712373614, green: 0.6793045998, blue: 0, alpha: 1)))
-
-                VStack(alignment: .leading) {
+            if self.lesson != Lesson.defaultArratOfLesson[0] {
+                VStack(alignment: .center, spacing: 0.0) {
                     
-                    Spacer(minLength: 0.0)
+                    let dateLesson = getDateStartAndEnd(of: lesson, dateNow: date)
                     
-                    Text(lesson.lessonFullName)
-                        .font(.body)
-                        .foregroundColor(.white)
-                        .lineLimit(2)
-                        .lineSpacing(0.0)
+                    let (dayNumberFromCurrentDate, currentWeekFromTodayDate) = getCurrentWeekAndDayNumber(date: date)
                     
-                    Spacer(minLength: 0.0)
-
-                    Text((lesson.teacher?.teacherShortName == "" ? lesson.teacherName : lesson.teacher?.teacherShortName) ?? lesson.teacherName)
-                        .font(.footnote)
-                        .foregroundColor(.white)
+                    let isLessonToday = lesson.dayNumber == dayNumberFromCurrentDate && currentWeekFromTodayDate == lesson.lessonWeek
+                    
+                    let text = dateLesson.dateStart <= date && dateLesson.dateEnd > date && isLessonToday ? "Зараз" : "Далі"
+                    
+                    Text(text)
+                        //                    .font(.headline)
+                        .font(.body).bold()
+                        //                    .padding(.leading, 20)
+                        //                    .padding(.top, -10)
+                        //                    .padding(.bottom, -3)
                         .lineLimit(1)
-
-                    Spacer(minLength: 0.0)
-
-                    Text(lesson.lessonRoom + " " + lesson.lessonType.rawValue)
-                        .font(.footnote)
-                        .foregroundColor(.white)
-
-                    Spacer(minLength: 0.0)
-
-                    TimeView(lesson: lesson, date: date)
-                        .frame(minWidth: 0, maxWidth: .infinity, alignment: .center)
-                        .foregroundColor(.white)
-
+                        .foregroundColor(Color(#colorLiteral(red: 0.9712373614, green: 0.6793045998, blue: 0, alpha: 1)))
+                    
+                    
+                    VStack(alignment: .leading) {
+                        
+                        Spacer(minLength: 0.0)
+                        
+                        Text(lesson.lessonName)
+                            .font(.body)
+                            .foregroundColor(.white)
+                            .lineLimit(2)
+                            .lineSpacing(0.0)
+                        
+                        Spacer(minLength: 0.0)
+                        
+                        Text((lesson.teacher?.teacherShortName == "" ? lesson.teacherName : lesson.teacher?.teacherShortName) ?? lesson.teacherName)
+                            .font(.footnote)
+                            .foregroundColor(.white)
+                            .lineLimit(1)
+                        
+                        Spacer(minLength: 0.0)
+                        
+                        Text(lesson.lessonRoom + " " + lesson.lessonType.rawValue)
+                            .font(.footnote)
+                            .foregroundColor(.white)
+                        
+                        Spacer(minLength: 0.0)
+                        
+                        TimeView(lesson: lesson, date: date)
+                            .frame(minWidth: 0, maxWidth: .infinity, alignment: .center)
+                            .foregroundColor(.white)
+                        
+                    }
                 }
+                .padding()
+                .widgetURL(URL(string: "kpiRozklad://\(lesson.id)"))
+            } else {
+                SelectSheduleView()
             }
-            .padding()
-            .widgetURL(URL(string: "kpiRozklad://\(lesson.id)"))
-
         }
 
     }
 }
 
-struct WidgetViewSmall_Previews: PreviewProvider {
-    static var previews: some View {
-        WidgetViewSmall(lessons: Lesson.defaultArratOfLesson, date: Date())
-            .previewContext(WidgetPreviewContext(family: .systemSmall))
-    }
-}
+//struct WidgetViewSmall_Previews: PreviewProvider {
+//    static var previews: some View {
+//        WidgetViewSmall(lessons: Lesson.defaultArratOfLesson, date: Date())
+//            .previewContext(WidgetPreviewContext(family: .systemSmall))
+//    }
+//}
 #endif

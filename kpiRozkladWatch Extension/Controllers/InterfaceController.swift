@@ -190,5 +190,6 @@ class InterfaceController: WKInterfaceController {
         row.lessonRoomLabel.setTextColor(textColour)
         row.timeStartLabel.setTextColor(textColour)
         row.timeEndLabel.setTextColor(textColour)
+        row.whenLabel.setTextColor(textColour)
     }
 }

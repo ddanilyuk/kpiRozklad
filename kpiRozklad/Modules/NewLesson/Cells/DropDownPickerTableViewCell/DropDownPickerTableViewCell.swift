@@ -79,7 +79,10 @@ extension DropDownPickerTableViewCell: UIPickerViewDelegate, UIPickerViewDataSou
     }
     
     func pickerView(_ pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusing view: UIView?) -> UIView {
-        let pickerLabel = UILabel()
+        let returnView = UIView()
+        
+        let pickerLabel = UILabel(frame: CGRect(x: 16, y: 0, width: Int(pickerView.frame.width), height: 30))
+        print(pickerView.frame)
         
         let isRowSelected = selectedRow == row
 
@@ -94,9 +97,12 @@ extension DropDownPickerTableViewCell: UIPickerViewDelegate, UIPickerViewDataSou
             NSAttributedString.Key.font: UIFont.systemFont(ofSize: 17, weight: .regular)
         ])
         
-        pickerLabel.textAlignment = .center
+//        pickerLabel.textAlignment = .center
+        pickerLabel.textAlignment = .left
         pickerLabel.attributedText = attributtedString
-        return pickerLabel
+        
+        returnView.addSubview(pickerLabel)
+        return returnView
     }
     
     

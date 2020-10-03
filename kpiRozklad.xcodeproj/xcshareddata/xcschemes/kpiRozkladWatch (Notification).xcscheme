@@ -56,8 +56,10 @@
       allowLocationSimulation = "YES"
       launchAutomaticallySubstyle = "8"
       notificationPayloadFile = "kpiRozkladWatch Extension/PushNotificationPayload.apns">
-      <BuildableProductRunnable
-         runnableDebuggingMode = "0">
+      <RemoteRunnable
+         runnableDebuggingMode = "2"
+         BundleIdentifier = "com.apple.Carousel"
+         RemotePath = "/KPI Rozklad">
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "5FDCFCC8248D8C2C00568208"
@@ -65,7 +67,7 @@
             BlueprintName = "kpiRozkladWatch"
             ReferencedContainer = "container:kpiRozklad.xcodeproj">
          </BuildableReference>
-      </BuildableProductRunnable>
+      </RemoteRunnable>
    </LaunchAction>
    <ProfileAction
       buildConfiguration = "Release"
@@ -75,8 +77,10 @@
       debugDocumentVersioning = "YES"
       launchAutomaticallySubstyle = "8"
       notificationPayloadFile = "kpiRozkladWatch Extension/PushNotificationPayload.apns">
-      <BuildableProductRunnable
-         runnableDebuggingMode = "0">
+      <RemoteRunnable
+         runnableDebuggingMode = "2"
+         BundleIdentifier = "com.apple.Carousel"
+         RemotePath = "/KPI Rozklad">
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "5FDCFCC8248D8C2C00568208"
@@ -84,7 +88,16 @@
             BlueprintName = "kpiRozkladWatch"
             ReferencedContainer = "container:kpiRozklad.xcodeproj">
          </BuildableReference>
-      </BuildableProductRunnable>
+      </RemoteRunnable>
+      <MacroExpansion>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "5FDCFCC8248D8C2C00568208"
+            BuildableName = "kpiRozkladWatch.app"
+            BlueprintName = "kpiRozkladWatch"
+            ReferencedContainer = "container:kpiRozklad.xcodeproj">
+         </BuildableReference>
+      </MacroExpansion>
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Debug">

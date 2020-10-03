@@ -226,6 +226,11 @@ class NewLessonViewController: UIViewController {
         tableView.register(UINib(nibName: LessonTypeAndWeekTableViewCell.identifier, bundle: Bundle.main), forCellReuseIdentifier: LessonTypeAndWeekTableViewCell.identifier)
         tableView.register(UINib(nibName: DropDownPickerTableViewCell.identifier, bundle: Bundle.main), forCellReuseIdentifier: DropDownPickerTableViewCell.identifier)
         tableView.register(UINib(nibName: LessonDayAndNumberTableViewCell.identifier, bundle: Bundle.main), forCellReuseIdentifier: LessonDayAndNumberTableViewCell.identifier)
+        
+        let footer = UIView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: 50))
+        
+        footer.backgroundColor = .green
+        tableView.tableFooterView = footer
     }
 }
 
@@ -396,14 +401,15 @@ extension NewLessonViewController: TextFieldAndButtonTableViewCellDelegate {
 extension NewLessonViewController: DropDownPickerTableViewCellDelegate {
     
     func userChangedDropDownCellAt(fatherIndexPath: IndexPath, text: String, inPickerRow: Int) {
-        guard let cell = tableView.cellForRow(at: fatherIndexPath) as? TextFieldAndButtonTableViewCell else {
-            assertionFailure("Invalid indexPath")
+        if let cell = tableView.cellForRow(at: fatherIndexPath) as? TextFieldAndButtonTableViewCell {
+            userChangeTextInTextField(at: fatherIndexPath, text: text)
+            selectedRowInPickers[fatherIndexPath.section] = inPickerRow
+            cell.configureCell(text: text, placeholder: nil)
+        } else {
+            userChangeTextInTextField(at: fatherIndexPath, text: text)
+            selectedRowInPickers[fatherIndexPath.section] = inPickerRow
             return
         }
-        /// Next function select  `lessonName` or `teacherName` or `roomName`
-        userChangeTextInTextField(at: fatherIndexPath, text: text)
-        selectedRowInPickers[fatherIndexPath.section] = inPickerRow
-        cell.configureCell(text: text, placeholder: nil)
     }
 }
 

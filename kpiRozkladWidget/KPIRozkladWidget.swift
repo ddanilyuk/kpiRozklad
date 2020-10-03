@@ -22,16 +22,19 @@ struct Provider: TimelineProvider {
     }
     
     func placeholder(in context: Context) -> LessonsEntry {
-        return LessonsEntry(date: Date(), lessons: Lesson.defaultArratOfLesson)
+        return LessonsEntry(date: Date(timeIntervalSince1970: 1601208000), lessons: Lesson.defaultArratOfLesson)
     }
     
 
     func getSnapshot(in context: Context, completion: @escaping (LessonsEntry) -> Void) {
+        
+        let date = context.isPreview ? Date(timeIntervalSince1970: 1601208000) : Date()
+        
         let (dayNumberFromCurrentDate, currentWeekFromTodayDate) = getCurrentWeekAndDayNumber()
         
-        let arrayWithLessonsToShow = getArrayWithNextThreeLessons(dayNumberFromCurrentDate: dayNumberFromCurrentDate, currentWeekFromTodayDate: currentWeekFromTodayDate, managedObjectContext: managedObjectContext)
+        let arrayWithLessonsToShow = getArrayWithNextThreeLessons(dayNumberFromCurrentDate: dayNumberFromCurrentDate, currentWeekFromTodayDate: currentWeekFromTodayDate, managedObjectContext: managedObjectContext, isPreview: true)
         
-        let entry = LessonsEntry(date: Date(), lessons: arrayWithLessonsToShow)
+        let entry = LessonsEntry(date: date, lessons: arrayWithLessonsToShow)
         
         completion(entry)
     }
@@ -49,11 +52,11 @@ struct Provider: TimelineProvider {
     }
     
     /// Fetching core data and getting lessons from `getNextThreeLessonsID()`
-    func getArrayWithNextThreeLessons(dayNumberFromCurrentDate: Int, currentWeekFromTodayDate: WeekType, managedObjectContext: NSManagedObjectContext) -> [Lesson] {
-        guard let lessonsCoreData = try? managedObjectContext.fetch(NSFetchRequest<NSFetchRequestResult>(entityName: "LessonData")) as? [LessonData] else { return Lesson.defaultArratOfLesson }
+    func getArrayWithNextThreeLessons(dayNumberFromCurrentDate: Int, currentWeekFromTodayDate: WeekType, managedObjectContext: NSManagedObjectContext, isPreview: Bool = false) -> [Lesson] {
+        guard let lessonsCoreData = try? managedObjectContext.fetch(NSFetchRequest<NSFetchRequestResult>(entityName: "LessonData")) as? [LessonData] else { return isPreview ? Lesson.previewLessons : Lesson.defaultArratOfLesson }
         
         if lessonsCoreData.count < 4 {
-            return Lesson.defaultArratOfLesson
+            return isPreview ? Lesson.previewLessons : Lesson.defaultArratOfLesson
         }
         
         var lessonsFromCoreData: [Lesson] = []
@@ -144,7 +147,7 @@ struct KPIRozkladWidget: Widget {
             KpiRozkladWidgetEntryView(entry: entry)
         }
         .configurationDisplayName("Віджет Kpi Rozklad")
-        .description("Актуальний розклад для вас")
+        .description("Актуальний розклад для вас.")
         .supportedFamilies([.systemSmall, .systemMedium])
     }
     

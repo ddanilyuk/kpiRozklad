@@ -9,6 +9,7 @@
 import UIKit
 import CoreData
 import PromiseKit
+import WidgetKit
 
 
 class SettingsTableViewController: UITableViewController {
@@ -245,6 +246,7 @@ class SettingsTableViewController: UITableViewController {
             }
         }))
         
+        
         alert.addAction(UIAlertAction(title: "Скасувати", style: .cancel, handler: { (_) in
         }))
         
@@ -275,6 +277,13 @@ class SettingsTableViewController: UITableViewController {
             guard let window = self.window else { return }
             window.rootViewController = greetingVC
             window.makeKeyAndVisible()
+            
+            if #available(iOS 14.0, *) {
+                WidgetCenter.shared.reloadAllTimelines()
+            } else {
+                // Fallback on earlier versions
+            }
+
             
             UIView.transition(with: window, duration: 0.4, options: .transitionCrossDissolve, animations: {}, completion: nil)
         }))

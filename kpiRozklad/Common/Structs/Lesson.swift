@@ -79,7 +79,58 @@ public struct Lesson: Codable, Hashable, Identifiable {
                                                  roomLongitude: "1.123"),
                                       groups: nil)
     
-    static var defaultArratOfLesson: [Lesson] = Array(repeating: defaultLesson, count: 4)
+    static let previewLesson1 = Lesson(id: 1,
+                                      dayNumber: 1,
+                                      lessonNumber: 1,
+                                      lessonWeek: WeekType.first,
+                                      groupID: 123,
+                                      dayName: DayName.tuesday,
+                                      lessonType: LessonType.лек1,
+                                      lessonName: "Сучасні техн. програмування",
+                                      lessonFullName: "Сучасні технології програмування",
+                                      lessonRoom: "301-18",
+                                      teacherName: "ас. Шевело",
+                                      timeStart: "08:30", timeEnd: "10:25",
+                                      rate: "1.123",
+                                      teacher: Teacher(teacherID: 1,
+                                                       teacherURL: "url",
+                                                       teacherName: "ас. Шевело",
+                                                       teacherFullName: "асистент Шевело   ",
+                                                       teacherShortName: "Шевело",
+                                                       teacherRating: "1.123"),
+                                      room: Room(roomID: 1,
+                                                 roomName: "301-18",
+                                                 roomLatitude: "1.123",
+                                                 roomLongitude: "1.123"),
+                                      groups: nil)
+    static let previewLesson2 = Lesson(id: 2,
+                                      dayNumber: 1,
+                                      lessonNumber: 2,
+                                      lessonWeek: WeekType.first,
+                                      groupID: 123,
+                                      dayName: DayName.mounday,
+                                      lessonType: LessonType.лаб,
+                                      lessonName: "Сучасні техн. програмування",
+                                      lessonFullName: "Сучасні технології програмування",
+                                      lessonRoom: "515-18",
+                                      teacherName: "ас. Шевело",
+                                      timeStart: "10:25", timeEnd: "12:00",
+                                      rate: "1.123",
+                                      teacher: Teacher(teacherID: 1,
+                                                       teacherURL: "url",
+                                                       teacherName: "ас. Шевело",
+                                                       teacherFullName: "асистент Шевело   ",
+                                                       teacherShortName: "Шевело",
+                                                       teacherRating: "1.123"),
+                                      room: Room(roomID: 1,
+                                                  roomName: "515-18",
+                                                  roomLatitude: "1.123",
+                                                  roomLongitude: "1.123"),
+                                      groups: nil)
+    
+    static var defaultArratOfLesson: [Lesson] = Array(repeating: defaultLesson, count: 3)
+    
+    static var previewLessons: [Lesson] = [previewLesson1, previewLesson2]
 }
 
 #if os(iOS)
@@ -198,6 +249,6 @@ extension Lesson: Comparable {
     }
     
     public static func == (lhs: Lesson, rhs: Lesson) -> Bool {
-        return lhs.id == rhs.id
+        return lhs.id == rhs.id && lhs.lessonName == rhs.lessonName
     }
 }

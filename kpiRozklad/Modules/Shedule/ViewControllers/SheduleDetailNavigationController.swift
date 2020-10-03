@@ -35,9 +35,7 @@ class SheduleDetailNavigationController: UINavigationController, PanModalPresent
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
         panModalSetNeedsLayoutUpdate()
-        
         navigationBar.backgroundColor = tint
     }
 }

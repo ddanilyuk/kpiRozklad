@@ -352,7 +352,7 @@ class SettingsTableViewController: UITableViewController {
             cell.activityIndicator.stopAndHide()
 
             sheduleVC.isFromSettingsGetFreshShedule = true
-            sheduleVC.currentWeek = .first
+            sheduleVC.selectedWeek = .first
             sheduleVC.lessonsFromSegue = lessons
             sheduleVC.navigationItem.title = Settings.shared.groupName.uppercased()
 

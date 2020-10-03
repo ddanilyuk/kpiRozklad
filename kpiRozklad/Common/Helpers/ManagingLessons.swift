@@ -143,34 +143,3 @@ func sortLessons(lessons: [Lesson]) -> [Lesson] {
     
     return lessonsToSort
 }
-
-
-/**
- Make string with groups in lesson
-
-- Parameter lessons: lesson
-
- - Returns: String with groups  like `"ІВ-81, ІВ-82, IВ-83"`
-*/
-func getGroupsOfLessonString(lesson: Lesson) -> String {
-    var groupsNames: String = ""
-
-    if let groups = lesson.groups {
-        var groupsSorted: [Group?] = []
-        groupsSorted = groups.sorted { (group1, group2) -> Bool in
-            return group1?.groupFullName ?? "1" < group2?.groupFullName ?? "2"
-        }
-        
-        for i in 0..<groupsSorted.count {
-            if let group = groupsSorted[i] {
-                if i == groups.count - 1 {
-                    groupsNames += group.groupFullName.uppercased()
-                } else {
-                    groupsNames += group.groupFullName.uppercased() + ", "
-                }
-            }
-        }
-    }
-    
-    return groupsNames
-}

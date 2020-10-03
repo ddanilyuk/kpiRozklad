@@ -65,7 +65,7 @@ class SheduleViewController: UIViewController {
     var currentWeekFromTodayDate: WeekType = .first
     
     /// Current  week which user chosed
-    var currentWeek: WeekType = .first
+    var selectedWeek: WeekType = .first
     
     /// Used in `makeLessonShedule`
     var dayNumberFromCurrentDate = 0
@@ -135,7 +135,7 @@ class SheduleViewController: UIViewController {
     var isEditInsets: Bool = true
     
     
-    // MARK: - override viewController funcs
+    // MARK: - Override viewController funcs
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -150,21 +150,7 @@ class SheduleViewController: UIViewController {
         
         /// Setup navigationVC and title
         setupNavigation()
-        
-        //
-//        let bounds = self.navigationController?.navigationBar.bounds
-//        let visualEffectView = UIVisualEffectView(effect: UIBlurEffect(style: .light))
-//        visualEffectView.frame = bounds ?? CGRect.zero
-//        visualEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-//        visualEffectView.layer.zPosition = -1
-//        self.navigationController?.navigationBar.addSubview(visualEffectView)
-//        self.navigationController?.navigationBar.sendSubviewToBack(visualEffectView)
-        
-        
-        self.navigationController?.navigationBar.shadowImage = UIImage()
-        
-        //
-        
+
         /// TableView delegate, dataSource, registration cell
         setupTableView()
 
@@ -188,7 +174,6 @@ class SheduleViewController: UIViewController {
             self.isNeedToScroll ? self.scrollToCurrentOrNext() : nil
         }
     }
-    
     
     override func viewWillAppear(_ animated: Bool) {
         tableView.reloadData()
@@ -230,7 +215,6 @@ class SheduleViewController: UIViewController {
     
     
     // MARK: - SETUP functions
-    
     private func setupTableView() {
         tableView.register(UINib(nibName: LessonTableViewCell.identifier, bundle: Bundle.main), forCellReuseIdentifier: LessonTableViewCell.identifier)
         tableView.delegate = self
@@ -254,10 +238,9 @@ class SheduleViewController: UIViewController {
     }
     
     private func setupNavigation() {
-//        self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
-//        self.navigationController?.navigationBar.shadowImage = UIImage()
-//        self.navigationController?.view.backgroundColor = sectionColour
-        
+        // Delete line at bottom of navigation bat
+        self.navigationController?.navigationBar.shadowImage = UIImage()
+
         if isTeachersShedule {
             setLargeTitleDisplayMode(.never)
             if UIScreen.main.nativeBounds.height < 1140 {
@@ -279,19 +262,17 @@ class SheduleViewController: UIViewController {
         } else {
             setLargeTitleDisplayMode(.never)
         }
+        
         self.navigationController?.navigationBar.isTranslucent = false
         self.tabBarController?.tabBar.isTranslucent = true
     }
     
     private func setupWeekSegmentControl() {
-        
         var titleTextAttributesNormal = [NSAttributedString.Key.foregroundColor: UIColor.blue]
         let titleTextAttributesSelected = [NSAttributedString.Key.foregroundColor: UIColor.white]
-        
         if #available(iOS 13.0, *) {
             titleTextAttributesNormal = [NSAttributedString.Key.foregroundColor: UIColor.link]
         }
-
         weekSegmentControl.setTitleTextAttributes(titleTextAttributesNormal, for: .normal)
         weekSegmentControl.setTitleTextAttributes(titleTextAttributesSelected, for: .selected)
     }
@@ -378,7 +359,7 @@ class SheduleViewController: UIViewController {
     }
     
     
-    // MARK: - scrollToCurrentOrNext
+    // MARK: - Lessons functions
     /**
      Function which scroll to current or next if `isNeedToScroll`
      */
@@ -413,7 +394,7 @@ class SheduleViewController: UIViewController {
         if self.tableView != nil {
             self.isNeedToScroll = false
             if (self.lessonsForTableView[indexPathToScroll.section].lessons.count > indexPathToScroll.row) && !(indexPathToScroll.row == 0 && indexPathToScroll.section == 0) {
-                self.tableView.contentOffset.y = self.heightDifferenceBetweenTopRowAndNavBar()
+//                self.tableView.contentOffset.y = self.heightDifferenceBetweenTopRowAndNavBar()
                 self.tableView.scrollToRow(at: IndexPath(row: 0, section: Int(firstSection)), at: .top, animated: false)
                 DispatchQueue.main.async {
                     self.tableView.scrollToRow(at: indexPathToScroll, at: .top, animated: true)
@@ -422,8 +403,6 @@ class SheduleViewController: UIViewController {
         }
     }
     
-    
-    // MARK: - makeLessonsShedule
     /**
      Function which fetch lessons from CoreData and remake `[Lesson]` to `[(day: DayName, lessons: [Lesson])]`
      - Note: call in `weekChanged()` and after getting data from `getLessonsFromServer()`
@@ -452,17 +431,17 @@ class SheduleViewController: UIViewController {
         if lessonsForTableView.allSatisfy({ $1.count == 0 }) {
             if lessonsFirst.count != 0 && nextLessonId == lessonsFirst[0].id {
                 self.weekSegmentControl.selectedSegmentIndex = 0
-                self.currentWeek = .first
+                self.selectedWeek = .first
             } else if lessonsSecond.count != 0 && nextLessonId == lessonsSecond[0].id {
                 self.weekSegmentControl.selectedSegmentIndex = 1
-                self.currentWeek = .second
+                self.selectedWeek = .second
             } else {
-                self.currentWeek = currentWeekFromTodayDate
-                self.weekSegmentControl.selectedSegmentIndex = currentWeek == .first ? 0 : 1
+                self.selectedWeek = currentWeekFromTodayDate
+                self.weekSegmentControl.selectedSegmentIndex = selectedWeek == .first ? 0 : 1
             }
         }
         
-        let currentLessonWeek = currentWeek == .first ? lessonsFirst : lessonsSecond
+        let currentLessonWeek = selectedWeek == .first ? lessonsFirst : lessonsSecond
         
         var sortedDictionary = Dictionary(grouping: currentLessonWeek) { $0.dayName }
         for day in DayName.allCases {
@@ -493,11 +472,8 @@ class SheduleViewController: UIViewController {
             self.tableView.isHidden = false
             self.tableView.reloadData()
         }
-//        view.layoutSubviews()
     }
     
-    
-    // MARK: - Server
     /**
      Functon which getting data from server
      - note: This fuction call `updateCoreData(vc: SheduleViewController)`
@@ -517,7 +493,6 @@ class SheduleViewController: UIViewController {
             guard let this = self else { return }
             
             this.settings.isTryToRefreshShedule = false
-
 
             guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
             let managedContext = appDelegate.persistentContainer.viewContext
@@ -576,19 +551,17 @@ class SheduleViewController: UIViewController {
         })
     }
     
-    
-    // MARK:- weekChanged
     /**
      Function that calls when the user tap on segment conrol to change current week
      */
     @IBAction func weekChanged(_ sender: UISegmentedControl) {
         switch weekSegmentControl.selectedSegmentIndex {
             case 0:
-                currentWeek = .first
+                selectedWeek = .first
                 makeLessonsShedule()
                 tableView.reloadData()
             case 1:
-                currentWeek = .second
+                selectedWeek = .second
                 makeLessonsShedule()
                 tableView.reloadData()
             default:
@@ -596,9 +569,7 @@ class SheduleViewController: UIViewController {
         }
     }
     
-    
     // MARK: - Favourites
-    
     func checkIfGroupInFavourites() {
         if let strongGroup = groupFromSegue {
             _ = favourites.favouriteGroupsID.contains(strongGroup.groupID) ? setButtonActive() : nil
@@ -656,27 +627,7 @@ class SheduleViewController: UIViewController {
         }
     }
     
-    
     // MARK: - Other functions
-    
-    public func setupCurrentOrNextLessonCell(cell: LessonTableViewCell, cellType: SheduleCellType) {
-        
-        if cellType == .currentCell {
-            cell.backgroundColor = Settings.shared.cellCurrentColour
-        } else if cellType == .nextCell {
-            cell.backgroundColor = Settings.shared.cellNextColour
-        }
-        
-        let textColour: UIColor = cell.backgroundColor?.isWhiteText ?? true ? .white : .black
-        
-        cell.startLabel.textColor = textColour
-        cell.endLabel.textColor = textColour
-        cell.teacherLabel.textColor = textColour
-        cell.roomLabel.textColor = textColour
-        cell.lessonLabel.textColor = textColour
-        cell.timeLeftLabel.textColor = textColour
-    }
-    
     @objc func reloadAfterOpenApp() {
         makeLessonsShedule()
     }
@@ -687,6 +638,7 @@ class SheduleViewController: UIViewController {
         let safeAreaTopInset = window?.safeAreaInsets.top ?? 0
         return safeAreaTopInset + whereIsNavBarInTableView.height + 35.0 * 2
     }
+    
 }
 
 

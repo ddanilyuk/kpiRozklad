@@ -54,6 +54,32 @@ public struct Lesson: Codable, Hashable, Identifiable {
         case rate, groups
     }
     
+    /**
+     Make string with groups in lesson
+     - Returns: String with groups  like `"ІВ-81, ІВ-82, IВ-83"`
+     */
+    func getGroupsOfLessonInString() -> String {
+        var groupsNames: String = ""
+        
+        if let groups = self.groups {
+            var groupsSorted: [Group?] = []
+            groupsSorted = groups.sorted { (group1, group2) -> Bool in
+                return group1?.groupFullName ?? "1" < group2?.groupFullName ?? "2"
+            }
+            
+            for i in 0..<groupsSorted.count {
+                if let group = groupsSorted[i] {
+                    if i == groups.count - 1 {
+                        groupsNames += group.groupFullName.uppercased()
+                    } else {
+                        groupsNames += group.groupFullName.uppercased() + ", "
+                    }
+                }
+            }
+        }
+        return groupsNames
+    }
+    
     static let defaultLesson = Lesson(id: 1,
                                       dayNumber: 1,
                                       lessonNumber: 1,

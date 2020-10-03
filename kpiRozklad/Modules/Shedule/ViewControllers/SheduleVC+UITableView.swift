@@ -14,13 +14,10 @@ import WidgetKit
 
 extension SheduleViewController: UITableViewDelegate, UITableViewDataSource {
     
-    // MARK: - numberOfSections
     func numberOfSections(in tableView: UITableView) -> Int {
         return isEditing ? 7 : 6
     }
     
-
-    // MARK: - heightForFooterInSection
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         return CGFloat.leastNormalMagnitude
     }
@@ -32,59 +29,20 @@ extension SheduleViewController: UITableViewDelegate, UITableViewDataSource {
         return returnedView
     }
     
-    
-    // MARK: - heightForHeaderInSection
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 35
     }
 
-    
-    // MARK: - viewForHeaderInSection
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let returnedView = UIView(frame: CGRect(x: 0, y: 0, width: view.frame.size.width, height: 35))
-        
+        returnedView.backgroundColor = sectionColour
+
+        let label = UILabel(frame: CGRect(x: 16, y: 3, width: view.frame.size.width, height: 25))
+
         if daysArray[0] != "Нова пара" && self.isEditing {
             daysArray.insert("Нова пара", at: 0)
         }
         
-//        var bounds = CGRect(x: 0,
-//            y: returnedView.bounds.minY - (self.navigationController?.navigationBar.frame.size.height)!,
-//            width: view.frame.size.width, height: 35 + (self.navigationController?.navigationBar.frame.size.height)!)
-//        print(bounds)
-//        bounds.height = bounds.height + (self.navigationController?.navigationBar.frame.size.height)! ?? 0.0
-//        bounds.y = bounds.minY + self.navigationController?.navigationBar.frame.size.height ?? 0.0
-
-        
-//        let visualEffectView = UIVisualEffectView(effect: UIBlurEffect(style: .light))
-//        visualEffectView.frame = CGRect(x: 0, y: 0, width: 375, height: 88 + 35)
-//
-//        visualEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        
-//        visualEffectView.fillS
-        
-//        returnedView.t
-//
-//        returnedView.addSubview(visualEffectView)
-//        visualEffectView.layer.zPosition = -1
-//        returnedView.sendSubviewToBack(visualEffectView)
-        
-//        visualEffectView.al
-        
-//        visualEffectView.clipsToBounds = true
-//        let blurView = UIVisualEffectView()
-//        blurView.frame = returnedView.frame
-//        blurView.effect = UIBlurEffect(style: .light)
-//        returnedView.backgroundColor = sectionColour
-        
-//        returnedView.clipsToBounds = true
-//        returnedView.backgroundColor = .clear
-
-//        returnedView.clipsToBounds = true
-
-//        returnedView.insertSubview(blurView, at: 0)
-        
-        returnedView.backgroundColor = sectionColour
-        let label = UILabel(frame: CGRect(x: 16, y: 3, width: view.frame.size.width, height: 25))
         label.text = daysArray[section]
 
         if #available(iOS 13.0, *) {
@@ -93,12 +51,9 @@ extension SheduleViewController: UITableViewDelegate, UITableViewDataSource {
             label.textColor = .black
         }
         returnedView.addSubview(label)
-
         return returnedView
     }
     
-    
-    // MARK: - numberOfRowsInSection
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if self.isEditing == true && section == 0 {
             return 1
@@ -109,60 +64,30 @@ extension SheduleViewController: UITableViewDelegate, UITableViewDataSource {
         }
     }
     
-    
-    // MARK: - heightForRowAt
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 68
     }
     
-    
-    // MARK: - didSelectRowAt
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print(indexPath)
-        print(isEditing)
         if isEditing && indexPath.section == 0 {
             presentNewLesson()
         } else if isEditing {
-            /// Presenting alert (popup) with pickerView
-            let alertView = UIAlertController(
-                               title: nil,
-                               message: "\n\n\n\n\n\n",
-                               preferredStyle: .actionSheet)
-
-            let pickerView = UIPickerView(frame: CGRect(x: 0, y: 0, width: screenWidth - 16, height: 140))
-            
-            pickerView.dataSource = self
-            pickerView.delegate = self
-
-            alertView.view.addSubview(pickerView)
-            
-            let newIndexPath = IndexPath(row: indexPath.row, section: indexPath.section - 1)
-            alertView.addAction(UIAlertAction(title: "Змінити", style: .default, handler: { (_) in
-                editLessonNumber(vc: self, indexPath: newIndexPath)
-            }))
-            
-            alertView.addAction(UIAlertAction(title: "Назад", style: .cancel, handler: nil ))
-
-            present(alertView, animated: true, completion: nil)
+            presentLessonNumberPicker(indexPath: indexPath)
         } else {
             if indexPath.section != lessonsForTableView.count {
-                
                 if isTeachersShedule {
                     let lesson = lessonsForTableView[indexPath.section].lessons[indexPath.row]
-                    
-                    let groupsNames = getGroupsOfLessonString(lesson: lesson)
+                    let groupsNames = lesson.getGroupsOfLessonInString()
                     
                     let alert = UIAlertController(title: nil, message: "Групи: \(groupsNames)", preferredStyle: .alert)
                     alert.addAction(UIAlertAction(title: "Назад", style: .cancel, handler: nil ))
                     
                     self.present(alert, animated: true, completion: nil)
-                    
                     tableView.deselectRow(at: indexPath, animated: true)
                 } else {
                     guard let sheduleDetailNC = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: SheduleDetailNavigationController.identifier) as? SheduleDetailNavigationController else { return }
                     
                     sheduleDetailNC.lesson = lessonsForTableView[indexPath.section].lessons[indexPath.row]
-                    
                     presentPanModal(sheduleDetailNC)
                 }
             }
@@ -171,53 +96,32 @@ extension SheduleViewController: UITableViewDelegate, UITableViewDataSource {
         tableView.deselectRow(at: indexPath, animated: true)
     }
         
-    
-    // MARK: - cellForRowAt
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     
-        /// Creating cell for adding new lessson
         if indexPath.section == 0 && self.isEditing == true {
+            
+            /// Creating cell for adding new lessson
             let cell = UITableViewCell(style: .default, reuseIdentifier: "addCell")
             cell.textLabel?.text = "Додати пару"
             cell.backgroundColor = cellBackgroundColor
-//            cell.isUserInteractionEnabled = true
-//            cell.userInteractionEnabledWhileDragging = true
-
+            return cell
+        } else {
+            
+            /// Creating main cell
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: LessonTableViewCell.identifier, for: indexPath) as? LessonTableViewCell else { return UITableViewCell() }
+            let lesson = isEditing ? lessonsForTableView[indexPath.section - 1].lessons[indexPath.row] : lessonsForTableView[indexPath.section].lessons[indexPath.row]
+            if currentLessonId == lesson.id {
+                cell.setupCell(with: lesson, type: .currentCell)
+            } else if nextLessonId == lesson.id {
+                cell.setupCell(with: lesson, type: .nextCell)
+            } else {
+                cell.setupCell(with: lesson, type: .defaultCell)
+            }
+            
             return cell
         }
-        
-        /// Creating main cell
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: LessonTableViewCell.identifier, for: indexPath) as? LessonTableViewCell else { return UITableViewCell() }
-        cell.backgroundColor = cellBackgroundColor
-        let lesson = isEditing ? lessonsForTableView[indexPath.section - 1].lessons[indexPath.row] : lessonsForTableView[indexPath.section].lessons[indexPath.row]
-        
-        cell.lessonLabel.text = lesson.lessonName
-        cell.teacherLabel.text = lesson.teacherName != "" ? lesson.teacherName : " "
-    
-        cell.startLabel.textColor = colourTextLabel
-        cell.endLabel.textColor = colourTextLabel
-        cell.teacherLabel.textColor = colourTextLabel
-        cell.roomLabel.textColor = colourTextLabel
-        cell.lessonLabel.textColor = colourTextLabel
-        
-        if currentLessonId == lesson.id {
-            setupCurrentOrNextLessonCell(cell: cell, cellType: .currentCell)
-        }
-        
-        if nextLessonId == lesson.id {
-            setupCurrentOrNextLessonCell(cell: cell, cellType: .nextCell)
-        }
-        
-        cell.startLabel.text = lesson.timeStart.stringTime
-        cell.endLabel.text = lesson.timeEnd.stringTime
-        cell.roomLabel.text = lesson.lessonType.rawValue + " " + lesson.lessonRoom
-        cell.timeLeftLabel.text = ""
-    
-        return cell
     }
 
-    
-    // MARK: - commit editingStyle forRowAt
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             let newIndexPath = IndexPath(row: indexPath.row, section: indexPath.section - 1)
@@ -260,17 +164,12 @@ extension SheduleViewController: UITableViewDelegate, UITableViewDataSource {
         }
     }
      
-    
-    // MARK: - moveRowAt sourceIndexPath to destinationIndexPath
-    /// - todo: try to use iterator for `lessonsToEdit`
     func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
         let newSourceIndexPath = IndexPath(row: sourceIndexPath.row, section: sourceIndexPath.section - 1)
         let newdestinationIndexPath = IndexPath(row: destinationIndexPath.row, section: destinationIndexPath.section - 1)
         moveRow(vc: self, sourceIndexPath: newSourceIndexPath, destinationIndexPath: newdestinationIndexPath)
     }
     
-    
-    // MARK: - canMoveRowAt
     func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
         if isEditing {
             return indexPath.section == 0 ? false : true
@@ -279,8 +178,6 @@ extension SheduleViewController: UITableViewDelegate, UITableViewDataSource {
         }
     }
     
-    
-    // MARK: - editingStyleForRowAt
     func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
         if indexPath.section == 0 && isEditing {
             return .insert
@@ -291,8 +188,6 @@ extension SheduleViewController: UITableViewDelegate, UITableViewDataSource {
         }
     }
     
-    
-    // MARK: - targetIndexPathForMoveFromRowAt sourceIndexPath toProposedIndexPath
     func tableView(_ tableView: UITableView, targetIndexPathForMoveFromRowAt sourceIndexPath: IndexPath, toProposedIndexPath proposedDestinationIndexPath: IndexPath) -> IndexPath {
         if proposedDestinationIndexPath.section > 0 {
             let dayLessonCount = lessonsForTableView[proposedDestinationIndexPath.section - 1].lessons.count
@@ -303,9 +198,6 @@ extension SheduleViewController: UITableViewDelegate, UITableViewDataSource {
         return sourceIndexPath
     }
     
-    
-    // MARK: - setEditing
-    /// Calls when editing starts
     override func setEditing(_ editing: Bool, animated: Bool) {
         super.setEditing(editing, animated: animated)
         
@@ -320,4 +212,29 @@ extension SheduleViewController: UITableViewDelegate, UITableViewDataSource {
             self.tableView.deleteSections(IndexSet(integer: 0), with: .automatic)
         }
     }
+    
+    func presentLessonNumberPicker(indexPath: IndexPath) {
+        /// Presenting alert (popup) with pickerView
+        let alertView = UIAlertController(
+            title: nil,
+            message: "\n\n\n\n\n\n",
+            preferredStyle: .actionSheet)
+        
+        let pickerView = UIPickerView(frame: CGRect(x: 0, y: 0, width: screenWidth - 16, height: 140))
+        
+        pickerView.dataSource = self
+        pickerView.delegate = self
+        
+        alertView.view.addSubview(pickerView)
+        
+        let newIndexPath = IndexPath(row: indexPath.row, section: indexPath.section - 1)
+        alertView.addAction(UIAlertAction(title: "Змінити", style: .default, handler: { (_) in
+            editLessonNumber(vc: self, indexPath: newIndexPath)
+        }))
+        
+        alertView.addAction(UIAlertAction(title: "Назад", style: .cancel, handler: nil ))
+        
+        present(alertView, animated: true, completion: nil)
+    }
+    
 }

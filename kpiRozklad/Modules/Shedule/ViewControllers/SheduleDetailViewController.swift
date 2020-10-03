@@ -7,7 +7,7 @@
 //
 
 import UIKit
-//import PanModal
+
 
 class SheduleDetailViewController: UIViewController {
     
@@ -106,7 +106,7 @@ class SheduleDetailViewController: UIViewController {
             getTeacherLessons(dayNumber: lesson.dayNumber, lessonNumber: lesson.lessonNumber, teacherID: teacher.teacherID, lessonWeek: lesson.lessonWeek, lessonId: lesson.id)
             
         } else {
-            groupsLabel.text = "Групи: \(getGroupsOfLessonString(lesson: lesson))"
+            groupsLabel.text = "Групи: \(lesson.getGroupsOfLessonInString())"
             checkTeacherShedule.isHidden = (settings.sheduleType == .teachers && teacher.teacherID == 0) ? true : false
             viewWithActivityIndicator.isHidden = true
         }
@@ -172,7 +172,7 @@ class SheduleDetailViewController: UIViewController {
                lesson.lessonWeek == lessonWeek {
                 DispatchQueue.main.async {
                     self.viewWithActivityIndicator.isHidden = true
-                    self.groupsLabel.text = "Групи: \(getGroupsOfLessonString(lesson: lesson))"
+                    self.groupsLabel.text = "Групи: \(lesson.getGroupsOfLessonInString())"
                 }
                 break
 
@@ -183,7 +183,7 @@ class SheduleDetailViewController: UIViewController {
             if lesson.id == lessonId {
                 DispatchQueue.main.async {
                     self.viewWithActivityIndicator.isHidden = true
-                    self.groupsLabel.text = "Групи: \(getGroupsOfLessonString(lesson: lesson))"
+                    self.groupsLabel.text = "Групи: \(lesson.getGroupsOfLessonInString())"
                 }
                 break
             }

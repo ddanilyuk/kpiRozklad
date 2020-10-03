@@ -162,7 +162,7 @@ extension GroupsAndTeachersViewController {
             guard let sheduleVC : SheduleViewController = mainStoryboard.instantiateViewController(withIdentifier: SheduleViewController.identifier) as? SheduleViewController else { return }
             
             sheduleVC.isFromGroupsAndTeacherOrFavourite = true
-            sheduleVC.currentWeek = .first
+            sheduleVC.selectedWeek = .first
             
             sheduleVC.lessonsFromSegue = lessons
             sheduleVC.groupFromSegue = group

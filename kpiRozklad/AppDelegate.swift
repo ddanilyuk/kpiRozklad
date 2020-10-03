@@ -11,9 +11,7 @@ import UserNotifications
 import CoreData
 import WatchConnectivity
 
-
 var API = NetworkingApiFacade(apiService: NetworkingApi())
-
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -24,9 +22,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         setupWatchConnectivity()
-        
-        print(settings.groupID)
-        print(settings.groupName)
 
         if !settings.updateRozkladWithVersion2Point0 {
             deleteAllFromCoreData(managedContext: self.persistentContainer.viewContext)
@@ -40,7 +35,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         
         let mainStoryboard = UIStoryboard(name: "Main", bundle: Bundle.main)
-        
         let mainVC = mainStoryboard.instantiateInitialViewController()
         guard let greetingVC = mainStoryboard.instantiateViewController(withIdentifier: BoardingViewController.identifier) as? BoardingViewController else { return false }
         
@@ -56,6 +50,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
     }
     
+    // Open app from widget
     func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
         
         DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(600)) {
@@ -80,11 +75,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 }
             }
             self.window?.rootViewController = mainTabBar
+        }
+        return true
     }
-    return true
-  }
 
-    
     // MARK: - Core Data stack
     lazy var persistentContainer: NSPersistentContainer = {
         /*
@@ -113,8 +107,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return container
     }()
 
-    // MARK: - Core Data Saving support
-
     func saveContext () {
         let context = persistentContainer.viewContext
         if context.hasChanges {
@@ -130,7 +122,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
 }
+
+
 extension AppDelegate {
+    
     func applicationWillResignActive(_ application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
         // Use this method to pause ongoing tasks, disable timers, and invalidate graphics rendering callbacks. Games should use this method to pause the game.
@@ -175,4 +170,5 @@ extension AppDelegate: WCSessionDelegate {
         print(#function)
         WCSession.default.activate()
     }
+    
 }

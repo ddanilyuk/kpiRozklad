@@ -24,7 +24,7 @@ class DetailedInterfaceController: WKInterfaceController {
         roomNameLabel.setText("\(lesson.lessonRoom) \(lesson.lessonType.rawValue)")
         
         dayNameLabel.setText(lesson.dayName.rawValue + ", " + lesson.lessonWeek.rawValue + " тиждень")
-        groupsNameLabel.setText(getGroupsOfLessonString(lesson: lesson))
+        groupsNameLabel.setText(lesson.getGroupsOfLessonInString())
         
         if let teacher = lesson.teacher {
             if teacher.teacherFullName != "" {

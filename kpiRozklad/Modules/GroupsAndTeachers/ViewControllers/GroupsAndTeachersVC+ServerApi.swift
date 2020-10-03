@@ -78,7 +78,6 @@ extension GroupsAndTeachersViewController {
         })
     }
     
-    
     func getAllTeachers(isNeedToUpdate: Bool = false) {
         API.getAllTeachers().done({ [weak self] (teachers) in
             guard let this = self else { return }
@@ -120,9 +119,7 @@ extension GroupsAndTeachersViewController {
         })
     }
     
-    
     func getAllGroups() {
-//        self.activityIndicator.startAndShow()
         API.getAllGroups().done({ [weak self] (groups) in
             guard let this = self else { return }
             this.groups = groups
@@ -146,7 +143,6 @@ extension GroupsAndTeachersViewController {
             self?.getDefaultErrorAlert(localizedDescription: error.localizedDescription, alertCase: .getAllGroupType, group: nil, teacher: nil, indexPath: nil)
         })
     }
-    
     
     func getGroupLessons(group: Group, indexPath: IndexPath) {
         guard let cell = self.tableView.cellForRow(at: indexPath) as? TeacherOrGroupLoadingTableViewCell else { return }
@@ -188,7 +184,6 @@ extension GroupsAndTeachersViewController {
             }
         })
     }
-        
     
     func getTeacherLessons(teacher: Teacher, indexPath: IndexPath) {
         guard let cell = self.tableView.cellForRow(at: indexPath) as? TeacherOrGroupLoadingTableViewCell else { return }
@@ -224,4 +219,5 @@ extension GroupsAndTeachersViewController {
             }
         })
     }
+    
 }

@@ -19,9 +19,8 @@ class SettingsTableViewController: UITableViewController {
     
     /// Main window
     var window: UIWindow?
-
     
-    // MARK: - viewDidLoad
+
     override func viewDidLoad() {
         super.viewDidLoad()
         self.window = UIWindow(frame: UIScreen.main.bounds)
@@ -31,14 +30,11 @@ class SettingsTableViewController: UITableViewController {
     }
     
     
-    // MARK: - viewWillAppear
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
     }
     
-    
     // MARK: - SETUP functions
-
     private func setupTableView() {
         tableView.register(UINib(nibName: ServerUpdateTableViewCell.identifier, bundle: Bundle.main), forCellReuseIdentifier: ServerUpdateTableViewCell.identifier)
         tableView.register(UINib(nibName: SettingsTableViewCell.identifier, bundle: Bundle.main), forCellReuseIdentifier: SettingsTableViewCell.identifier)
@@ -49,7 +45,7 @@ class SettingsTableViewController: UITableViewController {
         tableView.backgroundColor = tint
     }
 
-    
+
     // MARK: - Table view
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 2
@@ -177,8 +173,7 @@ class SettingsTableViewController: UITableViewController {
         tableView.deselectRow(at: indexPath, animated: true)
     }
 
-    // MARK: - Functions which calls
-    
+    // MARK: - Cell functions
     /**
      Function which update shedule
      */
@@ -195,9 +190,7 @@ class SettingsTableViewController: UITableViewController {
                 API.getAllGroups().done({ [weak self] (groups) in
                     guard let this = self else { return }
                     if let group = groups.first(where: { $0.groupFullName == this.settings.groupName }) {
-                        print(this.settings.groupID)
                         this.settings.groupID = group.groupID
-                        print(this.settings.groupID)
                     } else {
                         this.settings.groupName = ""
                         this.settings.groupID = 0
@@ -246,12 +239,8 @@ class SettingsTableViewController: UITableViewController {
             }
         }))
         
-        
-        alert.addAction(UIAlertAction(title: "Скасувати", style: .cancel, handler: { (_) in
-        }))
-        
-        self.present(alert, animated: true, completion: {
-        })
+        alert.addAction(UIAlertAction(title: "Скасувати", style: .cancel, handler: nil))
+        self.present(alert, animated: true, completion: nil)
     }
     
     /**
@@ -381,4 +370,5 @@ extension SettingsTableViewController: VersionTableViewCellDelegate {
         guard let whatsNewVC = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: WhatsNewViewController.identifier) as? WhatsNewViewController else { return }
         self.present(whatsNewVC, animated: true, completion: nil)
     }
+    
 }

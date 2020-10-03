@@ -25,15 +25,12 @@ class FavouriteViewController: UIViewController {
     let favourites = Favourites.shared
 
     
-    // MARK: - viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
         setupTableView()
         setupNavigation()
     }
     
-    
-    // MARK: - viewWillAppear
     override func viewWillAppear(_ animated: Bool) {
         tableView.reloadData()
         
@@ -48,9 +45,7 @@ class FavouriteViewController: UIViewController {
         }
     }
     
-    
     // MARK: - SETUP functions
-    
     private func setupNavigation() {
         setLargeTitleDisplayMode(.never)
         self.navigationController?.navigationBar.isTranslucent = true
@@ -130,16 +125,13 @@ extension FavouriteViewController: UITableViewDelegate, UITableViewDataSource {
         return sectionNames.count
     }
     
-    
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         return sectionNames[section]
     }
     
-    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return section == 0 ? favourites.favouriteGroupsNames.count : favourites.favouriteTeachersNames.count
     }
-    
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: TeacherOrGroupLoadingTableViewCell.identifier, for: indexPath) as? TeacherOrGroupLoadingTableViewCell else { return UITableViewCell() }
@@ -150,7 +142,6 @@ extension FavouriteViewController: UITableViewDelegate, UITableViewDataSource {
     
         return cell
     }
-    
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.section == 0 {
@@ -165,19 +156,16 @@ extension FavouriteViewController: UITableViewDelegate, UITableViewDataSource {
         tableView.deselectRow(at: indexPath, animated: true)
     }
     
-    
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
         let view = UIView()
         view.backgroundColor = sectionColour
         return view
     }
     
-    
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 30
     }
 
-    
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let returnedView = UIView(frame: CGRect(x: 0, y: 0, width: view.frame.size.width, height: 35))
         
@@ -196,11 +184,9 @@ extension FavouriteViewController: UITableViewDelegate, UITableViewDataSource {
         return returnedView
     }
     
-    
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         return 0.0001
     }
-    
     
     func tableView(_ tableView: UITableView, editActionsForRowAt: IndexPath) -> [UITableViewRowAction]? {
         let delete = UITableViewRowAction(style: .destructive, title: "Видалити") { action, index in
@@ -223,8 +209,8 @@ extension FavouriteViewController: UITableViewDelegate, UITableViewDataSource {
         return [delete]
     }
 
-    
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         return true
     }
+    
 }

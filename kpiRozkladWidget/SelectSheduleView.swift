@@ -15,7 +15,7 @@ struct SelectSheduleView: View {
             VStack {
                 Spacer(minLength: 0)
 
-                Text("Please, choose your shedule in KPI Rozklad")
+                Text("Будь-ласка, оберіть розклад в додатку")
 //                    .lineLimit(0)
                     .font(.body)
                     .foregroundColor(.white)

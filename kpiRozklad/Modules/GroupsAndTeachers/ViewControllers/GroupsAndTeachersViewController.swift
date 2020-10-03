@@ -8,6 +8,7 @@
 
 import UIKit
 
+
 enum GroupAndTeacherControllerType {
     case isGroupChooser
     case isTeachersChooser
@@ -64,8 +65,6 @@ class GroupsAndTeachersViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        /// Initial setup
-        
         getVariablesFromNavigationController()
         
         activityIndicator.stopAndHide()
@@ -77,7 +76,6 @@ class GroupsAndTeachersViewController: UIViewController {
 
         setupNavigationAndSearch()
     }
-    
     
     override func viewWillAppear(_ animated: Bool) {
         /// If groups or teachers is empty, make request again
@@ -105,8 +103,6 @@ class GroupsAndTeachersViewController: UIViewController {
                     getAllTeachers()
                 }
             }
-                
-            
         }
     }
     
@@ -125,16 +121,13 @@ class GroupsAndTeachersViewController: UIViewController {
         segmentControl.isHidden = true
     }
 
-    
     /// Get All vaiables from `navigationController`
     private func getVariablesFromNavigationController() {
         guard let groupNavigationController = self.navigationController as? TeachersNavigationController else { return }
         self.groupAndTeacherControllerType = groupNavigationController.groupAndTeacherControllerType
     }
     
-    
     // MARK: - SETUP functions
-    
     private func setupTableView() {
         tableView.register(UINib(nibName: TeacherOrGroupLoadingTableViewCell.identifier, bundle: Bundle.main), forCellReuseIdentifier: TeacherOrGroupLoadingTableViewCell.identifier)
         tableView.delegate = self
@@ -177,7 +170,6 @@ class GroupsAndTeachersViewController: UIViewController {
         self.navigationController?.navigationBar.isTranslucent = true
         self.tabBarController?.tabBar.isTranslucent = true
     }
-    
     
     /// Change`segmentControl` state
     @IBAction func didSegmentControlChangeState(_ sender: UISegmentedControl) {

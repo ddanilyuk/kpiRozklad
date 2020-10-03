@@ -52,4 +52,5 @@ extension GroupsAndTeachersViewController: UISearchResultsUpdating {
         }
         tableView.reloadData()
     }
+    
 }

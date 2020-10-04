@@ -14,16 +14,13 @@ struct WidgetViewMedium: View {
     
     @Environment(\.redactionReasons) var redactionReasons
 
-    
     var lessons: [Lesson]
     
     var settings = Settings.shared
-    
 
     let leftGradientColor: Color = Color(red: 44 / 255, green: 90 / 255, blue: 180 / 255)
 
     let rightGradientColor: Color = Color(red: 87 / 255, green: 157 / 255, blue: 130 / 255)
-
 
     var date: Date
     

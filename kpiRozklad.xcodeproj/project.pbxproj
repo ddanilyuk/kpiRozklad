@@ -668,11 +668,7 @@
 		5F7631FD24B251F90022C952 /* kpiRozkladWidget */ = {
 			isa = PBXGroup;
 			children = (
-				5F44899F24B52E0C00EF86D4 /* WidgetViewSmall.swift */,
-				5F76322F24B252F30022C952 /* WidgetViewMedium.swift */,
-				5FB0F62D2528C1A700365FF5 /* SelectSheduleView.swift */,
-				5F76322A24B252990022C952 /* LessonRow.swift */,
-				5F7A000024B7797C00E33B81 /* TimeView.swift */,
+				5FB0F65D2529389100365FF5 /* Views */,
 				5FB0F6352528D68400365FF5 /* EqualWidth.swift */,
 				5F76322C24B252B10022C952 /* WidgetHelpers.swift */,
 				5F7631FE24B251F90022C952 /* KPIRozkladWidget.swift */,
@@ -770,6 +766,18 @@
 				5FACFF8523ED63D40022DF88 /* Info.plist */,
 			);
 			path = kpiRozkladTodayWidget;
+			sourceTree = "<group>";
+		};
+		5FB0F65D2529389100365FF5 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				5F44899F24B52E0C00EF86D4 /* WidgetViewSmall.swift */,
+				5F76322F24B252F30022C952 /* WidgetViewMedium.swift */,
+				5FB0F62D2528C1A700365FF5 /* SelectSheduleView.swift */,
+				5F76322A24B252990022C952 /* LessonRow.swift */,
+				5F7A000024B7797C00E33B81 /* TimeView.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 		5FCBBA0A241C4B3800E7654F /* ColourPicker */ = {

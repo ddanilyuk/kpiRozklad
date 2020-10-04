@@ -17,7 +17,6 @@ class DetailedInterfaceController: WKInterfaceController {
     @IBOutlet var dayNameLabel: WKInterfaceLabel!
     @IBOutlet var groupsNameLabel: WKInterfaceLabel!
     
-    
     override func awake(withContext context: Any?) {
         guard let lesson = context as? Lesson else { return }
         lessonNameLabel.setText(lesson.lessonName)

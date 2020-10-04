@@ -82,9 +82,6 @@ class InterfaceController: WKInterfaceController {
             setToday()
         }
         
-        // lessons = StoreUserDefaults.shared.lessons
-        // lessons.count == 0 ? pushController(withName: "GreetingInterfaceController", context: nil) : setToday()
-        
         notificationObserver = notificationCenter.addObserver(forName: NSNotification.Name("lessonsData"), object: nil, queue: nil, using: { (notification) in
             
             /// Show greeeting
@@ -192,4 +189,5 @@ class InterfaceController: WKInterfaceController {
         row.timeEndLabel.setTextColor(textColour)
         row.whenLabel.setTextColor(textColour)
     }
+    
 }

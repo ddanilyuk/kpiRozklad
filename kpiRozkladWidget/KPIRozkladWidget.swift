@@ -10,6 +10,12 @@ import SwiftUI
 import CoreData
 
 
+struct LessonsEntry: TimelineEntry {
+    let date: Date
+    let lessons: [Lesson]
+}
+
+
 struct Provider: TimelineProvider {
     
     var managedObjectContext: NSManagedObjectContext
@@ -24,30 +30,54 @@ struct Provider: TimelineProvider {
         return LessonsEntry(date: Date(timeIntervalSince1970: 1601208000), lessons: Lesson.defaultArratOfLesson)
     }
     
-
     func getSnapshot(in context: Context, completion: @escaping (LessonsEntry) -> Void) {
-        
-        let date = context.isPreview ? Date(timeIntervalSince1970: 1601208000) : Date()
+        // This time interval need to show in preview "завтра"
         
         let (dayNumberFromCurrentDate, currentWeekFromTodayDate) = getCurrentWeekAndDayNumber()
         
         let arrayWithLessonsToShow = getArrayWithNextThreeLessons(dayNumberFromCurrentDate: dayNumberFromCurrentDate, currentWeekFromTodayDate: currentWeekFromTodayDate, managedObjectContext: managedObjectContext, isPreview: true)
+        
+        var date = Date()
+        
+        if arrayWithLessonsToShow == Lesson.previewLessons {
+            date = Date(timeIntervalSince1970: 1601208000)
+        }
         
         let entry = LessonsEntry(date: date, lessons: arrayWithLessonsToShow)
         
         completion(entry)
     }
     
+    /**
+     LessonsEntry must contain 3 lesson: 2 to show and 1 to use when 1 pair end.
+     */
     func getTimeline(in context: Context, completion: @escaping (Timeline<LessonsEntry>) -> Void) {
+        
+        
         let (dayNumberFromCurrentDate, currentWeekFromTodayDate) = getCurrentWeekAndDayNumber()
         
         var arrayWithLessonsToShow = getArrayWithNextThreeLessons(dayNumberFromCurrentDate: dayNumberFromCurrentDate, currentWeekFromTodayDate: currentWeekFromTodayDate, managedObjectContext: managedObjectContext)
         
-        let (entries, dateToUpdate) = makeTimeLine1(arrayWithLessonsToShow: &arrayWithLessonsToShow, dayNumberFromCurrentDate: dayNumberFromCurrentDate, currentWeekFromTodayDate: currentWeekFromTodayDate)
+        var dateToUpdate = Date.tomorrow
         
-        let timeline = Timeline(entries: entries, policy: .after(dateToUpdate))
+        /// Update timeline options
+        var entries = [LessonsEntry(date: Date(), lessons: arrayWithLessonsToShow)]
         
-        completion(timeline)
+        if arrayWithLessonsToShow[0].dayNumber == dayNumberFromCurrentDate {
+            
+            entries.append(LessonsEntry(date: getDateStartAndEnd(of: arrayWithLessonsToShow[0]).dateStart, lessons: arrayWithLessonsToShow))
+            
+            dateToUpdate = getDateStartAndEnd(of: arrayWithLessonsToShow[0]).dateEnd
+            
+            /// Remove lesson which end
+            arrayWithLessonsToShow.remove(at: 0)
+            
+            /// New entry without lesson which end. This entry presented when widget if waiting for reloading timeline.
+            entries.append(LessonsEntry(date: dateToUpdate, lessons: arrayWithLessonsToShow))
+            entries.append(LessonsEntry(date: getDateStartAndEnd(of: arrayWithLessonsToShow[0]).dateStart, lessons: arrayWithLessonsToShow))
+        }
+        
+        completion(Timeline(entries: entries, policy: .after(dateToUpdate)))
     }
     
     /// Fetching core data and getting lessons from `getNextThreeLessonsID()`
@@ -76,39 +106,7 @@ struct Provider: TimelineProvider {
         }
         return arrayWithLessonsToShow
     }
-    
-    func makeTimeLine1(arrayWithLessonsToShow: inout [Lesson], dayNumberFromCurrentDate: Int, currentWeekFromTodayDate: WeekType) -> (entries: [LessonsEntry], dateToUpdate: Date) {
 
-        var dateToUpdate = Date.tomorrow
-        
-        /// Update timeline options
-        var entries = [LessonsEntry(date: Date(), lessons: arrayWithLessonsToShow)]
-        
-        if arrayWithLessonsToShow[0].dayNumber == dayNumberFromCurrentDate {
-            
-            entries.append(LessonsEntry(date: getDateStartAndEnd(of: arrayWithLessonsToShow[0]).dateStart, lessons: arrayWithLessonsToShow))
-            
-            
-            dateToUpdate = getDateStartAndEnd(of: arrayWithLessonsToShow[0]).dateEnd
-
-            /// Remove lesson which end
-            arrayWithLessonsToShow.remove(at: 0)
-            
-            /// New entry without lesson which end. This entry presented when widget if waiting for reloading timeline.
-            entries.append(LessonsEntry(date: dateToUpdate, lessons: arrayWithLessonsToShow))
-            
-            entries.append(LessonsEntry(date: getDateStartAndEnd(of: arrayWithLessonsToShow[0]).dateStart, lessons: arrayWithLessonsToShow))
-        }
-        
-        
-        return (entries: entries, dateToUpdate: dateToUpdate)
-    }
-}
-
-
-struct LessonsEntry: TimelineEntry {
-    let date: Date
-    let lessons: [Lesson]
 }
 
 
@@ -118,7 +116,6 @@ struct KpiRozkladWidgetEntryView : View {
     
     var entry: Provider.Entry
 
-//    @ViewBuilder
     var body: some View {
         
         switch family {
@@ -136,8 +133,10 @@ struct KpiRozkladWidgetEntryView : View {
     }
 }
 
+
 @main
 struct KPIRozkladWidget: Widget {
+    
     let kind: String = "KPIRozkladWidget"
 
     var body: some WidgetConfiguration {
@@ -149,7 +148,6 @@ struct KPIRozkladWidget: Widget {
         .description("Актуальний розклад для вас.")
         .supportedFamilies([.systemSmall, .systemMedium])
     }
-    
     
     var persistentContainer: NSPersistentContainer = {
         let container = NSCustomPersistentContainer(name: "kpiRozkladModel")
@@ -172,6 +170,7 @@ struct KPIRozkladWidget: Widget {
             }
         }
     }
+    
 }
 
 

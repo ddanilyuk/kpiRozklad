@@ -209,8 +209,8 @@ extension ColourPickerViewController: UITableViewDelegate, UITableViewDataSource
         cell.startLabel.text = "10:25"
         cell.endLabel.text = "12:20"
         cell.teacherLabel.text = "Викладач"
-        cell.roomLabel.text = "301-18"
-        cell.lessonLabel.text = "Предмет"
+        cell.roomLabel.text = "Аудиторія та тип пари"
+        cell.lessonLabel.text = "Назва предмету"
         cell.timeLeftLabel.text = ""
         
         if let defaultColour = defaultColour {

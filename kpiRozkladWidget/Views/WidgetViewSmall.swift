@@ -69,7 +69,8 @@ struct WidgetViewSmall: View {
                         
                         Spacer(minLength: 0.0)
                         
-                        Text(lesson.lessonRoom + " " + lesson.lessonType.rawValue)
+                        let lessonRoomAndType = lesson.lessonRoom + " " + lesson.lessonType.rawValue
+                        Text(lessonRoomAndType.deleteLeftWhitespaces())
                             .font(.footnote)
                             .foregroundColor(.white)
                         

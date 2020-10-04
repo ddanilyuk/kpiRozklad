@@ -11,7 +11,7 @@ import CoreData
 import NotificationCenter
 
 
-/// THIS CODE WANT BE SUPPORTED
+/// THIS CODE WONT BE SUPPORTED
 class TodayViewController: UIViewController, NCWidgetProviding {
     
     /// Main table view

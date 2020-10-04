@@ -8,6 +8,7 @@
 
 import WatchKit
 
+
 class TableRow: NSObject {
     
     @IBOutlet weak var rowGroup: WKInterfaceGroup!
@@ -84,4 +85,5 @@ class TableRow: NSObject {
         guard let formattedString = formatter.string(from: timeInterval) else { return "" }
         return formattedString
     }
+    
 }

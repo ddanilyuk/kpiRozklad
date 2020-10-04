@@ -107,6 +107,7 @@ class SheduleViewController: UIViewController {
     var isFromSettingsGetFreshShedule: Bool = false
     
     /**
+     TODO:- use enum instead of Bool
     `true` when segue from`GroupsAndTeacherVC` or `FavouriteVC`
     */
     var isFromGroupsAndTeacherOrFavourite: Bool = false

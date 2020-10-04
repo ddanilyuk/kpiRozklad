@@ -987,13 +987,13 @@
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="75H-th-loL">
                                         <rect key="frame" x="8" y="38.999999999999993" width="359" height="112.33333333333331"/>
                                         <subviews>
-                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="widgetMediumColored" translatesAutoresizingMaskIntoConstraints="NO" id="aAX-ly-17w">
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="widgetMediumPreviewRelease" translatesAutoresizingMaskIntoConstraints="NO" id="aAX-ly-17w">
                                                 <rect key="frame" x="0.0" y="0.0" width="238.66666666666666" height="112.33333333333333"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" secondItem="aAX-ly-17w" secondAttribute="height" multiplier="329:155" id="lQU-gD-iQY"/>
                                                 </constraints>
                                             </imageView>
-                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="widgetSmallColored" translatesAutoresizingMaskIntoConstraints="NO" id="bYp-ry-3TQ">
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="widgetSmallPreviewRelease" translatesAutoresizingMaskIntoConstraints="NO" id="bYp-ry-3TQ">
                                                 <rect key="frame" x="246.66666666666666" y="0.0" width="112.33333333333334" height="112.33333333333333"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" secondItem="bYp-ry-3TQ" secondAttribute="height" multiplier="1:1" id="cUt-cL-D9G"/>
@@ -1134,8 +1134,8 @@
         <image name="icons8-teacher-90" width="30" height="30"/>
         <image name="icons8-user-group-90" width="30" height="30"/>
         <image name="loadingV1" width="1242" height="2208"/>
-        <image name="widgetMediumColored" width="1974" height="930"/>
-        <image name="widgetSmallColored" width="930" height="930"/>
+        <image name="widgetMediumPreviewRelease" width="1974" height="930"/>
+        <image name="widgetSmallPreviewRelease" width="930" height="930"/>
         <namedColor name="AccentColor">
             <color red="0.0" green="0.46000000000000002" blue="0.89000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>

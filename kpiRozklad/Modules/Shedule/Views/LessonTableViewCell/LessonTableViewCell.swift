@@ -42,7 +42,9 @@ class LessonTableViewCell: UITableViewCell {
         self.lessonLabel.textColor = colourTextLabel
         self.startLabel.text = lesson.timeStart.stringTime
         self.endLabel.text = lesson.timeEnd.stringTime
-        self.roomLabel.text = lesson.lessonType.rawValue + " " + lesson.lessonRoom
+        let lessonTypeAndRoom = lesson.lessonType.rawValue + " " + lesson.lessonRoom
+        self.roomLabel.text = lessonTypeAndRoom.deleteLeftWhitespaces()
+        
         self.timeLeftLabel.text = ""
         
         var textColor: UIColor = .clear

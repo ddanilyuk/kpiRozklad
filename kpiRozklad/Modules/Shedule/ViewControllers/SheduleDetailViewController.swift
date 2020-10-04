@@ -59,8 +59,8 @@ class SheduleDetailViewController: UIViewController {
         
         lessonNameLabel.text = lesson.lessonName
         dayLabel.text = lesson.dayName.rawValue + ", " + lesson.lessonWeek.rawValue + " тиждень"
-        timeStartLabel.text = "Початок: " + lesson.timeStart
-        timeEndLabel.text = "Кінець: " + lesson.timeEnd
+        timeStartLabel.text = "Початок: " + lesson.timeStart.stringTime
+        timeEndLabel.text = "Кінець: " + lesson.timeEnd.stringTime
         
         if lesson.lessonRoom == "" && lesson.lessonType == .empty {
             deleteFromStackView([roomTypeLabel])

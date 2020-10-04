@@ -94,7 +94,7 @@ class LessonTypeAndWeekTableViewCell: UITableViewCell {
     private func setupSegmentControl() {
         // Appearance
         var titleTextAttributesNormal = [
-            NSAttributedString.Key.foregroundColor: UIColor.blue,
+            NSAttributedString.Key.foregroundColor: UIColor.systemBlue,
             NSAttributedString.Key.font: UIFont.systemFont(ofSize: 16)
         ]
         let titleTextAttributesSelected = [

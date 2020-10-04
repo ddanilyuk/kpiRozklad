@@ -85,7 +85,7 @@ extension DropDownPickerTableViewCell: UIPickerViewDelegate, UIPickerViewDataSou
         
         let isRowSelected = selectedRow == row
 
-        var textColor = isRowSelected ? UIColor.blue : UIColor.black
+        var textColor = isRowSelected ? UIColor.systemBlue : UIColor.black
 
         if #available(iOS 13.0, *) {
             textColor = isRowSelected ? UIColor.link : UIColor.label

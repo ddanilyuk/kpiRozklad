@@ -269,7 +269,7 @@ class SheduleViewController: UIViewController {
     }
     
     private func setupWeekSegmentControl() {
-        var titleTextAttributesNormal = [NSAttributedString.Key.foregroundColor: UIColor.blue]
+        var titleTextAttributesNormal = [NSAttributedString.Key.foregroundColor: UIColor.systemBlue]
         let titleTextAttributesSelected = [NSAttributedString.Key.foregroundColor: UIColor.white]
         if #available(iOS 13.0, *) {
             titleTextAttributesNormal = [NSAttributedString.Key.foregroundColor: UIColor.link]
@@ -284,14 +284,21 @@ class SheduleViewController: UIViewController {
              Setup if is view controller presented from  `SettingsTVC`
              */
             self.navigationItem.rightBarButtonItems = [segmentBatButtonItem]
-            self.weekSegmentControl.frame = CGRect(x: 0, y: 0, width: 90, height: weekSegmentControl.frame.height)
-            
+            if UIScreen.main.nativeBounds.height < 1140 {
+                self.weekSegmentControl.frame = CGRect(x: 0, y: 0, width: 90, height: weekSegmentControl.frame.height * 0.75)
+            } else {
+                self.weekSegmentControl.frame = CGRect(x: 0, y: 0, width: 90, height: weekSegmentControl.frame.height)
+            }
         } else if isTeachersShedule {
             /**
              Setup if this VC  used to show teacher lessons (not main shedule)
              */
             self.navigationItem.rightBarButtonItems = [segmentBatButtonItem, favouriteBarButtonItem]
-            self.weekSegmentControl.frame = CGRect(x: 0, y: 0, width: 90, height: weekSegmentControl.frame.height)
+            if UIScreen.main.nativeBounds.height < 1140 {
+                self.weekSegmentControl.frame = CGRect(x: 0, y: 0, width: 90, height: weekSegmentControl.frame.height * 0.75)
+            } else {
+                self.weekSegmentControl.frame = CGRect(x: 0, y: 0, width: 90, height: weekSegmentControl.frame.height)
+            }
             checkIfTeacherInFavourites()
             
         } else if isFromGroupsAndTeacherOrFavourite {
@@ -299,7 +306,12 @@ class SheduleViewController: UIViewController {
              Setup if is view controller presented from  `GroupsAndTeacherVC` or ` FavouriteVC`
              */
             self.navigationItem.rightBarButtonItems = [segmentBatButtonItem, favouriteBarButtonItem]
-            self.weekSegmentControl.frame = CGRect(x: 0, y: 0, width: 90, height: weekSegmentControl.frame.height)
+            
+            if UIScreen.main.nativeBounds.height < 1140 {
+                self.weekSegmentControl.frame = CGRect(x: 0, y: 0, width: 90, height: weekSegmentControl.frame.height * 0.75)
+            } else {
+                self.weekSegmentControl.frame = CGRect(x: 0, y: 0, width: 90, height: weekSegmentControl.frame.height)
+            }
             checkIfGroupInFavourites()
             
         } else if settings.groupName != "" || settings.teacherName != "" {
@@ -308,7 +320,13 @@ class SheduleViewController: UIViewController {
              */
             self.navigationItem.rightBarButtonItems = [segmentBatButtonItem]
             self.navigationItem.leftBarButtonItems = [self.editButtonItem]
-            self.weekSegmentControl.frame = CGRect(x: 0, y: 0, width: 120, height: weekSegmentControl.frame.height)
+            
+            if UIScreen.main.nativeBounds.height < 1140 {
+                self.weekSegmentControl.frame = CGRect(x: 0, y: 0, width: 90, height: weekSegmentControl.frame.height * 0.75)
+            } else {
+                self.weekSegmentControl.frame = CGRect(x: 0, y: 0, width: 120, height: weekSegmentControl.frame.height)
+            }
+
             
             /// After reopen app, reload lessons and current time
             NotificationCenter.default.addObserver(self, selector:#selector(reloadAfterOpenApp), name: UIApplication.willEnterForegroundNotification, object: nil)

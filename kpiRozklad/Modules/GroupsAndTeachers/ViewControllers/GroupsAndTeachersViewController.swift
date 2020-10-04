@@ -136,7 +136,7 @@ class GroupsAndTeachersViewController: UIViewController {
     }
     
     private func setupSwitch() {
-        var titleTextAttributesNormal = [NSAttributedString.Key.foregroundColor: UIColor.blue]
+        var titleTextAttributesNormal = [NSAttributedString.Key.foregroundColor: UIColor.systemBlue]
         let titleTextAttributesSelected = [NSAttributedString.Key.foregroundColor: UIColor.white]
         
         if #available(iOS 13.0, *) {

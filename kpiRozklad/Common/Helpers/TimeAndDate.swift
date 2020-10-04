@@ -21,14 +21,13 @@ func getTimeAndDayNumAndWeekOfYear() -> (timeIsNowString: String, dayNumberFromC
     /// Calendar
     let calendar = Calendar(identifier: .gregorian)
     
-    /// "HH:mm"  formatter (hours and minutes)
+    
     let formatter2 = DateFormatter()
-
     formatter2.dateFormat = "HH:mm"
-    
-    /// time is now
+    formatter2.locale = NSLocale(localeIdentifier: "en_US_POSIX") as Locale?
     let timeIsNowString = formatter2.string(from: date)
-    
+
+    print(timeIsNowString)
     /// Get number of week (in year) and weekday
     let components = calendar.dateComponents([.weekOfYear, .month, .day, .weekday], from: date)
 

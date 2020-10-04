@@ -15,6 +15,7 @@ func getDateStartAndEnd(of lesson: Lesson, dateNow: Date = Date()) -> (dateStart
     let timeEnd = lesson.timeEnd.stringTime
     
     let formatterFull = DateFormatter()
+    formatterFull.locale = NSLocale(localeIdentifier: "en_US_POSIX") as Locale?
     formatterFull.dateFormat = "YYYY:MM:DD:HH:mm"
 
     let formatterInWhichTimeSaved = DateFormatter()
@@ -68,6 +69,7 @@ func getNextThreeLessonsID(lessons: [Lesson],
 
     /// Current date
     let date = Date()
+    
     
     var iterator = lessons.makeIterator()
     

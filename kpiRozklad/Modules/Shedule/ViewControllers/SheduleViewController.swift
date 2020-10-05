@@ -178,7 +178,6 @@ class SheduleViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         tableView.reloadData()
-
         if !isFromSettingsGetFreshShedule && !isFromGroupsAndTeacherOrFavourite && !isTeachersShedule {
             reloadDataOnAppleWatch()
             setLargeTitleDisplayMode(.always)

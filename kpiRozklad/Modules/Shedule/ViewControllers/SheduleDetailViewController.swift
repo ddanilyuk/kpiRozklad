@@ -7,7 +7,7 @@
 //
 
 import UIKit
-//import PanModal
+
 
 class SheduleDetailViewController: UIViewController {
     
@@ -48,14 +48,10 @@ class SheduleDetailViewController: UIViewController {
         
         /// Setup all views in stack view
         setupViews()
-        
-        /// Setup `showTeacherShedulleButton`
-        setupButton()
-        
+ 
         ///Setup groups loading activity indicator
         setupActivityIndicator()
     }
-    
     
     private func setupViews() {
         /// LESSON
@@ -63,8 +59,8 @@ class SheduleDetailViewController: UIViewController {
         
         lessonNameLabel.text = lesson.lessonName
         dayLabel.text = lesson.dayName.rawValue + ", " + lesson.lessonWeek.rawValue + " тиждень"
-        timeStartLabel.text = "Початок: " + lesson.timeStart
-        timeEndLabel.text = "Кінець: " + lesson.timeEnd
+        timeStartLabel.text = "Початок: " + lesson.timeStart.stringTime
+        timeEndLabel.text = "Кінець: " + lesson.timeEnd.stringTime
         
         if lesson.lessonRoom == "" && lesson.lessonType == .empty {
             deleteFromStackView([roomTypeLabel])
@@ -106,23 +102,16 @@ class SheduleDetailViewController: UIViewController {
             getTeacherLessons(dayNumber: lesson.dayNumber, lessonNumber: lesson.lessonNumber, teacherID: teacher.teacherID, lessonWeek: lesson.lessonWeek, lessonId: lesson.id)
             
         } else {
-            groupsLabel.text = "Групи: \(getGroupsOfLessonString(lesson: lesson))"
+            groupsLabel.text = "Групи: \(lesson.getGroupsOfLessonInString())"
             checkTeacherShedule.isHidden = (settings.sheduleType == .teachers && teacher.teacherID == 0) ? true : false
             viewWithActivityIndicator.isHidden = true
         }
     }
     
-    /// setupActivityIndicator
+    /// SetupActivityIndicator
     private func setupActivityIndicator() {
         activityIndicator.startAndShow()
     }
-    
-    
-    /// setupButton
-    private func setupButton() {
-        checkTeacherShedule.layer.cornerRadius = 25
-    }
-    
     
     /**
      Delete array of views from `stackView`
@@ -137,14 +126,12 @@ class SheduleDetailViewController: UIViewController {
         }
     }
     
-    
     /**
      Get lessons from `SheduleVC` -> `SheduleDetailNaviagationC`
      */
     private func getVariablesFromNavigationController() {
         guard let navigationVC = self.navigationController as? SheduleDetailNavigationController else { return }
         self.lesson = navigationVC.lesson
-        
     }
     
     /**
@@ -159,7 +146,6 @@ class SheduleDetailViewController: UIViewController {
         
         navigationController?.pushViewController(sheduleVC, animated: true)
     }
-
     
     /**
      Search for a lesson that is shown in detail  in `getTeacherLessons()`  response
@@ -179,7 +165,7 @@ class SheduleDetailViewController: UIViewController {
                lesson.lessonWeek == lessonWeek {
                 DispatchQueue.main.async {
                     self.viewWithActivityIndicator.isHidden = true
-                    self.groupsLabel.text = "Групи: \(getGroupsOfLessonString(lesson: lesson))"
+                    self.groupsLabel.text = "Групи: \(lesson.getGroupsOfLessonInString())"
                 }
                 break
 
@@ -190,7 +176,7 @@ class SheduleDetailViewController: UIViewController {
             if lesson.id == lessonId {
                 DispatchQueue.main.async {
                     self.viewWithActivityIndicator.isHidden = true
-                    self.groupsLabel.text = "Групи: \(getGroupsOfLessonString(lesson: lesson))"
+                    self.groupsLabel.text = "Групи: \(lesson.getGroupsOfLessonInString())"
                 }
                 break
             }

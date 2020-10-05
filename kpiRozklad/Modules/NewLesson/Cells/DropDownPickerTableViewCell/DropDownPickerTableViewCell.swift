@@ -61,6 +61,7 @@ class DropDownPickerTableViewCell: UITableViewCell {
         super.prepareForReuse()
         selectedRow = 0
     }
+    
 }
 
 
@@ -79,14 +80,15 @@ extension DropDownPickerTableViewCell: UIPickerViewDelegate, UIPickerViewDataSou
     }
     
     func pickerView(_ pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusing view: UIView?) -> UIView {
-        let pickerLabel = UILabel()
+        let returnView = UIView()
+        let pickerLabel = UILabel(frame: CGRect(x: 16, y: 0, width: Int(pickerView.frame.width), height: 30))
         
         let isRowSelected = selectedRow == row
 
-        var textColor = isRowSelected ? UIColor.blue : UIColor.black
+        var textColor = isRowSelected ? UIColor.systemBlue : UIColor.black
 
         if #available(iOS 13.0, *) {
-            textColor = isRowSelected ? UIColor.link : UIColor.black
+            textColor = isRowSelected ? UIColor.link : UIColor.label
         }
         
         let attributtedString = NSAttributedString(string: dataArray[row], attributes: [
@@ -94,9 +96,11 @@ extension DropDownPickerTableViewCell: UIPickerViewDelegate, UIPickerViewDataSou
             NSAttributedString.Key.font: UIFont.systemFont(ofSize: 17, weight: .regular)
         ])
         
-        pickerLabel.textAlignment = .center
+        pickerLabel.textAlignment = .left
         pickerLabel.attributedText = attributtedString
-        return pickerLabel
+        
+        returnView.addSubview(pickerLabel)
+        return returnView
     }
     
     
@@ -109,4 +113,5 @@ extension DropDownPickerTableViewCell: UIPickerViewDelegate, UIPickerViewDataSou
         delegate?.userChangedDropDownCellAt(fatherIndexPath: fatherIndexPath, text: dataArray[row], inPickerRow: row)
         pickerView.reloadAllComponents()
     }
+    
 }

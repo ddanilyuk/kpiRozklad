@@ -12,6 +12,7 @@ import UIKit
 import WidgetKit
 #endif
 
+
 func editLessonNumber(vc: SheduleViewController, indexPath: IndexPath) {
     guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
     let managedContext = appDelegate.persistentContainer.viewContext
@@ -103,13 +104,15 @@ func editLessonNumber(vc: SheduleViewController, indexPath: IndexPath) {
     /// updateCoreData with edited variable `lessons`
     updateCoreData(lessons: lessonsForCoreData, managedContext: managedContext) {
         vc.makeLessonsShedule()
-        WidgetCenter.shared.reloadAllTimelines()
+        if #available(iOS 14.0, *) {
+            reloadDataOnAppleWatch()
+            WidgetCenter.shared.reloadAllTimelines()
+        }
     }
     vc.lessonNumberFromPicker = 1
 }
 
-
-func moveRow3(vc: SheduleViewController, sourceIndexPath: IndexPath, destinationIndexPath: IndexPath) {
+func moveRow(vc: SheduleViewController, sourceIndexPath: IndexPath, destinationIndexPath: IndexPath) {
     if sourceIndexPath == destinationIndexPath {
         return
     } else if sourceIndexPath.section == destinationIndexPath.section {
@@ -241,11 +244,13 @@ func moveRow3(vc: SheduleViewController, sourceIndexPath: IndexPath, destination
     /// updateCoreData with edited variable `lessons`
     updateCoreData(lessons: lessonsForCoreData, managedContext: managedContext) {
         vc.makeLessonsShedule()
-        WidgetCenter.shared.reloadAllTimelines()
+        if #available(iOS 14.0, *) {
+            reloadDataOnAppleWatch()
+            WidgetCenter.shared.reloadAllTimelines()
+        }
     }
     
 }
-
 
 func NASTYA_LYBIAMAYA(i: Int, fullDayLessons: inout [Lesson?],  lessonTemp1: inout Lesson?, lessonTemp2: inout Lesson?) {
     lessonTemp1 = fullDayLessons[i]

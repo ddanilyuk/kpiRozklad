@@ -9,6 +9,7 @@
 import UIKit
 
 public enum WeekType: String, Codable, CaseIterable, Hashable, Comparable {
+    
     public static func < (lhs: WeekType, rhs: WeekType) -> Bool {
         if lhs != rhs {
             return Int(lhs.rawValue) ?? 0 < Int(rhs.rawValue) ?? 0
@@ -23,4 +24,5 @@ public enum WeekType: String, Codable, CaseIterable, Hashable, Comparable {
     mutating func toogle() {
         self = self == .first ? .second : .first
     }
+    
 }

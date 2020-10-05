@@ -8,17 +8,20 @@
 
 import UIKit
 
+
 /// Enum of `LessonTypeAndWeekTableViewCell`
 enum LessonTypeAndWeekTableViewCellType {
     case lessonType
     case week
 }
 
+
 /// Delegate of `LessonTypeAndWeekTableViewCell`
 protocol LessonTypeAndWeekTableViewCellDelegate {
     func userSelectweek(week: WeekType)
     func userSelectType(type: LessonType)
 }
+
 
 class LessonTypeAndWeekTableViewCell: UITableViewCell {
 
@@ -91,7 +94,7 @@ class LessonTypeAndWeekTableViewCell: UITableViewCell {
     private func setupSegmentControl() {
         // Appearance
         var titleTextAttributesNormal = [
-            NSAttributedString.Key.foregroundColor: UIColor.blue,
+            NSAttributedString.Key.foregroundColor: UIColor.systemBlue,
             NSAttributedString.Key.font: UIFont.systemFont(ofSize: 16)
         ]
         let titleTextAttributesSelected = [

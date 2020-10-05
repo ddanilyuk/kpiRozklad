@@ -10,25 +10,20 @@ import UIKit
 import UserNotifications
 import CoreData
 import WatchConnectivity
-//import PanModal
-
-
 
 var API = NetworkingApiFacade(apiService: NetworkingApi())
 
-
-@UIApplicationMain
+@main
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
     let notificationCenter = UNUserNotificationCenter.current()
     private let settings = Settings.shared
     
-    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         setupWatchConnectivity()
 
-        if !settings.updateRozkladAfterVersion106 {
+        if !settings.updateRozkladWithVersion2Point0 {
             deleteAllFromCoreData(managedContext: self.persistentContainer.viewContext)
             settings.isTryToRefreshShedule = true
             
@@ -36,19 +31,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             let formatter = DateFormatter()
             formatter.dateFormat = "dd.MM.yyyy"
             settings.sheduleUpdateTime = formatter.string(from: date)
-            settings.updateRozkladAfterVersion106 = true
+            settings.updateRozkladWithVersion2Point0 = true
         }
         
-        
         let mainStoryboard = UIStoryboard(name: "Main", bundle: Bundle.main)
-        
         let mainVC = mainStoryboard.instantiateInitialViewController()
-        guard let greetingVC = mainStoryboard.instantiateViewController(withIdentifier: "FirstViewController") as? FirstViewController else { return false }
+        guard let greetingVC = mainStoryboard.instantiateViewController(withIdentifier: BoardingViewController.identifier) as? BoardingViewController else { return false }
         
         window?.rootViewController = settings.isShowGreetings ? greetingVC : mainVC
         return true
     }
-    
     
     func setupWatchConnectivity() {
         if WCSession.isSupported() {
@@ -58,64 +50,35 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
     }
     
-    
+    // Open app from widget
     func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
         
-//        if url.scheme == "kpiRozklad" {
-//            print("here in scheme")
-//            window?.rootViewController = UIViewController()
-//            return true
-//        }
-        
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-            let needID = url.host?.removingPercentEncoding
-                    
-            let mainStoryboard = UIStoryboard(name: "Main", bundle: Bundle.main)
-            guard let sheduleVC : SheduleViewController = mainStoryboard.instantiateViewController(withIdentifier: SheduleViewController.identifier) as? SheduleViewController else { return }
+        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(600)) {
+            let needID = Int(url.host?.removingPercentEncoding ?? "") ?? 0
             
-            k: for i in 1..<3 {
-                sheduleVC.currentWeek = WeekType(rawValue: String(i)) ?? .first
-                sheduleVC.isNeedToScroll = false
-                sheduleVC.makeLessonsShedule()
-                let lessonsForTableView = sheduleVC.lessonsForTableView
-                for day in lessonsForTableView {
-                    let lessons = day.lessons
-                    for lesson in lessons {
-                        if lesson.id == Int(needID ?? "0") ?? 0 {
-                            
-                            guard let sheduleDetailVC: SheduleDetailViewController = mainStoryboard.instantiateViewController(withIdentifier: SheduleDetailViewController.identifier) as? SheduleDetailViewController else { return }
-                            
-                            sheduleDetailVC.lesson = lesson
-                            
-                            
-                            guard let sheduleDetailNavigationVC : SheduleDetailNavigationController = mainStoryboard.instantiateViewController(withIdentifier: SheduleDetailNavigationController.identifier) as? SheduleDetailNavigationController else { return }
-                            
-                            sheduleDetailNavigationVC.lesson = lesson
+            let mainStoryboard = UIStoryboard(name: "Main", bundle: Bundle.main)
+            guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
+            let managedContext = appDelegate.persistentContainer.viewContext
+            
+            guard let mainTabBar: UITabBarController = mainStoryboard.instantiateViewController(withIdentifier: "Main") as? UITabBarController else { return }
+            
+            let lessons = fetchingCoreData(managedContext: managedContext)
+            let lessonOptional = lessons.first { $0.id == needID }
+            guard let lesson = lessonOptional else { return }
+            
+            guard let sheduleDetailNavigationVC: SheduleDetailNavigationController = mainStoryboard.instantiateViewController(withIdentifier: SheduleDetailNavigationController.identifier) as? SheduleDetailNavigationController else { return }
+            sheduleDetailNavigationVC.lesson = lesson
 
-                            guard let mainTabBar : UITabBarController = mainStoryboard.instantiateViewController(withIdentifier: "Main") as? UITabBarController else { return }
-                            
-                            mainTabBar.selectedIndex = 0
-                            DispatchQueue.main.async {
-                                if let vc = mainTabBar.selectedViewController as? UINavigationController {
-    //                                vc.pushViewController(sheduleDetailVC, animated: true)
-                                    vc.presentPanModal(sheduleDetailNavigationVC, sourceView: nil, sourceRect: .zero)
-    //                                presentPanModal(sheduleDetailNavigationVC)
-                                }
-                            }
-                          
-                            self.window?.rootViewController = mainTabBar
-                            break k
-
-                        }
-                    }
+            DispatchQueue.main.asyncAfter(deadline: .now()) {
+                if let navigation = mainTabBar.selectedViewController as? UINavigationController {
+                    navigation.presentPanModal(sheduleDetailNavigationVC, sourceView: nil, sourceRect: .zero)
                 }
             }
+            self.window?.rootViewController = mainTabBar
         }
         return true
-        
-      }
+    }
 
-    
     // MARK: - Core Data stack
     lazy var persistentContainer: NSPersistentContainer = {
         /*
@@ -144,8 +107,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return container
     }()
 
-    // MARK: - Core Data Saving support
-
     func saveContext () {
         let context = persistentContainer.viewContext
         if context.hasChanges {
@@ -161,7 +122,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
 }
+
+
 extension AppDelegate {
+    
     func applicationWillResignActive(_ application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
         // Use this method to pause ongoing tasks, disable timers, and invalidate graphics rendering callbacks. Games should use this method to pause the game.
@@ -196,7 +160,6 @@ extension AppDelegate: WCSessionDelegate {
         print("WC Session activated with state: \(activationState.rawValue)")
     }
     
-
     func sessionDidBecomeInactive(_ session: WCSession) {
         print("sessionDidBecomeInactive")
         print(#function)
@@ -207,7 +170,5 @@ extension AppDelegate: WCSessionDelegate {
         print(#function)
         WCSession.default.activate()
     }
-    
-    
     
 }

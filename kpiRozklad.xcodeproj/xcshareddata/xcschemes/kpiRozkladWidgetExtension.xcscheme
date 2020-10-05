@@ -57,18 +57,8 @@
       debugServiceExtension = "internal"
       allowLocationSimulation = "YES"
       launchAutomaticallySubstyle = "2">
-      <RemoteRunnable
-         runnableDebuggingMode = "2"
-         BundleIdentifier = "com.apple.springboard">
-         <BuildableReference
-            BuildableIdentifier = "primary"
-            BlueprintIdentifier = "5F7631F724B251F90022C952"
-            BuildableName = "kpiRozkladWidgetExtension.appex"
-            BlueprintName = "kpiRozkladWidgetExtension"
-            ReferencedContainer = "container:kpiRozklad.xcodeproj">
-         </BuildableReference>
-      </RemoteRunnable>
-      <MacroExpansion>
+      <BuildableProductRunnable
+         runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "D313F491233AAB6C0076CFF8"
@@ -76,7 +66,7 @@
             BlueprintName = "kpiRozklad"
             ReferencedContainer = "container:kpiRozklad.xcodeproj">
          </BuildableReference>
-      </MacroExpansion>
+      </BuildableProductRunnable>
       <EnvironmentVariables>
          <EnvironmentVariable
             key = "_XCWidgetKind"

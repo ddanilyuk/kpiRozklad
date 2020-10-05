@@ -8,6 +8,7 @@
 
 import UIKit
 
+
 public var tint: UIColor = {
     if #available(iOS 13, *) {
         return UIColor { (UITraitCollection: UITraitCollection) -> UIColor in
@@ -25,7 +26,6 @@ public var tint: UIColor = {
         return UIColor(red: 242/255, green: 242/255, blue: 247/255, alpha: 1)
     }
 }()
-
 
 public var sectionColour: UIColor = {
     if #available(iOS 13, *) {
@@ -46,7 +46,6 @@ public var sectionColour: UIColor = {
     }
 }()
 
-
 public var tableViewBackground: UIColor = {
     if #available(iOS 13, *) {
         return UIColor { (UITraitCollection: UITraitCollection) -> UIColor in
@@ -65,7 +64,6 @@ public var tableViewBackground: UIColor = {
     }
 }()
 
-
 public var seettingsTableViewBackgroundColour: UIColor = {
     if #available(iOS 13, *) {
         return .secondarySystemGroupedBackground
@@ -74,15 +72,19 @@ public var seettingsTableViewBackgroundColour: UIColor = {
     }
 }()
 
-
 public let cellBackgroundColor: UIColor = {
     if #available(iOS 13.0, *) {
-        return .systemBackground
+        return UIColor { (UITraitCollection: UITraitCollection) -> UIColor in
+            if UITraitCollection.userInterfaceStyle == .dark {
+                return .black
+            } else {
+                return .white
+            }
+        }        
     } else {
         return .white
     }
 }()
-
 
 public let colourTextLabel: UIColor  = {
     if #available(iOS 13.0, *) {

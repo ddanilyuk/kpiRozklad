@@ -25,22 +25,17 @@ class SheduleDetailNavigationController: UINavigationController, PanModalPresent
         }
     }
 
-    
     var longFormHeight: PanModalHeight {
         return .maxHeightWithTopInset(0)
     }
 
-    
     var transitionDuration: Double {
         return 0.5
     }
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-
         panModalSetNeedsLayoutUpdate()
-        
         navigationBar.backgroundColor = tint
     }
 }

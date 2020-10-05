@@ -48,6 +48,7 @@ extension UIColor {
 
 
 extension UIColor {
+    
     class func color(withData data: Data) -> UIColor {
         let color = try? NSKeyedUnarchiver.unarchivedObject(ofClasses: [UIColor.self], from: data) as? UIColor
         return color ?? .clear
@@ -57,4 +58,5 @@ extension UIColor {
         let data = try? NSKeyedArchiver.archivedData(withRootObject: self, requiringSecureCoding: false)
         return data ?? Data()
     }
+    
 }

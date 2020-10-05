@@ -8,11 +8,13 @@
 
 import Foundation
 
+
 struct ErrorMessageResponse: Decodable {
     let statusCode: Int
     let timeStamp: UInt64
     let message: String
 }
+
 
 struct ArrayDataResponse<T: Decodable>: Decodable {
     var data: [T]

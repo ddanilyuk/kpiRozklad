@@ -70,6 +70,9 @@
 		5F305C792422639D0035B509 /* UIColor+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FCBBA21241C501E00E7654F /* UIColor+Extensions.swift */; };
 		5F305C7A242263A70035B509 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F4457E32376FB05008F9E21 /* Settings.swift */; };
 		5F305C7B242263BC0035B509 /* Colours.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F2F313E2395C62100FC28CB /* Colours.swift */; };
+		5F35C77B24C4E84800F96C62 /* VersionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F35C77924C4E84700F96C62 /* VersionTableViewCell.swift */; };
+		5F35C77C24C4E84800F96C62 /* VersionTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5F35C77A24C4E84700F96C62 /* VersionTableViewCell.xib */; };
+		5F3A3ACB2518CE80001E8490 /* KPI Rozklad Today Widget.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 5FACFF7B23ED63D40022DF88 /* KPI Rozklad Today Widget.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		5F3D8C132493FD5300308AC9 /* Enums.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FD5B7142422171900B86FB7 /* Enums.swift */; };
 		5F3D8C152493FD5300308AC9 /* DetailedInterfaceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F3D8C142493FD5300308AC9 /* DetailedInterfaceController.swift */; };
 		5F4457E42376FB05008F9E21 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F4457E32376FB05008F9E21 /* Settings.swift */; };
@@ -77,12 +80,15 @@
 		5F46AD5E23FEC43500B145D5 /* FavouriteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F46AD5D23FEC43500B145D5 /* FavouriteViewController.swift */; };
 		5F46AD6523FFD66E00B145D5 /* GroupsNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F46AD6423FFD66E00B145D5 /* GroupsNavigationController.swift */; };
 		5F46AD682401A0F700B145D5 /* Favourites.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F46AD672401A0F700B145D5 /* Favourites.swift */; };
+		5F47115C24C49EEB00BF4197 /* WhatsNewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F47115B24C49EEA00BF4197 /* WhatsNewViewController.swift */; };
 		5F5000AF238D704A0003E13B /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F5000AE238D704A0003E13B /* UIView+Extension.swift */; };
 		5F506EE4248ED0CC00B6F544 /* Date+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F506EE3248ED0CC00B6F544 /* Date+Extensions.swift */; };
 		5F506EE6248ED21500B6F544 /* Date+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F506EE3248ED0CC00B6F544 /* Date+Extensions.swift */; };
 		5F56541D248E675700F2EB6E /* TimeAndDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FE048682393027900092422 /* TimeAndDate.swift */; };
 		5F56541E248E6ACF00F2EB6E /* UIColor+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FCBBA21241C501E00E7654F /* UIColor+Extensions.swift */; };
 		5F6A08062370A175000A9C79 /* kpiRozkladModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 5F6A08042370A175000A9C79 /* kpiRozkladModel.xcdatamodeld */; };
+		5F6A437A24CB77D500891915 /* GreetingInterfaceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F6A437924CB77D500891915 /* GreetingInterfaceController.swift */; };
+		5F6A437F24CB9AEC00891915 /* WidgetHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F76322C24B252B10022C952 /* WidgetHelpers.swift */; };
 		5F6FF30A24334DB700FADBD6 /* GroupsAndTeachersVC+UITableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F6FF30924334DB700FADBD6 /* GroupsAndTeachersVC+UITableView.swift */; };
 		5F75DAD72457915900B1E4C9 /* NetworkingApiTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F75DAD62457915900B1E4C9 /* NetworkingApiTests.swift */; };
 		5F7631FA24B251F90022C952 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F7631F924B251F90022C952 /* WidgetKit.framework */; };
@@ -132,8 +138,9 @@
 		5F7A000124B779B900E33B81 /* TimeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F7A000024B7797C00E33B81 /* TimeView.swift */; };
 		5F7A000324B78D2C00E33B81 /* UIActivityIndicator+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F7A000224B78D2C00E33B81 /* UIActivityIndicator+Extensions.swift */; };
 		5F7BABBF23A163C8009E3CA6 /* ErrorMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F7BABBE23A163C8009E3CA6 /* ErrorMessage.swift */; };
-		5F8EF0E7242D170400E74220 /* FirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F8EF0E6242D170400E74220 /* FirstViewController.swift */; };
-		5F8EF0E9242D171000E74220 /* BoardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F8EF0E8242D171000E74220 /* BoardViewController.swift */; };
+		5F8D844D2518CE5200AE7E86 /* Pods_kpiRozklad.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 25B70702B56A794A30F2DB1A /* Pods_kpiRozklad.framework */; };
+		5F8EF0E7242D170400E74220 /* BoardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F8EF0E6242D170400E74220 /* BoardingViewController.swift */; };
+		5F8EF0E9242D171000E74220 /* PopUpPanModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F8EF0E8242D171000E74220 /* PopUpPanModalViewController.swift */; };
 		5F8EF0F8242D30AE00E74220 /* PanModalPresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F8EF0EB242D30AD00E74220 /* PanModalPresentable.swift */; };
 		5F8EF0F9242D30AE00E74220 /* PanModalPresentationDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F8EF0EC242D30AD00E74220 /* PanModalPresentationDelegate.swift */; };
 		5F8EF0FA242D30AE00E74220 /* DimmedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F8EF0ED242D30AD00E74220 /* DimmedView.swift */; };
@@ -147,7 +154,6 @@
 		5F8EF102242D30AE00E74220 /* PanModalPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F8EF0F5242D30AE00E74220 /* PanModalPresentationController.swift */; };
 		5F8EF103242D30AE00E74220 /* PanModalAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F8EF0F6242D30AE00E74220 /* PanModalAnimator.swift */; };
 		5F8EF104242D30AE00E74220 /* PanModalHeight.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F8EF0F7242D30AE00E74220 /* PanModalHeight.swift */; };
-		5F96B89924339DE50035DA86 /* UITableViewCell+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F96B89824339DE50035DA86 /* UITableViewCell+Extensions.swift */; };
 		5F96B89B2433A41A0035DA86 /* GroupsAndTeachersVC+Search.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F96B89A2433A41A0035DA86 /* GroupsAndTeachersVC+Search.swift */; };
 		5FA2B79D2379F5A7006C466B /* Group.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FA2B79C2379F5A7006C466B /* Group.swift */; };
 		5FA57FA024956519002DCD4A /* Lesson.swift in Sources */ = {isa = PBXBuildFile; fileRef = D313F4B1233C773B0076CFF8 /* Lesson.swift */; };
@@ -187,10 +193,11 @@
 		5FACFF7E23ED63D40022DF88 /* NotificationCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FACFF7D23ED63D40022DF88 /* NotificationCenter.framework */; };
 		5FACFF8123ED63D40022DF88 /* TodayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FACFF8023ED63D40022DF88 /* TodayViewController.swift */; };
 		5FACFF8423ED63D40022DF88 /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5FACFF8223ED63D40022DF88 /* MainInterface.storyboard */; };
-		5FACFF8823ED63D40022DF88 /* KPI ROZKLAD.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 5FACFF7B23ED63D40022DF88 /* KPI ROZKLAD.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		5FACFF8F23ED64840022DF88 /* LessonTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D313F4B3233D1F090076CFF8 /* LessonTableViewCell.swift */; };
 		5FACFF9023ED648D0022DF88 /* LessonTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D313F4B4233D1F090076CFF8 /* LessonTableViewCell.xib */; };
 		5FACFF9123ED65020022DF88 /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F5000AE238D704A0003E13B /* UIView+Extension.swift */; };
+		5FB0F62E2528C1A700365FF5 /* SelectSheduleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FB0F62D2528C1A700365FF5 /* SelectSheduleView.swift */; };
+		5FB0F6362528D68400365FF5 /* EqualWidth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FB0F6352528D68400365FF5 /* EqualWidth.swift */; };
 		5FC991EE23DF10BB00612266 /* ServerUpdateTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FC991EC23DF10BB00612266 /* ServerUpdateTableViewCell.swift */; };
 		5FC991EF23DF10BB00612266 /* ServerUpdateTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5FC991ED23DF10BB00612266 /* ServerUpdateTableViewCell.xib */; };
 		5FCBB9FD241C404F00E7654F /* String+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FCBB9FC241C404F00E7654F /* String+Extensions.swift */; };
@@ -225,18 +232,18 @@
 		5FDCFCF1248D8F6F00568208 /* ManagingLessons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FE048662392D4FA00092422 /* ManagingLessons.swift */; };
 		5FDCFCF2248D8F7A00568208 /* String+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FCBB9FC241C404F00E7654F /* String+Extensions.swift */; };
 		5FDCFCF4248D911900568208 /* TableRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FDCFCF3248D911900568208 /* TableRow.swift */; };
-		5FDCFCF6248E561C00568208 /* TitleRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FDCFCF5248E561C00568208 /* TitleRow.swift */; };
 		5FE048652392D16A00092422 /* EditingLessons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FE048642392D16A00092422 /* EditingLessons.swift */; };
 		5FE048672392D4FA00092422 /* ManagingLessons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FE048662392D4FA00092422 /* ManagingLessons.swift */; };
 		5FE048692393027900092422 /* TimeAndDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FE048682393027900092422 /* TimeAndDate.swift */; };
 		5FE0486B2393087900092422 /* CoreDataHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FE0486A2393087900092422 /* CoreDataHelpers.swift */; };
 		5FE0486D23930C3000092422 /* SheduleVC+UIPickerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FE0486C23930C3000092422 /* SheduleVC+UIPickerVC.swift */; };
+		5FE3A1A524CCDE8500F34107 /* Date+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F506EE3248ED0CC00B6F544 /* Date+Extensions.swift */; };
 		5FE40E55248CF1DA000D2899 /* CoreDataHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FE0486A2393087900092422 /* CoreDataHelpers.swift */; };
 		5FE9678324091880000AD157 /* TeachersNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FE9678224091880000AD157 /* TeachersNavigationController.swift */; };
 		5FE96785240F0C22000AD157 /* SheduleDetailNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FE96784240F0C22000AD157 /* SheduleDetailNavigationController.swift */; };
 		5FF204D424B4F76F00B52FCB /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F4457E32376FB05008F9E21 /* Settings.swift */; };
 		5FF3323D24B7D72F00DB864F /* StoreUserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FF3323C24B7D72F00DB864F /* StoreUserDefaults.swift */; };
-		90A353C4EB2D15AEC0D9F8D1 /* Pods_kpiRozklad.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 25B70702B56A794A30F2DB1A /* Pods_kpiRozklad.framework */; };
+		5FF43FD924CCC25A005E1A7E /* WatchKitHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FF43FD824CCC25A005E1A7E /* WatchKitHelpers.swift */; };
 		D300F1D62364CEA30098CA83 /* GroupsAndTeachersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D300F1D52364CEA30098CA83 /* GroupsAndTeachersViewController.swift */; };
 		D300F1DA2364CF490098CA83 /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D300F1D92364CF490098CA83 /* SettingsTableViewController.swift */; };
 		D300F1DC2365BC270098CA83 /* Teacher.swift in Sources */ = {isa = PBXBuildFile; fileRef = D300F1DB2365BC270098CA83 /* Teacher.swift */; };
@@ -252,6 +259,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		5F3A3ACC2518CE80001E8490 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D313F48A233AAB6C0076CFF8 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 5FACFF7A23ED63D40022DF88;
+			remoteInfo = kpiRozkladTodayWidget;
+		};
 		5F75DAD92457915900B1E4C9 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = D313F48A233AAB6C0076CFF8 /* Project object */;
@@ -265,13 +279,6 @@
 			proxyType = 1;
 			remoteGlobalIDString = 5F7631F724B251F90022C952;
 			remoteInfo = kpiRozkladWidgetExtension;
-		};
-		5FACFF8623ED63D40022DF88 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = D313F48A233AAB6C0076CFF8 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 5FACFF7A23ED63D40022DF88;
-			remoteInfo = Widget;
 		};
 		5FDCFCD7248D8C2F00568208 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -296,7 +303,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
-				5FACFF8823ED63D40022DF88 /* KPI ROZKLAD.appex in Embed App Extensions */,
+				5F3A3ACB2518CE80001E8490 /* KPI Rozklad Today Widget.appex in Embed App Extensions */,
 				5F76320524B251F90022C952 /* kpiRozkladWidgetExtension.appex in Embed App Extensions */,
 			);
 			name = "Embed App Extensions";
@@ -356,15 +363,22 @@
 		5F2F313C2395972900FC28CB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		5F2F313E2395C62100FC28CB /* Colours.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colours.swift; sourceTree = "<group>"; };
 		5F305C76242260560035B509 /* SheduleVC+UITableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SheduleVC+UITableView.swift"; sourceTree = "<group>"; };
+		5F35C77924C4E84700F96C62 /* VersionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VersionTableViewCell.swift; sourceTree = "<group>"; };
+		5F35C77A24C4E84700F96C62 /* VersionTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = VersionTableViewCell.xib; sourceTree = "<group>"; };
+		5F3A3AE025193326001E8490 /* KPI Rozklad Today WidgetDebug.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "KPI Rozklad Today WidgetDebug.entitlements"; sourceTree = "<group>"; };
+		5F3A3AE725193348001E8490 /* KPI RozkladDebug.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "KPI RozkladDebug.entitlements"; sourceTree = "<group>"; };
+		5F3A3B1025193717001E8490 /* kpiRozkladWidgetExtensionDebug.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = kpiRozkladWidgetExtensionDebug.entitlements; sourceTree = "<group>"; };
 		5F3D8C142493FD5300308AC9 /* DetailedInterfaceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailedInterfaceController.swift; sourceTree = "<group>"; };
 		5F4457E32376FB05008F9E21 /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		5F44899F24B52E0C00EF86D4 /* WidgetViewSmall.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetViewSmall.swift; sourceTree = "<group>"; };
 		5F46AD5D23FEC43500B145D5 /* FavouriteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouriteViewController.swift; sourceTree = "<group>"; };
 		5F46AD6423FFD66E00B145D5 /* GroupsNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupsNavigationController.swift; sourceTree = "<group>"; };
 		5F46AD672401A0F700B145D5 /* Favourites.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Favourites.swift; sourceTree = "<group>"; };
+		5F47115B24C49EEA00BF4197 /* WhatsNewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhatsNewViewController.swift; sourceTree = "<group>"; };
 		5F5000AE238D704A0003E13B /* UIView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
 		5F506EE3248ED0CC00B6F544 /* Date+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extensions.swift"; sourceTree = "<group>"; };
 		5F6A08052370A175000A9C79 /* Lesson.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Lesson.xcdatamodel; sourceTree = "<group>"; };
+		5F6A437924CB77D500891915 /* GreetingInterfaceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GreetingInterfaceController.swift; sourceTree = "<group>"; };
 		5F6FF30924334DB700FADBD6 /* GroupsAndTeachersVC+UITableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GroupsAndTeachersVC+UITableView.swift"; sourceTree = "<group>"; };
 		5F75DAD42457915900B1E4C9 /* kpiRozkladTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = kpiRozkladTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		5F75DAD62457915900B1E4C9 /* NetworkingApiTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkingApiTests.swift; sourceTree = "<group>"; };
@@ -379,12 +393,11 @@
 		5F76322C24B252B10022C952 /* WidgetHelpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WidgetHelpers.swift; sourceTree = "<group>"; };
 		5F76322F24B252F30022C952 /* WidgetViewMedium.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WidgetViewMedium.swift; sourceTree = "<group>"; };
 		5F76323224B2534C0022C952 /* kpiRozkladWidget.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = kpiRozkladWidget.entitlements; sourceTree = "<group>"; };
-		5F76323324B253730022C952 /* kpiRozkladWidgetExtensionDebug.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = kpiRozkladWidgetExtensionDebug.entitlements; sourceTree = "<group>"; };
 		5F7A000024B7797C00E33B81 /* TimeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeView.swift; sourceTree = "<group>"; };
 		5F7A000224B78D2C00E33B81 /* UIActivityIndicator+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIActivityIndicator+Extensions.swift"; sourceTree = "<group>"; };
 		5F7BABBE23A163C8009E3CA6 /* ErrorMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorMessage.swift; sourceTree = "<group>"; };
-		5F8EF0E6242D170400E74220 /* FirstViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstViewController.swift; sourceTree = "<group>"; };
-		5F8EF0E8242D171000E74220 /* BoardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardViewController.swift; sourceTree = "<group>"; };
+		5F8EF0E6242D170400E74220 /* BoardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardingViewController.swift; sourceTree = "<group>"; };
+		5F8EF0E8242D171000E74220 /* PopUpPanModalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopUpPanModalViewController.swift; sourceTree = "<group>"; };
 		5F8EF0EB242D30AD00E74220 /* PanModalPresentable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PanModalPresentable.swift; sourceTree = "<group>"; };
 		5F8EF0EC242D30AD00E74220 /* PanModalPresentationDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PanModalPresentationDelegate.swift; sourceTree = "<group>"; };
 		5F8EF0ED242D30AD00E74220 /* DimmedView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DimmedView.swift; sourceTree = "<group>"; };
@@ -398,7 +411,6 @@
 		5F8EF0F5242D30AE00E74220 /* PanModalPresentationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PanModalPresentationController.swift; sourceTree = "<group>"; };
 		5F8EF0F6242D30AE00E74220 /* PanModalAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PanModalAnimator.swift; sourceTree = "<group>"; };
 		5F8EF0F7242D30AE00E74220 /* PanModalHeight.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PanModalHeight.swift; sourceTree = "<group>"; };
-		5F96B89824339DE50035DA86 /* UITableViewCell+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableViewCell+Extensions.swift"; sourceTree = "<group>"; };
 		5F96B89A2433A41A0035DA86 /* GroupsAndTeachersVC+Search.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GroupsAndTeachersVC+Search.swift"; sourceTree = "<group>"; };
 		5FA2B79C2379F5A7006C466B /* Group.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Group.swift; sourceTree = "<group>"; };
 		5FA57FC224956578002DCD4A /* Meta.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Meta.swift; sourceTree = "<group>"; };
@@ -408,13 +420,13 @@
 		5FA65EF624C20EC5009F6316 /* LessonDayAndNumberTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LessonDayAndNumberTableViewCell.xib; sourceTree = "<group>"; };
 		5FACFF5123EC70A70022DF88 /* TeacherOrGroupLoadingTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeacherOrGroupLoadingTableViewCell.swift; sourceTree = "<group>"; };
 		5FACFF5223EC70A70022DF88 /* TeacherOrGroupLoadingTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TeacherOrGroupLoadingTableViewCell.xib; sourceTree = "<group>"; };
-		5FACFF7B23ED63D40022DF88 /* KPI ROZKLAD.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "KPI ROZKLAD.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
+		5FACFF7B23ED63D40022DF88 /* KPI Rozklad Today Widget.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "KPI Rozklad Today Widget.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
 		5FACFF7D23ED63D40022DF88 /* NotificationCenter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NotificationCenter.framework; path = System/Library/Frameworks/NotificationCenter.framework; sourceTree = SDKROOT; };
 		5FACFF8023ED63D40022DF88 /* TodayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayViewController.swift; sourceTree = "<group>"; };
 		5FACFF8323ED63D40022DF88 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
 		5FACFF8523ED63D40022DF88 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		5FACFF8D23ED63E20022DF88 /* kpiRozkladTodayWidget.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = kpiRozkladTodayWidget.entitlements; sourceTree = "<group>"; };
-		5FACFF8E23ED63E90022DF88 /* KPI Rozklad.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "KPI Rozklad.entitlements"; sourceTree = "<group>"; };
+		5FB0F62D2528C1A700365FF5 /* SelectSheduleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectSheduleView.swift; sourceTree = "<group>"; };
+		5FB0F6352528D68400365FF5 /* EqualWidth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EqualWidth.swift; sourceTree = "<group>"; };
 		5FC991EC23DF10BB00612266 /* ServerUpdateTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerUpdateTableViewCell.swift; sourceTree = "<group>"; };
 		5FC991ED23DF10BB00612266 /* ServerUpdateTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ServerUpdateTableViewCell.xib; sourceTree = "<group>"; };
 		5FCBB9FC241C404F00E7654F /* String+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extensions.swift"; sourceTree = "<group>"; };
@@ -445,7 +457,6 @@
 		5FDCFCE2248D8C3000568208 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5FDCFCE3248D8C3000568208 /* PushNotificationPayload.apns */ = {isa = PBXFileReference; lastKnownFileType = text; path = PushNotificationPayload.apns; sourceTree = "<group>"; };
 		5FDCFCF3248D911900568208 /* TableRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableRow.swift; sourceTree = "<group>"; };
-		5FDCFCF5248E561C00568208 /* TitleRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleRow.swift; sourceTree = "<group>"; };
 		5FE048642392D16A00092422 /* EditingLessons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditingLessons.swift; sourceTree = "<group>"; };
 		5FE048662392D4FA00092422 /* ManagingLessons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManagingLessons.swift; sourceTree = "<group>"; };
 		5FE048682393027900092422 /* TimeAndDate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeAndDate.swift; sourceTree = "<group>"; };
@@ -454,6 +465,7 @@
 		5FE9678224091880000AD157 /* TeachersNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeachersNavigationController.swift; sourceTree = "<group>"; };
 		5FE96784240F0C22000AD157 /* SheduleDetailNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheduleDetailNavigationController.swift; sourceTree = "<group>"; };
 		5FF3323C24B7D72F00DB864F /* StoreUserDefaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreUserDefaults.swift; sourceTree = "<group>"; };
+		5FF43FD824CCC25A005E1A7E /* WatchKitHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchKitHelpers.swift; sourceTree = "<group>"; };
 		724A13763CC9AF6CBB93A09C /* Pods-KPIRozkladTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KPIRozkladTests.release.xcconfig"; path = "Target Support Files/Pods-KPIRozkladTests/Pods-KPIRozkladTests.release.xcconfig"; sourceTree = "<group>"; };
 		BE7B08BAF6D98CFFD7B1FF4B /* Pods_kpiRozkladTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_kpiRozkladTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C33203580DD02E686E10BAEC /* Pods-kpiRozklad.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-kpiRozklad.release.xcconfig"; path = "Target Support Files/Pods-kpiRozklad/Pods-kpiRozklad.release.xcconfig"; sourceTree = "<group>"; };
@@ -520,7 +532,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				90A353C4EB2D15AEC0D9F8D1 /* Pods_kpiRozklad.framework in Frameworks */,
+				5F8D844D2518CE5200AE7E86 /* Pods_kpiRozklad.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -540,13 +552,6 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
-		5F019D6424C1A815009D86FC /* Views */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Views;
-			sourceTree = "<group>";
-		};
 		5F0E7DC024B23BC3002E1C6D /* CoreData */ = {
 			isa = PBXGroup;
 			children = (
@@ -560,6 +565,7 @@
 				5F0E7DC824B23C0A002E1C6D /* GroupData+CoreDataProperties.swift */,
 				5F0275B323F3476B00743637 /* CoreDataStack.swift */,
 				5FE0486A2393087900092422 /* CoreDataHelpers.swift */,
+				5F6A08042370A175000A9C79 /* kpiRozkladModel.xcdatamodeld */,
 			);
 			path = CoreData;
 			sourceTree = "<group>";
@@ -576,14 +582,10 @@
 		5F1DA16F24C38D34007660A9 /* Cells */ = {
 			isa = PBXGroup;
 			children = (
-				5F019D6524C1A854009D86FC /* TextFieldAndButtonTableViewCell.swift */,
-				5F019D6624C1A854009D86FC /* TextFieldAndButtonTableViewCell.xib */,
-				5F019D6924C1BD95009D86FC /* LessonTypeAndWeekTableViewCell.swift */,
-				5F019D6A24C1BD95009D86FC /* LessonTypeAndWeekTableViewCell.xib */,
-				5F019D6D24C1C55A009D86FC /* DropDownPickerTableViewCell.swift */,
-				5F019D6E24C1C55A009D86FC /* DropDownPickerTableViewCell.xib */,
-				5FA65EF524C20EC5009F6316 /* LessonDayAndNumberTableViewCell.swift */,
-				5FA65EF624C20EC5009F6316 /* LessonDayAndNumberTableViewCell.xib */,
+				5FE31F0624C4427A00E9C7BC /* TextFieldAndButtonTableViewCell */,
+				5FE31F0824C442A100E9C7BC /* DropDownPickerTableViewCell */,
+				5FE31F0724C4428700E9C7BC /* LessonTypeAndWeekTableViewCell */,
+				5FE31F0924C442AD00E9C7BC /* LessonDayAndNumberTableViewCell */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -599,21 +601,19 @@
 			path = Networking;
 			sourceTree = "<group>";
 		};
-		5F305C7C242264400035B509 /* Other */ = {
+		5F35C77824C4E81500F96C62 /* VersionTableViewCell */ = {
 			isa = PBXGroup;
 			children = (
-				5F019D6424C1A815009D86FC /* Views */,
-				5F8EF0E5242D15D200E74220 /* Frameworks */,
-				5FD5B71724226F1C00B86FB7 /* ViewControllers */,
+				5F35C77924C4E84700F96C62 /* VersionTableViewCell.swift */,
+				5F35C77A24C4E84700F96C62 /* VersionTableViewCell.xib */,
 			);
-			path = Other;
+			path = VersionTableViewCell;
 			sourceTree = "<group>";
 		};
 		5F46AD5823FEC35E00B145D5 /* Favourite */ = {
 			isa = PBXGroup;
 			children = (
 				5F46AD5923FEC3D400B145D5 /* ViewControllers */,
-				5F46AD5A23FEC3DF00B145D5 /* Views */,
 			);
 			path = Favourite;
 			sourceTree = "<group>";
@@ -624,13 +624,6 @@
 				5F46AD5D23FEC43500B145D5 /* FavouriteViewController.swift */,
 			);
 			path = ViewControllers;
-			sourceTree = "<group>";
-		};
-		5F46AD5A23FEC3DF00B145D5 /* Views */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Views;
 			sourceTree = "<group>";
 		};
 		5F46AD662401A0D800B145D5 /* Singleton */ = {
@@ -654,6 +647,7 @@
 			isa = PBXGroup;
 			children = (
 				5FE048642392D16A00092422 /* EditingLessons.swift */,
+				5FF43FD824CCC25A005E1A7E /* WatchKitHelpers.swift */,
 				5FE048662392D4FA00092422 /* ManagingLessons.swift */,
 				5FE048682393027900092422 /* TimeAndDate.swift */,
 				5F2F313E2395C62100FC28CB /* Colours.swift */,
@@ -674,10 +668,8 @@
 		5F7631FD24B251F90022C952 /* kpiRozkladWidget */ = {
 			isa = PBXGroup;
 			children = (
-				5F44899F24B52E0C00EF86D4 /* WidgetViewSmall.swift */,
-				5F76322F24B252F30022C952 /* WidgetViewMedium.swift */,
-				5F76322A24B252990022C952 /* LessonRow.swift */,
-				5F7A000024B7797C00E33B81 /* TimeView.swift */,
+				5FB0F65D2529389100365FF5 /* Views */,
+				5FB0F6352528D68400365FF5 /* EqualWidth.swift */,
 				5F76322C24B252B10022C952 /* WidgetHelpers.swift */,
 				5F7631FE24B251F90022C952 /* KPIRozkladWidget.swift */,
 				5F76320024B251F90022C952 /* Assets.xcassets */,
@@ -687,13 +679,23 @@
 			path = kpiRozkladWidget;
 			sourceTree = "<group>";
 		};
-		5F8EF0E5242D15D200E74220 /* Frameworks */ = {
+		5F8B23B024CCBF4B0028CD7A /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				5FDCFCDA248D8C2F00568208 /* InterfaceController.swift */,
+				5F3D8C142493FD5300308AC9 /* DetailedInterfaceController.swift */,
+				5F6A437924CB77D500891915 /* GreetingInterfaceController.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		5F8EF0E5242D15D200E74220 /* CopiedFrameworks */ = {
 			isa = PBXGroup;
 			children = (
 				5F8EF0EA242D30A000E74220 /* PanModal */,
 				5FCBBA0A241C4B3800E7654F /* ColourPicker */,
 			);
-			path = Frameworks;
+			path = CopiedFrameworks;
 			sourceTree = "<group>";
 		};
 		5F8EF0EA242D30A000E74220 /* PanModal */ = {
@@ -758,12 +760,24 @@
 		5FACFF7F23ED63D40022DF88 /* kpiRozkladTodayWidget */ = {
 			isa = PBXGroup;
 			children = (
-				5FACFF8D23ED63E20022DF88 /* kpiRozkladTodayWidget.entitlements */,
+				5F3A3AE025193326001E8490 /* KPI Rozklad Today WidgetDebug.entitlements */,
 				5FACFF8023ED63D40022DF88 /* TodayViewController.swift */,
 				5FACFF8223ED63D40022DF88 /* MainInterface.storyboard */,
 				5FACFF8523ED63D40022DF88 /* Info.plist */,
 			);
 			path = kpiRozkladTodayWidget;
+			sourceTree = "<group>";
+		};
+		5FB0F65D2529389100365FF5 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				5F44899F24B52E0C00EF86D4 /* WidgetViewSmall.swift */,
+				5F76322F24B252F30022C952 /* WidgetViewMedium.swift */,
+				5FB0F62D2528C1A700365FF5 /* SelectSheduleView.swift */,
+				5F76322A24B252990022C952 /* LessonRow.swift */,
+				5F7A000024B7797C00E33B81 /* TimeView.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 		5FCBBA0A241C4B3800E7654F /* ColourPicker */ = {
@@ -781,8 +795,9 @@
 		5FD5B71724226F1C00B86FB7 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
-				5F8EF0E6242D170400E74220 /* FirstViewController.swift */,
-				5F8EF0E8242D171000E74220 /* BoardViewController.swift */,
+				5F8EF0E6242D170400E74220 /* BoardingViewController.swift */,
+				5F8EF0E8242D171000E74220 /* PopUpPanModalViewController.swift */,
+				5F47115B24C49EEA00BF4197 /* WhatsNewViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -800,16 +815,14 @@
 		5FDCFCD9248D8C2F00568208 /* kpiRozkladWatch Extension */ = {
 			isa = PBXGroup;
 			children = (
-				5FDCFCDA248D8C2F00568208 /* InterfaceController.swift */,
-				5F3D8C142493FD5300308AC9 /* DetailedInterfaceController.swift */,
 				5FDCFCDC248D8C2F00568208 /* ExtensionDelegate.swift */,
-				5FDCFCF3248D911900568208 /* TableRow.swift */,
-				5FDCFCF5248E561C00568208 /* TitleRow.swift */,
-				5FDCFCDE248D8C2F00568208 /* NotificationController.swift */,
-				5FDCFCE0248D8C3000568208 /* Assets.xcassets */,
-				5FDCFCE3248D8C3000568208 /* PushNotificationPayload.apns */,
-				5FDCFCE2248D8C3000568208 /* Info.plist */,
+				5F8B23B024CCBF4B0028CD7A /* Controllers */,
 				5FF3323C24B7D72F00DB864F /* StoreUserDefaults.swift */,
+				5FDCFCF3248D911900568208 /* TableRow.swift */,
+				5FDCFCE0248D8C3000568208 /* Assets.xcassets */,
+				5FDCFCDE248D8C2F00568208 /* NotificationController.swift */,
+				5FDCFCE2248D8C3000568208 /* Info.plist */,
+				5FDCFCE3248D8C3000568208 /* PushNotificationPayload.apns */,
 			);
 			path = "kpiRozkladWatch Extension";
 			sourceTree = "<group>";
@@ -831,10 +844,54 @@
 			path = Structs;
 			sourceTree = "<group>";
 		};
+		5FE31F0624C4427A00E9C7BC /* TextFieldAndButtonTableViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				5F019D6524C1A854009D86FC /* TextFieldAndButtonTableViewCell.swift */,
+				5F019D6624C1A854009D86FC /* TextFieldAndButtonTableViewCell.xib */,
+			);
+			path = TextFieldAndButtonTableViewCell;
+			sourceTree = "<group>";
+		};
+		5FE31F0724C4428700E9C7BC /* LessonTypeAndWeekTableViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				5F019D6924C1BD95009D86FC /* LessonTypeAndWeekTableViewCell.swift */,
+				5F019D6A24C1BD95009D86FC /* LessonTypeAndWeekTableViewCell.xib */,
+			);
+			path = LessonTypeAndWeekTableViewCell;
+			sourceTree = "<group>";
+		};
+		5FE31F0824C442A100E9C7BC /* DropDownPickerTableViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				5F019D6D24C1C55A009D86FC /* DropDownPickerTableViewCell.swift */,
+				5F019D6E24C1C55A009D86FC /* DropDownPickerTableViewCell.xib */,
+			);
+			path = DropDownPickerTableViewCell;
+			sourceTree = "<group>";
+		};
+		5FE31F0924C442AD00E9C7BC /* LessonDayAndNumberTableViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				5FA65EF524C20EC5009F6316 /* LessonDayAndNumberTableViewCell.swift */,
+				5FA65EF624C20EC5009F6316 /* LessonDayAndNumberTableViewCell.xib */,
+			);
+			path = LessonDayAndNumberTableViewCell;
+			sourceTree = "<group>";
+		};
+		5FE31F0A24C442D900E9C7BC /* Boarding */ = {
+			isa = PBXGroup;
+			children = (
+				5FD5B71724226F1C00B86FB7 /* ViewControllers */,
+			);
+			path = Boarding;
+			sourceTree = "<group>";
+		};
 		D313F489233AAB6C0076CFF8 = {
 			isa = PBXGroup;
 			children = (
-				5F76323324B253730022C952 /* kpiRozkladWidgetExtensionDebug.entitlements */,
+				5F3A3B1025193717001E8490 /* kpiRozkladWidgetExtensionDebug.entitlements */,
 				D38DEB43233A250F00BB0075 /* README.md */,
 				D313F494233AAB6C0076CFF8 /* kpiRozklad */,
 				5F7631FD24B251F90022C952 /* kpiRozkladWidget */,
@@ -852,7 +909,7 @@
 			isa = PBXGroup;
 			children = (
 				D313F492233AAB6C0076CFF8 /* KPI Rozklad.app */,
-				5FACFF7B23ED63D40022DF88 /* KPI ROZKLAD.appex */,
+				5FACFF7B23ED63D40022DF88 /* KPI Rozklad Today Widget.appex */,
 				5F75DAD42457915900B1E4C9 /* kpiRozkladTests.xctest */,
 				5FDCFCC9248D8C2C00568208 /* kpiRozkladWatch.app */,
 				5FDCFCD5248D8C2F00568208 /* kpiRozkladWatch Extension.appex */,
@@ -864,8 +921,8 @@
 		D313F494233AAB6C0076CFF8 /* kpiRozklad */ = {
 			isa = PBXGroup;
 			children = (
-				5FACFF8E23ED63E90022DF88 /* KPI Rozklad.entitlements */,
-				D3FFAAD5234F793B0065E9CE /* AppDelegate */,
+				5F3A3AE725193348001E8490 /* KPI RozkladDebug.entitlements */,
+				D313F495233AAB6C0076CFF8 /* AppDelegate.swift */,
 				D3FFAAD6234F79630065E9CE /* Modules */,
 				D3FFAAE123521BA40065E9CE /* Common */,
 				D3FFAADD23521B310065E9CE /* Resoursces */,
@@ -891,14 +948,6 @@
 			path = LessonTableViewCell;
 			sourceTree = "<group>";
 		};
-		D3FFAAD5234F793B0065E9CE /* AppDelegate */ = {
-			isa = PBXGroup;
-			children = (
-				D313F495233AAB6C0076CFF8 /* AppDelegate.swift */,
-			);
-			path = AppDelegate;
-			sourceTree = "<group>";
-		};
 		D3FFAAD6234F79630065E9CE /* Modules */ = {
 			isa = PBXGroup;
 			children = (
@@ -907,7 +956,7 @@
 				5F46AD5823FEC35E00B145D5 /* Favourite */,
 				D3FFAADA234F7A2C0065E9CE /* Settings */,
 				5F1DA16D24C38D17007660A9 /* NewLesson */,
-				5F305C7C242264400035B509 /* Other */,
+				5FE31F0A24C442D900E9C7BC /* Boarding */,
 				5F034A342389B16D00D90DB7 /* Main.storyboard */,
 			);
 			path = Modules;
@@ -954,6 +1003,7 @@
 		D3FFAADB234F7A3D0065E9CE /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				5F35C77824C4E81500F96C62 /* VersionTableViewCell */,
 				5FA5CE572413E30800D2796A /* SettingsTableViewCell */,
 				5FACFF4F23EC70420022DF88 /* ServerUpdateTableViewCell */,
 			);
@@ -972,8 +1022,8 @@
 		D3FFAADD23521B310065E9CE /* Resoursces */ = {
 			isa = PBXGroup;
 			children = (
-				5F6A08042370A175000A9C79 /* kpiRozkladModel.xcdatamodeld */,
-				D3FFAADF23521B660065E9CE /* Images */,
+				5F2F313C2395972900FC28CB /* Assets.xcassets */,
+				5F8EF0E5242D15D200E74220 /* CopiedFrameworks */,
 				D3FFAADE23521B510065E9CE /* LaunchScreen */,
 				D313F49D233AAB6D0076CFF8 /* Preview Content */,
 				D3FFAAE023521B870065E9CE /* Localization */,
@@ -987,14 +1037,6 @@
 				D313F4A0233AAB6D0076CFF8 /* LaunchScreen.storyboard */,
 			);
 			path = LaunchScreen;
-			sourceTree = "<group>";
-		};
-		D3FFAADF23521B660065E9CE /* Images */ = {
-			isa = PBXGroup;
-			children = (
-				5F2F313C2395972900FC28CB /* Assets.xcassets */,
-			);
-			path = Images;
 			sourceTree = "<group>";
 		};
 		D3FFAAE023521B870065E9CE /* Localization */ = {
@@ -1027,7 +1069,6 @@
 				5FCBBA00241C41DE00E7654F /* UIViewController+Extensions.swift */,
 				5FCBBA02241C45BD00E7654F /* UITableViewCellExtensions.swift */,
 				5FCBBA21241C501E00E7654F /* UIColor+Extensions.swift */,
-				5F96B89824339DE50035DA86 /* UITableViewCell+Extensions.swift */,
 				5F506EE3248ED0CC00B6F544 /* Date+Extensions.swift */,
 				5F7A000224B78D2C00E33B81 /* UIActivityIndicator+Extensions.swift */,
 			);
@@ -1118,7 +1159,7 @@
 			);
 			name = kpiRozkladTodayWidget;
 			productName = Widget;
-			productReference = 5FACFF7B23ED63D40022DF88 /* KPI ROZKLAD.appex */;
+			productReference = 5FACFF7B23ED63D40022DF88 /* KPI Rozklad Today Widget.appex */;
 			productType = "com.apple.product-type.app-extension";
 		};
 		5FDCFCC8248D8C2C00568208 /* kpiRozkladWatch */ = {
@@ -1171,9 +1212,9 @@
 			buildRules = (
 			);
 			dependencies = (
-				5FACFF8723ED63D40022DF88 /* PBXTargetDependency */,
 				5FDCFCE5248D8C3000568208 /* PBXTargetDependency */,
 				5F76320424B251F90022C952 /* PBXTargetDependency */,
+				5F3A3ACD2518CE80001E8490 /* PBXTargetDependency */,
 			);
 			name = kpiRozklad;
 			productName = kpiRozklad;
@@ -1187,7 +1228,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1200;
-				LastUpgradeCheck = 1100;
+				LastUpgradeCheck = 1200;
 				ORGANIZATIONNAME = "Denis Danilyuk";
 				TargetAttributes = {
 					5F75DAD32457915900B1E4C9 = {
@@ -1282,6 +1323,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D313F4A2233AAB6D0076CFF8 /* LaunchScreen.storyboard in Resources */,
+				5F35C77C24C4E84800F96C62 /* VersionTableViewCell.xib in Resources */,
 				5FA65EF824C20EC5009F6316 /* LessonDayAndNumberTableViewCell.xib in Resources */,
 				D313F49F233AAB6D0076CFF8 /* Preview Assets.xcassets in Resources */,
 				5F2F313D2395972900FC28CB /* Assets.xcassets in Resources */,
@@ -1431,6 +1473,7 @@
 				5F76322524B252700022C952 /* Group.swift in Sources */,
 				5F76321824B252480022C952 /* TeachersData+CoreDataClass.swift in Sources */,
 				5F76322624B252700022C952 /* ErrorMessage.swift in Sources */,
+				5FB0F6362528D68400365FF5 /* EqualWidth.swift in Sources */,
 				5F76321E24B252600022C952 /* Colours.swift in Sources */,
 				5F76321C24B252540022C952 /* ManagingLessons.swift in Sources */,
 				5F76321A24B252480022C952 /* LessonData+CoreDataProperties.swift in Sources */,
@@ -1452,6 +1495,7 @@
 				5F76322724B252700022C952 /* DayName.swift in Sources */,
 				5F76321D24B2525B0022C952 /* TimeAndDate.swift in Sources */,
 				5F76322024B252700022C952 /* Lesson.swift in Sources */,
+				5FB0F62E2528C1A700365FF5 /* SelectSheduleView.swift in Sources */,
 				5F76322424B252700022C952 /* WeekType.swift in Sources */,
 				5F76321324B252480022C952 /* GroupData+CoreDataProperties.swift in Sources */,
 				5F76322824B252700022C952 /* Meta.swift in Sources */,
@@ -1514,12 +1558,13 @@
 			files = (
 				5FF3323D24B7D72F00DB864F /* StoreUserDefaults.swift in Sources */,
 				5FDCFCDF248D8C2F00568208 /* NotificationController.swift in Sources */,
+				5F6A437F24CB9AEC00891915 /* WidgetHelpers.swift in Sources */,
+				5F6A437A24CB77D500891915 /* GreetingInterfaceController.swift in Sources */,
 				5F56541D248E675700F2EB6E /* TimeAndDate.swift in Sources */,
 				5FA57FC8249565A5002DCD4A /* Room.swift in Sources */,
 				5FA57FC7249565A5002DCD4A /* Group.swift in Sources */,
 				5FA57FCA249565A5002DCD4A /* LessonType.swift in Sources */,
 				5FDCFCF4248D911900568208 /* TableRow.swift in Sources */,
-				5FDCFCF6248E561C00568208 /* TitleRow.swift in Sources */,
 				5F3D8C152493FD5300308AC9 /* DetailedInterfaceController.swift in Sources */,
 				5FA57FCD249565A5002DCD4A /* JSONNull.swift in Sources */,
 				5FDCFCDD248D8C2F00568208 /* ExtensionDelegate.swift in Sources */,
@@ -1528,6 +1573,7 @@
 				5FA57FCC249565A5002DCD4A /* ErrorMessage.swift in Sources */,
 				5F0E7DDC24B23DA8002E1C6D /* WeekType.swift in Sources */,
 				5FA57FC9249565A5002DCD4A /* DayName.swift in Sources */,
+				5FE3A1A524CCDE8500F34107 /* Date+Extensions.swift in Sources */,
 				5FA57FCB249565A5002DCD4A /* Meta.swift in Sources */,
 				5F56541E248E6ACF00F2EB6E /* UIColor+Extensions.swift in Sources */,
 				5FDCFCF2248D8F7A00568208 /* String+Extensions.swift in Sources */,
@@ -1552,7 +1598,7 @@
 				5FD5B7152422171900B86FB7 /* Enums.swift in Sources */,
 				5FCBB9FD241C404F00E7654F /* String+Extensions.swift in Sources */,
 				5F8EF104242D30AE00E74220 /* PanModalHeight.swift in Sources */,
-				5F8EF0E7242D170400E74220 /* FirstViewController.swift in Sources */,
+				5F8EF0E7242D170400E74220 /* BoardingViewController.swift in Sources */,
 				5F8EF0FC242D30AE00E74220 /* PanModalPresenter.swift in Sources */,
 				5FD4D6C2249563AF00A5347B /* DayName.swift in Sources */,
 				5FA2B79D2379F5A7006C466B /* Group.swift in Sources */,
@@ -1573,17 +1619,19 @@
 				5F0E7DD724B23C0A002E1C6D /* GroupData+CoreDataProperties.swift in Sources */,
 				5F2E61832428252000B362A2 /* ErrorMessageResponse.swift in Sources */,
 				5F5000AF238D704A0003E13B /* UIView+Extension.swift in Sources */,
-				5F8EF0E9242D171000E74220 /* BoardViewController.swift in Sources */,
+				5F8EF0E9242D171000E74220 /* PopUpPanModalViewController.swift in Sources */,
 				5F2E61822428252000B362A2 /* NetworkingApiError.swift in Sources */,
 				5FCBBA18241C4F1F00E7654F /* DefaultValuesMy.swift in Sources */,
 				5FCBBA1C241C4F7A00E7654F /* ColorPickerViewDelegateFlowLayoutMy.swift in Sources */,
 				5FE0486B2393087900092422 /* CoreDataHelpers.swift in Sources */,
 				5F0E7DD124B23C0A002E1C6D /* LessonData+CoreDataClass.swift in Sources */,
+				5F35C77B24C4E84800F96C62 /* VersionTableViewCell.swift in Sources */,
 				5FA65EF724C20EC5009F6316 /* LessonDayAndNumberTableViewCell.swift in Sources */,
 				D313F4B2233C773B0076CFF8 /* Lesson.swift in Sources */,
 				5F019D6724C1A854009D86FC /* TextFieldAndButtonTableViewCell.swift in Sources */,
 				5FA5CE5A2413E32D00D2796A /* SettingsTableViewCell.swift in Sources */,
 				5FCBBA1A241C4F5F00E7654F /* ColorPickerViewDelegateMy.swift in Sources */,
+				5F47115C24C49EEB00BF4197 /* WhatsNewViewController.swift in Sources */,
 				5F2F313F2395C62100FC28CB /* Colours.swift in Sources */,
 				5F46AD682401A0F700B145D5 /* Favourites.swift in Sources */,
 				5FE96785240F0C22000AD157 /* SheduleDetailNavigationController.swift in Sources */,
@@ -1602,9 +1650,9 @@
 				D300F1DC2365BC270098CA83 /* Teacher.swift in Sources */,
 				5F8EF102242D30AE00E74220 /* PanModalPresentationController.swift in Sources */,
 				5FCBBA1E241C4FCC00E7654F /* ColorPickerCellMy.swift in Sources */,
-				5F96B89924339DE50035DA86 /* UITableViewCell+Extensions.swift in Sources */,
 				5FE9678324091880000AD157 /* TeachersNavigationController.swift in Sources */,
 				5FCBBA01241C41DE00E7654F /* UIViewController+Extensions.swift in Sources */,
+				5FF43FD924CCC25A005E1A7E /* WatchKitHelpers.swift in Sources */,
 				5F8EF0FE242D30AE00E74220 /* UIViewController+PanModalPresenter.swift in Sources */,
 				5F8EF0FB242D30AE00E74220 /* PanModalPresentable+LayoutHelpers.swift in Sources */,
 				5F8EF0FF242D30AE00E74220 /* PanContainerView.swift in Sources */,
@@ -1633,6 +1681,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		5F3A3ACD2518CE80001E8490 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 5FACFF7A23ED63D40022DF88 /* kpiRozkladTodayWidget */;
+			targetProxy = 5F3A3ACC2518CE80001E8490 /* PBXContainerItemProxy */;
+		};
 		5F75DADA2457915900B1E4C9 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = D313F491233AAB6C0076CFF8 /* kpiRozklad */;
@@ -1642,11 +1695,6 @@
 			isa = PBXTargetDependency;
 			target = 5F7631F724B251F90022C952 /* kpiRozkladWidgetExtension */;
 			targetProxy = 5F76320324B251F90022C952 /* PBXContainerItemProxy */;
-		};
-		5FACFF8723ED63D40022DF88 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 5FACFF7A23ED63D40022DF88 /* kpiRozkladTodayWidget */;
-			targetProxy = 5FACFF8623ED63D40022DF88 /* PBXContainerItemProxy */;
 		};
 		5FDCFCD8248D8C2F00568208 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -1748,6 +1796,8 @@
 				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CODE_SIGN_ENTITLEMENTS = kpiRozkladWidgetExtensionDebug.entitlements;
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 17;
+				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_TEAM = M92VXVU7J9;
 				INFOPLIST_FILE = kpiRozkladWidget/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
@@ -1756,6 +1806,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
+				MARKETING_VERSION = 2.0;
 				PRODUCT_BUNDLE_IDENTIFIER = ddanilyuk.kpiRozklad.kpiRozkladWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -1770,7 +1821,10 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
 				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CODE_SIGN_ENTITLEMENTS = kpiRozkladWidget/kpiRozkladWidget.entitlements;
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 17;
+				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_TEAM = M92VXVU7J9;
 				INFOPLIST_FILE = kpiRozkladWidget/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
@@ -1779,6 +1833,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
+				MARKETING_VERSION = 2.0;
 				PRODUCT_BUNDLE_IDENTIFIER = ddanilyuk.kpiRozklad.kpiRozkladWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -1790,20 +1845,21 @@
 		5FACFF8A23ED63D40022DF88 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_ENTITLEMENTS = kpiRozkladTodayWidget/kpiRozkladTodayWidget.entitlements;
+				CODE_SIGN_ENTITLEMENTS = "kpiRozkladTodayWidget/KPI Rozklad Today WidgetDebug.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 9;
+				CURRENT_PROJECT_VERSION = 17;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = M92VXVU7J9;
 				"INFOPLIST_FILE[sdk=*]" = kpiRozkladTodayWidget/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.3;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.05;
+				MARKETING_VERSION = 2.0;
 				PRODUCT_BUNDLE_IDENTIFIER = ddanilyuk.kpiRozklad.kpiRozkladTodayWidget;
-				PRODUCT_NAME = "KPI ROZKLAD";
+				PRODUCT_NAME = "KPI Rozklad Today Widget";
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -1813,20 +1869,21 @@
 		5FACFF8B23ED63D40022DF88 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_ENTITLEMENTS = kpiRozkladTodayWidget/kpiRozkladTodayWidget.entitlements;
+				CODE_SIGN_ENTITLEMENTS = "kpiRozkladTodayWidget/KPI Rozklad Today WidgetDebug.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 9;
+				CURRENT_PROJECT_VERSION = 17;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = M92VXVU7J9;
 				"INFOPLIST_FILE[sdk=*]" = kpiRozkladTodayWidget/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.3;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.05;
+				MARKETING_VERSION = 2.0;
 				PRODUCT_BUNDLE_IDENTIFIER = ddanilyuk.kpiRozklad.kpiRozkladTodayWidget;
-				PRODUCT_NAME = "KPI ROZKLAD";
+				PRODUCT_NAME = "KPI Rozklad Today Widget";
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -1838,7 +1895,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 9;
+				CURRENT_PROJECT_VERSION = 17;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = M92VXVU7J9;
 				INFOPLIST_FILE = "kpiRozkladWatch Extension/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1846,7 +1904,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.05;
+				MARKETING_VERSION = 2.0;
 				PRODUCT_BUNDLE_IDENTIFIER = ddanilyuk.kpiRozklad.watchkitapp.watchkitextension;
 				PRODUCT_NAME = "${TARGET_NAME}";
 				SDKROOT = watchos;
@@ -1862,7 +1920,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 9;
+				CURRENT_PROJECT_VERSION = 17;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = M92VXVU7J9;
 				INFOPLIST_FILE = "kpiRozkladWatch Extension/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1870,7 +1929,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.05;
+				MARKETING_VERSION = 2.0;
 				PRODUCT_BUNDLE_IDENTIFIER = ddanilyuk.kpiRozklad.watchkitapp.watchkitextension;
 				PRODUCT_NAME = "${TARGET_NAME}";
 				SDKROOT = watchos;
@@ -1887,11 +1946,12 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 9;
+				CURRENT_PROJECT_VERSION = 17;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = M92VXVU7J9;
 				IBSC_MODULE = kpiRozkladWatch_Extension;
 				INFOPLIST_FILE = kpiRozkladWatch/Info.plist;
-				MARKETING_VERSION = 1.05;
+				MARKETING_VERSION = 2.0;
 				PRODUCT_BUNDLE_IDENTIFIER = ddanilyuk.kpiRozklad.watchkitapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = watchos;
@@ -1908,11 +1968,12 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 9;
+				CURRENT_PROJECT_VERSION = 17;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = M92VXVU7J9;
 				IBSC_MODULE = kpiRozkladWatch_Extension;
 				INFOPLIST_FILE = kpiRozkladWatch/Info.plist;
-				MARKETING_VERSION = 1.05;
+				MARKETING_VERSION = 2.0;
 				PRODUCT_BUNDLE_IDENTIFIER = ddanilyuk.kpiRozklad.watchkitapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = watchos;
@@ -1950,6 +2011,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -1957,6 +2019,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
@@ -1977,7 +2040,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
-				ONLY_ACTIVE_ARCH = YES;
+				ONLY_ACTIVE_ARCH = NO;
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -2011,6 +2074,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -2018,6 +2082,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -2045,9 +2110,10 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = "kpiRozklad/KPI Rozklad.entitlements";
+				CODE_SIGN_ENTITLEMENTS = "kpiRozklad/KPI RozkladDebug.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 9;
+				CURRENT_PROJECT_VERSION = 17;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"kpiRozklad/Resoursces/Preview Content\"";
 				DEVELOPMENT_TEAM = M92VXVU7J9;
 				ENABLE_PREVIEWS = YES;
@@ -2057,11 +2123,13 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.05;
+				MARKETING_VERSION = 2.0;
+				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = ddanilyuk.kpiRozklad;
 				PRODUCT_NAME = "KPI Rozklad";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
+				WATCHOS_DEPLOYMENT_TARGET = 4.3;
 			};
 			name = Debug;
 		};
@@ -2071,9 +2139,10 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = "kpiRozklad/KPI Rozklad.entitlements";
+				CODE_SIGN_ENTITLEMENTS = "kpiRozklad/KPI RozkladDebug.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 9;
+				CURRENT_PROJECT_VERSION = 17;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"kpiRozklad/Resoursces/Preview Content\"";
 				DEVELOPMENT_TEAM = M92VXVU7J9;
 				ENABLE_PREVIEWS = YES;
@@ -2083,11 +2152,13 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.05;
+				MARKETING_VERSION = 2.0;
+				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = ddanilyuk.kpiRozklad;
 				PRODUCT_NAME = "KPI Rozklad";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
+				WATCHOS_DEPLOYMENT_TARGET = 4.3;
 			};
 			name = Release;
 		};

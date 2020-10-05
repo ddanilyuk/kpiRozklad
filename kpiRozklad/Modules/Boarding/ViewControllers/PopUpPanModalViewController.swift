@@ -9,7 +9,7 @@
 import UIKit
 
 
-class BoardViewController: UIViewController, PanModalPresentable {
+class PopUpPanModalViewController: UIViewController, PanModalPresentable {
     
     var window: UIWindow?
 
@@ -65,27 +65,25 @@ class BoardViewController: UIViewController, PanModalPresentable {
     
     override func viewDidAppear(_ animated: Bool) {
         if #available(iOS 13.0, *) {
-            studentButton.borderColor = .label
+            studentButton.borderColor = .link
             teacherButton.borderColor = .tertiaryLabel
         } else {
-            studentButton.borderColor = .black
+            studentButton.borderColor = .systemBlue
             teacherButton.borderColor = .lightGray
         }
     }
-    
     
     @IBAction func didPressTeacherButton(_ sender: UIButton) {
         isTouchedStudent = false
         
         if #available(iOS 13.0, *) {
-            teacherButton.borderColor = .label
+            teacherButton.borderColor = .link
             studentButton.borderColor = .tertiaryLabel
         } else {
-            teacherButton.borderColor = .black
+            teacherButton.borderColor = .systemBlue
             studentButton.borderColor = .gray
         }
     }
-    
     
     @IBAction func didPressChoose(_ sender: UIButton) {
         if isTouchedStudent {
@@ -103,20 +101,18 @@ class BoardViewController: UIViewController, PanModalPresentable {
         }
     }
     
-    
     @IBAction func didPressStudentButton(_ sender: UIButton) {
         isTouchedStudent = true
         
         if #available(iOS 13.0, *) {
-            studentButton.borderColor = .label
+            studentButton.borderColor = .link
             teacherButton.borderColor = .tertiaryLabel
         } else {
-            studentButton.borderColor = .black
+            studentButton.borderColor = .systemBlue
             teacherButton.borderColor = .gray
         }
     }
-            
-        
+    
     // MARK: - presentGroupChooser
     /// Func which present `GroupChooserViewController` (navigationGroupChooser)
     func presentGroupOrTeacherChooser(requestType: SheduleType) {
@@ -127,7 +123,6 @@ class BoardViewController: UIViewController, PanModalPresentable {
         
         deleteAllFromCoreData(managedContext: managedContext)
 
-        
         if requestType == .groups {
             if settings.groupName == "" {
                 groupsChooserNavigationController.groupAndTeacherControllerType = .isGroupChooser
@@ -142,4 +137,5 @@ class BoardViewController: UIViewController, PanModalPresentable {
             }
         }
     }
+    
 }

@@ -25,8 +25,8 @@ extension UIViewController {
         view.endEditing(true)
     }
     
-    
 }
+
 
 extension UIViewController {
     
@@ -49,7 +49,7 @@ extension UIViewController {
         }
     }
     
-    private func isLargeTitleAvailable() -> Bool {
+    func isLargeTitleAvailable() -> Bool {
         switch traitCollection.preferredContentSizeCategory {
         case .accessibilityExtraExtraExtraLarge,
              .accessibilityExtraExtraLarge,
@@ -63,4 +63,5 @@ extension UIViewController {
             return UIScreen.main.bounds.height > 568
         }
     }
+    
 }

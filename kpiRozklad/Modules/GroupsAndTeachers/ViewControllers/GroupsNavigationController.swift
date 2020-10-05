@@ -17,4 +17,5 @@ class GroupsNavigationController: UINavigationController {
         teachersViewController.groupAndTeacherControllerType = .isGroupViewController
         self.pushViewController(teachersViewController, animated: true)
     }
+    
 }

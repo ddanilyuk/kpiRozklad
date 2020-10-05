@@ -14,6 +14,19 @@ extension String {
     subscript(value: NSRange) -> Substring {
         return self[value.lowerBound..<value.upperBound]
     }
+    
+    func deleteLeftWhitespaces() -> String {
+        let index = startIndex
+        var result = self
+        
+        while index < endIndex {
+            guard CharacterSet.whitespacesAndNewlines.contains(result[index].unicodeScalars.first!) else {
+                return result
+            }
+            result.remove(at: index)
+        }
+        return result
+    }
 
     subscript(value: CountableClosedRange<Int>) -> Substring {
         get {
@@ -52,6 +65,7 @@ extension String {
     var stringTime: String {
         return String(self[0..<5])
     }
+    
 }
 
 
@@ -89,4 +103,5 @@ extension StringProtocol {
             }
         return result
     }
+    
 }

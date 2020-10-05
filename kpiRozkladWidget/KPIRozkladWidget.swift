@@ -5,164 +5,127 @@
 //  Created by Денис Данилюк on 27.06.2020.
 //
 
-#if canImport(WidgetKit)
 import WidgetKit
 import SwiftUI
 import CoreData
+
+
+struct LessonsEntry: TimelineEntry {
+    let date: Date
+    let lessons: [Lesson]
+}
 
 
 struct Provider: TimelineProvider {
     
     var managedObjectContext: NSManagedObjectContext
     
+    typealias Entry = LessonsEntry
+    
     init(context: NSManagedObjectContext) {
         self.managedObjectContext = context
     }
     
-    typealias Entry = LessonsEntry
-
-    func snapshot(with context: Context, completion: @escaping (Entry) -> ()) {
-        let entry = LessonsEntry(date: Date(), lessons: Lesson.defaultArratOfLesson, lessonsUpdatedAtTime: "", lessonsMustUpdateAtTime: "", entryNumber: 0)
-//        let (dayNumberFromCurrentDate, currentWeekFromTodayDate) = getTimeAndDayNumAndWeekOfYear()
-//        let arrayWithLessonsToShow = getArrayWithNextTwoLessons(dayNumberFromCurrentDate: dayNumberFromCurrentDate, currentWeekFromTodayDate: currentWeekFromTodayDate, managedObjectContext: managedObjectContext)
-//        let entry = LessonsEntry(date: Date(), lessons: arrayWithLessonsToShow)
+    func placeholder(in context: Context) -> LessonsEntry {
+        return LessonsEntry(date: Date(timeIntervalSince1970: 1601208000), lessons: Lesson.defaultArratOfLesson)
+    }
+    
+    func getSnapshot(in context: Context, completion: @escaping (LessonsEntry) -> Void) {
+        // This time interval need to show in preview "завтра"
+        
+        let (dayNumberFromCurrentDate, currentWeekFromTodayDate) = getCurrentWeekAndDayNumber()
+        
+        let arrayWithLessonsToShow = getArrayWithNextThreeLessons(dayNumberFromCurrentDate: dayNumberFromCurrentDate, currentWeekFromTodayDate: currentWeekFromTodayDate, managedObjectContext: managedObjectContext, isPreview: true)
+        
+        var date = Date()
+        
+        if arrayWithLessonsToShow == Lesson.previewLessons {
+            date = Date(timeIntervalSince1970: 1601208000)
+        }
+        
+        let entry = LessonsEntry(date: date, lessons: arrayWithLessonsToShow)
         
         completion(entry)
     }
     
-    func timeline(with context: Context, completion: @escaping (Timeline<Entry>) -> ()) {
+    /**
+     LessonsEntry must contain 3 lesson: 2 to show and 1 to use when 1 pair end.
+     */
+    func getTimeline(in context: Context, completion: @escaping (Timeline<LessonsEntry>) -> Void) {
+        
         
         let (dayNumberFromCurrentDate, currentWeekFromTodayDate) = getCurrentWeekAndDayNumber()
-
+        
         var arrayWithLessonsToShow = getArrayWithNextThreeLessons(dayNumberFromCurrentDate: dayNumberFromCurrentDate, currentWeekFromTodayDate: currentWeekFromTodayDate, managedObjectContext: managedObjectContext)
-        
-        let (entries, dateToUpdate) = makeTimeLine1(arrayWithLessonsToShow: &arrayWithLessonsToShow, dayNumberFromCurrentDate: dayNumberFromCurrentDate, currentWeekFromTodayDate: currentWeekFromTodayDate)
-        
-        let timeline = Timeline(entries: entries, policy: .after(dateToUpdate))
-
-        completion(timeline)
-    }
-    
-    
-    
-    func makeTimeLine1(arrayWithLessonsToShow: inout [Lesson], dayNumberFromCurrentDate: Int, currentWeekFromTodayDate: WeekType) -> (entries: [LessonsEntry], dateToUpdate: Date) {
-        
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "HH:mm dd-MM"
         
         var dateToUpdate = Date.tomorrow
         
-        // Only for debug
-        if arrayWithLessonsToShow[0].dayNumber == dayNumberFromCurrentDate {
-            dateToUpdate = getDateStartAndEnd(of: arrayWithLessonsToShow[0]).dateStart
-        }
-        
-        // Only for debug
-        var lessonsUpdatedAtTime = dateFormatter.string(from: Date())
-        var lessonsMustUpdateAtTime = dateFormatter.string(from: dateToUpdate)
-        
         /// Update timeline options
-        var entries = [LessonsEntry(date: Date(), lessons: arrayWithLessonsToShow, lessonsUpdatedAtTime: lessonsUpdatedAtTime, lessonsMustUpdateAtTime: lessonsMustUpdateAtTime, entryNumber: 1)]
-        
+        var entries = [LessonsEntry(date: Date(), lessons: arrayWithLessonsToShow)]
         
         if arrayWithLessonsToShow[0].dayNumber == dayNumberFromCurrentDate {
             
-            lessonsUpdatedAtTime = dateFormatter.string(from: getDateStartAndEnd(of: arrayWithLessonsToShow[0]).dateStart)
-            lessonsMustUpdateAtTime = dateFormatter.string(from: getDateStartAndEnd(of: arrayWithLessonsToShow[0]).dateEnd)
-            
-            entries.append(LessonsEntry(date: getDateStartAndEnd(of: arrayWithLessonsToShow[0]).dateStart, lessons: arrayWithLessonsToShow, lessonsUpdatedAtTime: lessonsUpdatedAtTime, lessonsMustUpdateAtTime: lessonsMustUpdateAtTime, entryNumber: 2))
-            
-            lessonsUpdatedAtTime = dateFormatter.string(from: getDateStartAndEnd(of: arrayWithLessonsToShow[0]).dateEnd)
+            entries.append(LessonsEntry(date: getDateStartAndEnd(of: arrayWithLessonsToShow[0]).dateStart, lessons: arrayWithLessonsToShow))
             
             dateToUpdate = getDateStartAndEnd(of: arrayWithLessonsToShow[0]).dateEnd
-
+            
             /// Remove lesson which end
             arrayWithLessonsToShow.remove(at: 0)
             
             /// New entry without lesson which end. This entry presented when widget if waiting for reloading timeline.
-            entries.append(LessonsEntry(date: dateToUpdate, lessons: arrayWithLessonsToShow, lessonsUpdatedAtTime: lessonsUpdatedAtTime, lessonsMustUpdateAtTime: "as soon as 1", entryNumber: 3))
-            
-            entries.append(LessonsEntry(date: getDateStartAndEnd(of: arrayWithLessonsToShow[0]).dateStart, lessons: arrayWithLessonsToShow, lessonsUpdatedAtTime: lessonsUpdatedAtTime, lessonsMustUpdateAtTime: "as soon as 2", entryNumber: 4))
-            
+            entries.append(LessonsEntry(date: dateToUpdate, lessons: arrayWithLessonsToShow))
+            entries.append(LessonsEntry(date: getDateStartAndEnd(of: arrayWithLessonsToShow[0]).dateStart, lessons: arrayWithLessonsToShow))
         }
         
+        completion(Timeline(entries: entries, policy: .after(dateToUpdate)))
+    }
+    
+    /// Fetching core data and getting lessons from `getNextThreeLessonsID()`
+    func getArrayWithNextThreeLessons(dayNumberFromCurrentDate: Int, currentWeekFromTodayDate: WeekType, managedObjectContext: NSManagedObjectContext, isPreview: Bool = false) -> [Lesson] {
+        guard let lessonsCoreData = try? managedObjectContext.fetch(NSFetchRequest<NSFetchRequestResult>(entityName: "LessonData")) as? [LessonData] else { return isPreview ? Lesson.previewLessons : Lesson.defaultArratOfLesson }
         
-        return (entries: entries, dateToUpdate: dateToUpdate)
-    }
-}
-
-
-struct LessonsEntry: TimelineEntry {
-    public let date: Date
-    public let lessons: [Lesson]
-    public let lessonsUpdatedAtTime: String
-    public let lessonsMustUpdateAtTime: String
-    public let entryNumber: Int
-}
-
-struct PlaceholderView : View {
-    @Environment(\.widgetFamily) var family: WidgetFamily
-
-    @ViewBuilder
-    var body: some View {
-        switch family {
-        case .systemSmall:
-            WidgetViewSmall(lessons: Lesson.defaultArratOfLesson, date: Date())
-        case .systemMedium:
-            WidgetViewMedium(lessons: Lesson.defaultArratOfLesson, date: Date())
-        default:
-            WidgetViewMedium(lessons: Lesson.defaultArratOfLesson, date: Date())
+        if lessonsCoreData.count < 4 {
+            return isPreview ? Lesson.previewLessons : Lesson.defaultArratOfLesson
         }
+        
+        var lessonsFromCoreData: [Lesson] = []
+        
+        lessonsFromCoreData.append(contentsOf: lessonsCoreData.map({
+            $0.wrappedLesson
+        }))
+        
+        let (dayNumberFromCurrentDate, currentWeekFromTodayDate) = getCurrentWeekAndDayNumber()
+        
+        let (firstNextLessonID, secondNextLessonID, thirdNextLessonID) = getNextThreeLessonsID(lessons: lessonsFromCoreData, dayNumberFromCurrentDate: dayNumberFromCurrentDate, currentWeekFromTodayDate: currentWeekFromTodayDate)
+        
+        var arrayWithLessonsToShow: [Lesson] = []
+        if let firstLesson = lessonsFromCoreData.first(where: { return $0.id == firstNextLessonID }),
+           let secondLesson = lessonsFromCoreData.first(where: { return $0.id == secondNextLessonID }),
+           let thirdLesson = lessonsFromCoreData.first(where: { return $0.id == thirdNextLessonID }){
+            arrayWithLessonsToShow = [firstLesson, secondLesson, thirdLesson]
+        }
+        return arrayWithLessonsToShow
     }
+
 }
 
 
 struct KpiRozkladWidgetEntryView : View {
     @Environment(\.widgetFamily) var family: WidgetFamily
+    @Environment(\.redactionReasons) var redactionReasons
+    
     var entry: Provider.Entry
 
-    // DEBUG
-    var dateFormatter = DateFormatter()
-    
-    init (entry: Provider.Entry) {
-        self.entry = entry
-        
-        // DEBUG
-        dateFormatter.dateFormat = "HH:mm:ss dd"
-    }
-    
-    
-    @ViewBuilder
     var body: some View {
         
         switch family {
         case .systemSmall:
             WidgetViewSmall(lessons: entry.lessons, date: entry.date)
+                .redacted(reason: redactionReasons)
+
         case .systemMedium:
-            // DEBUG
-            VStack(alignment: .center) {
-                Spacer()
-                HStack {
-                    Text(entry.lessonsUpdatedAtTime)
-                        .foregroundColor(.blue)
-                        .font(.caption)
-                    Divider()
-                    Text(entry.lessonsMustUpdateAtTime)
-                        .foregroundColor(.red)
-                        .font(.caption)
-
-                    Divider()
-                    Text("\(entry.entryNumber) | \(dateFormatter.string(from: Date()))")
-                        .foregroundColor(.green)
-                        .font(.caption)
-
-                }
-                WidgetViewMedium(lessons: entry.lessons, date: entry.date)
-                    .padding(.top, -10)
-            }
-            
-            // Default
-            // WidgetViewMedium(lessons: entry.lessons, date: entry.date)
+             WidgetViewMedium(lessons: entry.lessons, date: entry.date)
+                .redacted(reason: redactionReasons)
 
         default:
             WidgetViewMedium(lessons: entry.lessons, date: entry.date)
@@ -170,22 +133,21 @@ struct KpiRozkladWidgetEntryView : View {
     }
 }
 
+
 @main
 struct KPIRozkladWidget: Widget {
-    private let kind: String = "KPIRozkladWidget"
+    
+    let kind: String = "KPIRozkladWidget"
 
-    public var body: some WidgetConfiguration {
+    var body: some WidgetConfiguration {
         StaticConfiguration(kind: kind,
-                            provider: Provider(context: persistentContainer.viewContext),
-                            placeholder: PlaceholderView()
-        ) { entry in
+                            provider: Provider(context: persistentContainer.viewContext)) { entry in
             KpiRozkladWidgetEntryView(entry: entry)
         }
-        .configurationDisplayName("Kpi Rozklad Widget")
-        .description("Widget with your shedule")
+        .configurationDisplayName("Віджет Kpi Rozklad")
+        .description("Актуальний розклад для вас.")
         .supportedFamilies([.systemSmall, .systemMedium])
     }
-    
     
     var persistentContainer: NSPersistentContainer = {
         let container = NSCustomPersistentContainer(name: "kpiRozkladModel")
@@ -208,7 +170,9 @@ struct KPIRozkladWidget: Widget {
             }
         }
     }
+    
 }
+
 
 struct kpiRozkladWidget_Previews: PreviewProvider {
     static var previews: some View {
@@ -216,4 +180,3 @@ struct kpiRozkladWidget_Previews: PreviewProvider {
             .previewContext(WidgetPreviewContext(family: .systemMedium))
     }
 }
-#endif

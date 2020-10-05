@@ -9,10 +9,9 @@
 import UIKit
 
 public class Settings {
-//    private var userDefaults = UserDefaults.standard
+    
     private var userDefaultsWidget = UserDefaults(suiteName: "group.kpiRozkladWidget") ?? UserDefaults()
 
-     
     static let shared = Settings()
      
     var isTryToRefreshShedule: Bool {
@@ -69,12 +68,21 @@ public class Settings {
         }
     }
     
-    var updateRozkladAfterVersion106: Bool {
+    var updateRozkladWithVersion2Point0: Bool {
         get {
-            return userDefaultsWidget.bool(forKey: "updateRozkladAfterVersion106")
+            return userDefaultsWidget.bool(forKey: "updateRozkladWithVersion2Point0")
         }
         set {
-            userDefaultsWidget.set(newValue, forKey: "updateRozkladAfterVersion106")
+            userDefaultsWidget.set(newValue, forKey: "updateRozkladWithVersion2Point0")
+        }
+    }
+    
+    var isShowWhatsNewInVersion2Point0: Bool {
+        get {
+            return userDefaultsWidget.bool(forKey: "isShowWhatsNewInVersion2Point0")
+        }
+        set {
+            userDefaultsWidget.set(newValue, forKey: "isShowWhatsNewInVersion2Point0")
         }
     }
     
@@ -117,7 +125,6 @@ public class Settings {
         }
     }
     
-    
     var cellCurrentColour: UIColor {
         get {
             let color = try? NSKeyedUnarchiver.unarchivedObject(ofClass: UIColor.self, from: userDefaultsWidget.data(forKey: "cellCurrentColour") ?? Data())
@@ -134,4 +141,5 @@ public class Settings {
             }
         }
     }
+    
  }

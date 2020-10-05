@@ -9,6 +9,7 @@
 import Foundation
 import PromiseKit
 
+
 struct NetworkingApiFacade {
     
     private let apiService: APIService
@@ -46,4 +47,5 @@ struct NetworkingApiFacade {
             return response.data
         })
     }
+    
 }

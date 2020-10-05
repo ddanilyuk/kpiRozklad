@@ -9,23 +9,16 @@
 import UIKit
 
 
-// MARK: - Picker View Settings
 extension SheduleViewController: UIPickerViewDelegate, UIPickerViewDataSource {
     
-    
-    // MARK: - numberOfComponents
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
     }
     
-    
-    // MARK: - numberOfRowsInComponent
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         return 6
     }
     
-    
-    // MARK: - attributedTitleForRow
     func pickerView(_ pickerView: UIPickerView, attributedTitleForRow row: Int, forComponent component: Int) -> NSAttributedString? {
         let array = ["1 пара", "2 пара", "3 пара", "4 пара", "5 пара", "6 пара"]
 
@@ -41,15 +34,11 @@ extension SheduleViewController: UIPickerViewDelegate, UIPickerViewDataSource {
         @unknown default:
             colour = .white
         }
-
-        let attributedString = NSAttributedString(string: array[row], attributes: [NSAttributedString.Key.foregroundColor : colour])
-
-        return attributedString
+        return NSAttributedString(string: array[row], attributes: [NSAttributedString.Key.foregroundColor : colour])
     }
     
-    
-    // MARK: - didSelectRow
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         lessonNumberFromPicker = row + 1
     }
+    
 }

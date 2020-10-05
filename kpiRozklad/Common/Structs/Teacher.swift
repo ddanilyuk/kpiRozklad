@@ -9,7 +9,6 @@
 import Foundation
 
 
-// MARK: - Teachers
 struct WelcomeTeachers: Codable {
     let statusCode, timeStamp: Int
     let message: String
@@ -18,7 +17,7 @@ struct WelcomeTeachers: Codable {
     let data: [Teacher]
 }
 
-// MARK: - Datum
+
 public struct Teacher: Codable, Hashable {
     let teacherID: Int
     let teacherURL, teacherName, teacherFullName, teacherShortName: String
@@ -33,6 +32,7 @@ public struct Teacher: Codable, Hashable {
         case teacherRating = "teacher_rating"
     }
 }
+
 
 #if os(iOS)
 extension Teacher {

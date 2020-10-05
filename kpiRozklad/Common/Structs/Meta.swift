@@ -10,6 +10,7 @@ import UIKit
 
 
 struct Meta: Codable {
+    
     let totalCount: String?
     let offset, limit: Int?
 
@@ -17,4 +18,5 @@ struct Meta: Codable {
         case totalCount = "total_count"
         case offset, limit
     }
+    
 }

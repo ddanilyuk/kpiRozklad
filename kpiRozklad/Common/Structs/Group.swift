@@ -9,7 +9,6 @@
 import Foundation
 
 
-// MARK: - Datum
 public struct Group: Codable, Hashable {
     let groupID: Int
     let groupFullName: String
@@ -28,8 +27,8 @@ public struct Group: Codable, Hashable {
     }
 }
 
-#if os(iOS)
 
+#if os(iOS)
 extension Group {
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
@@ -43,9 +42,6 @@ extension Group {
         groupOkr = try values.decode(GroupOkr.self, forKey: .groupOkr)
         groupType = try values.decode(GroupType.self, forKey: .groupType)
 
-//        guard let idCasted = try Int(values.decode(Int.self, forKey: .groupID)) else {
-//            throw DecodingError.dataCorrupted(.init(codingPath: [CodingKeys.groupID], debugDescription: "Expecting string representation of Int"))
-//        }
         groupID = try values.decode(Int.self, forKey: .groupID)
     }
 }
@@ -62,4 +58,3 @@ public enum GroupType: String, Codable, Hashable {
     case daily = "daily"
     case extramural = "extramural"
 }
-

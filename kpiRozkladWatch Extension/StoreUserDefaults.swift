@@ -10,10 +10,9 @@ import UIKit
 
 
 public class StoreUserDefaults {
-//    private var userDefaults = UserDefaults.standard
+    
     private var userDefaults = UserDefaults.init()
 
-     
     static let shared = StoreUserDefaults()
     
     var lessons: [Lesson] {
@@ -34,14 +33,13 @@ public class StoreUserDefaults {
         }
     }
     
-    
     var groupOrTeacherName: String {
         get {
             return userDefaults.string(forKey: "groupOrTeacherName") ?? ""
         }
         
         set {
-            userDefaults.string(forKey: "groupOrTeacherName")
+            userDefaults.setValue(newValue, forKey: "groupOrTeacherName")
         }
     }
     
@@ -61,7 +59,6 @@ public class StoreUserDefaults {
         }
     }
     
-    
     var cellCurrentColour: UIColor {
         get {
             let color = try? NSKeyedUnarchiver.unarchivedObject(ofClass: UIColor.self, from: userDefaults.data(forKey: "cellCurrentColour") ?? Data())
@@ -78,5 +75,13 @@ public class StoreUserDefaults {
         }
     }
     
+    var isShowGreetings: Bool {
+        get {
+            return userDefaults.bool(forKey: "isShowGreetings")
+        }
+        set {
+            userDefaults.set(newValue, forKey: "isShowGreetings")
+        }
+    }
+    
 }
-     

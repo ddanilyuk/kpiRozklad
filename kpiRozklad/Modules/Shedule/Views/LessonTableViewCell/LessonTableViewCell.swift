@@ -19,20 +19,58 @@ class LessonTableViewCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
     }
-    
     
     override func prepareForReuse() {
         super.prepareForReuse()
         lessonLabel.text = nil
         self.backgroundColor = .none
-        
     }
+    
+    func setupCell(with lesson: Lesson, type: SheduleCellType) {
+        self.lessonLabel.text = lesson.lessonName
+        self.teacherLabel.text = lesson.teacherName != "" ? lesson.teacherName : " "
+        
+        self.startLabel.textColor = colourTextLabel
+        self.endLabel.textColor = colourTextLabel
+        self.teacherLabel.textColor = colourTextLabel
+        self.roomLabel.textColor = colourTextLabel
+        self.lessonLabel.textColor = colourTextLabel
+        self.startLabel.text = lesson.timeStart.stringTime
+        self.endLabel.text = lesson.timeEnd.stringTime
+        let lessonTypeAndRoom = lesson.lessonType.rawValue + " " + lesson.lessonRoom
+        self.roomLabel.text = lessonTypeAndRoom.deleteLeftWhitespaces()
+        
+        self.timeLeftLabel.text = ""
+        
+        var textColor: UIColor = .clear
+        
+        switch type {
+        case .defaultCell:
+            self.backgroundColor = cellBackgroundColor
+            if #available(iOS 13.0, *) {
+                textColor = .label
+            } else {
+                textColor = .black
+            }
+        case .currentCell:
+            self.backgroundColor = Settings.shared.cellCurrentColour
+            textColor = self.backgroundColor?.isWhiteText ?? true ? .white : .black
+        case .nextCell:
+            self.backgroundColor = Settings.shared.cellNextColour
+            textColor = self.backgroundColor?.isWhiteText ?? true ? .white : .black
+        }
+                
+        self.startLabel.textColor = textColor
+        self.endLabel.textColor = textColor
+        self.teacherLabel.textColor = textColor
+        self.roomLabel.textColor = textColor
+        self.lessonLabel.textColor = textColor
+        self.timeLeftLabel.textColor = textColor
+    }
+    
 }

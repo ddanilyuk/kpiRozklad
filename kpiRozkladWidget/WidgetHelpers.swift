@@ -14,9 +14,8 @@ func getDateStartAndEnd(of lesson: Lesson, dateNow: Date = Date()) -> (dateStart
     let timeStart = lesson.timeStart.stringTime
     let timeEnd = lesson.timeEnd.stringTime
     
-//    let dateNow = Date()
-
     let formatterFull = DateFormatter()
+    formatterFull.locale = NSLocale(localeIdentifier: "en_US_POSIX") as Locale?
     formatterFull.dateFormat = "YYYY:MM:DD:HH:mm"
 
     let formatterInWhichTimeSaved = DateFormatter()
@@ -31,8 +30,6 @@ func getDateStartAndEnd(of lesson: Lesson, dateNow: Date = Date()) -> (dateStart
 
 
 func getCurrentWeekAndDayNumber(date: Date = Date()) -> (dayNumberFromCurrentDate: Int, currentWeekFromTodayDate: WeekType) {
-    /// Current date from device
-    
     /// Calendar
     let calendar = Calendar(identifier: .gregorian)
     
@@ -56,6 +53,7 @@ func getCurrentWeekAndDayNumber(date: Date = Date()) -> (dayNumberFromCurrentDat
 }
 
 
+// TODO:- Make it return isLessonNow or not
 func getNextThreeLessonsID(lessons: [Lesson],
                            dayNumberFromCurrentDate: Int,
                            currentWeekFromTodayDate: WeekType) -> (firstNextLessonID: Int, secondNextLessonID: Int, thirdNextLessonID: Int) {
@@ -71,6 +69,7 @@ func getNextThreeLessonsID(lessons: [Lesson],
 
     /// Current date
     let date = Date()
+    
     
     var iterator = lessons.makeIterator()
     
@@ -110,32 +109,4 @@ func getNextThreeLessonsID(lessons: [Lesson],
     thirdNextLessonID = iterator.next()?.id ?? 0
     
     return (firstNextLessonID: firstNextLessonID, secondNextLessonID: secondNextLessonID, thirdNextLessonID: thirdNextLessonID)
-}
-
-
-/// Fetching core data and getting lessons from `getNextThreeLessonsID()`
-func getArrayWithNextThreeLessons(dayNumberFromCurrentDate: Int, currentWeekFromTodayDate: WeekType, managedObjectContext: NSManagedObjectContext) -> [Lesson] {
-    guard let lessonsCoreData = try? managedObjectContext.fetch(NSFetchRequest<NSFetchRequestResult>(entityName: "LessonData")) as? [LessonData] else { return Lesson.defaultArratOfLesson }
-    
-    if lessonsCoreData.count < 4 {
-        return Lesson.defaultArratOfLesson
-    }
-    
-    var lessonsFromCoreData: [Lesson] = []
-    
-    lessonsFromCoreData.append(contentsOf: lessonsCoreData.map({
-        $0.wrappedLesson
-    }))
-    
-    let (dayNumberFromCurrentDate, currentWeekFromTodayDate) = getCurrentWeekAndDayNumber()
-    
-    let (firstNextLessonID, secondNextLessonID, thirdNextLessonID) = getNextThreeLessonsID(lessons: lessonsFromCoreData, dayNumberFromCurrentDate: dayNumberFromCurrentDate, currentWeekFromTodayDate: currentWeekFromTodayDate)
-    
-    var arrayWithLessonsToShow: [Lesson] = []
-    if let firstLesson = lessonsFromCoreData.first(where: { return $0.id == firstNextLessonID }),
-       let secondLesson = lessonsFromCoreData.first(where: { return $0.id == secondNextLessonID }),
-       let thirdLesson = lessonsFromCoreData.first(where: { return $0.id == thirdNextLessonID }){
-        arrayWithLessonsToShow = [firstLesson, secondLesson, thirdLesson]
-    }
-    return arrayWithLessonsToShow
 }

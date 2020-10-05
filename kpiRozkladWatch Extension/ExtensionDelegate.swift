@@ -71,6 +71,7 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate {
 
 
 extension ExtensionDelegate: WCSessionDelegate {
+    
     func session(_ session: WCSession, activationDidCompleteWith activationState: WCSessionActivationState, error: Error?) {
         if let error = error {
             fatalError("Can't activate session with error: \(error.localizedDescription)")
@@ -81,6 +82,16 @@ extension ExtensionDelegate: WCSessionDelegate {
     func session(_ session: WCSession, didReceiveApplicationContext applicationContext: [String : Any]) {
         do {
             try saveDataAndPostNotification(applicationContext: applicationContext)
+        } catch let error {
+            print(error.localizedDescription)
+        }
+    }
+    
+    /// Debug
+    /// Because didReceiveApplicationContext is not working with watch os 7.0
+    func session(_ session: WCSession, didReceiveMessage message: [String : Any]) {
+        do {
+            try saveDataAndPostNotification(applicationContext: message)
         } catch let error {
             print(error.localizedDescription)
         }
@@ -101,16 +112,17 @@ extension ExtensionDelegate: WCSessionDelegate {
             guard let currentColourData = applicationContext["currentColourData"] as? Data else {
                 fatalError("Can't cast currentColour as Data")
             }
-            guard let nextColourData = applicationContext["nextColourData"] as? Data else {                        fatalError("Can't cast nextColourData as Data")
+            guard let nextColourData = applicationContext["nextColourData"] as? Data else {
+                fatalError("Can't cast nextColourData as Data")
             }
 
             StoreUserDefaults.shared.lessons = lessons
-            StoreUserDefaults.shared.groupOrTeacherName = groupOrTeacherName
+            StoreUserDefaults.shared.groupOrTeacherName = groupOrTeacherName.uppercased()
             StoreUserDefaults.shared.cellNextColour = UIColor.color(withData: nextColourData)
             StoreUserDefaults.shared.cellCurrentColour = UIColor.color(withData: currentColourData)
             
             DispatchQueue.main.async {
-                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "activityNotification"), object: nil)
+                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "lessonsData"), object: nil)
             }
 
             print("Data saved")
@@ -118,6 +130,4 @@ extension ExtensionDelegate: WCSessionDelegate {
             print(error.localizedDescription)
         }
     }
-
-    
 }

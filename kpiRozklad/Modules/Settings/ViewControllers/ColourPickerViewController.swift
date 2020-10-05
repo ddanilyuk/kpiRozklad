@@ -8,10 +8,6 @@
 
 import UIKit
 
-//enum CellType {
-//    case current
-//    case next
-//}
 
 class ColourPickerViewController: UIViewController {
 
@@ -37,7 +33,6 @@ class ColourPickerViewController: UIViewController {
     let settings = Settings.shared
     
     
-    // MARK: - viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -51,16 +46,13 @@ class ColourPickerViewController: UIViewController {
         
         setLargeTitleDisplayMode(.never)
     }
-    
-    
-    // MARK: - viewDidAppear
+        
     override func viewDidAppear(_ animated: Bool) {
         selectDefaultColour(cellType: .currentCell)
     }
     
     
     // MARK: - SETUP functions
-    
     private func setupSegmetControll() {
         let titleTextAttributesSelected = [NSAttributedString.Key.foregroundColor: UIColor.white]
         let titleTextAttributesNormal = [NSAttributedString.Key.foregroundColor: UIColor.systemBlue]
@@ -68,7 +60,6 @@ class ColourPickerViewController: UIViewController {
         segmentControl.setTitleTextAttributes(titleTextAttributesNormal, for: .normal)
         segmentControl.setTitleTextAttributes(titleTextAttributesSelected, for: .selected)
     }
-    
     
     private func setupColourPickerView() {
         colorPickerView.delegate = self
@@ -78,14 +69,12 @@ class ColourPickerViewController: UIViewController {
         colorPickerView.layoutSubviews()
     }
     
-    
     private func setupTableView() {
         self.tableView.register(UINib(nibName: LessonTableViewCell.identifier, bundle: Bundle.main), forCellReuseIdentifier: LessonTableViewCell.identifier)
         self.tableView.delegate = self
         self.tableView.dataSource = self
         self.tableView.isScrollEnabled = false
     }
-    
     
     func setupButton() {
         let button = UIBarButtonItem(title: "Зберегти", style: .plain, target: self, action: #selector(show(sender:)))
@@ -100,18 +89,15 @@ class ColourPickerViewController: UIViewController {
         let alert = UIAlertController(title: nil, message: "Змінити колір поточної та наступної пари?", preferredStyle: .actionSheet)
         
         alert.addAction(UIAlertAction(title: "Змінити", style: .default, handler: { (_) in
-            
             self.settings.cellNextColour = self.newCellNextColour ?? self.settings.cellNextColour
             self.settings.cellCurrentColour = self.newCellCurrentColour ?? self.settings.cellCurrentColour
             self.navigationController?.popViewController(animated: true)
 
         }))
         
-        alert.addAction(UIAlertAction(title: "Скасувати", style: .cancel, handler: { (_) in
-        }))
+        alert.addAction(UIAlertAction(title: "Скасувати", style: .cancel, handler: nil))
         
-        self.present(alert, animated: true, completion: {
-        })
+        self.present(alert, animated: true, completion: nil)
     }
     
     /**
@@ -123,8 +109,8 @@ class ColourPickerViewController: UIViewController {
             selectDefaultColour(cellType: .currentCell)
         case 1:
             selectDefaultColour(cellType: .nextCell)
-        default: break
-            
+        default:
+            break
         }
     }
     
@@ -139,7 +125,6 @@ class ColourPickerViewController: UIViewController {
             colorPickerView.preselectedIndex = index
         }
     }
-    
     
     /**
      Find index of user current or next colour
@@ -156,7 +141,6 @@ class ColourPickerViewController: UIViewController {
         var index = 0
         for i in 0..<colorPickerView.colors.count {
             let colour = colorPickerView.colors[i]
-            
             if colour == colourToFind {
                 index = i
                 return index
@@ -195,24 +179,23 @@ extension ColourPickerViewController: ColorPickerViewDelegate {
             tableView.reloadData()
         }
     }
+    
 }
  
 
-// MARK: - ColorPickerViewDelegateFlowLayout
 extension ColourPickerViewController: ColorPickerViewDelegateFlowLayout {
     
     func colorPickerView(_ colorPickerView: ColorPickerView, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return 20
     }
     
-    
     func colorPickerView(_ colorPickerView: ColorPickerView, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
         return 20
     }
+    
 }
 
 
-// MARK: - UITableViewDelegate + DataSource
 extension ColourPickerViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -221,17 +204,13 @@ extension ColourPickerViewController: UITableViewDelegate, UITableViewDataSource
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: LessonTableViewCell.identifier, for: indexPath) as? LessonTableViewCell else { return UITableViewCell() }
+        
         cell.selectionStyle = .none
         cell.startLabel.text = "10:25"
-        
         cell.endLabel.text = "12:20"
-        
         cell.teacherLabel.text = "Викладач"
-        
-        cell.roomLabel.text = "301-18"
-        
-        cell.lessonLabel.text = "Предмет"
-        
+        cell.roomLabel.text = "Аудиторія та тип пари"
+        cell.lessonLabel.text = "Назва предмету"
         cell.timeLeftLabel.text = ""
         
         if let defaultColour = defaultColour {
@@ -248,23 +227,19 @@ extension ColourPickerViewController: UITableViewDelegate, UITableViewDataSource
             cell.lessonLabel.textColor = textColour
             self.defaultColour = nil
         }
-        
-        
         return cell
     }
-    
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
     }
     
-    
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         return false
     }
     
-    
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 68
     }
+    
 }

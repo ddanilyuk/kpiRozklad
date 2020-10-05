@@ -9,6 +9,7 @@
 import UIKit
 import CoreData
 import PromiseKit
+import WidgetKit
 
 
 class SettingsTableViewController: UITableViewController {
@@ -18,78 +19,53 @@ class SettingsTableViewController: UITableViewController {
     
     /// Main window
     var window: UIWindow?
-
     
-    // MARK: - viewDidLoad
+
     override func viewDidLoad() {
         super.viewDidLoad()
         self.window = UIWindow(frame: UIScreen.main.bounds)
         setupTableView()
         getServerTimeUpdate()
-    }
-    
-    
-    // MARK: - viewWillAppear
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
         setLargeTitleDisplayMode(.always)
     }
     
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+    }
+    
     // MARK: - SETUP functions
-
     private func setupTableView() {
         tableView.register(UINib(nibName: ServerUpdateTableViewCell.identifier, bundle: Bundle.main), forCellReuseIdentifier: ServerUpdateTableViewCell.identifier)
         tableView.register(UINib(nibName: SettingsTableViewCell.identifier, bundle: Bundle.main), forCellReuseIdentifier: SettingsTableViewCell.identifier)
-        tableView.register(UINib(nibName: TeacherOrGroupLoadingTableViewCell.identifier, bundle: Bundle.main), forCellReuseIdentifier: TeacherOrGroupLoadingTableViewCell.identifier)
+        tableView.register(UINib(nibName: VersionTableViewCell.identifier, bundle: Bundle.main), forCellReuseIdentifier: VersionTableViewCell.identifier)
 
         tableView.delegate = self
         tableView.dataSource = self
         tableView.backgroundColor = tint
     }
 
-    
+
     // MARK: - Table view
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 2
     }
 
-    
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         return ""
     }
     
-    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if section == 0 {
-            return 3
-        } else if section == 1 {
-            return 2
-        } else {
-            return 0
-        }
+        return 3
     }
-    
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        if indexPath.section == 0 {
-            return 45
-        } else if indexPath.section == 1 {
-            if indexPath.row == 1 {
-                return 100
-            } else {
-                return 45
-            }
-        } else {
-            return 45
-        }
+        return indexPath.section == 1 && indexPath.row == 1 ? 100 : 45
     }
-    
     
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 0
     }
-
     
     override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         if section == 0 {
@@ -98,7 +74,6 @@ class SettingsTableViewController: UITableViewController {
             return 0.0001
         }
     }
-
     
     override func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
         let view = UIView()
@@ -107,13 +82,11 @@ class SettingsTableViewController: UITableViewController {
         return view
     }
 
-
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let view = UIView()
         view.backgroundColor = tint
         return view
     }
-
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = UITableViewCell(style: .value1, reuseIdentifier: "settings")
@@ -125,8 +98,15 @@ class SettingsTableViewController: UITableViewController {
             cell.accessoryType = .disclosureIndicator
 
             if indexPath.row == 0 {
-                cell.textLabel?.text = "Оновити розклад"
-                cell.imageView?.image = UIImage(named: "icons8-refresh-80-orange")
+                
+                guard let cell = tableView.dequeueReusableCell(withIdentifier: SettingsTableViewCell.identifier, for: indexPath) as? SettingsTableViewCell else { return UITableViewCell() }
+                cell.backgroundColor = seettingsTableViewBackgroundColour
+                cell.accessoryType = .disclosureIndicator
+                cell.imageDetailView.image = UIImage(named: "icons8-refresh-80-orange")
+                cell.mainLabel.text = "Оновити розклад"
+                cell.activityIndicator.stopAndHide()
+                cell.separator(shouldBeHidden: false)
+                return cell
             } else if indexPath.row == 1 {
                 let name = settings.sheduleType == .groups ? "групу" : "викладача"
                 cell.textLabel?.text = "Змінити \(name)"
@@ -160,11 +140,19 @@ class SettingsTableViewController: UITableViewController {
                 cell.deviceSaveLabel.text = settings.sheduleUpdateTime
 
                 return cell
+            } else if indexPath.row == 2 {
+                guard let cell = tableView.dequeueReusableCell(withIdentifier: VersionTableViewCell.identifier, for: indexPath) as? VersionTableViewCell else { return UITableViewCell() }
+                
+                cell.backgroundColor = tint
+                cell.selectionStyle = .none
+                cell.separator(shouldBeHidden: true)
+                cell.delegate = self
+
+                return cell
             }
         }
         return cell
     }
-    
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.section == 0 {
@@ -185,50 +173,75 @@ class SettingsTableViewController: UITableViewController {
         tableView.deselectRow(at: indexPath, animated: true)
     }
 
-    // MARK: - Functions which calls
-    
+    // MARK: - Cell functions
     /**
      Function which update shedule
      */
     func didPressUpdateShedule() {
         let alert = UIAlertController(title: nil, message: "Чи бажаєте ви оновити розклад?\n Всі ваші редагування розкладу пропадуть!", preferredStyle: .actionSheet)
+        
+        guard let cell = self.tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as? SettingsTableViewCell else {  return }
+        cell.activityIndicator.startAndShow()
+
         alert.addAction(UIAlertAction(title: "Оновити", style: .destructive, handler: { (_) in
-            
-            
             self.settings.isTryToRefreshShedule = true
             
-            guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
-            let managedContext = appDelegate.persistentContainer.viewContext
-            deleteAllFromCoreData(managedContext: managedContext)
-            
-            let indexPath = IndexPath(row: 0, section: 1)
-            let formatter = DateFormatter()
-            
-            formatter.dateFormat = "dd.MM.yyyy"
+            if self.settings.sheduleType == .groups {
+                API.getAllGroups().done({ [weak self] (groups) in
+                    guard let this = self else { return }
+                    if let group = groups.first(where: { $0.groupFullName == this.settings.groupName }) {
+                        this.settings.groupID = group.groupID
+                    } else {
+                        this.settings.groupName = ""
+                        this.settings.groupID = 0
+                    }
+                    
+                    guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
+                    let managedContext = appDelegate.persistentContainer.viewContext
+                    deleteAllFromCoreData(managedContext: managedContext)
+                    
+                    guard let window = appDelegate.window else { return }
+                    guard let mainTabBar: UITabBarController = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "Main") as? UITabBarController else { return }
+                    window.rootViewController = mainTabBar
+                    cell.activityIndicator.stopAndHide()
+                    
+                }).catch({ [weak self] (error) in
+                    let alert = UIAlertController(title: "Помилка", message: error.localizedDescription, preferredStyle: .alert)
+                    alert.addAction(UIAlertAction(title: "Ок", style: .default, handler: nil))
+                    self?.present(alert, animated: true, completion: nil)
+                    cell.activityIndicator.stopAndHide()
+                })
+                
+            } else if self.settings.sheduleType == .teachers {
+                API.getAllTeachers().done({ [weak self] (teachers) in
+                    guard let this = self else { return }
+                    if let teacher = teachers.first(where: { $0.teacherName == this.settings.teacherName }) {
+                        this.settings.teacherID = teacher.teacherID
+                    } else {
+                        this.settings.teacherName = ""
+                        this.settings.teacherID = 0
+                    }
+                    guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
+                    let managedContext = appDelegate.persistentContainer.viewContext
+                    deleteAllFromCoreData(managedContext: managedContext)
+                    
+                    guard let window = appDelegate.window else { return }
+                    guard let mainTabBar: UITabBarController = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "Main") as? UITabBarController else { return }
+                    window.rootViewController = mainTabBar
+                    cell.activityIndicator.stopAndHide()
 
-            let time = formatter.string(from: Date())
-            self.settings.sheduleUpdateTime = time
-            
-            if let cell = self.tableView.cellForRow(at: indexPath) as? ServerUpdateTableViewCell {
-                cell.deviceSaveLabel.text = time
+                }).catch({ [weak self] (error) in
+                    let alert = UIAlertController(title: "Помилка", message: error.localizedDescription, preferredStyle: .alert)
+                    alert.addAction(UIAlertAction(title: "Ок", style: .default, handler: nil))
+                    self?.present(alert, animated: true, completion: nil)
+                    cell.activityIndicator.stopAndHide()
+                })
             }
-
-            guard let window = appDelegate.window else { return }
-            
-            guard let mainTabBar: UITabBarController = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "Main") as? UITabBarController else { return }
-            
-//            WidgetCenter.shared.reloadAllTimelines()
-
-            window.rootViewController = mainTabBar
         }))
         
-        alert.addAction(UIAlertAction(title: "Скасувати", style: .cancel, handler: { (_) in
-        }))
-        
-        self.present(alert, animated: true, completion: {
-        })
+        alert.addAction(UIAlertAction(title: "Скасувати", style: .cancel, handler: nil))
+        self.present(alert, animated: true, completion: nil)
     }
-    
     
     /**
      Function which change type of shedule
@@ -247,33 +260,27 @@ class SettingsTableViewController: UITableViewController {
             let managedContext = appDelegate.persistentContainer.viewContext
             deleteAllFromCoreData(managedContext: managedContext)
             
-            let indexPath = IndexPath(row: 1, section: 1)
-            let formatter = DateFormatter()
-            formatter.dateFormat = "dd.MM.yyyy"
-
-            let time = formatter.string(from: Date())
-            self.settings.sheduleUpdateTime = time
-            
-            if let cell = self.tableView.cellForRow(at: indexPath) as? ServerUpdateTableViewCell {
-                cell.deviceSaveLabel.text = time
-            }
-            
-            guard let greetingVC = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: FirstViewController.identifier) as? FirstViewController else { return }
+            guard let greetingVC = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: BoardingViewController.identifier) as? BoardingViewController else { return }
             greetingVC.modalTransitionStyle = .crossDissolve
 
             guard let window = self.window else { return }
             window.rootViewController = greetingVC
             window.makeKeyAndVisible()
             
-            UIView.transition(with: window, duration: 0.4, options: .transitionCrossDissolve, animations: {}, completion:
-                { completed in })
+            if #available(iOS 14.0, *) {
+                WidgetCenter.shared.reloadAllTimelines()
+            } else {
+                // Fallback on earlier versions
+            }
+
+            
+            UIView.transition(with: window, duration: 0.4, options: .transitionCrossDissolve, animations: {}, completion: nil)
         }))
         
         alert.addAction(UIAlertAction(title: "Скасувати", style: .cancel, handler: nil))
         
         self.present(alert, animated: true, completion: nil)
     }
-    
     
     /**
      Function which show `ColourPickerViewController`
@@ -290,7 +297,6 @@ class SettingsTableViewController: UITableViewController {
         self.navigationController?.pushViewController(colourVC, animated: true)
     }
     
-    
     /**
      Function which get time when server was updated
      */
@@ -298,21 +304,15 @@ class SettingsTableViewController: UITableViewController {
         guard let url = URL(string: "https://rozklad.org.ua/?noredirect") else { return }
         
         let task = URLSession.shared.dataTask(with: url) {(data, response, error) in
-        
             do {
                 let myHTMLString = try String(contentsOf: url)
-                
                 if let index = myHTMLString.index(of: "Останнє оновлення: "), let index2 = myHTMLString.index(of: "<!--Всього") {
-                    let substring = myHTMLString[index..<index2]   // ab
+                    let substring = myHTMLString[index..<index2]
                     let string = String(substring)
-
-                    let some = string.split(separator: ":")
-                    
-                    let indexPath = IndexPath(row: 1, section: 1)
                     
                     DispatchQueue.main.async {
-                        if let cell = self.tableView.cellForRow(at: indexPath) as? ServerUpdateTableViewCell {
-                            cell.serverUpdateLabel.text = String(some[1])
+                        if let cell = self.tableView.cellForRow(at: IndexPath(row: 1, section: 1)) as? ServerUpdateTableViewCell {
+                            cell.serverUpdateLabel.text = String(string.split(separator: ":")[1])
                         }
                     }
                 }
@@ -323,7 +323,6 @@ class SettingsTableViewController: UITableViewController {
         task.resume()
     }
 
-    
     /**
      Function which take lesson fom server and swow it in `SheduleViewController`
      */
@@ -342,7 +341,7 @@ class SettingsTableViewController: UITableViewController {
             cell.activityIndicator.stopAndHide()
 
             sheduleVC.isFromSettingsGetFreshShedule = true
-            sheduleVC.currentWeek = .first
+            sheduleVC.selectedWeek = .first
             sheduleVC.lessonsFromSegue = lessons
             sheduleVC.navigationItem.title = Settings.shared.groupName.uppercased()
 
@@ -362,4 +361,14 @@ class SettingsTableViewController: UITableViewController {
             this.present(alert, animated: true, completion: { cell.activityIndicator.stopAndHide() })
         })
     }
+}
+
+
+extension SettingsTableViewController: VersionTableViewCellDelegate {
+    
+    func userPressVersionButton() {
+        guard let whatsNewVC = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: WhatsNewViewController.identifier) as? WhatsNewViewController else { return }
+        self.present(whatsNewVC, animated: true, completion: nil)
+    }
+    
 }

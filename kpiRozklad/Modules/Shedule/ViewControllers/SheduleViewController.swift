@@ -11,8 +11,6 @@ import CoreData
 import PromiseKit
 import WatchConnectivity
 
-//if #available(iOS 14.0, *) {
-//}
 #if canImport(WidgetKit)
 import WidgetKit
 #endif
@@ -29,25 +27,23 @@ import WidgetKit
 class SheduleViewController: UIViewController {
 
     // MARK: - Variables
-    /// Window
     var window: UIWindow?
     
-    /// Main table view
     @IBOutlet weak var tableView: UITableView!
     
     /// Week switcher (1 and 2 week)
     @IBOutlet weak var weekSegmentControl: UISegmentedControl!
     
-    /// Activity indicator
+    /// Loading from server indicator
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
     /// Favourite bar button item
     @IBOutlet weak var favouriteBarButtonItem: UIBarButtonItem!
     
-    /// Bar button item with  segment control (which change week)
+    /// Bar button item with segment control (which change week)
     @IBOutlet weak var segmentBatButtonItem: UIBarButtonItem!
     
-    /// Favourite vutton
+    /// Favourite button
     @IBOutlet weak var favouriteButton: UIButton!
     
     /**
@@ -61,43 +57,31 @@ class SheduleViewController: UIViewController {
                                                                     (day: DayName.friday, lessons: []),
                                                                     (day: DayName.saturday, lessons: [])]
                                                                   
-        
     /**
      Сurrent week which is obtained from the date on the device
      - Remark:
-        Set  up in `setUpCurrentWeek()`
+        Set  up in `setupCurrentDate()`
      */
     var currentWeekFromTodayDate: WeekType = .first
     
-    /**
-     Current  week which user chosed
-     - Remark:
-        Set up in `setUpCurrentWeek()`
-     - Note:
-        Changed in `weekChanged()`
-     */
-    var currentWeek: WeekType = .first
+    /// Current  week which user chosed
+    var selectedWeek: WeekType = .first
     
-    /// Week of year from date on the device
-    var weekOfYear = 0
-    
-    /// Day number from 1 to 7
+    /// Used in `makeLessonShedule`
     var dayNumberFromCurrentDate = 0
     
     /// Time is Now from device
     var timeIsNowString = String()
     
     /**
-     Lesson ID of **current** Lesson
-     - Remark:
-        Updated in `makeLessonShedule()` but makes in `getCurrentAndNextLesson(lessons: [Lesson])`
+     Lesson ID of **current** lesson
+     Updated in `makeLessonShedule()`
      */
     var currentLessonId: Int = 0
     
     /**
-     Lesson ID of **next** Lesson
-     - Remark:
-        Updated in `makeLessonShedule()` but makes in `getCurrentAndNextLesson(lessons: [Lesson])`
+     Lesson ID of **next** lesson
+     Updated in `makeLessonShedule()`
      */
     var nextLessonId: Int = 0
     
@@ -107,8 +91,7 @@ class SheduleViewController: UIViewController {
     /**
      Variable from segue which used when this `SheduleViewControler`
      is presented with initial lessons like in `SettingsTVC` with `Getting fresh shedule`
-     and therefore lessons do not need to be updated from CoreData
-      - Note: it used in `makeLessonShedule()` if `isFromSettingsGetFreshShedule || isFromGroups`
+     and therefore lessons do not need to be updated from CoreData.
      */
     var lessonsFromSegue: [Lesson] = []
     
@@ -124,14 +107,15 @@ class SheduleViewController: UIViewController {
     var isFromSettingsGetFreshShedule: Bool = false
     
     /**
+     TODO:- use enum instead of Bool
     `true` when segue from`GroupsAndTeacherVC` or `FavouriteVC`
     */
     var isFromGroupsAndTeacherOrFavourite: Bool = false
     
-    
+    /// True when shown teacher lesson (not group)
     var isTeachersShedule: Bool = false
     
-    
+    /// Teacher from segue
     var teacherFromSegue: Teacher?
 
     /// Is need to scroll or not
@@ -147,21 +131,15 @@ class SheduleViewController: UIViewController {
     let favourites = Favourites.shared
     
     /// Array with day names
-    var daysArray: [String] = DayName.allCases.map { (dayName: DayName) -> String in
-        return dayName.rawValue
-    }
+    var daysArray: [String] = DayName.allCases.map { $0.rawValue }
     
-    ///`isEditInserts` responsible for ensuring that after loading from `viewDidLoad` not to update `tableView.contentInset` to -20
-    var isEditInserts: Bool = false
-    
-    /// Variable used in setEditing to store tableView contentHeight before editing
-    var defaultContentInsets: UIEdgeInsets?
+    var isEditInsets: Bool = true
     
     
-    // MARK: - viewDidLoad
+    // MARK: - Override viewController funcs
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         /// Set up window
         self.window = UIWindow(frame: UIScreen.main.bounds)
         
@@ -173,7 +151,7 @@ class SheduleViewController: UIViewController {
         
         /// Setup navigationVC and title
         setupNavigation()
-        
+
         /// TableView delegate, dataSource, registration cell
         setupTableView()
 
@@ -189,135 +167,69 @@ class SheduleViewController: UIViewController {
         /// Make server request or call `makeLessonsShedule()`
         if settings.isTryToRefreshShedule {
             getLessonsFromServer(isMainShedule: !isTeachersShedule)
-            settings.isTryToRefreshShedule = false
         } else {
             makeLessonsShedule()
         }
         
-        /// If `isNeedToScroll` == true, scroll
-        _ = isNeedToScroll ? scrollToCurrentOrNext() : nil
-        
-        /// Set `isEditInserts` for `tableView.contentInset`
-        isEditInserts = true
+        DispatchQueue.main.async {
+            self.isNeedToScroll ? self.scrollToCurrentOrNext() : nil
+        }
     }
     
-    
-    // MARK: - viewWillAppear
     override func viewWillAppear(_ animated: Bool) {
         tableView.reloadData()
-        
-//        if settings.isTryToRefreshShedule {
-//            makeLessonsShedule()
-//        }
-        /**
-         Some about why is -20 in `tableView.contentInset`
-         In IOS 13.4 after changing large title from .never and then to .always (this changing need because scroll view works incorrectly),
-         at bottom of table view appear strange line which is 20px height.
-         And  variable `isEditInserts`,  code in `viewWillAppear` and `viewWillDisappear` fix this problem.
-         */
-        if !isFromSettingsGetFreshShedule && !isFromGroupsAndTeacherOrFavourite && !isTeachersShedule && !isTeachersShedule {
+        if !isFromSettingsGetFreshShedule && !isFromGroupsAndTeacherOrFavourite && !isTeachersShedule {
+            reloadDataOnAppleWatch()
             setLargeTitleDisplayMode(.always)
-            
-            if #available(iOS 13.0, *) {
-                if self.navigationController?.navigationBar.frame.size.height ?? 44 > CGFloat(50) {
-                    if isEditInserts {
-                        self.tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: -20, right: 0)
-                    } else {
-                        self.tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
-                    }
-                    
-                    isEditInserts = false
-                } else {
-                    self.tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: -20, right: 0)
-                }
-            }
         } else {
             setLargeTitleDisplayMode(.never)
-            tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         }
-        
-        reloadDataOnAppleWatch()
     }
-    
-    
-    // MARK: - viewWillDisappear
+
     override func viewWillDisappear(_ animated: Bool) {
         /**
          If view disappears with small title, set ` setLargeTitleDisplayMode(.never)`
          And if view disappears with llarge title, set ` setLargeTitleDisplayMode(.always)`
          */
-        if self.navigationController?.navigationBar.frame.size.height ?? 44 > CGFloat(50) {
-            setLargeTitleDisplayMode(.always)
+        if !isFromSettingsGetFreshShedule {
+            if self.navigationController?.navigationBar.frame.size.height ?? 44 > CGFloat(50) {
+                setLargeTitleDisplayMode(.always)
+            } else {
+                setLargeTitleDisplayMode(.never)
+            }
         } else {
-            setLargeTitleDisplayMode(.never)
-
-            if #available(iOS 13.0, *) {
-                /**
-                 The part of code in `#available(iOS 13.0, *)` is need for update `tableView.contentInset`
-                 if `current` or `next` lesson is not at top `lessonsForTableView`
-                 */
-                let firstLessonValue = lessonsForTableView[0].lessons.count != 0 ? lessonsForTableView[0].lessons[0].id : -1
-
-                if self.isTeachersShedule || self.isFromGroupsAndTeacherOrFavourite {
-                    tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
-                } else if ((nextLessonId != firstLessonValue) && (currentLessonId != firstLessonValue)) {
-                    tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: -20, right: 0)
-                }
+            setLargeTitleDisplayMode(.always)
+            self.navigationController?.navigationBar.isTranslucent = true
+        }
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        if !settings.isShowWhatsNewInVersion2Point0 {
+            DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(1000)) {
+                guard let whatsNewVC = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: WhatsNewViewController.identifier) as? WhatsNewViewController else { return }
+                
+                self.present(whatsNewVC, animated: true, completion: nil)
             }
         }
     }
     
-    
-    func reloadDataOnAppleWatch() {
-        if WCSession.isSupported() {
-            print("Session supported")
-            let session = WCSession.default
-            do {
-                guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
-                let managedContext = appDelegate.persistentContainer.viewContext
-                
-                let lessons = fetchingCoreData(managedContext: managedContext)
-                
-                let encoder = JSONEncoder.init()
-                let dataLessons = try encoder.encode(lessons)
-                let groupOrTeacherName = isTeachersShedule ? settings.teacherName : settings.groupName
-                
-                let currentColourData = settings.cellCurrentColour.encode()
-                let nextColourData = settings.cellNextColour.encode()
-
-                let dictionary: [String: Any] = ["lessons": dataLessons,
-//                                                  "time": Date().timeIntervalSince1970,
-                                                 "groupOrTeacherName": groupOrTeacherName,
-                                                 "currentColourData": currentColourData,
-                                                 "nextColourData": nextColourData]
-//                let dictionary: [String: Any] = ["lessons": dataLessons, "name": name, "currentColourData": currentColourData, "nextColourData": nextColourData]
-
-                try session.updateApplicationContext(dictionary)
-                print("Session data sended")
-            } catch {
-                print("Error: \(error)")
-            }
-        }
-    }
     
     // MARK: - SETUP functions
-    
     private func setupTableView() {
         tableView.register(UINib(nibName: LessonTableViewCell.identifier, bundle: Bundle.main), forCellReuseIdentifier: LessonTableViewCell.identifier)
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.backgroundColor = tint
+        tableView.allowsSelectionDuringEditing = true
+
+        tableView.backgroundColor = tableViewBackground
     }
 
-    
     private func setupCurrentDate() {
         let result = getTimeAndDayNumAndWeekOfYear()
         timeIsNowString = result.timeIsNowString
         dayNumberFromCurrentDate = result.dayNumberFromCurrentDate
-        weekOfYear = result.weekOfYear
-        self.currentWeekFromTodayDate = weekOfYear % 2 == 0 ? .first : .second
+        self.currentWeekFromTodayDate = result.weekOfYear % 2 == 0 ? .first : .second
     }
-    
     
     private func setupAtivityIndicator() {
         activityIndicator.startAndShow()
@@ -325,20 +237,19 @@ class SheduleViewController: UIViewController {
         self.view.bringSubviewToFront(activityIndicator)
     }
     
-    
     private func setupNavigation() {
-        self.navigationController?.navigationBar.prefersLargeTitles = false
+        // Delete line at bottom of navigation bat
+        self.navigationController?.navigationBar.shadowImage = UIImage()
 
         if isTeachersShedule {
+            setLargeTitleDisplayMode(.never)
             if UIScreen.main.nativeBounds.height < 1140 {
-                self.navigationItem.title = "Зараз \(self.currentWeekFromTodayDate.rawValue) тиж."
+                self.navigationItem.title = "Зараз \(self.currentWeekFromTodayDate.rawValue) т."
             } else {
                 self.navigationItem.title = "Зараз \(self.currentWeekFromTodayDate.rawValue) тиждень"
             }
-            setLargeTitleDisplayMode(.never)
         } else if !isFromSettingsGetFreshShedule && !isFromGroupsAndTeacherOrFavourite && !isTeachersShedule {
             setLargeTitleDisplayMode(.always)
-            
             if settings.sheduleType == .groups {
                 self.navigationItem.title = settings.groupName.uppercased()
             } else if settings.sheduleType == .teachers {
@@ -348,28 +259,23 @@ class SheduleViewController: UIViewController {
                     self.navigationItem.title = "Мій розклад"
                 }
             }
-
         } else {
             setLargeTitleDisplayMode(.never)
         }
-        self.navigationController?.navigationBar.isTranslucent = true
+        
+        self.navigationController?.navigationBar.isTranslucent = false
         self.tabBarController?.tabBar.isTranslucent = true
     }
     
-    
     private func setupWeekSegmentControl() {
-        
-        var titleTextAttributesNormal = [NSAttributedString.Key.foregroundColor: UIColor.blue]
+        var titleTextAttributesNormal = [NSAttributedString.Key.foregroundColor: UIColor.systemBlue]
         let titleTextAttributesSelected = [NSAttributedString.Key.foregroundColor: UIColor.white]
-        
         if #available(iOS 13.0, *) {
             titleTextAttributesNormal = [NSAttributedString.Key.foregroundColor: UIColor.link]
         }
-
         weekSegmentControl.setTitleTextAttributes(titleTextAttributesNormal, for: .normal)
         weekSegmentControl.setTitleTextAttributes(titleTextAttributesSelected, for: .selected)
     }
-    
     
     private func setupNavigationItems() {
         if isFromSettingsGetFreshShedule {
@@ -377,14 +283,21 @@ class SheduleViewController: UIViewController {
              Setup if is view controller presented from  `SettingsTVC`
              */
             self.navigationItem.rightBarButtonItems = [segmentBatButtonItem]
-            self.weekSegmentControl.frame = CGRect(x: 0, y: 0, width: 90, height: weekSegmentControl.frame.height)
-            
+            if UIScreen.main.nativeBounds.height < 1140 {
+                self.weekSegmentControl.frame = CGRect(x: 0, y: 0, width: 90, height: weekSegmentControl.frame.height * 0.75)
+            } else {
+                self.weekSegmentControl.frame = CGRect(x: 0, y: 0, width: 90, height: weekSegmentControl.frame.height)
+            }
         } else if isTeachersShedule {
             /**
              Setup if this VC  used to show teacher lessons (not main shedule)
              */
             self.navigationItem.rightBarButtonItems = [segmentBatButtonItem, favouriteBarButtonItem]
-            self.weekSegmentControl.frame = CGRect(x: 0, y: 0, width: 90, height: weekSegmentControl.frame.height)
+            if UIScreen.main.nativeBounds.height < 1140 {
+                self.weekSegmentControl.frame = CGRect(x: 0, y: 0, width: 90, height: weekSegmentControl.frame.height * 0.75)
+            } else {
+                self.weekSegmentControl.frame = CGRect(x: 0, y: 0, width: 90, height: weekSegmentControl.frame.height)
+            }
             checkIfTeacherInFavourites()
             
         } else if isFromGroupsAndTeacherOrFavourite {
@@ -392,7 +305,12 @@ class SheduleViewController: UIViewController {
              Setup if is view controller presented from  `GroupsAndTeacherVC` or ` FavouriteVC`
              */
             self.navigationItem.rightBarButtonItems = [segmentBatButtonItem, favouriteBarButtonItem]
-            self.weekSegmentControl.frame = CGRect(x: 0, y: 0, width: 90, height: weekSegmentControl.frame.height)
+            
+            if UIScreen.main.nativeBounds.height < 1140 {
+                self.weekSegmentControl.frame = CGRect(x: 0, y: 0, width: 90, height: weekSegmentControl.frame.height * 0.75)
+            } else {
+                self.weekSegmentControl.frame = CGRect(x: 0, y: 0, width: 90, height: weekSegmentControl.frame.height)
+            }
             checkIfGroupInFavourites()
             
         } else if settings.groupName != "" || settings.teacherName != "" {
@@ -401,7 +319,13 @@ class SheduleViewController: UIViewController {
              */
             self.navigationItem.rightBarButtonItems = [segmentBatButtonItem]
             self.navigationItem.leftBarButtonItems = [self.editButtonItem]
-            self.weekSegmentControl.frame = CGRect(x: 0, y: 0, width: 120, height: weekSegmentControl.frame.height)
+            
+            if UIScreen.main.nativeBounds.height < 1140 {
+                self.weekSegmentControl.frame = CGRect(x: 0, y: 0, width: 90, height: weekSegmentControl.frame.height * 0.75)
+            } else {
+                self.weekSegmentControl.frame = CGRect(x: 0, y: 0, width: 120, height: weekSegmentControl.frame.height)
+            }
+
             
             /// After reopen app, reload lessons and current time
             NotificationCenter.default.addObserver(self, selector:#selector(reloadAfterOpenApp), name: UIApplication.willEnterForegroundNotification, object: nil)
@@ -409,35 +333,29 @@ class SheduleViewController: UIViewController {
     }
     
     
-    // MARK: - presentGroupChooser
+    // MARK: - PRESENT functions
     /**
      Funcion which present `FirstViewController`
     */
     func presentGroupOrTeacherChooser(requestType: SheduleType) {
         if settings.groupName == "" && settings.teacherName == "" {
-            
-            guard let greetingVC = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: FirstViewController.identifier) as? FirstViewController else { return }
+            guard let boardingVC = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: BoardingViewController.identifier) as? BoardingViewController else { return }
             
             guard let window = window else { return }
 
-            window.rootViewController = greetingVC
+            window.rootViewController = boardingVC
             window.makeKeyAndVisible()
             
-            greetingVC.modalTransitionStyle = .crossDissolve
-
+            boardingVC.modalTransitionStyle = .crossDissolve
             UIView.transition(with: window, duration: 0.4, options: .transitionCrossDissolve, animations: {}, completion:
                 { completed in })
         }
     }
     
-    
-    // MARK: - presentAddLesson
     /**
      Funcion which present `AddLessonViewController`
      */
-    func presentAddLesson() {
-//        guard let addLesson: AddLessonViewController = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: AddLessonViewController.identifier) as? AddLessonViewController else { return }
-        
+    func presentNewLesson() {
         guard let newLessonViewController = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: NewLessonViewController.identifier) as? NewLessonViewController  else { return }
         newLessonViewController.delegate = self
         
@@ -448,12 +366,8 @@ class SheduleViewController: UIViewController {
         let navigationController = UINavigationController()
         
         navigationController.viewControllers = [newLessonViewController]
-        
-        // Works, but bad in scroll
-        // navigationController.navigationBar.setValue(true, forKey: "hidesShadow")
-        
         navigationController.navigationBar.shadowImage = UIImage()
-        navigationController.navigationBar.barTintColor = tint
+        navigationController.navigationBar.barTintColor = tableViewBackground
         
         if #available(iOS 13, *) {
             self.present(navigationController, animated: true, completion: nil)
@@ -463,12 +377,17 @@ class SheduleViewController: UIViewController {
     }
     
     
-    // MARK: - scrollToCurrentOrNext
+    // MARK: - Lessons functions
     /**
      Function which scroll to current or next if `isNeedToScroll`
      */
     private func scrollToCurrentOrNext() {
-        var indexPathToScroll = IndexPath(row: 0, section: 0)
+        
+        guard let firstSection = lessonsForTableView.firstIndex(where: { $0.1.count != 0 }) else {
+            isNeedToScroll = false
+            return
+        }
+        var indexPathToScroll = IndexPath(row: 0, section: Int(firstSection))
 
         k: for section in 0..<self.lessonsForTableView.count {
             let day = lessonsForTableView[section]
@@ -483,56 +402,25 @@ class SheduleViewController: UIViewController {
                 }
             }
         }
+         
+        if indexPathToScroll == IndexPath(row: 0, section: Int(firstSection)) {
+            isNeedToScroll = false
+            return
+        }
         
         /// (self.tableView != nil)  because if when we push information from another VC tableView can be not exist
         if self.tableView != nil {
             self.isNeedToScroll = false
-            
-            self.isEditInserts = false
-            DispatchQueue.main.async {
-                if self.lessonsForTableView[indexPathToScroll.section].lessons.count > indexPathToScroll.row {
-                    let window = UIApplication.shared.keyWindow
-                    
-                    
-                    let сontentHeight = self.tableView.contentSize.height - self.tableView.contentOffset.y
-                    let safeAreaHeight = screenHeight - (window?.safeAreaInsets.top ?? 0) - (window?.safeAreaInsets.bottom ?? 0)
-
-                    /// if `current` or `next` lesson is at top `lessonsForTableView`
-                    if (indexPathToScroll.section == 0 && indexPathToScroll.row == 0) || (сontentHeight < safeAreaHeight) {
-                        self.navigationController?.navigationBar.prefersLargeTitles = true
-                    } else {
-                        self.isEditInserts = true
-
-                        self.navigationController?.navigationBar.prefersLargeTitles = false
-                    }
-
+            if (self.lessonsForTableView[indexPathToScroll.section].lessons.count > indexPathToScroll.row) && !(indexPathToScroll.row == 0 && indexPathToScroll.section == 0) {
+//                self.tableView.contentOffset.y = self.heightDifferenceBetweenTopRowAndNavBar()
+                self.tableView.scrollToRow(at: IndexPath(row: 0, section: Int(firstSection)), at: .top, animated: false)
+                DispatchQueue.main.async {
                     self.tableView.scrollToRow(at: indexPathToScroll, at: .top, animated: true)
-                    
-                    if !self.isFromGroupsAndTeacherOrFavourite && !self.isFromSettingsGetFreshShedule {
-                        self.navigationController?.navigationBar.prefersLargeTitles = true
-                    }
-                    /**
-                     In IOS 13.4 after changing large title from .never and then to .always (this changing need because scroll view works incorrectly),
-                     at bottom of table view appear strange line which is 20px height. This is how i fix it.
-                     */
-                    if #available(iOS 13.0, *) {
-                        if (indexPathToScroll.section == 0 && indexPathToScroll.row == 0) && self.isFromSettingsGetFreshShedule {
-                            self.tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: -20, right: 0)
-                        } else if (indexPathToScroll.section == 0 && indexPathToScroll.row == 0) || self.isTeachersShedule || self.isFromGroupsAndTeacherOrFavourite {
-                            self.tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
-                        } else {
-                            self.tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: -20, right: 0)
-                        }
-                    }
                 }
             }
-            
         }
-        
     }
     
-    
-    // MARK: - makeLessonsShedule
     /**
      Function which fetch lessons from CoreData and remake `[Lesson]` to `[(day: DayName, lessons: [Lesson])]`
      - Note: call in `weekChanged()` and after getting data from `getLessonsFromServer()`
@@ -559,19 +447,19 @@ class SheduleViewController: UIViewController {
         
         /// If lessonsForTableView is empty, we need to setup which weekToShow
         if lessonsForTableView.allSatisfy({ $1.count == 0 }) {
-            if nextLessonId == lessonsFirst[0].id {
+            if lessonsFirst.count != 0 && nextLessonId == lessonsFirst[0].id {
                 self.weekSegmentControl.selectedSegmentIndex = 0
-                self.currentWeek = .first
-            } else if nextLessonId == lessonsSecond[0].id {
+                self.selectedWeek = .first
+            } else if lessonsSecond.count != 0 && nextLessonId == lessonsSecond[0].id {
                 self.weekSegmentControl.selectedSegmentIndex = 1
-                self.currentWeek = .second
+                self.selectedWeek = .second
             } else {
-                self.currentWeek = currentWeekFromTodayDate
-                self.weekSegmentControl.selectedSegmentIndex = currentWeek == .first ? 0 : 1
+                self.selectedWeek = currentWeekFromTodayDate
+                self.weekSegmentControl.selectedSegmentIndex = selectedWeek == .first ? 0 : 1
             }
         }
         
-        let currentLessonWeek = currentWeek == .first ? lessonsFirst : lessonsSecond
+        let currentLessonWeek = selectedWeek == .first ? lessonsFirst : lessonsSecond
         
         var sortedDictionary = Dictionary(grouping: currentLessonWeek) { $0.dayName }
         for day in DayName.allCases {
@@ -602,13 +490,8 @@ class SheduleViewController: UIViewController {
             self.tableView.isHidden = false
             self.tableView.reloadData()
         }
-        
-        /// Scroll if need
-        _ = isNeedToScroll ? scrollToCurrentOrNext() : nil
     }
     
-    
-    // MARK: - Server
     /**
      Functon which getting data from server
      - note: This fuction call `updateCoreData(vc: SheduleViewController)`
@@ -626,15 +509,32 @@ class SheduleViewController: UIViewController {
                 
         serverLessons.done({ [weak self] (lessons) in
             guard let this = self else { return }
+            
+            this.settings.isTryToRefreshShedule = false
 
             guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
             let managedContext = appDelegate.persistentContainer.viewContext
                 
             if isMainShedule {
-                this.isNeedToScroll = true
                 updateCoreData(lessons: lessons, managedContext: managedContext) {
+                    /// Make new lessons
                     this.makeLessonsShedule()
-                    WidgetCenter.shared.reloadAllTimelines()
+                    
+                    this.isNeedToScroll = true
+                    DispatchQueue.main.async {
+                        this.isNeedToScroll ? this.scrollToCurrentOrNext() : nil
+                    }
+
+                    /// Edit updated time
+                    let formatter = DateFormatter()
+                    formatter.dateFormat = "dd.MM.yyyy"
+                    this.settings.sheduleUpdateTime = formatter.string(from: Date())
+                    
+                    /// Reload widget
+                    if #available(iOS 14.0, *) {
+                        WidgetCenter.shared.reloadAllTimelines()
+                        reloadDataOnAppleWatch()
+                    }
                 }
             } else {
                 this.lessonsFromSegue = lessons
@@ -669,19 +569,17 @@ class SheduleViewController: UIViewController {
         })
     }
     
-    
-    // MARK:- weekChanged
     /**
      Function that calls when the user tap on segment conrol to change current week
      */
     @IBAction func weekChanged(_ sender: UISegmentedControl) {
         switch weekSegmentControl.selectedSegmentIndex {
             case 0:
-                currentWeek = .first
+                selectedWeek = .first
                 makeLessonsShedule()
                 tableView.reloadData()
             case 1:
-                currentWeek = .second
+                selectedWeek = .second
                 makeLessonsShedule()
                 tableView.reloadData()
             default:
@@ -689,32 +587,25 @@ class SheduleViewController: UIViewController {
         }
     }
     
-    
     // MARK: - Favourites
-    
     func checkIfGroupInFavourites() {
         if let strongGroup = groupFromSegue {
-            if favourites.favouriteGroupsID.contains(strongGroup.groupID) {
-                if let image = UIImage(named: "icons8-favourite-filled") {
-                    favouriteButton.setImage(image, for: .normal)
-                    isFavourite = true
-                }
-            }
+            _ = favourites.favouriteGroupsID.contains(strongGroup.groupID) ? setButtonActive() : nil
         }
     }
-    
     
     func checkIfTeacherInFavourites() {
         if let strongTeacher = teacherFromSegue {
-            if favourites.favouriteTeachersID.contains(strongTeacher.teacherID) {
-                if let image = UIImage(named: "icons8-favourite-filled") {
-                    favouriteButton.setImage(image, for: .normal)
-                    isFavourite = true
-                }
-            }
+            _ = favourites.favouriteTeachersID.contains(strongTeacher.teacherID) ? setButtonActive() : nil
         }
     }
     
+    func setButtonActive() {
+        if let image = UIImage(named: "icons8-favourite-filled") {
+            favouriteButton.setImage(image, for: .normal)
+            isFavourite = true
+        }
+    }
     
     @IBAction func didPressFavouriteButton(_ sender: UIButton) {
         var idToFindOrAdd: Int = 0
@@ -754,32 +645,20 @@ class SheduleViewController: UIViewController {
         }
     }
     
-    
     // MARK: - Other functions
-    
-    public func setupCurrentOrNextLessonCell(cell: LessonTableViewCell, cellType: SheduleCellType) {
-        
-        if cellType == .currentCell {
-            cell.backgroundColor = Settings.shared.cellCurrentColour
-        } else if cellType == .nextCell {
-            cell.backgroundColor = Settings.shared.cellNextColour
-        }
-        
-        let textColour: UIColor = cell.backgroundColor?.isWhiteText ?? true ? .white : .black
-        
-        cell.startLabel.textColor = textColour
-        cell.endLabel.textColor = textColour
-        cell.teacherLabel.textColor = textColour
-        cell.roomLabel.textColor = textColour
-        cell.lessonLabel.textColor = textColour
-        cell.timeLeftLabel.textColor = textColour
-    }
-    
-    
     @objc func reloadAfterOpenApp() {
         makeLessonsShedule()
     }
+    
+    func heightDifferenceBetweenTopRowAndNavBar() -> CGFloat {
+        let navBar = navigationController?.navigationBar
+        let whereIsNavBarInTableView = tableView.convert(navBar!.bounds, from: navBar)
+        let safeAreaTopInset = window?.safeAreaInsets.top ?? 0
+        return safeAreaTopInset + whereIsNavBarInTableView.height + 35.0 * 2
+    }
+    
 }
+
 
 extension SheduleViewController: NewLessonViewControllerDelegate {
     func newLessonAdded() {

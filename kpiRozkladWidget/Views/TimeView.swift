@@ -12,6 +12,8 @@ struct TimeView: View {
     
     var lesson: Lesson
     
+    @Environment(\.redactionReasons) var redactionReasons
+
     var date: Date
 
     var body: some View {
@@ -19,14 +21,15 @@ struct TimeView: View {
             Spacer()
             getTextFromLessonTime(lesson: lesson)
                 .lineLimit(1)
+                .redacted(reason: redactionReasons)
         }
         .foregroundColor(Color.white)
         .padding(.trailing, 0)
-        .font(.system(.footnote, design: .monospaced))
+        .font(.system(.caption, design: .monospaced))
         .frame(alignment: .trailing)
         .multilineTextAlignment(.trailing)
+        
     }
-    
     
     func getTextFromLessonTime(lesson: Lesson) -> Text {
         let (dateStart, dateEnd) = getDateStartAndEnd(of: lesson)
@@ -55,9 +58,9 @@ struct TimeView: View {
     }
 }
 
-
-struct TimeView_Previews: PreviewProvider {
-    static var previews: some View {
-        TimeView(lesson: Lesson.defaultLesson, date: Date())
-    }
-}
+//
+//struct TimeView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        TimeView(lesson: Lesson.defaultLesson, date: Date())
+//    }
+//}

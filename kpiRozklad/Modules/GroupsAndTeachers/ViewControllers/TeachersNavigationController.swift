@@ -10,10 +10,10 @@ import UIKit
 
 class TeachersNavigationController: UINavigationController {
     
-
     var groupAndTeacherControllerType: GroupAndTeacherControllerType = .isTeacherViewController
 
     override func viewDidLoad() {
         super.viewDidLoad()
     }
+    
 }

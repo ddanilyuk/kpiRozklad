@@ -22,6 +22,11 @@ extension GroupsAndTeachersViewController {
     }
     
     func getDefaultErrorAlert(localizedDescription: String, alertCase: AlertCase, group: Group?, teacher: Teacher?, indexPath: IndexPath?) {
+        
+        if let cell = tableView.cellForRow(at: indexPath ?? IndexPath(row: 0, section: 0)) as? TeacherOrGroupLoadingTableViewCell {
+            cell.activityIndicator.stopAndHide()
+        }
+        
         let alert = UIAlertController(title: "Помилка", message: localizedDescription, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Ок", style: .default, handler: { (_) in
             
@@ -73,7 +78,6 @@ extension GroupsAndTeachersViewController {
         })
     }
     
-    
     func getAllTeachers(isNeedToUpdate: Bool = false) {
         API.getAllTeachers().done({ [weak self] (teachers) in
             guard let this = self else { return }
@@ -115,7 +119,6 @@ extension GroupsAndTeachersViewController {
         })
     }
     
-    
     func getAllGroups() {
         API.getAllGroups().done({ [weak self] (groups) in
             guard let this = self else { return }
@@ -141,7 +144,6 @@ extension GroupsAndTeachersViewController {
         })
     }
     
-    
     func getGroupLessons(group: Group, indexPath: IndexPath) {
         guard let cell = self.tableView.cellForRow(at: indexPath) as? TeacherOrGroupLoadingTableViewCell else { return }
         
@@ -156,7 +158,7 @@ extension GroupsAndTeachersViewController {
             guard let sheduleVC : SheduleViewController = mainStoryboard.instantiateViewController(withIdentifier: SheduleViewController.identifier) as? SheduleViewController else { return }
             
             sheduleVC.isFromGroupsAndTeacherOrFavourite = true
-            sheduleVC.currentWeek = .first
+            sheduleVC.selectedWeek = .first
             
             sheduleVC.lessonsFromSegue = lessons
             sheduleVC.groupFromSegue = group
@@ -182,7 +184,6 @@ extension GroupsAndTeachersViewController {
             }
         })
     }
-        
     
     func getTeacherLessons(teacher: Teacher, indexPath: IndexPath) {
         guard let cell = self.tableView.cellForRow(at: indexPath) as? TeacherOrGroupLoadingTableViewCell else { return }
@@ -218,4 +219,5 @@ extension GroupsAndTeachersViewController {
             }
         })
     }
+    
 }

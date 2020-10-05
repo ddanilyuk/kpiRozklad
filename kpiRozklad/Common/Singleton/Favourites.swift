@@ -8,6 +8,7 @@
 
 import UIKit
 
+
 class Favourites {
     
     static let shared = Favourites()

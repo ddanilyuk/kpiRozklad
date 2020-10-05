@@ -11,6 +11,10 @@ import UIKit
 
 extension GroupsAndTeachersViewController: UITableViewDelegate, UITableViewDataSource {
     
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 44
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch groupAndTeacherControllerType {
         case .isTeachersChooser, .isTeacherViewController:
@@ -19,7 +23,6 @@ extension GroupsAndTeachersViewController: UITableViewDelegate, UITableViewDataS
             return isSearching ? groupsInSearch.count : groups.count
         }
     }
-    
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: TeacherOrGroupLoadingTableViewCell.identifier, for: indexPath) as? TeacherOrGroupLoadingTableViewCell else { return UITableViewCell() }
@@ -36,7 +39,6 @@ extension GroupsAndTeachersViewController: UITableViewDelegate, UITableViewDataS
         return cell
     }
         
-
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         switch groupAndTeacherControllerType {
         case .isTeachersChooser :
@@ -48,12 +50,12 @@ extension GroupsAndTeachersViewController: UITableViewDelegate, UITableViewDataS
             
             settings.teacherName = teacher.teacherName
             settings.teacherID = teacher.teacherID
-            
             settings.isTryToRefreshShedule = true
             
             if #available(iOS 13, *) {
                 self.dismiss(animated: true, completion: {
                     window.rootViewController = mainTabBar
+                    window.makeKeyAndVisible()
                 })
             } else {
                 window.rootViewController = mainTabBar
@@ -75,6 +77,7 @@ extension GroupsAndTeachersViewController: UITableViewDelegate, UITableViewDataS
             if #available(iOS 13, *) {
                 self.dismiss(animated: true, completion: {
                     window.rootViewController = mainTabBar
+                    window.makeKeyAndVisible()
                 })
             } else {
                 window.rootViewController = mainTabBar
@@ -92,8 +95,8 @@ extension GroupsAndTeachersViewController: UITableViewDelegate, UITableViewDataS
         tableView.deselectRow(at: indexPath, animated: true)
     }
     
-    
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         return 0.001
     }
+    
 }

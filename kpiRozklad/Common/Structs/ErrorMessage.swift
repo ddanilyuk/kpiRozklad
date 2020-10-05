@@ -11,6 +11,8 @@ import Foundation
 
 // MARK: - Error
 struct ErrorMessage: Codable {
+    
     let statusCode, timeStamp: Int
     let message: String
+    
 }

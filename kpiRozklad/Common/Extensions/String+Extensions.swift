@@ -19,11 +19,13 @@ extension String {
         let index = startIndex
         var result = self
         
+        
         while index < endIndex {
-            guard CharacterSet.whitespacesAndNewlines.contains(result[index].unicodeScalars.first!) else {
+            if result == "" || !CharacterSet.whitespacesAndNewlines.contains(result[index].unicodeScalars.first!) {
                 return result
+            } else {
+                result.remove(at: index)
             }
-            result.remove(at: index)
         }
         return result
     }
